@@ -1,0 +1,704 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE11278D872F0014527D /* AppDelegate.swift */; };
+		47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE13278D872F0014527D /* SceneDelegate.swift */; };
+		47CDCE16278D872F0014527D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE15278D872F0014527D /* ViewController.swift */; };
+		47CDCE19278D872F0014527D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE17278D872F0014527D /* Main.storyboard */; };
+		47CDCE1B278D87300014527D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE1A278D87300014527D /* Assets.xcassets */; };
+		47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE1C278D87300014527D /* LaunchScreen.storyboard */; };
+		47CDCE49278D88FE0014527D /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE2B278D88FE0014527D /* ResultType.swift */; };
+		47CDCE4B278D88FE0014527D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE2F278D88FE0014527D /* Logger.swift */; };
+		47CDCE4E278D88FE0014527D /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE34278D88FE0014527D /* Roboto-Medium.ttf */; };
+		47CDCE4F278D88FE0014527D /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE35278D88FE0014527D /* Roboto-Light.ttf */; };
+		47CDCE50278D88FE0014527D /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE36278D88FE0014527D /* OpenSans-SemiBold.ttf */; };
+		47CDCE51278D88FE0014527D /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE37278D88FE0014527D /* Roboto-Regular.ttf */; };
+		47CDCE52278D88FE0014527D /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE38278D88FE0014527D /* OpenSans-Light.ttf */; };
+		47CDCE53278D88FE0014527D /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE39278D88FE0014527D /* OpenSans-ExtraBold.ttf */; };
+		47CDCE54278D88FE0014527D /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3A278D88FE0014527D /* OpenSans-Bold.ttf */; };
+		47CDCE55278D88FE0014527D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3B278D88FE0014527D /* OpenSans-Regular.ttf */; };
+		47CDCE56278D88FE0014527D /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3C278D88FE0014527D /* Roboto-Bold.ttf */; };
+		47CDCE57278D88FE0014527D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3D278D88FE0014527D /* Roboto-Thin.ttf */; };
+		47CDCE58278D88FE0014527D /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3E278D88FE0014527D /* Roboto-Black.ttf */; };
+		47CDCE59278D88FE0014527D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE3F278D88FE0014527D /* Utils.swift */; };
+		47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE41278D88FE0014527D /* LocationManager.swift */; };
+		47CDCE77278D89210014527D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE5F278D89210014527D /* Constants.swift */; };
+		47CDCE79278D89210014527D /* MobileDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE61278D89210014527D /* MobileDeviceManager.swift */; };
+		47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE62278D89210014527D /* NetworkManager.swift */; };
+		47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE64278D89210014527D /* UIImageView+Extension.swift */; };
+		47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE65278D89210014527D /* UIColor+Extension.swift */; };
+		47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE66278D89210014527D /* UILabel+Extension.swift */; };
+		47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE67278D89210014527D /* DateTime+Extension.swift */; };
+		47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE68278D89210014527D /* UIButton+Extension.swift */; };
+		47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE69278D89210014527D /* UIView+Extension.swift */; };
+		47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6A278D89210014527D /* UIAlertController+Extensions.swift */; };
+		47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6B278D89210014527D /* UIViewController+Extension.swift */; };
+		47CDCE83278D89210014527D /* Device+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6C278D89210014527D /* Device+Extension.swift */; };
+		47CDCE84278D89210014527D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6D278D89210014527D /* String.swift */; };
+		47CDCE85278D89210014527D /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6E278D89210014527D /* UIApplication.swift */; };
+		47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6F278D89210014527D /* UITableView+Extension.swift */; };
+		47CDCE87278D89210014527D /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE70278D89210014527D /* UITextField+Extensions.swift */; };
+		47CDCE88278D89210014527D /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE71278D89210014527D /* LogFormatter.swift */; };
+		47CDCE89278D89210014527D /* GlobalStoryboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE72278D89210014527D /* GlobalStoryboards.swift */; };
+		47CDCE8A278D89210014527D /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE73278D89210014527D /* Dispatch.swift */; };
+		47CDCE8D278D89210014527D /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE76278D89210014527D /* Validators.swift */; };
+		47CDCE92278D89C30014527D /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE8F278D89C30014527D /* APIConstants.swift */; };
+		47CDCE93278D89C30014527D /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE90278D89C30014527D /* APIManager.swift */; };
+		47CDCE94278D89C30014527D /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE91278D89C30014527D /* APIRouter.swift */; };
+		47CDCE96278D95290014527D /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE95278D95290014527D /* UserDefaultManager.swift */; };
+		47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE98278DA8040014527D /* UserManagement.storyboard */; };
+		47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9A278DA8570014527D /* Providers.storyboard */; };
+		47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9C278DA8820014527D /* Permissions.storyboard */; };
+		47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9E278DA8A00014527D /* DeviceList.storyboard */; };
+		47CDCEA1278DA8C10014527D /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCEA0278DA8C10014527D /* Profile.storyboard */; };
+		47CDCEA3278DA9470014527D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCEA2278DA9470014527D /* UserModel.swift */; };
+		F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OchsnerInhalerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.debug.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OchsnerInhalerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		47CDCE11278D872F0014527D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		47CDCE13278D872F0014527D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		47CDCE15278D872F0014527D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		47CDCE18278D872F0014527D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		47CDCE1A278D87300014527D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		47CDCE1D278D87300014527D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		47CDCE1F278D87300014527D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47CDCE2B278D88FE0014527D /* ResultType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
+		47CDCE2F278D88FE0014527D /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		47CDCE34278D88FE0014527D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		47CDCE35278D88FE0014527D /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		47CDCE36278D88FE0014527D /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		47CDCE37278D88FE0014527D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		47CDCE38278D88FE0014527D /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		47CDCE39278D88FE0014527D /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		47CDCE3A278D88FE0014527D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		47CDCE3B278D88FE0014527D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		47CDCE3C278D88FE0014527D /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		47CDCE3D278D88FE0014527D /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		47CDCE3E278D88FE0014527D /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		47CDCE3F278D88FE0014527D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		47CDCE41278D88FE0014527D /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		47CDCE5F278D89210014527D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		47CDCE61278D89210014527D /* MobileDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileDeviceManager.swift; sourceTree = "<group>"; };
+		47CDCE62278D89210014527D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		47CDCE64278D89210014527D /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE65278D89210014527D /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE66278D89210014527D /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE67278D89210014527D /* DateTime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateTime+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE68278D89210014527D /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE69278D89210014527D /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE6A278D89210014527D /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
+		47CDCE6B278D89210014527D /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE6C278D89210014527D /* Device+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE6D278D89210014527D /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		47CDCE6E278D89210014527D /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		47CDCE6F278D89210014527D /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		47CDCE70278D89210014527D /* UITextField+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		47CDCE71278D89210014527D /* LogFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
+		47CDCE72278D89210014527D /* GlobalStoryboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalStoryboards.swift; sourceTree = "<group>"; };
+		47CDCE73278D89210014527D /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
+		47CDCE76278D89210014527D /* Validators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validators.swift; sourceTree = "<group>"; };
+		47CDCE8F278D89C30014527D /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		47CDCE90278D89C30014527D /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		47CDCE91278D89C30014527D /* APIRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		47CDCE95278D95290014527D /* UserDefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
+		47CDCE98278DA8040014527D /* UserManagement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserManagement.storyboard; sourceTree = "<group>"; };
+		47CDCE9A278DA8570014527D /* Providers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Providers.storyboard; sourceTree = "<group>"; };
+		47CDCE9C278DA8820014527D /* Permissions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Permissions.storyboard; sourceTree = "<group>"; };
+		47CDCE9E278DA8A00014527D /* DeviceList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeviceList.storyboard; sourceTree = "<group>"; };
+		47CDCEA0278DA8C10014527D /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		47CDCEA2278DA9470014527D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.release.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		47CDCE0B278D872F0014527D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10A21F7F9CAEC56E3E25FD6B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */,
+				56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2F0841B8F37C1807803250A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		47CDCE05278D872F0014527D = {
+			isa = PBXGroup;
+			children = (
+				47CDCE10278D872F0014527D /* OchsnerInhalerApp */,
+				47CDCE0F278D872F0014527D /* Products */,
+				10A21F7F9CAEC56E3E25FD6B /* Pods */,
+				2F0841B8F37C1807803250A2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		47CDCE0F278D872F0014527D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		47CDCE10278D872F0014527D /* OchsnerInhalerApp */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE11278D872F0014527D /* AppDelegate.swift */,
+				47CDCE13278D872F0014527D /* SceneDelegate.swift */,
+				47CDCE8E278D89C30014527D /* Services */,
+				47CDCE5E278D89210014527D /* Helpers */,
+				47CDCE2A278D88FE0014527D /* SupportingFiles */,
+				47CDCE26278D87610014527D /* Model */,
+				47CDCE25278D87470014527D /* Controller */,
+				47CDCE97278DA7C70014527D /* View */,
+				47CDCE1A278D87300014527D /* Assets.xcassets */,
+				47CDCE1C278D87300014527D /* LaunchScreen.storyboard */,
+				47CDCE1F278D87300014527D /* Info.plist */,
+			);
+			path = OchsnerInhalerApp;
+			sourceTree = "<group>";
+		};
+		47CDCE25278D87470014527D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE15278D872F0014527D /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		47CDCE26278D87610014527D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCEA2278DA9470014527D /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		47CDCE2A278D88FE0014527D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE2B278D88FE0014527D /* ResultType.swift */,
+				47CDCE2E278D88FE0014527D /* Logger */,
+				47CDCE30278D88FE0014527D /* NotificationManager */,
+				47CDCE33278D88FE0014527D /* CustomFonts */,
+				47CDCE3F278D88FE0014527D /* Utils.swift */,
+				47CDCE40278D88FE0014527D /* LocationManager */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		47CDCE2E278D88FE0014527D /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE2F278D88FE0014527D /* Logger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		47CDCE30278D88FE0014527D /* NotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NotificationManager;
+			sourceTree = "<group>";
+		};
+		47CDCE33278D88FE0014527D /* CustomFonts */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE34278D88FE0014527D /* Roboto-Medium.ttf */,
+				47CDCE35278D88FE0014527D /* Roboto-Light.ttf */,
+				47CDCE36278D88FE0014527D /* OpenSans-SemiBold.ttf */,
+				47CDCE37278D88FE0014527D /* Roboto-Regular.ttf */,
+				47CDCE38278D88FE0014527D /* OpenSans-Light.ttf */,
+				47CDCE39278D88FE0014527D /* OpenSans-ExtraBold.ttf */,
+				47CDCE3A278D88FE0014527D /* OpenSans-Bold.ttf */,
+				47CDCE3B278D88FE0014527D /* OpenSans-Regular.ttf */,
+				47CDCE3C278D88FE0014527D /* Roboto-Bold.ttf */,
+				47CDCE3D278D88FE0014527D /* Roboto-Thin.ttf */,
+				47CDCE3E278D88FE0014527D /* Roboto-Black.ttf */,
+			);
+			path = CustomFonts;
+			sourceTree = "<group>";
+		};
+		47CDCE40278D88FE0014527D /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE41278D88FE0014527D /* LocationManager.swift */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
+		47CDCE5E278D89210014527D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE95278D95290014527D /* UserDefaultManager.swift */,
+				47CDCE5F278D89210014527D /* Constants.swift */,
+				47CDCE61278D89210014527D /* MobileDeviceManager.swift */,
+				47CDCE62278D89210014527D /* NetworkManager.swift */,
+				47CDCE63278D89210014527D /* Extensions */,
+				47CDCE71278D89210014527D /* LogFormatter.swift */,
+				47CDCE72278D89210014527D /* GlobalStoryboards.swift */,
+				47CDCE73278D89210014527D /* Dispatch.swift */,
+				47CDCE76278D89210014527D /* Validators.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		47CDCE63278D89210014527D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE64278D89210014527D /* UIImageView+Extension.swift */,
+				47CDCE65278D89210014527D /* UIColor+Extension.swift */,
+				47CDCE66278D89210014527D /* UILabel+Extension.swift */,
+				47CDCE67278D89210014527D /* DateTime+Extension.swift */,
+				47CDCE68278D89210014527D /* UIButton+Extension.swift */,
+				47CDCE69278D89210014527D /* UIView+Extension.swift */,
+				47CDCE6A278D89210014527D /* UIAlertController+Extensions.swift */,
+				47CDCE6B278D89210014527D /* UIViewController+Extension.swift */,
+				47CDCE6C278D89210014527D /* Device+Extension.swift */,
+				47CDCE6D278D89210014527D /* String.swift */,
+				47CDCE6E278D89210014527D /* UIApplication.swift */,
+				47CDCE6F278D89210014527D /* UITableView+Extension.swift */,
+				47CDCE70278D89210014527D /* UITextField+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		47CDCE8E278D89C30014527D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE8F278D89C30014527D /* APIConstants.swift */,
+				47CDCE90278D89C30014527D /* APIManager.swift */,
+				47CDCE91278D89C30014527D /* APIRouter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		47CDCE97278DA7C70014527D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				47CDCE17278D872F0014527D /* Main.storyboard */,
+				47CDCE9A278DA8570014527D /* Providers.storyboard */,
+				47CDCE9C278DA8820014527D /* Permissions.storyboard */,
+				47CDCE9E278DA8A00014527D /* DeviceList.storyboard */,
+				47CDCEA0278DA8C10014527D /* Profile.storyboard */,
+				47CDCE98278DA8040014527D /* UserManagement.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		47CDCE0D278D872F0014527D /* OchsnerInhalerApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47CDCE22278D87300014527D /* Build configuration list for PBXNativeTarget "OchsnerInhalerApp" */;
+			buildPhases = (
+				7CA4285945F1A0F697C2F639 /* [CP] Check Pods Manifest.lock */,
+				47CDCE0A278D872F0014527D /* Sources */,
+				47CDCE0B278D872F0014527D /* Frameworks */,
+				47CDCE0C278D872F0014527D /* Resources */,
+				88E79555AC8BEA46760FCBC4 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OchsnerInhalerApp;
+			productName = OchsnerInhalerApp;
+			productReference = 47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		47CDCE06278D872F0014527D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					47CDCE0D278D872F0014527D = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 47CDCE09278D872F0014527D /* Build configuration list for PBXProject "OchsnerInhalerApp" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				es,
+			);
+			mainGroup = 47CDCE05278D872F0014527D;
+			productRefGroup = 47CDCE0F278D872F0014527D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				47CDCE0D278D872F0014527D /* OchsnerInhalerApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		47CDCE0C278D872F0014527D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47CDCE56278D88FE0014527D /* Roboto-Bold.ttf in Resources */,
+				47CDCEA1278DA8C10014527D /* Profile.storyboard in Resources */,
+				47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */,
+				47CDCE53278D88FE0014527D /* OpenSans-ExtraBold.ttf in Resources */,
+				47CDCE54278D88FE0014527D /* OpenSans-Bold.ttf in Resources */,
+				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
+				47CDCE4E278D88FE0014527D /* Roboto-Medium.ttf in Resources */,
+				47CDCE50278D88FE0014527D /* OpenSans-SemiBold.ttf in Resources */,
+				47CDCE57278D88FE0014527D /* Roboto-Thin.ttf in Resources */,
+				47CDCE4F278D88FE0014527D /* Roboto-Light.ttf in Resources */,
+				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
+				47CDCE51278D88FE0014527D /* Roboto-Regular.ttf in Resources */,
+				47CDCE58278D88FE0014527D /* Roboto-Black.ttf in Resources */,
+				47CDCE52278D88FE0014527D /* OpenSans-Light.ttf in Resources */,
+				47CDCE55278D88FE0014527D /* OpenSans-Regular.ttf in Resources */,
+				47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */,
+				47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */,
+				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
+				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7CA4285945F1A0F697C2F639 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OchsnerInhalerApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88E79555AC8BEA46760FCBC4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		47CDCE0A278D872F0014527D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47CDCE85278D89210014527D /* UIApplication.swift in Sources */,
+				47CDCE49278D88FE0014527D /* ResultType.swift in Sources */,
+				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
+				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
+				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
+				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
+				47CDCE16278D872F0014527D /* ViewController.swift in Sources */,
+				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
+				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
+				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
+				47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */,
+				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
+				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
+				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
+				47CDCE93278D89C30014527D /* APIManager.swift in Sources */,
+				47CDCE79278D89210014527D /* MobileDeviceManager.swift in Sources */,
+				47CDCE89278D89210014527D /* GlobalStoryboards.swift in Sources */,
+				47CDCE96278D95290014527D /* UserDefaultManager.swift in Sources */,
+				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
+				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
+				47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */,
+				47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */,
+				47CDCE84278D89210014527D /* String.swift in Sources */,
+				47CDCE87278D89210014527D /* UITextField+Extensions.swift in Sources */,
+				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
+				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
+				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,
+				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
+				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
+				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
+				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
+				47CDCE77278D89210014527D /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		47CDCE17278D872F0014527D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47CDCE18278D872F0014527D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		47CDCE1C278D87300014527D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47CDCE1D278D87300014527D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		47CDCE20278D87300014527D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		47CDCE21278D87300014527D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		47CDCE23278D87300014527D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Volansys.OchsnerInhalerApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		47CDCE24278D87300014527D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Volansys.OchsnerInhalerApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		47CDCE09278D872F0014527D /* Build configuration list for PBXProject "OchsnerInhalerApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47CDCE20278D87300014527D /* Debug */,
+				47CDCE21278D87300014527D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47CDCE22278D87300014527D /* Build configuration list for PBXNativeTarget "OchsnerInhalerApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47CDCE23278D87300014527D /* Debug */,
+				47CDCE24278D87300014527D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 47CDCE06278D872F0014527D /* Project object */;
+}
