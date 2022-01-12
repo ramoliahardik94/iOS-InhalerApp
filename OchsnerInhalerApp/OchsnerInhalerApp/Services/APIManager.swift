@@ -184,3 +184,12 @@ class BasicModel: Mappable {
         return statusCode == code.rawValue
     }
 }
+//TODO: have to check
+//class BasicModel  : Codable{
+//    var status : String?
+//    var data: [String: Any] {
+//        return (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(self))) as? [String: Any] ?? [:]
+//    }
+//
+//
+//}

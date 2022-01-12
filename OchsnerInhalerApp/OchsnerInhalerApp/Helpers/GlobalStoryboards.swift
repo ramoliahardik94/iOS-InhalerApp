@@ -6,14 +6,11 @@ import UIKit
 
 enum AppStoryBoardString: String {
     case main = "Main"
-    case tabbar = "TabBar"
-    case home = "Home"
-    case device = "Devices"
-    case automation = "Automations"
-    case notification = "Notifications"
-    case setting = "Settings"
+    case providers = "Providers"
+    case permissions = "Permissions"
+    case deviceList = "DeviceList"
+    case profile = "Profile"
     case userManagement = "UserManagement"
-    case extra = "Extra"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: Bundle.main)

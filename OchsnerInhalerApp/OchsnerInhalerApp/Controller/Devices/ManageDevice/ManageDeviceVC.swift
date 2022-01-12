@@ -1,19 +1,21 @@
 //
-//  ViewController.swift
+//  ManageDeviceVC.swift
 //  OchsnerInhalerApp
 //
-//  Created by Nikita Bhatt on 11/01/22.
+//  Created by Deepak Panchal on 12/01/22.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class ManageDeviceVC: BaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
+    
+
 
 
 }
-
