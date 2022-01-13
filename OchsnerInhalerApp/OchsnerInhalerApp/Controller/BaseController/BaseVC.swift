@@ -16,6 +16,12 @@ class BaseVC: UIViewController {
     }
     
 
+    func popVC() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    func pushVC(vc : UIViewController) {
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
   
 
 }

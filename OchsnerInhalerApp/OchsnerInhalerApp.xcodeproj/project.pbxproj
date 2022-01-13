@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197B9278FF09A0014BC3E /* CustomSplashVC.swift */; };
+		227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197BC278FF9DB0014BC3E /* CreateAccoutVC.swift */; };
+		227197C0278FFFA20014BC3E /* ConnectProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197BF278FFFA20014BC3E /* ConnectProviderVC.swift */; };
+		227197C127900B4C0014BC3E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE34278D88FE0014527D /* Roboto-Medium.ttf */; };
+		227197C227900B500014BC3E /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE35278D88FE0014527D /* Roboto-Light.ttf */; };
+		227197C327900B600014BC3E /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE36278D88FE0014527D /* OpenSans-SemiBold.ttf */; };
+		227197C427900B640014BC3E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE37278D88FE0014527D /* Roboto-Regular.ttf */; };
+		227197C527900B680014BC3E /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3A278D88FE0014527D /* OpenSans-Bold.ttf */; };
+		227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197C7279024AF0014BC3E /* LocationPermisionVC.swift */; };
+		227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */; };
+		227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
@@ -22,13 +33,8 @@
 		47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE1C278D87300014527D /* LaunchScreen.storyboard */; };
 		47CDCE49278D88FE0014527D /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE2B278D88FE0014527D /* ResultType.swift */; };
 		47CDCE4B278D88FE0014527D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE2F278D88FE0014527D /* Logger.swift */; };
-		47CDCE4E278D88FE0014527D /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE34278D88FE0014527D /* Roboto-Medium.ttf */; };
-		47CDCE4F278D88FE0014527D /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE35278D88FE0014527D /* Roboto-Light.ttf */; };
-		47CDCE50278D88FE0014527D /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE36278D88FE0014527D /* OpenSans-SemiBold.ttf */; };
-		47CDCE51278D88FE0014527D /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE37278D88FE0014527D /* Roboto-Regular.ttf */; };
 		47CDCE52278D88FE0014527D /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE38278D88FE0014527D /* OpenSans-Light.ttf */; };
 		47CDCE53278D88FE0014527D /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE39278D88FE0014527D /* OpenSans-ExtraBold.ttf */; };
-		47CDCE54278D88FE0014527D /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3A278D88FE0014527D /* OpenSans-Bold.ttf */; };
 		47CDCE55278D88FE0014527D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3B278D88FE0014527D /* OpenSans-Regular.ttf */; };
 		47CDCE56278D88FE0014527D /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3C278D88FE0014527D /* Roboto-Bold.ttf */; };
 		47CDCE57278D88FE0014527D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3D278D88FE0014527D /* Roboto-Thin.ttf */; };
@@ -71,6 +77,12 @@
 /* Begin PBXFileReference section */
 		0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OchsnerInhalerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.debug.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		227197B9278FF09A0014BC3E /* CustomSplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSplashVC.swift; sourceTree = "<group>"; };
+		227197BC278FF9DB0014BC3E /* CreateAccoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccoutVC.swift; sourceTree = "<group>"; };
+		227197BF278FFFA20014BC3E /* ConnectProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectProviderVC.swift; sourceTree = "<group>"; };
+		227197C7279024AF0014BC3E /* LocationPermisionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermisionVC.swift; sourceTree = "<group>"; };
+		227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionVC.swift; sourceTree = "<group>"; };
+		227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchsnerCloudPermissionVC.swift; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -155,6 +167,61 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		227197B8278FF06E0014BC3E /* CustomSplash */ = {
+			isa = PBXGroup;
+			children = (
+				227197B9278FF09A0014BC3E /* CustomSplashVC.swift */,
+			);
+			path = CustomSplash;
+			sourceTree = "<group>";
+		};
+		227197BB278FF9BD0014BC3E /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				227197BC278FF9DB0014BC3E /* CreateAccoutVC.swift */,
+			);
+			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		227197BE278FFF790014BC3E /* ConnectProvider */ = {
+			isa = PBXGroup;
+			children = (
+				227197BF278FFFA20014BC3E /* ConnectProviderVC.swift */,
+			);
+			path = ConnectProvider;
+			sourceTree = "<group>";
+		};
+		227197C62790247E0014BC3E /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				227197C7279024AF0014BC3E /* LocationPermisionVC.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		227197C927902AB50014BC3E /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		227197CC27902C770014BC3E /* OchsnerCloudPermission */ = {
+			isa = PBXGroup;
+			children = (
+				227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */,
+			);
+			path = OchsnerCloudPermission;
+			sourceTree = "<group>";
+		};
+		227197CF2790501E0014BC3E /* DeviceIntroduction */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DeviceIntroduction;
+			sourceTree = "<group>";
+		};
 		22AE96E5278E9D2400C0D851 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +242,7 @@
 		22AE96E7278E9EA900C0D851 /* UserManagement */ = {
 			isa = PBXGroup;
 			children = (
+				227197BB278FF9BD0014BC3E /* CreateAccount */,
 				22AE96E8278E9EFE00C0D851 /* Login */,
 			);
 			path = UserManagement;
@@ -215,6 +283,7 @@
 		22AE96F2278EA5B300C0D851 /* Providers */ = {
 			isa = PBXGroup;
 			children = (
+				227197BE278FFF790014BC3E /* ConnectProvider */,
 				22AE96F3278EA5BD00C0D851 /* ProviderList */,
 			);
 			path = Providers;
@@ -231,6 +300,9 @@
 		22AE96F6278EA62F00C0D851 /* Permission */ = {
 			isa = PBXGroup;
 			children = (
+				227197CC27902C770014BC3E /* OchsnerCloudPermission */,
+				227197C927902AB50014BC3E /* Notification */,
+				227197C62790247E0014BC3E /* Location */,
 				22AE96F7278EA64300C0D851 /* Bluetooth */,
 			);
 			path = Permission;
@@ -247,6 +319,7 @@
 		22AE96FA278EA8FA00C0D851 /* Devices */ = {
 			isa = PBXGroup;
 			children = (
+				227197CF2790501E0014BC3E /* DeviceIntroduction */,
 				22AE96FB278EA99600C0D851 /* ManageDevice */,
 			);
 			path = Devices;
@@ -279,6 +352,7 @@
 		22AE970B278ED6C900C0D851 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				227197B8278FF06E0014BC3E /* CustomSplash */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -528,19 +602,19 @@
 				47CDCEA1278DA8C10014527D /* Profile.storyboard in Resources */,
 				47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */,
 				47CDCE53278D88FE0014527D /* OpenSans-ExtraBold.ttf in Resources */,
-				47CDCE54278D88FE0014527D /* OpenSans-Bold.ttf in Resources */,
 				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
-				47CDCE4E278D88FE0014527D /* Roboto-Medium.ttf in Resources */,
-				47CDCE50278D88FE0014527D /* OpenSans-SemiBold.ttf in Resources */,
+				227197C527900B680014BC3E /* OpenSans-Bold.ttf in Resources */,
 				47CDCE57278D88FE0014527D /* Roboto-Thin.ttf in Resources */,
-				47CDCE4F278D88FE0014527D /* Roboto-Light.ttf in Resources */,
+				227197C127900B4C0014BC3E /* Roboto-Medium.ttf in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
-				47CDCE51278D88FE0014527D /* Roboto-Regular.ttf in Resources */,
+				227197C227900B500014BC3E /* Roboto-Light.ttf in Resources */,
 				47CDCE58278D88FE0014527D /* Roboto-Black.ttf in Resources */,
 				47CDCE52278D88FE0014527D /* OpenSans-Light.ttf in Resources */,
 				47CDCE55278D88FE0014527D /* OpenSans-Regular.ttf in Resources */,
 				47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */,
 				47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */,
+				227197C427900B640014BC3E /* Roboto-Regular.ttf in Resources */,
+				227197C327900B600014BC3E /* OpenSans-SemiBold.ttf in Resources */,
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
 			);
@@ -601,6 +675,7 @@
 				22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */,
 				47CDCE49278D88FE0014527D /* ResultType.swift in Sources */,
 				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
+				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
 				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
@@ -613,12 +688,15 @@
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
 				47CDCE93278D89C30014527D /* APIManager.swift in Sources */,
+				227197C0278FFFA20014BC3E /* ConnectProviderVC.swift in Sources */,
 				47CDCE79278D89210014527D /* MobileDeviceManager.swift in Sources */,
 				47CDCE89278D89210014527D /* GlobalStoryboards.swift in Sources */,
+				227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */,
 				22AE9701278EAA8D00C0D851 /* ProfileVC.swift in Sources */,
 				47CDCE96278D95290014527D /* UserDefaultManager.swift in Sources */,
 				22AE96F5278EA5D700C0D851 /* PrividerListVC.swift in Sources */,
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
+				227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */,
 				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
 				22AE96FD278EAA0B00C0D851 /* ManageDeviceVC.swift in Sources */,
 				47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */,
@@ -632,7 +710,9 @@
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
+				227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */,
 				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
+				227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */,
 				47CDCE77278D89210014527D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

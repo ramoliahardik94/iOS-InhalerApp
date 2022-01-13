@@ -15,5 +15,10 @@ class ProfileVC: BaseVC {
         // Do any additional setup after loading the view.
     }
     
+    func tapBack(sender : UIButton) {
+        
+    popVC()
+    }
+    
 
 }

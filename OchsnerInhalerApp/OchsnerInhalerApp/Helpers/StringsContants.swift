@@ -3,15 +3,20 @@
 //
 
 //MARK: Common Message
-struct Messages {
+struct StringCommonMessages {
      static let commonMessage = ""
-    
+     static let cancel = "Cancel"
+     static let skip = "Skip"
+     static let grant = "Grant"
+     static let share = "Share"
 }
 
 
 //MARK: UserManagement
 struct StringUserManagement {
     static let login = "Login"
+    static let createAccount = "Create Account"
+    static let usePassword = "Use Password"
     
 }
 
@@ -24,13 +29,18 @@ struct StringProfile {
 //MARK: Providers
 struct StringPoviders {
     static let providerList = "Provider List"
-    
+    static let providerConnectLabel = "Connect Your Health Care Provider"
+    static let selectProvider = "Select Provider"
+    static let skipForNow = "Skip For Now"
+    static let selectOrganization = "Select an Organization"
 }
 
 //MARK: Permissions
 struct StringPermissions {
-    static let bluetooth = "Bluetooth"
-    
+    static let bluetoothPermission = "Grant Bluetooth Permissions"
+    static let locationPermission = "Grant Location Permissions"
+    static let notificationPermission = "Grant Notification Permissions"
+    static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
 }
 
 

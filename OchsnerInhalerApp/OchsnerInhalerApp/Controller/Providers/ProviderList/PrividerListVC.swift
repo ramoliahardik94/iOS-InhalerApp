@@ -8,14 +8,17 @@
 import UIKit
 
 class PrividerListVC: BaseVC {
-
+    @IBOutlet weak var lblLogin: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        lblLogin.text = StringPoviders.selectOrganization
     }
     
 
-
+    @IBAction func tapBack(_ sender: UIButton) {
+        popVC()
+    }
 
 }

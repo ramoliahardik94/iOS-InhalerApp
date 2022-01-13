@@ -23,4 +23,5 @@ extension UIColor {
     static let Color_Light_Gray = #colorLiteral(red: 0.8392156863, green: 0.8392156863, blue: 0.8392156863, alpha: 1) // #D6D6D6
     static let Color_Orange = #colorLiteral(red: 0.9960784314, green: 0.6196078431, blue: 0.1960784314, alpha: 1) // #FE9E32
     static let Color_Yellow = #colorLiteral(red: 0.9921568627, green: 0.8117647059, blue: 0.2784313725, alpha: 1) // #FDCF47
+    static let Color_White = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // #FFFFFF
 }
