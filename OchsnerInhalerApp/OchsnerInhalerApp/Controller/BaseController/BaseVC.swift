@@ -24,4 +24,15 @@ class BaseVC: UIViewController {
     }
   
 
+    func setCustomFontLabel(label : UILabel , type : FontType , fontSize : CGFloat = 14) {
+        if type == .regular {
+            label.font = UIFont(name: StringCommonMessages.AppRegularFont, size: fontSize)
+        }
+        if type == .bold {
+            label.font = UIFont(name: StringCommonMessages.AppBoldFont, size: fontSize)
+        }
+        if type == .semiBold {
+            label.font = UIFont(name: StringCommonMessages.AppSemiBoldFont, size: fontSize)
+        }
+    }
 }

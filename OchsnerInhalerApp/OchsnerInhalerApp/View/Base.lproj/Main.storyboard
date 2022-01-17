@@ -8,6 +8,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--HomeVC-->
         <scene sceneID="tne-QT-ifu">
@@ -60,7 +65,25 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Splash" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k0c-Br-fIi">
-                                        <rect key="frame" x="8" y="399" width="398" height="20.5"/>
+                                        <rect key="frame" x="8" y="398" width="398" height="22"/>
+                                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0x-zu-FLd">
+                                        <rect key="frame" x="388" y="802" width="10" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="rnN-dz-9Cg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJ4-Ej-k4Z">
+                                        <rect key="frame" x="16" y="802" width="10" height="0.0"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="6LG-u8-CnE"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -68,7 +91,12 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="uJ4-Ej-k4Z" firstAttribute="leading" secondItem="hln-xq-Tyn" secondAttribute="leading" constant="16" id="91e-J8-J2Y"/>
+                                    <constraint firstAttribute="bottom" secondItem="J0x-zu-FLd" secondAttribute="bottom" constant="16" id="J87-ek-DfZ"/>
                                     <constraint firstItem="k0c-Br-fIi" firstAttribute="leading" secondItem="hln-xq-Tyn" secondAttribute="leading" constant="8" id="U4u-3O-tWj"/>
+                                    <constraint firstItem="J0x-zu-FLd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uJ4-Ej-k4Z" secondAttribute="trailing" constant="8" id="c6N-Oz-OFa"/>
+                                    <constraint firstAttribute="bottom" secondItem="uJ4-Ej-k4Z" secondAttribute="bottom" constant="16" id="khj-7g-Hcz"/>
+                                    <constraint firstAttribute="trailing" secondItem="J0x-zu-FLd" secondAttribute="trailing" constant="16" id="mT6-nM-bQ2"/>
                                     <constraint firstAttribute="trailing" secondItem="k0c-Br-fIi" secondAttribute="trailing" constant="8" id="rO6-tk-3jX"/>
                                     <constraint firstItem="k0c-Br-fIi" firstAttribute="centerY" secondItem="hln-xq-Tyn" secondAttribute="centerY" id="vRA-4L-1nY"/>
                                 </constraints>
@@ -84,6 +112,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TYr-aE-0W2"/>
+                    <connections>
+                        <outlet property="lblCopyRight" destination="uJ4-Ej-k4Z" id="7mh-vG-bGY"/>
+                        <outlet property="lblVersion" destination="J0x-zu-FLd" id="KHs-hZ-IUg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuR-LI-2tp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

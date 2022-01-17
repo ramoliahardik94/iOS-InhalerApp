@@ -12,22 +12,21 @@ class LoginVC : BaseVC {
     @IBOutlet weak var lblLogin: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnCreateAccount: UIButton!
-   
+    @IBOutlet weak var lblDontHaveAccount: UILabel!
+    @IBOutlet weak var tfEmail: UITextField!
+    @IBOutlet weak var tfPassword: UITextField!
+    
     override func viewDidLoad() {
        initUI()
     }
     private func initUI() {
         lblLogin.text = StringUserManagement.login
+        lblDontHaveAccount.text = StringUserManagement.dontHaveAccout
         
-        btnLogin.setTitle(StringUserManagement.login, for: .normal)
-        btnCreateAccount.setTitle(StringUserManagement.createAccount, for: .normal)
-        
-        btnLogin.backgroundColor = .Button_Color_Blue
-        btnLogin.setTitleColor(.Color_White, for: .normal)
-        
-        btnCreateAccount.backgroundColor = .Button_Color_Blue
-        btnCreateAccount.setTitleColor(.Color_White, for: .normal)
-            
+        btnLogin.setButtonView(StringUserManagement.login)
+        btnCreateAccount.setButtonView(StringUserManagement.createAccount)
+        setCustomFontLabel(label: lblLogin, type: .bold,fontSize: 20)
+        setCustomFontLabel(label: lblDontHaveAccount, type: .bold,fontSize: 20)
     }
     
     
