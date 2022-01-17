@@ -18,6 +18,7 @@
 		227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197C7279024AF0014BC3E /* LocationPermisionVC.swift */; };
 		227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */; };
 		227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */; };
+		22AA694627953E2F00783383 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AA694527953E2F00783383 /* OpenSans-Regular.ttf */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
@@ -35,7 +36,6 @@
 		47CDCE4B278D88FE0014527D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE2F278D88FE0014527D /* Logger.swift */; };
 		47CDCE52278D88FE0014527D /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE38278D88FE0014527D /* OpenSans-Light.ttf */; };
 		47CDCE53278D88FE0014527D /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE39278D88FE0014527D /* OpenSans-ExtraBold.ttf */; };
-		47CDCE55278D88FE0014527D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3B278D88FE0014527D /* OpenSans-Regular.ttf */; };
 		47CDCE56278D88FE0014527D /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3C278D88FE0014527D /* Roboto-Bold.ttf */; };
 		47CDCE57278D88FE0014527D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3D278D88FE0014527D /* Roboto-Thin.ttf */; };
 		47CDCE58278D88FE0014527D /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE3E278D88FE0014527D /* Roboto-Black.ttf */; };
@@ -83,6 +83,7 @@
 		227197C7279024AF0014BC3E /* LocationPermisionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermisionVC.swift; sourceTree = "<group>"; };
 		227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionVC.swift; sourceTree = "<group>"; };
 		227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchsnerCloudPermissionVC.swift; sourceTree = "<group>"; };
+		22AA694527953E2F00783383 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -107,7 +108,6 @@
 		47CDCE38278D88FE0014527D /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		47CDCE39278D88FE0014527D /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		47CDCE3A278D88FE0014527D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		47CDCE3B278D88FE0014527D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		47CDCE3C278D88FE0014527D /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		47CDCE3D278D88FE0014527D /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		47CDCE3E278D88FE0014527D /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
@@ -453,6 +453,7 @@
 		47CDCE33278D88FE0014527D /* CustomFonts */ = {
 			isa = PBXGroup;
 			children = (
+				22AA694527953E2F00783383 /* OpenSans-Regular.ttf */,
 				47CDCE34278D88FE0014527D /* Roboto-Medium.ttf */,
 				47CDCE35278D88FE0014527D /* Roboto-Light.ttf */,
 				47CDCE36278D88FE0014527D /* OpenSans-SemiBold.ttf */,
@@ -460,7 +461,6 @@
 				47CDCE38278D88FE0014527D /* OpenSans-Light.ttf */,
 				47CDCE39278D88FE0014527D /* OpenSans-ExtraBold.ttf */,
 				47CDCE3A278D88FE0014527D /* OpenSans-Bold.ttf */,
-				47CDCE3B278D88FE0014527D /* OpenSans-Regular.ttf */,
 				47CDCE3C278D88FE0014527D /* Roboto-Bold.ttf */,
 				47CDCE3D278D88FE0014527D /* Roboto-Thin.ttf */,
 				47CDCE3E278D88FE0014527D /* Roboto-Black.ttf */,
@@ -608,9 +608,9 @@
 				227197C127900B4C0014BC3E /* Roboto-Medium.ttf in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
 				227197C227900B500014BC3E /* Roboto-Light.ttf in Resources */,
+				22AA694627953E2F00783383 /* OpenSans-Regular.ttf in Resources */,
 				47CDCE58278D88FE0014527D /* Roboto-Black.ttf in Resources */,
 				47CDCE52278D88FE0014527D /* OpenSans-Light.ttf in Resources */,
-				47CDCE55278D88FE0014527D /* OpenSans-Regular.ttf in Resources */,
 				47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */,
 				47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */,
 				227197C427900B640014BC3E /* Roboto-Regular.ttf in Resources */,

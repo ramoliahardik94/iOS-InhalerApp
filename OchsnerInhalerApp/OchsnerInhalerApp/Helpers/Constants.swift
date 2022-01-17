@@ -45,3 +45,9 @@ class Constants: NSObject {
         static let first16 = "3UI8b7FZBqhsavcm"
     }
 }
+
+enum FontType {
+    case regular
+    case semiBold
+    case bold
+}

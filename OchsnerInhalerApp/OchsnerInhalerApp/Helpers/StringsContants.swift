@@ -9,6 +9,10 @@ struct StringCommonMessages {
      static let skip = "Skip"
      static let grant = "Grant"
      static let share = "Share"
+     static let copyRight = "©2021 Ochsner Health"
+     static let AppRegularFont = Constants.CustomFont.OpenSans_Regular
+     static let AppBoldFont = Constants.CustomFont.OpenSans_Bold
+     static let AppSemiBoldFont = Constants.CustomFont.OpenSans_SemiBold
 }
 
 
@@ -17,6 +21,7 @@ struct StringUserManagement {
     static let login = "Login"
     static let createAccount = "Create Account"
     static let usePassword = "Use Password"
+    static let dontHaveAccout = "Don't Have an Account"
     
 }
 
