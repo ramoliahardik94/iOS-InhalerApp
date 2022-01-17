@@ -33,6 +33,13 @@ class Constants: NSObject {
         static let Roboto_Medium = "Roboto-Medium"
         static let Roboto_Bold = "Roboto-Bold"
         static let Roboto_Black = "Roboto-Black"
+        
+        static let Helvetica = "Helvetica"
+        static let Helvetica_Bold = "Helvetica-Bold"
+        static let Helvetica_Light = "Helvetica-Light"
+        static let Helvetica_LightOblique = "Helvetica-LightOblique"
+        static let Helvetica_Oblique = "Helvetica-Oblique"
+        
     }
     
     struct DirectoryPath {

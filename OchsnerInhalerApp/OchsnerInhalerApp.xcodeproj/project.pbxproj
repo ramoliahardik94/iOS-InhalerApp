@@ -28,6 +28,7 @@
 		22AE9701278EAA8D00C0D851 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE9700278EAA8D00C0D851 /* ProfileVC.swift */; };
 		22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE970C278EDAFB00C0D851 /* StringsContants.swift */; };
 		472DC2442795328D008E0060 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472DC2432795328D008E0060 /* ProviderCell.swift */; };
+		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE11278D872F0014527D /* AppDelegate.swift */; };
 		47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE13278D872F0014527D /* SceneDelegate.swift */; };
 		47CDCE19278D872F0014527D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE17278D872F0014527D /* Main.storyboard */; };
@@ -94,6 +95,7 @@
 		22AE9700278EAA8D00C0D851 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		22AE970C278EDAFB00C0D851 /* StringsContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsContants.swift; sourceTree = "<group>"; };
 		472DC2432795328D008E0060 /* ProviderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
+		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OchsnerInhalerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47CDCE11278D872F0014527D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47CDCE13278D872F0014527D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				22AE96F4278EA5D700C0D851 /* ProviderListVC.swift */,
+				47C1FEE227957215007C6F16 /* ProviderVC.swift */,
 			);
 			path = ProviderList;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
 				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
+				47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
@@ -882,6 +886,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -911,6 +916,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -27,7 +27,9 @@ class CustomSplashVC: BaseVC {
     }
     
     @objc func didFinishTimer() {
-        let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+//        let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+//        pushVC(vc: vc)
+        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         pushVC(vc: vc)
     }
     

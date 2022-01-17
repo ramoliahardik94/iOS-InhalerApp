@@ -8,7 +8,9 @@ extension UIColor {
     static let Tabbar_Icon_Color = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) // #FFFFFF
     static let Tabbar_Selected_Icon_Color = #colorLiteral(red: 0.9921568627, green: 0.8117647059, blue: 0.2784313725, alpha: 1) // #FDCF47
     static let NavigationBar_Color = #colorLiteral(red: 0.2392156863, green: 0.5607843137, blue: 0.7921568627, alpha: 1) // #3D8FCA
-    static let Button_Color_Blue = #colorLiteral(red: 0, green: 0.262745098, blue: 0.4509803922, alpha: 1) // #004373
+    static let Button_Color_Blue = #colorLiteral(red: 0.03921568627, green: 0.4784313725, blue: 1, alpha: 1) // #0A7AFF
+    
+    static let Button_Color_Green = #colorLiteral(red: 0.2588235294, green: 0.7882352941, blue: 0.4117647059, alpha: 1) // #42C969
     static let Segment_Color_Normal = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1) // #7F7F7F
     static let Segment_Color_Selected = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) // #000000
     static let Border_Color_Blue = #colorLiteral(red: 0, green: 0.262745098, blue: 0.4509803922, alpha: 1) // #004373
@@ -24,6 +26,7 @@ extension UIColor {
     static let Color_Orange = #colorLiteral(red: 0.9960784314, green: 0.6196078431, blue: 0.1960784314, alpha: 1) // #FE9E32
     static let Color_Yellow = #colorLiteral(red: 0.9921568627, green: 0.8117647059, blue: 0.2784313725, alpha: 1) // #FDCF47
     static let Color_White = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // #FFFFFF
-    static let Color_HeaderSearch = #colorLiteral(red: 0.1176987514, green: 0.5165922642, blue: 0.8186251521, alpha: 1)
-    static let Color_Header = #colorLiteral(red: 0.2849777615, green: 0.3411775453, blue: 0.9935439317, alpha: 1)
+    static let Color_HeaderSearch = #colorLiteral(red: 0.2156862745, green: 0.462745098, blue: 0.7137254902, alpha: 1) //3776B6
+    static let Color_Header = #colorLiteral(red: 0.09411764706, green: 0.3803921569, blue: 0.6745098039, alpha: 1) //1861AC
+    static let Color_ProviderView = #colorLiteral(red: 0.862745098, green: 0.9294117647, blue: 0.9647058824, alpha: 1) //DCEDF6
 }

@@ -12,8 +12,9 @@ import UIKit
 class ProviderListVC: BaseVC {
 
     @IBOutlet weak var btnCancel: UIButton!
-    @IBOutlet weak var lblLogin: UILabel!
-    @IBOutlet weak var viewHeader: UIView!
+    @IBOutlet weak var lblHeader: UILabel!
+    @IBOutlet weak var lblSubHeader: UILabel!
+    @IBOutlet weak var viewSearch: UIView!
     @IBOutlet weak var searchProvider: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +23,10 @@ class ProviderListVC: BaseVC {
     }
     func setupVC(){
         self.btnCancel.isEnabled = false
-        lblLogin.text = StringPoviders.selectOrganization
-        viewHeader.backgroundColor = .Color_Header
-        self.view.backgroundColor = .Color_HeaderSearch
+        lblHeader.text = StringPoviders.selectOrganization
+        lblSubHeader.text = StringPoviders.providerSubHeader
+        self.view.backgroundColor = .Color_Header
+        viewSearch.backgroundColor = .Color_HeaderSearch
         self.searchProvider.barTintColor = .Color_HeaderSearch
         self.searchProvider.backgroundColor = .Color_HeaderSearch
         self.searchProvider.searchTextField.borderStyle = .none
@@ -35,13 +37,18 @@ class ProviderListVC: BaseVC {
         self.btnCancel.setTitleColor(.white, for: .normal)
         self.searchProvider.layer.borderWidth = 1
         self.searchProvider.layer.borderColor = UIColor.Color_HeaderSearch.cgColor
-        //self.searchProvider.searchTextField.font = UIFont(name: <#T##String#>, size: <#T##CGFloat#>)
+        self.lblHeader.font = UIFont(name: AppFont.AppRegularFont, size: 14)
+        self.btnCancel.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 12)
+        self.searchProvider.searchTextField.font = UIFont(name: AppFont.AppRegularFont, size: 12)
+        self.searchProvider.delegate = self
     }
-
-    @IBAction func tapBack(_ sender: UIButton) {
-        popVC()
+    @IBAction func btnCancelClick(_ sender: UIButton) {
+        self.searchProvider.searchTextField.text = ""
+        sender.isEnabled = false
     }
-    
+    @IBAction func btnBackClick(_ sender: Any) {
+        self.popVC()
+    }
 }
 extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,9 +66,19 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc  = ProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        pushVC(vc: vc)
     }
     
 }
 
 
 
+extension ProviderListVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        btnCancel.isEnabled = searchBar.searchTextField.text!.count > 0
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+}

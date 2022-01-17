@@ -10,11 +10,13 @@ struct StringCommonMessages {
      static let grant = "Grant"
      static let share = "Share"
      static let copyRight = "©2021 Ochsner Health"
-     static let AppRegularFont = Constants.CustomFont.OpenSans_Regular
-     static let AppBoldFont = Constants.CustomFont.OpenSans_Bold
-     static let AppSemiBoldFont = Constants.CustomFont.OpenSans_SemiBold
-}
 
+}
+struct AppFont {
+    static let AppRegularFont = Constants.CustomFont.Helvetica
+    static let AppBoldFont = Constants.CustomFont.Helvetica_Bold
+    static let AppSemiBoldFont = Constants.CustomFont.Helvetica_Light
+}
 
 //MARK: UserManagement
 struct StringUserManagement {
@@ -38,6 +40,7 @@ struct StringPoviders {
     static let selectProvider = "Select Provider"
     static let skipForNow = "Skip For Now"
     static let selectOrganization = "Select an Organization"
+    static let providerSubHeader = "Where do you receive your healthcare?"
 }
 
 //MARK: Permissions
