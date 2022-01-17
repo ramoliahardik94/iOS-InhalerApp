@@ -21,11 +21,12 @@
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
-		22AE96F5278EA5D700C0D851 /* PrividerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F4278EA5D700C0D851 /* PrividerListVC.swift */; };
+		22AE96F5278EA5D700C0D851 /* ProviderListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F4278EA5D700C0D851 /* ProviderListVC.swift */; };
 		22AE96F9278EA68900C0D851 /* BluetoothPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F8278EA68900C0D851 /* BluetoothPermissionVC.swift */; };
 		22AE96FD278EAA0B00C0D851 /* ManageDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96FC278EAA0B00C0D851 /* ManageDeviceVC.swift */; };
 		22AE9701278EAA8D00C0D851 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE9700278EAA8D00C0D851 /* ProfileVC.swift */; };
 		22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE970C278EDAFB00C0D851 /* StringsContants.swift */; };
+		472DC2442795328D008E0060 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472DC2432795328D008E0060 /* ProviderCell.swift */; };
 		47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE11278D872F0014527D /* AppDelegate.swift */; };
 		47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE13278D872F0014527D /* SceneDelegate.swift */; };
 		47CDCE19278D872F0014527D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE17278D872F0014527D /* Main.storyboard */; };
@@ -86,11 +87,12 @@
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
-		22AE96F4278EA5D700C0D851 /* PrividerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrividerListVC.swift; sourceTree = "<group>"; };
+		22AE96F4278EA5D700C0D851 /* ProviderListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListVC.swift; sourceTree = "<group>"; };
 		22AE96F8278EA68900C0D851 /* BluetoothPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPermissionVC.swift; sourceTree = "<group>"; };
 		22AE96FC278EAA0B00C0D851 /* ManageDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceVC.swift; sourceTree = "<group>"; };
 		22AE9700278EAA8D00C0D851 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		22AE970C278EDAFB00C0D851 /* StringsContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsContants.swift; sourceTree = "<group>"; };
+		472DC2432795328D008E0060 /* ProviderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
 		47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OchsnerInhalerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47CDCE11278D872F0014527D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47CDCE13278D872F0014527D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			children = (
 				227197BE278FFF790014BC3E /* ConnectProvider */,
 				22AE96F3278EA5BD00C0D851 /* ProviderList */,
+				472DC2422795328D008E0060 /* ProviderListCell */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -292,7 +295,7 @@
 		22AE96F3278EA5BD00C0D851 /* ProviderList */ = {
 			isa = PBXGroup;
 			children = (
-				22AE96F4278EA5D700C0D851 /* PrividerListVC.swift */,
+				22AE96F4278EA5D700C0D851 /* ProviderListVC.swift */,
 			);
 			path = ProviderList;
 			sourceTree = "<group>";
@@ -363,6 +366,14 @@
 				0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		472DC2422795328D008E0060 /* ProviderListCell */ = {
+			isa = PBXGroup;
+			children = (
+				472DC2432795328D008E0060 /* ProviderCell.swift */,
+			);
+			path = ProviderListCell;
 			sourceTree = "<group>";
 		};
 		47CDCE05278D872F0014527D = {
@@ -694,10 +705,11 @@
 				227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */,
 				22AE9701278EAA8D00C0D851 /* ProfileVC.swift in Sources */,
 				47CDCE96278D95290014527D /* UserDefaultManager.swift in Sources */,
-				22AE96F5278EA5D700C0D851 /* PrividerListVC.swift in Sources */,
+				22AE96F5278EA5D700C0D851 /* ProviderListVC.swift in Sources */,
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
 				227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */,
 				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
+				472DC2442795328D008E0060 /* ProviderCell.swift in Sources */,
 				22AE96FD278EAA0B00C0D851 /* ManageDeviceVC.swift in Sources */,
 				47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */,
 				22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */,

@@ -49,7 +49,7 @@ class ConnectProviderVC: BaseVC {
     
     //MARK: Actions
     @IBAction func tapSelectProvider(_ sender: UIButton) {
-        let vc = PrividerListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        let vc = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         pushVC(vc: vc)
     }
     @IBAction func tapSkipNow(_ sender: UIButton) {
