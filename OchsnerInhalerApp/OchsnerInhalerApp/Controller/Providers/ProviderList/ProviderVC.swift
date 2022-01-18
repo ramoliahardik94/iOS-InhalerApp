@@ -21,7 +21,7 @@ class ProviderVC: BaseVC {
         // Do any additional setup after loading the view.
     }
     func setVC(){
-        
+        btnSwitchOrganization.setTitle(StringPoviders.switchOrganization, for: .normal)
         viewHeader.backgroundColor = .lightGray
         viewSwitchOrganization.layer.borderWidth = 1
         viewSwitchOrganization.layer.cornerRadius = 6

@@ -36,13 +36,13 @@ func setNavigationAppearance(_ color: UIColor = .NavigationBar_Color) {
     UINavigationBar.appearance().barTintColor = color
     UINavigationBar.appearance().isTranslucent = false
     UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white,
-                                                        .font: UIFont(name: Constants.CustomFont.OpenSans_SemiBold, size: 18)!]
+                                                        .font: UIFont(name: AppFont.AppSemiBoldFont, size: 18)!]
 }
 
 func setSegmentControlAppearance() {
-    UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont(name: Constants.CustomFont.OpenSans_SemiBold, size: 15)!,
+    UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont(name: AppFont.AppSemiBoldFont, size: 15)!,
                                                             .foregroundColor: UIColor.Segment_Color_Normal], for: .normal)
-    UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont(name: Constants.CustomFont.OpenSans_SemiBold, size: 15)!,
+    UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont(name: AppFont.AppSemiBoldFont, size: 15)!,
                                                             .foregroundColor: UIColor.Segment_Color_Selected], for: .selected)
     UISegmentedControl.appearance().setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
 }

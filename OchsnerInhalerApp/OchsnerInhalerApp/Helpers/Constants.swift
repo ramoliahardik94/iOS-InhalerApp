@@ -22,24 +22,9 @@ class Constants: NSObject {
     static let weekDays: [String] = ["MON".local, "TUE".local, "WED".local, "THU".local, "FRI".local, "SAT".local, "SUN".local]
 
     struct CustomFont {
-        static let OpenSans_Regular = "OpenSans-Regular"
-        static let OpenSans_SemiBold = "OpenSans-SemiBold"
-        static let OpenSans_Bold = "OpenSans-Bold"
-        static let OpenSans_ExtraBold = "OpenSans-ExtraBold"
-        
-        static let Roboto_Regular = "Roboto-Regular"
-        static let Roboto_Thin = "Roboto-Thin"
-        static let Roboto_Light = "Roboto-Light"
-        static let Roboto_Medium = "Roboto-Medium"
-        static let Roboto_Bold = "Roboto-Bold"
-        static let Roboto_Black = "Roboto-Black"
-        
-        static let Helvetica = "Helvetica"
-        static let Helvetica_Bold = "Helvetica-Bold"
-        static let Helvetica_Light = "Helvetica-Light"
-        static let Helvetica_LightOblique = "Helvetica-LightOblique"
-        static let Helvetica_Oblique = "Helvetica-Oblique"
-        
+        static let SFProText_Semibold = "SFProText-Semibold"
+        static let SFProText_Regular = "SFProText-Regular"
+        static let SFProDisplay_Bold = "SFProDisplay-Bold"
     }
     
     struct DirectoryPath {

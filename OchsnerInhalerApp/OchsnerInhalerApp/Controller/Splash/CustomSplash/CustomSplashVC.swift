@@ -23,14 +23,21 @@ class CustomSplashVC: BaseVC {
         
         setCustomFontLabel(label: lblCopyRight, type: .regular)
         setCustomFontLabel(label: lblVersion, type: .regular)
+        for fontFamily in UIFont.familyNames
+              {
+                  print("Font family name = \(fontFamily as String)")
+                  for fontName in UIFont.fontNames(forFamilyName: fontFamily as String)
+                  {
+                      print("- Font name = \(fontName)")
+                  }
+              }
         
     }
     
     @objc func didFinishTimer() {
         let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(vc: vc)
-//        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-//        pushVC(vc: vc)
+        
     }
     
     deinit {

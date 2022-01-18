@@ -11,6 +11,7 @@ enum AppStoryBoardString: String {
     case deviceList = "DeviceList"
     case profile = "Profile"
     case userManagement = "UserManagement"
+    case addDevice = "AddDevice"
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: Bundle.main)

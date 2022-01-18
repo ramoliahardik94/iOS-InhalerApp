@@ -23,7 +23,7 @@ class ConnectProviderVC: BaseVC {
     
     private func initUI() {
         lblConnectProvider.text = StringPoviders.providerConnectLabel
-        lblConnectProvider.font = UIFont(name: Constants.CustomFont.OpenSans_Bold, size: 26)
+        lblConnectProvider.font = UIFont(name: AppFont.AppBoldFont, size: 26)
         
         
 //        for item in  UIFont.familyNames {

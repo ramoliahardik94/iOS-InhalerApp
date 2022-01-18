@@ -4,16 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Roboto-Thin.ttf</string>
-		<string>Roboto-Regular.ttf</string>
-		<string>Roboto-Medium.ttf</string>
-		<string>Roboto-Light.ttf</string>
-		<string>Roboto-Bold.ttf</string>
-		<string>Roboto-Black.ttf</string>
-		<string>OpenSans-SemiBold.ttf</string>
-		<string>OpenSans-Regular.ttf</string>
-		<string>OpenSans-ExtraBold.ttf</string>
-		<string>OpenSans-Bold.ttf</string>
+		<string>SFProDisplay-Bold.ttf</string>
+		<string>SFProText-Regular.ttf</string>
+		<string>SFProText-Semibold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -34,5 +27,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>

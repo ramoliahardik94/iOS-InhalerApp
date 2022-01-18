@@ -12,7 +12,7 @@ extension UITableView {
         messageLabel.textColor = .Empty_Table_Font_Color
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
-        messageLabel.font = UIFont(name: Constants.CustomFont.OpenSans_Regular, size: 20)
+        messageLabel.font = UIFont(name: AppFont.AppRegularFont, size: 20)
         messageLabel.sizeToFit()
         self.backgroundView = messageLabel
     }

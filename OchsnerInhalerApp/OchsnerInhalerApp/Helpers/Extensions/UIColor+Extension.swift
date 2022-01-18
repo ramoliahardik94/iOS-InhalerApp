@@ -8,7 +8,7 @@ extension UIColor {
     static let Tabbar_Icon_Color = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) // #FFFFFF
     static let Tabbar_Selected_Icon_Color = #colorLiteral(red: 0.9921568627, green: 0.8117647059, blue: 0.2784313725, alpha: 1) // #FDCF47
     static let NavigationBar_Color = #colorLiteral(red: 0.2392156863, green: 0.5607843137, blue: 0.7921568627, alpha: 1) // #3D8FCA
-    static let Button_Color_Blue = #colorLiteral(red: 0.03921568627, green: 0.4784313725, blue: 1, alpha: 1) // #0A7AFF
+    static let Button_Color_Blue = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1) // #0A7AFF
     
     static let Button_Color_Green = #colorLiteral(red: 0.2588235294, green: 0.7882352941, blue: 0.4117647059, alpha: 1) // #42C969
     static let Segment_Color_Normal = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1) // #7F7F7F

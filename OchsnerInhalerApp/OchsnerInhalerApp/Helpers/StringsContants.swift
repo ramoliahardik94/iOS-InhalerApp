@@ -13,9 +13,9 @@ struct StringCommonMessages {
 
 }
 struct AppFont {
-    static let AppRegularFont = Constants.CustomFont.Helvetica
-    static let AppBoldFont = Constants.CustomFont.Helvetica_Bold
-    static let AppSemiBoldFont = Constants.CustomFont.Helvetica_Light
+    static let AppRegularFont = Constants.CustomFont.SFProText_Regular
+    static let AppBoldFont = Constants.CustomFont.SFProDisplay_Bold
+    static let AppSemiBoldFont = Constants.CustomFont.SFProText_Semibold
 }
 
 //MARK: UserManagement
@@ -41,8 +41,14 @@ struct StringPoviders {
     static let skipForNow = "Skip For Now"
     static let selectOrganization = "Select an Organization"
     static let providerSubHeader = "Where do you receive your healthcare?"
+    static let switchOrganization = "Switch organizations"
 }
-
+struct StringAddDevice {
+    static let great = "Great!"
+    static let addDevice = "Let’s Add \n Your Device"
+    static let addDeviceInto = "<P>Ready to set up your device? Now, we’ll attach your <B>Connected Inhaler Sensor</B> to your inhaler, and link it to this app."
+    static let startSetup = "Start Set Up"
+}
 //MARK: Permissions
 struct StringPermissions {
     static let bluetoothPermission = "Grant Bluetooth Permissions"
