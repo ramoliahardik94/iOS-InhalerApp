@@ -46,8 +46,20 @@ struct StringPoviders {
 struct StringAddDevice {
     static let great = "Great!"
     static let addDevice = "Let’s Add \n Your Device"
-    static let addDeviceInto = "<P>Ready to set up your device? Now, we’ll attach your <B>Connected Inhaler Sensor</B> to your inhaler, and link it to this app."
+    static let Connected_Inhaler_Sensor = "Connected Inhaler Sensor"
+    static let addDeviceInto = "Ready to set up your device? Now, we’ll attach your Connected Inhaler Sensor to your inhaler, and link it to this app."
     static let startSetup = "Start Set Up"
+    static let removeIsolationTag = "First, Remove the Battery Isolation Tag"
+    static let removeIsolationTaginfo = "Remove and discard the yellow tag to activate your device."
+    static let next = "Next"
+    static let connectDevice = "Connect Device to Your Phone"
+    static let connectDeviceInfo = "1. Make sure that Bluetooth is turned “on” in settings.\n\n 2. Click the “Pair Device” button below. \n\n3. Press the top of the device until pairing is confirmed."
+    static let pareDevice = "Pair Device"
+    static let mountDevice = "Mount Device to Your Inhaler"
+    static let mountDeviceInfo = "Once paired to mobile phone, slip device over top of a compatible inhaler tank and press firmly into place."
+    static let medication = "Now, let us know what inhaler medication you will use with this sensor."
+    static let medicationInfo = "Your Connected Inhaler Sensor tracks usage of the medication in your inhaler, so we’ll need to associate it with a current perscription."
+    static let selectMedication = "Select Medication"
 }
 //MARK: Permissions
 struct StringPermissions {

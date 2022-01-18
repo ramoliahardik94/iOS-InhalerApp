@@ -7,12 +7,14 @@
 
 import UIKit
 
-class AddDeviceIntroVC: UIViewController {
+class AddDeviceIntroVC: BaseVC {
 
     @IBOutlet weak var btnStartSetUp: UIButton!
     @IBOutlet weak var lblAddDevice: UILabel!
     @IBOutlet weak var lblGreat: UILabel!
     @IBOutlet weak var lbldeviceInfo: UILabel!
+    @IBOutlet weak var imgAddDevice: UIImageView!
+    var step : AddDeviceSteps = .Step1
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,15 +22,69 @@ class AddDeviceIntroVC: UIViewController {
         self.setVC()
     }
     func setVC(){
-        lblGreat.text = StringAddDevice.great
-        lblAddDevice.text = StringAddDevice.addDevice
-        lbldeviceInfo.attributedText = StringAddDevice.addDeviceInto.htmlToAttributedString
+        lbldeviceInfo.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         lblGreat.font = UIFont(name: AppFont.AppSemiBoldFont, size: 34)
         lblAddDevice.font = UIFont(name: AppFont.AppSemiBoldFont, size: 34)
+        switch step {
+        case .Step1:
+            lblAddDevice.isHidden  = false
+            lblGreat.text = StringAddDevice.great
+            imgAddDevice.image = #imageLiteral(resourceName: "inhealer")
+            lblAddDevice.text = StringAddDevice.addDevice
+            let attributedString = attributedText(withString: StringAddDevice.addDeviceInto, boldString: StringAddDevice.Connected_Inhaler_Sensor, font: UIFont(name: AppFont.AppRegularFont, size: 17)!)
+            lbldeviceInfo.attributedText = attributedString
+            btnStartSetUp.setButtonView(StringAddDevice.startSetup)
+            break
+        case .Step2:
+            lblGreat.text = StringAddDevice.removeIsolationTag
+            imgAddDevice.image = #imageLiteral(resourceName: "removeTag")
+            lblAddDevice.isHidden  = true
+            lbldeviceInfo.text = StringAddDevice.removeIsolationTaginfo
+            btnStartSetUp.setButtonView(StringAddDevice.next)
+            
+        case .Step3:
+            lblGreat.text = StringAddDevice.connectDevice
+            imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
+            lblAddDevice.isHidden  = true
+            lbldeviceInfo.text = StringAddDevice.connectDeviceInfo
+            btnStartSetUp.setButtonView(StringAddDevice.pareDevice)
+        case .Step4:
+            lblGreat.text = StringAddDevice.mountDevice
+            imgAddDevice.image = #imageLiteral(resourceName: "mount")
+            lblAddDevice.isHidden  = true
+            lbldeviceInfo.text = StringAddDevice.connectDeviceInfo
+            btnStartSetUp.setButtonView(StringAddDevice.next)
+        case .Step5:
+            lblGreat.text = StringAddDevice.great
+            imgAddDevice.image = #imageLiteral(resourceName: "medication")
+            let attributedString = attributedText(withString: StringAddDevice.medicationInfo, boldString: StringAddDevice.Connected_Inhaler_Sensor, font: UIFont(name: AppFont.AppRegularFont, size: 17)!)
+            lbldeviceInfo.attributedText = attributedString
+            lblAddDevice.text = StringAddDevice.medication
+            btnStartSetUp.setButtonView(StringAddDevice.selectMedication)
+        }
         
-        btnStartSetUp.setButtonView(StringAddDevice.startSetup)
+        
+        
+        
+        
     }
 
+    @IBAction func btnNextClick(_ sender: UIButton) {
+        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        switch step {
+        case .Step1:
+            vc.step = .Step2
+        case .Step2:
+            vc.step = .Step3
+        case .Step3:
+            vc.step = .Step4
+        case .Step4:
+            vc.step = .Step5
+        case .Step5:
+            return
+        }
+        pushVC(vc: vc)
+    }
     /*
     // MARK: - Navigation
 
