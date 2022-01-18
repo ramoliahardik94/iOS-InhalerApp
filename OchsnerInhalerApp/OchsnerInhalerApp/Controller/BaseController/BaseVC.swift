@@ -46,6 +46,8 @@ class BaseVC: UIViewController {
         if type == .semiBold {
             textField.font = UIFont(name: AppFont.AppSemiBoldFont, size: fontSize)
         }
+
+}
     func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string,
                                                      attributes: [NSAttributedString.Key.font: font])
