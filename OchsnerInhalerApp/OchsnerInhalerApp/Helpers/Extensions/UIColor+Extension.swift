@@ -32,4 +32,5 @@ extension UIColor {
     static let Color_SplashText = #colorLiteral(red: 0.02745098039, green: 0.168627451, blue: 0.3803921569, alpha: 1) //#072B61
     static let TextField_Border_Color = #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1) //#979797
     
+    
 }

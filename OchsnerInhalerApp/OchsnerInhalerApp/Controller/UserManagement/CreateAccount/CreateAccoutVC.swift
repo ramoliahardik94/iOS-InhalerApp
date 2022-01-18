@@ -52,6 +52,14 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         setCustomFontLabel(label: lblLastName, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblCreatePassword, type: .regular,fontSize: 15)
+        
+        
+        tfFirstName.placeholder = StringUserManagement.placeHolderFirstName
+        tfLastName.placeholder = StringUserManagement.placeHolderLastName
+        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
+        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+        tfConfirmPassword.placeholder = StringUserManagement.confirmPasswordPlaceHolder
+        
     }
 
     

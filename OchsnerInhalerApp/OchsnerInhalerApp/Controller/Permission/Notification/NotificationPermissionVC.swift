@@ -14,19 +14,10 @@ class NotificationPermissionVC: BaseVC {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         lblNotificationPermission.text = StringPermissions.notificationPermission
-        
-        btnSkip.setTitle(StringCommonMessages.skip, for: .normal)
-        btnGrant.setTitle(StringCommonMessages.grant, for: .normal)
-        
-        btnGrant.backgroundColor = .Button_Color_Blue
-        btnGrant.setTitleColor(.Color_White, for: .normal)
-        
-        btnSkip.backgroundColor = .Color_Gray
-        btnSkip.setTitleColor(.Color_White, for: .normal)
-        
+        setCustomFontLabel(label: lblNotificationPermission, type: .bold,fontSize: 32)
+        btnGrant.setButtonView(StringCommonMessages.grant)
+        btnSkip.setButtonView(StringCommonMessages.skip)
     }
     
     //MARK: Actions

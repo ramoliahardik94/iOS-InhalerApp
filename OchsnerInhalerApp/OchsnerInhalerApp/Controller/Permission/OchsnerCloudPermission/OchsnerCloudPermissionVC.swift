@@ -11,21 +11,42 @@ class OchsnerCloudPermissionVC: BaseVC {
     @IBOutlet weak var lblShareYourInhalerUsage: UILabel!
     @IBOutlet weak var btnSkip: UIButton!
     @IBOutlet weak var btnShare: UIButton!
+    @IBOutlet weak var lbOneLastThing: UILabel!
+    @IBOutlet weak var lbConnectSensor: UILabel!
+    @IBOutlet weak var lbKeepYourOchsner: UILabel!
+    @IBOutlet weak var btnPrivacyPolicy: UIButton!
+    @IBOutlet weak var lbShareYourInhaler: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         lblShareYourInhalerUsage.text = StringPermissions.shareYourInhalerUsage
+        lbOneLastThing.text = StringPermissions.oneLastThing
+        lbConnectSensor.text = StringAddDevice.Connected_Inhaler_Sensor
+        lbKeepYourOchsner.text = StringPermissions.keepYourOchsner
+        lbShareYourInhaler.text = StringPermissions.shareYourInhaler
         
+        
+        setCustomFontLabel(label: lbOneLastThing, type: .bold,fontSize: 32)
+        setCustomFontLabel(label: lblShareYourInhalerUsage, type: .bold,fontSize: 32)
+        setCustomFontLabel(label: lbConnectSensor, type: .semiBold,fontSize: 20)
+        setCustomFontLabel(label: lbKeepYourOchsner, type: .regular,fontSize: 20)
+        setCustomFontLabel(label: lbShareYourInhaler, type: .semiBold,fontSize: 20)
+      
+        
+        
+        btnShare.setButtonView(StringCommonMessages.share)
         btnSkip.setTitle(StringCommonMessages.skip, for: .normal)
-        btnShare.setTitle(StringCommonMessages.share, for: .normal)
-        
-        btnShare.backgroundColor = .Button_Color_Blue
-        btnShare.setTitleColor(.Color_White, for: .normal)
-        
         btnSkip.backgroundColor = .Color_Gray
         btnSkip.setTitleColor(.Color_White, for: .normal)
+        btnSkip.layer.cornerRadius = 5
+        btnSkip.titleLabel?.font = UIFont(name: AppFont.AppSemiBoldFont, size: 17)
+        
+        let textColor =  #colorLiteral(red: 0.03921568627, green: 0.4784313725, blue: 1, alpha: 1) //#0A7AFF
+        btnPrivacyPolicy.setTitleColor(textColor , for: .normal)
+        btnPrivacyPolicy.setTitle(StringPermissions.privacyPolicy, for: .normal)
+        btnPrivacyPolicy.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 16)
     }
     
 
@@ -38,5 +59,9 @@ class OchsnerCloudPermissionVC: BaseVC {
         popVC()
     }
  
-
+    @IBAction func tapPrivacyPolicy(_ sender: Any) {
+        let vc  = PrivacyPolicyVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        pushVC(vc: vc)
+    }
+    
 }

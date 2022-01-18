@@ -18,15 +18,10 @@ class BluetoothPermissionVC: BaseVC {
         // Do any additional setup after loading the view.
         
         lblBluetoothPermission.text = StringPermissions.bluetoothPermission
-        
-        btnCancel.setTitle(StringCommonMessages.cancel, for: .normal)
-        btnGrant.setTitle(StringCommonMessages.grant, for: .normal)
-        
-        btnGrant.backgroundColor = .Button_Color_Blue
-        btnGrant.setTitleColor(.Color_White, for: .normal)
-        
-        btnCancel.backgroundColor = .Color_Gray
-        btnCancel.setTitleColor(.Color_White, for: .normal)
+        lblBluetoothPermission.textColor = .black
+        btnCancel.setButtonView(StringCommonMessages.cancel)
+        btnGrant.setButtonView(StringCommonMessages.grant)
+        setCustomFontLabel(label: lblBluetoothPermission, type: .bold,fontSize: 32)
      
     }
     
@@ -43,7 +38,8 @@ class BluetoothPermissionVC: BaseVC {
     }
     
     @IBAction func tapCancel(_ sender: UIButton) {
-        popVC()
+        let vc = CancleBluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        pushVC(vc: vc)
     }
 
 
