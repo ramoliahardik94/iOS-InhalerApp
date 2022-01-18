@@ -24,6 +24,11 @@ struct StringUserManagement {
     static let createAccount = "Create Account"
     static let usePassword = "Use Password"
     static let dontHaveAccout = "Don't Have an Account"
+    static let email = "EMAIL"
+    static let createPassword = "Create Password"
+    static let firstName = "First Name"
+    static let lastName = "Last Name"
+    
     
 }
 
@@ -76,5 +81,9 @@ struct StringDevices {
     
 }
 
-
+//MARK: Splash
+struct StringSplash {
+    static let connectdInhalerSensor = "Connectd\nInhaler Sensor "
+    
+}
 
