@@ -84,7 +84,7 @@ class AddDeviceIntroVC: BaseVC {
         case .Step4:
             vc.step = .Step5
         case .Step5:
-            //return
+            return
             break
         }
         pushVC(vc: vc)
