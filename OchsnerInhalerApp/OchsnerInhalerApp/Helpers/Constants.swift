@@ -43,3 +43,10 @@ enum FontType {
     case semiBold
     case bold
 }
+enum AddDeviceSteps  {
+    case Step1 // "Add Device"
+    case Step2 // "Remove battery Isolation tag"
+    case Step3 // "Pair Device"
+    case Step4 // "Mount device to inhaler"
+    case Step5 //"let us now what inhaler medicine into"
+}

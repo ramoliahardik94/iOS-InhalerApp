@@ -38,7 +38,8 @@ class ProviderVC: BaseVC {
     
     
     @IBAction func btnLoginClick(_ sender: Any) {
-        
+        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        pushVC(vc: vc)
     }
     @IBAction func btnSwitchOrganization(_ sender: Any) {
         self.popVC()
