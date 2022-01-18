@@ -38,6 +38,7 @@ class AddDeviceIntroVC: BaseVC {
         case .Step2:
             lblGreat.text = StringAddDevice.removeIsolationTag
             imgAddDevice.image = #imageLiteral(resourceName: "removeTag")
+            //lblAddDevice.text = ""
             lblAddDevice.isHidden  = true
             lbldeviceInfo.text = StringAddDevice.removeIsolationTaginfo
             btnStartSetUp.setButtonView(StringAddDevice.next)
@@ -45,14 +46,16 @@ class AddDeviceIntroVC: BaseVC {
         case .Step3:
             lblGreat.text = StringAddDevice.connectDevice
             imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
+         //   lblAddDevice.text = ""
             lblAddDevice.isHidden  = true
             lbldeviceInfo.text = StringAddDevice.connectDeviceInfo
             btnStartSetUp.setButtonView(StringAddDevice.pareDevice)
         case .Step4:
             lblGreat.text = StringAddDevice.mountDevice
             imgAddDevice.image = #imageLiteral(resourceName: "mount")
+          //  lblAddDevice.text = ""
             lblAddDevice.isHidden  = true
-            lbldeviceInfo.text = StringAddDevice.connectDeviceInfo
+            lbldeviceInfo.text = StringAddDevice.mountDeviceInfo
             btnStartSetUp.setButtonView(StringAddDevice.next)
         case .Step5:
             lblGreat.text = StringAddDevice.great
@@ -81,7 +84,8 @@ class AddDeviceIntroVC: BaseVC {
         case .Step4:
             vc.step = .Step5
         case .Step5:
-            return
+            //return
+            break
         }
         pushVC(vc: vc)
     }
