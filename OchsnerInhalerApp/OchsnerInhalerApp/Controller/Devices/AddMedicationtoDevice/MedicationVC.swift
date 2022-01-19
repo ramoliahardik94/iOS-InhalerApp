@@ -15,6 +15,7 @@ class MedicationVC: BaseVC {
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
+    var selectedIndex : Int!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUp()
@@ -43,6 +44,18 @@ class MedicationVC: BaseVC {
     @IBAction func btnMedicationType(_ sender: UIButton) {        
             btnRescue.isSelected = sender == btnRescue
             btnMantainance.isSelected = sender == btnMantainance
+    }
+    @IBAction func btnNextClick(_ sender: UIButton) {
+        if selectedIndex != nil {
+            let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+            vc.index = selectedIndex
+            pushVC(vc: vc)
+        }
+        else{
+            let alert = UIAlertController(title: "Ochsner", message: "Please select Medication.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Click", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     /*
@@ -74,6 +87,7 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        selectedIndex = indexPath.row
         for i in 0...3 {
             let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? MedicationCell
             cell!.btnMedication.isSelected = false

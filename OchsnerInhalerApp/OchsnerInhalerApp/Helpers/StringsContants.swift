@@ -41,7 +41,6 @@ struct StringProfile {
 
 //MARK: Providers
 struct StringPoviders {
-    static let providerList = "Provider List"
     static let providerConnectLabel = "Connect Your Health Care Provider"
     static let selectProvider = "Select Provider"
     static let skipForNow = "Skip For Now"
@@ -67,11 +66,21 @@ struct StringAddDevice {
     static let medication = "Now, let us know what inhaler medication you will use with this sensor."
     static let medicationInfo = "Your Connected Inhaler Sensor tracks usage of the medication in your inhaler, so we’ll need to associate it with a current perscription."
     static let selectMedication = "Select Medication"
+    static let addAnotherDevice = "Would You Like to Add Another Device?"
+    static let goHome = "All Set, Take Me To My Home Screen"
+    static let addAnotherDeviceBtn = "Add Another Device Now"
+    static let connect = "Connect"
+    static let scanlist = "Scan device"
 }
 //MARK: Medication
 struct StringMedication {
     static let titleMedication = "Which Medication Will be \n Used With This Sensor?"
     static let inhealerType = "How Will This \n Inhaler Be Used?"
+    static let titleMedicationDetail = "What Are The Directions For Use of This Maintenance Inhaler?"
+    static let puffTitle = "How many puffs per dose?"
+    static let doseTime = "Dose Times"
+    static let reminder = "Set Reminders?"
+    static let done = "Done"
 }
 //MARK: Permissions
 struct StringPermissions {
@@ -79,6 +88,7 @@ struct StringPermissions {
     static let locationPermission = "Grant Location Permissions"
     static let notificationPermission = "Grant Notification Permissions"
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
+    static let addDose = "Add another daily dose."
 }
 
 

@@ -23,26 +23,9 @@ class ConnectProviderVC: BaseVC {
     
     private func initUI() {
         lblConnectProvider.text = StringPoviders.providerConnectLabel
-        lblConnectProvider.font = UIFont(name: AppFont.AppBoldFont, size: 26)
-        
-        
-//        for item in  UIFont.familyNames {
-//
-//            debugPrint("array font \(item)")
-//
-//        }
-       
-        
-        btnSelectProvider.setTitle(StringPoviders.selectProvider, for: .normal)
-        btnSkipNow.setTitle(StringPoviders.skipForNow, for: .normal)
-        
-        btnSelectProvider.backgroundColor = .Button_Color_Blue
-        btnSelectProvider.setTitleColor(.Color_White, for: .normal)
-        
-        btnSkipNow.backgroundColor = .Color_Gray
-        btnSkipNow.setTitleColor(.Color_White, for: .normal)
-        
-       
+        lblConnectProvider.font = UIFont(name: AppFont.AppBoldFont, size: 34)        
+        btnSelectProvider.setButtonView(StringPoviders.selectProvider)
+        btnSkipNow.setButtonView(StringPoviders.skipForNow)
         
     }
     

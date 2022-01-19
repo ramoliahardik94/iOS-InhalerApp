@@ -27,6 +27,11 @@
 		4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710234D2796BDBD00F88876 /* MedicationVC.swift */; };
 		471023502796CA8500F88876 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4710234F2796CA8500F88876 /* SFProText-Bold.ttf */; };
 		471023532796CFA400F88876 /* MedicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471023522796CFA400F88876 /* MedicationCell.swift */; };
+		4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */; };
+		4725F2082797D5CE00BBDA28 /* DoseTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */; };
+		4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */; };
+		4725F20E2797FE4300BBDA28 /* AddAnotherDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F20D2797FE4300BBDA28 /* AddAnotherDeviceVC.swift */; };
+		4725F2112798093000BBDA28 /* BLEDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2102798093000BBDA28 /* BLEDeviceCell.swift */; };
 		472DC2442795328D008E0060 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472DC2432795328D008E0060 /* ProviderCell.swift */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
@@ -96,6 +101,11 @@
 		4710234D2796BDBD00F88876 /* MedicationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationVC.swift; sourceTree = "<group>"; };
 		4710234F2796CA8500F88876 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		471023522796CFA400F88876 /* MedicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationCell.swift; sourceTree = "<group>"; };
+		4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDetailVC.swift; sourceTree = "<group>"; };
+		4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseTimeCell.swift; sourceTree = "<group>"; };
+		4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		4725F20D2797FE4300BBDA28 /* AddAnotherDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnotherDeviceVC.swift; sourceTree = "<group>"; };
+		4725F2102798093000BBDA28 /* BLEDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEDeviceCell.swift; sourceTree = "<group>"; };
 		472DC2432795328D008E0060 /* ProviderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
@@ -312,6 +322,7 @@
 		22AE96FA278EA8FA00C0D851 /* Devices */ = {
 			isa = PBXGroup;
 			children = (
+				4725F2062797CA5F00BBDA28 /* AddMedicationtoDevice */,
 				47C1FEE727958ECB007C6F16 /* AddDevice */,
 				22AE96FB278EA99600C0D851 /* ManageDevice */,
 			);
@@ -362,6 +373,24 @@
 			isa = PBXGroup;
 			children = (
 				471023522796CFA400F88876 /* MedicationCell.swift */,
+				4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		4725F2062797CA5F00BBDA28 /* AddMedicationtoDevice */ = {
+			isa = PBXGroup;
+			children = (
+				471023512796CF8E00F88876 /* Cell */,
+				4710234D2796BDBD00F88876 /* MedicationVC.swift */,
+				4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */,
+			);
+			path = AddMedicationtoDevice;
+			sourceTree = "<group>";
+		};
+		4725F20F2798091300BBDA28 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -377,9 +406,10 @@
 		47C1FEE727958ECB007C6F16 /* AddDevice */ = {
 			isa = PBXGroup;
 			children = (
-				471023512796CF8E00F88876 /* Cell */,
+				4725F20F2798091300BBDA28 /* Cell */,
 				47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */,
-				4710234D2796BDBD00F88876 /* MedicationVC.swift */,
+				4725F2102798093000BBDA28 /* BLEDeviceCell.swift */,
+				4725F20D2797FE4300BBDA28 /* AddAnotherDeviceVC.swift */,
 			);
 			path = AddDevice;
 			sourceTree = "<group>";
@@ -513,6 +543,7 @@
 				47CDCE6E278D89210014527D /* UIApplication.swift */,
 				47CDCE6F278D89210014527D /* UITableView+Extension.swift */,
 				47CDCE70278D89210014527D /* UITextField+Extensions.swift */,
+				4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -672,6 +703,7 @@
 				22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */,
 				22AE96F9278EA68900C0D851 /* BluetoothPermissionVC.swift in Sources */,
 				22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */,
+				4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */,
 				47CDCE49278D88FE0014527D /* ResultType.swift in Sources */,
 				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
@@ -702,10 +734,13 @@
 				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
 				472DC2442795328D008E0060 /* ProviderCell.swift in Sources */,
 				22AE96FD278EAA0B00C0D851 /* ManageDeviceVC.swift in Sources */,
+				4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */,
 				47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */,
 				22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */,
 				47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */,
 				47CDCE84278D89210014527D /* String.swift in Sources */,
+				4725F2112798093000BBDA28 /* BLEDeviceCell.swift in Sources */,
+				4725F20E2797FE4300BBDA28 /* AddAnotherDeviceVC.swift in Sources */,
 				47CDCE87278D89210014527D /* UITextField+Extensions.swift in Sources */,
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
@@ -718,6 +753,7 @@
 				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
 				227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */,
 				47CDCE77278D89210014527D /* Constants.swift in Sources */,
+				4725F2082797D5CE00BBDA28 /* DoseTimeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

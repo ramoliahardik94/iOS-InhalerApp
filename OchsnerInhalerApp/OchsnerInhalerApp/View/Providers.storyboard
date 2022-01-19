@@ -44,22 +44,19 @@
                                             <constraint firstAttribute="bottom" secondItem="cCM-JI-gW3" secondAttribute="bottom" id="rho-Vt-rKR"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CP-7d-8Ei">
-                                        <rect key="frame" x="16" y="398.5" width="382" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="edU-23-AM1"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CP-7d-8Ei">
+                                        <rect key="frame" x="16" y="399" width="382" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yng-EU-fcH">
-                                        <rect key="frame" x="16" y="714" width="382" height="88"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Yng-EU-fcH">
+                                        <rect key="frame" x="16" y="682" width="382" height="120"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biH-pL-nds">
-                                                <rect key="frame" x="0.0" y="0.0" width="382" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="Vjb-LD-jPe"/>
+                                                    <constraint firstAttribute="height" constant="50" id="Vjb-LD-jPe"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
@@ -68,9 +65,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYf-wW-uFb">
-                                                <rect key="frame" x="0.0" y="48" width="382" height="40"/>
+                                                <rect key="frame" x="0.0" y="70" width="382" height="50"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="KRQ-pm-cDY"/>
+                                                    <constraint firstAttribute="height" constant="50" id="KRQ-pm-cDY"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>

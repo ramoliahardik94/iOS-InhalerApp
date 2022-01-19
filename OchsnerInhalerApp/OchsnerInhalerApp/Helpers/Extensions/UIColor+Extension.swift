@@ -8,7 +8,7 @@ extension UIColor {
     static let Tabbar_Icon_Color = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) // #FFFFFF
     static let Tabbar_Selected_Icon_Color = #colorLiteral(red: 0.9921568627, green: 0.8117647059, blue: 0.2784313725, alpha: 1) // #FDCF47
     static let NavigationBar_Color = #colorLiteral(red: 0.2392156863, green: 0.5607843137, blue: 0.7921568627, alpha: 1) // #3D8FCA
-    static let Button_Color_Blue = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1) // #0A7AFF    
+    static let Button_Color_Blue = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1) // #0A7AFF
     static let Button_Color_Green = #colorLiteral(red: 0.2588235294, green: 0.7882352941, blue: 0.4117647059, alpha: 1) // #42C969
     static let Segment_Color_Normal = #colorLiteral(red: 0.4980392157, green: 0.4980392157, blue: 0.4980392157, alpha: 1) // #7F7F7F
     static let Segment_Color_Selected = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) // #000000
@@ -31,5 +31,7 @@ extension UIColor {
     static let Color_cell = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) //F0F0F0
     static let Color_SplashText = #colorLiteral(red: 0.02745098039, green: 0.168627451, blue: 0.3803921569, alpha: 1) //#072B61
     static let TextField_Border_Color = #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1) //#979797
-
+    static let RedBG = #colorLiteral(red: 1, green: 0.8588235294, blue: 0.8588235294, alpha: 1) //#FFDBDB
+    static let BlueText  = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1) //#007AFF
+    static let Color_DoseTime =  #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1) //#F2F2F7
 }
