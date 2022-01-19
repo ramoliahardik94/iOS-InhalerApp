@@ -25,7 +25,7 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         lblLogin.text = StringUserManagement.login
         lblDontHaveAccount.text = StringUserManagement.dontHaveAccout
         lblEmail.text = StringUserManagement.email
-        lblCreatePassword.text = StringUserManagement.createAccount.uppercased()
+        lblCreatePassword.text = StringUserManagement.createPassword.uppercased()
         
         
         btnLogin.setButtonView(StringUserManagement.login,17)
@@ -47,6 +47,9 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         tfPassword.layer.cornerRadius = 4
         tfEmail.delegate = self
         tfPassword.delegate = self
+        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
+        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+        hideKeyBoardHideOutSideTouch(customView: self.view)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

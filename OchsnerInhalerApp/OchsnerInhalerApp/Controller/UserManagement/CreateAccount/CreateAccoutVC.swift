@@ -52,6 +52,20 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         setCustomFontLabel(label: lblLastName, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblCreatePassword, type: .regular,fontSize: 15)
+        
+        
+        tfFirstName.placeholder = StringUserManagement.placeHolderFirstName
+        tfLastName.placeholder = StringUserManagement.placeHolderLastName
+        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
+        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+        tfConfirmPassword.placeholder = StringUserManagement.confirmPasswordPlaceHolder
+        
+        tfFirstName.autocapitalizationType = .words
+        tfLastName.autocapitalizationType = .words
+        
+        addKeyboardAccessory(textFields: [tfFirstName,tfLastName,tfEmail,tfPassword,tfConfirmPassword], dismissable: true, previousNextable: true)
+        hideKeyBoardHideOutSideTouch(customView: self.view)
+        registerKeyboardNotifications()
     }
 
     
@@ -75,6 +89,26 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     
     @IBAction func tapBack(_ sender: UIButton) {
         popVC()
+    }
+    
+     override func keyboardWillShow(notification: NSNotification) {
+        let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        self.scrollViewMain.contentInset = contentInsets
+        self.scrollViewMain.scrollIndicatorInsets = contentInsets
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize.height
+    }
+     override func keyboardWillHide(notification: NSNotification) {
+        let contentInsets: UIEdgeInsets = UIEdgeInsets.zero
+        self.scrollViewMain.contentInset = contentInsets
+        self.scrollViewMain.scrollIndicatorInsets = contentInsets
+    }
+   
+    
+    deinit {
+       deregisterKeyboardNotifications()
+        debugPrint("deinit CreateAccoutVC")
     }
     
 }

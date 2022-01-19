@@ -30,6 +30,14 @@ struct StringUserManagement {
     static let firstName = "First Name"
     static let lastName = "Last Name"
     
+    static let emailPlaceHolder = "Enter email"
+    static let passwordPlaceHolder = "Enter password"
+    static let confirmPasswordPlaceHolder = "Enter confirm password"
+    static let placeHolderFirstName = "Enter first name"
+    static let placeHolderLastName = "Enter last name"
+    
+    
+    
     
 }
 
@@ -81,14 +89,22 @@ struct StringMedication {
     static let doseTime = "Dose Times"
     static let reminder = "Set Reminders?"
     static let done = "Done"
+    static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
+    static let addDose = "Add another daily dose."
 }
 //MARK: Permissions
 struct StringPermissions {
     static let bluetoothPermission = "Grant Bluetooth Permissions"
     static let locationPermission = "Grant Location Permissions"
     static let notificationPermission = "Grant Notification Permissions"
-    static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
-    static let addDose = "Add another daily dose."
+
+    static let shareYourInhalerUsage = "Share Your\nInhaler Usage\nWith Ochsner"
+    static let sorrybluetoothPermission = "Sorry, Bluetooth Permissions Are Required"
+    static let oneLastThing = "One last thing…"
+    static let keepYourOchsner = "keeps your Ochsner in the loop as you use your inhaler. Your information is never shared with 3rd parties."
+    static let privacyPolicy = "Privacy Policy"
+    static let shareYourInhaler = "Share your inhaler usage information with Ochsner."
+
 }
 
 
