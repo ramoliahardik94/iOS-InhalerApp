@@ -10,14 +10,86 @@ import UIKit
 class HomeVC: BaseVC {
 
     
-    @IBOutlet weak var lbHome: UILabel!
+    @IBOutlet weak var tbvDeviceData: UITableView!
+    private let itemCellDevice = "HomeDeviceCell"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lbHome.text = StringUserManagement.login
+        
+        
+        initUI()
+    }
+    
+    private func  initUI() {
+        let nib = UINib(nibName: itemCellDevice, bundle: nil)
+        tbvDeviceData.register(nib, forCellReuseIdentifier: itemCellDevice)
+        tbvDeviceData.delegate = self
+        tbvDeviceData.dataSource = self
+        tbvDeviceData.separatorStyle = .none
+     
+    }
+
+
+}
+extension HomeVC : UITableViewDelegate , UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: itemCellDevice, for: indexPath) as! HomeDeviceCell
+        
+        
+        cell.selectionStyle = .none
+        setCustomFontLabel(label: cell.lblDeviceName, type: .bold,fontSize: 24)
+        setCustomFontLabel(label: cell.lblDeviceType, type: .lightItalic,fontSize: 16)
+        setCustomFontLabel(label: cell.lblConnected, type: .regular,fontSize: 14)
+        setCustomFontLabel(label: cell.lblBattery, type: .regular,fontSize: 14)
+        setCustomFontLabel(label: cell.lblBatteryPercentage, type: .semiBold,fontSize: 14)
+        setCustomFontLabel(label: cell.lblTodayData, type: .semiBold,fontSize: 28)
+        setCustomFontLabel(label: cell.lblToday, type: .light,fontSize: 17)
+        setCustomFontLabel(label: cell.lblThisWeekData, type: .semiBold,fontSize: 28)
+        setCustomFontLabel(label: cell.lblThisWeek, type: .light,fontSize: 17)
+        setCustomFontLabel(label: cell.lblThisMonthData, type: .semiBold,fontSize: 28)
+        setCustomFontLabel(label: cell.lblThisMonth, type: .light,fontSize: 17)
+        setCustomFontLabel(label: cell.lblAdherance, type: .semiBold,fontSize: 17)
+        setCustomFontLabel(label: cell.lblNextDose, type: .semiBold,fontSize: 17)
+        cell.lblTodayData.textColor = .Button_Color_Blue
+        cell.lblThisMonthData.textColor = .Button_Color_Blue
+        cell.lblThisWeekData.textColor = .Button_Color_Blue
+        
+        cell.lblConnected.text = StringCommonMessages.connected
+        cell.lblBattery.text = StringCommonMessages.battery
+        
+        cell.lblToday.text = StringHome.today
+        cell.lblThisWeek.text = StringHome.thisWeek
+        cell.lblThisMonth.text = StringHome.thisMonth
+        cell.lblAdherance.text = StringHome.adherance
+        if indexPath.row == 0 {
+            cell.lblDeviceName.text = "Teva"
+            cell.lblDeviceType.text = "(Rescue Inhaler)"
+            cell.lblBatteryPercentage.text = "87%"
+            cell.viewToday.isHidden = false
+            cell.lblTodayData.text = "2"
+            cell.lblThisWeekData.text = "11"
+            cell.lblThisMonthData.text = "26"
+            cell.viewNextDose.isHidden = true
+            cell.viewAdherance.isHidden = true
+        } else {
+            cell.lblDeviceName.text = "Ventolin"
+            cell.lblDeviceType.text = "(Maintenance Inhaler)"
+            cell.lblBatteryPercentage.text = "32%"
+            cell.viewToday.isHidden = true
+            cell.lblThisWeekData.text = "88%"
+            cell.lblThisMonthData.text = "76%"
+            cell.viewNextDose.isHidden = false
+            cell.viewAdherance.isHidden = false
+            cell.lblNextDose.text = "Next Scheduled Dose: Today at 6:30 pm"
+        }
+        
+        return cell
     }
     
     
-
-
 }
