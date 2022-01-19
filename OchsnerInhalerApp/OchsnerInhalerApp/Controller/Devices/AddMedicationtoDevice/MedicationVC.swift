@@ -53,7 +53,7 @@ class MedicationVC: BaseVC {
         }
         else{
             let alert = UIAlertController(title: "Ochsner", message: "Please select Medication.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Click", style: UIAlertAction.Style.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }

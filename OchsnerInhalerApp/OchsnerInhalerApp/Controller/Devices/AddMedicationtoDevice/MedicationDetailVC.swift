@@ -25,10 +25,57 @@ class MedicationDetailVC: BaseVC {
     let timePicker = UIDatePicker()
     var index = 0
     var arrTime = ["8:30 am","6:30 pm"]
+    
+    let myPicker: NMDatePicker = {
+        let v = NMDatePicker()
+        return v
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setUI()
+        hideKeyBoardHideOutSideTouch(customView: self.view)
+        
+    }
+    func setDatePicker(){
+        myPicker.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(myPicker)
+        let g = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            
+            // custom picker view should cover the whole view
+            myPicker.topAnchor.constraint(equalTo: g.topAnchor),
+            myPicker.leadingAnchor.constraint(equalTo: g.leadingAnchor),
+            myPicker.trailingAnchor.constraint(equalTo: g.trailingAnchor),
+            myPicker.bottomAnchor.constraint(equalTo: g.bottomAnchor),
+        ])
+        
+        // hide custom picker view
+        myPicker.isHidden = true
+        myPicker.mode = .time
+        // add closures to custom picker view
+        myPicker.dismissClosure = { [weak self] val in
+            guard let self = self else {
+                return
+            }
+            let formatter = DateFormatter()
+            formatter.dateFormat =  "hh:mm a"
+            let selectedTime = formatter.string(from: val)
+            
+            self.arrTime.remove(at: self.myPicker.tag)
+            self.arrTime.insert(selectedTime, at: self.myPicker.tag)
+            self.tblDoseTime.reloadData()
+            
+            self.myPicker.isHidden = true
+        }
+        myPicker.changeClosure = { [weak self] val in
+            guard let self = self else {
+                return
+            }
+            print(val)
+            // do something with the selected date
+        }
     }
     func setUI(){
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
@@ -67,6 +114,7 @@ class MedicationDetailVC: BaseVC {
         
         lblAddDose.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         lblAddDose.textColor = .BlueText
+        self.setDatePicker()
         
         switch index {
         case 0:
@@ -113,6 +161,10 @@ class MedicationDetailVC: BaseVC {
         tblDoseTime.reloadData()
     }
     
+    @IBAction func btnEditDose(_ sender: UIButton) {
+        myPicker.tag = sender.tag
+        myPicker.isHidden = false
+    }
     
     @IBAction func btnRemoveDoseTimeClick(_ sender: UIButton) {
         arrTime.remove(at: sender.tag)
@@ -129,6 +181,7 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
         let cell : DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: "DoseTimeCell") as! DoseTimeCell
         cell.lblDoseTime.text = "\((indexPath.row + 1).ordinal) Dose at \(arrTime[indexPath.row])"
         cell.btnRemove.tag = indexPath.row
+        cell.btnEditDose.tag = indexPath.row
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -136,31 +189,16 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        openTimePicker(i: indexPath.row)
-        
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
     }
     
 }
-extension MedicationDetailVC {
-    func openTimePicker(i :Int)  {
-        timePicker.datePickerMode = UIDatePicker.Mode.time
-        timePicker.tag = i
-        timePicker.frame = CGRect(x: 0.0, y: (self.view.frame.height/2 + 60), width: self.view.frame.width, height: 150.0)
-        timePicker.backgroundColor = UIColor.white
-        self.view.addSubview(timePicker)
-        timePicker.addTarget(self, action: #selector(startTimeDiveChanged(sender:)), for: .valueChanged)
-    }
 
-    @objc func startTimeDiveChanged(sender: UIDatePicker) {
-        let formatter = DateFormatter()
-        formatter.dateFormat =  "hh:mm a"
-        let selectedTime = formatter.string(from: sender.date)
-        
-        arrTime.remove(at: sender.tag)
-        arrTime.insert(selectedTime, at: sender.tag)
-        arrTime[sender.tag] = selectedTime
-        tblDoseTime.reloadData()
-        timePicker.removeFromSuperview() // if you want to remove time picker
+extension MedicationDetailVC :UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }

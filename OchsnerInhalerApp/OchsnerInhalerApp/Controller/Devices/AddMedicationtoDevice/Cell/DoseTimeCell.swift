@@ -12,6 +12,7 @@ class DoseTimeCell: UITableViewCell {
     @IBOutlet weak var DosetimeView: UIView!
     @IBOutlet weak var lblDoseTime: UILabel!
     @IBOutlet weak var btnRemove: UIButton!
+    @IBOutlet weak var btnEditDose: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
