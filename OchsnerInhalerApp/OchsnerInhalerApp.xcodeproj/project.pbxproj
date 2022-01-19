@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */; };
+		224E1C992797F53A000C5D1A /* ManageDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */; };
 		2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */; };
 		2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */; };
 		227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197B9278FF09A0014BC3E /* CustomSplashVC.swift */; };
@@ -75,6 +77,8 @@
 /* Begin PBXFileReference section */
 		0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OchsnerInhalerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.debug.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceCell.swift; sourceTree = "<group>"; };
+		224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageDeviceCell.xib; sourceTree = "<group>"; };
 		2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancleBluetoothPermissionVC.swift; sourceTree = "<group>"; };
 		2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
 		227197B9278FF09A0014BC3E /* CustomSplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSplashVC.swift; sourceTree = "<group>"; };
@@ -161,6 +165,15 @@
 				56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		224E1C952797F500000C5D1A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */,
+				224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		2261AA022796F127000D5CE1 /* PrivacyPolicy */ = {
@@ -329,6 +342,7 @@
 		22AE96FB278EA99600C0D851 /* ManageDevice */ = {
 			isa = PBXGroup;
 			children = (
+				224E1C952797F500000C5D1A /* Cell */,
 				22AE96FC278EAA0B00C0D851 /* ManageDeviceVC.swift */,
 			);
 			path = ManageDevice;
@@ -607,6 +621,7 @@
 				47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */,
 				4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */,
 				47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */,
+				224E1C992797F53A000C5D1A /* ManageDeviceCell.xib in Resources */,
 				4710234B2796737B00F88876 /* SFProText-Regular.ttf in Resources */,
 				47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */,
 				4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */,
@@ -680,6 +695,7 @@
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
+				224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */,
 				47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */,
 				22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */,
 				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
