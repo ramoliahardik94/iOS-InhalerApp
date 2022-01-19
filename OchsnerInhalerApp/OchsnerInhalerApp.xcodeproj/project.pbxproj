@@ -24,6 +24,9 @@
 		4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471023472796737B00F88876 /* SFProDisplay-Bold.ttf */; };
 		4710234B2796737B00F88876 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471023482796737B00F88876 /* SFProText-Regular.ttf */; };
 		4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471023492796737B00F88876 /* SFProText-Semibold.ttf */; };
+		4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710234D2796BDBD00F88876 /* MedicationVC.swift */; };
+		471023502796CA8500F88876 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4710234F2796CA8500F88876 /* SFProText-Bold.ttf */; };
+		471023532796CFA400F88876 /* MedicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471023522796CFA400F88876 /* MedicationCell.swift */; };
 		472DC2442795328D008E0060 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472DC2432795328D008E0060 /* ProviderCell.swift */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
@@ -90,6 +93,9 @@
 		471023472796737B00F88876 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		471023482796737B00F88876 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
 		471023492796737B00F88876 /* SFProText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.ttf"; sourceTree = "<group>"; };
+		4710234D2796BDBD00F88876 /* MedicationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationVC.swift; sourceTree = "<group>"; };
+		4710234F2796CA8500F88876 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
+		471023522796CFA400F88876 /* MedicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationCell.swift; sourceTree = "<group>"; };
 		472DC2432795328D008E0060 /* ProviderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
@@ -352,6 +358,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		471023512796CF8E00F88876 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				471023522796CFA400F88876 /* MedicationCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		472DC2422795328D008E0060 /* ProviderListCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,7 +377,9 @@
 		47C1FEE727958ECB007C6F16 /* AddDevice */ = {
 			isa = PBXGroup;
 			children = (
+				471023512796CF8E00F88876 /* Cell */,
 				47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */,
+				4710234D2796BDBD00F88876 /* MedicationVC.swift */,
 			);
 			path = AddDevice;
 			sourceTree = "<group>";
@@ -449,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				471023472796737B00F88876 /* SFProDisplay-Bold.ttf */,
+				4710234F2796CA8500F88876 /* SFProText-Bold.ttf */,
 				471023482796737B00F88876 /* SFProText-Regular.ttf */,
 				471023492796737B00F88876 /* SFProText-Semibold.ttf */,
 			);
@@ -598,6 +615,7 @@
 				4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */,
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
+				471023502796CA8500F88876 /* SFProText-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +682,7 @@
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
+				471023532796CFA400F88876 /* MedicationCell.swift in Sources */,
 				47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */,
 				22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */,
 				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
@@ -694,6 +713,7 @@
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
+				4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */,
 				227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */,
 				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
 				227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */,

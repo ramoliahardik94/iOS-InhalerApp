@@ -23,8 +23,8 @@ class AddDeviceIntroVC: BaseVC {
     }
     func setVC(){
         lbldeviceInfo.font = UIFont(name: AppFont.AppRegularFont, size: 17)
-        lblGreat.font = UIFont(name: AppFont.AppSemiBoldFont, size: 34)
-        lblAddDevice.font = UIFont(name: AppFont.AppSemiBoldFont, size: 34)
+        lblGreat.font = UIFont(name: AppFont.AppBoldFont, size: 34)
+        lblAddDevice.font = UIFont(name: AppFont.AppBoldFont, size: 34)
         switch step {
         case .Step1:
             lblAddDevice.isHidden  = false
@@ -65,11 +65,6 @@ class AddDeviceIntroVC: BaseVC {
             lblAddDevice.text = StringAddDevice.medication
             btnStartSetUp.setButtonView(StringAddDevice.selectMedication)
         }
-        
-        
-        
-        
-        
     }
 
     @IBAction func btnNextClick(_ sender: UIButton) {
@@ -84,8 +79,9 @@ class AddDeviceIntroVC: BaseVC {
         case .Step4:
             vc.step = .Step5
         case .Step5:
+            let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+             pushVC(vc: vc)
             return
-            break
         }
         pushVC(vc: vc)
     }

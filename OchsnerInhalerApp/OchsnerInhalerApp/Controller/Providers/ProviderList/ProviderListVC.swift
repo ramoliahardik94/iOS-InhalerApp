@@ -44,6 +44,7 @@ class ProviderListVC: BaseVC {
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
         self.searchProvider.searchTextField.text = ""
+        self.view.endEditing(true)
         sender.isEnabled = false
     }
     @IBAction func btnBackClick(_ sender: Any) {
@@ -79,6 +80,6 @@ extension ProviderListVC: UISearchBarDelegate {
         btnCancel.isEnabled = searchBar.searchTextField.text!.count > 0
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        self.view.endEditing(true)
     }
 }

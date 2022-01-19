@@ -25,6 +25,7 @@ class Constants: NSObject {
         static let SFProText_Semibold = "SFProText-Semibold"
         static let SFProText_Regular = "SFProText-Regular"
         static let SFProDisplay_Bold = "SFProDisplay-Bold"
+        static let SFProText_Bold = "SFProText-Bold"
     }
     
     struct DirectoryPath {

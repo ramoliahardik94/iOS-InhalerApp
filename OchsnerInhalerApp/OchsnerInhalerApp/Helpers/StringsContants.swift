@@ -16,6 +16,7 @@ struct AppFont {
     static let AppRegularFont = Constants.CustomFont.SFProText_Regular
     static let AppBoldFont = Constants.CustomFont.SFProDisplay_Bold
     static let AppSemiBoldFont = Constants.CustomFont.SFProText_Semibold
+    static let SFProText_Bold = Constants.CustomFont.SFProText_Bold
 }
 
 //MARK: UserManagement
@@ -43,6 +44,7 @@ struct StringPoviders {
     static let providerSubHeader = "Where do you receive your healthcare?"
     static let switchOrganization = "Switch organizations"
 }
+//MARK: Add Device
 struct StringAddDevice {
     static let great = "Great!"
     static let addDevice = "Let’s Add \n Your Device"
@@ -60,6 +62,11 @@ struct StringAddDevice {
     static let medication = "Now, let us know what inhaler medication you will use with this sensor."
     static let medicationInfo = "Your Connected Inhaler Sensor tracks usage of the medication in your inhaler, so we’ll need to associate it with a current perscription."
     static let selectMedication = "Select Medication"
+}
+//MARK: Medication
+struct StringMedication {
+    static let titleMedication = "Which Medication Will be \n Used With This Sensor?"
+    static let inhealerType = "How Will This \n Inhaler Be Used?"
 }
 //MARK: Permissions
 struct StringPermissions {

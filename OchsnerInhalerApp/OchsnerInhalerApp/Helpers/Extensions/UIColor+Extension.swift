@@ -29,4 +29,6 @@ extension UIColor {
     static let Color_HeaderSearch = #colorLiteral(red: 0.2156862745, green: 0.462745098, blue: 0.7137254902, alpha: 1) //3776B6
     static let Color_Header = #colorLiteral(red: 0.09411764706, green: 0.3803921569, blue: 0.6745098039, alpha: 1) //1861AC
     static let Color_ProviderView = #colorLiteral(red: 0.862745098, green: 0.9294117647, blue: 0.9647058824, alpha: 1) //DCEDF6
+    static let Color_cell_border = #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+    static let Color_cell = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
 }
