@@ -19,15 +19,9 @@ class LocationPermisionVC: BaseVC {
         
         
         lblLocationPermission.text = StringPermissions.locationPermission
-        
-        btnSkip.setTitle(StringCommonMessages.skip, for: .normal)
-        btnGrant.setTitle(StringCommonMessages.grant, for: .normal)
-        
-        btnGrant.backgroundColor = .Button_Color_Blue
-        btnGrant.setTitleColor(.Color_White, for: .normal)
-        
-        btnSkip.backgroundColor = .Color_Gray
-        btnSkip.setTitleColor(.Color_White, for: .normal)
+        setCustomFontLabel(label: lblLocationPermission, type: .bold,fontSize: 32)
+        btnSkip.setButtonView(StringCommonMessages.skip)
+        btnGrant.setButtonView(StringCommonMessages.grant)
         
     }
     

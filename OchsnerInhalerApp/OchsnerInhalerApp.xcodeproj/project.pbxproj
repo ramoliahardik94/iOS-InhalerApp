@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */; };
+		2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */; };
 		227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197B9278FF09A0014BC3E /* CustomSplashVC.swift */; };
 		227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197BC278FF9DB0014BC3E /* CreateAccoutVC.swift */; };
 		227197C0278FFFA20014BC3E /* ConnectProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197BF278FFFA20014BC3E /* ConnectProviderVC.swift */; };
@@ -73,6 +75,8 @@
 /* Begin PBXFileReference section */
 		0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OchsnerInhalerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.debug.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancleBluetoothPermissionVC.swift; sourceTree = "<group>"; };
+		2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
 		227197B9278FF09A0014BC3E /* CustomSplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSplashVC.swift; sourceTree = "<group>"; };
 		227197BC278FF9DB0014BC3E /* CreateAccoutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccoutVC.swift; sourceTree = "<group>"; };
 		227197BF278FFFA20014BC3E /* ConnectProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectProviderVC.swift; sourceTree = "<group>"; };
@@ -159,6 +163,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2261AA022796F127000D5CE1 /* PrivacyPolicy */ = {
+			isa = PBXGroup;
+			children = (
+				2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */,
+			);
+			path = PrivacyPolicy;
+			sourceTree = "<group>";
+		};
 		227197B8278FF06E0014BC3E /* CustomSplash */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +239,7 @@
 		22AE96E7278E9EA900C0D851 /* UserManagement */ = {
 			isa = PBXGroup;
 			children = (
+				2261AA022796F127000D5CE1 /* PrivacyPolicy */,
 				227197BB278FF9BD0014BC3E /* CreateAccount */,
 				22AE96E8278E9EFE00C0D851 /* Login */,
 			);
@@ -299,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				22AE96F8278EA68900C0D851 /* BluetoothPermissionVC.swift */,
+				2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -660,6 +674,8 @@
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
 				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
 				47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */,
+				2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */,
+				2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
