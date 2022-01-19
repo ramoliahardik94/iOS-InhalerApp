@@ -29,6 +29,8 @@ class MedicationDetailVC: BaseVC {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setUI()
+        hideKeyBoardHideOutSideTouch(customView: self.view)
+        
     }
     func setUI(){
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
@@ -140,6 +142,9 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
         openTimePicker(i: indexPath.row)
         
     }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
     
 }
 extension MedicationDetailVC {
@@ -162,5 +167,11 @@ extension MedicationDetailVC {
         arrTime[sender.tag] = selectedTime
         tblDoseTime.reloadData()
         timePicker.removeFromSuperview() // if you want to remove time picker
+    }
+}
+extension MedicationDetailVC :UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 }
