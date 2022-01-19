@@ -49,6 +49,7 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         tfPassword.delegate = self
         tfEmail.placeholder = StringUserManagement.emailPlaceHolder
         tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+        hideKeyBoardHideOutSideTouch(customView: self.view)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

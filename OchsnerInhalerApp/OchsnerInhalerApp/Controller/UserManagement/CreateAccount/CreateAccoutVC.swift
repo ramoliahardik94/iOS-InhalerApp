@@ -60,6 +60,12 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
         tfConfirmPassword.placeholder = StringUserManagement.confirmPasswordPlaceHolder
         
+        tfFirstName.autocapitalizationType = .words
+        tfLastName.autocapitalizationType = .words
+        
+        addKeyboardAccessory(textFields: [tfFirstName,tfLastName,tfEmail,tfPassword,tfConfirmPassword], dismissable: true, previousNextable: true)
+        hideKeyBoardHideOutSideTouch(customView: self.view)
+        registerKeyboardNotifications()
     }
 
     
@@ -83,6 +89,26 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     
     @IBAction func tapBack(_ sender: UIButton) {
         popVC()
+    }
+    
+     override func keyboardWillShow(notification: NSNotification) {
+        let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        self.scrollViewMain.contentInset = contentInsets
+        self.scrollViewMain.scrollIndicatorInsets = contentInsets
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize.height
+    }
+     override func keyboardWillHide(notification: NSNotification) {
+        let contentInsets: UIEdgeInsets = UIEdgeInsets.zero
+        self.scrollViewMain.contentInset = contentInsets
+        self.scrollViewMain.scrollIndicatorInsets = contentInsets
+    }
+   
+    
+    deinit {
+       deregisterKeyboardNotifications()
+        debugPrint("deinit CreateAccoutVC")
     }
     
 }
