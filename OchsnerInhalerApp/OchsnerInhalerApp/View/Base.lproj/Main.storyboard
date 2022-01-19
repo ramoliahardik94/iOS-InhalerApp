@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lI8-kt-eSZ">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -14,23 +14,19 @@
             <objects>
                 <viewController storyboardIdentifier="HomeVC" id="BYZ-38-t0r" customClass="HomeVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aV7-8C-REy">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSp-mh-dlW">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSp-mh-dlW">
                                         <rect key="frame" x="19" y="268" width="377" height="84"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bxt-lU-vcZ">
-                                        <rect key="frame" x="35" y="360" width="240" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -44,34 +40,116 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aV7-8C-REy" secondAttribute="trailing" id="rA9-TT-Srq"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_home" id="lwu-Pd-n5p"/>
                     <connections>
                         <outlet property="lbHome" destination="vSp-mh-dlW" id="TBG-zJ-7M5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1013.0434782608696" y="79.6875"/>
+            <point key="canvasLocation" x="1923.1884057971015" y="79.6875"/>
+        </scene>
+        <!--Manage DeviceVC-->
+        <scene sceneID="DoV-Lb-hjO">
+            <objects>
+                <viewController id="nbj-uR-XCz" customClass="ManageDeviceVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BuM-4h-p2C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zF-5q-4Mc">
+                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Mid-HH-jXs">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Mid-HH-jXs" secondAttribute="bottom" id="YwK-NX-g58"/>
+                                    <constraint firstItem="Mid-HH-jXs" firstAttribute="top" secondItem="2zF-5q-4Mc" secondAttribute="top" id="bEi-2b-Emd"/>
+                                    <constraint firstItem="Mid-HH-jXs" firstAttribute="leading" secondItem="2zF-5q-4Mc" secondAttribute="leading" id="kt7-ty-Zfq"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mid-HH-jXs" secondAttribute="trailing" id="qHX-ee-aM5"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fzQ-1e-KXA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fzQ-1e-KXA" firstAttribute="trailing" secondItem="2zF-5q-4Mc" secondAttribute="trailing" id="7gT-gg-bJT"/>
+                            <constraint firstItem="fzQ-1e-KXA" firstAttribute="bottom" secondItem="2zF-5q-4Mc" secondAttribute="bottom" id="h60-rG-7wB"/>
+                            <constraint firstItem="2zF-5q-4Mc" firstAttribute="leading" secondItem="fzQ-1e-KXA" secondAttribute="leading" id="jGz-wV-WkH"/>
+                            <constraint firstItem="2zF-5q-4Mc" firstAttribute="top" secondItem="fzQ-1e-KXA" secondAttribute="top" id="sJi-GR-OhN"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_device" id="iS6-K6-OeC"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tbvData" destination="Mid-HH-jXs" id="R9P-N5-aiy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kpS-t2-9AZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2680" y="80"/>
+        </scene>
+        <!--ProfileVC-->
+        <scene sceneID="Hdl-iv-Dp4">
+            <objects>
+                <viewController id="6vb-2b-xsQ" customClass="ProfileVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yyh-t3-SXW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2e8-Tj-fKG">
+                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="setting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C49-jT-ok9">
+                                        <rect key="frame" x="88" y="322" width="283" height="131"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OEY-8q-gxg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2e8-Tj-fKG" firstAttribute="leading" secondItem="OEY-8q-gxg" secondAttribute="leading" id="2vE-TN-812"/>
+                            <constraint firstItem="OEY-8q-gxg" firstAttribute="bottom" secondItem="2e8-Tj-fKG" secondAttribute="bottom" id="3sp-wC-W44"/>
+                            <constraint firstItem="2e8-Tj-fKG" firstAttribute="top" secondItem="OEY-8q-gxg" secondAttribute="top" id="4Ee-y5-hHL"/>
+                            <constraint firstItem="OEY-8q-gxg" firstAttribute="trailing" secondItem="2e8-Tj-fKG" secondAttribute="trailing" id="D6r-xu-yRV"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_profile" id="Q9c-Xa-ytw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hyY-l8-e6G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3350.7246376811595" y="79.6875"/>
         </scene>
         <!--Custom SplashVC-->
         <scene sceneID="JQu-hc-TyS">
             <objects>
                 <viewController storyboardIdentifier="CustomSplashVC" id="doH-ga-IBZ" customClass="CustomSplashVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wLL-jr-o6W">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hln-xq-Tyn">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ochsner_health_stack_blue_gold" translatesAutoresizingMaskIntoConstraints="NO" id="ZEN-nZ-fIY">
-                                        <rect key="frame" x="92" y="16" width="230" height="80"/>
+                                        <rect key="frame" x="72.666666666666686" y="16" width="230" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="230" id="bD0-EA-KLh"/>
                                             <constraint firstAttribute="height" constant="80" id="vNH-24-gqF"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHn-r0-G6r">
-                                        <rect key="frame" x="16" y="728" width="382" height="21"/>
+                                        <rect key="frame" x="16" y="644" width="343" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="k95-36-YS3"/>
                                         </constraints>
@@ -80,10 +158,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w9r-ju-u7I">
-                                        <rect key="frame" x="16" y="112" width="382" height="600"/>
+                                        <rect key="frame" x="16" y="112" width="343" height="516"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Inhaler Graphic" translatesAutoresizingMaskIntoConstraints="NO" id="Lok-7s-sgj">
-                                                <rect key="frame" x="91" y="97" width="200" height="406"/>
+                                                <rect key="frame" x="71.666666666666686" y="55" width="200" height="406"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="2gC-Ak-32M"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="FRr-6I-S5Q"/>
@@ -99,16 +177,16 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5BB-V0-02P">
-                                        <rect key="frame" x="16" y="781" width="382" height="21"/>
+                                        <rect key="frame" x="16" y="697" width="343" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJ4-Ej-k4Z">
-                                                <rect key="frame" x="0.0" y="0.0" width="191" height="21"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="171.66666666666666" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0x-zu-FLd">
-                                                <rect key="frame" x="191" y="0.0" width="191" height="21"/>
+                                                <rect key="frame" x="171.66666666666663" y="0.0" width="171.33333333333337" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -173,11 +251,32 @@
             </objects>
             <point key="canvasLocation" x="-676.81159420289862" y="79.6875"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="znm-h7-YjX">
+            <objects>
+                <tabBarController storyboardIdentifier="HomeTabBar" automaticallyAdjustsScrollViewInsets="NO" id="vOF-Cb-cDr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1sm-kr-Vcb">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="uUO-rH-SJW"/>
+                        <segue destination="nbj-uR-XCz" kind="relationship" relationship="viewControllers" id="scM-92-Ov0"/>
+                        <segue destination="6vb-2b-xsQ" kind="relationship" relationship="viewControllers" id="Xuz-gL-Duk"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpP-Ry-zxr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1013.0434782608696" y="79.6875"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Inhaler Graphic" width="172" height="406"/>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <image name="ochsner_health_stack_blue_gold" width="230.5" height="72"/>
+        <image name="ochsner_health_stack_blue_gold" width="230.33332824707031" height="71.666664123535156"/>
+        <image name="tab_device" width="33.333332061767578" height="54.333332061767578"/>
+        <image name="tab_home" width="53" height="52"/>
+        <image name="tab_profile" width="55" height="55"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
