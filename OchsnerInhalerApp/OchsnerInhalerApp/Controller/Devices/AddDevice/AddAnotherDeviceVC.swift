@@ -34,6 +34,7 @@ class AddAnotherDeviceVC: BaseVC {
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {
         let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         vc.step = .Step2
+        vc.isFromAddAnother  = true
         pushVC(vc: vc)
     }
     /*

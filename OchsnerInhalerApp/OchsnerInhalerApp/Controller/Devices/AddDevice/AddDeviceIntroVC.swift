@@ -9,6 +9,7 @@ import UIKit
 
 class AddDeviceIntroVC: BaseVC {
 
+    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var tblScanList: UITableView!
     @IBOutlet weak var viewHeader: UIView!
     @IBOutlet weak var lblHeader: UILabel!
@@ -19,6 +20,7 @@ class AddDeviceIntroVC: BaseVC {
     @IBOutlet weak var lbldeviceInfo: UILabel!
     @IBOutlet weak var imgAddDevice: UIImageView!
     var step : AddDeviceSteps = .Step1
+    var isFromAddAnother = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +28,7 @@ class AddDeviceIntroVC: BaseVC {
         self.setVC()
     }
     func setVC(){
+        btnBack.isHidden = !isFromAddAnother
         lbldeviceInfo.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         lblGreat.font = UIFont(name: AppFont.AppBoldFont, size: 34)
         lblAddDevice.font = UIFont(name: AppFont.AppBoldFont, size: 34)
@@ -48,6 +51,7 @@ class AddDeviceIntroVC: BaseVC {
             lbldeviceInfo.text = StringAddDevice.removeIsolationTaginfo
             btnStartSetUp.setButtonView(StringAddDevice.next)
         case .Step3 :
+            btnBack.tintColor = .white
             viewDeviceList.isHidden = false
             viewHeader.backgroundColor = .Button_Color_Blue
             lblHeader.text = StringAddDevice.scanlist
@@ -77,7 +81,10 @@ class AddDeviceIntroVC: BaseVC {
             btnStartSetUp.setButtonView(StringAddDevice.selectMedication)
         }
     }
-
+    @IBAction func btnBackClick(_ sender: Any) {
+        popVC()
+    }
+    
     @IBAction func btnNextClick(_ sender: UIButton) {
         let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         switch step {
@@ -93,9 +100,11 @@ class AddDeviceIntroVC: BaseVC {
             vc.step = .Step6
         case .Step6:
             let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+            
              pushVC(vc: vc)
             return
         }
+        vc.isFromAddAnother = isFromAddAnother
         pushVC(vc: vc)
     }
     /*
@@ -109,7 +118,8 @@ class AddDeviceIntroVC: BaseVC {
     */
     @IBAction func btnConnectClick(_ sender: UIButton) {
         let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            vc.step = .Step4
+        vc.step = .Step4
+        vc.isFromAddAnother = isFromAddAnother
         pushVC(vc: vc)
     }
     
