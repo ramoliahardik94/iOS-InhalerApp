@@ -18,7 +18,7 @@ class MedicationCell: UITableViewCell {
         // Initialization code
         viewCell.layer.cornerRadius = 6
         viewCell.backgroundColor = .Color_cell
-        viewCell.layer.borderColor = UIColor.Color_cell_border.cgColor
+        viewCell.layer.borderColor = UIColor.TextField_Border_Color.cgColor
         viewCell.layer.borderWidth = 1
         viewCell.clipsToBounds = true
         lblNDCCode.font = UIFont(name: AppFont.SFProText_Bold, size: 17)

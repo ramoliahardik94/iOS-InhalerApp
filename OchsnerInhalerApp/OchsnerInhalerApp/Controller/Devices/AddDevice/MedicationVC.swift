@@ -30,12 +30,12 @@ class MedicationVC: BaseVC {
         
         btnRescue.backgroundColor = .Color_cell
         btnRescue.layer.borderWidth = 1
-        btnRescue.layer.borderColor = UIColor.Color_cell_border.cgColor
+        btnRescue.layer.borderColor = UIColor.TextField_Border_Color.cgColor
         btnRescue.layer.cornerRadius = 6
         btnMantainance.layer.cornerRadius = 6
         btnMantainance.backgroundColor = .Color_cell
         btnMantainance.layer.borderWidth = 1
-        btnMantainance.layer.borderColor = UIColor.Color_cell_border.cgColor
+        btnMantainance.layer.borderColor = UIColor.TextField_Border_Color.cgColor
         
         btnNext.setButtonView(StringAddDevice.next)
         tblMedication.separatorStyle = UITableViewCell.SeparatorStyle.none

@@ -35,6 +35,19 @@ class BaseVC: UIViewController {
             label.font = UIFont(name: AppFont.AppSemiBoldFont, size: fontSize)
         }
     }
+    
+    func setCustomFontTextField(textField : UITextField , type : FontType , fontSize : CGFloat = 14) {
+        if type == .regular {
+            textField.font = UIFont(name: AppFont.AppRegularFont, size: fontSize)
+        }
+        if type == .bold {
+            textField.font = UIFont(name: AppFont.AppBoldFont, size: fontSize)
+        }
+        if type == .semiBold {
+            textField.font = UIFont(name: AppFont.AppSemiBoldFont, size: fontSize)
+        }
+
+}
     func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string,
                                                      attributes: [NSAttributedString.Key.font: font])

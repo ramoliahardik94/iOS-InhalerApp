@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginVC : BaseVC {
+class LoginVC : BaseVC , UITextFieldDelegate{
 
     @IBOutlet weak var lblLogin: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
@@ -15,6 +15,8 @@ class LoginVC : BaseVC {
     @IBOutlet weak var lblDontHaveAccount: UILabel!
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfPassword: UITextField!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblCreatePassword: UILabel!
     
     override func viewDidLoad() {
        initUI()
@@ -22,14 +24,34 @@ class LoginVC : BaseVC {
     private func initUI() {
         lblLogin.text = StringUserManagement.login
         lblDontHaveAccount.text = StringUserManagement.dontHaveAccout
+        lblEmail.text = StringUserManagement.email
+        lblCreatePassword.text = StringUserManagement.createAccount.uppercased()
         
-        btnLogin.setButtonView(StringUserManagement.login)
-        btnCreateAccount.setButtonView(StringUserManagement.createAccount)
-        setCustomFontLabel(label: lblLogin, type: .bold,fontSize: 20)
-        setCustomFontLabel(label: lblDontHaveAccount, type: .bold,fontSize: 20)
+        
+        btnLogin.setButtonView(StringUserManagement.login,17)
+        btnCreateAccount.setButtonView(StringUserManagement.createAccount , 17)
+        
+        setCustomFontLabel(label: lblLogin, type: .bold,fontSize: 34)
+        setCustomFontLabel(label: lblDontHaveAccount, type: .bold,fontSize: 22)
+        setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 15)
+        setCustomFontLabel(label: lblCreatePassword, type: .regular,fontSize: 15)
+        setCustomFontTextField(textField: tfEmail, type: .regular,fontSize: 17)
+        setCustomFontTextField(textField: tfPassword, type: .regular,fontSize: 17)
+      
+        tfPassword.layer.borderWidth = 1
+        tfPassword.layer.borderColor = UIColor.TextField_Border_Color.cgColor
+        tfEmail.layer.borderWidth = 1
+        tfEmail.layer.borderColor = UIColor.TextField_Border_Color.cgColor
+      
+        tfEmail.layer.cornerRadius = 4
+        tfPassword.layer.cornerRadius = 4
+        tfEmail.delegate = self
+        tfPassword.delegate = self
     }
     
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return view.endEditing(true)
+    }
     deinit {
         debugPrint("deinit LoginVC")
     }
