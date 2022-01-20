@@ -30,7 +30,11 @@ class AddAnotherDeviceVC: BaseVC {
     }
     
     @IBAction func btnGohomeClick(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+        pushVC(vc: vc)
     }
+    
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {
         let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         vc.step = .Step2
@@ -38,13 +42,13 @@ class AddAnotherDeviceVC: BaseVC {
         pushVC(vc: vc)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -97,6 +97,7 @@ class MedicationDetailVC: BaseVC {
         btnDone.setButtonView(StringMedication.done)
         
         btnAddDose.layer.borderColor = UIColor.BlueText.cgColor
+        btnAddDose.layer.cornerRadius = 6
         btnAddDose.tintColor = .BlueText
         btnAddDose.layer.borderWidth = 1
         btnAddDose.clipsToBounds = true
