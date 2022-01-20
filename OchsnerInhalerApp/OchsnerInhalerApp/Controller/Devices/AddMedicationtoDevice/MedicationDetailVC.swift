@@ -69,22 +69,14 @@ class MedicationDetailVC: BaseVC {
             
             self.myPicker.isHidden = true
         }
-        myPicker.changeClosure = { [weak self] val in
-            guard let self = self else {
-                return
-            }
-            print(val)
-            // do something with the selected date
-        }
     }
-    func setUI(){
+    
+    func setUI() {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedication
-        
-        viewMedicationName.layer.cornerRadius = 6
+
         viewMedicationName.backgroundColor = .Color_cell
-        viewMedicationName.layer.borderColor = UIColor.TextField_Border_Color.cgColor
-        viewMedicationName.layer.borderWidth = 1
+        viewMedicationName.isOchsnerView = true
         viewMedicationName.clipsToBounds = true
         
         lblMedicationName.font = UIFont(name: AppFont.SFProText_Bold, size: 17)
@@ -93,9 +85,7 @@ class MedicationDetailVC: BaseVC {
         lblPuffTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblPuffTitle.text = StringMedication.puffTitle
         
-        txtPuff.layer.cornerRadius = 6
-        txtPuff.layer.borderColor = UIColor.TextField_Border_Color.cgColor
-        txtPuff.layer.borderWidth = 1
+        txtPuff.isOchsnerView = true
         txtPuff.clipsToBounds = true
         txtPuff.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         
@@ -106,7 +96,6 @@ class MedicationDetailVC: BaseVC {
         lblReminder.text = StringMedication.reminder
         btnDone.setButtonView(StringMedication.done)
         
-        btnAddDose.layer.cornerRadius = 6
         btnAddDose.layer.borderColor = UIColor.BlueText.cgColor
         btnAddDose.tintColor = .BlueText
         btnAddDose.layer.borderWidth = 1
@@ -132,9 +121,11 @@ class MedicationDetailVC: BaseVC {
         }
         
     }
+    
     @IBAction func btnBackClick(_ sender: Any) {
         self.popVC()
     }
+    
     @IBAction func btnDoneClick(_ sender: UIButton) {
         let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         pushVC(vc: vc)
@@ -153,6 +144,7 @@ class MedicationDetailVC: BaseVC {
     @IBAction func reminderValue(_ sender: UISwitch) {
         print(sender.isOn)
     }
+    
     @IBAction func btnAddDoseClick(_ sender: Any) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
@@ -184,12 +176,14 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
         cell.btnEditDose.tag = indexPath.row
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
     }

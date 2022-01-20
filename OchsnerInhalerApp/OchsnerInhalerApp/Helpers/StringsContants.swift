@@ -23,6 +23,8 @@ struct AppFont {
 struct StringUserManagement {
     static let login = "Login"
     static let createAccount = "Create Account"
+    static let updateProfile = "Update Profile"
+    static let update = "Update"
     static let usePassword = "Use Password"
     static let dontHaveAccout = "Don't Have an Account"
     static let email = "EMAIL"
@@ -36,7 +38,16 @@ struct StringUserManagement {
     static let placeHolderFirstName = "Enter first name"
     static let placeHolderLastName = "Enter last name"
     
+    static let changePassTitle = "Change Password"
+    static let currrentPassPlaceholder = "Enter current password"
+    static let currentPass = "Current Password"
     
+    static let newPassPlaceholder = "Enter new password"
+    static let newPass = "New Password"
+    
+    static let confiremPassPlaceholder = "Enter confirm password"
+    static let confiremPass = "Confirm Password"
+    static let updatePass = "Update Password"
     
     
 }

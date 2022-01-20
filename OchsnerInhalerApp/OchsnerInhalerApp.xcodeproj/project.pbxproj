@@ -29,6 +29,7 @@
 		4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710234D2796BDBD00F88876 /* MedicationVC.swift */; };
 		471023502796CA8500F88876 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4710234F2796CA8500F88876 /* SFProText-Bold.ttf */; };
 		471023532796CFA400F88876 /* MedicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471023522796CFA400F88876 /* MedicationCell.swift */; };
+		4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4722F4722799148700F505D2 /* ChangePasswordVC.swift */; };
 		4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */; };
 		4725F2082797D5CE00BBDA28 /* DoseTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */; };
 		4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */; };
@@ -106,6 +107,7 @@
 		4710234D2796BDBD00F88876 /* MedicationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationVC.swift; sourceTree = "<group>"; };
 		4710234F2796CA8500F88876 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		471023522796CFA400F88876 /* MedicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationCell.swift; sourceTree = "<group>"; };
+		4722F4722799148700F505D2 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDetailVC.swift; sourceTree = "<group>"; };
 		4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseTimeCell.swift; sourceTree = "<group>"; };
 		4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 		22AE96E7278E9EA900C0D851 /* UserManagement */ = {
 			isa = PBXGroup;
 			children = (
+				4722F4712799146200F505D2 /* ChangePassword */,
 				2261AA022796F127000D5CE1 /* PrivacyPolicy */,
 				227197BB278FF9BD0014BC3E /* CreateAccount */,
 				22AE96E8278E9EFE00C0D851 /* Login */,
@@ -392,6 +395,14 @@
 				4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		4722F4712799146200F505D2 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				4722F4722799148700F505D2 /* ChangePasswordVC.swift */,
+			);
+			path = ChangePassword;
 			sourceTree = "<group>";
 		};
 		4725F2062797CA5F00BBDA28 /* AddMedicationtoDevice */ = {
@@ -738,6 +749,7 @@
 				22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */,
 				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
+				4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
 				47CDCE93278D89C30014527D /* APIManager.swift in Sources */,
 				47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */,

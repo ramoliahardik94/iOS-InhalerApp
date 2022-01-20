@@ -29,9 +29,7 @@ class ProviderVC: BaseVC {
         btnSwitchOrganization.titleLabel?.font = UIFont(name:AppFont.AppBoldFont , size: 14)
         btnSwitchOrganization.tintColor = .black
         viewProvider.backgroundColor = .Color_ProviderView
-        viewAlert.layer.borderWidth = 1
-        viewAlert.layer.cornerRadius = 6
-        viewAlert.layer.borderColor = UIColor.lightGray.cgColor
+        viewAlert.isOchsnerView = true
         btnLogin.setButtonViewGreen("Continue to Login")
         
     }
