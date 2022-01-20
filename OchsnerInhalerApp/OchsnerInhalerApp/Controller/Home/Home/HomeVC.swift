@@ -11,7 +11,9 @@ class HomeVC: BaseVC {
 
     
     @IBOutlet weak var tbvDeviceData: UITableView!
+    @IBOutlet weak var tbvGraphData: UITableView!
     private let itemCellDevice = "HomeDeviceCell"
+    private let itemCellGraph = "HomeGraphCell"
     
     
     override func viewDidLoad() {
@@ -27,6 +29,12 @@ class HomeVC: BaseVC {
         tbvDeviceData.delegate = self
         tbvDeviceData.dataSource = self
         tbvDeviceData.separatorStyle = .none
+        
+        let nibGraph = UINib(nibName: itemCellGraph, bundle: nil)
+        tbvGraphData.register(nibGraph, forCellReuseIdentifier: itemCellGraph)
+        tbvGraphData.delegate = self
+        tbvGraphData.dataSource = self
+        tbvGraphData.separatorStyle = .none
      
     }
 
@@ -38,6 +46,56 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if tableView == tbvGraphData {
+            let cell = tableView.dequeueReusableCell(withIdentifier: itemCellGraph, for: indexPath) as! HomeGraphCell
+            cell.selectionStyle = .none
+       
+            
+            setCustomFontLabel(label: cell.lblDeviceName, type: .bold,fontSize: 17)
+            setCustomFontLabel(label: cell.lblDeviceType, type: .regular,fontSize: 13)
+            setCustomFontLabel(label: cell.lblMonday, type: .regular,fontSize: 16)
+            setCustomFontLabel(label: cell.lblTuesday, type: .regular,fontSize: 16)
+            setCustomFontLabel(label: cell.lblWednesday, type: .regular,fontSize: 16)
+            setCustomFontLabel(label: cell.lblThursday, type: .regular,fontSize: 16)
+            setCustomFontLabel(label: cell.lblFriday, type: .regular,fontSize: 16)
+            setCustomFontLabel(label: cell.lblSaturday, type: .regular,fontSize: 16)
+            setCustomFontLabel(label: cell.lblSunday, type: .regular,fontSize: 16)
+            cell.lblMonday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+            cell.lblTuesday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+            cell.lblWednesday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+            cell.lblThursday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+            cell.lblFriday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+            cell.lblSaturday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+            cell.lblSunday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+            cell.lblMonday.text = "M"
+            cell.lblTuesday.text = "T"
+            cell.lblWednesday.text = "W"
+            cell.lblThursday.text = "T"
+            cell.lblFriday.text = "F"
+            cell.lblSaturday.text = "S"
+            cell.lblSunday.text = "S"
+            
+            
+            if indexPath.row == 0 {
+                cell.lblDeviceName.text = "Ventolin"
+                cell.lblDeviceType.text = "(Rescue)"
+                cell.svDays.isHidden = true
+                cell.count = 21
+                cell.conHeightCollectionView.constant = 80
+            } else {
+                cell.lblDeviceName.text = "Teva"
+                cell.lblDeviceType.text = "(Schedule)"
+                cell.svDays.isHidden = false
+                cell.count = 14
+                cell.conHeightCollectionView.constant = 56
+            }
+            
+            return cell
+        }
+        
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellDevice, for: indexPath) as! HomeDeviceCell
         
         
@@ -89,6 +147,10 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
         }
         
         return cell
+        
+        
+        
+        
     }
     
     

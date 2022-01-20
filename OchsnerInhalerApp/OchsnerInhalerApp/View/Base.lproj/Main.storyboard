@@ -21,11 +21,11 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="685"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cne-xt-lSt">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="485"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="477"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LYC-ep-hDM">
-                                        <rect key="frame" x="0.0" y="485" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="477" width="375" height="200"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="hlb-DS-lmb"/>
@@ -36,7 +36,7 @@
                                 <constraints>
                                     <constraint firstItem="LYC-ep-hDM" firstAttribute="leading" secondItem="aV7-8C-REy" secondAttribute="leading" id="3Cb-3G-gKe"/>
                                     <constraint firstAttribute="trailing" secondItem="LYC-ep-hDM" secondAttribute="trailing" id="9eY-uD-876"/>
-                                    <constraint firstAttribute="bottom" secondItem="LYC-ep-hDM" secondAttribute="bottom" id="JEr-BD-CNa"/>
+                                    <constraint firstAttribute="bottom" secondItem="LYC-ep-hDM" secondAttribute="bottom" constant="8" id="JEr-BD-CNa"/>
                                     <constraint firstItem="cne-xt-lSt" firstAttribute="leading" secondItem="aV7-8C-REy" secondAttribute="leading" id="ZlA-fn-wSE"/>
                                     <constraint firstItem="LYC-ep-hDM" firstAttribute="top" secondItem="cne-xt-lSt" secondAttribute="bottom" id="cAj-oV-sBd"/>
                                     <constraint firstAttribute="trailing" secondItem="cne-xt-lSt" secondAttribute="trailing" id="eFf-M2-aTq"/>
@@ -56,6 +56,7 @@
                     <tabBarItem key="tabBarItem" title="" image="tab_home" id="lwu-Pd-n5p"/>
                     <connections>
                         <outlet property="tbvDeviceData" destination="cne-xt-lSt" id="Afc-Ym-mLu"/>
+                        <outlet property="tbvGraphData" destination="LYC-ep-hDM" id="GQG-DC-nWc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
