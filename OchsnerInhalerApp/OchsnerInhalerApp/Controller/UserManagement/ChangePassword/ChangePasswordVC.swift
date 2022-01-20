@@ -54,6 +54,8 @@ class ChangePasswordVC: BaseVC {
         txtCurrentPassword.enablePasswordToggle()
         txtNewPassword.enablePasswordToggle()
         txtConfirmPass.enablePasswordToggle()
+        
+        
     }
     
     @IBAction func btnBackClick(_ sender: UIButton) {

@@ -15,7 +15,7 @@ class MedicationVC: BaseVC {
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
-    var selectedIndex : Int!
+    var selectedIndex : Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUp()
@@ -43,16 +43,16 @@ class MedicationVC: BaseVC {
             btnMantainance.isSelected = sender == btnMantainance
     }
     @IBAction func btnNextClick(_ sender: UIButton) {
-        if selectedIndex != nil {
+//        if selectedIndex != nil {
             let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
             vc.index = selectedIndex
             pushVC(vc: vc)
-        }
-        else{
-            let alert = UIAlertController(title: "Ochsner", message: "Please select Medication.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
+//        }
+//        else{
+//            let alert = UIAlertController(title: "Ochsner", message: "Please select Medication.", preferredStyle: UIAlertController.Style.alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
 
     /*

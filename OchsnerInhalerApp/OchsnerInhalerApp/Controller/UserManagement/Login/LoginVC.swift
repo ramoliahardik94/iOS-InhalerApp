@@ -49,6 +49,7 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         tfPassword.delegate = self
         tfEmail.placeholder = StringUserManagement.emailPlaceHolder
         tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+        tfPassword.enablePasswordToggle()
         hideKeyBoardHideOutSideTouch(customView: self.view)
     }
     

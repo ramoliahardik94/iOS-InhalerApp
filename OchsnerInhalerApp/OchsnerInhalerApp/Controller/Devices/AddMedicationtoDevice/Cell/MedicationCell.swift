@@ -16,14 +16,13 @@ class MedicationCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        viewCell.layer.cornerRadius = 6
         viewCell.backgroundColor = .Color_cell
-        viewCell.isOchsnerView
-        viewCell.clipsToBounds = true
+        viewCell.isOchsnerView = true
         lblNDCCode.font = UIFont(name: AppFont.SFProText_Bold, size: 17)
-        lblModicationName.font = UIFont(name: AppFont.AppRegularFont, size: 17)
+        lblModicationName.isTitle = false
         
     }
+    
     func setMedicationDetailes(index : Int){
         switch index {
         case 0:
@@ -41,6 +40,7 @@ class MedicationCell: UITableViewCell {
         }
         
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

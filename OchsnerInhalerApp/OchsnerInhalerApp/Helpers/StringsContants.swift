@@ -30,7 +30,7 @@ struct StringUserManagement {
     static let updateProfile = "Update Profile"
     static let update = "Update"
     static let usePassword = "Use Password"
-    static let dontHaveAccout = "Don't Have an Account"
+    static let dontHaveAccout = "Don't Have an Account?"
     static let email = "EMAIL"
     static let createPassword = "Create Password"
     static let firstName = "First Name"
