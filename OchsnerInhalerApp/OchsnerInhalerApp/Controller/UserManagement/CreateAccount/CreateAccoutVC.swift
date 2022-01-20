@@ -59,7 +59,8 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         tfEmail.placeholder = StringUserManagement.emailPlaceHolder
         tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
         tfConfirmPassword.placeholder = StringUserManagement.confirmPasswordPlaceHolder
-        
+        tfPassword.enablePasswordToggle()
+        tfConfirmPassword.enablePasswordToggle()
         tfFirstName.autocapitalizationType = .words
         tfLastName.autocapitalizationType = .words
         

@@ -8,7 +8,8 @@
 import UIKit
 
 class ProviderCell: UITableViewCell {
-
+    @IBOutlet weak var imgProvider: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

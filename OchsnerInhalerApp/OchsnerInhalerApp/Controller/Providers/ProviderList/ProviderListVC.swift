@@ -53,22 +53,29 @@ class ProviderListVC: BaseVC {
 }
 extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : ProviderCell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell") as! ProviderCell
+        if indexPath.row == 1 {
+            cell.imgProvider.image = UIImage(named: "provider")
+        } else if indexPath.row == 2{
+            cell.imgProvider.image = UIImage(named: "provider1")
+        }else {
+            cell.imgProvider.image = UIImage(named: "provider2")
+        }
         
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
-        let vc  = ProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        let vc  = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
         pushVC(vc: vc)
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
