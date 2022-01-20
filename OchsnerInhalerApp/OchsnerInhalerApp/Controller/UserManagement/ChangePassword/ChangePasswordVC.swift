@@ -54,14 +54,15 @@ class ChangePasswordVC: BaseVC {
         txtCurrentPassword.enablePasswordToggle()
         txtNewPassword.enablePasswordToggle()
         txtConfirmPass.enablePasswordToggle()
-        
     }
+    
     @IBAction func btnBackClick(_ sender: UIButton) {
         popVC()
     }
+    
     @IBAction func btnUpdatePassClick(_ sender: Any) {
-        let vc = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-         pushVC(vc: vc)
+        //let vc = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+         //pushVC(vc: vc)
     }
     
     /*
