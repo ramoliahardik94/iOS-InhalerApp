@@ -80,11 +80,9 @@ class MedicationDetailVC: BaseVC {
     func setUI(){
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedication
-        
-        viewMedicationName.layer.cornerRadius = 6
+
         viewMedicationName.backgroundColor = .Color_cell
-        viewMedicationName.layer.borderColor = UIColor.TextField_Border_Color.cgColor
-        viewMedicationName.layer.borderWidth = 1
+        viewMedicationName.isOchsnerView = true
         viewMedicationName.clipsToBounds = true
         
         lblMedicationName.font = UIFont(name: AppFont.SFProText_Bold, size: 17)
@@ -93,9 +91,7 @@ class MedicationDetailVC: BaseVC {
         lblPuffTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblPuffTitle.text = StringMedication.puffTitle
         
-        txtPuff.layer.cornerRadius = 6
-        txtPuff.layer.borderColor = UIColor.TextField_Border_Color.cgColor
-        txtPuff.layer.borderWidth = 1
+        txtPuff.isOchsnerView = true
         txtPuff.clipsToBounds = true
         txtPuff.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         
@@ -106,7 +102,6 @@ class MedicationDetailVC: BaseVC {
         lblReminder.text = StringMedication.reminder
         btnDone.setButtonView(StringMedication.done)
         
-        btnAddDose.layer.cornerRadius = 6
         btnAddDose.layer.borderColor = UIColor.BlueText.cgColor
         btnAddDose.tintColor = .BlueText
         btnAddDose.layer.borderWidth = 1

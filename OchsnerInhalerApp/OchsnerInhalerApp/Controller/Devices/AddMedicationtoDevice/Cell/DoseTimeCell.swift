@@ -18,15 +18,13 @@ class DoseTimeCell: UITableViewCell {
         // Initialization code
         DosetimeView.layer.cornerRadius = 6
         DosetimeView.backgroundColor = .Color_DoseTime
-        DosetimeView.layer.borderColor = UIColor.TextField_Border_Color.cgColor
-        DosetimeView.layer.borderWidth = 1
+        DosetimeView.isOchsnerView = true
         DosetimeView.clipsToBounds = true
         lblDoseTime.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         
         btnRemove.layer.cornerRadius = 6
         btnRemove.backgroundColor = .RedBG
-        btnRemove.layer.borderColor = UIColor.TextField_Border_Color.cgColor
-        btnRemove.layer.borderWidth = 1
+        btnRemove.isOchsnerView = true
         btnRemove.clipsToBounds = true
         
     }

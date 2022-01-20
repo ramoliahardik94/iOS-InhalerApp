@@ -18,8 +18,7 @@ class MedicationCell: UITableViewCell {
         // Initialization code
         viewCell.layer.cornerRadius = 6
         viewCell.backgroundColor = .Color_cell
-        viewCell.layer.borderColor = UIColor.TextField_Border_Color.cgColor
-        viewCell.layer.borderWidth = 1
+        viewCell.isOchsnerView
         viewCell.clipsToBounds = true
         lblNDCCode.font = UIFont(name: AppFont.SFProText_Bold, size: 17)
         lblModicationName.font = UIFont(name: AppFont.AppRegularFont, size: 17)
