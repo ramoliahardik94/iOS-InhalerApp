@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */; };
+		224E1C992797F53A000C5D1A /* ManageDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */; };
+		224E1C9D27981AB7000C5D1A /* HomeDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224E1C9B27981AB7000C5D1A /* HomeDeviceCell.swift */; };
+		224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 224E1C9C27981AB7000C5D1A /* HomeDeviceCell.xib */; };
+		224E1CA227983816000C5D1A /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 224E1CA127983816000C5D1A /* SFProDisplay-LightItalic.ttf */; };
+		224E1CA427983A66000C5D1A /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 224E1CA327983A65000C5D1A /* SFProDisplay-Light.ttf */; };
+		22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22609D762799236700B38CF4 /* HomeGraphCell.swift */; };
+		22609D792799236700B38CF4 /* HomeGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22609D772799236700B38CF4 /* HomeGraphCell.xib */; };
+		22609D7C279925B200B38CF4 /* GraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22609D7A279925B200B38CF4 /* GraphCell.swift */; };
+		22609D7D279925B200B38CF4 /* GraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22609D7B279925B200B38CF4 /* GraphCell.xib */; };
 		2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */; };
 		2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */; };
 		227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197B9278FF09A0014BC3E /* CustomSplashVC.swift */; };
@@ -85,6 +95,16 @@
 /* Begin PBXFileReference section */
 		0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OchsnerInhalerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.debug.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceCell.swift; sourceTree = "<group>"; };
+		224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageDeviceCell.xib; sourceTree = "<group>"; };
+		224E1C9B27981AB7000C5D1A /* HomeDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDeviceCell.swift; sourceTree = "<group>"; };
+		224E1C9C27981AB7000C5D1A /* HomeDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDeviceCell.xib; sourceTree = "<group>"; };
+		224E1CA127983816000C5D1A /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
+		224E1CA327983A65000C5D1A /* SFProDisplay-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Light.ttf"; sourceTree = "<group>"; };
+		22609D762799236700B38CF4 /* HomeGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGraphCell.swift; sourceTree = "<group>"; };
+		22609D772799236700B38CF4 /* HomeGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGraphCell.xib; sourceTree = "<group>"; };
+		22609D7A279925B200B38CF4 /* GraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
+		22609D7B279925B200B38CF4 /* GraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GraphCell.xib; sourceTree = "<group>"; };
 		2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancleBluetoothPermissionVC.swift; sourceTree = "<group>"; };
 		2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
 		227197B9278FF09A0014BC3E /* CustomSplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSplashVC.swift; sourceTree = "<group>"; };
@@ -181,6 +201,28 @@
 				56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		224E1C952797F500000C5D1A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */,
+				224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		224E1C9A279819AD000C5D1A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				224E1C9B27981AB7000C5D1A /* HomeDeviceCell.swift */,
+				224E1C9C27981AB7000C5D1A /* HomeDeviceCell.xib */,
+				22609D762799236700B38CF4 /* HomeGraphCell.swift */,
+				22609D772799236700B38CF4 /* HomeGraphCell.xib */,
+				22609D7A279925B200B38CF4 /* GraphCell.swift */,
+				22609D7B279925B200B38CF4 /* GraphCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		2261AA022796F127000D5CE1 /* PrivacyPolicy */ = {
@@ -294,6 +336,7 @@
 		22AE96EF278EA36F00C0D851 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				224E1C9A279819AD000C5D1A /* Cell */,
 				22AE96F0278EA37F00C0D851 /* HomeVC.swift */,
 			);
 			path = Home;
@@ -351,6 +394,7 @@
 		22AE96FB278EA99600C0D851 /* ManageDevice */ = {
 			isa = PBXGroup;
 			children = (
+				224E1C952797F500000C5D1A /* Cell */,
 				22AE96FC278EAA0B00C0D851 /* ManageDeviceVC.swift */,
 			);
 			path = ManageDevice;
@@ -525,6 +569,8 @@
 				4710234F2796CA8500F88876 /* SFProText-Bold.ttf */,
 				471023482796737B00F88876 /* SFProText-Regular.ttf */,
 				471023492796737B00F88876 /* SFProText-Semibold.ttf */,
+				224E1CA127983816000C5D1A /* SFProDisplay-LightItalic.ttf */,
+				224E1CA327983A65000C5D1A /* SFProDisplay-Light.ttf */,
 			);
 			path = CustomFonts;
 			sourceTree = "<group>";
@@ -666,11 +712,17 @@
 				47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */,
 				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
+				224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */,
 				47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */,
 				4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */,
+				22609D792799236700B38CF4 /* HomeGraphCell.xib in Resources */,
+				224E1CA427983A66000C5D1A /* SFProDisplay-Light.ttf in Resources */,
 				47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */,
+				224E1C992797F53A000C5D1A /* ManageDeviceCell.xib in Resources */,
+				224E1CA227983816000C5D1A /* SFProDisplay-LightItalic.ttf in Resources */,
 				4710234B2796737B00F88876 /* SFProText-Regular.ttf in Resources */,
 				47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */,
+				22609D7D279925B200B38CF4 /* GraphCell.xib in Resources */,
 				4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */,
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
@@ -734,6 +786,7 @@
 				4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */,
 				47CDCE49278D88FE0014527D /* ResultType.swift in Sources */,
 				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
+				22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */,
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
 				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
@@ -744,10 +797,12 @@
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
+				224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */,
 				471023532796CFA400F88876 /* MedicationCell.swift in Sources */,
 				47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */,
 				22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */,
 				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
+				224E1C9D27981AB7000C5D1A /* HomeDeviceCell.swift in Sources */,
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
 				4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
@@ -764,6 +819,7 @@
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
 				227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */,
 				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
+				22609D7C279925B200B38CF4 /* GraphCell.swift in Sources */,
 				472DC2442795328D008E0060 /* ProviderCell.swift in Sources */,
 				22AE96FD278EAA0B00C0D851 /* ManageDeviceVC.swift in Sources */,
 				4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */,

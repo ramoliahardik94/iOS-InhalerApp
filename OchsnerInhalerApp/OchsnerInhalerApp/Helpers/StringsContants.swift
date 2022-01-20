@@ -10,12 +10,16 @@ struct StringCommonMessages {
      static let grant = "Grant"
      static let share = "Share"
      static let copyRight = "©2021 Ochsner Health"
+     static let connected = "Connected"
+     static let battery = "Battery:"
 
 }
 struct AppFont {
     static let AppRegularFont = Constants.CustomFont.SFProText_Regular
     static let AppBoldFont = Constants.CustomFont.SFProDisplay_Bold
     static let AppSemiBoldFont = Constants.CustomFont.SFProText_Semibold
+    static let AppLightItalicFont = Constants.CustomFont.SFProDisplay_LightItalic
+    static let AppLightFont = Constants.CustomFont.SFProDisplay_Light
     static let SFProText_Bold = Constants.CustomFont.SFProText_Bold
 }
 
@@ -122,6 +126,10 @@ struct StringPermissions {
 //MARK: Device
 struct StringDevices {
     static let pairedDevice = "Paired Device"
+    static let removeDevice = "Remove Device"
+    static let editDirection = "Edit Directions"
+    static let usage = "Usage: "
+    static let addAnotherDevice = "Add Another Device"
     
 }
 
@@ -129,5 +137,13 @@ struct StringDevices {
 struct StringSplash {
     static let connectdInhalerSensor = "Connectd\nInhaler Sensor "
     
+}
+//MARK: Home screen
+struct StringHome {
+    static let  today = "Today"
+    static let  thisWeek = "This Week"
+    static let  thisMonth = "This Month"
+    static let  adherance = "Adherance: "
+
 }
 

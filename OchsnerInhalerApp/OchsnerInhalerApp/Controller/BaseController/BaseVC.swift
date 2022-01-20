@@ -35,6 +35,13 @@ class BaseVC: UIViewController {
         if type == .semiBold {
             label.font = UIFont(name: AppFont.AppSemiBoldFont, size: fontSize)
         }
+        if type == .lightItalic {
+            label.font = UIFont(name: AppFont.AppLightItalicFont, size: fontSize)
+        }
+        if type == .light {
+            label.font = UIFont(name: AppFont.AppLightFont, size: fontSize)
+        }
+        
     }
     
     func setCustomFontTextField(textField : UITextField , type : FontType , fontSize : CGFloat = 14) {

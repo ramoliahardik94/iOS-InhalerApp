@@ -25,6 +25,8 @@ class Constants: NSObject {
         static let SFProText_Semibold = "SFProText-Semibold"
         static let SFProText_Regular = "SFProText-Regular"
         static let SFProDisplay_Bold = "SFProDisplay-Bold"
+        static let SFProDisplay_LightItalic = "SFProDisplay-LightItalic"
+        static let SFProDisplay_Light = "SFProDisplay-Light"
         static let SFProText_Bold = "SFProText-Bold"
     }
     
@@ -43,6 +45,8 @@ enum FontType {
     case regular
     case semiBold
     case bold
+    case lightItalic
+    case light
 }
 enum AddDeviceSteps  {
     case Step1 // "Add Device"
