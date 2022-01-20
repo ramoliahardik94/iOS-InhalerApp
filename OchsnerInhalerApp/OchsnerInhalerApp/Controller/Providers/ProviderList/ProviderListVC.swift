@@ -44,6 +44,7 @@ class ProviderListVC: BaseVC {
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
         self.searchProvider.searchTextField.text = ""
+        self.view.endEditing(true)
         sender.isEnabled = false
     }
     @IBAction func btnBackClick(_ sender: Any) {
@@ -66,10 +67,13 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         let vc  = ProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         pushVC(vc: vc)
     }
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
 }
 
 
@@ -79,6 +83,6 @@ extension ProviderListVC: UISearchBarDelegate {
         btnCancel.isEnabled = searchBar.searchTextField.text!.count > 0
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        self.view.endEditing(true)
     }
 }
