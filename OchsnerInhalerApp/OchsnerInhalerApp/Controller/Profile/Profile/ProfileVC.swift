@@ -100,6 +100,7 @@ class ProfileVC: BaseVC {
          
          let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
          let nav : UINavigationController = UINavigationController()
+         nav.isNavigationBarHidden = true
          nav.viewControllers  = [vc]
          UIApplication.shared.windows.first?.rootViewController = nav
          UIApplication.shared.windows.first?.makeKeyAndVisible()
