@@ -76,7 +76,7 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         if validateData() {
             let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
             pushVC(vc: vc)
-        } 
+        }
         
     }
     private func setBorderTextField(textField : UITextField) {
@@ -124,12 +124,39 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         
         if tfFirstName.text == "" {
             self.showAlertMessage(title: "", msg:  StringUserManagement.placeHolderFirstName)
-            
             isValid = false
-            
+        }
+       
+        if tfLastName.text == "" {
+            self.showAlertMessage(title: "", msg:  StringUserManagement.placeHolderLastName)
+            isValid = false
         }
         
+        if !isValidEmail(email: tfEmail.text ?? "") {
+            self.showAlertMessage(title: "", msg:  "Enter valid email")
+            isValid = false
+        }
+        
+        if tfPassword.text == "" {
+            self.showAlertMessage(title: "", msg:  StringUserManagement.passwordPlaceHolder)
+            isValid = false
+        }
+        if tfConfirmPassword.text == "" {
+            self.showAlertMessage(title: "", msg:  StringUserManagement.confirmPasswordPlaceHolder)
+            isValid = false
+        }
+        
+        if  tfConfirmPassword.text != tfPassword.text  {
+            
+            self.showAlertMessage(title: "", msg:  "Confirm password doesn't match")
+            isValid = false
+        }
         return isValid
     }
-    
+    func isValidEmail(email:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: email)
+    }
 }

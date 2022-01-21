@@ -19,6 +19,14 @@ extension UIButton {
         titleLabel?.font = UIFont(name: AppFont.AppSemiBoldFont, size: size)
     }
     
+    func setButtonViewGrey(_ title: String, _ size: CGFloat = 17) {
+        backgroundColor = .Button_Color_Grey
+        layer.cornerRadius = 5
+        setTitle(title, for: .normal)
+        setTitleColor(.white, for: .normal)
+        titleLabel?.font = UIFont(name: AppFont.AppSemiBoldFont, size: size)
+    }
+    
     func setImageColor(_ color: UIColor) {
         let img = self.imageView?.image?.withRenderingMode(.alwaysTemplate)
         setImage(img, for: .normal)

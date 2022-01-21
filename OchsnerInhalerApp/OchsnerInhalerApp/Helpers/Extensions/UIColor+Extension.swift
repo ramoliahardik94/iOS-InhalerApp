@@ -38,7 +38,7 @@ extension UIColor {
     static let Color_Home_Icon_Oranage =  #colorLiteral(red: 1, green: 0.6470588235, blue: 0.1843137255, alpha: 1) //#FFA52F
     static let Color_Home_Icon_Red =  #colorLiteral(red: 1, green: 0.3529411765, blue: 0.3529411765, alpha: 1) //#FF5A5A
     static let Color_Home_Icon_Green =  #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1) //#34C759
-    
-
+    static let Button_Color_Grey = #colorLiteral(red: 0.4392156863, green: 0.4392156863, blue: 0.4392156863, alpha: 1) // #707070
+   
     
 }

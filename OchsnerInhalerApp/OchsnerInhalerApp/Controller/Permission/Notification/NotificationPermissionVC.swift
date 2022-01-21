@@ -17,7 +17,7 @@ class NotificationPermissionVC: BaseVC {
         lblNotificationPermission.text = StringPermissions.notificationPermission
         setCustomFontLabel(label: lblNotificationPermission, type: .bold,fontSize: 32)
         btnGrant.setButtonView(StringCommonMessages.grant)
-        btnSkip.setButtonView(StringCommonMessages.skip)
+        btnSkip.setButtonViewGrey(StringCommonMessages.skip)
     }
     
     //MARK: Actions

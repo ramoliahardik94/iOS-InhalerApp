@@ -25,7 +25,7 @@ class ConnectProviderVC: BaseVC {
         lblConnectProvider.text = StringPoviders.providerConnectLabel
         lblConnectProvider.font = UIFont(name: AppFont.AppBoldFont, size: 34)        
         btnSelectProvider.setButtonView(StringPoviders.selectProvider)
-        btnSkipNow.setButtonView(StringPoviders.skipForNow)
+        btnSkipNow.setButtonViewGrey(StringPoviders.skipForNow)
         
     }
     
