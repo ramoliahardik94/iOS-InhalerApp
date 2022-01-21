@@ -53,8 +53,10 @@ class AddDeviceIntroVC: BaseVC {
         case .Step3 :
             btnBack.tintColor = .white
             viewDeviceList.isHidden = false
-            viewHeader.backgroundColor = .Button_Color_Blue
+            viewHeader.backgroundColor = .white
             lblHeader.text = StringAddDevice.scanlist
+            lblHeader.isTitle = true
+            lblHeader.textColor = .black
             tblScanList.delegate = self
             tblScanList.dataSource = self
             break
@@ -125,18 +127,26 @@ class AddDeviceIntroVC: BaseVC {
     
 }
 extension AddDeviceIntroVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : BLEDeviceCell = tableView.dequeueReusableCell(withIdentifier: "BLEDeviceCell") as! BLEDeviceCell
         cell.btnConnect.tag = indexPath.row
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        vc.step = .Step4
+        vc.isFromAddAnother = isFromAddAnother
+        pushVC(vc: vc)
     }
     
    
