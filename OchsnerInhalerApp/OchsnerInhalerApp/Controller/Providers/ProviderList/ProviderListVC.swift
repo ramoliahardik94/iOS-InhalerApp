@@ -11,11 +11,17 @@ import UIKit
 
 class ProviderListVC: BaseVC {
 
+    @IBOutlet weak var viewProvider: UIView!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var lblSubHeader: UILabel!
     @IBOutlet weak var viewSearch: UIView!
+    @IBOutlet weak var viewConform: UIView!
     @IBOutlet weak var searchProvider: UISearchBar!
+    @IBOutlet weak var imgSelectedProvider: UIImageView!
+    @IBOutlet weak var btnContinue: UIButton!
+    @IBOutlet weak var btnChange: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -41,6 +47,9 @@ class ProviderListVC: BaseVC {
         self.btnCancel.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 12)
         self.searchProvider.searchTextField.font = UIFont(name: AppFont.AppRegularFont, size: 12)
         self.searchProvider.delegate = self
+        viewProvider.isOchsnerView = true
+        self.btnContinue.setButtonView(StringPoviders.continueProvider)
+        self.btnChange.setButtonView(StringPoviders.change,isDefaultbtn: false)
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
         self.searchProvider.searchTextField.text = ""
@@ -49,6 +58,14 @@ class ProviderListVC: BaseVC {
     }
     @IBAction func btnBackClick(_ sender: Any) {
         self.popVC()
+    }
+    
+    @IBAction func btnContinueClick(_ sender: Any) {
+        let vc  = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        pushVC(vc: vc)
+    }
+    @IBAction func btnChangeClick(_ sender: Any) {
+        viewConform.isHidden = true
     }
 }
 extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
@@ -75,8 +92,14 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
-        let vc  = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-        pushVC(vc: vc)
+        if indexPath.row == 1 {
+            imgSelectedProvider.image = UIImage(named: "provider")
+        } else if indexPath.row == 2{
+            imgSelectedProvider.image = UIImage(named: "provider1")
+        }else {
+            imgSelectedProvider.image = UIImage(named: "provider2")
+        }
+        viewConform.isHidden = false
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
