@@ -80,6 +80,8 @@ struct StringPoviders {
     static let selectOrganization = "Select an Organization"
     static let providerSubHeader = "Where do you receive your healthcare?"
     static let switchOrganization = "Switch organizations"
+    static let continueProvider = "Continue"
+    static let change = "Change"
 }
 //MARK: Add Device
 struct StringAddDevice {

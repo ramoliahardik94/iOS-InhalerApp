@@ -9,34 +9,34 @@ import UIKit
 
 class ProviderVC: BaseVC {
 
-    @IBOutlet weak var viewHeader: UIView!
-    @IBOutlet weak var viewSwitchOrganization: UIView!
+    @IBOutlet weak var imgProvider: UIImageView!
+
     @IBOutlet weak var viewAlert: UIView!
-    @IBOutlet weak var btnSwitchOrganization: UIButton!
     @IBOutlet weak var viewProvider: UIView!
     @IBOutlet weak var btnLogin: UIButton!
+    var index = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setVC()
         // Do any additional setup after loading the view.
     }
     func setVC(){
-        btnSwitchOrganization.setTitle(StringPoviders.switchOrganization, for: .normal)
-        viewHeader.backgroundColor = .lightGray
-        viewSwitchOrganization.layer.borderWidth = 1
-        viewSwitchOrganization.layer.cornerRadius = 6
-        viewSwitchOrganization.layer.borderColor = UIColor.black.cgColor
-        btnSwitchOrganization.titleLabel?.font = UIFont(name:AppFont.AppBoldFont , size: 14)
-        btnSwitchOrganization.tintColor = .black
+      
         viewProvider.backgroundColor = .Color_ProviderView
         viewAlert.isOchsnerView = true
-        btnLogin.setButtonViewGreen("Continue to Login")
-        
+        btnLogin.setButtonViewGreen(StringPoviders.continueProvider)
+        if index == 1 {
+            imgProvider.image = UIImage(named: "provider")
+        } else if index == 2{
+            imgProvider.image = UIImage(named: "provider1")
+        }else {
+            imgProvider.image = UIImage(named: "provider2")
+        }
     }
     
     
     @IBAction func btnLoginClick(_ sender: Any) {
-        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        let vc  = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
         pushVC(vc: vc)
     }
     @IBAction func btnSwitchOrganization(_ sender: Any) {
