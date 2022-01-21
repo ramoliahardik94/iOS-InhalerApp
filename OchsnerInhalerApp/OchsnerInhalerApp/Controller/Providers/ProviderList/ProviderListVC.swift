@@ -50,6 +50,7 @@ class ProviderListVC: BaseVC {
         viewProvider.isOchsnerView = true
         self.btnContinue.setButtonView(StringPoviders.continueProvider)
         self.btnChange.setButtonView(StringPoviders.change,isDefaultbtn: false)
+        viewConform.isHidden = true
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
         self.searchProvider.searchTextField.text = ""

@@ -20,6 +20,7 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var lblReceiveNotifications: UILabel!
     @IBOutlet weak var lblShareLocation: UILabel!
     @IBOutlet weak var lblShareUsageWithProvider: UILabel!
+    @IBOutlet weak var lblUseFaceID: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,7 +90,8 @@ class ProfileVC: BaseVC {
   
     }
     @IBAction func tapChangeProvider(_ sender: Any) {
-  
+        let vc = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        pushVC(vc: vc)
     }
     @IBAction func tapRemoveProvider(_ sender: Any) {
   

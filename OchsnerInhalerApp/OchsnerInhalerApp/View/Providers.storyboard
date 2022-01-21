@@ -258,18 +258,9 @@
                                     <constraint firstItem="77E-jq-AJe" firstAttribute="leading" secondItem="xJR-XQ-Va1" secondAttribute="leading" id="rZu-8F-wJf"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DC-8d-t9r">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DC-8d-t9r">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RRd-FX-ha2">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VnV-R2-ezU">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                        <blurEffect style="regular"/>
-                                    </visualEffectView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhe-q8-Hgm">
                                         <rect key="frame" x="30" y="298" width="354" height="300"/>
                                         <subviews>
@@ -324,7 +315,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="dhe-q8-Hgm" firstAttribute="leading" secondItem="0DC-8d-t9r" secondAttribute="leading" constant="30" id="3dW-Gm-OtD"/>
                                     <constraint firstAttribute="trailing" secondItem="dhe-q8-Hgm" secondAttribute="trailing" constant="30" id="RIj-x2-dwy"/>
