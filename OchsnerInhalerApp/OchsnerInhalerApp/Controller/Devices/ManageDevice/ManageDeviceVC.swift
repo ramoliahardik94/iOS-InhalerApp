@@ -28,10 +28,7 @@ class ManageDeviceVC: BaseVC {
 
     
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
-        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        vc.step = .Step2
-        vc.isFromAddAnother = true
-        pushVC(vc: vc)
+        
     }
     
 }

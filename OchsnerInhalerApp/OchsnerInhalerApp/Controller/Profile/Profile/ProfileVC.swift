@@ -20,6 +20,7 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var lblReceiveNotifications: UILabel!
     @IBOutlet weak var lblShareLocation: UILabel!
     @IBOutlet weak var lblShareUsageWithProvider: UILabel!
+    @IBOutlet weak var lblUseFaceID: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +39,7 @@ class ProfileVC: BaseVC {
         setCustomFontLabel(label: lblReceiveNotifications, type: .regular,fontSize: 21)
         setCustomFontLabel(label: lblShareLocation, type: .regular,fontSize: 21)
         setCustomFontLabel(label: lblShareUsageWithProvider, type: .regular,fontSize: 21)
+        setCustomFontLabel(label: lblUseFaceID, type: .regular,fontSize: 21)
         
         lblEmail.text = "lauren@ipsum.com"
         lblProvider.text = "Provider: Ochsner Health"
@@ -46,6 +48,7 @@ class ProfileVC: BaseVC {
         lblReceiveNotifications.text = StringProfile.receiveNotifications
         lblShareLocation.text = StringProfile.shareLocation
         lblShareUsageWithProvider.text = StringProfile.shareUsageWithProvider
+        lblUseFaceID.text = StringProfile.useFaceID
     }
     
     private func setupButton(button : UIButton , title : String) {
