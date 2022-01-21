@@ -35,6 +35,10 @@ extension UIColor {
     static let RedBG = #colorLiteral(red: 1, green: 0.8588235294, blue: 0.8588235294, alpha: 1) //#FFDBDB
     static let BlueText  = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1) //#007AFF
     static let Color_DoseTime =  #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1) //#F2F2F7
+    static let Color_Home_Icon_Oranage =  #colorLiteral(red: 1, green: 0.6470588235, blue: 0.1843137255, alpha: 1) //#FFA52F
+    static let Color_Home_Icon_Red =  #colorLiteral(red: 1, green: 0.3529411765, blue: 0.3529411765, alpha: 1) //#FF5A5A
+    static let Color_Home_Icon_Green =  #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1) //#34C759
+    
 
     
 }

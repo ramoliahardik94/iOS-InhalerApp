@@ -25,7 +25,7 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         lblLogin.text = StringUserManagement.login
         lblDontHaveAccount.text = StringUserManagement.dontHaveAccout
         lblEmail.text = StringUserManagement.email
-        lblCreatePassword.text = StringUserManagement.createPassword.uppercased()
+        lblCreatePassword.text = StringUserManagement.password.uppercased()
         
         
         btnLogin.setButtonView(StringUserManagement.login,17)

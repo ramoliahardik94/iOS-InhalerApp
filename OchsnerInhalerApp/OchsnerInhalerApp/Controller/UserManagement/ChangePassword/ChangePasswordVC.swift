@@ -43,7 +43,7 @@ class ChangePasswordVC: BaseVC {
         
         txtNewPassword.placeholder = StringUserManagement.newPassPlaceholder
         
-        lblConfirmPass.text = StringUserManagement.confiremPass.uppercased()
+        lblConfirmPass.text = StringUserManagement.confiremPassword.uppercased()
         lblConfirmPass.isTitle = false
         
         txtConfirmPass.isOchsnerTextFiled = true

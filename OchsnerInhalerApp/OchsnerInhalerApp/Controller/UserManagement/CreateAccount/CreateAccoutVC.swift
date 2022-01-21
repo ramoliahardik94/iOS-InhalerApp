@@ -16,7 +16,7 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     @IBOutlet weak var lblLastName: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblCreatePassword: UILabel!
-    
+    @IBOutlet weak var lblConfirmPassword: UILabel!
     @IBOutlet weak var tfFirstName: UITextField!
     @IBOutlet weak var tfLastName: UITextField!
     @IBOutlet weak var tfEmail: UITextField!
@@ -37,9 +37,8 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         lblEmail.text = StringUserManagement.email.uppercased()
         lblCreatePassword.text = StringUserManagement.createPassword.uppercased()
         lblCreateAccount.text = StringUserManagement.createAccount
-        
-        
-        btnUsePassword.setButtonView(StringUserManagement.usePassword,17)
+        lblConfirmPassword.text = StringUserManagement.confiremPassword.uppercased()
+        btnUsePassword.setButtonView(StringUserManagement.signup,17)
        
         setBorderTextField(textField: tfFirstName)
         setBorderTextField(textField: tfLastName)
@@ -52,7 +51,8 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         setCustomFontLabel(label: lblLastName, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblCreatePassword, type: .regular,fontSize: 15)
-        
+        setCustomFontLabel(label: lblConfirmPassword, type: .regular,fontSize: 15)
+       
         
         tfFirstName.placeholder = StringUserManagement.placeHolderFirstName
         tfLastName.placeholder = StringUserManagement.placeHolderLastName
@@ -72,8 +72,12 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     
     
     @IBAction func tapUsePassword(_ sender: UIButton) {
-        let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        pushVC(vc: vc)
+        
+        if validateData() {
+            let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+            pushVC(vc: vc)
+        } 
+        
     }
     private func setBorderTextField(textField : UITextField) {
         textField.layer.borderWidth = 1
@@ -91,6 +95,7 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     @IBAction func tapBack(_ sender: UIButton) {
         popVC()
     }
+    
     
      override func keyboardWillShow(notification: NSNotification) {
         let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
@@ -110,6 +115,21 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     deinit {
        deregisterKeyboardNotifications()
         debugPrint("deinit CreateAccoutVC")
+    }
+    
+
+    private func validateData() -> Bool {
+        var isValid = true
+        
+        
+        if tfFirstName.text == "" {
+            self.showAlertMessage(title: "", msg:  StringUserManagement.placeHolderFirstName)
+            
+            isValid = false
+            
+        }
+        
+        return isValid
     }
     
 }

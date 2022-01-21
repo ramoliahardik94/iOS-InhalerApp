@@ -128,4 +128,16 @@ class BaseVC: UIViewController {
     deinit {
         debugPrint("deinit basevc ")
     }
+    
+    //Todo show alert for messsage only
+    func showAlertMessage(title:String, msg:String) {
+      
+        
+        let alert = UIAlertController(title: "", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title:  "OKEY", style: .default, handler: { action in
+            // self.onClickDone()
+        }))
+        self.present(alert, animated: true)
+    }
+  
 }

@@ -9,7 +9,7 @@ struct StringCommonMessages {
      static let skip = "Skip"
      static let grant = "Grant"
      static let share = "Share"
-     static let copyRight = "©2021 Ochsner Health"
+     static let copyRight = "©2022 Ochsner Health"
      static let connected = "Connected"
      static let battery = "Battery:"
 
@@ -50,10 +50,10 @@ struct StringUserManagement {
     static let newPass = "New Password"
     
     static let confiremPassPlaceholder = "Enter confirm password"
-    static let confiremPass = "Confirm Password"
+    static let confiremPassword = "Confirm Password"
     static let updatePass = "Update Password"
-    
-    
+    static let password = "Password"
+    static let signup = "Sign Up"
 }
 
 //MARK: Profile
