@@ -22,6 +22,7 @@ class BluetoothPermissionVC: BaseVC {
         btnCancel.setButtonView(StringCommonMessages.cancel)
         btnGrant.setButtonView(StringCommonMessages.grant)
         setCustomFontLabel(label: lblBluetoothPermission, type: .bold,fontSize: 32)
+        btnCancel.isHidden = true
      
     }
     

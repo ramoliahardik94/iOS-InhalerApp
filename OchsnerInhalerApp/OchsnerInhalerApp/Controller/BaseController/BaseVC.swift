@@ -134,7 +134,7 @@ class BaseVC: UIViewController {
       
         
         let alert = UIAlertController(title: "", message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title:  "OKEY", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title:  "Ok", style: .default, handler: { action in
             // self.onClickDone()
         }))
         self.present(alert, animated: true)
