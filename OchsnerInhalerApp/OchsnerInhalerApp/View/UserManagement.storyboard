@@ -278,10 +278,10 @@
                                         <rect key="frame" x="0.0" y="50" width="375" height="602"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ak-GN-8QC">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="460.33333333333331"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="516.33333333333337"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3xa-pN-9nb">
-                                                        <rect key="frame" x="32" y="0.0" width="311" height="452.33333333333331"/>
+                                                        <rect key="frame" x="32" y="0.0" width="311" height="508.33333333333331"/>
                                                         <subviews>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QmG-lV-W3R">
                                                                 <rect key="frame" x="0.0" y="-32" width="311" height="32"/>
@@ -454,6 +454,58 @@
                                                                     <constraint firstAttribute="trailing" secondItem="RkI-Nr-efD" secondAttribute="trailing" id="zd0-pJ-ufV"/>
                                                                 </constraints>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mwh-fD-aYj">
+                                                                <rect key="frame" x="0.0" y="468.33333333333337" width="311" height="40"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check_box_outline" translatesAutoresizingMaskIntoConstraints="NO" id="Ywz-1E-2s8">
+                                                                        <rect key="frame" x="8" y="10" width="20" height="20"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="20" id="EdM-HJ-B9d"/>
+                                                                            <constraint firstAttribute="height" constant="20" id="LIN-dE-Aht"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgj-EI-Oaq">
+                                                                        <rect key="frame" x="36" y="9.9999999999999982" width="267" height="20.333333333333329"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kE-P2-o8N">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="30" id="tsR-dB-wk0"/>
+                                                                        </constraints>
+                                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <connections>
+                                                                            <action selector="tapCheckBox:" destination="ZOL-y3-Qff" eventType="touchUpInside" id="lal-8p-6FZ"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAd-BA-gx1">
+                                                                        <rect key="frame" x="30" y="0.0" width="281" height="40"/>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <connections>
+                                                                            <action selector="tapPrivacyPolicy:" destination="ZOL-y3-Qff" eventType="touchUpInside" id="8i2-fc-ugR"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="29G-fh-TBX"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="BAd-BA-gx1" secondAttribute="trailing" id="2SV-rr-uIJ"/>
+                                                                    <constraint firstItem="2kE-P2-o8N" firstAttribute="top" secondItem="Mwh-fD-aYj" secondAttribute="top" id="Bcj-qS-rbb"/>
+                                                                    <constraint firstItem="Ywz-1E-2s8" firstAttribute="centerY" secondItem="Mwh-fD-aYj" secondAttribute="centerY" id="Glf-R2-dDg"/>
+                                                                    <constraint firstItem="Vgj-EI-Oaq" firstAttribute="centerY" secondItem="Mwh-fD-aYj" secondAttribute="centerY" id="SEP-oX-Q7h"/>
+                                                                    <constraint firstItem="BAd-BA-gx1" firstAttribute="top" secondItem="Mwh-fD-aYj" secondAttribute="top" id="YUk-ZH-Qm7"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="2kE-P2-o8N" secondAttribute="bottom" id="bgT-wT-pkV"/>
+                                                                    <constraint firstItem="2kE-P2-o8N" firstAttribute="leading" secondItem="Mwh-fD-aYj" secondAttribute="leading" id="k99-pV-WL5"/>
+                                                                    <constraint firstItem="Vgj-EI-Oaq" firstAttribute="leading" secondItem="Ywz-1E-2s8" secondAttribute="trailing" constant="8" id="lVQ-wg-75V"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Vgj-EI-Oaq" secondAttribute="trailing" constant="8" id="oSe-WG-N6W"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="BAd-BA-gx1" secondAttribute="bottom" id="sKK-Q3-PwX"/>
+                                                                    <constraint firstItem="Ywz-1E-2s8" firstAttribute="leading" secondItem="Mwh-fD-aYj" secondAttribute="leading" constant="8" id="sTS-QJ-yp1"/>
+                                                                    <constraint firstItem="BAd-BA-gx1" firstAttribute="leading" secondItem="2kE-P2-o8N" secondAttribute="trailing" id="xgH-4u-MsV"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
@@ -515,12 +567,14 @@
                     </view>
                     <connections>
                         <outlet property="btnUsePassword" destination="Usv-IB-MMP" id="7oZ-4i-BAB"/>
+                        <outlet property="ivCheckBox" destination="Ywz-1E-2s8" id="hra-4Q-lDV"/>
                         <outlet property="lblConfirmPassword" destination="Ewf-cg-DBU" id="0ef-BD-ya7"/>
                         <outlet property="lblCreateAccount" destination="AGR-5U-Kgg" id="tVr-fB-ZD7"/>
                         <outlet property="lblCreatePassword" destination="nUm-VF-ado" id="EGg-LL-kAE"/>
                         <outlet property="lblEmail" destination="ZCv-Q6-QmN" id="1dv-K3-fPw"/>
                         <outlet property="lblFirstName" destination="8NO-aO-8Ka" id="qRU-Eo-X74"/>
                         <outlet property="lblLastName" destination="ffl-bd-eZT" id="3LY-YB-z0e"/>
+                        <outlet property="lblPrivacyPolicy" destination="Vgj-EI-Oaq" id="J8b-YZ-ng0"/>
                         <outlet property="scrollViewMain" destination="p1t-RP-QNn" id="RDL-7f-1fE"/>
                         <outlet property="tfConfirmPassword" destination="qyq-lf-5em" id="TF7-TK-Qdm"/>
                         <outlet property="tfEmail" destination="8Bo-rb-IHr" id="cey-q6-Yiv"/>
@@ -687,7 +741,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1D-XZ-RgZ" userLabel="currentPass">
-                                        <rect key="frame" x="32" y="258.33333333333331" width="311" height="69"/>
+                                        <rect key="frame" x="32" y="259" width="311" height="69"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlG-3M-HZO">
                                                 <rect key="frame" x="0.0" y="0.0" width="311" height="21"/>
@@ -719,7 +773,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zi3-8P-Ffv" userLabel="currentPass">
-                                        <rect key="frame" x="32" y="343.33333333333331" width="311" height="69"/>
+                                        <rect key="frame" x="32" y="344" width="311" height="69"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKj-OE-Mls">
                                                 <rect key="frame" x="0.0" y="0.0" width="311" height="21"/>
@@ -1075,6 +1129,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="check_box_outline" width="24" height="24"/>
         <image name="ic_back_arrow_white" width="12" height="20.666666030883789"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

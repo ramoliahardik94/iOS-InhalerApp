@@ -22,8 +22,11 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var tfConfirmPassword: UITextField!
-    
     @IBOutlet weak var scrollViewMain: UIScrollView!
+   
+    @IBOutlet weak var lblPrivacyPolicy: UILabel!
+    @IBOutlet weak var ivCheckBox: UIImageView!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
  
@@ -39,7 +42,7 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         lblCreateAccount.text = StringUserManagement.createAccount
         lblConfirmPassword.text = StringUserManagement.confiremPassword.uppercased()
         btnUsePassword.setButtonView(StringUserManagement.signup,17)
-       
+        lblPrivacyPolicy.text = StringPermissions.privacyPolicy
         setBorderTextField(textField: tfFirstName)
         setBorderTextField(textField: tfLastName)
         setBorderTextField(textField: tfEmail)
@@ -52,13 +55,18 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblCreatePassword, type: .regular,fontSize: 15)
         setCustomFontLabel(label: lblConfirmPassword, type: .regular,fontSize: 15)
-       
-        
-        tfFirstName.placeholder = StringUserManagement.placeHolderFirstName
-        tfLastName.placeholder = StringUserManagement.placeHolderLastName
-        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
-        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
-        tfConfirmPassword.placeholder = StringUserManagement.confirmPasswordPlaceHolder
+        setCustomFontLabel(label: lblPrivacyPolicy, type: .regular,fontSize: 15)
+        addAstrickSing(label: lblFirstName)
+        addAstrickSing(label: lblLastName)
+        addAstrickSing(label: lblEmail)
+        addAstrickSing(label: lblCreatePassword)
+        addAstrickSing(label: lblConfirmPassword)
+        lblPrivacyPolicy.textColor = .Button_Color_Blue
+//        tfFirstName.placeholder = StringUserManagement.placeHolderFirstName
+//        tfLastName.placeholder = StringUserManagement.placeHolderLastName
+//        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
+//        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+//        tfConfirmPassword.placeholder = StringUserManagement.confirmPasswordPlaceHolder
         tfPassword.enablePasswordToggle()
         tfConfirmPassword.enablePasswordToggle()
         tfFirstName.autocapitalizationType = .words
@@ -74,7 +82,8 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     @IBAction func tapUsePassword(_ sender: UIButton) {
         
         if validateData() {
-            let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+            let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+           // let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
             pushVC(vc: vc)
         }
         
@@ -94,6 +103,16 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     
     @IBAction func tapBack(_ sender: UIButton) {
         popVC()
+    }
+    
+    @IBAction func tapPrivacyPolicy(_ sender: UIButton) {
+        let vc  = PrivacyPolicyVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        pushVC(vc: vc)
+    }
+    
+    @IBAction func tapCheckBox(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        ivCheckBox.image = sender.isSelected ?  UIImage(named: "check_box") : UIImage(named: "check_box_outline")
     }
     
     
@@ -159,4 +178,7 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
+    
+
+  
 }

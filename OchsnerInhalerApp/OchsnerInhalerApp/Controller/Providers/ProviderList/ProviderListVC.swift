@@ -62,7 +62,7 @@ class ProviderListVC: BaseVC {
     }
     
     @IBAction func btnContinueClick(_ sender: Any) {
-        let vc  = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        let vc  = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         pushVC(vc: vc)
     }
     @IBAction func btnChangeClick(_ sender: Any) {

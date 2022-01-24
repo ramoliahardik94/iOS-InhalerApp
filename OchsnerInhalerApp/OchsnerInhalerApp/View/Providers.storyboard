@@ -168,7 +168,7 @@
                                         <rect key="frame" x="0.0" y="40" width="414" height="55"/>
                                         <subviews>
                                             <searchBar contentMode="redraw" placeholder="Provider name" translatesAutoresizingMaskIntoConstraints="NO" id="Mqs-1N-MME">
-                                                <rect key="frame" x="80" y="5" width="274" height="45"/>
+                                                <rect key="frame" x="13" y="8" width="343" height="39"/>
                                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                                                 <scopeButtonTitles>
                                                     <string>Title</string>
@@ -178,17 +178,22 @@
                                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="mKh-0Z-IVC"/>
                                                 </connections>
                                             </searchBar>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opx-Jf-uXE">
-                                                <rect key="frame" x="20" y="5" width="60" height="45"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="bQX-cG-iWZ"/>
-                                                    <constraint firstAttribute="height" constant="45" id="bVL-FV-8aK"/>
-                                                </constraints>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="usFlag"/>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eLC-oT-dxL">
+                                                <rect key="frame" x="5" y="5" width="0.0" height="45"/>
+                                                <subviews>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opx-Jf-uXE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="bQX-cG-iWZ"/>
+                                                            <constraint firstAttribute="height" constant="45" id="bVL-FV-8aK"/>
+                                                        </constraints>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="usFlag"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZ6-uf-jHl">
-                                                <rect key="frame" x="364" y="6" width="30" height="44"/>
+                                                <rect key="frame" x="364" y="5" width="30" height="45"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Cancel"/>
@@ -199,16 +204,17 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="opx-Jf-uXE" secondAttribute="bottom" constant="5" id="2hc-VD-md8"/>
-                                            <constraint firstItem="Mqs-1N-MME" firstAttribute="leading" secondItem="opx-Jf-uXE" secondAttribute="trailing" id="5HI-8J-I01"/>
-                                            <constraint firstItem="opx-Jf-uXE" firstAttribute="leading" secondItem="5mz-59-SlE" secondAttribute="leading" constant="20" id="Ya2-i7-6KB"/>
-                                            <constraint firstItem="gZ6-uf-jHl" firstAttribute="leading" secondItem="Mqs-1N-MME" secondAttribute="trailing" constant="10" id="be9-PC-0kp"/>
-                                            <constraint firstItem="Mqs-1N-MME" firstAttribute="top" secondItem="opx-Jf-uXE" secondAttribute="top" id="bxG-ll-VYT"/>
-                                            <constraint firstItem="gZ6-uf-jHl" firstAttribute="top" secondItem="Mqs-1N-MME" secondAttribute="top" constant="1" id="dNy-hc-usw"/>
-                                            <constraint firstItem="gZ6-uf-jHl" firstAttribute="bottom" secondItem="Mqs-1N-MME" secondAttribute="bottom" id="fpg-cO-QUE"/>
+                                            <constraint firstItem="gZ6-uf-jHl" firstAttribute="top" secondItem="5mz-59-SlE" secondAttribute="top" constant="5" id="0vT-4l-uMh"/>
+                                            <constraint firstAttribute="bottom" secondItem="gZ6-uf-jHl" secondAttribute="bottom" constant="5" id="3jh-L0-Ft7"/>
+                                            <constraint firstAttribute="height" constant="55" id="BZM-Yz-ykA"/>
+                                            <constraint firstItem="eLC-oT-dxL" firstAttribute="leading" secondItem="5mz-59-SlE" secondAttribute="leading" constant="5" id="EqF-CN-AnF"/>
+                                            <constraint firstItem="eLC-oT-dxL" firstAttribute="top" secondItem="5mz-59-SlE" secondAttribute="top" constant="5" id="UD6-HE-R46"/>
+                                            <constraint firstAttribute="bottom" secondItem="eLC-oT-dxL" secondAttribute="bottom" constant="5" id="VyE-Cd-hT1"/>
+                                            <constraint firstAttribute="bottom" secondItem="Mqs-1N-MME" secondAttribute="bottom" constant="8" id="deX-gn-yKe"/>
+                                            <constraint firstItem="Mqs-1N-MME" firstAttribute="top" secondItem="5mz-59-SlE" secondAttribute="top" constant="8" id="gbY-jk-m7U"/>
+                                            <constraint firstItem="gZ6-uf-jHl" firstAttribute="leading" secondItem="Mqs-1N-MME" secondAttribute="trailing" constant="8" id="iZ6-VT-voN"/>
                                             <constraint firstAttribute="trailing" secondItem="gZ6-uf-jHl" secondAttribute="trailing" constant="20" id="jZa-Ok-vho"/>
-                                            <constraint firstItem="opx-Jf-uXE" firstAttribute="top" secondItem="5mz-59-SlE" secondAttribute="top" constant="5" id="ks5-qh-SJg"/>
-                                            <constraint firstItem="Mqs-1N-MME" firstAttribute="bottom" secondItem="opx-Jf-uXE" secondAttribute="bottom" id="sr5-ha-FzU"/>
+                                            <constraint firstItem="Mqs-1N-MME" firstAttribute="leading" secondItem="eLC-oT-dxL" secondAttribute="trailing" constant="8" id="qGc-G5-b5d"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="n18-bZ-dpw">

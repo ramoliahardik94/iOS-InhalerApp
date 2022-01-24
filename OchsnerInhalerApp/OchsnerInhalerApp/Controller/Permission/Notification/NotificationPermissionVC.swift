@@ -22,7 +22,8 @@ class NotificationPermissionVC: BaseVC {
     
     //MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-        let vc = OchsnerCloudPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+     //   let vc = OchsnerCloudPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
         pushVC(vc: vc)
     }
     

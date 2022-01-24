@@ -52,7 +52,9 @@ class OchsnerCloudPermissionVC: BaseVC {
 
     //MARK: Actions
     @IBAction func tapShare(_ sender: UIButton) {
-        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        
+        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+       // let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         pushVC(vc: vc)
         
 //        let storyBoard = UIStoryboard(name: "Main", bundle: nil)

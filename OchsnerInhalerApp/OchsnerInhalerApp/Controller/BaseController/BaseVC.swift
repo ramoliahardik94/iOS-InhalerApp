@@ -139,5 +139,12 @@ class BaseVC: UIViewController {
         }))
         self.present(alert, animated: true)
     }
+    
+    func addAstrickSing(label: UILabel) {
+         let range = NSRange(location:label.text?.count ?? 0 + 1  ,length:1) //
+         let  attributedString = NSMutableAttributedString(string: "\(label.text ?? "")*")
+         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+         label.attributedText = attributedString
+     }
   
 }

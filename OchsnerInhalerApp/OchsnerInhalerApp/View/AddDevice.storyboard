@@ -551,20 +551,41 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="i.e 1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B2k-9R-0tq">
-                                                    <rect key="frame" x="107" y="248.66666666666663" width="146" height="41"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-Zn-4Nh">
+                                                    <rect key="frame" x="105" y="236.66666666666663" width="150" height="40"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="i.e 1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B2k-9R-0tq">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="light"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="VAX-uH-QDl" id="R53-rc-Vdv"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSe-u1-zX8">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <connections>
+                                                                <action selector="tapNoOfDose:" destination="VAX-uH-QDl" eventType="touchUpInside" id="lGY-YM-knB"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="146" id="0c7-Mi-rvK"/>
-                                                        <constraint firstAttribute="height" constant="41" id="gbX-RM-Ri3"/>
+                                                        <constraint firstAttribute="bottom" secondItem="rSe-u1-zX8" secondAttribute="bottom" id="75c-9X-ri2"/>
+                                                        <constraint firstAttribute="trailing" secondItem="rSe-u1-zX8" secondAttribute="trailing" id="BNi-nk-eT2"/>
+                                                        <constraint firstAttribute="bottom" secondItem="B2k-9R-0tq" secondAttribute="bottom" id="EOP-fv-ESg"/>
+                                                        <constraint firstAttribute="width" constant="150" id="LPu-Ub-p2w"/>
+                                                        <constraint firstItem="B2k-9R-0tq" firstAttribute="leading" secondItem="PhG-Zn-4Nh" secondAttribute="leading" id="TMV-1K-Zxa"/>
+                                                        <constraint firstAttribute="height" constant="40" id="Z4v-GB-VuQ"/>
+                                                        <constraint firstItem="rSe-u1-zX8" firstAttribute="leading" secondItem="PhG-Zn-4Nh" secondAttribute="leading" id="a8h-1m-8Uu"/>
+                                                        <constraint firstItem="rSe-u1-zX8" firstAttribute="top" secondItem="PhG-Zn-4Nh" secondAttribute="top" id="lHt-4e-M9X"/>
+                                                        <constraint firstAttribute="trailing" secondItem="B2k-9R-0tq" secondAttribute="trailing" id="u0c-aW-evd"/>
+                                                        <constraint firstItem="B2k-9R-0tq" firstAttribute="top" secondItem="PhG-Zn-4Nh" secondAttribute="top" id="yZE-ft-gGr"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="light"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="VAX-uH-QDl" id="R53-rc-Vdv"/>
-                                                    </connections>
-                                                </textField>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dose Times" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVa-gV-y6a">
-                                                    <rect key="frame" x="0.0" y="323.66666666666669" width="360" height="20.333333333333314"/>
+                                                    <rect key="frame" x="0.0" y="308.66666666666669" width="360" height="20.333333333333314"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -577,18 +598,18 @@
                                                 <constraint firstItem="BWF-Id-6OV" firstAttribute="top" secondItem="bAI-7V-m5g" secondAttribute="top" constant="34" id="5Yt-bH-BrB"/>
                                                 <constraint firstAttribute="trailing" secondItem="OYi-GU-GIg" secondAttribute="trailing" id="CzD-aF-18I"/>
                                                 <constraint firstItem="BWF-Id-6OV" firstAttribute="leading" secondItem="bAI-7V-m5g" secondAttribute="leading" id="GGR-0r-4SL"/>
+                                                <constraint firstItem="PhG-Zn-4Nh" firstAttribute="top" secondItem="OGf-m9-I76" secondAttribute="bottom" constant="8" id="GO2-jg-bwE"/>
                                                 <constraint firstItem="OYi-GU-GIg" firstAttribute="top" secondItem="BWF-Id-6OV" secondAttribute="bottom" constant="34" id="Gnb-Jv-EsT"/>
                                                 <constraint firstItem="OGf-m9-I76" firstAttribute="top" secondItem="OYi-GU-GIg" secondAttribute="bottom" constant="34" id="IGD-st-TGI"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OVa-gV-y6a" secondAttribute="bottom" constant="10" id="NBM-f2-ffP"/>
                                                 <constraint firstItem="BWF-Id-6OV" firstAttribute="top" secondItem="bAI-7V-m5g" secondAttribute="top" constant="34" id="Qf2-F5-Q16"/>
-                                                <constraint firstItem="OVa-gV-y6a" firstAttribute="top" secondItem="B2k-9R-0tq" secondAttribute="bottom" constant="34" id="dkN-hc-NG1"/>
+                                                <constraint firstItem="PhG-Zn-4Nh" firstAttribute="centerX" secondItem="bAI-7V-m5g" secondAttribute="centerX" id="Xbv-2I-R80"/>
+                                                <constraint firstItem="OVa-gV-y6a" firstAttribute="top" secondItem="PhG-Zn-4Nh" secondAttribute="bottom" constant="32" id="cBE-Vu-x1w"/>
                                                 <constraint firstAttribute="trailing" secondItem="BWF-Id-6OV" secondAttribute="trailing" id="itE-Wa-DiD"/>
-                                                <constraint firstItem="B2k-9R-0tq" firstAttribute="top" secondItem="OGf-m9-I76" secondAttribute="bottom" constant="20" id="jdY-Ec-1Xc"/>
                                                 <constraint firstItem="OGf-m9-I76" firstAttribute="leading" secondItem="BWF-Id-6OV" secondAttribute="leading" id="l68-00-UQZ"/>
                                                 <constraint firstItem="OYi-GU-GIg" firstAttribute="leading" secondItem="bAI-7V-m5g" secondAttribute="leading" id="pFg-jx-UDz"/>
                                                 <constraint firstItem="OVa-gV-y6a" firstAttribute="trailing" secondItem="OGf-m9-I76" secondAttribute="trailing" id="prd-h0-h0c"/>
                                                 <constraint firstItem="OGf-m9-I76" firstAttribute="trailing" secondItem="BWF-Id-6OV" secondAttribute="trailing" id="szi-QC-TDF"/>
-                                                <constraint firstItem="B2k-9R-0tq" firstAttribute="centerX" secondItem="bAI-7V-m5g" secondAttribute="centerX" id="uCX-Nt-33z"/>
                                                 <constraint firstItem="OVa-gV-y6a" firstAttribute="leading" secondItem="OGf-m9-I76" secondAttribute="leading" id="xnW-Zv-NaL"/>
                                             </constraints>
                                         </view>
@@ -807,6 +828,7 @@
                     <connections>
                         <outlet property="btnAddDose" destination="hL2-1w-5ox" id="Ry3-9s-th8"/>
                         <outlet property="btnDone" destination="Mrn-FA-C18" id="Tsn-TW-OSp"/>
+                        <outlet property="btnPuff" destination="rSe-u1-zX8" id="pfH-IF-tBD"/>
                         <outlet property="lblAddDose" destination="QO6-hV-MwX" id="jCI-mR-H8t"/>
                         <outlet property="lblDoseTime" destination="OVa-gV-y6a" id="1D2-tx-WYf"/>
                         <outlet property="lblMedicationName" destination="Ffx-KN-yKI" id="Ush-3z-Z57"/>

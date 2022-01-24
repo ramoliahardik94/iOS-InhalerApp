@@ -47,10 +47,12 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         tfPassword.layer.cornerRadius = 4
         tfEmail.delegate = self
         tfPassword.delegate = self
-        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
-        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+//        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
+//        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
         tfPassword.enablePasswordToggle()
         hideKeyBoardHideOutSideTouch(customView: self.view)
+        addAstrickSing(label: lblEmail)
+        addAstrickSing(label: lblCreatePassword)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -63,7 +65,9 @@ class LoginVC : BaseVC , UITextFieldDelegate{
     
     //MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
-        let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        
+        let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        // let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         pushVC(vc: vc)
     }
     
