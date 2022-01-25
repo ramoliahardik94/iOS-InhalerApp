@@ -219,10 +219,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1Ke-60-ylp">
-                                                        <rect key="frame" x="17.5" y="15" width="12" height="10"/>
+                                                        <rect key="frame" x="21.5" y="11" width="13" height="14"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="12" id="XEA-ZX-cku"/>
-                                                            <constraint firstAttribute="width" constant="12" id="oyF-Bx-GUd"/>
+                                                            <constraint firstAttribute="height" constant="16" id="XEA-ZX-cku"/>
+                                                            <constraint firstAttribute="width" constant="13" id="oyF-Bx-GUd"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
@@ -235,7 +235,7 @@
                                                     <constraint firstItem="q2u-gt-Nut" firstAttribute="top" secondItem="1Ke-60-ylp" secondAttribute="bottom" constant="8" id="Ycc-mY-Jil"/>
                                                     <constraint firstItem="6pQ-6E-cmJ" firstAttribute="top" secondItem="ppN-Cz-aDT" secondAttribute="top" constant="6" id="r0h-cl-GUr"/>
                                                     <constraint firstItem="6pQ-6E-cmJ" firstAttribute="leading" secondItem="ppN-Cz-aDT" secondAttribute="leading" id="svF-Qp-mkI"/>
-                                                    <constraint firstItem="1Ke-60-ylp" firstAttribute="leading" secondItem="6pQ-6E-cmJ" secondAttribute="trailing" id="yyv-RP-daJ"/>
+                                                    <constraint firstItem="1Ke-60-ylp" firstAttribute="leading" secondItem="6pQ-6E-cmJ" secondAttribute="trailing" constant="4" id="yyv-RP-daJ"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tbi-I6-eKR">
@@ -258,10 +258,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CJ2-Oa-jgz">
-                                                        <rect key="frame" x="17.5" y="15" width="12" height="10"/>
+                                                        <rect key="frame" x="21.5" y="11" width="13" height="14"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="12" id="310-db-BtL"/>
-                                                            <constraint firstAttribute="width" constant="12" id="Oh8-zu-gVU"/>
+                                                            <constraint firstAttribute="height" constant="16" id="310-db-BtL"/>
+                                                            <constraint firstAttribute="width" constant="13" id="Oh8-zu-gVU"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
@@ -272,7 +272,7 @@
                                                     <constraint firstItem="NWt-Y2-5NJ" firstAttribute="leading" secondItem="Tbi-I6-eKR" secondAttribute="leading" id="OiM-T1-vIC"/>
                                                     <constraint firstItem="3j7-eP-8iH" firstAttribute="top" secondItem="CJ2-Oa-jgz" secondAttribute="bottom" constant="8" id="Z8u-kI-yU2"/>
                                                     <constraint firstItem="NWt-Y2-5NJ" firstAttribute="top" secondItem="Tbi-I6-eKR" secondAttribute="top" constant="6" id="dbc-vC-Qdk"/>
-                                                    <constraint firstItem="CJ2-Oa-jgz" firstAttribute="leading" secondItem="NWt-Y2-5NJ" secondAttribute="trailing" id="k3n-Ag-2sF"/>
+                                                    <constraint firstItem="CJ2-Oa-jgz" firstAttribute="leading" secondItem="NWt-Y2-5NJ" secondAttribute="trailing" constant="4" id="k3n-Ag-2sF"/>
                                                     <constraint firstItem="3j7-eP-8iH" firstAttribute="top" secondItem="NWt-Y2-5NJ" secondAttribute="bottom" constant="8" id="rXW-Ro-fvc"/>
                                                     <constraint firstItem="3j7-eP-8iH" firstAttribute="leading" secondItem="Tbi-I6-eKR" secondAttribute="leading" id="t6s-J0-IJB"/>
                                                 </constraints>
@@ -381,7 +381,7 @@
         <image name="battery" width="19" height="14"/>
         <image name="signal" width="18" height="13"/>
         <namedColor name="color_line">
-            <color red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.59200000762939453" green="0.59200000762939453" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

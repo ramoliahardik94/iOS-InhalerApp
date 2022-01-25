@@ -25,7 +25,7 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         lblLogin.text = StringUserManagement.login
         lblDontHaveAccount.text = StringUserManagement.dontHaveAccout
         lblEmail.text = StringUserManagement.email
-        lblCreatePassword.text = StringUserManagement.createPassword.uppercased()
+        lblCreatePassword.text = StringUserManagement.password.uppercased()
         
         
         btnLogin.setButtonView(StringUserManagement.login,17)
@@ -47,10 +47,12 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         tfPassword.layer.cornerRadius = 4
         tfEmail.delegate = self
         tfPassword.delegate = self
-        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
-        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
+//        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
+//        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
         tfPassword.enablePasswordToggle()
         hideKeyBoardHideOutSideTouch(customView: self.view)
+        addAstrickSing(label: lblEmail)
+        addAstrickSing(label: lblCreatePassword)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -63,8 +65,12 @@ class LoginVC : BaseVC , UITextFieldDelegate{
     
     //MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
-        let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        pushVC(vc: vc)
+        if validateData() {
+            let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+            // let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+            pushVC(vc: vc)
+        }
+      
     }
     
     @IBAction func tapCreateAccount(_ sender: UIButton) {
@@ -72,5 +78,20 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         pushVC(vc: vc)
     }
     
-    
+    private func validateData() -> Bool {
+        var isValid = true
+        
+        
+        if !isValidEmail(email: tfEmail.text ?? "") {
+            self.showAlertMessage(title: "", msg:  "Enter valid email")
+            isValid = false
+        }
+        
+        if tfPassword.text == "" {
+            self.showAlertMessage(title: "", msg:  StringUserManagement.passwordPlaceHolder)
+            isValid = false
+        }
+       
+        return isValid
+    }
 }

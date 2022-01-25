@@ -128,4 +128,30 @@ class BaseVC: UIViewController {
     deinit {
         debugPrint("deinit basevc ")
     }
+    
+    //Todo show alert for messsage only
+    func showAlertMessage(title:String, msg:String) {
+      
+        
+        let alert = UIAlertController(title: "", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title:  "Ok", style: .default, handler: { action in
+            // self.onClickDone()
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func addAstrickSing(label: UILabel) {
+         let range = NSRange(location:label.text?.count ?? 0 + 1  ,length:1) //
+         let  attributedString = NSMutableAttributedString(string: "\(label.text ?? "")*")
+         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+         label.attributedText = attributedString
+     }
+    
+    func isValidEmail(email:String) -> Bool {
+       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+       
+       let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+       return emailTest.evaluate(with: email)
+   }
+  
 }

@@ -39,7 +39,7 @@ class ProfileVC: BaseVC {
         setCustomFontLabel(label: lblReceiveNotifications, type: .regular,fontSize: 21)
         setCustomFontLabel(label: lblShareLocation, type: .regular,fontSize: 21)
         setCustomFontLabel(label: lblShareUsageWithProvider, type: .regular,fontSize: 21)
-        setCustomFontLabel(label: lblUseFaceID, type: .regular,fontSize: 21)
+
         
         lblEmail.text = "lauren@ipsum.com"
         lblProvider.text = "Provider: Ochsner Health"
@@ -48,7 +48,7 @@ class ProfileVC: BaseVC {
         lblReceiveNotifications.text = StringProfile.receiveNotifications
         lblShareLocation.text = StringProfile.shareLocation
         lblShareUsageWithProvider.text = StringProfile.shareUsageWithProvider
-        lblUseFaceID.text = StringProfile.useFaceID
+
     }
     
     private func setupButton(button : UIButton , title : String) {
@@ -90,7 +90,8 @@ class ProfileVC: BaseVC {
   
     }
     @IBAction func tapChangeProvider(_ sender: Any) {
-  
+        let vc = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        pushVC(vc: vc)
     }
     @IBAction func tapRemoveProvider(_ sender: Any) {
   

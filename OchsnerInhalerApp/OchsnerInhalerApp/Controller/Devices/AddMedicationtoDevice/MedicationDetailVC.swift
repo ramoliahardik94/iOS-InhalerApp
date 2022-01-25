@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import DropDown
 class MedicationDetailVC: BaseVC {
     
     @IBOutlet weak var lblAddDose: UILabel!
@@ -22,6 +22,7 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var btnAddDose: UIButton!
     @IBOutlet weak var lblPuffTitle: UILabel!
     @IBOutlet weak var tblDoseTime: UITableView!
+    @IBOutlet weak var btnPuff: UIButton!
     let timePicker = UIDatePicker()
     var index = 0
     var arrTime = ["8:30 am","6:30 pm"]
@@ -30,7 +31,7 @@ class MedicationDetailVC: BaseVC {
         let v = NMDatePicker()
         return v
     }()
-    
+    let dropDown = DropDown()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -162,6 +163,18 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnRemoveDoseTimeClick(_ sender: UIButton) {
         arrTime.remove(at: sender.tag)
         tblDoseTime.reloadData()
+    }
+    
+    @IBAction func tapNoOfDose(_ sender: UIButton) {
+        dropDown.anchorView = btnPuff
+        dropDown.dataSource = ["1" , "2" , "3" ,"4","5","6","7","8","9","10"]
+
+        dropDown.selectionAction = { [weak self] (index, item) in
+            self?.txtPuff.text  =     item
+        }
+        dropDown.show()
+        
+        
     }
 }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {

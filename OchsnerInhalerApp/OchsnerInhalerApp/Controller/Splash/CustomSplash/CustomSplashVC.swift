@@ -15,7 +15,7 @@ class CustomSplashVC: BaseVC {
    
     override func viewDidLoad() {
         
-        _ = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+        _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
         
         
         lblCopyRight.text = StringCommonMessages.copyRight

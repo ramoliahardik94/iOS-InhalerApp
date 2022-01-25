@@ -361,7 +361,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wh7-tX-3Nm">
-                                                                        <rect key="frame" x="16" y="17" width="351" height="24"/>
+                                                                        <rect key="frame" x="16" y="17" width="351" height="72"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="ybT-td-d15"/>
                                                                         </constraints>
@@ -370,7 +370,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Bi5-CU-bvc">
-                                                                        <rect key="frame" x="16" y="63" width="343" height="176"/>
+                                                                        <rect key="frame" x="16" y="111" width="343" height="128"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8T-XA-XTw">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="32"/>
@@ -444,8 +444,8 @@
                                                                                     <constraint firstAttribute="bottom" secondItem="qAv-bV-hbd" secondAttribute="bottom" constant="4" id="w62-zb-N16"/>
                                                                                 </constraints>
                                                                             </view>
-                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4k-hh-485">
-                                                                                <rect key="frame" x="0.0" y="144" width="343" height="32"/>
+                                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4k-hh-485">
+                                                                                <rect key="frame" x="0.0" y="128" width="343" height="32"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3Z-n2-VOb">
                                                                                         <rect key="frame" x="0.0" y="4" width="282" height="24"/>
@@ -454,7 +454,7 @@
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2l3-RW-rPW">
-                                                                                        <rect key="frame" x="286" y="0.66666666666668561" width="51" height="31"/>
+                                                                                        <rect key="frame" x="286" y="0.66666666666662877" width="51" height="31"/>
                                                                                     </switch>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -542,7 +542,7 @@
                         <outlet property="lblSettings" destination="wh7-tX-3Nm" id="Umb-P5-yrU"/>
                         <outlet property="lblShareLocation" destination="Cd1-b9-14J" id="cXF-xZ-Xir"/>
                         <outlet property="lblShareUsageWithProvider" destination="qAv-bV-hbd" id="WIj-Yk-dRi"/>
-                        <outlet property="lblUseFaceID" destination="g3Z-n2-VOb" id="6pU-wz-pWQ"/>
+                        <outlet property="lblUseFaceID" destination="g3Z-n2-VOb" id="rrF-Jo-YBR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyY-l8-e6G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

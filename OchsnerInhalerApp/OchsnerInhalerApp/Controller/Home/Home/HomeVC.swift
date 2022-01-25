@@ -76,7 +76,9 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
             cell.lblSaturday.text = "S"
             cell.lblSunday.text = "S"
             
-            
+            cell.lblFriday.layer.borderWidth = 1
+            cell.lblFriday.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+           
             if indexPath.row == 0 {
                 cell.lblDeviceName.text = "Ventolin"
                 cell.lblDeviceType.text = "(Rescue)"
@@ -134,6 +136,12 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
             cell.lblThisMonthData.text = "26"
             cell.viewNextDose.isHidden = true
             cell.viewAdherance.isHidden = true
+            cell.ivBattery.image = UIImage(named: "battery")
+            cell.ivThisWeek.image = UIImage(named: "arrow_up_home")
+            cell.ivThisWeek.setImageColor(.Color_Home_Icon_Oranage)// #FFA52F
+            cell.ivThisMonth.image = UIImage(named: "arrow_up_home")
+            cell.ivThisMonth.setImageColor(.Color_Home_Icon_Red)// #FFA52F
+            
         } else {
             cell.lblDeviceName.text = "Ventolin"
             cell.lblDeviceType.text = "(Maintenance Inhaler)"
@@ -144,6 +152,12 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
             cell.viewNextDose.isHidden = false
             cell.viewAdherance.isHidden = false
             cell.lblNextDose.text = "Next Scheduled Dose: Today at 6:30 pm"
+            cell.ivBattery.image = UIImage(named: "battery_orange")
+            cell.ivThisWeek.image = UIImage(named: "arrow_up_home")
+            cell.ivThisWeek.setImageColor(.Color_Home_Icon_Green)// #FFA52F
+            cell.ivThisMonth.image = UIImage(named: "arrow_down_home")
+            cell.ivThisMonth.setImageColor(.Color_Home_Icon_Red)// #FFA52F
+         
         }
         
         return cell
