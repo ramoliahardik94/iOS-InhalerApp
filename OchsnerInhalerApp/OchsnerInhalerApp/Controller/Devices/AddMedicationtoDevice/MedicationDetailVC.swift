@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import DropDown
 class MedicationDetailVC: BaseVC {
     
     @IBOutlet weak var lblAddDose: UILabel!
@@ -31,7 +31,7 @@ class MedicationDetailVC: BaseVC {
         let v = NMDatePicker()
         return v
     }()
-   // let dropDown = DropDown()
+    let dropDown = DropDown()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -166,14 +166,13 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func tapNoOfDose(_ sender: UIButton) {
-//        let dropDown = DropDown()
-//        dropDown.anchorView = btnPuff
-//        dropDown.dataSource = ["1" , "2" , "3" ,"4","5","6","7","8","9","10"]
-//
-//        dropDown.selectionAction = { [weak self] (index, item) in
-//            self?.txtPuff.text  =     item
-//        }
-//        dropDown.show()
+        dropDown.anchorView = btnPuff
+        dropDown.dataSource = ["1" , "2" , "3" ,"4","5","6","7","8","9","10"]
+
+        dropDown.selectionAction = { [weak self] (index, item) in
+            self?.txtPuff.text  =     item
+        }
+        dropDown.show()
         
         
     }

@@ -94,9 +94,8 @@ class AddDeviceIntroVC: BaseVC {
         case .Step1:
             vc.step = .Step2
         case .Step2:
-            vc.step = .Step3
-        case .Step3:
             vc.step = .Step4
+     
         case .Step4:
             vc.step = .Step5
         case .Step5:
@@ -106,6 +105,10 @@ class AddDeviceIntroVC: BaseVC {
             
              pushVC(vc: vc)
             return
+        case .Step3:
+            break
+//        case .Step3:
+//            vc.step = .Step4
         }
         vc.isFromAddAnother = isFromAddAnother
         pushVC(vc: vc)

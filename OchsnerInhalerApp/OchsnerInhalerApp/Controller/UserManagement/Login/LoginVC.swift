@@ -65,10 +65,12 @@ class LoginVC : BaseVC , UITextFieldDelegate{
     
     //MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
-        
-        let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-        // let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        pushVC(vc: vc)
+        if validateData() {
+            let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+            // let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+            pushVC(vc: vc)
+        }
+      
     }
     
     @IBAction func tapCreateAccount(_ sender: UIButton) {
@@ -76,5 +78,20 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         pushVC(vc: vc)
     }
     
-    
+    private func validateData() -> Bool {
+        var isValid = true
+        
+        
+        if !isValidEmail(email: tfEmail.text ?? "") {
+            self.showAlertMessage(title: "", msg:  "Enter valid email")
+            isValid = false
+        }
+        
+        if tfPassword.text == "" {
+            self.showAlertMessage(title: "", msg:  StringUserManagement.passwordPlaceHolder)
+            isValid = false
+        }
+       
+        return isValid
+    }
 }
