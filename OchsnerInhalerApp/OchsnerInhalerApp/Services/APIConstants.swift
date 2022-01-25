@@ -9,13 +9,12 @@ struct CommanHeader {
 }
 struct BaseAPIURL {
     //production
-    static let cloud_prod = "https://sm9d44qpub.execute-api.us-east-1.amazonaws.com/dev/"
-    static let local_prod = "http://bluesalve.com/"
+    static let cloud_prod = "https://inhlrtrackdev.ochsner.org/api/"
+    static let local_prod = "https://inhlrtrackdev.ochsner.org/api/"
     
     //development
-    static let cloud_dev = "https://91eilqdu3l.execute-api.us-west-2.amazonaws.com/dev/"
-//    static let cloud_dev = "https://sm9d44qpub.execute-api.us-east-1.amazonaws.com/dev/"
-    static let local_dev = "http://bluesalve.com/"
+    static let cloud_dev = "https://inhlrtrackdev.ochsner.org/api/"
+    static let local_dev = "https://inhlrtrackdev.ochsner.org/api/"
 }
 
 enum EnvironmentType {

@@ -83,12 +83,12 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         
         
         if !isValidEmail(email: tfEmail.text ?? "") {
-            self.showAlertMessage(title: "", msg:  "Enter valid email")
+            CommonFunctions.showMessage(message: "Enter valid email")
             isValid = false
         }
         
         if tfPassword.text == "" {
-            self.showAlertMessage(title: "", msg:  StringUserManagement.passwordPlaceHolder)
+            CommonFunctions.showMessage(message:  StringUserManagement.passwordPlaceHolder)
             isValid = false
         }
        
