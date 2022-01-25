@@ -53,9 +53,6 @@ class LoginVC : BaseVC , UITextFieldDelegate{
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
-        
-       // tfEmail.text = "D@g.in"
-      //  tfPassword.text = "213"
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

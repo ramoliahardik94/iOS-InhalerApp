@@ -25,7 +25,6 @@
 		227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197C7279024AF0014BC3E /* LocationPermisionVC.swift */; };
 		227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */; };
 		227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */; };
-		2292881B279FEA2E0007D099 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292881A279FEA2E0007D099 /* BluetoothManager.swift */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
@@ -115,7 +114,6 @@
 		227197C7279024AF0014BC3E /* LocationPermisionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermisionVC.swift; sourceTree = "<group>"; };
 		227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionVC.swift; sourceTree = "<group>"; };
 		227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchsnerCloudPermissionVC.swift; sourceTree = "<group>"; };
-		2292881A279FEA2E0007D099 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -382,7 +380,6 @@
 			children = (
 				22AE96F8278EA68900C0D851 /* BluetoothPermissionVC.swift */,
 				2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */,
-				2292881A279FEA2E0007D099 /* BluetoothManager.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -847,7 +844,6 @@
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
 				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,
-				2292881B279FEA2E0007D099 /* BluetoothManager.swift in Sources */,
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
@@ -1007,7 +1003,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V6W97KM24H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;
@@ -1040,7 +1035,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = V6W97KM24H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;

@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Need permission for connect inhaler device</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Need permission for connect inhaler device</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFProDisplay-Light.ttf</string>

@@ -6,12 +6,12 @@
 //
 
 import UIKit
-import CoreBluetooth
+
 class BluetoothPermissionVC: BaseVC {
     @IBOutlet weak var lblBluetoothPermission: UILabel!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnGrant: UIButton!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,25 +34,14 @@ class BluetoothPermissionVC: BaseVC {
     
     //MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-        
-        BluetoothManager.shared.isAllowed { isConne in
-            let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-            self.pushVC(vc: vc)
-            
-        }
+        let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        pushVC(vc: vc)
     }
     
     @IBAction func tapCancel(_ sender: UIButton) {
         let vc = CancleBluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
         pushVC(vc: vc)
     }
-    func isBluetoothAuthorized() -> Bool {
-        if #available(iOS 13.0, *) {
-            return CBManager.authorization == .allowedAlways
-        }else {
-            return CBPeripheralManager.authorizationStatus() == .authorized
-        }
-       
-    }
+
 
 }
