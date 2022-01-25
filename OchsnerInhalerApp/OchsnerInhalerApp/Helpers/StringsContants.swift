@@ -55,6 +55,15 @@ struct StringUserManagement {
     static let password = "Password"
     static let signup = "Sign Up"
 }
+struct ValidationMsg {
+    static let fName = "Please enter Firstname"
+    static let lName = "Please enter Lastname"
+    static let matchPass = "Password & Confirm password must be same"
+    static let email = "Please enter valid email"
+    static let  password = "Please enter password"
+    static let  confirmPassword = "Please enter confirm password"
+
+}
 
 //MARK: Profile
 struct StringProfile {

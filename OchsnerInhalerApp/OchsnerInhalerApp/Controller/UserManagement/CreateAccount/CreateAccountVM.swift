@@ -27,26 +27,26 @@ class CreateAccountVM {
         var isValid = true
         
         if userData.firstName == "" {
-            CommonFunctions.showMessage(message:  StringUserManagement.placeHolderFirstName)
+            CommonFunctions.showMessage(message:  ValidationMsg.fName)
             isValid = false
         }
         
         else if userData.lastName == "" {
-            CommonFunctions.showMessage(message: StringUserManagement.placeHolderLastName)
+            CommonFunctions.showMessage(message: ValidationMsg.lName)
             isValid = false
         }
         
         else if !(userData.email ?? "").isValidEmail {
-            CommonFunctions.showMessage(message: StringUserManagement.emailPlaceHolder)
+            CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
         }
         else if userData.confirmPassword == "" {
-            CommonFunctions.showMessage(message:  StringUserManagement.confirmPasswordPlaceHolder)
+            CommonFunctions.showMessage(message:  ValidationMsg.confirmPassword)
             isValid = false
         }
         
         else if  userData.confirmPassword != userData.password  {
-            CommonFunctions.showMessage(message:  "Confirm password doesn't match")
+            CommonFunctions.showMessage(message:  ValidationMsg.matchPass)
             isValid = false
         }
         return isValid
