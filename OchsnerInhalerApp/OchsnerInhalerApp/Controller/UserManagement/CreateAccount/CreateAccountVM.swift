@@ -1,0 +1,56 @@
+//
+//  CreateAccountVM.swift
+//  OchsnerInhalerApp
+//
+//  Created by Nikita Bhatt on 25/01/22.
+//
+
+import Foundation
+
+class CreateAccountVM {
+    
+    var userData = UserModel()
+    
+    func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)){
+    
+        if checkValidation() {
+            
+            APIManager.shared.performRequest(route: APIRouter.createAccount.path, parameters: userData.toDic(), method: .post) { error, response in
+                print(response)
+                completionHandler(.success(true))
+            }
+        }
+    }
+    
+    
+    func checkValidation()->Bool {
+        var isValid = true
+        
+        if userData.firstName == "" {
+            CommonFunctions.showMessage(message:  ValidationMsg.fName)
+            isValid = false
+        }
+        
+        else if userData.lastName == "" {
+            CommonFunctions.showMessage(message: ValidationMsg.lName)
+            isValid = false
+        }
+        
+        else if !(userData.email ?? "").isValidEmail {
+            CommonFunctions.showMessage(message: ValidationMsg.email)
+            isValid = false
+        }
+        else if userData.confirmPassword == "" {
+            CommonFunctions.showMessage(message:  ValidationMsg.confirmPassword)
+            isValid = false
+        }
+        
+        else if  userData.confirmPassword != userData.password  {
+            CommonFunctions.showMessage(message:  ValidationMsg.matchPass)
+            isValid = false
+        }
+        return isValid
+    }
+    
+    
+}
