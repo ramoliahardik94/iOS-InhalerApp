@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateAccoutVC: BaseVC , UITextFieldDelegate {
+class CreateAccoutVC: BaseVC  {
     @IBOutlet weak var lblCreateAccount: UILabel!
     @IBOutlet weak var btnUsePassword: UIButton!
     
@@ -26,6 +26,8 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
    
     @IBOutlet weak var lblPrivacyPolicy: UILabel!
     @IBOutlet weak var ivCheckBox: UIImageView!
+    
+    var createAccountVM = CreateAccountVM()
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,13 +82,18 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
     
     
     @IBAction func tapUsePassword(_ sender: UIButton) {
-        
-        if validateData() {
-            let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-           // let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-            pushVC(vc: vc)
+        self.view.endEditing(true)
+        createAccountVM.apiCreateAccount { [weak self] (result) in
+            switch result {
+            case .success(let status):
+             print("Response sucess :\(status)")
+                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self?.pushVC(vc: vc)
+            
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
         }
-        
     }
     private func setBorderTextField(textField : UITextField) {
         textField.layer.borderWidth = 1
@@ -95,11 +102,6 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         textField.delegate = self
         setCustomFontTextField(textField: textField, type: .regular,fontSize: 17)
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return view.endEditing(true)
-    }
-    
     
     @IBAction func tapBack(_ sender: UIButton) {
         popVC()
@@ -136,44 +138,32 @@ class CreateAccoutVC: BaseVC , UITextFieldDelegate {
         debugPrint("deinit CreateAccoutVC")
     }
     
-
-    private func validateData() -> Bool {
-        var isValid = true
-        
-        
-        if tfFirstName.text == "" {
-            self.showAlertMessage(title: "", msg:  StringUserManagement.placeHolderFirstName)
-            isValid = false
-        }
-       
-        if tfLastName.text == "" {
-            self.showAlertMessage(title: "", msg:  StringUserManagement.placeHolderLastName)
-            isValid = false
-        }
-        
-        if !isValidEmail(email: tfEmail.text ?? "") {
-            self.showAlertMessage(title: "", msg:  "Enter valid email")
-            isValid = false
-        }
-        
-        if tfPassword.text == "" {
-            self.showAlertMessage(title: "", msg:  StringUserManagement.passwordPlaceHolder)
-            isValid = false
-        }
-        if tfConfirmPassword.text == "" {
-            self.showAlertMessage(title: "", msg:  StringUserManagement.confirmPasswordPlaceHolder)
-            isValid = false
-        }
-        
-        if  tfConfirmPassword.text != tfPassword.text  {
-            
-            self.showAlertMessage(title: "", msg:  "Confirm password doesn't match")
-            isValid = false
-        }
-        return isValid
-    }
-   
+}
+extension CreateAccoutVC : UITextFieldDelegate {
     
-
-  
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == tfFirstName  {
+            createAccountVM.userData.firstName = textField.text
+        }
+        if textField == tfLastName {
+            createAccountVM.userData.lastName = textField.text
+        }
+        if textField == tfPassword {
+            createAccountVM.userData.password = textField.text
+        }
+        if textField == tfConfirmPassword {
+            createAccountVM.userData.confirmPassword = textField.text
+        }
+        if textField == tfEmail {
+            if !(tfEmail.text ?? "").isValidEmail {
+                CommonFunctions.showMessage(message:  ValidationMsg.email)
+            }else {
+                createAccountVM.userData.email = textField.text
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return view.endEditing(true)
+    }
 }

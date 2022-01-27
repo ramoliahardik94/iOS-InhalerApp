@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginVC : BaseVC , UITextFieldDelegate{
+class LoginVC : BaseVC{
 
     @IBOutlet weak var lblLogin: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
@@ -58,9 +58,7 @@ class LoginVC : BaseVC , UITextFieldDelegate{
       //  tfPassword.text = "213"
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return view.endEditing(true)
-    }
+   
     deinit {
         debugPrint("deinit LoginVC")
     }
@@ -83,18 +81,33 @@ class LoginVC : BaseVC , UITextFieldDelegate{
     
     private func validateData() -> Bool {
         var isValid = true
-        
-        
-        if !isValidEmail(email: tfEmail.text ?? "") {
-            self.showAlertMessage(title: "", msg:  "Enter valid email")
+        if !(tfEmail.text ?? "").isValidEmail {
+            CommonFunctions.showMessage(message: "Enter valid email")
             isValid = false
         }
         
         if tfPassword.text == "" {
-            self.showAlertMessage(title: "", msg:  StringUserManagement.passwordPlaceHolder)
+            CommonFunctions.showMessage(message:  StringUserManagement.passwordPlaceHolder)
             isValid = false
         }
        
         return isValid
+    }
+}
+
+extension LoginVC : UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == tfEmail {
+            if !(tfEmail.text ?? "").isValidEmail {
+                CommonFunctions.showMessage(message: "Enter valid email")
+            }
+        }
+        if textField == tfPassword {
+            CommonFunctions.showMessage(message:  StringUserManagement.passwordPlaceHolder)
+            
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return view.endEditing(true)
     }
 }
