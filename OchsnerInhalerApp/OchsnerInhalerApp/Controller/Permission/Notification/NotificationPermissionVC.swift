@@ -22,13 +22,27 @@ class NotificationPermissionVC: BaseVC {
     
     //MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-     //   let vc = OchsnerCloudPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-        pushVC(vc: vc)
+        
+        NotificationManager.shared.isAllowed { isAllow in
+            if isAllow {
+                DispatchQueue.main.async {
+                    UserDefaultManager.isGrantLaocation = true
+                    UserDefaultManager.isNotificationOn = true
+                    let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                    self.pushVC(vc: vc)
+                }
+            }
+        }
+        
     }
+     
     
     @IBAction func tapSkip(_ sender: UIButton) {
-        popVC()
+        UserDefaultManager.isGrantLaocation = true
+        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        pushVC(vc: vc)
     }
+        
+    
 
 }

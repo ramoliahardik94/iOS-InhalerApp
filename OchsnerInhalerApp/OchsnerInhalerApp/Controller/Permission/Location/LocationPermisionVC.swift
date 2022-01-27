@@ -27,12 +27,28 @@ class LocationPermisionVC: BaseVC {
     
     //MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-        let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-        pushVC(vc: vc)
+        LocationManager.shared.isAllowed(askPermission: true) { status in
+            
+            print("ststus \(status)")
+            if status == .denied {
+                
+                CommonFunctions.showMessagePermission(message: "Need to Location Permission", cancelTitle: "Cancel", okTitle: "Setting", isOpenBluetooth: false) { isGrant in
+                    
+                }
+            }
+            
+            if status == .authorizedWhenInUse || status == .authorizedAlways {
+                UserDefaultManager.isGrantLaocation = true
+                let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(vc: vc)
+            }
+        }
     }
     
     @IBAction func tapSkip(_ sender: UIButton) {
-        popVC()
+        UserDefaultManager.isGrantLaocation = true
+        let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        pushVC(vc: vc)
     }
   
 

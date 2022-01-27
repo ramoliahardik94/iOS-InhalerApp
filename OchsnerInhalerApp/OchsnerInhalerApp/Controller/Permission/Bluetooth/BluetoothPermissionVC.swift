@@ -35,11 +35,13 @@ class BluetoothPermissionVC: BaseVC {
     //MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
         
-        BluetoothManager.shared.isAllowed { isConne in
-            let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-            self.pushVC(vc: vc)
-            
-        }
+        BluetoothManager.shared.isAllowed { isAllow in
+            if isAllow {
+                UserDefaultManager.isGrantBLE = true
+                let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(vc: vc)
+            }
+          }
     }
     
     @IBAction func tapCancel(_ sender: UIButton) {

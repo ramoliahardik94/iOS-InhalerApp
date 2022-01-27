@@ -20,18 +20,13 @@ class BluetoothManager : CBCentralManager {
         
         if self.state == .poweredOff {
             print("off bluetooth")
-            
+            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
+                 
+            }
             return
         }
         
         switch self.state {
-            
-        case .poweredOff:
-            
-            print("on bluetooth")
-            
-            break
-            
             
         case .unauthorized:
             if #available(iOS 13.0, *) {
@@ -42,6 +37,9 @@ class BluetoothManager : CBCentralManager {
                     break
                 case .denied:
                     print("denied")
+                    CommonFunctions.showMessagePermission(message: "Need Bluetooth permission for connect inhaler device", cancelTitle: "Cancel", okTitle: "Setting" , isOpenBluetooth: false) { isClick in
+                         
+                    }
                     break
                 case .restricted:
                     print("restricted")
@@ -68,6 +66,9 @@ class BluetoothManager : CBCentralManager {
             
         case .resetting:
             
+            break
+        
+        case .poweredOff:
             break
         @unknown default:
             break

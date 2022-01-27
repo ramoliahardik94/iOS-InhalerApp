@@ -17,6 +17,9 @@ enum UserDefaultKey: String {
     case longitude
     case language
     case temperature
+    case grantBLEPermission
+    case grantLocationPermission
+    case grantNotificationPermission
 }
 
 class UserDefaultManager {
@@ -148,4 +151,35 @@ class UserDefaultManager {
         UserDefaults.standard.removeObject(forKey: key.rawValue)
         UserDefaults.standard.synchronize()
     }
+    
+    //MARK: For Permissions
+    
+    static var isGrantBLE: Bool {
+        get {
+            return self.get(forKey: .grantBLEPermission) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .grantBLEPermission)
+        }
+    }
+    
+    static var isGrantLaocation: Bool {
+        get {
+            return self.get(forKey: .grantLocationPermission) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .grantLocationPermission)
+        }
+    }
+    
+    static var isGrantNotification: Bool {
+        get {
+            return self.get(forKey: .grantNotificationPermission) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .grantNotificationPermission)
+        }
+    }
+    
+    
 }

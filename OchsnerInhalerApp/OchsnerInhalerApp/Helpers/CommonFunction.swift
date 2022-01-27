@@ -46,6 +46,33 @@ open class CommonFunctions {
     }
     
     
+    // MARK: -  Alert Permission
+    
+    public class func showMessagePermission(
+        message : String,
+        cancelTitle : String = "Cancel",
+        okTitle : String = "Ok",isOpenBluetooth : Bool,
+        _ completion: @escaping ((Bool?) -> Void ) = { _ in  }
+    )
+    {
+        let Alert = UIAlertController(title: (message), message: "", preferredStyle: UIAlertController.Style.alert)
+        
+        Alert.addAction(UIAlertAction(title: cancelTitle, style: .default, handler: { (action: UIAlertAction!) in
+            completion(false)
+        }))
+        
+        Alert.addAction(UIAlertAction(title: okTitle, style: .default, handler: { (action: UIAlertAction!) in
+            completion(true)
+            if isOpenBluetooth {
+                let url = URL(string: "App-Prefs:root=General")
+                UIApplication.shared.open(url!)
+            }else {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+            
+        }))
+        UIApplication.topViewController()?.present(Alert, animated: true, completion: nil)
+    }
     
     
     //MARK: - Show Progress HUD
