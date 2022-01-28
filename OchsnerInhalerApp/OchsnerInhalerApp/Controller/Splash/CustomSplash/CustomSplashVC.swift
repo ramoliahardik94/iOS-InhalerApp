@@ -61,12 +61,15 @@ class CustomSplashVC: BaseVC {
                 return
             }
             
-            BLEHelper.shared.isAllowed { isAllow in
-                if isAllow {
-                    let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.pushVC(vc: vc)
-                }
-            }
+            let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+            self.pushVC(vc: vc)
+            
+//            BLEHelper.shared.isAllowed { isAllow in
+//                if isAllow {
+//                    let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+//                    self.pushVC(vc: vc)
+//                }
+//            }
             
         } else {
             let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)

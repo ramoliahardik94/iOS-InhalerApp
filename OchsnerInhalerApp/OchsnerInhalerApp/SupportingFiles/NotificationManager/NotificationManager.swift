@@ -141,6 +141,18 @@ class NotificationManager: NSObject {
 //        return [.alert,.badge]
 //    }
     
+    func askUserPermission(completion: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+          //  Logger.LogInfo("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
+            foreground {
+                completion(true)
+                if granted {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+        }
+    }
+    
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {

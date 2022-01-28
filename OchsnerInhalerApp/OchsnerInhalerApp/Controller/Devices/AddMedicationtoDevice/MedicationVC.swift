@@ -38,15 +38,26 @@ class MedicationVC: BaseVC {
         btnNext.setButtonView(StringAddDevice.next)
         tblMedication.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
+    //TODO: Rescue = 1 Mantainance =2 
     @IBAction func btnMedicationType(_ sender: UIButton) {        
             btnRescue.isSelected = sender == btnRescue
             btnMantainance.isSelected = sender == btnMantainance
     }
+
     @IBAction func btnNextClick(_ sender: UIButton) {
-//        if selectedIndex != nil {
+        
+        if btnRescue.isSelected  {
+            let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+            self.pushVC(vc: vc)
+        } else {
             let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
             vc.index = selectedIndex
             pushVC(vc: vc)
+        }
+//        if selectedIndex != nil {
+//            let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+//            vc.index = selectedIndex
+//            pushVC(vc: vc)
 //        }
 //        else{
 //            let alert = UIAlertController(title: "Ochsner", message: "Please select Medication.", preferredStyle: UIAlertController.Style.alert)
@@ -55,16 +66,7 @@ class MedicationVC: BaseVC {
 //        }
     }
 
-    /*
-   
-     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+  
 
 }
 extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
