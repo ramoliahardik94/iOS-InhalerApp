@@ -52,7 +52,12 @@ func getTime(_ val: Int) -> String {
 }
 
 func removeUser() {
-    CommonFunctions.removeUserDefaultForKey(UserDefaultKey.token.rawValue)
+    UserDefaultManager.remove(forKey: .token)
+    UserDefaultManager.remove(forKey: .isLogin)
+    UserDefaultManager.remove(forKey: .grantBLEPermission)
+    UserDefaultManager.remove(forKey: .grantLocationPermission)
+    UserDefaultManager.remove(forKey: .grantNotificationPermission)
+    
 }
 
 func openSettings() {

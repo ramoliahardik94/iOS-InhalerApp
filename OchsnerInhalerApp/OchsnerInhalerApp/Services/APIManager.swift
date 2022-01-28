@@ -68,7 +68,7 @@ class APIManager {
             CommonFunctions.hideGlobalProgressHUD(UIApplication.topViewController()!)
             
             let statusCode = response.response?.statusCode
-            if statusCode == 200 {
+            if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {
                 Logger.LogInfo("Response :: success :: \(String(describing: response.value))")
                 switch response.result {
                 case .success:

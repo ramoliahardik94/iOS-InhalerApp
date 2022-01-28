@@ -14,7 +14,6 @@ class CreateAccountVM {
     func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)){
     
         if checkValidation() {
-            
             APIManager.shared.performRequest(route: APIRouter.createAccount.path, parameters: userData.toDic(), method: .post) { error, response in
                 if response == nil{
                     completionHandler(.failure(error!.message))
@@ -30,12 +29,12 @@ class CreateAccountVM {
     func checkValidation()->Bool {
         var isValid = true
         
-        if userData.firstName == "" {
+        if userData.firstName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message:  ValidationMsg.fName)
             isValid = false
         }
         
-        else if userData.lastName == "" {
+        else if userData.lastName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message: ValidationMsg.lName)
             isValid = false
         }
@@ -43,8 +42,11 @@ class CreateAccountVM {
         else if !(userData.email ?? "").isValidEmail {
             CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
+        }else if userData.password?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            CommonFunctions.showMessage(message:  ValidationMsg.password)
+            isValid = false
         }
-        else if userData.confirmPassword == "" {
+        else if userData.confirmPassword?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message:  ValidationMsg.confirmPassword)
             isValid = false
         }

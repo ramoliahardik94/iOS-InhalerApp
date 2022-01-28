@@ -15,7 +15,8 @@ enum UserDefaultKey: String {
     case grantNotificationPermission
     case token
     case isLogin
-   
+    case isNotificationOn
+    case deviceToken
 }
 
 class UserDefaultManager {
@@ -101,5 +102,22 @@ class UserDefaultManager {
         }
     }
     
+    static var isNotificationOn: Bool {
+        get {
+            return self.get(forKey: .isNotificationOn) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .isNotificationOn)
+        }
+    }
+    
+    static var deviceToken: String {
+        get {
+            return self.get(forKey: .deviceToken) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .deviceToken)
+        }
+    }
     
 }

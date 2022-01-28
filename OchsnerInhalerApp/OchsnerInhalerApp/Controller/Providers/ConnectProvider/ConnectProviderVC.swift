@@ -36,7 +36,7 @@ class ConnectProviderVC: BaseVC {
         pushVC(vc: vc)
     }
     @IBAction func tapSkipNow(_ sender: UIButton) {
-        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         pushVC(vc: vc)
     }
     

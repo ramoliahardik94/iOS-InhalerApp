@@ -28,12 +28,14 @@ class NotificationPermissionVC: BaseVC {
                 DispatchQueue.main.async {
                     UserDefaultManager.isGrantLaocation = true
                     UserDefaultManager.isNotificationOn = true
-                    let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                    let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(vc: vc)
+                   
                 }
             }
         }
         
+        //NotificationManager.shared.checkPushNotificationSettings(true)
     }
      
     
