@@ -16,7 +16,7 @@ class BLEHelper : NSObject {
     static let shared = BLEHelper()
     var centralManager : CBCentralManager!
     var discoveredPeripheral: CBPeripheral?
-    
+    var completionHandler: (Bool)->Void = {_ in }
     var a = 1
     private override init(){
         super.init()
@@ -57,13 +57,18 @@ class BLEHelper : NSObject {
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
     
         
-        if self.centralManager.state == .poweredOff {
-            print("off bluetooth")
-            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
-                 
-            }
-            return
-        }
+//        if self.centralManager.state == .poweredOff {
+//            print("off bluetooth")
+//            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
+//
+//            }
+//            return
+//        }
+//        if self.centralManager.state == .poweredOn {
+//            print("on bluetooth")
+//            completion(true)
+//            return
+//        }
         
         switch self.centralManager.state {
             
@@ -73,10 +78,11 @@ class BLEHelper : NSObject {
                     
                 case .allowedAlways:
                    completion(true)
+                    print("allowedAlways")
                     break
                 case .denied:
                     print("denied")
-                    CommonFunctions.showMessagePermission(message: "Need Bluetooth permission for connect inhaler device", cancelTitle: "Cancel", okTitle: "Setting" , isOpenBluetooth: false) { isClick in
+                    CommonFunctions.showMessagePermission(message: StringPermissions.blePermissionMsg, cancelTitle: "Cancel", okTitle: "Setting" , isOpenBluetooth: false) { isClick in
                       }
                     break
                 case .restricted:
@@ -90,10 +96,6 @@ class BLEHelper : NSObject {
                 }
             }
             
-            
-        case .unknown:
-            
-            break
         case .unsupported:
             
             break
@@ -107,7 +109,14 @@ class BLEHelper : NSObject {
             break
         
         case .poweredOff:
+            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
+            
+            }
             break
+        case .unknown:
+            print("unknown")
+            break
+            
         @unknown default:
             break
         }

@@ -140,6 +140,8 @@ struct StringPermissions {
     static let keepYourOchsner = "keeps your Ochsner in the loop as you use your inhaler. Your information is never shared with 3rd parties."
     static let privacyPolicy = "Privacy Policy"
     static let shareYourInhaler = "Share your inhaler usage information with Ochsner."
+    static let blePermissionMsg = "Bluetooth permissions are required to access the Inhaler sensor device."
+    
 
 }
 

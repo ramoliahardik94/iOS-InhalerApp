@@ -23,10 +23,10 @@ class NotificationPermissionVC: BaseVC {
     //MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
         
-        NotificationManager.shared.isAllowed { isAllow in
+        NotificationManager.shared.askUserPermission { isAllow in
             if isAllow {
                 DispatchQueue.main.async {
-                    UserDefaultManager.isGrantLaocation = true
+                    UserDefaultManager.isGrantNotification = true
                     UserDefaultManager.isNotificationOn = true
                     let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(vc: vc)
@@ -34,13 +34,11 @@ class NotificationPermissionVC: BaseVC {
                 }
             }
         }
-        
-        //NotificationManager.shared.checkPushNotificationSettings(true)
     }
      
     
     @IBAction func tapSkip(_ sender: UIButton) {
-        UserDefaultManager.isGrantLaocation = true
+        UserDefaultManager.isGrantNotification = true
         let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         pushVC(vc: vc)
     }
