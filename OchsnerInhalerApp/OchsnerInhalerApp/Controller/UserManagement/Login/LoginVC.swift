@@ -54,8 +54,8 @@ class LoginVC : BaseVC{
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
         
-       // tfEmail.text = "D@g.in"
-      //  tfPassword.text = "213"
+//        tfEmail.text = "mherzog@ochsner.org"
+//        tfPassword.text = "password"
     }
     
    
@@ -71,8 +71,32 @@ class LoginVC : BaseVC{
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
-                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self?.pushVC(vc: vc)
+                
+                if !UserDefaultManager.isGrantBLE {
+                    let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(vc: vc)
+                    return
+                }
+                if !UserDefaultManager.isGrantLaocation {
+                    let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(vc: vc)
+                    return
+                }
+                
+                if !UserDefaultManager.isNotificationOn {
+                    let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(vc: vc)
+                    return
+                }
+                
+                BluetoothManager.shared.isAllowed { isAllow in
+                    if isAllow {
+                        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                        self?.pushVC(vc: vc)
+                    }
+                }
+                
+                
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
