@@ -43,7 +43,8 @@ class ProviderListVC: BaseVC {
         self.btnCancel.setTitleColor(.white, for: .normal)
         self.searchProvider.layer.borderWidth = 1
         self.searchProvider.layer.borderColor = UIColor.Color_HeaderSearch.cgColor
-        self.lblHeader.font = UIFont(name: AppFont.AppRegularFont, size: 14)
+        self.lblHeader.font = UIFont(name: AppFont.AppRegularFont, size: 15)
+        self.lblSubHeader.font = UIFont(name: AppFont.AppRegularFont, size: 13)
         self.btnCancel.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 12)
         self.searchProvider.searchTextField.font = UIFont(name: AppFont.AppRegularFont, size: 12)
         self.searchProvider.delegate = self
