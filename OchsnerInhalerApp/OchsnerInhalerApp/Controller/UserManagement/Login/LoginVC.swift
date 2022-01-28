@@ -54,8 +54,8 @@ class LoginVC : BaseVC{
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
         
-//        tfEmail.text = "mherzog@ochsner.org"
-//        tfPassword.text = "password"
+        tfEmail.text = "mherzog@ochsner.org"
+        tfPassword.text = "password"
     }
     
    
@@ -89,9 +89,9 @@ class LoginVC : BaseVC{
                     return
                 }
                 
-                BluetoothManager.shared.isAllowed { isAllow in
+                BLEHelper.shared.isAllowed { isAllow in
                     if isAllow {
-                        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         self?.pushVC(vc: vc)
                     }
                 }

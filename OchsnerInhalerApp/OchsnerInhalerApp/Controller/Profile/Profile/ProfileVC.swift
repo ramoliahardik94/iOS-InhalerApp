@@ -98,7 +98,7 @@ class ProfileVC: BaseVC {
     }
     
      func setRootLogin() {
-         
+         removeUser()
          let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
          let nav : UINavigationController = UINavigationController()
          nav.isNavigationBarHidden = true

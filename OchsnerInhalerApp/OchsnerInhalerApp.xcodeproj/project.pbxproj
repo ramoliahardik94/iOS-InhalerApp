@@ -26,7 +26,8 @@
 		227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197C7279024AF0014BC3E /* LocationPermisionVC.swift */; };
 		227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */; };
 		227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */; };
-		2292881B279FEA2E0007D099 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292881A279FEA2E0007D099 /* BluetoothManager.swift */; };
+		227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */; };
+		227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4E027A3EC540005C3D9 /* TransferService.swift */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
@@ -120,7 +121,8 @@
 		227197C7279024AF0014BC3E /* LocationPermisionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermisionVC.swift; sourceTree = "<group>"; };
 		227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionVC.swift; sourceTree = "<group>"; };
 		227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchsnerCloudPermissionVC.swift; sourceTree = "<group>"; };
-		2292881A279FEA2E0007D099 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
+		227CD4E027A3EC540005C3D9 /* TransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -302,6 +304,15 @@
 			path = OchsnerCloudPermission;
 			sourceTree = "<group>";
 		};
+		227CD4DD27A3EBEF0005C3D9 /* BLEManager */ = {
+			isa = PBXGroup;
+			children = (
+				227CD4E027A3EC540005C3D9 /* TransferService.swift */,
+				227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */,
+			);
+			path = BLEManager;
+			sourceTree = "<group>";
+		};
 		22AE96E5278E9D2400C0D851 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,7 +411,6 @@
 			children = (
 				22AE96F8278EA68900C0D851 /* BluetoothPermissionVC.swift */,
 				2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */,
-				2292881A279FEA2E0007D099 /* BluetoothManager.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -576,6 +586,7 @@
 		47CDCE2A278D88FE0014527D /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				227CD4DD27A3EBEF0005C3D9 /* BLEManager */,
 				2257006E27A2AE4A009B6415 /* NotificationManager */,
 				22AE96E6278E9D6300C0D851 /* Resource */,
 				47CDCE2B278D88FE0014527D /* ResultType.swift */,
@@ -814,6 +825,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47CDCE85278D89210014527D /* UIApplication.swift in Sources */,
+				227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */,
 				22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */,
 				22AE96F9278EA68900C0D851 /* BluetoothPermissionVC.swift in Sources */,
 				22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */,
@@ -829,6 +841,7 @@
 				2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
+				227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
 				2257007027A2AE4A009B6415 /* NotificationManager.swift in Sources */,
@@ -871,7 +884,6 @@
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
 				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,
-				2292881B279FEA2E0007D099 /* BluetoothManager.swift in Sources */,
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,

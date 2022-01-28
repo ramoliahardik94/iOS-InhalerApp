@@ -129,8 +129,11 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
-        let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        pushVC(vc: vc)
+        //let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        //pushVC(vc: vc)
+        
+        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        self.pushVC(vc: vc)
     }
     
     /*

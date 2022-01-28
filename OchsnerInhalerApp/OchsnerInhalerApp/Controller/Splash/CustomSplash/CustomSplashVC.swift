@@ -42,9 +42,39 @@ class CustomSplashVC: BaseVC {
     }
     
     @objc func didFinishTimer() {
-       let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-       // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        pushVC(vc: vc)
+        
+        if UserDefaultManager.isLogin {
+            if !UserDefaultManager.isGrantBLE {
+                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(vc: vc)
+                return
+            }
+            if !UserDefaultManager.isGrantLaocation {
+                let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(vc: vc)
+                return
+            }
+            
+            if !UserDefaultManager.isNotificationOn {
+                let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(vc: vc)
+                return
+            }
+            
+            BLEHelper.shared.isAllowed { isAllow in
+                if isAllow {
+                    let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                    self.pushVC(vc: vc)
+                }
+            }
+            
+        } else {
+            let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+            // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+             pushVC(vc: vc)
+        }
+        
+     
        
     }
     
