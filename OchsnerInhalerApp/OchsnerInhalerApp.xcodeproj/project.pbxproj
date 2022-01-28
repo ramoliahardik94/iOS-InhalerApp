@@ -94,6 +94,7 @@
 		47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9E278DA8A00014527D /* DeviceList.storyboard */; };
 		47CDCEA1278DA8C10014527D /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCEA0278DA8C10014527D /* Profile.storyboard */; };
 		47CDCEA3278DA9470014527D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCEA2278DA9470014527D /* UserModel.swift */; };
+		47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */; };
 		F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -189,6 +190,7 @@
 		47CDCE9E278DA8A00014527D /* DeviceList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeviceList.storyboard; sourceTree = "<group>"; };
 		47CDCEA0278DA8C10014527D /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		47CDCEA2278DA9470014527D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.release.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -332,6 +334,7 @@
 		22AE96E8278E9EFE00C0D851 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */,
 				22AE96E9278E9F1E00C0D851 /* LoginVC.swift */,
 			);
 			path = Login;
@@ -864,6 +867,7 @@
 				4725F2112798093000BBDA28 /* BLEDeviceCell.swift in Sources */,
 				4725F20E2797FE4300BBDA28 /* AddAnotherDeviceVC.swift in Sources */,
 				47CDCE87278D89210014527D /* UITextField+Extensions.swift in Sources */,
+				47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */,
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
 				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,

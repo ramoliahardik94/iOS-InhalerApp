@@ -17,7 +17,7 @@ class LoginVC : BaseVC{
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblCreatePassword: UILabel!
-    
+    var login = LoginVM()
     override func viewDidLoad() {
        initUI()
     }
@@ -66,11 +66,19 @@ class LoginVC : BaseVC{
     
     //MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
-        if validateData() {
-            let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-            // let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-            pushVC(vc: vc)
+        self.view.endEditing(true)
+        login.apiLogin {[weak self] (result) in
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self?.pushVC(vc: vc)
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
         }
+        
+        
       
     }
     
@@ -79,34 +87,23 @@ class LoginVC : BaseVC{
         pushVC(vc: vc)
     }
     
-    private func validateData() -> Bool {
-        var isValid = true
-        if !(tfEmail.text ?? "").isValidEmail {
-            CommonFunctions.showMessage(message: "Enter valid email")
-            isValid = false
-        }
-        
-        if tfPassword.text == "" {
-            CommonFunctions.showMessage(message:  StringUserManagement.passwordPlaceHolder)
-            isValid = false
-        }
-       
-        return isValid
-    }
+    
 }
 
 extension LoginVC : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfEmail {
             if !(tfEmail.text ?? "").isValidEmail {
-                CommonFunctions.showMessage(message: "Enter valid email")
+                CommonFunctions.showMessage(message: ValidationMsg.email)
+            }else {
+                login.loginModel.email = tfEmail.text
             }
-        }
-        if textField == tfPassword {
-            CommonFunctions.showMessage(message:  StringUserManagement.passwordPlaceHolder)
             
+        }else if textField == tfPassword {
+            login.loginModel.password = tfPassword.text
         }
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return view.endEditing(true)
     }
