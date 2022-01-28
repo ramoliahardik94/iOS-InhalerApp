@@ -35,11 +35,11 @@ class LoginVM {
         var isValid = true
         
          if !(loginModel.email ?? "").isValidEmail {
-            CommonFunctions.showMessage(message: StringUserManagement.emailPlaceHolder)
+             CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
         }
         else if loginModel.password == "" {
-            CommonFunctions.showMessage(message:  StringUserManagement.confirmPasswordPlaceHolder)
+            CommonFunctions.showMessage(message:  ValidationMsg.password)
             isValid = false
         }
         

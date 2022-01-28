@@ -14,7 +14,6 @@ class CreateAccountVM {
     func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)){
     
         if checkValidation() {
-            
             APIManager.shared.performRequest(route: APIRouter.createAccount.path, parameters: userData.toDic(), method: .post) { error, response in
                 if response == nil{
                     completionHandler(.failure(error!.message))

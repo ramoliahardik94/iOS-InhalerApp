@@ -47,8 +47,6 @@ class LoginVC : BaseVC{
         tfPassword.layer.cornerRadius = 4
         tfEmail.delegate = self
         tfPassword.delegate = self
-//        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
-//        tfPassword.placeholder = StringUserManagement.passwordPlaceHolder
         tfPassword.enablePasswordToggle()
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
@@ -90,12 +88,10 @@ class LoginVC : BaseVC{
 extension LoginVC : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfEmail {
+            login.loginModel.email = tfEmail.text
             if !(tfEmail.text ?? "").isValidEmail {
                 CommonFunctions.showMessage(message: ValidationMsg.email)
-            }else {
-                login.loginModel.email = tfEmail.text
             }
-            
         }else if textField == tfPassword {
             login.loginModel.password = tfPassword.text
         }
