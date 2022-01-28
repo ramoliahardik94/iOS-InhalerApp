@@ -52,11 +52,7 @@ func getTime(_ val: Int) -> String {
 }
 
 func removeUser() {
-  //  UserDefaultManager.loggedInUserModel = nil
-    UserDefaultManager.biometry = false
-    UserDefaultManager.appPin = nil
-    UserDefaultManager.needToRemember = false
-    UserDefaultManager.isFirstTimeLoginSet = false
+    CommonFunctions.removeUserDefaultForKey(UserDefaultKey.token.rawValue)
 }
 
 func openSettings() {

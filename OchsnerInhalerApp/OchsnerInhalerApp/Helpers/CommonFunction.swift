@@ -16,7 +16,7 @@ open class CommonFunctions {
     
     public class func showMessage(message : String, _ completion: @escaping ((Bool?) -> Void ) = { _ in  })
     {
-        let Alert = UIAlertController(title: (message), message: "", preferredStyle: UIAlertController.Style.alert)
+        let Alert = UIAlertController(title: (""), message: message, preferredStyle: UIAlertController.Style.alert)
         
         Alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             completion(true)
@@ -68,34 +68,6 @@ open class CommonFunctions {
         UserDefaults.standard.synchronize()
     }
     
-    class func setUserDefaultObject(_ object : AnyObject, key : String) {
-        do {
-            let data: Data = try NSKeyedArchiver.archivedData(withRootObject: object, requiringSecureCoding: false)
-            UserDefaults.standard.set(data, forKey: key)
-            UserDefaults.standard.synchronize()
-        } catch {
-            print(error.localizedDescription)
-        }
-      
-    }
-    
-  
-    
-    class func getUserDefaultObjectForKey(key : String) -> AnyObject? {
-        var retval : AnyObject! = nil;
-        do {
-            
-            if let data: AnyObject =  UserDefaults.standard.object(forKey: key) as AnyObject? {
-                retval = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as! Data) as AnyObject
-            }
-        } catch{
-            print(error.localizedDescription)
-        }
-       
-        return retval
-    }
-    
-   
 }
 
 extension TimeZone {

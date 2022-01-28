@@ -28,10 +28,10 @@ class APIManager {
     static let shared = APIManager()
     
     // MARK: Custom Variables
-    typealias ResponseBlock = (_ error: RuntimeError?, _ response: BasicModel?) -> Void
-    
+    typealias ResponseBlock = (_ error: RuntimeError?, _ response: [String:Any]?) -> Void
+        
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod,isBasicAuth : Bool = false,isAuth: Bool = false, completion: ResponseBlock?) -> DataRequest? {
         if !APIManager.isConnectedToNetwork {
             Logger.LogInfo("No Internet connection")
             completion?(RuntimeError("No_Internet_Connection".local), nil)
@@ -44,8 +44,17 @@ class APIManager {
             encoding = URLEncoding.queryString
         }
         var appHeader = APIManager.header
-        if route == APIRouter.refreshToken.path {
-            appHeader = setUpHeaderDataWithRefreshToken()
+//        if route == APIRouter.refreshToken.path {
+            appHeader = setUpHeaderDataWithRefreshToken(isAuth: isAuth)
+//        }
+        if isBasicAuth {
+            let username = parameters["Email"] as! String
+            let password = parameters["Password"] as! String
+            let loginString = "\(username):\(password)"
+            if let loginData = loginString.data(using: String.Encoding.utf8) {
+                let base64LoginString = loginData.base64EncodedString()
+                appHeader = setUpHeaderDataWithBASICAuth(value: "Basic \(base64LoginString)")
+            }
         }
         Logger.LogInfo("URL:\(route) -> Method:\(method) -> Parameters: \(parameters) -> Headers:\(appHeader)")
         
@@ -53,38 +62,80 @@ class APIManager {
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             url = encoded
         }
+        CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!)
         
         let request = Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: appHeader).responseJSON { (response) in
+            CommonFunctions.hideGlobalProgressHUD(UIApplication.topViewController()!)
             
-            switch response.result {
-            case .success:
+            let statusCode = response.response?.statusCode
+            if statusCode == 200 {
                 Logger.LogInfo("Response :: success :: \(String(describing: response.value))")
-                guard let basicModelObj =  BasicModel(JSON: response.value as! [String: Any]) else {
-                    completion?(RuntimeError(""), nil)
-                    return
-                }
-                guard let statusCode = basicModelObj.statusCode else {
-                    completion?(RuntimeError("Status code not received."), nil)
-                    return
-                }
-                
-                if statusCode == StatusCode.tokenExpired.rawValue {
-                    Logger.LogInfo("Response:: expire:: Access Token Expired")
-                    self.generateNewAccessToken(route: route, parameters: parameters, method: method, completion: completion)
-                } else if statusCode == StatusCode.refreshTokenExpired.rawValue {
-                    Logger.LogInfo("Response:: expire:: Refresh Token Expired")
-                    removeUser()
-                } else if statusCode >= StatusCode.success.rawValue && statusCode < 300 {
-                    completion?(nil, basicModelObj)
-                } else {
-                    if let message = basicModelObj.message {
-                        completion?(RuntimeError(message, statusCode), nil)
+                switch response.result {
+                case .success:
+                    if let data = response.value as? [String : Any] {
+                        let message = data["error"] as? String
+                        if let data = response.value as? [String : Any] {
+                            completion?(nil, data)
+                        }
+                        else{
+                            completion?(RuntimeError(""), nil)
+                        }
                     }
+                case .failure:
+                    completion?(RuntimeError("Server Error"), nil)
                 }
-            case .failure:
-                Logger.LogError("Add Response :: failure :: \(String(describing: response.value))")
-                 completion?(RuntimeError("Server Error"), nil)
             }
+            else {
+                Logger.LogError("Add Response :: failure :: \(String(describing: response.value))")
+                switch response.result {
+                case .success:
+                    if let data = response.value as? [String : Any] {
+                        if let message = data["error"] as? String {
+                        completion?(RuntimeError(message, statusCode!), nil)
+                        }
+                        else if let message = data["Error"] as? String {
+                            completion?(RuntimeError(message, statusCode!), nil)
+                            }
+                    }
+                    else {
+                        completion?(RuntimeError(""), nil)
+                    }
+                case .failure:
+                    completion?(RuntimeError("Server Error"), nil)
+                }
+            }
+//
+//            switch response.result {
+//
+//            case .success:
+//                Logger.LogInfo("Response :: success :: \(String(describing: response.value))")
+//
+//                guard let basicModelObj =  BasicModel(JSON: response.value as! [String: Any]) else {
+//                    completion?(RuntimeError(""), nil)
+//                    return
+//                }
+//                guard let statusCode = basicModelObj.statusCode else {
+//                    completion?(RuntimeError("Status code not received."), nil)
+//                    return
+//                }
+//
+//                if statusCode == StatusCode.tokenExpired.rawValue {
+//                    Logger.LogInfo("Response:: expire:: Access Token Expired")
+//                    self.generateNewAccessToken(route: route, parameters: parameters, method: method, completion: completion)
+//                } else if statusCode == StatusCode.refreshTokenExpired.rawValue {
+//                    Logger.LogInfo("Response:: expire:: Refresh Token Expired")
+//                    removeUser()
+//                } else if statusCode >= StatusCode.success.rawValue && statusCode < 300 {
+//                    completion?(nil, basicModelObj)
+//                } else {
+//                    if let message = basicModelObj.message {
+//                        completion?(RuntimeError(message, statusCode), nil)
+//                    }
+//                }
+//            case .failure:
+//                Logger.LogError("Add Response :: failure :: \(String(describing: response.value))")
+//                 completion?(RuntimeError("Server Error"), nil)
+//            }
         }
         
         return request
@@ -92,26 +143,26 @@ class APIManager {
         //return nil
     }
     
-    func generateNewAccessToken(route: String, parameters: [String: Any]?, method: HTTPMethod, completion: ResponseBlock?) {
-        self.performRequest(route: APIRouter.refreshToken.path, parameters: [String: Any](), method: HTTPMethod.post) { (error, basicModel) in
-            guard let basicModel = basicModel else {
-                completion?(error, nil)
-                return
-            }
-            
-            if basicModel.checkStatusCode(.success) {
-//                if let shareobj = UserDefaultManager.loggedInUserModel {
-//                    shareobj.token = (basicModel.data["accessToken"] as! String)
-//                    UserDefaultManager.loggedInUserModel = shareobj
-//                }
-                self.resumeAPICallwithNewAccessToken(route: route, parameters: parameters, method: method, completion: completion)
-            } else {
-                Logger.LogError("Add Response :: failure :: API Error Generating New Access Token -> \(error!.localizedDescription)")
-                completion?(error, nil)
-                return
-            }
-        }
-    }
+//    func generateNewAccessToken(route: String, parameters: [String: Any]?, method: HTTPMethod, completion: ResponseBlock?) {
+//        self.performRequest(route: APIRouter.refreshToken.path, parameters: [String: Any](), method: HTTPMethod.post) { (error, basicModel) in
+//            guard let basicModel = basicModel else {
+//                completion?(error, nil)
+//                return
+//            }
+//
+//            if basicModel.checkStatusCode(.success) {
+////                if let shareobj = UserDefaultManager.loggedInUserModel {
+////                    shareobj.token = (basicModel.data["accessToken"] as! String)
+////                    UserDefaultManager.loggedInUserModel = shareobj
+////                }
+//                self.resumeAPICallwithNewAccessToken(route: route, parameters: parameters, method: method, completion: completion)
+//            } else {
+//                Logger.LogError("Add Response :: failure :: API Error Generating New Access Token -> \(error!.localizedDescription)")
+//                completion?(error, nil)
+//                return
+//            }
+//        }
+//    }
     
     func resumeAPICallwithNewAccessToken(route: String, parameters: [String: Any]?, method: HTTPMethod, completion: ResponseBlock?) {
         self.performRequest(route: route, parameters: parameters!, method: method) { (error, basicModel) in
@@ -136,25 +187,27 @@ class APIManager {
         dictHeader["app-type"] = CommanHeader.app_type
         dictHeader["udid"] = MobileDeviceManager.shared.udid
         dictHeader["device_name"] = MobileDeviceManager.shared.name
-
-//        if let shareobj = UserDefaultManager.loggedInUserModel {
-//            dictHeader["access-token"] = String(describing: shareobj.token!)
-//            dictHeader["userId"] = String(describing: shareobj.id!)
-//        }
-        
+        dictHeader["access-token"] = UserDefaultManager.token
         return dictHeader
     }
     
-    func setUpHeaderDataWithRefreshToken() -> HTTPHeaders {
+    func setUpHeaderDataWithBASICAuth(value:String) -> HTTPHeaders {
         var dictHeader = HTTPHeaders()
         dictHeader["app-type"] = CommanHeader.app_type
         dictHeader["udid"] = MobileDeviceManager.shared.udid
         dictHeader["device_name"] = MobileDeviceManager.shared.name
-
-//        if let shareobj = UserDefaultManager.loggedInUserModel {
-//            dictHeader["refresh-token"] = String(describing: shareobj.refreshToken!)
-//        }
-//
+        dictHeader = ["Authorization": value]
+        return dictHeader
+    }
+    
+    func setUpHeaderDataWithRefreshToken(isAuth :Bool) -> HTTPHeaders {
+        var dictHeader = HTTPHeaders()
+        dictHeader["app-type"] = CommanHeader.app_type
+        dictHeader["udid"] = MobileDeviceManager.shared.udid
+        dictHeader["device_name"] = MobileDeviceManager.shared.name
+        if isAuth {
+            dictHeader = ["Authorization": "Bearer " + UserDefaultManager.token]
+        }
         return dictHeader
     }
 }
