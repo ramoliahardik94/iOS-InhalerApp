@@ -29,12 +29,12 @@ class CreateAccountVM {
     func checkValidation()->Bool {
         var isValid = true
         
-        if userData.firstName == "" {
+        if userData.firstName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message:  ValidationMsg.fName)
             isValid = false
         }
         
-        else if userData.lastName == "" {
+        else if userData.lastName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message: ValidationMsg.lName)
             isValid = false
         }
@@ -42,8 +42,11 @@ class CreateAccountVM {
         else if !(userData.email ?? "").isValidEmail {
             CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
+        }else if userData.password?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            CommonFunctions.showMessage(message:  ValidationMsg.password)
+            isValid = false
         }
-        else if userData.confirmPassword == "" {
+        else if userData.confirmPassword?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message:  ValidationMsg.confirmPassword)
             isValid = false
         }

@@ -156,9 +156,6 @@ extension CreateAccoutVC : UITextFieldDelegate {
         }
         if textField == tfEmail {
             createAccountVM.userData.email = textField.text
-            if !(tfEmail.text ?? "").isValidEmail {
-                CommonFunctions.showMessage(message:  ValidationMsg.email)
-            }
         }
     }
     
