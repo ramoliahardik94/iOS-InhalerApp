@@ -13,6 +13,7 @@
 		224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 224E1C9C27981AB7000C5D1A /* HomeDeviceCell.xib */; };
 		224E1CA227983816000C5D1A /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 224E1CA127983816000C5D1A /* SFProDisplay-LightItalic.ttf */; };
 		224E1CA427983A66000C5D1A /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 224E1CA327983A65000C5D1A /* SFProDisplay-Light.ttf */; };
+		2257007027A2AE4A009B6415 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257006F27A2AE4A009B6415 /* NotificationManager.swift */; };
 		22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22609D762799236700B38CF4 /* HomeGraphCell.swift */; };
 		22609D792799236700B38CF4 /* HomeGraphCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22609D772799236700B38CF4 /* HomeGraphCell.xib */; };
 		22609D7C279925B200B38CF4 /* GraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22609D7A279925B200B38CF4 /* GraphCell.swift */; };
@@ -25,6 +26,8 @@
 		227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197C7279024AF0014BC3E /* LocationPermisionVC.swift */; };
 		227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */; };
 		227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */; };
+		227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */; };
+		227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4E027A3EC540005C3D9 /* TransferService.swift */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
@@ -105,6 +108,7 @@
 		224E1C9C27981AB7000C5D1A /* HomeDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDeviceCell.xib; sourceTree = "<group>"; };
 		224E1CA127983816000C5D1A /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
 		224E1CA327983A65000C5D1A /* SFProDisplay-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Light.ttf"; sourceTree = "<group>"; };
+		2257006F27A2AE4A009B6415 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		22609D762799236700B38CF4 /* HomeGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGraphCell.swift; sourceTree = "<group>"; };
 		22609D772799236700B38CF4 /* HomeGraphCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGraphCell.xib; sourceTree = "<group>"; };
 		22609D7A279925B200B38CF4 /* GraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCell.swift; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 		227197C7279024AF0014BC3E /* LocationPermisionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermisionVC.swift; sourceTree = "<group>"; };
 		227197CA27902AD80014BC3E /* NotificationPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionVC.swift; sourceTree = "<group>"; };
 		227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchsnerCloudPermissionVC.swift; sourceTree = "<group>"; };
+		227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
+		227CD4E027A3EC540005C3D9 /* TransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -233,6 +239,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		2257006E27A2AE4A009B6415 /* NotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				2257006F27A2AE4A009B6415 /* NotificationManager.swift */,
+			);
+			path = NotificationManager;
+			sourceTree = "<group>";
+		};
 		2261AA022796F127000D5CE1 /* PrivacyPolicy */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +302,15 @@
 				227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */,
 			);
 			path = OchsnerCloudPermission;
+			sourceTree = "<group>";
+		};
+		227CD4DD27A3EBEF0005C3D9 /* BLEManager */ = {
+			isa = PBXGroup;
+			children = (
+				227CD4E027A3EC540005C3D9 /* TransferService.swift */,
+				227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */,
+			);
+			path = BLEManager;
 			sourceTree = "<group>";
 		};
 		22AE96E5278E9D2400C0D851 /* AppDelegate */ = {
@@ -563,6 +586,8 @@
 		47CDCE2A278D88FE0014527D /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				227CD4DD27A3EBEF0005C3D9 /* BLEManager */,
+				2257006E27A2AE4A009B6415 /* NotificationManager */,
 				22AE96E6278E9D6300C0D851 /* Resource */,
 				47CDCE2B278D88FE0014527D /* ResultType.swift */,
 				47CDCE2E278D88FE0014527D /* Logger */,
@@ -800,6 +825,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47CDCE85278D89210014527D /* UIApplication.swift in Sources */,
+				227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */,
 				22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */,
 				22AE96F9278EA68900C0D851 /* BluetoothPermissionVC.swift in Sources */,
 				22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */,
@@ -815,8 +841,10 @@
 				2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
+				227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
+				2257007027A2AE4A009B6415 /* NotificationManager.swift in Sources */,
 				224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */,
 				471023532796CFA400F88876 /* MedicationCell.swift in Sources */,
 				47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */,
@@ -1015,6 +1043,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V6W97KM24H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;
@@ -1047,6 +1076,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V6W97KM24H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;

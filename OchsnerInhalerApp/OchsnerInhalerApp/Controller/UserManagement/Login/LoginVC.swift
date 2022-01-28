@@ -51,6 +51,9 @@ class LoginVC : BaseVC{
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
+        
+        tfEmail.text = "mherzog@ochsner.org"
+        tfPassword.text = "password"
     }
     
    
@@ -66,8 +69,32 @@ class LoginVC : BaseVC{
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
-                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self?.pushVC(vc: vc)
+                
+                if !UserDefaultManager.isGrantBLE {
+                    let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(vc: vc)
+                    return
+                }
+                if !UserDefaultManager.isGrantLaocation {
+                    let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(vc: vc)
+                    return
+                }
+                
+                if !UserDefaultManager.isNotificationOn {
+                    let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(vc: vc)
+                    return
+                }
+                
+                BLEHelper.shared.isAllowed { isAllow in
+                    if isAllow {
+                        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                        self?.pushVC(vc: vc)
+                    }
+                }
+                
+                
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }

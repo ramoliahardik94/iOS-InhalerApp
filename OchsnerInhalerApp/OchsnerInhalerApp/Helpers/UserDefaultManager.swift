@@ -8,9 +8,15 @@ enum UserDefaultKey: String {
 
     case latitude
     case longitude
+    case language
+    case temperature
+    case grantBLEPermission
+    case grantLocationPermission
+    case grantNotificationPermission
     case token
     case isLogin
-   
+    case isNotificationOn
+    case deviceToken
 }
 
 class UserDefaultManager {
@@ -66,4 +72,52 @@ class UserDefaultManager {
         UserDefaults.standard.removeObject(forKey: key.rawValue)
         UserDefaults.standard.synchronize()
     }
+    
+    //MARK: For Permissions
+    
+    static var isGrantBLE: Bool {
+        get {
+            return self.get(forKey: .grantBLEPermission) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .grantBLEPermission)
+        }
+    }
+    
+    static var isGrantLaocation: Bool {
+        get {
+            return self.get(forKey: .grantLocationPermission) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .grantLocationPermission)
+        }
+    }
+    
+    static var isGrantNotification: Bool {
+        get {
+            return self.get(forKey: .grantNotificationPermission) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .grantNotificationPermission)
+        }
+    }
+    
+    static var isNotificationOn: Bool {
+        get {
+            return self.get(forKey: .isNotificationOn) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .isNotificationOn)
+        }
+    }
+    
+    static var deviceToken: String {
+        get {
+            return self.get(forKey: .deviceToken) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .deviceToken)
+        }
+    }
+    
 }
