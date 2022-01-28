@@ -43,7 +43,7 @@ class CustomSplashVC: BaseVC {
     
     @objc func didFinishTimer() {
         
-        if UserDefaultManager.isLogin {
+      /*  if UserDefaultManager.isLogin {
             if !UserDefaultManager.isGrantBLE {
                 let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self.pushVC(vc: vc)
@@ -75,9 +75,11 @@ class CustomSplashVC: BaseVC {
             let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
             // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
              pushVC(vc: vc)
-        }
+        }*/
         
-     
+        let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+         pushVC(vc: vc)
        
     }
     

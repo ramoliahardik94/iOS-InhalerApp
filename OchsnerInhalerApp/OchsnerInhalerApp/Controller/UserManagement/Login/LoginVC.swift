@@ -69,8 +69,9 @@ class LoginVC : BaseVC{
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
-                
-                if !UserDefaultManager.isGrantBLE {
+                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self?.pushVC(vc: vc)
+              /*  if !UserDefaultManager.isGrantBLE {
                     let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                     self?.pushVC(vc: vc)
                     return
@@ -92,7 +93,7 @@ class LoginVC : BaseVC{
                         let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         self?.pushVC(vc: vc)
                     }
-                }
+                }*/
                 
                 
             case .failure(let message):

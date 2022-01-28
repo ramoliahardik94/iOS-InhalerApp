@@ -27,7 +27,7 @@ class LocationPermisionVC: BaseVC {
     
     //MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-        LocationManager.shared.isAllowed(askPermission: true) { status in
+     /*   LocationManager.shared.isAllowed(askPermission: true) { status in
             
             print("ststus \(status)")
             if status == .denied {
@@ -42,7 +42,9 @@ class LocationPermisionVC: BaseVC {
                 let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self.pushVC(vc: vc)
             }
-        }
+        }*/
+        let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        self.pushVC(vc: vc)
     }
     
     @IBAction func tapSkip(_ sender: UIButton) {
