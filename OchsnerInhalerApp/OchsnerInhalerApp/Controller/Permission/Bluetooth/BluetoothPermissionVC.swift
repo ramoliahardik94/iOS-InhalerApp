@@ -41,6 +41,14 @@ class BluetoothPermissionVC: BaseVC {
                 let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self.pushVC(vc: vc)
             }
+            else {
+                CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { ok in
+                    if ok ?? true {
+                        CommonFunctions.openBluetooth()
+                    }
+                })
+            }
+            
           }
     }
     

@@ -39,8 +39,9 @@ class NotificationPermissionVC: BaseVC {
     
     @IBAction func tapSkip(_ sender: UIButton) {
         UserDefaultManager.isGrantNotification = true
-        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        pushVC(vc: vc)
+        UserDefaultManager.isNotificationOn = false
+        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        self.pushVC(vc: vc)
     }
         
     

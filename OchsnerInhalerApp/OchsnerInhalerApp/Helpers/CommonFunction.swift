@@ -88,13 +88,11 @@ open class CommonFunctions {
         }
     }
 
-   
-    
-    class func removeUserDefaultForKey(_ key : String) {
-        UserDefaults.standard.removeObject(forKey: key)
-        UserDefaults.standard.synchronize()
-    }
-    
+    class func openBluetooth() {
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            let app = UIApplication.shared
+            app.open(url)
+        }
 }
 
 extension TimeZone {
