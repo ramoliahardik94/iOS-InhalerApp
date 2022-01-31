@@ -28,7 +28,7 @@ class APIManager {
     static let shared = APIManager()
     
     // MARK: Custom Variables
-    typealias ResponseBlock = (_ error: RuntimeError?, _ response: [String:Any]?) -> Void
+    typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
     func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod,isBasicAuth : Bool = false,isAuth: Bool = false, completion: ResponseBlock?) -> DataRequest? {
@@ -78,11 +78,13 @@ class APIManager {
                             completion?(nil, data)
                         }
                         else{
-                            completion?(RuntimeError(""), nil)
+                            completion?(RuntimeError(message ?? ""), nil)
                         }
+                    } else if let data = response.value as? [[String : Any]] {
+                        completion?(nil, data)
                     }
                 case .failure:
-                    completion?(RuntimeError("Server Error"), nil)
+                    completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
             }
             else {
@@ -101,7 +103,7 @@ class APIManager {
                         completion?(RuntimeError(""), nil)
                     }
                 case .failure:
-                    completion?(RuntimeError("Server Error"), nil)
+                    completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
             }
 //

@@ -20,10 +20,12 @@ class LoginVM {
                     completionHandler(.failure(error!.message))
                 }
                 else {
-                    self?.loginModel.Token = response!["Token"] as? String
+                    if let res =  response as? [String : Any] {
+                    self?.loginModel.Token = res["Token"] as? String
                     UserDefaultManager.token = self?.loginModel.Token ?? ""
                     UserDefaultManager.isLogin = true
                     completionHandler(.success(true))
+                    }
                 }
                
             }

@@ -116,9 +116,6 @@ extension LoginVC : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfEmail {
             login.loginModel.email = tfEmail.text
-            if !(tfEmail.text ?? "").isValidEmail {
-                CommonFunctions.showMessage(message: ValidationMsg.email)
-            }
         }else if textField == tfPassword {
             login.loginModel.password = tfPassword.text
         }
