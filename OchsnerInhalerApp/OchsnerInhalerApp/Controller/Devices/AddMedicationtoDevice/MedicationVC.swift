@@ -15,12 +15,27 @@ class MedicationVC: BaseVC {
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
-    var selectedIndex : Int = 0
+    var selectedIndex : Int?
+    let medicationVM = MedicationVM()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUp()
         // Do any additional setup after loading the view.
+        self.GetMedication()
     }
+    
+    func GetMedication() {
+        medicationVM.apiGetMedicationLis { result in
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                self.tblMedication.reloadData()
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
+        }
+    }
+    
     func setUp(){
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedication
@@ -45,25 +60,20 @@ class MedicationVC: BaseVC {
     }
 
     @IBAction func btnNextClick(_ sender: UIButton) {
-        
-        if btnRescue.isSelected  {
-            let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-            self.pushVC(vc: vc)
-        } else {
-            let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            vc.index = selectedIndex
-            pushVC(vc: vc)
+        if selectedIndex != nil {
+            if btnRescue.isSelected  {
+                let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                self.pushVC(vc: vc)
+            } else {
+                let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                vc.index = 0
+                pushVC(vc: vc)
+            }
         }
-//        if selectedIndex != nil {
-//            let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-//            vc.index = selectedIndex
-//            pushVC(vc: vc)
-//        }
-//        else{
-//            let alert = UIAlertController(title: "Ochsner", message: "Please select Medication.", preferredStyle: UIAlertController.Style.alert)
-//            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
+        else{
+            CommonFunctions.showMessage(message: ValidationMsg.medication)
+         
+        }
     }
 
   
@@ -71,13 +81,12 @@ class MedicationVC: BaseVC {
 }
 extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return medicationVM.medication.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell : MedicationCell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell") as! MedicationCell
-        cell.setMedicationDetailes(index: indexPath.row)
+        cell.setMedicationDetailes(medication: medicationVM.medication[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
