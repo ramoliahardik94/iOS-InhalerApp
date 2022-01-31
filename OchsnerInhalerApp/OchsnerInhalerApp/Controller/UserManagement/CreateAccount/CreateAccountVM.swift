@@ -14,12 +14,17 @@ class CreateAccountVM {
     func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)){
     
         if checkValidation() {
-            APIManager.shared.performRequest(route: APIRouter.createAccount.path, parameters: userData.toDic(), method: .post) { error, response in
+            APIManager.shared.performRequest(route: APIRouter.createAccount.path, parameters: userData.toDic(), method: .post) { [weak self] error, response in
                 if response == nil{
                     completionHandler(.failure(error!.message))
                 }
                 else {
+                    if let res =  response as? [String : Any] {
+                    self?.userData.Token = res["Token"] as? String
+                    UserDefaultManager.token = self?.userData.Token ?? ""
+                    UserDefaultManager.isLogin = true
                     completionHandler(.success(true))
+                    }
                 }
             }
         }

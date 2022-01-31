@@ -14,23 +14,26 @@ class BLEHelper : NSObject {
     
     //MARK: Variable declaration
     static let shared = BLEHelper()
-    var centralManager : CBCentralManager!
+    var centralManager : CBCentralManager = CBCentralManager()
     var discoveredPeripheral: CBPeripheral?
     var completionHandler: (Bool)->Void = {_ in }
     var a = 1
-    private override init(){
-        super.init()
+    var isAllow = false
+    
+    func setDelegate(){
         //MARK:  Step:3 Create object of CBCentralManager
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
-        
     }
+    
+    
     //MARK: Function declarations
     /// This function is used for starScan of peripheral base on service(CBUUID) UUID
     ///
     //MARK: Step 5 : Scan near by peripherals
     func scanPeripheral(){
+        _ = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
         //TODO:  Replace hear Service array make a param if needed then
-        centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        centralManager.scanForPeripherals(withServices: [TransferService.otaServiceUUID,TransferService.inhealerUTCservice], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
     }
     func stopScanPeriphral(){
         centralManager.stopScan()
@@ -55,73 +58,7 @@ class BLEHelper : NSObject {
     }
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
-    
-        
-//        if self.centralManager.state == .poweredOff {
-//            print("off bluetooth")
-//            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
-//
-//            }
-//            return
-//        }
-//        if self.centralManager.state == .poweredOn {
-//            print("on bluetooth")
-//            completion(true)
-//            return
-//        }
-        
-        switch self.centralManager.state {
-            
-        case .unauthorized:
-            if #available(iOS 13.0, *) {
-                switch CBManager.authorization {
-                    
-                case .allowedAlways:
-                   completion(true)
-                    print("allowedAlways")
-                    break
-                case .denied:
-                    print("denied")
-                    CommonFunctions.showMessagePermission(message: StringPermissions.blePermissionMsg, cancelTitle: "Cancel", okTitle: "Setting" , isOpenBluetooth: false) { isClick in
-                      }
-                    break
-                case .restricted:
-                    print("restricted")
-                    break
-                case .notDetermined:
-                    _ = CBManager.authorization
-                    break
-                @unknown default:
-                    return
-                }
-            }
-            
-        case .unsupported:
-            
-            break
-        case .poweredOn:
-            completion(true)
-           // self.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
-            break
-            
-        case .resetting:
-            
-            break
-        
-        case .poweredOff:
-            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
-            
-            }
-            break
-        case .unknown:
-            print("unknown")
-            break
-            
-        @unknown default:
-            break
-        }
-        
-        
+        completion(isAllow)
     }
 }
 //MARK:- CBCentralManager Delegate
@@ -132,8 +69,10 @@ extension BLEHelper : CBCentralManagerDelegate {
         case .poweredOn:
             // ... so start working with the peripheral
             print("CBManager is powered on")
+            isAllow = true
         case .poweredOff:
             print("CBManager is not powered on")
+            isAllow = false
             CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
                  
             }
@@ -149,10 +88,11 @@ extension BLEHelper : CBCentralManagerDelegate {
                 switch CBManager.authorization {
                 case .denied:
                     print("You are not authorized to use Bluetooth")
+                    isAllow = false
                     CommonFunctions.showMessagePermission(message: "Need Bluetooth permission for connect inhaler device", cancelTitle: "Cancel", okTitle: "Setting" , isOpenBluetooth: false) { isClick in
                       }
-                    
                 case .restricted:
+                    isAllow = false
                     print("Bluetooth is restricted")
                     
                 case.notDetermined :
@@ -169,6 +109,7 @@ extension BLEHelper : CBCentralManagerDelegate {
             // In a real app, you'd deal with all the states accordingly
             return
         case .unsupported:
+            isAllow = false
             print("Bluetooth is not supported on this device")
             // In a real app, you'd deal with all the states accordingly
             return
@@ -181,14 +122,14 @@ extension BLEHelper : CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         // Reject if the signal strength is too low to attempt data transfer.
         // Change the minimum RSSI value depending on your app’s use case.
-        guard RSSI.intValue >= -80
-            else {
-                print("Discovered perhiperal not in expected range, at %d", RSSI.intValue)
-                return
-        }
+//        guard RSSI.intValue >= -80
+//            else {
+//                print("Discovered perhiperal not in expected range, at %d", RSSI.intValue)
+//                return
+//        }
         print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         // Device is in range - have we already seen it?
-        
+        discoveredPeripheral = peripheral
         if peripheral.state == .disconnected {
             //MARK: Step:6 Connect to peripheral
             centralManager.connect(peripheral, options: nil)
@@ -266,10 +207,12 @@ extension BLEHelper : CBPeripheralDelegate {
         
         // Again, we loop through the array, just in case and check if it's the right one
         guard let serviceCharacteristics = service.characteristics else { return }
-        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
+        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
             // If it is, subscribe to it
             //MARK: Step:9 sets indication for specific characteristic
             peripheral.setNotifyValue(true, for: characteristic)
+            let mac = peripheral.value(forKey: "value")
+            print(mac!)
         }
         
         // Once this is complete, we just need to wait for the data to come in.
@@ -341,4 +284,12 @@ extension BLEHelper : CBPeripheralDelegate {
     func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
        print("Peripheral is ready, send data")
     }
+}
+
+//MARK: BLE Scan In baground for 15 sec
+extension BLEHelper {
+    @objc func didFinishTimer(foundDevice: @escaping ((Bool) -> Void)) {
+        self.stopScanPeriphral()
+    }
+    
 }
