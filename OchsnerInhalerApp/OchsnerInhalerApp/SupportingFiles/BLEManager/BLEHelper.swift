@@ -109,7 +109,13 @@ extension BLEHelper : CBCentralManagerDelegate {
             // In a real app, you'd deal with all the states accordingly
             return
         case .unsupported:
+            #if targetEnvironment(simulator)
+            // your simulator code
+            isAllow = true
+            #else
+            // your real device code
             isAllow = false
+            #endif
             print("Bluetooth is not supported on this device")
             // In a real app, you'd deal with all the states accordingly
             return

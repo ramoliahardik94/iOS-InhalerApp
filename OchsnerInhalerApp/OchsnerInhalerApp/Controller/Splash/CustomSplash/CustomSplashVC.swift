@@ -29,16 +29,6 @@ class CustomSplashVC: BaseVC {
         lblConnectdInhalerSensor.textColor = .Color_SplashText
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
-        
-//        for fontFamily in UIFont.familyNames
-//        {
-//            print("Font family name = \(fontFamily as String)")
-//            for fontName in UIFont.fontNames(forFamilyName: fontFamily as String)
-//            {
-//                print("- Font name = \(fontName)")
-//            }
-//        }
-        
     }
     
     @objc func didFinishTimer() {
@@ -49,27 +39,30 @@ class CustomSplashVC: BaseVC {
                 self.pushVC(vc: vc)
                 return
             }
-            if !UserDefaultManager.isGrantLaocation {
+            else if !UserDefaultManager.isGrantLaocation {
                 let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self.pushVC(vc: vc)
                 return
             }
-            
-            if !UserDefaultManager.isNotificationOn {
+            else if !UserDefaultManager.isGrantNotification {
                 let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self.pushVC(vc: vc)
                 return
             }
-            
-            let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            self.pushVC(vc: vc)
-            
-//            BLEHelper.shared.isAllowed { isAllow in
-//                if isAllow {
-//                    let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-//                    self.pushVC(vc: vc)
-//                }
-//            }
+            BLEHelper.shared.isAllowed { isAllow in
+                if isAllow {
+                    let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                    self.pushVC(vc: vc)
+                }
+                else {
+                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { ok in
+                        if ok ?? true {
+                            CommonFunctions.openBluetooth()
+                        }
+                    }
+                    )
+                }
+            }
             
         } else {
             let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)

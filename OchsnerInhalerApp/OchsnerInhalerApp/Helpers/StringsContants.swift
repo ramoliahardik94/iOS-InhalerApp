@@ -64,6 +64,7 @@ struct ValidationMsg {
     static let  confirmPassword = "Please enter confirm password"
     static let CommonError = "There might be some issue please try again."
     static let medication = "Please select medication."
+    static let bluetooth = "Please turn on all the bluetooth"
 
 }
 
