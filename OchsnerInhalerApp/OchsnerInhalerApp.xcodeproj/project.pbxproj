@@ -50,6 +50,8 @@
 		4725F20E2797FE4300BBDA28 /* AddAnotherDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F20D2797FE4300BBDA28 /* AddAnotherDeviceVC.swift */; };
 		4725F2112798093000BBDA28 /* BLEDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2102798093000BBDA28 /* BLEDeviceCell.swift */; };
 		4725F21327981BBC00BBDA28 /* NMDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F21227981BBC00BBDA28 /* NMDatePicker.swift */; };
+		4728C9DD27A7BED50057F8E5 /* MedicationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728C9DC27A7BED50057F8E5 /* MedicationVM.swift */; };
+		4728C9DF27A7BF5D0057F8E5 /* MedicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728C9DE27A7BF5D0057F8E5 /* MedicationModel.swift */; };
 		472DC2442795328D008E0060 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472DC2432795328D008E0060 /* ProviderCell.swift */; };
 		472F643A279FE15400E37FB1 /* CreateAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F6439279FE15400E37FB1 /* CreateAccountVM.swift */; };
 		472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F643B279FF46400E37FB1 /* CommonFunction.swift */; };
@@ -145,6 +147,8 @@
 		4725F20D2797FE4300BBDA28 /* AddAnotherDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnotherDeviceVC.swift; sourceTree = "<group>"; };
 		4725F2102798093000BBDA28 /* BLEDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEDeviceCell.swift; sourceTree = "<group>"; };
 		4725F21227981BBC00BBDA28 /* NMDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMDatePicker.swift; sourceTree = "<group>"; };
+		4728C9DC27A7BED50057F8E5 /* MedicationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationVM.swift; sourceTree = "<group>"; };
+		4728C9DE27A7BF5D0057F8E5 /* MedicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationModel.swift; sourceTree = "<group>"; };
 		472DC2432795328D008E0060 /* ProviderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
 		472F6439279FE15400E37FB1 /* CreateAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVM.swift; sourceTree = "<group>"; };
 		472F643B279FF46400E37FB1 /* CommonFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunction.swift; sourceTree = "<group>"; };
@@ -496,6 +500,7 @@
 			children = (
 				471023512796CF8E00F88876 /* Cell */,
 				4710234D2796BDBD00F88876 /* MedicationVC.swift */,
+				4728C9DC27A7BED50057F8E5 /* MedicationVM.swift */,
 				4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */,
 			);
 			path = AddMedicationtoDevice;
@@ -579,6 +584,7 @@
 			isa = PBXGroup;
 			children = (
 				47CDCEA2278DA9470014527D /* UserModel.swift */,
+				4728C9DE27A7BF5D0057F8E5 /* MedicationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -864,6 +870,7 @@
 				227197C8279024AF0014BC3E /* LocationPermisionVC.swift in Sources */,
 				22AE9701278EAA8D00C0D851 /* ProfileVC.swift in Sources */,
 				47CDCE96278D95290014527D /* UserDefaultManager.swift in Sources */,
+				4728C9DD27A7BED50057F8E5 /* MedicationVM.swift in Sources */,
 				22AE96F5278EA5D700C0D851 /* ProviderListVC.swift in Sources */,
 				4725F21327981BBC00BBDA28 /* NMDatePicker.swift in Sources */,
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
@@ -893,6 +900,7 @@
 				227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */,
 				4722F47927994C3E00F505D2 /* UpdateProfileVC.swift in Sources */,
 				47CDCE77278D89210014527D /* Constants.swift in Sources */,
+				4728C9DF27A7BF5D0057F8E5 /* MedicationModel.swift in Sources */,
 				4725F2082797D5CE00BBDA28 /* DoseTimeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
