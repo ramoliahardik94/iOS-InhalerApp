@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 enum UserDefaultKey: String {
 
@@ -17,6 +18,7 @@ enum UserDefaultKey: String {
     case isLogin
     case isNotificationOn
     case deviceToken
+    case addDevice
 }
 
 class UserDefaultManager {
@@ -54,6 +56,15 @@ class UserDefaultManager {
         }
         set(newValue) {
             self.set(newValue as AnyObject?, forKey: .longitude)
+        }
+    }
+    
+    static var addDevice : [CBPeripheral] {
+        get {
+            return self.get(forKey: .addDevice) as! [CBPeripheral]
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .addDevice)
         }
     }
     

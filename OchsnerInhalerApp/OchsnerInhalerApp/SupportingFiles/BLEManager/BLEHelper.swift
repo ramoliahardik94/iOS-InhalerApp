@@ -30,32 +30,9 @@ class BLEHelper : NSObject {
     /// This function is used for starScan of peripheral base on service(CBUUID) UUID
     ///
     //MARK: Step 5 : Scan near by peripherals
-    func scanPeripheral(){
-        _ = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
-        //TODO:  Replace hear Service array make a param if needed then
-        centralManager.scanForPeripherals(withServices: [TransferService.otaServiceUUID,TransferService.inhealerUTCservice], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
-    }
-    func stopScanPeriphral(){
-        centralManager.stopScan()
-    }
-    ///This function is use for cleanup BLE Task
-    private func cleanup() {
-        // Don't do anything if we're not connected
-        guard let discoveredPeripheral = discoveredPeripheral,
-            case .connected = discoveredPeripheral.state else { return }
-        
-        for service in (discoveredPeripheral.services ?? [] as [CBService]) {
-            for characteristic in (service.characteristics ?? [] as [CBCharacteristic]) {
-                if characteristic.uuid == TransferService.characteristicNotifyUUID && characteristic.isNotifying {
-                    // It is notifying, so unsubscribe
-                    self.discoveredPeripheral?.setNotifyValue(false, for: characteristic)
-                }
-            }
-        }
-        
-        // If we've gotten this far, we're connected, but we're not subscribed, so we just disconnect
-        centralManager.cancelPeripheralConnection(discoveredPeripheral)
-    }
+ 
+  
+    
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
         completion(isAllow)
@@ -135,10 +112,13 @@ extension BLEHelper : CBCentralManagerDelegate {
 //        }
         print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         // Device is in range - have we already seen it?
-        discoveredPeripheral = peripheral
+      
         if peripheral.state == .disconnected {
+            discoveredPeripheral = peripheral
             //MARK: Step:6 Connect to peripheral
-            centralManager.connect(peripheral, options: nil)
+            NotificationCenter.default.post(name: .BLEFound, object: nil)
+            print(UserDefaultManager.addDevice.count)
+            UserDefaultManager.addDevice.insert(peripheral, at: UserDefaultManager.addDevice.count)
         }
     }
    
@@ -151,7 +131,7 @@ extension BLEHelper : CBPeripheralDelegate {
      */
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Peripheral Connected")
-        
+        NotificationCenter.default.post(name: .BLEConnect, object: nil)
         // Stop scanning
         centralManager.stopScan()
         print("Scanning stopped")
@@ -160,6 +140,9 @@ extension BLEHelper : CBPeripheralDelegate {
         
         //MARK: Step:7 Search only for services that match our UUID
         peripheral.discoverServices([TransferService.otaServiceUUID,TransferService.inhealerUTCservice])
+    }
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        NotificationCenter.default.post(name: .BLENotConnect, object: nil)
     }
     
     // implementations of the CBPeripheralDelegate methods
@@ -292,10 +275,4 @@ extension BLEHelper : CBPeripheralDelegate {
     }
 }
 
-//MARK: BLE Scan In baground for 15 sec
-extension BLEHelper {
-    @objc func didFinishTimer(foundDevice: @escaping ((Bool) -> Void)) {
-        self.stopScanPeriphral()
-    }
-    
-}
+
