@@ -2,6 +2,17 @@
 //  StringsContants.swift
 //
 
+import Foundation
+
+
+//MARK: Notification Identifiers
+extension Notification.Name {
+    static let BLEFound = Notification.Name("BLEFound")
+    static let BLENotFound = Notification.Name("BLENotFound")
+    static let BLEConnect = Notification.Name("BLEConnect")
+    static let BLENotConnect = Notification.Name("BLENotConnect")
+}
+
 //MARK: Common Message
 struct StringCommonMessages {
      static let commonMessage = ""
@@ -65,6 +76,8 @@ struct ValidationMsg {
     static let CommonError = "There might be some issue please try again."
     static let medication = "Please select medication."
     static let bluetooth = "Please turn on all the bluetooth"
+    static let bleNotfound = "There is no nearby Inhaler sensor found. Please make sure that your sensor is activated properly and nearby to your phone."
+    static let bleNotPair = "There might be some problem with pairing the Inhelor sensor. Please follow the steps mentioned on the screen to enable the paring mode and try again."
 
 }
 

@@ -55,6 +55,7 @@
 		472DC2442795328D008E0060 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472DC2432795328D008E0060 /* ProviderCell.swift */; };
 		472F643A279FE15400E37FB1 /* CreateAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F6439279FE15400E37FB1 /* CreateAccountVM.swift */; };
 		472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F643B279FF46400E37FB1 /* CommonFunction.swift */; };
+		4733205027A8EEC100695661 /* BLECommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733204F27A8EEC100695661 /* BLECommunication.swift */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
@@ -152,6 +153,7 @@
 		472DC2432795328D008E0060 /* ProviderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
 		472F6439279FE15400E37FB1 /* CreateAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVM.swift; sourceTree = "<group>"; };
 		472F643B279FF46400E37FB1 /* CommonFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunction.swift; sourceTree = "<group>"; };
+		4733204F27A8EEC100695661 /* BLECommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECommunication.swift; sourceTree = "<group>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 			children = (
 				227CD4E027A3EC540005C3D9 /* TransferService.swift */,
 				227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */,
+				4733204F27A8EEC100695661 /* BLECommunication.swift */,
 			);
 			path = BLEManager;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				4728C9DD27A7BED50057F8E5 /* MedicationVM.swift in Sources */,
 				22AE96F5278EA5D700C0D851 /* ProviderListVC.swift in Sources */,
 				4725F21327981BBC00BBDA28 /* NMDatePicker.swift in Sources */,
+				4733205027A8EEC100695661 /* BLECommunication.swift in Sources */,
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
 				227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */,
 				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
