@@ -18,7 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaultManager.isNotificationOn {
             NotificationManager.shared.register()
         }
-        BLEHelper.shared.setDelegate()
+        if UserDefaultManager.isGrantBLE {
+            BLEHelper.shared.setDelegate()
+        }
         return true
     }
 

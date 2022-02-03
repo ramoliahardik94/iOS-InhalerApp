@@ -22,9 +22,9 @@ extension UITableView {
     }
     
     func addSpinner(isBottom: Bool = true) {
-        let spinner = UIActivityIndicatorView(style: .gray)
+        let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 44))
         spinner.startAnimating()
-        spinner.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 44)
+        //spinner.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 44)
         spinner.color = .Color_Blue
         if isBottom {
             tableFooterView = spinner

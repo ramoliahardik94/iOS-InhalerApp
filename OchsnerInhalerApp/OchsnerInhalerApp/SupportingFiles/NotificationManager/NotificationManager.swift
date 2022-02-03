@@ -75,25 +75,25 @@ class NotificationManager: NSObject {
 //        }
 //    }
     
-    func receivePushNotification(_ dict: [AnyHashable: Any]) {
-        guard let operation = dict["operation"] as? String,
-              let data = dict["data"] as? [String: Any] else {
-            return
-        }
-        
-        switch operation {
-        case "alarm":
-       //    self.handelAlarm(data: data)
-            break
-        default:
-            if let message = dict["message"] as? String {
-                self.showAlert(title: "Notification", message: message)
-            } else {
-                Logger.LogInfo("Alert Not show: \(dict)")
-            }
-            break
-        }
-    }
+//    func receivePushNotification(_ dict: [AnyHashable: Any]) {
+//        guard let operation = dict["operation"] as? String,
+//              let data = dict["data"] as? [String: Any] else {
+//            return
+//        }
+//
+//        switch operation {
+//        case "alarm":
+//       //    self.handelAlarm(data: data)
+//            break
+//        default:
+//            if let message = dict["message"] as? String {
+//                self.showAlert(title: "Notification", message: message)
+//            } else {
+//                Logger.LogInfo("Alert Not show: \(dict)")
+//            }
+//            break
+//        }
+//    }
     
 //    func handleNotification() -> AlarmModel? {
 //        if let notification = notifications.popLast() {

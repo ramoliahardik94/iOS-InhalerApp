@@ -52,8 +52,8 @@ class LoginVC : BaseVC{
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
         
-       // tfEmail.text = "mherzog@ochsner.org"
-       // tfPassword.text = "password"
+        tfEmail.text = "mherzog@ochsner.org"
+        tfPassword.text = "password"
     }
     
    

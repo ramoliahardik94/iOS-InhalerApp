@@ -20,7 +20,7 @@ class LocationManager: CLLocationManager {
     }
     
     func isAllowed(askPermission: Bool = false, completion: @escaping ((CLAuthorizationStatus) -> Void)) {
-        switch CLLocationManager.authorizationStatus() {
+        switch locationManager.authorizationStatus {
         case .notDetermined:
             if askPermission {
                 NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive),
@@ -40,7 +40,7 @@ class LocationManager: CLLocationManager {
     // MARK: FetchLocation
     func checkLocationPermissionAndFetchLocation(completion: @escaping ((CLLocationCoordinate2D) -> Void)) {
         self.locationCompletion = completion
-        let status = CLLocationManager.authorizationStatus()
+        let status = locationManager.authorizationStatus
         locationManager.delegate = self
         if status == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
@@ -56,7 +56,7 @@ class LocationManager: CLLocationManager {
         self.ssidCompletion = completion
         
         if #available(iOS 13.0, *) {
-            let status = CLLocationManager.authorizationStatus()
+            let status = locationManager.authorizationStatus
             if status == .notDetermined {
                 locationManager.delegate = self
                 locationManager.requestWhenInUseAuthorization()
@@ -83,7 +83,7 @@ class LocationManager: CLLocationManager {
     
     @objc func applicationDidBecomeActive() {
         NotificationCenter.default.removeObserver(self)
-        switch CLLocationManager.authorizationStatus() {
+        switch locationManager.authorizationStatus  {
         case .authorizedAlways, .authorizedWhenInUse:
             permissionCompletion?(.authorizedWhenInUse)
         default:

@@ -47,6 +47,7 @@ extension BLEHelper : CBCentralManagerDelegate {
             // ... so start working with the peripheral
             print("CBManager is powered on")
             isAllow = true
+            
         case .poweredOff:
             print("CBManager is not powered on")
             isAllow = false
