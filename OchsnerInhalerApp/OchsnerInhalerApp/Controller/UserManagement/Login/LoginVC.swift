@@ -113,6 +113,15 @@ class LoginVC : BaseVC{
 }
 
 extension LoginVC : UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == tfPassword  {
+            return string != " "
+        }else {
+            return true
+        }
+    }
+        
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfEmail {
             login.loginModel.email = tfEmail.text
