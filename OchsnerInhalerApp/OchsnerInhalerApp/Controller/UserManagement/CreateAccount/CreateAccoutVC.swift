@@ -140,21 +140,28 @@ class CreateAccoutVC: BaseVC {
     
 }
 extension CreateAccoutVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == tfPassword || textField == tfConfirmPassword {
+            return string != " "
+        }else {
+            return true
+        }
+    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfFirstName {
             createAccountVM.userData.firstName = textField.text
         }
-        if textField == tfLastName {
+        else if textField == tfLastName {
             createAccountVM.userData.lastName = textField.text
         }
-        if textField == tfPassword {
+        else if textField == tfPassword {
             createAccountVM.userData.password = textField.text
         }
-        if textField == tfConfirmPassword {
+        else if textField == tfConfirmPassword {
             createAccountVM.userData.confirmPassword = textField.text
         }
-        if textField == tfEmail {
+        else if textField == tfEmail {
             createAccountVM.userData.email = textField.text
         }
     }

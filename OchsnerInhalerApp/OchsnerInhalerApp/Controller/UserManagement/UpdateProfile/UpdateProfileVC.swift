@@ -11,20 +11,14 @@ class UpdateProfileVC: BaseVC {
     
     @IBOutlet weak var lblCreateAccount: UILabel!
     @IBOutlet weak var btnUsePassword: UIButton!
-    
-    
     @IBOutlet weak var lblFirstName: UILabel!
     @IBOutlet weak var lblLastName: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
-   
-    
     @IBOutlet weak var tfFirstName: UITextField!
     @IBOutlet weak var tfLastName: UITextField!
     @IBOutlet weak var tfEmail: UITextField!
-   
-    
-    
     @IBOutlet weak var scrollViewMain: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
  
@@ -36,26 +30,19 @@ class UpdateProfileVC: BaseVC {
         lblFirstName.text = StringUserManagement.firstName.uppercased()
         lblLastName.text = StringUserManagement.lastName.uppercased()
         lblEmail.text = StringUserManagement.email.uppercased()
-      
         lblCreateAccount.text = StringUserManagement.updateProfile
-        
-        
         btnUsePassword.setButtonView(StringUserManagement.update)
         tfFirstName.isOchsnerTextFiled = true
         tfLastName.isOchsnerTextFiled = true
         tfEmail.isOchsnerTextFiled = true
-        
         lblCreateAccount.isTitle = true
         lblFirstName.isTitle = false
         lblLastName.isTitle = false
         lblEmail.isTitle = false
-        
-        
+                
         tfFirstName.placeholder = StringUserManagement.placeHolderFirstName
         tfLastName.placeholder = StringUserManagement.placeHolderLastName
         tfEmail.placeholder = StringUserManagement.emailPlaceHolder
-        
-        
         tfFirstName.autocapitalizationType = .words
         tfLastName.autocapitalizationType = .words
         
@@ -63,8 +50,6 @@ class UpdateProfileVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         registerKeyboardNotifications()
     }
-
-    
     
     @IBAction func tapUsePassword(_ sender: UIButton) {
         let connectProviderVC  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)

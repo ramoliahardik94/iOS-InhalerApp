@@ -16,6 +16,9 @@ class BLEHelper : NSObject {
     static let shared = BLEHelper()
     var centralManager : CBCentralManager = CBCentralManager()
     var discoveredPeripheral: CBPeripheral?
+    var charectristicWrite : CBCharacteristic?
+    var charectristicRead : CBCharacteristic?
+    var addressMAC : String = ""
     var completionHandler: (Bool)->Void = {_ in }
    // var a = 1
     var isAllow = false
@@ -30,9 +33,6 @@ class BLEHelper : NSObject {
     /// This function is used for starScan of peripheral base on service(CBUUID) UUID
     ///
     //MARK: Step 5 : Scan near by peripherals
- 
-  
-    
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
         completion(isAllow)
@@ -138,40 +138,22 @@ extension BLEHelper : CBPeripheralDelegate {
         print("Scanning stopped")
         
         peripheral.delegate = self
+    func setRTCTime()->String{
         
-        //MARK: Step:7 Search only for services that match our UUID
-        peripheral.discoverServices([TransferService.otaServiceUUID,TransferService.inhealerUTCservice])
-    }
-    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        NotificationCenter.default.post(name: .BLENotConnect, object: nil)
-    }
-    
-    // implementations of the CBPeripheralDelegate methods
-
-    /*
-     *  The peripheral letting us know when services have been invalidated.
-     */
-    func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
         
-        for service in invalidatedServices where service.uuid == TransferService.inhealerUTCservice {
-            print("Transfer service is invalidated - rediscover services")
-            peripheral.discoverServices([TransferService.inhealerUTCservice])
+        let year = DecimalToHax(value: Date().getString( format: "yyyy",isUTC: true),byte: 2)
+        let day = DecimalToHax(value: Date().getString(format: "dd", isUTC: true))
+        let month = DecimalToHax(value: Date().getString(format: "MM", isUTC: true))
+        let hour = DecimalToHax(value: Date().getString(format: "HH", isUTC: true))
+        let min = DecimalToHax(value: Date().getString(format: "mm", isUTC: true))
+        let sec = DecimalToHax(value: Date().getString(format: "s", isUTC: true))
+       
+        let haxRTC = "AA015507" + year+day+month+hour+min+sec
+        if discoveredPeripheral != nil && charectristicWrite != nil {
+        discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
-        for service in invalidatedServices where service.uuid == TransferService.otaServiceUUID {
-            print("Transfer service is invalidated - rediscover services")
-            peripheral.discoverServices([TransferService.otaServiceUUID])
-        }
-    }
-
-    /*
-     *  The Transfer Service was discovered
-     */
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        if let error = error {
-            print("Error discovering services: %s", error.localizedDescription)
-            cleanup()
-            return
-        }
+        print(haxRTC)
+        return haxRTC
         
         // Discover the characteristic we want...
         
@@ -182,98 +164,73 @@ extension BLEHelper : CBPeripheralDelegate {
             peripheral.discoverCharacteristics([TransferService.characteristicNotifyUUID,TransferService.characteristicWriteUUID], for: service)
         }
     }
+   
     
-    /*
-     *  The Transfer characteristic was discovered.
-     *  Once this has been found, we want to subscribe to it, which lets the peripheral know we want the data it contains
-     */
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        // Deal with errors (if any).
-        if let error = error {
-            print("Error discovering characteristics: %s", error.localizedDescription)
-            cleanup()
-            return
+    func DecimalToHax(value:String,byte:Int = 1)->String{
+        var haxStr = ""
+        switch byte{
+        case 1:
+            if let val = UInt8(value) {
+                let data = val.bigEndian
+                haxStr = String(format:"%02X", data)
+            }
+        case 2:
+            if  let val = UInt16(value) {
+                let data = val.bigEndian
+                haxStr = String(format:"%04X", data)
+            }
+        default :
+            if let val = UInt8(value) {
+                let data = val.bigEndian
+                haxStr = String(format:"%02X", data)
+            }
         }
-        
-        // Again, we loop through the array, just in case and check if it's the right one
-        guard let serviceCharacteristics = service.characteristics else { return }
-        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
-            // If it is, subscribe to it
-            //MARK: Step:9 sets indication for specific characteristic
-            peripheral.setNotifyValue(true, for: characteristic)
-            let mac = peripheral.value(forKey: "value")
-            print(mac!)
-        }
-        
-        // Once this is complete, we just need to wait for the data to come in.
+        return haxStr
     }
     
-    /*
-     *   This callback lets us know more data has arrived via notification on the characteristic
-     */
-    //MARK: Step:10.1 Get value for charecteristic from BLE
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        // Deal with errors (if any)
-        if let error = error {
-            print("Error discovering characteristics: %s", error.localizedDescription)
-            cleanup()
-            return
+    func HexToDecimal(value:String,byte:Int = 1 )-> Decimal {
+        var decimalValue = Decimal()
+        switch byte{
+        case 1:
+            if let val = UInt8(value, radix: 16) {
+                decimalValue = Decimal(val.bigEndian)
+            }
+        case 2:
+            if let val = UInt16(value, radix: 16) {
+                decimalValue = Decimal(val.bigEndian)
+            }
+        default :
+            if let val = UInt8(value, radix: 16) {
+                decimalValue = Decimal(val.bigEndian)
+            }
         }
-        
-        guard let characteristicData = characteristic.value,
-            let stringFromData = String(data: characteristicData, encoding: .utf8) else { return }
-        
-            print("Received %d bytes: %s", characteristicData.count, stringFromData)
-        
-    //TODO: I'll have to understand this logic base on device get data
-//        // Have we received the end-of-message token?
-//        if stringFromData == "EOM" {
-//            // End-of-message case: show the data.
-//            // Dispatch the text view update to the main queue for updating the UI, because
-//            // we don't know which thread this method will be called back on.
-//            DispatchQueue.main.async() {
-//                self.textView.text = String(data: self.data, encoding: .utf8)
-//            }
-//
-//            // Write test data
-//            writeData()
-//        } else {
-//            // Otherwise, just append the data to what we have previously received.
-//            data.append(characteristicData)
-//        }
-    }
-
-    /*
-     *  The peripheral letting us know whether our subscribe/unsubscribe happened or not
-     */
-    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        // Deal with errors (if any)
-        if let error = error {
-            print("Error changing notification state: %s", error.localizedDescription)
-            return
-        }
-        
-        // Exit if it's not the transfer characteristic
-        guard characteristic.uuid == TransferService.characteristicNotifyUUID else { return }
-        
-        if characteristic.isNotifying {
-            // Notification has started
-            print("Notification began on %@", characteristic)
-        } else {
-            // Notification has stopped, so disconnect from the peripheral
-            print("Notification stopped on %@. Disconnecting", characteristic)
-            cleanup()
-        }
-        
-    }
-    
-    /*
-     *  This is called when peripheral is ready to accept more data when using write without response
-     */
-    //MARK: Step:10.2 write value to peripheral
-    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
-       print("Peripheral is ready, send data")
+        print(decimalValue)
+        return decimalValue
     }
 }
 
 
+extension String {
+    
+    /// Create `Data` from hexadecimal string representation
+    ///
+    /// This creates a `Data` object from hex string. Note, if the string has any spaces or non-hex characters (e.g. starts with '<' and with a '>'), those are ignored and only hex characters are processed.
+    ///
+    /// - returns: Data represented by this hexadecimal string.
+    
+    var hexadecimal: Data? {
+        var data = Data(capacity: count / 2)
+        
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
+            let byteString = (self as NSString).substring(with: match!.range)
+            let num = UInt8(byteString, radix: 16)!
+            data.append(num)
+        }
+        
+        guard data.count > 0 else { return nil }
+        
+        return data
+    }
+    
+}

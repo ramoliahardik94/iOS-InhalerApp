@@ -42,6 +42,8 @@
 		4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710234D2796BDBD00F88876 /* MedicationVC.swift */; };
 		471023502796CA8500F88876 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4710234F2796CA8500F88876 /* SFProText-Bold.ttf */; };
 		471023532796CFA400F88876 /* MedicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471023522796CFA400F88876 /* MedicationCell.swift */; };
+		4711F91227AA536E00AD063F /* BLECentralManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4711F91127AA536E00AD063F /* BLECentralManagerDelegate.swift */; };
+		4711F91427AA55E000AD063F /* BLEPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */; };
 		4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4722F4722799148700F505D2 /* ChangePasswordVC.swift */; };
 		4722F47927994C3E00F505D2 /* UpdateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4722F47827994C3E00F505D2 /* UpdateProfileVC.swift */; };
 		4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */; };
@@ -140,6 +142,8 @@
 		4710234D2796BDBD00F88876 /* MedicationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationVC.swift; sourceTree = "<group>"; };
 		4710234F2796CA8500F88876 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		471023522796CFA400F88876 /* MedicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationCell.swift; sourceTree = "<group>"; };
+		4711F91127AA536E00AD063F /* BLECentralManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECentralManagerDelegate.swift; sourceTree = "<group>"; };
+		4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEPeripheralDelegate.swift; sourceTree = "<group>"; };
 		4722F4722799148700F505D2 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		4722F47827994C3E00F505D2 /* UpdateProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileVC.swift; sourceTree = "<group>"; };
 		4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDetailVC.swift; sourceTree = "<group>"; };
@@ -316,6 +320,8 @@
 				227CD4E027A3EC540005C3D9 /* TransferService.swift */,
 				227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */,
 				4733204F27A8EEC100695661 /* BLECommunication.swift */,
+				4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */,
+				4711F91127AA536E00AD063F /* BLECentralManagerDelegate.swift */,
 			);
 			path = BLEManager;
 			sourceTree = "<group>";
@@ -905,6 +911,7 @@
 				47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */,
 				22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */,
 				47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */,
+				4711F91227AA536E00AD063F /* BLECentralManagerDelegate.swift in Sources */,
 				47CDCE84278D89210014527D /* String.swift in Sources */,
 				4725F2112798093000BBDA28 /* BLEDeviceCell.swift in Sources */,
 				4725F20E2797FE4300BBDA28 /* AddAnotherDeviceVC.swift in Sources */,
@@ -920,6 +927,7 @@
 				227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */,
 				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
 				227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */,
+				4711F91427AA55E000AD063F /* BLEPeripheralDelegate.swift in Sources */,
 				4722F47927994C3E00F505D2 /* UpdateProfileVC.swift in Sources */,
 				47CDCE77278D89210014527D /* Constants.swift in Sources */,
 				4728C9DF27A7BF5D0057F8E5 /* MedicationModel.swift in Sources */,
