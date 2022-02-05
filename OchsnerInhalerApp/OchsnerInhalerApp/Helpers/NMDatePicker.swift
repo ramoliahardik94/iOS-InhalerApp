@@ -9,9 +9,11 @@ import Foundation
 import UIKit
 
 class NMDatePicker: UIView {
-    
-    var changeClosure: ((Date) -> ())?
-    var dismissClosure: ((Date)-> ())?
+    var changeClosure: (Date) -> Void = {_ in }
+    var dismissClosure: (Date) -> Void = {_ in }
+   // var changeClosure: ((Date) -> ())?
+   // var dismissClosure: ((Date)-> ())?
+
     var selectedDate = Date()
     let dPicker: UIDatePicker = {
         let obj = UIDatePicker()
@@ -27,7 +29,7 @@ class NMDatePicker: UIView {
         super.init(coder: coder)
         commonInit()
     }
-    func commonInit() -> Void {
+    func commonInit() {
         let blurEffect = UIBlurEffect(style: .dark)
         
         let blurredEffectView = UIVisualEffectView(effect: blurEffect)
@@ -76,12 +78,12 @@ class NMDatePicker: UIView {
     }
     
     @objc func tapHandler(_ obj: UITapGestureRecognizer) {
-        dismissClosure?(selectedDate)
+        dismissClosure(selectedDate)
     }
     
     @objc func didChangeDate(_ sender: UIDatePicker) {
         selectedDate = sender.date
-        changeClosure?(sender.date)
+        changeClosure(sender.date)
     }
     
     

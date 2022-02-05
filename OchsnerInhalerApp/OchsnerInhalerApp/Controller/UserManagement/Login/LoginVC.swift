@@ -115,9 +115,9 @@ class LoginVC: BaseVC {
 extension LoginVC: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == tfPassword  {
+        if textField == tfPassword {
             return string != " "
-        }else {
+        } else {
             return true
         }
     }

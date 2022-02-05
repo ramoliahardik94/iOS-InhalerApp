@@ -8,10 +8,10 @@
 import Foundation
 import CoreBluetooth
 
-//MARK:- CBCentralManager Delegate
-extension BLEHelper : CBCentralManagerDelegate {
+// MARK: - CBCentralManager Delegate
+extension BLEHelper: CBCentralManagerDelegate {
     
-    //MARK: - Step:4 SetDelegate method For Bloototh Status
+    // MARK: - Step:4 SetDelegate method For Bloototh Status
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
@@ -21,9 +21,7 @@ extension BLEHelper : CBCentralManagerDelegate {
         case .poweredOff:
             print("CBManager is not powered on")
             isAllow = false
-            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting",isOpenBluetooth: true) { isClick in
-                 
-            }
+            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting", isOpenBluetooth: true) { _ in }
             // In a real app, you'd deal with all the states accordingly
             return
         case .resetting:
@@ -37,8 +35,7 @@ extension BLEHelper : CBCentralManagerDelegate {
                 case .denied:
                     print("You are not authorized to use Bluetooth")
                     isAllow = false
-                    CommonFunctions.showMessagePermission(message: "Need Bluetooth permission for connect inhaler device", cancelTitle: "Cancel", okTitle: "Setting" , isOpenBluetooth: false) { isClick in
-                      }
+                    CommonFunctions.showMessagePermission(message: "Need Bluetooth permission for connect inhaler device", cancelTitle: "Cancel", okTitle: "Setting", isOpenBluetooth: false) { _ in }
                 case .restricted:
                     isAllow = false
                     print("Bluetooth is restricted")
@@ -74,7 +71,7 @@ extension BLEHelper : CBCentralManagerDelegate {
         }
     }
     
-    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         // Reject if the signal strength is too low to attempt data transfer.
         // Change the minimum RSSI value depending on your app’s use case.
 //        guard RSSI.intValue >= -80
@@ -87,7 +84,7 @@ extension BLEHelper : CBCentralManagerDelegate {
       
         if peripheral.state == .disconnected {
             discoveredPeripheral = peripheral
-            //MARK: Step:6 Connect to peripheral
+            // MARK: Step:6 Connect to peripheral
             NotificationCenter.default.post(name: .BLEFound, object: nil)
             print(UserDefaultManager.addDevice.count)
             UserDefaultManager.addDevice.insert(peripheral, at: UserDefaultManager.addDevice.count)

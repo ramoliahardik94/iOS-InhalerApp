@@ -12,7 +12,7 @@ import MBProgressHUD
 
 open class CommonFunctions {
     
-    // MARK: -  Alert
+    // MARK: - Alert
     
     public class func showMessage(message: String, _ completion: @escaping ((Bool?) -> Void ) = {_ in }) {
         let alert = UIAlertController(title: (""), message: message, preferredStyle: UIAlertController.Style.alert)

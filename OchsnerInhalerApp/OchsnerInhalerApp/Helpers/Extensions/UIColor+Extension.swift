@@ -26,7 +26,7 @@ extension UIColor {
     static let ColorYellow = #colorLiteral(red: 0.9921568627, green: 0.8117647059, blue: 0.2784313725, alpha: 1) // #FDCF47
     static let ColorWhite = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) // #FFFFFF
     static let ColorHeaderSearch = #colorLiteral(red: 0.2156862745, green: 0.462745098, blue: 0.7137254902, alpha: 1) // 3776B6
-    static let ColorHeader = #colorLiteral(red: 0.09411764706, green: 0.3803921569, blue: 0.6745098039, alpha: 1) //1861AC
+    static let ColorHeader = #colorLiteral(red: 0.09411764706, green: 0.3803921569, blue: 0.6745098039, alpha: 1) // 1861AC
     static let ColorProviderView = #colorLiteral(red: 0.862745098, green: 0.9294117647, blue: 0.9647058824, alpha: 1) // DCEDF6
     static let Colorcell = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) // F0F0F0
     static let ColorSplashText = #colorLiteral(red: 0.02745098039, green: 0.168627451, blue: 0.3803921569, alpha: 1) // #072B61
