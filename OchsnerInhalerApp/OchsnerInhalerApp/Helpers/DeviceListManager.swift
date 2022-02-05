@@ -6,10 +6,6 @@ import Foundation
 
 class DeviceListManager: NSObject {
     static let shared = DeviceListManager()
-   
-    
-   
-    
     var deviceList: [DeviceModel] = []
     var deviceDetail: BehaviorRelay<DeviceModel> = BehaviorRelay(value: DeviceModel())
     var favDevice: BehaviorRelay<DeviceModel> = BehaviorRelay(value: DeviceModel())
@@ -20,7 +16,7 @@ class DeviceListManager: NSObject {
         filterFavDevices()
     }
     
-    //Filter Favourite devices for dashboard data
+    // Filter Favourite devices for dashboard data
     private func filterFavDevices() {
         devices.rx_elements().subscribe(onNext: { list in
             self.deviceList = list
@@ -51,7 +47,7 @@ class DeviceListManager: NSObject {
 
             if basicModel.checkStatusCode(.success) {
                 let list = Mapper<DeviceModel>().mapArray(JSONArray: basicModel.dataArray)
-                self.devices.elements.removeAll()//Remove data without observalbe events
+                self.devices.elements.removeAll() // Remove data without observalbe events
                 self.devices.append(contentsOf: list.filter({ $0.type != .keyfob }))
                 self.isDeviceListRetrieved.accept(true)
             } else {

@@ -31,7 +31,7 @@ class Logger {
         print(" └ 📣 \(messageString)\n")
     }
     
-    class func LogInfo(_ message: Any = "",
+    class func logInfo(_ message: Any = "",
                        filename: String = #file,
                        function: String =  #function,
                        line: Int = #line) {
@@ -47,7 +47,7 @@ class Logger {
         #endif
     }
     
-    class func LogError(_ message: Any = "",
+    class func logError(_ message: Any = "",
                         filename: String = #file,
                         function: String =  #function,
                         line: Int = #line) {

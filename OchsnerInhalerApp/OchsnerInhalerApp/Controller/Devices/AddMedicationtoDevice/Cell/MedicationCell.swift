@@ -16,14 +16,14 @@ class MedicationCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        viewCell.backgroundColor = .Color_cell
+        viewCell.backgroundColor = .Colorcell
         viewCell.isOchsnerView = true
-        lblModicationName.font = UIFont(name: AppFont.SFProText_Bold, size: 17)
+        lblModicationName.font = UIFont(name: AppFont.SFProTextBold, size: 17)
         lblNDCCode.isTitle = false
         
     }
     
-    func setMedicationDetailes(medication: MedicationModelElement){
+    func setMedicationDetailes(medication: MedicationModelElement) {
         lblNDCCode.text = "NDC Code: \(medication.ndc!)"
             lblModicationName.text = medication.medName
     }

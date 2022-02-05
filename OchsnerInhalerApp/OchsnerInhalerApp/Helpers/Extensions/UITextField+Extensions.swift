@@ -29,7 +29,7 @@ extension UITextField {
         set {
             if newValue {
                 layer.borderWidth = 1
-                layer.borderColor = UIColor.TextField_Border_Color.cgColor
+                layer.borderColor = UIColor.TextFieldBorderColor.cgColor
                 layer.cornerRadius = 4
                 font = UIFont(name: AppFont.AppRegularFont, size: 17)                
             }
@@ -43,18 +43,17 @@ extension UITextField {
         return try validator.validated(self.text!)
     }
     fileprivate func setPasswordToggleImage(_ button: UIButton) {
-        if(isSecureTextEntry){
+        if(isSecureTextEntry) {
             button.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
 //            button.setImage(UIImage(named: "eye.slash.fill"), for: .normal)
-        }else{
+        } else {
             button.setImage(UIImage(systemName: "eye.fill"), for: .normal)
 //            button.setImage(UIImage(named: "eye.fill"), for: .normal)
-
         }
         button.tintColor = .lightGray
     }
 
-    func enablePasswordToggle(){
+    func enablePasswordToggle() {
         let button = UIButton(type: .custom)
         setPasswordToggleImage(button)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -88,11 +87,10 @@ extension UIView {
         set {
             if newValue {
                 layer.borderWidth = 1
-                layer.borderColor = UIColor.TextField_Border_Color.cgColor
+                layer.borderColor = UIColor.TextFieldBorderColor.cgColor
                 if self is UITextField {
                     layer.cornerRadius = 4
-                }
-                else {
+                } else {
                     layer.cornerRadius = 6
                 }
             }

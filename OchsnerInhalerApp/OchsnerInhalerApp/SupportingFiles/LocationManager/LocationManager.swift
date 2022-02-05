@@ -82,33 +82,36 @@ class LocationManager: CLLocationManager {
     }
     
     @objc func applicationDidBecomeActive() {
-        NotificationCenter.default.removeObserver(self)
-        switch locationManager.authorizationStatus  {
+        
+        switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             permissionCompletion?(.authorizedWhenInUse)
         default:
             permissionCompletion?(.notDetermined)
         }
     }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
-// MARK:- CLLocationManagerDelegate
+// MARK: - CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        Logger.LogInfo("LocationManager > didChangeAuthorization > Status : \(status.rawValue)")
+        Logger.logInfo("LocationManager > didChangeAuthorization > Status : \(status.rawValue)")
         self.ssidCompletion?(getSSID())
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        Logger.LogInfo("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
+        Logger.logInfo("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
         self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
         locationManager.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        Logger.LogError("LocationManager > \(error)")
+        Logger.logError("LocationManager > \(error)")
         self.locationCompletion(CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
     }
 }

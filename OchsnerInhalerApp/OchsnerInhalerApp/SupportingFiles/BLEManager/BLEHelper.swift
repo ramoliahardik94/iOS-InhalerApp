@@ -17,7 +17,7 @@ class BLEHelper : NSObject {
     var centralManager : CBCentralManager = CBCentralManager()
     var discoveredPeripheral: CBPeripheral?
     var completionHandler: (Bool)->Void = {_ in }
-    var a = 1
+   // var a = 1
     var isAllow = false
     
     func setDelegate(){
@@ -178,7 +178,7 @@ extension BLEHelper : CBPeripheralDelegate {
         // Loop through the newly filled peripheral.services array, just in case there's more than one.
         guard let peripheralServices = peripheral.services else { return }
         for service in peripheralServices {
-            //MARK: Step:8 Search only for Characteristics that match our UUID
+             // MARK: Step:8 Search only for Characteristics that match our UUID
             peripheral.discoverCharacteristics([TransferService.characteristicNotifyUUID,TransferService.characteristicWriteUUID], for: service)
         }
     }

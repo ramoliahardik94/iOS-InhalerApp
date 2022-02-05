@@ -59,7 +59,7 @@ class UserDefaultManager {
         }
     }
     
-    static var addDevice : [CBPeripheral] {
+    static var addDevice: [CBPeripheral] {
         get {
             return self.get(forKey: .addDevice) as! [CBPeripheral]
         }
@@ -84,7 +84,7 @@ class UserDefaultManager {
         UserDefaults.standard.synchronize()
     }
     
-    //MARK: For Permissions
+    // MARK: For Permissions
     
     static var isGrantBLE: Bool {
         get {

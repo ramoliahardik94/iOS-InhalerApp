@@ -36,24 +36,19 @@ extension UIView {
         layer.shadowPath = UIBezierPath(ovalIn: contactRect).cgPath
     }
     
-    //Spinner related mathods
+    // Spinner related mathods
     func showProgress() {
         DispatchQueue.main.async {
             let progressHUD = MBProgressHUD.showAdded(to: self, animated: true)
             progressHUD.show(animated: true)
-            Logger.LogInfo("showProgress")       
+            Logger.logInfo("showProgress")       
         }
     }
     
     func hideProgress() {
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self, animated: true)
-            Logger.LogInfo("HideProgress")
+            Logger.logInfo("HideProgress")
         }
     }
-    
- 
-    
-
-
 }

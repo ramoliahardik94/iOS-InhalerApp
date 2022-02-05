@@ -42,7 +42,7 @@ class HomeGraphCell: UITableViewCell {
     
 }
 
-extension HomeGraphCell : UICollectionViewDataSource , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout  {
+extension HomeGraphCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        return count
     }
@@ -65,7 +65,7 @@ extension HomeGraphCell : UICollectionViewDataSource , UICollectionViewDelegate 
                 cell.viewMain.backgroundColor = #colorLiteral(red: 1, green: 0.6431372549, blue: 0.4039215686, alpha: 1)
                 cell.viewMain.layer.borderColor =  #colorLiteral(red: 0.3254901961, green: 0.3254901961, blue: 0.3254901961, alpha: 1)
             
-            }else if indexPath.row == 14 ||  indexPath.row == 16 ||  indexPath.row == 17 ||  indexPath.row == 18 {
+            } else if indexPath.row == 14 ||  indexPath.row == 16 ||  indexPath.row == 17 ||  indexPath.row == 18 {
                 cell.viewMain.backgroundColor = #colorLiteral(red: 1, green: 0.9764705882, blue: 0.4, alpha: 1)
                 cell.viewMain.layer.borderColor =   #colorLiteral(red: 0.4235294118, green: 0.4235294118, blue: 0.4235294118, alpha: 1)
             } else {
@@ -81,14 +81,14 @@ extension HomeGraphCell : UICollectionViewDataSource , UICollectionViewDelegate 
           
             if indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6 || indexPath.row == 12 || indexPath.row == 13 {
                 cell.viewMain.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            }  else {
+            } else {
                 cell.viewMain.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
             }
            
             
         }
         
-        //cell.viewMain.layer.masksToBounds = true
+        // cell.viewMain.layer.masksToBounds = true
         
         return cell
     }

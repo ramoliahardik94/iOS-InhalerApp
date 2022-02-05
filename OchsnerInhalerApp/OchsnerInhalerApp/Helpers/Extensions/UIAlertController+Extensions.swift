@@ -18,11 +18,11 @@ extension UIViewController {
         let OKAction = UIAlertAction(title: okButtonTitle.local, style: .default) { _ in
             completionHandler(true)
         }
-        let CancelAction = UIAlertAction(title: "Cancel".local, style: .default) { _ in
+        let cancelAction = UIAlertAction(title: "Cancel".local, style: .default) { _ in
             completionHandler(false)
         }
         alertController.addAction(OKAction)
-        alertController.addAction(CancelAction)
+        alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
     }
 }

@@ -5,16 +5,16 @@ import Foundation
 import Alamofire
 
 struct CommanHeader {
-    static let app_type = "CLIENT_APP"
+    static let appType = "CLIENT_APP"
 }
 struct BaseAPIURL {
-    //production
-    static let cloud_prod = "https://inhlrtrackdev.ochsner.org/api/"
-    static let local_prod = "https://inhlrtrackdev.ochsner.org/api/"
+    // production
+    static let cloudProd = "https://inhlrtrackdev.ochsner.org/api/"
+    static let localProd = "https://inhlrtrackdev.ochsner.org/api/"
     
-    //development
-    static let cloud_dev = "https://inhlrtrackdev.ochsner.org/api/"
-    static let local_dev = "https://inhlrtrackdev.ochsner.org/api/"
+    // development
+    static let cloudDev = "https://inhlrtrackdev.ochsner.org/api/"
+    static let localDev = "https://inhlrtrackdev.ochsner.org/api/"
 }
 
 enum EnvironmentType {
@@ -23,10 +23,10 @@ enum EnvironmentType {
 }
 
 enum CommunicationType {
-    case local //only local no internet
-    case cloud //only internet no local
+    case local // only local no internet
+    case cloud // only internet no local
     //    case localCloud // local with internet
-    case none //no internet no local
+    case none // no internet no local
 }
 
 enum APIMethod {
@@ -59,13 +59,13 @@ class BaseURLManager: NSObject {
     func getBaseURL() -> String {
         switch (environment, currentCommunication) {
         case (.prod, .cloud):
-            return BaseAPIURL.cloud_prod
+            return BaseAPIURL.cloudProd
         case (.prod, .local):
-            return BaseAPIURL.local_prod
+            return BaseAPIURL.localProd
         case (.dev, .cloud):
-            return BaseAPIURL.cloud_dev
+            return BaseAPIURL.cloudDev
         case (.dev, .local):
-            return BaseAPIURL.local_dev
+            return BaseAPIURL.localDev
         case (_, .none):
             return ""
         }
@@ -74,18 +74,18 @@ class BaseURLManager: NSObject {
     func getCloudURL() -> String {
         switch environment {
         case .prod:
-            return BaseAPIURL.cloud_prod
+            return BaseAPIURL.cloudProd
         case .dev:
-            return BaseAPIURL.cloud_dev
+            return BaseAPIURL.cloudDev
         }
     }
     
     func getLocalURL() -> String {
         switch environment {
         case .prod:
-            return BaseAPIURL.local_prod
+            return BaseAPIURL.localProd
         case .dev:
-            return BaseAPIURL.local_dev
+            return BaseAPIURL.localDev
         }
     }
 }

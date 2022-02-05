@@ -23,10 +23,10 @@ class CustomSplashVC: BaseVC {
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         lblVersion.text = "V\(appVersion ?? "1")"
        
-        setCustomFontLabel(label: lblConnectdInhalerSensor, type: .semiBold,fontSize: 22)
-        setCustomFontLabel(label: lblCopyRight, type: .regular,fontSize: 12)
-        setCustomFontLabel(label: lblVersion, type: .regular,fontSize: 12)
-        lblConnectdInhalerSensor.textColor = .Color_SplashText
+        setCustomFontLabel(label: lblConnectdInhalerSensor, type: .semiBold, fontSize: 22)
+        setCustomFontLabel(label: lblCopyRight, type: .regular, fontSize: 12)
+        setCustomFontLabel(label: lblVersion, type: .regular, fontSize: 12)
+        lblConnectdInhalerSensor.textColor = .ColorSplashText
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
     }
@@ -35,28 +35,25 @@ class CustomSplashVC: BaseVC {
         
         if UserDefaultManager.isLogin {
             if !UserDefaultManager.isGrantBLE {
-                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self.pushVC(vc: vc)
+                let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(controller: bluetoothPermissionVC)
                 return
-            }
-            else if !UserDefaultManager.isGrantLaocation {
-                let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self.pushVC(vc: vc)
+            } else if !UserDefaultManager.isGrantLaocation {
+                let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(controller: locationPermisionVC)
                 return
-            }
-            else if !UserDefaultManager.isGrantNotification {
-                let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self.pushVC(vc: vc)
+            } else if !UserDefaultManager.isGrantNotification {
+                let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self.pushVC(controller: notificationPermissionVC)
                 return
             }
             BLEHelper.shared.isAllowed { isAllow in
                 if isAllow {
-                    let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.pushVC(vc: vc)
-                }
-                else {
-                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { ok in
-                        if ok ?? true {
+                    let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                    self.pushVC(controller: addDeviceIntroVC)
+                } else {
+                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
+                        if action ?? true {
                             CommonFunctions.openBluetooth()
                         }
                     }
@@ -65,9 +62,9 @@ class CustomSplashVC: BaseVC {
             }
             
         } else {
-            let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+            let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
             // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-             pushVC(vc: vc)
+             pushVC(controller: loginVC)
         }
         
      

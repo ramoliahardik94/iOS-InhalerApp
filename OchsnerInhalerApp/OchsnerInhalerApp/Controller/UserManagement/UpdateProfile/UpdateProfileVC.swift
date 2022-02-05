@@ -59,7 +59,7 @@ class UpdateProfileVC: BaseVC {
         tfFirstName.autocapitalizationType = .words
         tfLastName.autocapitalizationType = .words
         
-        addKeyboardAccessory(textFields: [tfFirstName,tfLastName,tfEmail], dismissable: true, previousNextable: true)
+        addKeyboardAccessory(textFields: [tfFirstName, tfLastName, tfEmail], dismissable: true, previousNextable: true)
         hideKeyBoardHideOutSideTouch(customView: self.view)
         registerKeyboardNotifications()
     }
@@ -67,26 +67,22 @@ class UpdateProfileVC: BaseVC {
     
     
     @IBAction func tapUsePassword(_ sender: UIButton) {
-        let vc  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        pushVC(vc: vc)
+        let connectProviderVC  = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        pushVC(controller: connectProviderVC)
     }
-    private func setTextFieldFont(textField : UITextField) {
-        setCustomFontTextField(textField: textField, type: .regular,fontSize: 17)
+    private func setTextFieldFont(textField: UITextField) {
+        setCustomFontTextField(textField: textField, type: .regular, fontSize: 17)
     }
-    
-   
-    
-    
     @IBAction func tapBack(_ sender: UIButton) {
         popVC()
     }
     
      override func keyboardWillShow(notification: NSNotification) {
         let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
         self.scrollViewMain.contentInset = contentInsets
         self.scrollViewMain.scrollIndicatorInsets = contentInsets
-        var aRect : CGRect = self.view.frame
+        var aRect: CGRect = self.view.frame
         aRect.size.height -= keyboardSize.height
     }
      override func keyboardWillHide(notification: NSNotification) {
@@ -94,15 +90,13 @@ class UpdateProfileVC: BaseVC {
         self.scrollViewMain.contentInset = contentInsets
         self.scrollViewMain.scrollIndicatorInsets = contentInsets
     }
-   
-    
-    deinit {
+   deinit {
        deregisterKeyboardNotifications()
         debugPrint("deinit CreateAccoutVC")
     }
 
 }
-extension UpdateProfileVC : UITextFieldDelegate {
+extension UpdateProfileVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return view.endEditing(true)
     }

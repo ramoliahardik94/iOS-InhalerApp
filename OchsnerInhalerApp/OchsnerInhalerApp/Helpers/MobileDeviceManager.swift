@@ -16,7 +16,7 @@ class MobileDeviceManager: NSObject {
         let keychain = KeychainSwift()
         
         guard let oldUDID = keychain.get("udid") else {
-            //udid not found in keychain so save this udid in keychain
+            // udid not found in keychain so save this udid in keychain
             let udid = UIDevice.current.identifierForVendor!.uuidString
             keychain.set(udid, forKey: "udid")
             self.udid = udid

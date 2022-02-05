@@ -9,7 +9,7 @@ extension UITableView {
         
         let messageLabel = UILabel()
         messageLabel.text = message
-        messageLabel.textColor = .Empty_Table_Font_Color
+        messageLabel.textColor = .EmptyTableFontColor
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.font = UIFont(name: AppFont.AppRegularFont, size: 20)
@@ -24,8 +24,8 @@ extension UITableView {
     func addSpinner(isBottom: Bool = true) {
         let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 44))
         spinner.startAnimating()
-        //spinner.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 44)
-        spinner.color = .Color_Blue
+        // spinner.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 44)
+        spinner.color = .ColorBlue
         if isBottom {
             tableFooterView = spinner
             tableFooterView?.isHidden = false

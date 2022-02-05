@@ -10,12 +10,12 @@ import UIKit
 
 class NMDatePicker: UIView {
     
-    var changeClosure: ((Date)->())?
-    var dismissClosure: ((Date)->())?
+    var changeClosure: ((Date) -> ())?
+    var dismissClosure: ((Date)-> ())?
     var selectedDate = Date()
     let dPicker: UIDatePicker = {
-        let v = UIDatePicker()
-        return v
+        let obj = UIDatePicker()
+        return obj
     }()
     var mode: UIDatePicker.Mode?
     
@@ -33,14 +33,14 @@ class NMDatePicker: UIView {
         let blurredEffectView = UIVisualEffectView(effect: blurEffect)
         
         let pickerHolderView: UIView = {
-            let v = UIView()
-            v.backgroundColor = .white
-            v.layer.cornerRadius = 8
-            return v
+            let obj = UIView()
+            obj.backgroundColor = .white
+            obj.layer.cornerRadius = 8
+            return obj
         }()
         
-        [blurredEffectView, pickerHolderView, dPicker].forEach { v in
-            v.translatesAutoresizingMaskIntoConstraints = false
+        [blurredEffectView, pickerHolderView, dPicker].forEach { obj in
+            obj.translatesAutoresizingMaskIntoConstraints = false
         }
 
         addSubview(blurredEffectView)
@@ -61,9 +61,7 @@ class NMDatePicker: UIView {
             dPicker.topAnchor.constraint(equalTo: pickerHolderView.topAnchor, constant: 20.0),
             dPicker.leadingAnchor.constraint(equalTo: pickerHolderView.leadingAnchor, constant: 20.0),
             dPicker.trailingAnchor.constraint(equalTo: pickerHolderView.trailingAnchor, constant: -20.0),
-            dPicker.bottomAnchor.constraint(equalTo: pickerHolderView.bottomAnchor, constant: -20.0),
-
-        ])
+            dPicker.bottomAnchor.constraint(equalTo: pickerHolderView.bottomAnchor, constant: -20.0)])
        
         if #available(iOS 14.0, *) {
             dPicker.preferredDatePickerStyle = .wheels
@@ -73,18 +71,18 @@ class NMDatePicker: UIView {
         dPicker.datePickerMode  = .time
         dPicker.addTarget(self, action: #selector(didChangeDate(_:)), for: .valueChanged)
         
-        let t = UITapGestureRecognizer(target: self, action: #selector(tapHandler(_:)))
-        blurredEffectView.addGestureRecognizer(t)
+        let obj = UITapGestureRecognizer(target: self, action: #selector(tapHandler(_:)))
+        blurredEffectView.addGestureRecognizer(obj)
     }
     
-    @objc func tapHandler(_ g: UITapGestureRecognizer) -> Void {
+    @objc func tapHandler(_ obj: UITapGestureRecognizer) {
         dismissClosure?(selectedDate)
     }
     
-    @objc func didChangeDate(_ sender: UIDatePicker) -> Void {
+    @objc func didChangeDate(_ sender: UIDatePicker) {
         selectedDate = sender.date
         changeClosure?(sender.date)
     }
     
+    
 }
-

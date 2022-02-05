@@ -5,20 +5,20 @@ import UIKit
 
 extension UIViewController: UIPopoverPresentationControllerDelegate {
     
-    //Class methods
-    class func setAsRootVC(_ sb: AppStoryBoardString) {
-        let vc = self.instantiateFromAppStoryboard(appStoryboard: sb)
-        let nav = UINavigationController(rootViewController: vc)
+    // Class methods
+    class func setAsRootVC(_ storyBoard: AppStoryBoardString) {
+        let controller = self.instantiateFromAppStoryboard(appStoryboard: storyBoard)
+        let nav = UINavigationController(rootViewController: controller)
         UIApplication.shared.windows.first?.rootViewController = nav
     }
     
     class func popFromVC(_ controller: UIViewController) {
-        if let vc = controller.navigationController?.viewControllers.first(where: { $0 is Self }) {
-            controller.navigationController?.popToViewController(vc, animated: true)
+        if let controller = controller.navigationController?.viewControllers.first(where: { $0 is Self }) {
+            controller.navigationController?.popToViewController(controller, animated: true)
         }
     }
     
-    //Navigation related methods
+    // Navigation related methods
     func setBackButton(color: UIColor = .white, isPopToRoot: Bool = false, selector: Selector? = nil) {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 60, height: 40))
         let btn = UIButton(frame: CGRect(x: 0, y: 0, width: 55, height: 40))
@@ -97,7 +97,7 @@ extension UIViewController: UIPopoverPresentationControllerDelegate {
     }
 }
 
-// MARK:- Authentication related methods
+// MARK: - Authentication related methods
 extension UIViewController {
     func checkLocalAuthentication(isBiometryChecked: Bool = false, isForce: Bool = false, completion: @escaping (Bool?) -> Void) {
 //        if !isBiometryChecked, UserDefaultManager.biometry {
@@ -125,7 +125,7 @@ extension UIViewController {
 }
 
 
-// MARK:- Container view related methods
+// MARK: - Container view related methods
 extension UIViewController {
     func addChildController(_ childVC: UIViewController, to containerView: UIView) {
         removeChildControllers()
@@ -147,7 +147,7 @@ extension UIViewController {
 
 
 
-// MARK:- Check device contain safe area or not
+// MARK: - Check device contain safe area or not
 extension UIViewController {
     var hasTopNotch: Bool {
         if #available(iOS 11.0, tvOS 11.0, *) {

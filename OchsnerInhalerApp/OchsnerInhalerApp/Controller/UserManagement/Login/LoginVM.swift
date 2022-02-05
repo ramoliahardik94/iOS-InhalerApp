@@ -11,18 +11,17 @@ class LoginVM {
     
     var loginModel = UserModel()
     
-    func apiLogin(completionHandler: @escaping ((APIResult) -> Void)){
+    func apiLogin(completionHandler: @escaping ((APIResult) -> Void)) {
     
         if checkValidation() {
             
-            APIManager.shared.performRequest(route: APIRouter.login.path, parameters: loginModel.toDicForLogin(), method: .get,isBasicAuth: true) { [weak self] error, response in
-                if response == nil{
+            APIManager.shared.performRequest(route: APIRouter.login.path, parameters: loginModel.toDicForLogin(), method: .get, isBasicAuth: true) { [weak self] error, response in
+                if response == nil {
                     completionHandler(.failure(error!.message))
-                }
-                else {
-                    if let res =  response as? [String : Any] {
-                    self?.loginModel.Token = res["Token"] as? String
-                    UserDefaultManager.token = self?.loginModel.Token ?? ""
+                } else {
+                    if let res =  response as? [String: Any] {
+                    self?.loginModel.token = res["Token"] as? String
+                    UserDefaultManager.token = self?.loginModel.token ?? ""
                     UserDefaultManager.isLogin = true
                     completionHandler(.success(true))
                     }
@@ -33,18 +32,16 @@ class LoginVM {
     }
     
     
-    func checkValidation()->Bool {
+    func checkValidation() -> Bool {
         var isValid = true
         
          if !(loginModel.email ?? "").isValidEmail {
              CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
-        }
-        else if loginModel.password == "" {
-            CommonFunctions.showMessage(message:  ValidationMsg.password)
+        } else if loginModel.password == "" {
+            CommonFunctions.showMessage(message: ValidationMsg.password)
             isValid = false
         }
-        
         return isValid
     }
     

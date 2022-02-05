@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginVC : BaseVC{
+class LoginVC: BaseVC {
 
     @IBOutlet weak var lblLogin: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
@@ -28,20 +28,20 @@ class LoginVC : BaseVC{
         lblCreatePassword.text = StringUserManagement.password.uppercased()
         
         
-        btnLogin.setButtonView(StringUserManagement.login,17)
-        btnCreateAccount.setButtonView(StringUserManagement.createAccount , 17)
+        btnLogin.setButtonView(StringUserManagement.login, 17)
+        btnCreateAccount.setButtonView(StringUserManagement.createAccount, 17)
         
-        setCustomFontLabel(label: lblLogin, type: .bold,fontSize: 34)
-        setCustomFontLabel(label: lblDontHaveAccount, type: .bold,fontSize: 22)
-        setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 15)
-        setCustomFontLabel(label: lblCreatePassword, type: .regular,fontSize: 15)
-        setCustomFontTextField(textField: tfEmail, type: .regular,fontSize: 17)
-        setCustomFontTextField(textField: tfPassword, type: .regular,fontSize: 17)
+        setCustomFontLabel(label: lblLogin, type: .bold, fontSize: 34)
+        setCustomFontLabel(label: lblDontHaveAccount, type: .bold, fontSize: 22)
+        setCustomFontLabel(label: lblEmail, type: .regular, fontSize: 15)
+        setCustomFontLabel(label: lblCreatePassword, type: .regular, fontSize: 15)
+        setCustomFontTextField(textField: tfEmail, type: .regular, fontSize: 17)
+        setCustomFontTextField(textField: tfPassword, type: .regular, fontSize: 17)
       
         tfPassword.layer.borderWidth = 1
-        tfPassword.layer.borderColor = UIColor.TextField_Border_Color.cgColor
+        tfPassword.layer.borderColor = UIColor.TextFieldBorderColor.cgColor
         tfEmail.layer.borderWidth = 1
-        tfEmail.layer.borderColor = UIColor.TextField_Border_Color.cgColor
+        tfEmail.layer.borderColor = UIColor.TextFieldBorderColor.cgColor
       
         tfEmail.layer.cornerRadius = 4
         tfPassword.layer.cornerRadius = 4
@@ -52,8 +52,8 @@ class LoginVC : BaseVC{
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
         
-        tfEmail.text = "mherzog@ochsner.org"
-        tfPassword.text = "password"
+        tfEmail.text = "deepak.panchal@volansys.com"
+        tfPassword.text = "123465"
     }
     
    
@@ -62,7 +62,7 @@ class LoginVC : BaseVC{
     }
     
     
-    //MARK: Actions
+    // MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
         self.view.endEditing(true)
         login.apiLogin {[weak self] (result) in
@@ -71,26 +71,26 @@ class LoginVC : BaseVC{
                 print("Response sucess :\(status)")
                 
                 if !UserDefaultManager.isGrantBLE {
-                    let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self?.pushVC(vc: vc)
+                    let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(controller: bluetoothPermissionVC)
                     return
                 }
                 if !UserDefaultManager.isGrantLaocation {
-                    let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self?.pushVC(vc: vc)
+                    let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(controller: locationPermisionVC)
                     return
                 }
                 
                 if !UserDefaultManager.isNotificationOn {
-                    let vc = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self?.pushVC(vc: vc)
+                    let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self?.pushVC(controller: notificationPermissionVC)
                     return
                 }
                 
                 BLEHelper.shared.isAllowed { isAllow in
                     if isAllow {
-                        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                        self?.pushVC(vc: vc)
+                        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                        self?.pushVC(controller: addDeviceIntroVC)
                     }
                 }
                 
@@ -105,18 +105,18 @@ class LoginVC : BaseVC{
     }
     
     @IBAction func tapCreateAccount(_ sender: UIButton) {
-        let vc  = CreateAccoutVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-        pushVC(vc: vc)
+        let createAccoutVC  = CreateAccoutVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        pushVC(controller: createAccoutVC)
     }
     
     
 }
 
-extension LoginVC : UITextFieldDelegate {
+extension LoginVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfEmail {
             login.loginModel.email = tfEmail.text
-        }else if textField == tfPassword {
+        } else if textField == tfPassword {
             login.loginModel.password = tfPassword.text
         }
     }
