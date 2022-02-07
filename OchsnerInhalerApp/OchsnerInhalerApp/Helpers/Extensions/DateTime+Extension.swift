@@ -5,7 +5,7 @@ import Foundation
 
 extension Date {
     func getTimeStamp() -> TimeInterval {
-        return self.timeIntervalSince1970 * 1000//Converted to miliseconds
+        return self.timeIntervalSince1970 * 1000// Converted to miliseconds
     }
     
     func getString(format: String = "dd/MM/yyyy hh:mm a", isUTC: Bool = false) -> String {
@@ -19,7 +19,7 @@ extension Date {
 extension TimeInterval {
     func getDateTime(format: String = "dd/MM/yyyy hh:mm a", _ isEpoch: Bool = true) -> String? {
         let formatter = DateFormatter()
-        let date = Date(timeIntervalSince1970: (isEpoch ? self/1000 : self))//Converted from miliseconds to seconds
+        let date = Date(timeIntervalSince1970: (isEpoch ? self/1000 : self))// Converted from miliseconds to seconds
         formatter.dateFormat = format
         return formatter.string(from: date)
     }

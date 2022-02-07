@@ -10,24 +10,24 @@ class Constants: NSObject {
     static let ScreenWidth  =  UIScreen.main.bounds.size.width
     static let ScreenHeight =  UIScreen.main.bounds.size.height
 
-    static let page_size = 25
-    static let PIN_Length = 6
-    static let HUB_Code_Length = 4
-    static let MOBILE_NUMBER_Length = 13
-    static let Customer_Support_Number = "+911234567890"
-    static let Customer_Support_Email = "xyz@gmail.com"
-    static let MQTT_Timeout = 60.0
+    static let pageSize = 25
+    static let PINLength = 6
+    static let HUBCodeLength = 4
+    static let MOBILENUMBERLength = 13
+    static let CustomerSupportNumber = "+911234567890"
+    static let CustomerSupportEmail = "xyz@gmail.com"
+    static let MQTTTimeout = 60.0
     static let FavoriteDevices = 10.0
-    static let Hub_Device_Name_Length = 20
+    static let HubDeviceNameLength = 20
     static let weekDays: [String] = ["MON".local, "TUE".local, "WED".local, "THU".local, "FRI".local, "SAT".local, "SUN".local]
 
     struct CustomFont {
-        static let SFProText_Semibold = "SFProText-Semibold"
-        static let SFProText_Regular = "SFProText-Regular"
-        static let SFProDisplay_Bold = "SFProDisplay-Bold"
-        static let SFProDisplay_LightItalic = "SFProDisplay-LightItalic"
-        static let SFProDisplay_Light = "SFProDisplay-Light"
-        static let SFProText_Bold = "SFProText-Bold"
+        static let SFProTextSemibold = "SFProText-Semibold"
+        static let SFProTextRegular = "SFProText-Regular"
+        static let SFProDisplayBold = "SFProDisplay-Bold"
+        static let SFProDisplayLightItalic = "SFProDisplay-LightItalic"
+        static let SFProDisplayLight = "SFProDisplay-Light"
+        static let SFProTextBold = "SFProText-Bold"
     }
     
     struct DirectoryPath {
@@ -36,7 +36,7 @@ class Constants: NSObject {
     }
     
     struct Keys {
-        static let enc_IV = "u03koH1cu4pXLz65"
+        static let encIV = "u03koH1cu4pXLz65"
         static let first16 = "3UI8b7FZBqhsavcm"
     }
 }
@@ -48,12 +48,10 @@ enum FontType {
     case lightItalic
     case light
 }
-enum AddDeviceSteps  {
-    case Step1 // "Add Device"
-    case Step2 // "Remove battery Isolation tag"
-    case Step3 //"Pair Device"
-    case Step4 //"Mount device to inhaler"
-    case Step5 // "let us now what inhaler medicine into"
- 
-}
-
+enum AddDeviceSteps {
+    case step1 // "Add Device"
+    case step2 // "Remove battery Isolation tag"
+    case step3 // "Pair Device"
+    case step4 // "Mount device to inhaler"
+    case step5 // "let us now what inhaler medicine into"
+ }

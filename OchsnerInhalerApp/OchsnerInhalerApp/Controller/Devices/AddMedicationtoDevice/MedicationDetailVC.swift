@@ -25,11 +25,11 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var btnPuff: UIButton!
     let timePicker = UIDatePicker()
     var index = 0
-    var arrTime = ["8:30 am","6:30 pm"]
+    var arrTime = ["8:30 am", "6:30 pm"]
     
     let myPicker: NMDatePicker = {
-        let v = NMDatePicker()
-        return v
+        let obj = NMDatePicker()
+        return obj
     }()
     let dropDown = DropDown()
     override func viewDidLoad() {
@@ -39,18 +39,17 @@ class MedicationDetailVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         
     }
-    func setDatePicker(){
+    func setDatePicker() {
         myPicker.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(myPicker)
-        let g = view.safeAreaLayoutGuide
+        let conObj = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             
             // custom picker view should cover the whole view
-            myPicker.topAnchor.constraint(equalTo: g.topAnchor),
-            myPicker.leadingAnchor.constraint(equalTo: g.leadingAnchor),
-            myPicker.trailingAnchor.constraint(equalTo: g.trailingAnchor),
-            myPicker.bottomAnchor.constraint(equalTo: g.bottomAnchor),
-        ])
+            myPicker.topAnchor.constraint(equalTo: conObj.topAnchor),
+            myPicker.leadingAnchor.constraint(equalTo: conObj.leadingAnchor),
+            myPicker.trailingAnchor.constraint(equalTo: conObj.trailingAnchor),
+            myPicker.bottomAnchor.constraint(equalTo: conObj.bottomAnchor)])
         
         // hide custom picker view
         myPicker.isHidden = true
@@ -76,11 +75,11 @@ class MedicationDetailVC: BaseVC {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedication
 
-        viewMedicationName.backgroundColor = .Color_cell
+        viewMedicationName.backgroundColor = .Colorcell
         viewMedicationName.isOchsnerView = true
         viewMedicationName.clipsToBounds = true
         
-        lblMedicationName.font = UIFont(name: AppFont.SFProText_Bold, size: 17)
+        lblMedicationName.font = UIFont(name: AppFont.SFProTextBold, size: 17)
         lblNDCCode.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         
         lblPuffTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
@@ -129,11 +128,10 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
-        //let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        //pushVC(vc: vc)
-        
-        let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        self.pushVC(vc: vc)
+        // let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        // pushVC(vc: vc)
+        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        self.pushVC(controller: connectProviderVC)
     }
     
     /*
@@ -153,8 +151,8 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnAddDoseClick(_ sender: Any) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
-        let Dosetime =  dateFormatter.string(from: Date())
-        arrTime.append(Dosetime)
+        let dosetime =  dateFormatter.string(from: Date())
+        arrTime.append(dosetime)
         tblDoseTime.reloadData()
     }
     
@@ -170,9 +168,9 @@ class MedicationDetailVC: BaseVC {
     
     @IBAction func tapNoOfDose(_ sender: UIButton) {
         dropDown.anchorView = btnPuff
-        dropDown.dataSource = ["1" , "2" , "3" ,"4","5","6","7","8","9","10"]
+        dropDown.dataSource = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
-        dropDown.selectionAction = { [weak self] (index, item) in
+        dropDown.selectionAction = { [weak self] (_, item) in
             self?.txtPuff.text  =     item
         }
         dropDown.show()
@@ -187,7 +185,7 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell : DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: "DoseTimeCell") as! DoseTimeCell
+        let cell: DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: "DoseTimeCell") as! DoseTimeCell
         cell.lblDoseTime.text = "\((indexPath.row + 1).ordinal) Dose at \(arrTime[indexPath.row])"
         cell.btnRemove.tag = indexPath.row
         cell.btnEditDose.tag = indexPath.row
@@ -207,7 +205,7 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-extension MedicationDetailVC :UITextFieldDelegate {
+extension MedicationDetailVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true

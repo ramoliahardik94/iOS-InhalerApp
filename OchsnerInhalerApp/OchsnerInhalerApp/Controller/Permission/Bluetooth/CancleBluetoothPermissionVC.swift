@@ -17,7 +17,7 @@ class CancleBluetoothPermissionVC: BaseVC {
         lblBluetoothPermission.text = StringPermissions.sorrybluetoothPermission
         lblBluetoothPermission.textColor = .black
         btnGrant.setButtonView(StringCommonMessages.grant)
-        setCustomFontLabel(label: lblBluetoothPermission, type: .bold,fontSize: 32)
+        setCustomFontLabel(label: lblBluetoothPermission, type: .bold, fontSize: 32)
      
     }
     

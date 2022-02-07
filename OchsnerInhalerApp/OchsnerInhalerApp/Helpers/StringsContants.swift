@@ -5,7 +5,7 @@
 import Foundation
 
 
-//MARK: Notification Identifiers
+// MARK: Notification Identifiers
 extension Notification.Name {
     static let BLEFound = Notification.Name("BLEFound")
     static let BLENotFound = Notification.Name("BLENotFound")
@@ -13,7 +13,7 @@ extension Notification.Name {
     static let BLENotConnect = Notification.Name("BLENotConnect")
 }
 
-//MARK: Common Message
+// MARK: Common Message
 struct StringCommonMessages {
      static let commonMessage = ""
      static let cancel = "Cancel"
@@ -26,15 +26,15 @@ struct StringCommonMessages {
 
 }
 struct AppFont {
-    static let AppRegularFont = Constants.CustomFont.SFProText_Regular
-    static let AppBoldFont = Constants.CustomFont.SFProDisplay_Bold
-    static let AppSemiBoldFont = Constants.CustomFont.SFProText_Semibold
-    static let AppLightItalicFont = Constants.CustomFont.SFProDisplay_LightItalic
-    static let AppLightFont = Constants.CustomFont.SFProDisplay_Light
-    static let SFProText_Bold = Constants.CustomFont.SFProText_Bold
+    static let AppRegularFont = Constants.CustomFont.SFProTextRegular
+    static let AppBoldFont = Constants.CustomFont.SFProDisplayBold
+    static let AppSemiBoldFont = Constants.CustomFont.SFProTextSemibold
+    static let AppLightItalicFont = Constants.CustomFont.SFProDisplayLightItalic
+    static let AppLightFont = Constants.CustomFont.SFProDisplayLight
+    static let SFProTextBold = Constants.CustomFont.SFProTextBold
 }
 
-//MARK: UserManagement
+// MARK: UserManagement
 struct StringUserManagement {
     static let login = "Login"
     static let createAccount = "Create Account"
@@ -81,7 +81,7 @@ struct ValidationMsg {
 
 }
 
-//MARK: Profile
+// MARK: Profile
 struct StringProfile {
     static let name = "Name"
     static let  updateEmail = "Update Email"
@@ -97,7 +97,7 @@ struct StringProfile {
     
 }
 
-//MARK: Providers
+// MARK: Providers
 struct StringPoviders {
     static let providerConnectLabel = "Connect Your Health Care Provider"
     static let selectProvider = "Select Provider"
@@ -108,11 +108,11 @@ struct StringPoviders {
     static let continueProvider = "Continue"
     static let change = "Change"
 }
-//MARK: Add Device
+// MARK: Add Device
 struct StringAddDevice {
     static let great = "Great!"
     static let addDevice = "Let’s Add \n Your Device"
-    static let Connected_Inhaler_Sensor = "Connected Inhaler Sensor"
+    static let ConnectedInhalerSensor = "Connected Inhaler Sensor"
     static let addDeviceInto = "Ready to set up your device? Now, we’ll attach your Connected Inhaler Sensor to your inhaler, and link it to this app."
     static let startSetup = "Start Set Up"
     static let removeIsolationTag = "First, Remove the Battery Isolation Tag"
@@ -132,7 +132,7 @@ struct StringAddDevice {
     static let connect = "Connect"
     static let scanlist = "Scan device"
 }
-//MARK: Medication
+// MARK: Medication
 struct StringMedication {
     static let titleMedication = "Which Medication Will be \n Used With This Sensor?"
     static let inhealerType = "How Will This \n Inhaler Be Used?"
@@ -144,7 +144,7 @@ struct StringMedication {
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
     static let addDose = "Add another daily dose."
 }
-//MARK: Permissions
+// MARK: Permissions
 struct StringPermissions {
     static let bluetoothPermission = "Grant Bluetooth Permissions"
     static let locationPermission = "Grant Location Permissions"
@@ -162,7 +162,7 @@ struct StringPermissions {
 }
 
 
-//MARK: Device
+// MARK: Device
 struct StringDevices {
     static let pairedDevice = "Paired Device"
     static let removeDevice = "Remove Device"
@@ -172,12 +172,12 @@ struct StringDevices {
     
 }
 
-//MARK: Splash
+// MARK: Splash
 struct StringSplash {
     static let connectdInhalerSensor = "Connectd\nInhaler Sensor "
     
 }
-//MARK: Home screen
+// MARK: Home screen
 struct StringHome {
     static let  today = "Today"
     static let  thisWeek = "This Week"
@@ -185,4 +185,3 @@ struct StringHome {
     static let  adherance = "Adherance: "
 
 }
-

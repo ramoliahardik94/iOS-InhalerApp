@@ -11,16 +11,16 @@ import CoreBluetooth
 
 extension BLEHelper {
     
-    func scanPeripheral(){
+    func scanPeripheral() {
         _ = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-        //TODO:  Replace hear Service array make a param if needed then
-        centralManager.scanForPeripherals(withServices: [TransferService.otaServiceUUID,TransferService.inhealerUTCservice], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        // TODO:  Replace hear Service array make a param if needed then
+        centralManager.scanForPeripherals(withServices: [TransferService.otaServiceUUID, TransferService.inhealerUTCservice], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
     }
     
-    func connectPeriPheral(){
+    func connectPeriPheral() {
         if discoveredPeripheral != nil {
             if discoveredPeripheral!.state == .disconnected {
-                //MARK: Step:6 Connect to peripheral
+                // MARK: Step:6 Connect to peripheral
                 centralManager.connect(discoveredPeripheral!, options: nil)
             }
         }
@@ -31,11 +31,11 @@ extension BLEHelper {
       self.stopScanPeriphral()
     }
     
-    func stopScanPeriphral(){
+    func stopScanPeriphral() {
         centralManager.stopScan()
     }
     
-    ///This function is use for cleanup BLE Task
+    // This function is use for cleanup BLE Task
     func cleanup() {
         // Don't do anything if we're not connected
         guard let discoveredPeripheral = discoveredPeripheral,

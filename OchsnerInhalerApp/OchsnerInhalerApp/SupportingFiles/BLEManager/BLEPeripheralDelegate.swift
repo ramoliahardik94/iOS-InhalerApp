@@ -8,8 +8,8 @@
 import Foundation
 import CoreBluetooth
 
-//MARK:- CBPeripheral Delegate
-extension BLEHelper : CBPeripheralDelegate {
+// MARK: - CBPeripheral Delegate
+extension BLEHelper: CBPeripheralDelegate {
 
 /*
  *  We've connected to the peripheral, now we need to discover the services and characteristics to find the 'transfer' characteristic.
@@ -23,8 +23,8 @@ func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeriph
     
     peripheral.delegate = self
     
-    //MARK: Step:7 Search only for services that match our UUID
-    peripheral.discoverServices([TransferService.otaServiceUUID,TransferService.inhealerUTCservice])
+    // MARK: Step:7 Search only for services that match our UUID
+    peripheral.discoverServices([TransferService.otaServiceUUID, TransferService.inhealerUTCservice])
 }
     
 func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -63,8 +63,8 @@ func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
     // Loop through the newly filled peripheral.services array, just in case there's more than one.
     guard let peripheralServices = peripheral.services else { return }
     for service in peripheralServices {
-        //MARK: Step:8 Search only for Characteristics that match our UUID
-        peripheral.discoverCharacteristics([TransferService.characteristicNotifyUUID,TransferService.characteristicWriteUUID], for: service)
+        // MARK: Step:8 Search only for Characteristics that match our UUID
+        peripheral.discoverCharacteristics([TransferService.characteristicNotifyUUID, TransferService.characteristicWriteUUID], for: service)
     }
 }
 
@@ -84,7 +84,7 @@ func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor servic
     guard let serviceCharacteristics = service.characteristics else { return }
     for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
         // If it is, subscribe to it
-        //MARK: Step:9 sets indication for specific characteristic
+        // MARK: Step:9 sets indication for specific characteristic
         peripheral.setNotifyValue(true, for: characteristic)
         
         guard let characteristicData = characteristic.value,
@@ -107,7 +107,7 @@ func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor servic
 /*
  *   This callback lets us know more data has arrived via notification on the characteristic
  */
-//MARK: Step:10.1 Get value for charecteristic from BLE
+// MARK: Step:10.1 Get value for charecteristic from BLE
 func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
     // Deal with errors (if any)
     if let error = error {
@@ -121,7 +121,7 @@ func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CB
     
         print("Received %d bytes: %s", characteristicData.count, stringFromData)
     
-//TODO: I'll have to understand this logic base on device get data
+// TODO: I'll have to understand this logic base on device get data
 //        // Have we received the end-of-message token?
 //        if stringFromData == "EOM" {
 //            // End-of-message case: show the data.
@@ -166,7 +166,7 @@ func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor charac
 /*
  *  This is called when peripheral is ready to accept more data when using write without response
  */
-//MARK: Step:10.2 write value to peripheral
+// MARK: Step:10.2 write value to peripheral
 func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
    print("Peripheral is ready, send data")
     

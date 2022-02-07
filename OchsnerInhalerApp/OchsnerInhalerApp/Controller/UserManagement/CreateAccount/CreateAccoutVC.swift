@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateAccoutVC: BaseVC  {
+class CreateAccoutVC: BaseVC {
     @IBOutlet weak var lblCreateAccount: UILabel!
     @IBOutlet weak var btnUsePassword: UIButton!
     
@@ -43,7 +43,7 @@ class CreateAccoutVC: BaseVC  {
         lblCreatePassword.text = StringUserManagement.createPassword.uppercased()
         lblCreateAccount.text = StringUserManagement.createAccount
         lblConfirmPassword.text = StringUserManagement.confiremPassword.uppercased()
-        btnUsePassword.setButtonView(StringUserManagement.signup,17)
+        btnUsePassword.setButtonView(StringUserManagement.signup, 17)
         lblPrivacyPolicy.text = StringPermissions.privacyPolicy
         setBorderTextField(textField: tfFirstName)
         setBorderTextField(textField: tfLastName)
@@ -51,19 +51,19 @@ class CreateAccoutVC: BaseVC  {
         setBorderTextField(textField: tfPassword)
         setBorderTextField(textField: tfConfirmPassword)
         
-        setCustomFontLabel(label: lblCreateAccount, type: .bold,fontSize: 32)
-        setCustomFontLabel(label: lblFirstName, type: .regular,fontSize: 15)
-        setCustomFontLabel(label: lblLastName, type: .regular,fontSize: 15)
-        setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 15)
-        setCustomFontLabel(label: lblCreatePassword, type: .regular,fontSize: 15)
-        setCustomFontLabel(label: lblConfirmPassword, type: .regular,fontSize: 15)
-        setCustomFontLabel(label: lblPrivacyPolicy, type: .regular,fontSize: 15)
+        setCustomFontLabel(label: lblCreateAccount, type: .bold, fontSize: 32)
+        setCustomFontLabel(label: lblFirstName, type: .regular, fontSize: 15)
+        setCustomFontLabel(label: lblLastName, type: .regular, fontSize: 15)
+        setCustomFontLabel(label: lblEmail, type: .regular, fontSize: 15)
+        setCustomFontLabel(label: lblCreatePassword, type: .regular, fontSize: 15)
+        setCustomFontLabel(label: lblConfirmPassword, type: .regular, fontSize: 15)
+        setCustomFontLabel(label: lblPrivacyPolicy, type: .regular, fontSize: 15)
         addAstrickSing(label: lblFirstName)
         addAstrickSing(label: lblLastName)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
         addAstrickSing(label: lblConfirmPassword)
-        lblPrivacyPolicy.textColor = .Button_Color_Blue
+        lblPrivacyPolicy.textColor = .ButtonColorBlue
 //        tfFirstName.placeholder = StringUserManagement.placeHolderFirstName
 //        tfLastName.placeholder = StringUserManagement.placeHolderLastName
 //        tfEmail.placeholder = StringUserManagement.emailPlaceHolder
@@ -74,7 +74,7 @@ class CreateAccoutVC: BaseVC  {
         tfFirstName.autocapitalizationType = .words
         tfLastName.autocapitalizationType = .words
         
-        addKeyboardAccessory(textFields: [tfFirstName,tfLastName,tfEmail,tfPassword,tfConfirmPassword], dismissable: true, previousNextable: true)
+        addKeyboardAccessory(textFields: [tfFirstName, tfLastName, tfEmail, tfPassword, tfConfirmPassword], dismissable: true, previousNextable: true)
         hideKeyBoardHideOutSideTouch(customView: self.view)
         registerKeyboardNotifications()
     }
@@ -87,20 +87,20 @@ class CreateAccoutVC: BaseVC  {
             switch result {
             case .success(let status):
              print("Response sucess :\(status)")
-                let vc = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self?.pushVC(vc: vc)
+                let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                self?.pushVC(controller: bluetoothPermissionVC)
             
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
         }
     }
-    private func setBorderTextField(textField : UITextField) {
+    private func setBorderTextField(textField: UITextField) {
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.TextField_Border_Color.cgColor
+        textField.layer.borderColor = UIColor.TextFieldBorderColor.cgColor
         textField.layer.cornerRadius = 4
         textField.delegate = self
-        setCustomFontTextField(textField: textField, type: .regular,fontSize: 17)
+        setCustomFontTextField(textField: textField, type: .regular, fontSize: 17)
     }
     
     @IBAction func tapBack(_ sender: UIButton) {
@@ -108,8 +108,8 @@ class CreateAccoutVC: BaseVC  {
     }
     
     @IBAction func tapPrivacyPolicy(_ sender: UIButton) {
-        let vc  = PrivacyPolicyVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-        pushVC(vc: vc)
+        let privacyPolicyVC  = PrivacyPolicyVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        pushVC(controller: privacyPolicyVC)
     }
     
     @IBAction func tapCheckBox(_ sender: UIButton) {
@@ -120,10 +120,10 @@ class CreateAccoutVC: BaseVC  {
     
      override func keyboardWillShow(notification: NSNotification) {
         let keyboardSize = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
         self.scrollViewMain.contentInset = contentInsets
         self.scrollViewMain.scrollIndicatorInsets = contentInsets
-        var aRect : CGRect = self.view.frame
+        var aRect: CGRect = self.view.frame
         aRect.size.height -= keyboardSize.height
     }
      override func keyboardWillHide(notification: NSNotification) {
@@ -139,29 +139,25 @@ class CreateAccoutVC: BaseVC  {
     }
     
 }
-extension CreateAccoutVC : UITextFieldDelegate {
+extension CreateAccoutVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == tfPassword || textField == tfConfirmPassword {
             return string != " "
-        }else {
+        } else {
             return true
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == tfFirstName  {
+        if textField == tfFirstName {
             createAccountVM.userData.firstName = textField.text
-        }
-        else if textField == tfLastName {
+        } else if textField == tfLastName {
             createAccountVM.userData.lastName = textField.text
-        }
-        else if textField == tfPassword {
+        } else if textField == tfPassword {
             createAccountVM.userData.password = textField.text
-        }
-        else if textField == tfConfirmPassword {
+        } else if textField == tfConfirmPassword {
             createAccountVM.userData.confirmPassword = textField.text
-        }
-        else if textField == tfEmail {
+        } else if textField == tfEmail {
             createAccountVM.userData.email = textField.text
         }
     }

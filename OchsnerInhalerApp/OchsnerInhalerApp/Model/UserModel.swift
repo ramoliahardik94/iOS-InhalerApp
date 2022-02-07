@@ -8,43 +8,43 @@
 import UIKit
 
 class UserModel: NSObject {
-        var firstName : String?
-        var lastName : String?
-        var email : String?
-        var password : String?
-        var confirmPassword : String?
-        var Token : String?
+        var firstName: String?
+        var lastName: String?
+        var email: String?
+        var password: String?
+        var confirmPassword: String?
+        var token: String?
     
-    override init (){
+    override init () {
         self.firstName = ""
         self.lastName = ""
         self.email = ""
         self.password = ""
         self.confirmPassword = ""
-        self.Token = ""
+        self.token = ""
     }
     
-    init(Json: [String:Any]) {
+    init(jSon: [String: Any]) {
         
-        if let value = Json["FirstName"] as? String {
+        if let value = jSon["FirstName"] as? String {
             self.firstName = value
         }
-        if let value = Json["LastName"] as? String {
+        if let value = jSon["LastName"] as? String {
             self.lastName = value
         }
-        if let value = Json["Email"] as? String {
+        if let value = jSon["Email"] as? String {
             self.email = value
         }
-        if let value = Json["Password"] as? String {
+        if let value = jSon["Password"] as? String {
             self.password = value
         }
-        if let value = Json["Token"] as? String {
-            self.Token = value
+        if let value = jSon["Token"] as? String {
+            self.token = value
         }
     }
     
-    func toDic() -> [String : Any] {
-        var dic = [String : Any]()
+    func toDic() -> [String: Any] {
+        var dic = [String: Any]()
         dic["FirstName"] = self.firstName
         dic["LastName"] = self.lastName
         dic["Email"] = self.email
@@ -52,8 +52,8 @@ class UserModel: NSObject {
         return dic
     }
     
-    func toDicForLogin()->[String:Any] {
-        var dic = [String : Any]()
+    func toDicForLogin() -> [String: Any] {
+        var dic = [String: Any]()
         dic["Email"] = self.email
         dic["Password"] = self.password
         return dic

@@ -30,14 +30,14 @@ class ConnectProviderVC: BaseVC {
     }
     
     
-    //MARK: Actions
+      // MARK: Actions
     @IBAction func tapSelectProvider(_ sender: UIButton) {
-        let vc = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        pushVC(vc: vc)
+        let providerListVC = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        pushVC(controller: providerListVC)
     }
     @IBAction func tapSkipNow(_ sender: UIButton) {
-        let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        pushVC(vc: vc)
+        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        pushVC(controller: addAnotherDeviceVC)
     }
     
     @IBAction func tapBack(_ sender: UIButton) {

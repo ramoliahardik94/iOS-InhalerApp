@@ -18,12 +18,12 @@ class BaseVC: UIViewController {
     func popVC() {
         self.navigationController?.popViewController(animated: true)
     }
-    func pushVC(vc : UIViewController) {
-        self.navigationController?.pushViewController(vc, animated: true)
+    func pushVC(controller: UIViewController) {
+        self.navigationController?.pushViewController(controller, animated: true)
     }
   
 
-    func setCustomFontLabel(label : UILabel , type : FontType , fontSize : CGFloat = 14) {
+    func setCustomFontLabel(label: UILabel, type: FontType, fontSize: CGFloat = 14) {
         if type == .regular {
             label.font = UIFont(name: AppFont.AppRegularFont, size: fontSize)
         }
@@ -42,7 +42,7 @@ class BaseVC: UIViewController {
         
     }
     
-    func setCustomFontTextField(textField : UITextField , type : FontType , fontSize : CGFloat = 14) {
+    func setCustomFontTextField(textField: UITextField, type: FontType, fontSize: CGFloat = 14) {
         if type == .regular {
             textField.font = UIFont(name: AppFont.AppRegularFont, size: fontSize)
         }
@@ -70,7 +70,7 @@ class BaseVC: UIViewController {
             
             var items = [UIBarButtonItem]()
             if previousNextable {
-                let previousButton = UIBarButtonItem(image:  UIImage(systemName: "chevron.up"), style: .plain, target: nil, action: nil)
+                let previousButton = UIBarButtonItem(image: UIImage(systemName: "chevron.up"), style: .plain, target: nil, action: nil)
                 previousButton.width = 30
                 if textField == textFields.first {
                     previousButton.isEnabled = false
@@ -96,7 +96,7 @@ class BaseVC: UIViewController {
             textField.inputAccessoryView = toolbar
         }
     }
-    func hideKeyBoardHideOutSideTouch(customView  : UIView) {
+    func hideKeyBoardHideOutSideTouch(customView: UIView) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         customView.addGestureRecognizer(tapGesture)
     }
@@ -105,8 +105,8 @@ class BaseVC: UIViewController {
         view.endEditing(true)
     }
     
-    //MARK: For keyboard Observer
-    func registerKeyboardNotifications(){
+    // MARK: For keyboard Observer
+    func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -119,18 +119,18 @@ class BaseVC: UIViewController {
        
     }
     
-    func deregisterKeyboardNotifications(){
+    func deregisterKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    //Done keyboard Observer
+    // Done keyboard Observer
     
     deinit {
         debugPrint("deinit basevc ")
     }
     
     func addAstrickSing(label: UILabel) {
-         let range = NSRange(location:label.text?.count ?? 0 + 1  ,length:1) //
+         let range = NSRange(location: label.text?.count ?? 0 + 1, length: 1) //
          let  attributedString = NSMutableAttributedString(string: "\(label.text ?? "")*")
          attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
          label.attributedText = attributedString

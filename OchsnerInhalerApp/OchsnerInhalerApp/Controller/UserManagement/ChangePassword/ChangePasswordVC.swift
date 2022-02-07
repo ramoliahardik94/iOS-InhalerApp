@@ -22,7 +22,7 @@ class ChangePasswordVC: BaseVC {
         // Do any additional setup after loading the view.
     }
     
-    func setUI(){
+    func setUI() {
         
         lblChangePassTitle.isTitle = true
         lblChangePassTitle.text = StringUserManagement.changePassTitle
@@ -63,8 +63,8 @@ class ChangePasswordVC: BaseVC {
     }
     
     @IBAction func btnUpdatePassClick(_ sender: Any) {
-        //let vc = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-         //pushVC(vc: vc)
+        // let vc = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+         // pushVC(vc: vc)
     }
     
     /*
@@ -79,7 +79,7 @@ class ChangePasswordVC: BaseVC {
 
 }
 
-extension ChangePasswordVC : UITextFieldDelegate {
+extension ChangePasswordVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return view.endEditing(true)
     }

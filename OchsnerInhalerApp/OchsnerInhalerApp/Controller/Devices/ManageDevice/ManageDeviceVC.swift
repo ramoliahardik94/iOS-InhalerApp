@@ -27,16 +27,16 @@ class ManageDeviceVC: BaseVC {
     }
 
     
-    //MARK:
+    // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
-        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        vc.step = .Step2
-        vc.isFromAddAnother  = true
-        pushVC(vc: vc)
+        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        addDeviceIntroVC.step = .step2
+        addDeviceIntroVC.isFromAddAnother  = true
+        pushVC(controller: addDeviceIntroVC)
     }
     
 }
-extension ManageDeviceVC : UITableViewDelegate , UITableViewDataSource {
+extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -44,17 +44,17 @@ extension ManageDeviceVC : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCell, for: indexPath) as! ManageDeviceCell
         cell.selectionStyle = .none
-        setCustomFontLabel(label: cell.lblDeviceName, type: .semiBold,fontSize: 17)
-        setCustomFontLabel(label: cell.lblNCDCode, type: .regular,fontSize: 17)
-        setCustomFontLabel(label: cell.lblUsageLabel, type: .regular,fontSize: 17)
-        setCustomFontLabel(label: cell.lblUsage, type: .bold,fontSize: 17)
-        setCustomFontLabel(label: cell.lblDose, type: .regular,fontSize: 17)
-        setCustomFontLabel(label: cell.lblNoOfDose, type: .regular,fontSize: 17)
-        cell.btnRemoveDevice.setButtonView(StringDevices.removeDevice , 17 ,AppFont.AppRegularFont)
-        cell.btnEditDirection.setButtonView(StringDevices.editDirection , 17 , AppFont.AppRegularFont)
+        setCustomFontLabel(label: cell.lblDeviceName, type: .semiBold, fontSize: 17)
+        setCustomFontLabel(label: cell.lblNCDCode, type: .regular, fontSize: 17)
+        setCustomFontLabel(label: cell.lblUsageLabel, type: .regular, fontSize: 17)
+        setCustomFontLabel(label: cell.lblUsage, type: .bold, fontSize: 17)
+        setCustomFontLabel(label: cell.lblDose, type: .regular, fontSize: 17)
+        setCustomFontLabel(label: cell.lblNoOfDose, type: .regular, fontSize: 17)
+        cell.btnRemoveDevice.setButtonView(StringDevices.removeDevice, 17, AppFont.AppRegularFont)
+        cell.btnEditDirection.setButtonView(StringDevices.editDirection, 17, AppFont.AppRegularFont)
         cell.lblUsageLabel.text = StringDevices.usage
         if indexPath.row == 0 {
-            cell.lblUsage.textColor = #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1) //#23C154
+            cell.lblUsage.textColor = #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1) // #23C154
             cell.lblDeviceName.text  = "Teva(ProAir Generic)"
             cell.lblNCDCode.text = "NDC Code: 0093-3174-31"
             cell.lblUsage.text = "Maintenance"
@@ -63,7 +63,7 @@ extension ManageDeviceVC : UITableViewDelegate , UITableViewDataSource {
             
             cell.ivInhaler.image = UIImage(named: "inhaler_red")
         } else {
-            cell.lblUsage.textColor = #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) //#E02020
+            cell.lblUsage.textColor = #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) // #E02020
             cell.lblDeviceName.text  = "Ventolin"
             cell.lblNCDCode.text = "NDC Code: 0173-0682-20"
            

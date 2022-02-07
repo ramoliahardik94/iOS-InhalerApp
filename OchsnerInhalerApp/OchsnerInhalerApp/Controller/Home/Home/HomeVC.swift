@@ -40,7 +40,7 @@ class HomeVC: BaseVC {
 
 
 }
-extension HomeVC : UITableViewDelegate , UITableViewDataSource {
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -52,15 +52,15 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
             cell.selectionStyle = .none
        
             
-            setCustomFontLabel(label: cell.lblDeviceName, type: .bold,fontSize: 17)
-            setCustomFontLabel(label: cell.lblDeviceType, type: .regular,fontSize: 13)
-            setCustomFontLabel(label: cell.lblMonday, type: .regular,fontSize: 16)
-            setCustomFontLabel(label: cell.lblTuesday, type: .regular,fontSize: 16)
-            setCustomFontLabel(label: cell.lblWednesday, type: .regular,fontSize: 16)
-            setCustomFontLabel(label: cell.lblThursday, type: .regular,fontSize: 16)
-            setCustomFontLabel(label: cell.lblFriday, type: .regular,fontSize: 16)
-            setCustomFontLabel(label: cell.lblSaturday, type: .regular,fontSize: 16)
-            setCustomFontLabel(label: cell.lblSunday, type: .regular,fontSize: 16)
+            setCustomFontLabel(label: cell.lblDeviceName, type: .bold, fontSize: 17)
+            setCustomFontLabel(label: cell.lblDeviceType, type: .regular, fontSize: 13)
+            setCustomFontLabel(label: cell.lblMonday, type: .regular, fontSize: 16)
+            setCustomFontLabel(label: cell.lblTuesday, type: .regular, fontSize: 16)
+            setCustomFontLabel(label: cell.lblWednesday, type: .regular, fontSize: 16)
+            setCustomFontLabel(label: cell.lblThursday, type: .regular, fontSize: 16)
+            setCustomFontLabel(label: cell.lblFriday, type: .regular, fontSize: 16)
+            setCustomFontLabel(label: cell.lblSaturday, type: .regular, fontSize: 16)
+            setCustomFontLabel(label: cell.lblSunday, type: .regular, fontSize: 16)
             cell.lblMonday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
             cell.lblTuesday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
             cell.lblWednesday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
@@ -102,22 +102,22 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
         
         
         cell.selectionStyle = .none
-        setCustomFontLabel(label: cell.lblDeviceName, type: .bold,fontSize: 24)
-        setCustomFontLabel(label: cell.lblDeviceType, type: .lightItalic,fontSize: 16)
-        setCustomFontLabel(label: cell.lblConnected, type: .regular,fontSize: 14)
-        setCustomFontLabel(label: cell.lblBattery, type: .regular,fontSize: 14)
-        setCustomFontLabel(label: cell.lblBatteryPercentage, type: .semiBold,fontSize: 14)
-        setCustomFontLabel(label: cell.lblTodayData, type: .semiBold,fontSize: 28)
-        setCustomFontLabel(label: cell.lblToday, type: .light,fontSize: 17)
-        setCustomFontLabel(label: cell.lblThisWeekData, type: .semiBold,fontSize: 28)
-        setCustomFontLabel(label: cell.lblThisWeek, type: .light,fontSize: 17)
-        setCustomFontLabel(label: cell.lblThisMonthData, type: .semiBold,fontSize: 28)
-        setCustomFontLabel(label: cell.lblThisMonth, type: .light,fontSize: 17)
-        setCustomFontLabel(label: cell.lblAdherance, type: .semiBold,fontSize: 17)
-        setCustomFontLabel(label: cell.lblNextDose, type: .semiBold,fontSize: 17)
-        cell.lblTodayData.textColor = .Button_Color_Blue
-        cell.lblThisMonthData.textColor = .Button_Color_Blue
-        cell.lblThisWeekData.textColor = .Button_Color_Blue
+        setCustomFontLabel(label: cell.lblDeviceName, type: .bold, fontSize: 24)
+        setCustomFontLabel(label: cell.lblDeviceType, type: .lightItalic, fontSize: 16)
+        setCustomFontLabel(label: cell.lblConnected, type: .regular, fontSize: 14)
+        setCustomFontLabel(label: cell.lblBattery, type: .regular, fontSize: 14)
+        setCustomFontLabel(label: cell.lblBatteryPercentage, type: .semiBold, fontSize: 14)
+        setCustomFontLabel(label: cell.lblTodayData, type: .semiBold, fontSize: 28)
+        setCustomFontLabel(label: cell.lblToday, type: .light, fontSize: 17)
+        setCustomFontLabel(label: cell.lblThisWeekData, type: .semiBold, fontSize: 28)
+        setCustomFontLabel(label: cell.lblThisWeek, type: .light, fontSize: 17)
+        setCustomFontLabel(label: cell.lblThisMonthData, type: .semiBold, fontSize: 28)
+        setCustomFontLabel(label: cell.lblThisMonth, type: .light, fontSize: 17)
+        setCustomFontLabel(label: cell.lblAdherance, type: .semiBold, fontSize: 17)
+        setCustomFontLabel(label: cell.lblNextDose, type: .semiBold, fontSize: 17)
+        cell.lblTodayData.textColor = .ButtonColorBlue
+        cell.lblThisMonthData.textColor = .ButtonColorBlue
+        cell.lblThisWeekData.textColor = .ButtonColorBlue
         
         cell.lblConnected.text = StringCommonMessages.connected
         cell.lblBattery.text = StringCommonMessages.battery
@@ -138,9 +138,9 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
             cell.viewAdherance.isHidden = true
             cell.ivBattery.image = UIImage(named: "battery")
             cell.ivThisWeek.image = UIImage(named: "arrow_up_home")
-            cell.ivThisWeek.setImageColor(.Color_Home_Icon_Oranage)// #FFA52F
+            cell.ivThisWeek.setImageColor(.ColorHomeIconOranage)// #FFA52F
             cell.ivThisMonth.image = UIImage(named: "arrow_up_home")
-            cell.ivThisMonth.setImageColor(.Color_Home_Icon_Red)// #FFA52F
+            cell.ivThisMonth.setImageColor(.ColorHomeIconRed)// #FFA52F
             
         } else {
             cell.lblDeviceName.text = "Ventolin"
@@ -154,17 +154,13 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource {
             cell.lblNextDose.text = "Next Scheduled Dose: Today at 6:30 pm"
             cell.ivBattery.image = UIImage(named: "battery_orange")
             cell.ivThisWeek.image = UIImage(named: "arrow_up_home")
-            cell.ivThisWeek.setImageColor(.Color_Home_Icon_Green)// #FFA52F
+            cell.ivThisWeek.setImageColor(.ColorHomeIconGreen)// #FFA52F
             cell.ivThisMonth.image = UIImage(named: "arrow_down_home")
-            cell.ivThisMonth.setImageColor(.Color_Home_Icon_Red)// #FFA52F
+            cell.ivThisMonth.setImageColor(.ColorHomeIconRed)// #FFA52F
          
         }
         
         return cell
-        
-        
-        
-        
     }
     
     

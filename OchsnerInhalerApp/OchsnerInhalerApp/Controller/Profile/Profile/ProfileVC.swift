@@ -33,12 +33,12 @@ class ProfileVC: BaseVC {
         setupButton(button: btnLogout, title: StringProfile.logOut)
         setupButton(button: btnChangeProvider, title: StringProfile.changeProvider)
         setupButton(button: btnRemoveProvider, title: StringProfile.remove)
-        setCustomFontLabel(label: lblEmail, type: .regular,fontSize: 19)
-        setCustomFontLabel(label: lblProvider, type: .bold,fontSize: 19)
-        setCustomFontLabel(label: lblSettings, type: .bold,fontSize: 24)
-        setCustomFontLabel(label: lblReceiveNotifications, type: .regular,fontSize: 21)
-        setCustomFontLabel(label: lblShareLocation, type: .regular,fontSize: 21)
-        setCustomFontLabel(label: lblShareUsageWithProvider, type: .regular,fontSize: 21)
+        setCustomFontLabel(label: lblEmail, type: .regular, fontSize: 19)
+        setCustomFontLabel(label: lblProvider, type: .bold, fontSize: 19)
+        setCustomFontLabel(label: lblSettings, type: .bold, fontSize: 24)
+        setCustomFontLabel(label: lblReceiveNotifications, type: .regular, fontSize: 21)
+        setCustomFontLabel(label: lblShareLocation, type: .regular, fontSize: 21)
+        setCustomFontLabel(label: lblShareUsageWithProvider, type: .regular, fontSize: 21)
 
         
         lblEmail.text = "lauren@ipsum.com"
@@ -51,38 +51,37 @@ class ProfileVC: BaseVC {
 
     }
     
-    private func setupButton(button : UIButton , title : String) {
+    private func setupButton(button: UIButton, title: String) {
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.Button_Color_Blue, for: .normal)
+        button.setTitleColor(.ButtonColorBlue, for: .normal)
         button.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 18)
         
     }
     
-    func tapBack(sender : UIButton) {
-        
-    popVC()
+    func tapBack(sender: UIButton) {
+        popVC()
     }
     
     @IBAction func tapUpdateEmail(_ sender: Any) {
-        let vc  = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-        pushVC(vc: vc)
+        let updateProfileVC  = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        pushVC(controller: updateProfileVC)
   
     }
     @IBAction func tapChangePassword(_ sender: Any) {
-        let vc  = ChangePasswordVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-        pushVC(vc: vc)
+        let changePasswordVC  = ChangePasswordVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        pushVC(controller: changePasswordVC)
     }
     @IBAction func tapLogout(_ sender: Any) {
         
         let alert = UIAlertController(title: "", message: "Are you sure you want to logout?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { _ in
             
             alert.dismiss(animated: true, completion: {
                 self.setRootLogin()
             })
           
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
             alert.dismiss(animated: true, completion: nil )
         }))
         self.present(alert, animated: true)
@@ -90,8 +89,8 @@ class ProfileVC: BaseVC {
   
     }
     @IBAction func tapChangeProvider(_ sender: Any) {
-        let vc = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        pushVC(vc: vc)
+        let providerListVC = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        pushVC(controller: providerListVC)
     }
     @IBAction func tapRemoveProvider(_ sender: Any) {
   
@@ -99,10 +98,10 @@ class ProfileVC: BaseVC {
     
      func setRootLogin() {
          removeUser()
-         let vc = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-         let nav : UINavigationController = UINavigationController()
+         let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+         let nav: UINavigationController = UINavigationController()
          nav.isNavigationBarHidden = true
-         nav.viewControllers  = [vc]
+         nav.viewControllers  = [loginVC]
          UIApplication.shared.windows.first?.rootViewController = nav
          UIApplication.shared.windows.first?.makeKeyAndVisible()
     }

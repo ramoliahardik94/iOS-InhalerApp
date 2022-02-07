@@ -19,7 +19,7 @@ class AddAnotherDeviceVC: BaseVC {
         // Do any additional setup after loading the view.
     }
     
-    func setUI(){
+    func setUI() {
         lblGreat.font = UIFont(name: AppFont.AppBoldFont, size: 34)
         lblGreat.text = StringAddDevice.great
         lblAddDevice.font = UIFont(name: AppFont.AppBoldFont, size: 34)
@@ -31,15 +31,15 @@ class AddAnotherDeviceVC: BaseVC {
     
     @IBAction func btnGohomeClick(_ sender: Any) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let vc  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-        pushVC(vc: vc)
+        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+        pushVC(controller: homeTabBar)
     }
     
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {
-        let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        vc.step = .Step2
-        vc.isFromAddAnother  = true
-        pushVC(vc: vc)
+        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        addDeviceIntroVC.step = .step2
+        addDeviceIntroVC.isFromAddAnother  = true
+        pushVC(controller: addDeviceIntroVC)
     }
     /*
      // MARK: - Navigation

@@ -715,6 +715,7 @@
 			buildConfigurationList = 47CDCE22278D87300014527D /* Build configuration list for PBXNativeTarget "OchsnerInhalerApp" */;
 			buildPhases = (
 				7CA4285945F1A0F697C2F639 /* [CP] Check Pods Manifest.lock */,
+				2272151827AC2160000ECD2D /* ShellScript */,
 				47CDCE0A278D872F0014527D /* Sources */,
 				47CDCE0B278D872F0014527D /* Frameworks */,
 				47CDCE0C278D872F0014527D /* Resources */,
@@ -793,6 +794,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2272151827AC2160000ECD2D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		7CA4285945F1A0F697C2F639 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

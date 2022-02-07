@@ -31,9 +31,9 @@ class APIManager {
     typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod,isBasicAuth : Bool = false,isAuth: Bool = false, completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, completion: ResponseBlock?) -> DataRequest? {
         if !APIManager.isConnectedToNetwork {
-            Logger.LogInfo("No Internet connection")
+            Logger.logInfo("No Internet connection")
             completion?(RuntimeError("No_Internet_Connection".local), nil)
             return nil
         }
@@ -48,15 +48,15 @@ class APIManager {
             appHeader = setUpHeaderDataWithRefreshToken(isAuth: isAuth)
 //        }
         if isBasicAuth {
-            let username = parameters["Email"] as! String
-            let password = parameters["Password"] as! String
-            let loginString = "\(username):\(password)"
+            let username = parameters["Email"] as? String
+            let password = parameters["Password"] as? String
+            let loginString = "\(username ?? ""):\(password ?? "")"
             if let loginData = loginString.data(using: String.Encoding.utf8) {
                 let base64LoginString = loginData.base64EncodedString()
                 appHeader = setUpHeaderDataWithBASICAuth(value: "Basic \(base64LoginString)")
             }
         }
-        Logger.LogInfo("URL:\(route) -> Method:\(method) -> Parameters: \(parameters) -> Headers:\(appHeader)")
+        Logger.logInfo("URL:\(route) -> Method:\(method) -> Parameters: \(parameters) -> Headers:\(appHeader)")
         
         var url = route
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
@@ -69,37 +69,33 @@ class APIManager {
             
             let statusCode = response.response?.statusCode
             if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {
-                Logger.LogInfo("Response :: success :: \(String(describing: response.value))")
+                Logger.logInfo("Response :: success :: \(String(describing: response.value))")
                 switch response.result {
                 case .success:
-                    if let data = response.value as? [String : Any] {
+                    if let data = response.value as? [String: Any] {
                         let message = data["error"] as? String
-                        if let data = response.value as? [String : Any] {
+                        if let data = response.value as? [String: Any] {
                             completion?(nil, data)
-                        }
-                        else{
+                        } else {
                             completion?(RuntimeError(message ?? ""), nil)
                         }
-                    } else if let data = response.value as? [[String : Any]] {
+                    } else if let data = response.value as? [[String: Any]] {
                         completion?(nil, data)
                     }
                 case .failure:
                     completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
-            }
-            else {
-                Logger.LogError("Add Response :: failure :: \(String(describing: response.value))")
+            } else {
+                Logger.logError("Add Response :: failure :: \(String(describing: response.value))")
                 switch response.result {
                 case .success:
-                    if let data = response.value as? [String : Any] {
+                    if let data = response.value as? [String: Any] {
                         if let message = data["error"] as? String {
-                        completion?(RuntimeError(message, statusCode!), nil)
-                        }
-                        else if let message = data["Error"] as? String {
                             completion?(RuntimeError(message, statusCode!), nil)
-                            }
-                    }
-                    else {
+                        } else if let message = data["Error"] as? String {
+                            completion?(RuntimeError(message, statusCode!), nil)
+                        }
+                    } else {
                         completion?(RuntimeError(""), nil)
                     }
                 case .failure:
@@ -142,7 +138,7 @@ class APIManager {
         
         return request
         
-        //return nil
+        // return nil
     }
     
 //    func generateNewAccessToken(route: String, parameters: [String: Any]?, method: HTTPMethod, completion: ResponseBlock?) {
@@ -186,25 +182,25 @@ class APIManager {
     static private var header: HTTPHeaders {
         
         var dictHeader = HTTPHeaders()
-        dictHeader["app-type"] = CommanHeader.app_type
+        dictHeader["app-type"] = CommanHeader.appType
         dictHeader["udid"] = MobileDeviceManager.shared.udid
         dictHeader["device_name"] = MobileDeviceManager.shared.name
         dictHeader["access-token"] = UserDefaultManager.token
         return dictHeader
     }
     
-    func setUpHeaderDataWithBASICAuth(value:String) -> HTTPHeaders {
+    func setUpHeaderDataWithBASICAuth(value: String) -> HTTPHeaders {
         var dictHeader = HTTPHeaders()
-        dictHeader["app-type"] = CommanHeader.app_type
+        dictHeader["app-type"] = CommanHeader.appType
         dictHeader["udid"] = MobileDeviceManager.shared.udid
         dictHeader["device_name"] = MobileDeviceManager.shared.name
         dictHeader = ["Authorization": value]
         return dictHeader
     }
     
-    func setUpHeaderDataWithRefreshToken(isAuth :Bool) -> HTTPHeaders {
+    func setUpHeaderDataWithRefreshToken(isAuth: Bool) -> HTTPHeaders {
         var dictHeader = HTTPHeaders()
-        dictHeader["app-type"] = CommanHeader.app_type
+        dictHeader["app-type"] = CommanHeader.appType
         dictHeader["udid"] = MobileDeviceManager.shared.udid
         dictHeader["device_name"] = MobileDeviceManager.shared.name
         if isAuth {
@@ -239,12 +235,12 @@ class BasicModel: Mappable {
         return statusCode == code.rawValue
     }
 }
-//TODO: have to check
-//class BasicModel  : Codable{
+// TODO: have to check
+// class BasicModel  : Codable{
 //    var status : String?
 //    var data: [String: Any] {
 //        return (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(self))) as? [String: Any] ?? [:]
 //    }
 //
 //
-//}
+// }
