@@ -84,10 +84,10 @@ extension BLEHelper : CBCentralManagerDelegate {
 //        }
         print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         // Device is in range - have we already seen it?
-      
-        if peripheral.state == .disconnected {
+         if peripheral.state == .disconnected {
             discoveredPeripheral = peripheral
             //MARK: Step:6 Connect to peripheral
+            peripheral.delegate = self
             NotificationCenter.default.post(name: .BLEFound, object: nil)
             print(UserDefaultManager.addDevice.count)
             UserDefaultManager.addDevice.insert(peripheral, at: UserDefaultManager.addDevice.count)

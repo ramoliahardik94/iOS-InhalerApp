@@ -27,8 +27,10 @@ extension BLEHelper {
     }
     
     @objc func didFinishScan() {
-        NotificationCenter.default.post(name: .BLENotFound, object: nil)
-      self.stopScanPeriphral()
+        if discoveredPeripheral == nil {
+            NotificationCenter.default.post(name: .BLENotFound, object: nil)
+        }
+        self.stopScanPeriphral()
     }
     
     func stopScanPeriphral(){

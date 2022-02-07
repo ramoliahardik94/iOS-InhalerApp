@@ -37,77 +37,124 @@ class BLEHelper : NSObject {
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
         completion(isAllow)
     }
-    func setRTCTime()->String{
-        
-        
-        let year = DecimalToHax(value: Date().getString( format: "yyyy",isUTC: true),byte: 2)
-        let day = DecimalToHax(value: Date().getString(format: "dd", isUTC: true))
-        let month = DecimalToHax(value: Date().getString(format: "MM", isUTC: true))
-        let hour = DecimalToHax(value: Date().getString(format: "HH", isUTC: true))
-        let min = DecimalToHax(value: Date().getString(format: "mm", isUTC: true))
-        let sec = DecimalToHax(value: Date().getString(format: "s", isUTC: true))
-       
-        let haxRTC = "AA015507" + year+day+month+hour+min+sec
+    func setRTCTime() {
+        let year =  Date().getString( format: "yyyy",isUTC: true).DecimalToHax(byte: 2)
+        let day =  Date().getString(format: "dd", isUTC: true).DecimalToHax()
+        let month =  Date().getString(format: "MM", isUTC: true).DecimalToHax()
+        let hour =  Date().getString(format: "HH", isUTC: true).DecimalToHax()
+        let min =  Date().getString(format: "mm", isUTC: true).DecimalToHax()
+        let sec =  Date().getString(format: "s", isUTC: true).DecimalToHax()
+        let haxRTC = TransferService.addRTSStartByte + year+day+month+hour+min+sec
         if discoveredPeripheral != nil && charectristicWrite != nil {
-        discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
+            discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
         print(haxRTC)
-        return haxRTC
-        
     }
-   
-    
-    func DecimalToHax(value:String,byte:Int = 1)->String{
-        var haxStr = ""
-        switch byte{
-        case 1:
-            if let val = UInt8(value) {
-                let data = val.bigEndian
-                haxStr = String(format:"%02X", data)
-            }
-        case 2:
-            if  let val = UInt16(value) {
-                let data = val.bigEndian
-                haxStr = String(format:"%04X", data)
-            }
-        default :
-            if let val = UInt8(value) {
-                let data = val.bigEndian
-                haxStr = String(format:"%02X", data)
-            }
+    func getBetteryLevel() {
+        if discoveredPeripheral != nil && charectristicWrite != nil {
+            discoveredPeripheral?.writeValue(TransferService.requestGetBettery.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
-        return haxStr
     }
     
-    func HexToDecimal(value:String,byte:Int = 1 )-> Decimal {
-        var decimalValue = Decimal()
-        switch byte{
-        case 1:
-            if let val = UInt8(value, radix: 16) {
-                decimalValue = Decimal(val.bigEndian)
-            }
-        case 2:
-            if let val = UInt16(value, radix: 16) {
-                decimalValue = Decimal(val.bigEndian)
-            }
-        default :
-            if let val = UInt8(value, radix: 16) {
-                decimalValue = Decimal(val.bigEndian)
-            }
+    func getAccuationNumber() {
+        if discoveredPeripheral != nil && charectristicWrite != nil {
+            discoveredPeripheral?.writeValue(TransferService.requestGetNoAccuation.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
-        print(decimalValue)
-        return decimalValue
+    }
+    
+    func getAccuationLog() {
+        if discoveredPeripheral != nil && charectristicWrite != nil {
+            discoveredPeripheral?.writeValue(TransferService.requestGetAcuationLog.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
+        }
     }
 }
 
 
 extension String {
     
-    /// Create `Data` from hexadecimal string representation
-    ///
-    /// This creates a `Data` object from hex string. Note, if the string has any spaces or non-hex characters (e.g. starts with '<' and with a '>'), those are ignored and only hex characters are processed.
-    ///
-    /// - returns: Data represented by this hexadecimal string.
+    func getNumberofAccuationLog( ) -> Decimal {
+        var arrResponce = self.split(separator: " ")
+        arrResponce.remove(at: 0)// StartByte
+        arrResponce.remove(at: 0)//OPCODE
+        arrResponce.remove(at: 0)//OPCODE
+        _ =  UInt8(arrResponce[0],radix: 16) //payloadLenth
+        arrResponce.remove(at: 0)
+        let strCount = arrResponce.joined(separator: "")
+        print(strCount)
+        let logCount =  UInt16(strCount,radix: 16)!
+        print(logCount)
+        return Decimal(logCount)
+    }
+    
+    func getBeteryLevel() -> Decimal {
+        var arrResponce = self.split(separator: " ")
+        arrResponce.remove(at: 0)// StartByte
+        arrResponce.remove(at: 0)//OPCODE
+        arrResponce.remove(at: 0)//OPCODE
+        _ =  UInt8(arrResponce[0],radix: 16) //payloadLenth
+        arrResponce.remove(at: 0)//PlayLoad Lenth
+        let betteryLevel =  UInt8(arrResponce[0],radix: 16)!
+        print(betteryLevel)
+        return Decimal(betteryLevel)
+    }
+    func getAcuationLog() ->  (id: Decimal ,date: String, uselength: Decimal)
+    {
+        var arrResponce = self.split(separator: " ")
+        arrResponce.remove(at: 0)// StartByte
+        arrResponce.remove(at: 0)//OPCODE
+        arrResponce.remove(at: 0)//OPCODE
+        let payloadLenth =  UInt8(arrResponce[0],radix: 16)! //payloadLenth
+        if payloadLenth != 0{
+            arrResponce.remove(at: 0)//PlayLoad Lenth
+            let idStr = "\(arrResponce[0])\(arrResponce[1])"
+            let logCount =  UInt16(idStr,radix: 16)!.bigEndian
+            arrResponce.remove(at: 0)//ID
+            arrResponce.remove(at: 0)//ID
+            let yearStr = "\(arrResponce[0])\(arrResponce[1])"
+            let year =  UInt16(yearStr,radix: 16)!.bigEndian
+            arrResponce.remove(at: 0)//Year
+            arrResponce.remove(at: 0)//Year
+            let month = UInt8(arrResponce[0],radix: 16)!
+            arrResponce.remove(at: 0)//Month
+            let day = UInt8(arrResponce[0],radix: 16)!
+            arrResponce.remove(at: 0)//day
+            let hour = UInt8(arrResponce[0],radix: 16)!
+            arrResponce.remove(at: 0)//huor
+            let min = UInt8(arrResponce[0],radix: 16)!
+            arrResponce.remove(at: 0)//min
+            let sec = UInt8(arrResponce[0],radix: 16)!
+            arrResponce.remove(at: 0)//min
+            let duration = "\(arrResponce[0])\(arrResponce[1])"
+            let durationTime =  UInt16(duration,radix: 16)!
+            arrResponce.remove(at: 0)//durationTime
+            arrResponce.remove(at: 0)//durationTime
+            let date = "\(year)/\(month)/\(day) \(hour):\(min):\(sec)"
+            return (Decimal(logCount),date,Decimal(durationTime))
+        }else {
+            return (Decimal(0),Date().getString(format: "yyyy/MM/dd", isUTC: false),Decimal(0))
+        }
+    }
+    func DecimalToHax(byte:Int = 1)->String{
+        var haxStr = ""
+        switch byte{
+        case 1:
+            if let val = UInt8(self) {
+                let data = val.bigEndian
+                haxStr = String(format:"%02X", data)
+            }
+        case 2:
+            if  let val = UInt16(self) {
+                let data = val.bigEndian
+                haxStr = String(format:"%04X", data)
+            }
+        default :
+            if let val = UInt32(self) {
+                let data = val.bigEndian
+                haxStr = String(format:"%08X", data)
+            }
+        }
+        return haxStr
+    }
     
     var hexadecimal: Data? {
         var data = Data(capacity: count / 2)
@@ -123,5 +170,4 @@ extension String {
         
         return data
     }
-    
 }
