@@ -9,21 +9,20 @@ import Foundation
 
 class CreateAccountVM {
     
-    var userData = UserModel(Json: [String : Any]())
+    var userData = UserModel(jSon: [String: Any]())
     
-    func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)){
+    func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)) {
     
         if checkValidation() {
             APIManager.shared.performRequest(route: APIRouter.createAccount.path, parameters: userData.toDic(), method: .post) { [weak self] error, response in
-                if response == nil{
+                if response == nil {
                     completionHandler(.failure(error!.message))
-                }
-                else {
-                    if let res =  response as? [String : Any] {
-                    self?.userData.Token = res["Token"] as? String
-                    UserDefaultManager.token = self?.userData.Token ?? ""
-                    UserDefaultManager.isLogin = true
-                    completionHandler(.success(true))
+                } else {
+                    if let res =  response as? [String: Any] {
+                        self?.userData.token = res["Token"] as? String
+                        UserDefaultManager.token = self?.userData.token ?? ""
+                        UserDefaultManager.isLogin = true
+                        completionHandler(.success(true))
                     }
                 }
             }
@@ -31,33 +30,26 @@ class CreateAccountVM {
     }
     
     
-    func checkValidation()->Bool {
+    func checkValidation() -> Bool {
         var isValid = true
         
         if userData.firstName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            CommonFunctions.showMessage(message:  ValidationMsg.fName)
+            CommonFunctions.showMessage(message: ValidationMsg.fName)
             isValid = false
-        }
-        
-        else if userData.lastName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+        } else if userData.lastName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message: ValidationMsg.lName)
             isValid = false
-        }
-        
-        else if !(userData.email ?? "").isValidEmail {
+        } else if !(userData.email ?? "").isValidEmail {
             CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
-        }else if userData.password?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            CommonFunctions.showMessage(message:  ValidationMsg.password)
+        } else if userData.password?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            CommonFunctions.showMessage(message: ValidationMsg.password)
             isValid = false
-        }
-        else if userData.confirmPassword?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            CommonFunctions.showMessage(message:  ValidationMsg.confirmPassword)
+        } else if userData.confirmPassword?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            CommonFunctions.showMessage(message: ValidationMsg.confirmPassword)
             isValid = false
-        }
-        
-        else if  userData.confirmPassword != userData.password  {
-            CommonFunctions.showMessage(message:  ValidationMsg.matchPass)
+        } else if  userData.confirmPassword != userData.password {
+            CommonFunctions.showMessage(message: ValidationMsg.matchPass)
             isValid = false
         }
         return isValid

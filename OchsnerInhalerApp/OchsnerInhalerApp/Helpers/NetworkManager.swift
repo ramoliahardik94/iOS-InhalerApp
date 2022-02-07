@@ -10,7 +10,7 @@ enum ReachabilityStatus {
     case unknown, notReachable, cellular, ethernetOrWiFi
 }
 
-protocol NetworkConnectivityDelegate: class {
+protocol NetworkConnectivityDelegate: AnyObject {
     func networkConnectionRestablish()
 }
 
@@ -39,7 +39,7 @@ class NetworkManager: NSObject {
     
     func networkStatus(status: ReachabilityStatus) {
         if status == .unknown || status == .notReachable {
-            Logger.LogError("NetworkConnectionFailed with \(status)")
+            Logger.logError("NetworkConnectionFailed with \(status)")
             if UIApplication.topViewController()!.isKind(of: UIAlertController.self) {
                 UIApplication.topViewController()!.dismiss(animated: false) {
                     self.showNoInternetScreen()
@@ -49,9 +49,9 @@ class NetworkManager: NSObject {
             }
            
         } else if status == .cellular || status == .ethernetOrWiFi {
-            Logger.LogInfo("NetworkConnection Restablish With \(status)")
+            Logger.logInfo("NetworkConnection Restablish With \(status)")
             getWiFiSSID { (ssid) in
-                Logger.LogInfo("SSID: \(ssid)")
+                Logger.logInfo("SSID: \(ssid)")
             }
         }
     }

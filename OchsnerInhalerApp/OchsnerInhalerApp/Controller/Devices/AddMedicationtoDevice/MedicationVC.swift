@@ -15,16 +15,16 @@ class MedicationVC: BaseVC {
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
-    var selectedIndex : Int?
+    var selectedIndex: Int?
     let medicationVM = MedicationVM()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUp()
         // Do any additional setup after loading the view.
-        self.GetMedication()
+        self.getMedication()
     }
     
-    func GetMedication() {
+    func getMedication() {
         medicationVM.apiGetMedicationLis { result in
             switch result {
             case .success(let status):
@@ -36,24 +36,25 @@ class MedicationVC: BaseVC {
         }
     }
     
-    func setUp(){
+    func setUp() {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedication
         lblmedicationType.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblmedicationType.text = StringMedication.inhealerType
-        btnRescue.titleLabel?.font = UIFont(name: AppFont.SFProText_Bold, size: 14)
-        btnMantainance.titleLabel?.font = UIFont(name: AppFont.SFProText_Bold, size: 14)
+        btnRescue.titleLabel?.font = UIFont(name: AppFont.SFProTextBold, size: 14)
+        btnMantainance.titleLabel?.font = UIFont(name: AppFont.SFProTextBold, size: 14)
         
-        btnRescue.backgroundColor = .Color_cell
+        btnRescue.backgroundColor = .Colorcell
         btnRescue.isOchsnerView = true
         
-        btnMantainance.backgroundColor = .Color_cell
+        btnMantainance.backgroundColor = .Colorcell
         btnMantainance.isOchsnerView = true
         
         btnNext.setButtonView(StringAddDevice.next)
         tblMedication.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
-    //TODO: Rescue = 1 Mantainance =2 
+    // TODO: Do something
+    // TODO: Rescue=1 Mantainance=2
     @IBAction func btnMedicationType(_ sender: UIButton) {        
             btnRescue.isSelected = sender == btnRescue
             btnMantainance.isSelected = sender == btnMantainance
@@ -61,18 +62,16 @@ class MedicationVC: BaseVC {
 
     @IBAction func btnNextClick(_ sender: UIButton) {
         if selectedIndex != nil {
-            if btnRescue.isSelected  {
-                let vc = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-                self.pushVC(vc: vc)
+            if btnRescue.isSelected {
+                let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                self.pushVC(controller: connectProviderVC)
             } else {
-                let vc = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                vc.index = 0
-                pushVC(vc: vc)
+                let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                medicationDetailVC.index = 0
+                pushVC(controller: medicationDetailVC)
             }
-        }
-        else{
+        } else {
             CommonFunctions.showMessage(message: ValidationMsg.medication)
-         
         }
     }
 
@@ -85,7 +84,7 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : MedicationCell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell") as! MedicationCell
+        let cell: MedicationCell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell") as! MedicationCell
         cell.setMedicationDetailes(medication: medicationVM.medication[indexPath.row])
         return cell
     }
@@ -96,14 +95,15 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedIndex = indexPath.row
-        for i in 0...3 {
-            let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? MedicationCell
-            cell!.btnMedication.isSelected = false
+        
+         let befor = medicationVM.medication.firstIndex(where: {$0.isSelected == true})
+        
+        if befor != nil {
+            medicationVM.medication[befor!].isSelected = false
+            tblMedication.reloadRows(at: [IndexPath(row: befor!, section: 0)], with: .none)
         }
-        
-        let cell = tableView.cellForRow(at: indexPath) as? MedicationCell
-        cell?.btnMedication.isSelected = true
-        
+        medicationVM.medication[indexPath.row].isSelected = true
+        tblMedication.reloadRows(at: [indexPath], with: .none)
     }
     
 }

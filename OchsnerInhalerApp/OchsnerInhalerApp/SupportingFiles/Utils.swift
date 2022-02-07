@@ -16,7 +16,7 @@ func getWiFiSSID(completion:@escaping ((String) -> Void)) {
 
 func getLocation() {
     LocationManager.shared.checkLocationPermissionAndFetchLocation { (location) in
-        Logger.LogInfo("Fetch locations > locations = \(location.latitude) \(location.longitude)")
+        Logger.logInfo("Fetch locations > locations = \(location.latitude) \(location.longitude)")
     }
 }
 
@@ -32,7 +32,7 @@ func setUIAppearance() {
     setSegmentControlAppearance()
 }
 
-func setNavigationAppearance(_ color: UIColor = .NavigationBar_Color) {
+func setNavigationAppearance(_ color: UIColor = .NavigationBarColor) {
     UINavigationBar.appearance().barTintColor = color
     UINavigationBar.appearance().isTranslucent = false
     UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white,
@@ -41,9 +41,9 @@ func setNavigationAppearance(_ color: UIColor = .NavigationBar_Color) {
 
 func setSegmentControlAppearance() {
     UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont(name: AppFont.AppSemiBoldFont, size: 15)!,
-                                                            .foregroundColor: UIColor.Segment_Color_Normal], for: .normal)
+                                                            .foregroundColor: UIColor.SegmentColorNormal], for: .normal)
     UISegmentedControl.appearance().setTitleTextAttributes([.font: UIFont(name: AppFont.AppSemiBoldFont, size: 15)!,
-                                                            .foregroundColor: UIColor.Segment_Color_Selected], for: .selected)
+                                                            .foregroundColor: UIColor.SegmentColorSelected], for: .selected)
     UISegmentedControl.appearance().setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
 }
 
@@ -64,6 +64,6 @@ func openSettings() {
     if let url = URL(string: "\(UIApplication.openSettingsURLString)") {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     } else {
-        Logger.LogError("Cannot open settings")
+        Logger.logError("Cannot open settings")
     }
 }

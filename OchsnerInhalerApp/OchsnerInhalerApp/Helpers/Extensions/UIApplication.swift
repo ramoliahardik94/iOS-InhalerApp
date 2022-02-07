@@ -13,8 +13,8 @@ extension UIApplication {
     
     class func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         
-        if let nav = base as? UINavigationController, let vc = nav.viewControllers.last {
-            return topViewController(vc)
+        if let nav = base as? UINavigationController, let controller = nav.viewControllers.last {
+            return topViewController(controller)
         }
         
         if let tab = base as? UITabBarController {

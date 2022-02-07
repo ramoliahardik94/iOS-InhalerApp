@@ -21,7 +21,7 @@ class BluetoothPermissionVC: BaseVC {
         lblBluetoothPermission.textColor = .black
         btnCancel.setButtonView(StringCommonMessages.cancel)
         btnGrant.setButtonView(StringCommonMessages.grant)
-        setCustomFontLabel(label: lblBluetoothPermission, type: .bold,fontSize: 32)
+        setCustomFontLabel(label: lblBluetoothPermission, type: .bold, fontSize: 32)
         btnCancel.isHidden = true
      
     }
@@ -32,34 +32,37 @@ class BluetoothPermissionVC: BaseVC {
     }
     
     
-    //MARK: Actions
+    // MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-
-           BLEHelper.shared.isAllowed { isAllow in
-            if isAllow {
-                UserDefaultManager.isGrantBLE = true
-                let vc = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self.pushVC(vc: vc)
+        BLEHelper.shared.setDelegate()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            BLEHelper.shared.isAllowed { isAllow in
+                
+                debugPrint("isAllow  \(isAllow)")
+                if isAllow {
+                    UserDefaultManager.isGrantBLE = true
+                    let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+                    self.pushVC(controller: locationPermisionVC)
+                } else {
+                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
+                        if action ?? true {
+                            CommonFunctions.openBluetooth()
+                        }
+                    })
+                }
+                
             }
-            else {
-                CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { ok in
-                    if ok ?? true {
-                        CommonFunctions.openBluetooth()
-                    }
-                })
-            }
-            
-          }
+        })
     }
     
     @IBAction func tapCancel(_ sender: UIButton) {
-        let vc = CancleBluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-        pushVC(vc: vc)
+        let cancleBluetoothPermissionVC = CancleBluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        pushVC(controller: cancleBluetoothPermissionVC)
     }
     func isBluetoothAuthorized() -> Bool {
         if #available(iOS 13.0, *) {
             return CBManager.authorization == .allowedAlways
-        }else {
+        } else {
             return CBPeripheralManager.authorizationStatus() == .authorized
         }
        

@@ -9,17 +9,17 @@ import UIKit
 
 class DoseTimeCell: UITableViewCell {
 
-    @IBOutlet weak var DosetimeView: UIView!
+    @IBOutlet weak var dosetimeView: UIView!
     @IBOutlet weak var lblDoseTime: UILabel!
     @IBOutlet weak var btnRemove: UIButton!
     @IBOutlet weak var btnEditDose: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        DosetimeView.layer.cornerRadius = 6
-        DosetimeView.backgroundColor = .Color_DoseTime
-        DosetimeView.isOchsnerView = true
-        DosetimeView.clipsToBounds = true
+        dosetimeView.layer.cornerRadius = 6
+        dosetimeView.backgroundColor = .ColorDoseTime
+        dosetimeView.isOchsnerView = true
+        dosetimeView.clipsToBounds = true
         lblDoseTime.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         
         btnRemove.layer.cornerRadius = 6

@@ -18,11 +18,7 @@ struct TransferService {
     static let addRTSStartByte = "AA015507"
     static let responseSuccessRTC = "AA01550101"
     static let responseFailRTC = "AA01550100"
-    
     static let requestGetBettery = "AA025500"
-    
     static let requestGetNoAccuation = "AA035500"
-    
     static let requestGetAcuationLog = "AA045500"
 }
-

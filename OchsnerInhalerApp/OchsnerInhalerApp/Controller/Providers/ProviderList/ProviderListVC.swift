@@ -27,14 +27,14 @@ class ProviderListVC: BaseVC {
         // Do any additional setup after loading the view.
         setupVC()
     }
-    func setupVC(){
+    func setupVC() {
         self.btnCancel.isEnabled = false
         lblHeader.text = StringPoviders.selectOrganization
         lblSubHeader.text = StringPoviders.providerSubHeader
-        self.view.backgroundColor = .Color_Header
-        viewSearch.backgroundColor = .Color_HeaderSearch
-        self.searchProvider.barTintColor = .Color_HeaderSearch
-        self.searchProvider.backgroundColor = .Color_HeaderSearch
+        self.view.backgroundColor = .ColorHeader
+        viewSearch.backgroundColor = .ColorHeaderSearch
+        self.searchProvider.barTintColor = .ColorHeaderSearch
+        self.searchProvider.backgroundColor = .ColorHeaderSearch
         self.searchProvider.searchTextField.borderStyle = .none
         self.searchProvider.searchTextField.backgroundColor = .white
         self.searchProvider.searchTextField.layer.cornerRadius = 10
@@ -42,14 +42,14 @@ class ProviderListVC: BaseVC {
         self.btnCancel.setTitleColor(.lightGray, for: .disabled)
         self.btnCancel.setTitleColor(.white, for: .normal)
         self.searchProvider.layer.borderWidth = 1
-        self.searchProvider.layer.borderColor = UIColor.Color_HeaderSearch.cgColor
+        self.searchProvider.layer.borderColor = UIColor.ColorHeaderSearch.cgColor
         self.lblHeader.font = UIFont(name: AppFont.AppRegularFont, size: 14)
         self.btnCancel.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 12)
         self.searchProvider.searchTextField.font = UIFont(name: AppFont.AppRegularFont, size: 12)
         self.searchProvider.delegate = self
         viewProvider.isOchsnerView = true
         self.btnContinue.setButtonView(StringPoviders.continueProvider)
-        self.btnChange.setButtonView(StringPoviders.change,isDefaultbtn: false)
+        self.btnChange.setButtonView(StringPoviders.change, isDefaultbtn: false)
         viewConform.isHidden = true
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
@@ -62,8 +62,8 @@ class ProviderListVC: BaseVC {
     }
     
     @IBAction func btnContinueClick(_ sender: Any) {
-        let vc  = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        pushVC(vc: vc)
+        let addAnotherDeviceVC  = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        pushVC(controller: addAnotherDeviceVC)
     }
     @IBAction func btnChangeClick(_ sender: Any) {
         viewConform.isHidden = true
@@ -76,12 +76,12 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell : ProviderCell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell") as! ProviderCell
+        let cell: ProviderCell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell") as! ProviderCell
         if indexPath.row == 1 {
             cell.imgProvider.image = UIImage(named: "provider")
-        } else if indexPath.row == 2{
+        } else if indexPath.row == 2 {
             cell.imgProvider.image = UIImage(named: "provider1")
-        }else {
+        } else {
             cell.imgProvider.image = UIImage(named: "provider2")
         }
         
@@ -95,9 +95,9 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
         self.view.endEditing(true)
         if indexPath.row == 1 {
             imgSelectedProvider.image = UIImage(named: "provider")
-        } else if indexPath.row == 2{
+        } else if indexPath.row == 2 {
             imgSelectedProvider.image = UIImage(named: "provider1")
-        }else {
+        } else {
             imgSelectedProvider.image = UIImage(named: "provider2")
         }
         viewConform.isHidden = false

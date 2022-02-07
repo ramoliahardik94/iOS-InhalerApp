@@ -20,24 +20,23 @@ class ProviderVC: BaseVC {
         self.setVC()
         // Do any additional setup after loading the view.
     }
-    func setVC(){
-      
-        viewProvider.backgroundColor = .Color_ProviderView
+    func setVC() {
+        viewProvider.backgroundColor = .ColorProviderView
         viewAlert.isOchsnerView = true
         btnLogin.setButtonViewGreen(StringPoviders.continueProvider)
         if index == 1 {
             imgProvider.image = UIImage(named: "provider")
-        } else if index == 2{
+        } else if index == 2 {
             imgProvider.image = UIImage(named: "provider1")
-        }else {
+        } else {
             imgProvider.image = UIImage(named: "provider2")
         }
     }
     
     
     @IBAction func btnLoginClick(_ sender: Any) {
-        let vc  = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-        pushVC(vc: vc)
+        let bluetoothPermissionVC  = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+        pushVC(controller: bluetoothPermissionVC)
     }
     @IBAction func btnSwitchOrganization(_ sender: Any) {
         self.popVC()

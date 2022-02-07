@@ -6,8 +6,8 @@ import Foundation
 
 import UIKit
 import UserNotifications
-//import FirebaseMessaging
-//import Firebase
+// import FirebaseMessaging
+// import Firebase
 import ObjectMapper
 
 class NotificationManager: NSObject {
@@ -23,7 +23,7 @@ class NotificationManager: NSObject {
         UNUserNotificationCenter.current().delegate = self
        // Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            Logger.LogInfo("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
+            Logger.logInfo("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
             foreground {            
                 if !granted {
                     self.statusReceived?(.notDetermined)
@@ -35,7 +35,7 @@ class NotificationManager: NSObject {
     }
     
     func unregister() {
-        Logger.LogInfo("NotificationManager > unregister > unregistered for remote notification")
+        Logger.logInfo("NotificationManager > unregister > unregistered for remote notification")
         UserDefaultManager.deviceToken = ""
         UIApplication.shared.unregisterForRemoteNotifications()
     }
@@ -75,25 +75,25 @@ class NotificationManager: NSObject {
 //        }
 //    }
     
-    func receivePushNotification(_ dict: [AnyHashable: Any]) {
-        guard let operation = dict["operation"] as? String,
-              let data = dict["data"] as? [String: Any] else {
-            return
-        }
-        
-        switch operation {
-        case "alarm":
-       //    self.handelAlarm(data: data)
-            break
-        default:
-            if let message = dict["message"] as? String {
-                self.showAlert(title: "Notification", message: message)
-            } else {
-                Logger.LogInfo("Alert Not show: \(dict)")
-            }
-            break
-        }
-    }
+//    func receivePushNotification(_ dict: [AnyHashable: Any]) {
+//        guard let operation = dict["operation"] as? String,
+//              let data = dict["data"] as? [String: Any] else {
+//            return
+//        }
+//
+//        switch operation {
+//        case "alarm":
+//       //    self.handelAlarm(data: data)
+//            break
+//        default:
+//            if let message = dict["message"] as? String {
+//                self.showAlert(title: "Notification", message: message)
+//            } else {
+//                Logger.LogInfo("Alert Not show: \(dict)")
+//            }
+//            break
+//        }
+//    }
     
 //    func handleNotification() -> AlarmModel? {
 //        if let notification = notifications.popLast() {
@@ -142,7 +142,7 @@ class NotificationManager: NSObject {
 //    }
     
     func askUserPermission(completion: @escaping (Bool) -> Void) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
           //  Logger.LogInfo("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
             foreground {
                 completion(true)
@@ -157,12 +157,12 @@ class NotificationManager: NSObject {
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        Logger.LogInfo(notification.request.content.userInfo)
+        Logger.logInfo(notification.request.content.userInfo)
 //        if let dict = notification.request.content.userInfo["gcm.notification.payload"] {
 //            completionHandler([self.handelShowPushType(self.convertToDictionary(text: dict as! String)!)])
 //            return
 //        }
-        completionHandler([.banner,.badge])
+        completionHandler([.banner, .badge])
     }
     
     func convertToDictionary(text: String) -> [String: Any]? {
@@ -202,11 +202,11 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
     }
 }
 
-//extension NotificationManager: MessagingDelegate {
+// extension NotificationManager: MessagingDelegate {
 //    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
 //        print(fcmToken as Any)
 //    }
-//}
+// }
 extension NotificationManager {
     
     func showAlert(title: String, message: String) {

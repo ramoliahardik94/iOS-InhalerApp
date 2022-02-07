@@ -11,4 +11,5 @@ target 'OchsnerInhalerApp' do
  	pod 'MBProgressHUD', '~> 1.2.0'
 	pod 'CocoaLumberjack/Swift', '~> 3.7.0'
   pod 'DropDown'
+  pod 'SwiftLint'
 end

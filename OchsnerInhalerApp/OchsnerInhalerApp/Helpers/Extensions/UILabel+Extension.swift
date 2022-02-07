@@ -4,7 +4,7 @@
 import UIKit
 
 extension UILabel {
-    @IBInspectable var LanguageKey: String {
+    @IBInspectable var languageKey: String {
         
         get {
             return self.text!

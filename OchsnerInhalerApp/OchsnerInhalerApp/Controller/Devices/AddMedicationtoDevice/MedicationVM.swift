@@ -12,25 +12,21 @@ class MedicationVM {
     
     func apiGetMedicationLis(completionHandler: @escaping ((APIResult) -> Void)) {
         
-        APIManager.shared.performRequest(route: APIRouter.medication.path, parameters: [String:Any](), method: .get) { error, response in
-            if response == nil{
-
+        APIManager.shared.performRequest(route: APIRouter.medication.path, parameters: [String: Any](), method: .get) { error, response in
+            if response == nil {
+                
                 completionHandler(.failure(error!.message))
-            }
-            else {
-                if let res = response as? [[String:Any]] {
+            } else {
+                if let res = response as? [[String: Any]] {
                     self.medication.removeAll()
                     for obj in res {
-                        self.medication.append(MedicationModelElement(Json: obj))
+                        self.medication.append(MedicationModelElement(jSon: obj))
                     }
                     completionHandler(.success(true))
-                }
-                else {
+                } else {
                     completionHandler(.failure(ValidationMsg.CommonError))
                 }
-                
             }
-            
         }
     }
 }
