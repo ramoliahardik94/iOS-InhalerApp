@@ -36,10 +36,17 @@ class AddAnotherDeviceVC: BaseVC {
     }
     
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {
+        
+        if let addDeviceIntroVC = self.navigationController?.viewControllers.first(where: {$0 is AddDeviceIntroVC})  as? AddDeviceIntroVC {
+            addDeviceIntroVC.step = .step2
+            addDeviceIntroVC.isFromAddAnother  = true
+            self.navigationController?.popToViewController(addDeviceIntroVC, animated: false)
+        } else {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step2
         addDeviceIntroVC.isFromAddAnother  = true
         pushVC(controller: addDeviceIntroVC)
+        }
     }
     /*
      // MARK: - Navigation

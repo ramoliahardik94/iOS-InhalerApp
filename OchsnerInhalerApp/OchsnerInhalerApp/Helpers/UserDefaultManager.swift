@@ -59,9 +59,9 @@ class UserDefaultManager {
         }
     }
     
-    static var addDevice: [CBPeripheral] {
+    static var addDevice: [String] {
         get {
-            return self.get(forKey: .addDevice) as! [CBPeripheral]
+            return self.get(forKey: .addDevice) as? [String] ?? [String]()
         }
         set(newValue) {
             self.set(newValue as AnyObject?, forKey: .addDevice)
