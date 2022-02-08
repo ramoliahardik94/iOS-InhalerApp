@@ -12,6 +12,7 @@ import CoreBluetooth
 extension BLEHelper {
     
     func scanPeripheral() {
+        stopTimer()
         timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
         // TODO:  Replace hear Service array make a param if needed then
         centralManager.scanForPeripherals(withServices: nil, options: nil)
@@ -23,11 +24,14 @@ extension BLEHelper {
             centralManager.connect(discoveredPeripheral!, options: nil)
         }
     }
-    
+    func stopTimer() {
+      if timer != nil {
+        timer!.invalidate()
+        timer = nil
+      }
+    }
     @objc func didFinishScan() {
-        if discoveredPeripheral == nil {
             NotificationCenter.default.post(name: .BLENotFound, object: nil)
-        }
         self.stopScanPeriphral()
     }
     

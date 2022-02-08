@@ -69,8 +69,8 @@ extension BLEHelper: CBCentralManagerDelegate {
             if name.lowercased() == "ochsner inhaler tracker" {
                 discoveredPeripheral = peripheral
                 stopScanPeriphral()
-                peripheral.delegate = self                
-                timer.invalidate()
+                peripheral.delegate = self     
+                stopTimer()
                 NotificationCenter.default.post(name: .BLEFound, object: nil)                
             }
         }

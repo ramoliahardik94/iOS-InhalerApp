@@ -35,9 +35,9 @@ class BluetoothPermissionVC: BaseVC {
     // MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
         BLEHelper.shared.setDelegate()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
             BLEHelper.shared.isAllowed { isAllow in
-                
                 debugPrint("isAllow  \(isAllow)")
                 if isAllow {
                     UserDefaultManager.isGrantBLE = true

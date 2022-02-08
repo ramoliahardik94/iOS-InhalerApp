@@ -144,6 +144,7 @@ struct StringMedication {
     static let done = "Done"
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
     static let addDose = "Add another daily dose."
+    static let addFirstDose = "Add daily dose."
 }
 // MARK: Permissions
 struct StringPermissions {
