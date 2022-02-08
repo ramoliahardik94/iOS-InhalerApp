@@ -82,7 +82,7 @@ class LocationManager: CLLocationManager {
     }
     
     @objc func applicationDidBecomeActive() {
-        
+        NotificationCenter.default.removeObserver(self)
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             permissionCompletion?(.authorizedWhenInUse)
