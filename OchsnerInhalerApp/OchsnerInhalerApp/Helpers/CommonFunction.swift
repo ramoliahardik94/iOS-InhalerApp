@@ -50,8 +50,7 @@ open class CommonFunctions {
         alert.addAction(UIAlertAction(title: okTitle, style: .default, handler: {_ in
             completion(true)
             if isOpenBluetooth {
-                let url = URL(string: "App-Prefs:root=General")
-                UIApplication.shared.open(url!)
+                openBluetooth()
             } else {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }
@@ -79,6 +78,14 @@ open class CommonFunctions {
             let app = UIApplication.shared
             app.open(url)
         }
+    
+        
+        func redirectBluetoothAppSetting() {
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            let app = UIApplication.shared
+            app.open(url)
+        }
+
 }
 
 extension TimeZone {

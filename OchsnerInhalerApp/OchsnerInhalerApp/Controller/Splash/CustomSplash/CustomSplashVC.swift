@@ -50,14 +50,14 @@ class CustomSplashVC: BaseVC {
                 if isAllow {
                     let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
-                } else {
-                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
-                        if action ?? true {
-                            CommonFunctions.openBluetooth()
-                        }
-                    }
-                    )
-                }
+                } // else {
+//                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
+//                        if action ?? true {
+//                            CommonFunctions.openBluetooth()
+//                        }
+//                    }
+//                    )
+//                }
             }
             
         } else {
