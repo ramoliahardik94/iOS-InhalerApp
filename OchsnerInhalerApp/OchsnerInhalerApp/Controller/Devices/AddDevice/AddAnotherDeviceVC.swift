@@ -27,19 +27,29 @@ class AddAnotherDeviceVC: BaseVC {
         
         btnGoHome.setButtonView(StringAddDevice.goHome)
         btnAddAnotherDevice.setButtonView(StringAddDevice.addAnotherDeviceBtn)
+        btnAddAnotherDevice.isHidden = true
     }
     
     @IBAction func btnGohomeClick(_ sender: Any) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-        pushVC(controller: homeTabBar)
+//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+//        pushVC(controller: homeTabBar)
+        let vc1 = TemporaryDashbord()
+        self.pushVC(controller: vc1)
     }
     
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {
+        
+        if let addDeviceIntroVC = self.navigationController?.viewControllers.first(where: {$0 is AddDeviceIntroVC})  as? AddDeviceIntroVC {
+            addDeviceIntroVC.step = .step1
+            addDeviceIntroVC.isFromAddAnother  = true
+            self.navigationController?.popToViewController(addDeviceIntroVC, animated: false)
+        } else {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        addDeviceIntroVC.step = .step2
+        addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true
         pushVC(controller: addDeviceIntroVC)
+        }
     }
     /*
      // MARK: - Navigation

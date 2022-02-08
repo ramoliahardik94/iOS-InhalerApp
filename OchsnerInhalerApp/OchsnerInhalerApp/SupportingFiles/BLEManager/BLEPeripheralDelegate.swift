@@ -43,23 +43,28 @@ extension BLEHelper: CBPeripheralDelegate {
             return
         }
         
-        guard let characteristicData = characteristic.value,
-              let stringFromData = String(data: characteristicData, encoding: .utf8) else { return }
-        print(characteristic)
-        var arrResponce = stringFromData.split(separator: " ")
-        arrResponce.remove(at: 0)// StartByte
-        let str = "\(arrResponce[0])\(arrResponce[1])"
-        if str == "0155"{
-            setRTCTime()
-        } else if str == "0255" {
-        let bettery = stringFromData.getBeteryLevel()
-            print("Bettery : \(bettery)")
-        } else if str == "0355" {
-            let numberofLog = stringFromData.getNumberofAccuationLog()
-            print("Number Of Acuation log : \(numberofLog)")
-        } else if str == "0455" {
-            let log = stringFromData.getAcuationLog()
-            print("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
+        guard
+            let stringFromData = characteristic.value?.hexEncodedString() else { return }
+        
+        if characteristic.uuid == TransferService.macCharecteristic {
+            addressMAC = stringFromData
+            NotificationCenter.default.post(name: .BLEGetMac, object: nil)
+        } else {
+            var arrResponce = stringFromData.split(separator: " ")
+            arrResponce.remove(at: 0)// StartByte
+            let str = "\(arrResponce[0])\(arrResponce[1])"
+            if str == "0155"{
+                setRTCTime()
+            } else if str == "0255" {
+                let bettery = stringFromData.getBeteryLevel()
+                print("Bettery : \(bettery)")
+            } else if str == "0355" {
+                let numberofLog = stringFromData.getNumberofAccuationLog()
+                print("Number Of Acuation log : \(numberofLog)")
+            } else if str == "0455" {
+                let log = stringFromData.getAcuationLog()
+                print("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
+            }
         }
     }
     
@@ -105,10 +110,15 @@ extension BLEHelper {
         }
         
         guard let peripheralServices = peripheral.services else { return }
-        for service in peripheralServices {
-            peripheral.discoverCharacteristics([TransferService.macCharecteristic, TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
-            
+        
+        for service in peripheralServices where service.uuid == TransferService.otaServiceUUID {
+            peripheral.discoverCharacteristics([TransferService.macCharecteristic], for: service)
         }
+//
+//        for service in peripheralServices {
+//            peripheral.discoverCharacteristics([TransferService.macCharecteristic, TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
+//
+//        }
     }
     
     /*
@@ -129,12 +139,7 @@ extension BLEHelper {
             return }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
-            // If it is, subscribe to it
-            guard let characteristicData = characteristic.value,
-                  let stringFromData = String(data: characteristicData, encoding: .utf8) else { return }
-            print("MAC: \(stringFromData)")
-            macCharecteristic = characteristic
-            addressMAC = stringFromData
+           macCharecteristic = characteristic
         }
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
            
@@ -153,4 +158,15 @@ extension BLEHelper {
         // Once this is complete, we just need to wait for the data to come in.
     }
     
+}
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX:" : "%02hhx:"
+        return self.map { String(format: format, $0) }.joined()
+    }
 }

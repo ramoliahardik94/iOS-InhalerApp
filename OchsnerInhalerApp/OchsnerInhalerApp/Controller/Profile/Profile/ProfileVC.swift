@@ -73,20 +73,12 @@ class ProfileVC: BaseVC {
     }
     @IBAction func tapLogout(_ sender: Any) {
         
-        let alert = UIAlertController(title: "", message: "Are you sure you want to logout?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { _ in
-            
-            alert.dismiss(animated: true, completion: {
+        CommonFunctions.showMessageYesNo(message: StringProfile.sureLogout, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.logOut) { isOk in
+            if isOk ?? false {
                 self.setRootLogin()
-            })
-          
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
-            alert.dismiss(animated: true, completion: nil )
-        }))
-        self.present(alert, animated: true)
-        
-  
+            }
+            
+        }
     }
     @IBAction func tapChangeProvider(_ sender: Any) {
         let providerListVC = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)

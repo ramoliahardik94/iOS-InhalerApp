@@ -18,7 +18,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             isAllow = true
         case .poweredOff:
             isAllow = false
-            CommonFunctions.showMessagePermission(message: "Need to use Bluetooth for connection.", cancelTitle: "Cancel", okTitle: "Setting", isOpenBluetooth: true)
+            CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
             // In a real app, you'd deal with all the states accordingly
             return
         case .resetting:
@@ -30,7 +30,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 switch CBManager.authorization {
                 case .denied:
                     isAllow = false
-                    CommonFunctions.showMessagePermission(message: "Need Bluetooth permission for connect inhaler device", cancelTitle: "Cancel", okTitle: "Setting", isOpenBluetooth: false) { _ in
+                    CommonFunctions.showMessagePermission(message: StringPermissions.blePermissionMsg, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: false) { _ in
                       }
                 case .restricted:
                     isAllow = false
@@ -67,11 +67,17 @@ extension BLEHelper: CBCentralManagerDelegate {
         // Device is in range - have we already seen it?
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
-                discoveredPeripheral = peripheral
-                stopScanPeriphral()
-                peripheral.delegate = self                
-                timer.invalidate()
-                NotificationCenter.default.post(name: .BLEFound, object: nil)                
+                if UserDefaultManager.addDevice.contains(where: {$0 == peripheral.identifier.uuidString}) {
+                    discoveredPeripheral = peripheral
+                    stopScanPeriphral()
+                    stopTimer()
+                    connectPeriPheral()
+                } else {
+                    discoveredPeripheral = peripheral
+                    stopScanPeriphral()
+                    stopTimer()                   
+                    NotificationCenter.default.post(name: .BLEFound, object: nil)
+                }
             }
         }
     }

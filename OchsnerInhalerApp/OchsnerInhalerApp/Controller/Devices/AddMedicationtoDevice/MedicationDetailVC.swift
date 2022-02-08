@@ -28,7 +28,7 @@ class MedicationDetailVC: BaseVC {
     
     let timePicker = UIDatePicker()
     var index = 0
-    var arrTime = ["8:30 am", "6:30 pm"]
+    var arrTime: [String] = [String]()
     
     let myPicker: NMDatePicker = {
         let obj = NMDatePicker()
@@ -106,6 +106,7 @@ class MedicationDetailVC: BaseVC {
         btnAddDose.clipsToBounds = true
         
         lblAddDose.font = UIFont(name: AppFont.AppRegularFont, size: 17)
+        lblAddDose.text =  arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
         lblAddDose.textColor = .BlueText
         self.setDatePicker()
         
@@ -122,6 +123,9 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnDoneClick(_ sender: UIButton) {
         // let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         // pushVC(vc: vc)
+        medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+        UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
+        UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
         let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         self.pushVC(controller: connectProviderVC)
     }
@@ -146,6 +150,7 @@ class MedicationDetailVC: BaseVC {
         let dosetime =  dateFormatter.string(from: Date())
         arrTime.append(dosetime)
         tblDoseTime.reloadData()
+        lblAddDose.text =  arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
     }
     
     @IBAction func btnEditDose(_ sender: UIButton) {
@@ -156,6 +161,7 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnRemoveDoseTimeClick(_ sender: UIButton) {
         arrTime.remove(at: sender.tag)
         tblDoseTime.reloadData()
+        lblAddDose.text =  arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
     }
     
     @IBAction func tapNoOfDose(_ sender: UIButton) {

@@ -19,6 +19,7 @@ enum UserDefaultKey: String {
     case isNotificationOn
     case deviceToken
     case addDevice
+    case selectedMedi
 }
 
 class UserDefaultManager {
@@ -58,10 +59,18 @@ class UserDefaultManager {
             self.set(newValue as AnyObject?, forKey: .longitude)
         }
     }
-    
-    static var addDevice: [CBPeripheral] {
+    static var selectedMedi: [String: Any] {
         get {
-            return self.get(forKey: .addDevice) as! [CBPeripheral]
+            return self.get(forKey: .selectedMedi ) as? [String: Any] ?? [String: Any]()
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .selectedMedi)
+        }
+    }
+    
+    static var addDevice: [String] {
+        get {
+            return self.get(forKey: .addDevice) as? [String] ?? [String]()
         }
         set(newValue) {
             self.set(newValue as AnyObject?, forKey: .addDevice)

@@ -9,6 +9,7 @@ import UIKit
 
 class AddDeviceIntroVC: BaseVC {
 
+    @IBOutlet weak var imgRight: NSLayoutConstraint!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var tblScanList: UITableView!
     @IBOutlet weak var viewHeader: UIView!
@@ -22,17 +23,23 @@ class AddDeviceIntroVC: BaseVC {
     @IBOutlet weak var paringLoader: UIActivityIndicatorView!
     var step: AddDeviceSteps = .step1
     var isFromAddAnother = false
-    override func viewDidLoad() {
+    
+    
+     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.setVC()
-
     }
     
     func setUpUIBaseonStep() {
         paringLoader.isHidden = true
         switch step {
         case .step1:
+            imgRight.constant = -20
             lblAddDevice.isHidden  = false
             lblGreat.text = StringAddDevice.great
             imgAddDevice.image = #imageLiteral(resourceName: "Inhaler Graphic")
@@ -59,7 +66,6 @@ class AddDeviceIntroVC: BaseVC {
             btnStartSetUp.isEnabled = false
             
             btnStartSetUp.backgroundColor = .gray
-            
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerFound(notification:)), name: .BLEFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotFound(notification:)), name: .BLENotFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
@@ -117,22 +123,23 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.backgroundColor = .gray
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
-        CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: "TryAgain") {_ in
+        CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: "TryAgain") { [weak self] _ in
             BLEHelper.shared.connectPeriPheral()
-            self.paringLoader.isHidden = false
-            self.paringLoader.startAnimating()
-            self.btnStartSetUp.isEnabled = false
-            self.btnStartSetUp.backgroundColor = .gray
+            guard let weakSelf = self else { return }
+            weakSelf.paringLoader.isHidden = false
+            weakSelf.paringLoader.startAnimating()
+            weakSelf.btnStartSetUp.isEnabled = false
+            weakSelf.btnStartSetUp.backgroundColor = .gray
         }
     }
     @objc func inhalerNotFound(notification: Notification) {
         btnStartSetUp.isEnabled = false
-        
         btnStartSetUp.backgroundColor = .gray
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
-        CommonFunctions.showMessage(message: ValidationMsg.bleNotfound, titleOk: "TryAgain") {_ in
-            self.scanBLE()
+        CommonFunctions.showMessage(message: ValidationMsg.bleNotfound, titleOk: "TryAgain") { [weak self] _ in
+            guard let weakSelf = self else { return }
+            weakSelf.scanBLE()
         }
     }
     
@@ -188,5 +195,14 @@ class AddDeviceIntroVC: BaseVC {
         addDeviceIntroVC.step = .step4
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
         pushVC(controller: addDeviceIntroVC)
+    }
+    
+    deinit {
+        BLEHelper.shared.stopTimer()
+        NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLEDisconnect, object: nil)
     }
 }

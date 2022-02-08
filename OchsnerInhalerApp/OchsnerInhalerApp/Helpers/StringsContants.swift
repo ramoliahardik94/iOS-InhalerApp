@@ -12,6 +12,7 @@ extension Notification.Name {
     static let BLEConnect = Notification.Name("BLEConnect")
     static let BLENotConnect = Notification.Name("BLENotConnect")
     static let BLEDisconnect = Notification.Name("BLEDisconnect")
+    static let BLEGetMac = Notification.Name("BLEGetMac")
 }
 
 // MARK: Common Message
@@ -23,6 +24,8 @@ struct StringCommonMessages {
      static let share = "Share"
      static let copyRight = "©2022 Ochsner Health"
      static let connected = "Connected"
+     static let connecting = "Connecting"
+     static let disconnect = "Disconnected"
      static let battery = "Battery:"
 
 }
@@ -95,7 +98,7 @@ struct StringProfile {
     static let  shareLocation = "Share Location"
     static let  shareUsageWithProvider = "Share Usage With Provider"
     static let  useFaceID = "Use FaceID"
-    
+    static let  sureLogout = "Are you sure you want to logout?"
 }
 
 // MARK: Providers
@@ -125,7 +128,7 @@ struct StringAddDevice {
     static let mountDevice = "Mount Device to Your Inhaler"
     static let mountDeviceInfo = "Once paired to mobile phone, slip device over top of a compatible inhaler tank and press firmly into place."
     static let medication = "Now, let us know what inhaler medication you will use with this sensor."
-    static let medicationInfo = "Your Connected Inhaler Sensor tracks usage of the medication in your inhaler, so we’ll need to associate it with a current perscription."
+    static let medicationInfo = "Your Connected Inhaler Sensor tracks usage of the medication in your inhaler, so we’ll need to associate it with a current prescription."
     static let selectMedication = "Select Medication"
     static let addAnotherDevice = "Would You Like to Add Another Device?"
     static let goHome = "All Set, Take Me To My Home Screen"
@@ -144,6 +147,7 @@ struct StringMedication {
     static let done = "Done"
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
     static let addDose = "Add another daily dose."
+    static let addFirstDose = "Add daily dose."
 }
 // MARK: Permissions
 struct StringPermissions {
@@ -158,8 +162,9 @@ struct StringPermissions {
     static let privacyPolicy = "Privacy Policy"
     static let shareYourInhaler = "Share your inhaler usage information with Ochsner."
     static let blePermissionMsg = "Bluetooth permissions are required to access the Inhaler sensor device."
-    
+    static let turnOn = "Ochsner Inhaler Connect need to turn on Bluetooth."
 
+    
 }
 
 
@@ -175,8 +180,7 @@ struct StringDevices {
 
 // MARK: Splash
 struct StringSplash {
-    static let connectdInhalerSensor = "Connectd\nInhaler Sensor "
-    
+    static let connectdInhalerSensor = "Connected\nInhaler Sensor"
 }
 // MARK: Home screen
 struct StringHome {
