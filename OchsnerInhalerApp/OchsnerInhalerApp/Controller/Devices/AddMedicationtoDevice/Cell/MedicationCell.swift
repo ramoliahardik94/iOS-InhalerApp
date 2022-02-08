@@ -26,6 +26,7 @@ class MedicationCell: UITableViewCell {
     func setMedicationDetailes(medication: MedicationModelElement) {
         lblNDCCode.text = "NDC Code: \(medication.ndc!)"
             lblModicationName.text = medication.medName
+        btnMedication.isSelected = medication.isSelected
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

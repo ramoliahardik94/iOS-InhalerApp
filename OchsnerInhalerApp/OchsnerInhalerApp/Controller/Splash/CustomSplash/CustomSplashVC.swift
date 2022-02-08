@@ -32,7 +32,6 @@ class CustomSplashVC: BaseVC {
     }
     
     @objc func didFinishTimer() {
-      // _ = BLEHelper.shared.setRTCTime()
         if UserDefaultManager.isLogin {
             if !UserDefaultManager.isGrantBLE {
                 let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)

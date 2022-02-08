@@ -68,6 +68,7 @@ class MedicationVC: BaseVC {
             } else {
                 let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                 medicationDetailVC.index = 0
+                medicationDetailVC.medicationVM = medicationVM
                 pushVC(controller: medicationDetailVC)
             }
         } else {
@@ -95,14 +96,16 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedIndex = indexPath.row
-        for item in 0...3 {
-            let cell = tableView.cellForRow(at: IndexPath(row: item, section: 0)) as? MedicationCell
-            cell!.btnMedication.isSelected = false
+        
+         let befor = medicationVM.medication.firstIndex(where: {$0.isSelected == true})
+        
+        if befor != nil {
+            medicationVM.medication[befor!].isSelected = false
+            tblMedication.reloadRows(at: [IndexPath(row: befor!, section: 0)], with: .none)
         }
-        
-        let cell = tableView.cellForRow(at: indexPath) as? MedicationCell
-        cell?.btnMedication.isSelected = true
-        
+        medicationVM.medication[indexPath.row].isSelected = true
+        tblMedication.reloadRows(at: [indexPath], with: .none)
+        medicationVM.selectedMedication = medicationVM.medication[indexPath.row]
     }
     
 }

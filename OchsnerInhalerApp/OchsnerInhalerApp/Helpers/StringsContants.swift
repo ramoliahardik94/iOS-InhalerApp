@@ -11,6 +11,7 @@ extension Notification.Name {
     static let BLENotFound = Notification.Name("BLENotFound")
     static let BLEConnect = Notification.Name("BLEConnect")
     static let BLENotConnect = Notification.Name("BLENotConnect")
+    static let BLEDisconnect = Notification.Name("BLEDisconnect")
 }
 
 // MARK: Common Message
@@ -119,7 +120,7 @@ struct StringAddDevice {
     static let removeIsolationTaginfo = "Remove and discard the yellow tag to activate your device."
     static let next = "Next"
     static let connectDevice = "Connect Device to Your Phone"
-    static let connectDeviceInfo = "1. Make sure that Bluetooth is turned “on” in settings.\n\n 2. Click the “Pair Device” button below.\n \n3. Press the top of the device until pairing is confirmed."
+    static let connectDeviceInfo = "1. Make sure that Bluetooth is turned “on” in settings.\n\n 2. To initiate device pairing mode, Press the top of the device three times within five seconds period.\n \n3. Click the \"Pair Device\" button below."
     static let pareDevice = "Pair Device"
     static let mountDevice = "Mount Device to Your Inhaler"
     static let mountDeviceInfo = "Once paired to mobile phone, slip device over top of a compatible inhaler tank and press firmly into place."

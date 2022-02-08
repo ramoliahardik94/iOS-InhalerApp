@@ -13,7 +13,7 @@ class MedicationModelElement: NSObject {
     var medID: Int?
     var medName: String?
     var ndc: String?
-    
+    var isSelected: Bool = false
     override init () {
         
         self.medID = 0

@@ -23,6 +23,9 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var lblPuffTitle: UILabel!
     @IBOutlet weak var tblDoseTime: UITableView!
     @IBOutlet weak var btnPuff: UIButton!
+    
+    var medicationVM = MedicationVM()
+    
     let timePicker = UIDatePicker()
     var index = 0
     var arrTime = ["8:30 am", "6:30 pm"]
@@ -106,20 +109,9 @@ class MedicationDetailVC: BaseVC {
         lblAddDose.textColor = .BlueText
         self.setDatePicker()
         
-        switch index {
-        case 0:
-            lblNDCCode.text = "NCD Code: 59310-579-22"
-            lblMedicationName.text = "ProAir"
-        case 1:
-            lblNDCCode.text = "NDC Code: 0093-3174-31"
-            lblMedicationName.text = "Teva (ProAir Generic) "
-        case 2:
-            lblNDCCode.text = "NCD Code: 0173-0682-20"
-            lblMedicationName.text = "Ventolin"
-        default:
-            lblNDCCode.text = "NDC Code: 66993-019-68"
-            lblMedicationName.text = "Prasco (Ventolin Generic)"
-        }
+        lblNDCCode.text = "NDC Code: \(medicationVM.selectedMedication.ndc ?? "")"
+        lblMedicationName.text = medicationVM.selectedMedication.medName
+       
         
     }
     
