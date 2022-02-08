@@ -19,6 +19,7 @@ enum UserDefaultKey: String {
     case isNotificationOn
     case deviceToken
     case addDevice
+    case selectedMedi
 }
 
 class UserDefaultManager {
@@ -56,6 +57,14 @@ class UserDefaultManager {
         }
         set(newValue) {
             self.set(newValue as AnyObject?, forKey: .longitude)
+        }
+    }
+    static var selectedMedi: [String: Any] {
+        get {
+            return self.get(forKey: .selectedMedi ) as? [String: Any] ?? [String: Any]()
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .selectedMedi)
         }
     }
     

@@ -198,6 +198,7 @@ class AddDeviceIntroVC: BaseVC {
     }
     
     deinit {
+        BLEHelper.shared.stopTimer()
         NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)

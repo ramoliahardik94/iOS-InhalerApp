@@ -14,6 +14,7 @@ class MedicationModelElement: NSObject {
     var medName: String?
     var ndc: String?
     var isSelected: Bool = false
+    var uuid: String = ""
     override init () {
         
         self.medID = 0
@@ -31,6 +32,9 @@ class MedicationModelElement: NSObject {
         if let value = jSon["NDC"] as? String {
             self.ndc = value
         }
+        if let value = jSon["UUID"] as? String {
+            self.uuid = value
+        }
     }
     
     
@@ -39,6 +43,7 @@ class MedicationModelElement: NSObject {
         dic["MedId"] = self.medID
         dic["MedName"] = self.medName
         dic["NDC"] = self.ndc
+        dic["UUID"] = self.uuid
         return dic
     }
 }

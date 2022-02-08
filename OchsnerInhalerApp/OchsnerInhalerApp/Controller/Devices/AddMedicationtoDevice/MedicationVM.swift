@@ -10,6 +10,7 @@ import Foundation
 class MedicationVM {
     var medication = [MedicationModelElement]()
     var selectedMedication: MedicationModelElement!
+
     func apiGetMedicationLis(completionHandler: @escaping ((APIResult) -> Void)) {
         
         APIManager.shared.performRequest(route: APIRouter.medication.path, parameters: [String: Any](), method: .get) { error, response in

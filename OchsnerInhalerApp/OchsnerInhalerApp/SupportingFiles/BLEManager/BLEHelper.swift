@@ -17,7 +17,7 @@ class BLEHelper: NSObject {
     var charectristicWrite: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
-    var addressMAC: String = ""
+    var addressMAC: String = "N/A"
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
     var timer: Timer!
@@ -64,7 +64,7 @@ class BLEHelper: NSObject {
         }
     }
     func getmacAddress() {
-        if discoveredPeripheral != nil {
+        if discoveredPeripheral != nil && macCharecteristic != nil {
             discoveredPeripheral?.readValue(for: macCharecteristic!)
         }
     }

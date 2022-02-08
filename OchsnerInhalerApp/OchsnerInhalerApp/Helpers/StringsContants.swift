@@ -12,6 +12,7 @@ extension Notification.Name {
     static let BLEConnect = Notification.Name("BLEConnect")
     static let BLENotConnect = Notification.Name("BLENotConnect")
     static let BLEDisconnect = Notification.Name("BLEDisconnect")
+    static let BLEGetMac = Notification.Name("BLEGetMac")
 }
 
 // MARK: Common Message
@@ -23,6 +24,8 @@ struct StringCommonMessages {
      static let share = "Share"
      static let copyRight = "©2022 Ochsner Health"
      static let connected = "Connected"
+     static let connecting = "Connecting"
+     static let disconnect = "Disconnected"
      static let battery = "Battery:"
 
 }

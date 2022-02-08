@@ -67,12 +67,17 @@ extension BLEHelper: CBCentralManagerDelegate {
         // Device is in range - have we already seen it?
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
-                discoveredPeripheral = peripheral
-                stopScanPeriphral()
-                peripheral.delegate = self     
-                stopTimer()
-                UserDefaultManager.addDevice.append(peripheral.identifier.uuidString)
-                NotificationCenter.default.post(name: .BLEFound, object: nil)                
+                if UserDefaultManager.addDevice.contains(where: {$0 == peripheral.identifier.uuidString}) {
+                    discoveredPeripheral = peripheral
+                    stopScanPeriphral()
+                    stopTimer()
+                    connectPeriPheral()
+                } else {
+                    discoveredPeripheral = peripheral
+                    stopScanPeriphral()
+                    stopTimer()                   
+                    NotificationCenter.default.post(name: .BLEFound, object: nil)
+                }
             }
         }
     }

@@ -123,6 +123,9 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnDoneClick(_ sender: UIButton) {
         // let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         // pushVC(vc: vc)
+        medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+        UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
+        UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
         let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         self.pushVC(controller: connectProviderVC)
     }

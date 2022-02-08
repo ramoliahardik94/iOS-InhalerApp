@@ -48,8 +48,14 @@ class CustomSplashVC: BaseVC {
             }
             BLEHelper.shared.isAllowed { isAllow in
                 if isAllow {
+                    if UserDefaultManager.addDevice.count == 0 {
                     let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
+                    } else {
+                        BLEHelper.shared.scanPeripheral()
+                        let vc1 = TemporaryDashbord()
+                        self.pushVC(controller: vc1)
+                    }
                 } else {
                     CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
                         if action ?? true {
