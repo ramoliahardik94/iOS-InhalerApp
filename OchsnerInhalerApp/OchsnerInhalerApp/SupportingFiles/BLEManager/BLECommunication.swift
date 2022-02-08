@@ -18,10 +18,8 @@ extension BLEHelper {
     }
     
     func connectPeriPheral() {
+        print(discoveredPeripheral!)
         if discoveredPeripheral != nil {
-            if discoveredPeripheral!.state == .connected {
-                centralManager.cancelPeripheralConnection(discoveredPeripheral!)
-            }
             centralManager.connect(discoveredPeripheral!, options: nil)
         }
     }

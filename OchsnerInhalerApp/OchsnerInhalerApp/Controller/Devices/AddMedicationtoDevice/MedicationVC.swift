@@ -68,6 +68,7 @@ class MedicationVC: BaseVC {
             } else {
                 let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                 medicationDetailVC.index = 0
+                medicationDetailVC.medicationVM = medicationVM
                 pushVC(controller: medicationDetailVC)
             }
         } else {
@@ -104,6 +105,7 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
         }
         medicationVM.medication[indexPath.row].isSelected = true
         tblMedication.reloadRows(at: [indexPath], with: .none)
+        medicationVM.selectedMedication = medicationVM.medication[indexPath.row]
     }
     
 }

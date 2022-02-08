@@ -35,7 +35,7 @@ class AddDeviceIntroVC: BaseVC {
         case .step1:
             lblAddDevice.isHidden  = false
             lblGreat.text = StringAddDevice.great
-            imgAddDevice.image = #imageLiteral(resourceName: "inhealer")
+            imgAddDevice.image = #imageLiteral(resourceName: "Inhaler Graphic")
             lblAddDevice.text = StringAddDevice.addDevice
             let attributedString = attributedText(withString: StringAddDevice.addDeviceInto, boldString: StringAddDevice.ConnectedInhalerSensor, font: UIFont(name: AppFont.AppRegularFont, size: 17)!)
             lbldeviceInfo.attributedText = attributedString
@@ -64,6 +64,7 @@ class AddDeviceIntroVC: BaseVC {
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotFound(notification:)), name: .BLENotFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLENotConnect, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
             
             scanBLE()
             
@@ -116,13 +117,12 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.backgroundColor = .gray
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
-        CommonFunctions.showMessageYesNo(message: ValidationMsg.bleNotPair, cancelTitle: "Cancel", okTitle: "TryAgain") { isTryAgain in
-            if isTryAgain! {
-                self.scanBLE()
-            } else {
-                // TODO: After testing remove this code
-                NotificationCenter.default.post(name: .BLEConnect, object: nil)
-            }
+        CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: "TryAgain") {_ in
+            BLEHelper.shared.connectPeriPheral()
+            self.paringLoader.isHidden = false
+            self.paringLoader.startAnimating()
+            self.btnStartSetUp.isEnabled = false
+            self.btnStartSetUp.backgroundColor = .gray
         }
     }
     @objc func inhalerNotFound(notification: Notification) {
@@ -131,13 +131,8 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.backgroundColor = .gray
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
-        CommonFunctions.showMessageYesNo(message: ValidationMsg.bleNotfound, cancelTitle: "Cancel", okTitle: "TryAgain") { isTryAgain in
-            if isTryAgain! {
-                self.scanBLE()
-            } else {
-                // TODO: After testing remove this code
-                NotificationCenter.default.post(name: .BLEConnect, object: nil)
-            }
+        CommonFunctions.showMessage(message: ValidationMsg.bleNotfound, titleOk: "TryAgain") {_ in
+            self.scanBLE()
         }
     }
     

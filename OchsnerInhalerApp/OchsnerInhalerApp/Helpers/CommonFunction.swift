@@ -14,10 +14,10 @@ open class CommonFunctions {
     
     // MARK: - Alert
     
-    public class func showMessage(message: String, _ completion: @escaping ((Bool?) -> Void ) = {_ in }) {
+    public class func showMessage(message: String, titleOk : String = "Ok", _ completion: @escaping ((Bool?) -> Void ) = {_ in }) { 
         let alert = UIAlertController(title: (""), message: message, preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+        alert.addAction(UIAlertAction(title: titleOk, style: .default, handler: {_ in
             completion(true)
         }))
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)

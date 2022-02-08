@@ -6,8 +6,6 @@
 //
 
 import Foundation
-// MARK: - Step:1 import CoreBluetooth Library
-// MARK: - Step:2 add NSBluetoothAlwaysUsageDescription for Bluetooth permition
 import CoreBluetooth
 
 class BLEHelper: NSObject {
@@ -18,13 +16,13 @@ class BLEHelper: NSObject {
     var discoveredPeripheral: CBPeripheral?
     var charectristicWrite: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
+    var macCharecteristic: CBCharacteristic?
     var addressMAC: String = ""
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
     var timer: Timer!
     
     func setDelegate() {
-        // MARK: Step:3 Create object of CBCentralManager
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
     }
     
@@ -32,7 +30,6 @@ class BLEHelper: NSObject {
     // MARK: Function declarations
     // / This function is used for starScan of peripheral base on service(CBUUID) UUID
     // /
-    // MARK: Step 5: Scan near by peripherals
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
         completion(isAllow)
@@ -48,7 +45,6 @@ class BLEHelper: NSObject {
         if discoveredPeripheral != nil && charectristicWrite != nil {
             discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
-        print(haxRTC)
     }
     func getBetteryLevel() {
         if discoveredPeripheral != nil && charectristicWrite != nil {
@@ -67,6 +63,11 @@ class BLEHelper: NSObject {
             discoveredPeripheral?.writeValue(TransferService.requestGetAcuationLog.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
     }
+    func getmacAddress() {
+        if discoveredPeripheral != nil {
+            discoveredPeripheral?.readValue(for: macCharecteristic!)
+        }
+    }
 }
 
 
@@ -80,9 +81,7 @@ extension String {
         _ =  UInt8(arrResponce[0], radix: 16) // payloadLenth
         arrResponce.remove(at: 0)
         let strCount = arrResponce.joined(separator: "")
-        print(strCount)
         let logCount =  UInt16(strCount, radix: 16)!
-        print(logCount)
         return Decimal(logCount)
     }
     
@@ -94,7 +93,6 @@ extension String {
         _ =  UInt8(arrResponce[0], radix: 16) // payloadLenth
         arrResponce.remove(at: 0)// PlayLoad Lenth
         let betteryLevel =  UInt8(arrResponce[0], radix: 16)!
-        print(betteryLevel)
         return Decimal(betteryLevel)
     }
     func getAcuationLog() ->  (id: Decimal, date: String, uselength: Decimal) {

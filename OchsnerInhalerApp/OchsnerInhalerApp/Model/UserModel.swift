@@ -47,7 +47,7 @@ class UserModel: NSObject {
         var dic = [String: Any]()
         dic["FirstName"] = self.firstName
         dic["LastName"] = self.lastName
-        dic["Email"] = self.email
+        dic["EmailAddress"] = self.email
         dic["Password"] = self.password
         return dic
     }

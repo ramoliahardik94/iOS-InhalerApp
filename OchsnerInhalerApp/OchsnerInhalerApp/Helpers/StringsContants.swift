@@ -11,6 +11,7 @@ extension Notification.Name {
     static let BLENotFound = Notification.Name("BLENotFound")
     static let BLEConnect = Notification.Name("BLEConnect")
     static let BLENotConnect = Notification.Name("BLENotConnect")
+    static let BLEDisconnect = Notification.Name("BLEDisconnect")
 }
 
 // MARK: Common Message
