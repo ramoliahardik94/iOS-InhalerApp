@@ -51,19 +51,22 @@ class CustomSplashVC: BaseVC {
                     if UserDefaultManager.addDevice.count == 0 {
                     let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
+
                     } else {
                         BLEHelper.shared.scanPeripheral()
                         let vc1 = TemporaryDashbord()
                         self.pushVC(controller: vc1)
                     }
-                } else {
-                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
-                        if action ?? true {
-                            CommonFunctions.openBluetooth()
-                        }
-                    }
-                    )
                 }
+               // } else {
+//                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
+//                        if action ?? true {
+//                            CommonFunctions.openBluetooth()
+//                        }
+//                    }
+//                    )
+//                }
+
             }
             
         } else {
@@ -71,9 +74,6 @@ class CustomSplashVC: BaseVC {
             // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
              pushVC(controller: loginVC)
         }
-        
-     
-       
     }
     
     deinit {
