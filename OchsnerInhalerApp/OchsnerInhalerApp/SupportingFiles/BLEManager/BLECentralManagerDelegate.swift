@@ -71,6 +71,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 stopScanPeriphral()
                 peripheral.delegate = self     
                 stopTimer()
+                UserDefaultManager.addDevice.append(peripheral.identifier.uuidString)
                 NotificationCenter.default.post(name: .BLEFound, object: nil)                
             }
         }
