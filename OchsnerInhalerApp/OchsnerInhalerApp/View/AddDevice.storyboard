@@ -267,6 +267,7 @@
                         <outlet property="lblAddDevice" destination="eYw-aY-uvS" id="L5U-CI-cTe"/>
                         <outlet property="lblGreat" destination="lr4-eo-xxm" id="L7o-bU-oja"/>
                         <outlet property="lblHeader" destination="0sI-Au-FFb" id="gLC-Ds-fOd"/>
+                        <outlet property="lblTitleleft" destination="d4K-rl-eGg" id="0Ue-Ew-PF3"/>
                         <outlet property="lbldeviceInfo" destination="4yC-dF-PjP" id="c8U-BP-34A"/>
                         <outlet property="paringLoader" destination="tuV-0b-9vO" id="oig-e2-J6g"/>
                         <outlet property="tblScanList" destination="F1I-lv-hrT" id="nsF-It-vce"/>

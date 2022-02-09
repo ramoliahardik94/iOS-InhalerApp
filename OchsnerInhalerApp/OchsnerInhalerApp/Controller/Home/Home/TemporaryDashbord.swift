@@ -80,12 +80,12 @@ extension TemporaryDashbord: UITableViewDelegate, UITableViewDataSource {
         UserDefaultManager.addDevice.removeAll()
         sender.setTitle("Add Device", for: .normal)
         if let addDeviceIntroVC = self.navigationController?.viewControllers.first(where: {$0 is AddDeviceIntroVC})  as? AddDeviceIntroVC {
-            addDeviceIntroVC.step = .step2
+            addDeviceIntroVC.step = .step1
             addDeviceIntroVC.isFromAddAnother  = false
             self.navigationController?.popToViewController(addDeviceIntroVC, animated: false)
         } else {
             let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            addDeviceIntroVC.step = .step2
+            addDeviceIntroVC.step = .step1
             addDeviceIntroVC.isFromAddAnother  = false
             pushVC(controller: addDeviceIntroVC)
             

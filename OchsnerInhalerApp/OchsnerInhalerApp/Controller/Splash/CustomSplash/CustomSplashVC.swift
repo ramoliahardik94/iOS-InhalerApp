@@ -57,6 +57,8 @@ class CustomSplashVC: BaseVC {
                         let vc1 = TemporaryDashbord()
                         self.pushVC(controller: vc1)
                     }
+                } else {
+                    _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
                 }
                // } else {
 //                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in

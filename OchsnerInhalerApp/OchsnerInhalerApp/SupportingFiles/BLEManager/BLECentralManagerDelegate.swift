@@ -16,9 +16,11 @@ extension BLEHelper: CBCentralManagerDelegate {
         case .poweredOn:
             // ... so start working with the peripheral
             isAllow = true
+            NotificationCenter.default.post(name: .BLEChange, object: nil)
         case .poweredOff:
             isAllow = false
-            CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
+            NotificationCenter.default.post(name: .BLEChange, object: nil)
+           // CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
             // In a real app, you'd deal with all the states accordingly
             return
         case .resetting:
@@ -30,10 +32,12 @@ extension BLEHelper: CBCentralManagerDelegate {
                 switch CBManager.authorization {
                 case .denied:
                     isAllow = false
+                    NotificationCenter.default.post(name: .BLEChange, object: nil)
                     CommonFunctions.showMessagePermission(message: StringPermissions.blePermissionMsg, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: false) { _ in
                       }
                 case .restricted:
                     isAllow = false
+                    NotificationCenter.default.post(name: .BLEChange, object: nil)
                 case.notDetermined :
                     _ = CBManager.authorization
                 default:
@@ -54,6 +58,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             // your real device code
             isAllow = false
             #endif
+            NotificationCenter.default.post(name: .BLEChange, object: nil)
             // In a real app, you'd deal with all the states accordingly
             return
         @unknown default:
