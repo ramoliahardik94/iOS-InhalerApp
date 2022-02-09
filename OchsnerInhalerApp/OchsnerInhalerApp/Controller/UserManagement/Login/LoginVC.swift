@@ -51,14 +51,15 @@ class LoginVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
-        
-       // tfEmail.text = "nikita@gmail.com"
-     //   tfPassword.text = "password"
+        #if targetEnvironment(simulator)
+        tfEmail.text = "nikita@gmail.com"
+        tfPassword.text = "password"
+        #endif
     }
     
    
     deinit {
-        debugPrint("deinit LoginVC")
+        Logger.logInfo("deinit LoginVC")
     }
     
     
@@ -68,7 +69,7 @@ class LoginVC: BaseVC {
         login.apiLogin {[weak self] (result) in
             switch result {
             case .success(let status):
-                print("Response sucess :\(status)")
+                Logger.logInfo("Response sucess :\(status)")
                 
                 if !UserDefaultManager.isGrantBLE {
                     let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)

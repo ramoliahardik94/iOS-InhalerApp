@@ -21,8 +21,14 @@ class BaseVC: UIViewController {
     func pushVC(controller: UIViewController) {
         self.navigationController?.pushViewController(controller, animated: true)
     }
-  
 
+    func rootVC(controller : UIViewController) {
+        let nav: UINavigationController = UINavigationController()
+        nav.isNavigationBarHidden = true
+        nav.viewControllers  = [controller]
+        UIApplication.shared.windows.first?.rootViewController = nav
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+    }
     func setCustomFontLabel(label: UILabel, type: FontType, fontSize: CGFloat = 14) {
         if type == .regular {
             label.font = UIFont(name: AppFont.AppRegularFont, size: fontSize)
@@ -126,7 +132,7 @@ class BaseVC: UIViewController {
     // Done keyboard Observer
     
     deinit {
-        debugPrint("deinit basevc ")
+        Logger.logInfo("deinit basevc ")
     }
     
     func addAstrickSing(label: UILabel) {

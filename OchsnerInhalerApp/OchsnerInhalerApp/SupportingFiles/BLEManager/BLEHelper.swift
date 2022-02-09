@@ -12,6 +12,7 @@ class BLEHelper: NSObject {
     
     // MARK: Variable declaration
     static let shared = BLEHelper()
+    
     var centralManager: CBCentralManager = CBCentralManager()
     var discoveredPeripheral: CBPeripheral?
     var charectristicWrite: CBCharacteristic?
@@ -74,7 +75,7 @@ class BLEHelper: NSObject {
 extension String {
     
     func getNumberofAccuationLog( ) -> Decimal {
-        var arrResponce = self.split(separator: " ")
+        var arrResponce = self.split(separator: ":")
         arrResponce.remove(at: 0)//  StartByte
         arrResponce.remove(at: 0)// OPCODE
         arrResponce.remove(at: 0)// OPCODE
@@ -86,7 +87,7 @@ extension String {
     }
     
     func getBeteryLevel() -> Decimal {
-        var arrResponce = self.split(separator: " ")
+        var arrResponce = self.split(separator: ":")
         arrResponce.remove(at: 0)//  StartByte
         arrResponce.remove(at: 0)// OPCODE
         arrResponce.remove(at: 0)// OPCODE
@@ -97,7 +98,7 @@ extension String {
     }
     func getAcuationLog() ->  (id: Decimal, date: String, uselength: Decimal) {
         
-        var arrResponce = self.split(separator: " ")
+        var arrResponce = self.split(separator: ":")
         arrResponce.remove(at: 0)//  StartByte
         arrResponce.remove(at: 0)//  OPCODE
         arrResponce.remove(at: 0)//  OPCODE
@@ -164,7 +165,7 @@ extension String {
                 data.append(num)
             }
         } catch {
-            print(error.localizedDescription)
+            Logger.logInfo(error.localizedDescription)
         }
         
         guard data.count > 0 else { return nil }

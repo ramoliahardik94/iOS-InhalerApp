@@ -35,7 +35,7 @@ class AddAnotherDeviceVC: BaseVC {
 //        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
 //        pushVC(controller: homeTabBar)
         let vc1 = TemporaryDashbord()
-        self.pushVC(controller: vc1)
+        self.rootVC(controller: vc1)
     }
     
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {

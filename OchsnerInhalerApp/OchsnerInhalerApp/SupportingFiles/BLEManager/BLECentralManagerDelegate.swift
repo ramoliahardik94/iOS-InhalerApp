@@ -16,9 +16,11 @@ extension BLEHelper: CBCentralManagerDelegate {
         case .poweredOn:
             // ... so start working with the peripheral
             isAllow = true
+            NotificationCenter.default.post(name: .BLEChange, object: nil)
         case .poweredOff:
             isAllow = false
-            CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
+            NotificationCenter.default.post(name: .BLEChange, object: nil)
+           // CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
             // In a real app, you'd deal with all the states accordingly
             return
         case .resetting:
@@ -30,10 +32,12 @@ extension BLEHelper: CBCentralManagerDelegate {
                 switch CBManager.authorization {
                 case .denied:
                     isAllow = false
+                    NotificationCenter.default.post(name: .BLEChange, object: nil)
                     CommonFunctions.showMessagePermission(message: StringPermissions.blePermissionMsg, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: false) { _ in
                       }
                 case .restricted:
                     isAllow = false
+                    NotificationCenter.default.post(name: .BLEChange, object: nil)
                 case.notDetermined :
                     _ = CBManager.authorization
                 default:
@@ -54,6 +58,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             // your real device code
             isAllow = false
             #endif
+            NotificationCenter.default.post(name: .BLEChange, object: nil)
             // In a real app, you'd deal with all the states accordingly
             return
         @unknown default:
@@ -63,7 +68,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     }
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
+        Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         // Device is in range - have we already seen it?
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
@@ -81,5 +86,28 @@ extension BLEHelper: CBCentralManagerDelegate {
             }
         }
     }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        Logger.logInfo("Peripheral Connected")
+        if peripheral.state == .connected {
+            Logger.logInfo("Scanning stopped")
+            stopScanPeriphral()
+            peripheral.delegate = self
+            peripheral.discoverServices([TransferService.otaServiceUUID, TransferService.inhealerUTCservice])
+        }
+    }
+        
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        Logger.logInfo("DidFail")
+        NotificationCenter.default.post(name: .BLENotConnect, object: nil)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        Logger.logInfo("state \(peripheral.state.rawValue)")
+        NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
+        Logger.logInfo("DidDissconnect")
+    }
+    
+    
    
 }

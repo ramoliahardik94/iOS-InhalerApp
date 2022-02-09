@@ -19,7 +19,7 @@ extension BLEHelper {
     }
     
     func connectPeriPheral() {
-        print(discoveredPeripheral!)
+        Logger.logInfo(discoveredPeripheral!)
         if discoveredPeripheral != nil {
             centralManager.connect(discoveredPeripheral!, options: nil)
         }

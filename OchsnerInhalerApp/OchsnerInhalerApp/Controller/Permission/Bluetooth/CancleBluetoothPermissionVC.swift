@@ -25,6 +25,6 @@ class CancleBluetoothPermissionVC: BaseVC {
         popVC()
     }
     deinit {
-        debugPrint("deinit CancleBluetoothPermissionVC")
+        Logger.logInfo("deinit CancleBluetoothPermissionVC")
     }
 }

@@ -27,9 +27,10 @@ class LocationPermisionVC: BaseVC {
     
     // MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-        LocationManager.shared.isAllowed(askPermission: true) { status in
+        LocationManager.shared.isAllowed(askPermission: true) {[weak self] status in
+            guard let `self` = self else { return }
             UserDefaultManager.isGrantLaocation = true
-            print("ststus \(status)")
+            Logger.logInfo("ststus \(status)")
             if status == .denied {
                 
                 CommonFunctions.showMessagePermission(message: StringPermissions.locationPermission, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: false) {_ in }

@@ -28,7 +28,7 @@ class Logger {
         
         let messageString = String(describing: message)
         guard !messageString.isEmpty else { return }
-        print(" └ 📣 \(messageString)\n")
+        Logger.logInfo(" └ 📣 \(messageString)\n")
     }
     
     class func logInfo(_ message: Any = "",
@@ -42,7 +42,7 @@ class Logger {
         DDLogInfo("\(body) -> \(message)")
         
         #if DEBUG
-        print("\(body) -> \(message)")
+        Logger.logInfo("\(body) -> \(message)")
         
         #endif
     }
@@ -58,7 +58,7 @@ class Logger {
         DDLogError("\(body) -> \(message)")
         
         #if DEBUG
-        print("\(body) -> \(message)")
+        Logger.logInfo("\(body) -> \(message)")
         
         #endif
     }
@@ -79,7 +79,7 @@ private extension Logger {
     }
     
     class func emojiLog(messageHeader: String, messageBody: String) {
-        print("\(messageHeader) │ \(messageBody)")
+        Logger.logInfo("\(messageHeader) │ \(messageBody)")
     }
 }
 
@@ -99,9 +99,9 @@ private extension Logger {
         let headerHorizontalLine = horizontalLine(for: messageHeader)
         let bodyHorizontalLine = horizontalLine(for: messageBody)
         
-        print("┌\(headerHorizontalLine)┬\(bodyHorizontalLine)┐")
-        print("│\(messageHeader)│\(messageBody)│")
-        print("└\(headerHorizontalLine)┴\(bodyHorizontalLine)┘")
+        Logger.logInfo("┌\(headerHorizontalLine)┬\(bodyHorizontalLine)┐")
+        Logger.logInfo("│\(messageHeader)│\(messageBody)│")
+        Logger.logInfo("└\(headerHorizontalLine)┴\(bodyHorizontalLine)┘")
     }
     
     /// Returns a `String` composed by horizontal box-drawing characters (─) based on the given message length.

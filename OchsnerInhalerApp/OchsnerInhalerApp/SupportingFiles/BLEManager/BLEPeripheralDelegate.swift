@@ -11,35 +11,14 @@ import CoreBluetooth
 // MARK: - CBPeripheral Delegate
 extension BLEHelper: CBPeripheralDelegate {
     
-    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Peripheral Connected")
-        if peripheral.state == .connected {
-            print("Scanning stopped")
-            stopScanPeriphral()
-            peripheral.delegate = self
-            peripheral.discoverServices([TransferService.otaServiceUUID, TransferService.inhealerUTCservice])
-        }
-    }
-        
-    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        print("DidFail")
-        NotificationCenter.default.post(name: .BLENotConnect, object: nil)
-    }
-    
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("state \(peripheral.state.rawValue)")
-        NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
-        print("DidDissconnect")
-    }
-    
-    
+  
     /*
      *   This callback lets us know more data has arrived via notification on the characteristic
      */
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Deal with errors (if any)
         if let error = error {
-            print("Error discovering characteristics: %s", error.localizedDescription)
+           print("Error discovering characteristics: %s", error.localizedDescription)
             return
         }
         
@@ -48,22 +27,22 @@ extension BLEHelper: CBPeripheralDelegate {
         
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
-            NotificationCenter.default.post(name: .BLEGetMac, object: nil)
+            NotificationCenter.default.post(name: .BLEGetMac, object: ["MacAdd": stringFromData])
         } else {
-            var arrResponce = stringFromData.split(separator: " ")
+            var arrResponce = stringFromData.split(separator: ":")
             arrResponce.remove(at: 0)// StartByte
             let str = "\(arrResponce[0])\(arrResponce[1])"
             if str == "0155"{
                 setRTCTime()
             } else if str == "0255" {
                 let bettery = stringFromData.getBeteryLevel()
-                print("Bettery : \(bettery)")
+                Logger.logInfo("Bettery : \(bettery)")
             } else if str == "0355" {
                 let numberofLog = stringFromData.getNumberofAccuationLog()
-                print("Number Of Acuation log : \(numberofLog)")
+                Logger.logInfo("Number Of Acuation log : \(numberofLog)")
             } else if str == "0455" {
                 let log = stringFromData.getAcuationLog()
-                print("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
+                Logger.logInfo("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
             }
         }
     }
@@ -95,7 +74,7 @@ extension BLEHelper: CBPeripheralDelegate {
      *  This is called when peripheral is ready to accept more data when using write without response
      */
     func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
-        print("Peripheral is ready, send data")
+        Logger.logInfo("Peripheral is ready, send data")
         
     }
 }
@@ -114,11 +93,10 @@ extension BLEHelper {
         for service in peripheralServices where service.uuid == TransferService.otaServiceUUID {
             peripheral.discoverCharacteristics([TransferService.macCharecteristic], for: service)
         }
-//
-//        for service in peripheralServices {
-//            peripheral.discoverCharacteristics([TransferService.macCharecteristic, TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
-//
-//        }
+        for service in peripheralServices where service.uuid == TransferService.inhealerUTCservice {
+            peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
+        }
+
     }
     
     /*
@@ -135,21 +113,22 @@ extension BLEHelper {
        
         // Again, we loop through the array, just in case and check if it's the right one
         guard let serviceCharacteristics = service.characteristics else {
-            print("service error \(service)")
+            Logger.logInfo("service error \(service)")
             return }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
            macCharecteristic = characteristic
         }
+        
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
-           
             charectristicWrite = characteristic
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
-       
             charectristicRead = characteristic
         }
+        
+        stopTimer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
             if self.discoveredPeripheral!.state == .connected {
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
