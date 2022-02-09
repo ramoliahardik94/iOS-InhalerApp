@@ -12,7 +12,7 @@ class CustomSplashVC: BaseVC {
     @IBOutlet weak var lblCopyRight: UILabel!
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblConnectdInhalerSensor: UILabel!
-    var timer : Timer!
+    var timer: Timer!
     override func viewDidLoad() {
         
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
@@ -22,7 +22,7 @@ class CustomSplashVC: BaseVC {
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         lblVersion.text = "V\(appVersion ?? "1")"
-       
+        
         setCustomFontLabel(label: lblConnectdInhalerSensor, type: .semiBold, fontSize: 22)
         setCustomFontLabel(label: lblCopyRight, type: .regular, fontSize: 12)
         setCustomFontLabel(label: lblVersion, type: .regular, fontSize: 12)
@@ -65,7 +65,7 @@ class CustomSplashVC: BaseVC {
             if isAllow {
                 if UserDefaultManager.addDevice.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.rootVC(controller: addDeviceIntroVC)
+                    self.pushVC(controller: addDeviceIntroVC)
                 } else {
                     BLEHelper.shared.scanPeripheral()
                     

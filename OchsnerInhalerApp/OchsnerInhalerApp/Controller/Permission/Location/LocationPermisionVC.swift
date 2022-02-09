@@ -27,7 +27,8 @@ class LocationPermisionVC: BaseVC {
     
     // MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
-        LocationManager.shared.isAllowed(askPermission: true) { status in
+        LocationManager.shared.isAllowed(askPermission: true) {[weak self] status in
+            guard let `self` = self else { return }
             UserDefaultManager.isGrantLaocation = true
             print("ststus \(status)")
             if status == .denied {
