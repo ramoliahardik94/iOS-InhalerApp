@@ -23,7 +23,7 @@ class NotificationManager: NSObject {
         UNUserNotificationCenter.current().delegate = self
        // Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            Logger.logInfo("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
+            print("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
             foreground {            
                 if !granted {
                     self.statusReceived?(.notDetermined)
@@ -35,7 +35,7 @@ class NotificationManager: NSObject {
     }
     
     func unregister() {
-        Logger.logInfo("NotificationManager > unregister > unregistered for remote notification")
+        print("NotificationManager > unregister > unregistered for remote notification")
         UserDefaultManager.deviceToken = ""
         UIApplication.shared.unregisterForRemoteNotifications()
     }
@@ -68,8 +68,8 @@ class NotificationManager: NSObject {
 //    func saveToken(_ data: Data) {
 //        Messaging.messaging().apnsToken = data
 //        if let token = Messaging.messaging().fcmToken {
-//            Logger.LogInfo("NotificationManager > saveToken > Token: \(token)")
-//            Logger.LogInfo("FCM Token: \(String(describing: Messaging.messaging().fcmToken))")
+//            print("NotificationManager > saveToken > Token: \(token)")
+//            print("FCM Token: \(String(describing: Messaging.messaging().fcmToken))")
 //            UserDefaultManager.deviceToken = token
 //            self.statusReceived?(.authorized)
 //        }
@@ -89,7 +89,7 @@ class NotificationManager: NSObject {
 //            if let message = dict["message"] as? String {
 //                self.showAlert(title: "Notification", message: message)
 //            } else {
-//                Logger.LogInfo("Alert Not show: \(dict)")
+//                print("Alert Not show: \(dict)")
 //            }
 //            break
 //        }
@@ -97,7 +97,7 @@ class NotificationManager: NSObject {
     
 //    func handleNotification() -> AlarmModel? {
 //        if let notification = notifications.popLast() {
-//            Logger.LogInfo("notification Payload: \(notification.request.content.userInfo)")
+//            print("notification Payload: \(notification.request.content.userInfo)")
 //            if let dict = notification.request.content.userInfo["gcm.notification.payload"],
 //               let payload = self.convertToDictionary(text: dict as! String),
 //                let data = payload["data"] as? [String: Any]
@@ -118,7 +118,7 @@ class NotificationManager: NSObject {
 //    }
     
 //    func handelShowPushType(_ dict: [AnyHashable: Any]) -> UNNotificationPresentationOptions{
-//        Logger.LogInfo("handelShowPushType: \(dict)")
+//        print("handelShowPushType: \(dict)")
 //        guard let operation = dict["operation"] as? String,
 //              let data = dict["data"] as? [String: Any] else {
 //            return [.alert,.badge]
@@ -143,7 +143,7 @@ class NotificationManager: NSObject {
     
     func askUserPermission(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-          //  Logger.LogInfo("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
+          //  print("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
             foreground {
                 completion(true)
                 if granted {
@@ -157,7 +157,7 @@ class NotificationManager: NSObject {
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        Logger.logInfo(notification.request.content.userInfo)
+        print(notification.request.content.userInfo)
 //        if let dict = notification.request.content.userInfo["gcm.notification.payload"] {
 //            completionHandler([self.handelShowPushType(self.convertToDictionary(text: dict as! String)!)])
 //            return
@@ -170,7 +170,7 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
             } catch {
-                Logger.logInfo(error.localizedDescription)
+                print(error.localizedDescription)
             }
         }
         return nil
@@ -181,20 +181,20 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
 //        if let dict = response.notification.request.content.userInfo["gcm.notification.payload"],
 //           var payload = self.convertToDictionary(text: dict as! String)
 //        {
-//            Logger.LogInfo("Push notification Received.\(response.notification)")
+//            print("Push notification Received.\(response.notification)")
 //            if DeviceListManager.shared.isDeviceListRetrieved.value {//Display notification when device list has load
 //                guard let _ = payload["operation"] as? String,
 //                      let _ = payload["data"] as? [String: Any] else {
-//                    Logger.LogInfo("operation & data not received.\(payload)")
+//                    print("operation & data not received.\(payload)")
 //                    return
 //                }
 //                if payload["message"]  == nil {
 //                    payload["message"] = response.notification.request.content.body
-//                    Logger.LogInfo("message not received add message in payload.\(payload)")
+//                    print("message not received add message in payload.\(payload)")
 //                }
 //                receivePushNotification(payload)
 //            } else {
-//                Logger.LogInfo("Push notification added: \(response.notification)")
+//                print("Push notification added: \(response.notification)")
 //                notifications.append(response.notification)
 //            }
 //        }
@@ -204,7 +204,7 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
 
 // extension NotificationManager: MessagingDelegate {
 //    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//        Logger.logInfo(fcmToken as Any)
+//        print(fcmToken as Any)
 //    }
 // }
 extension NotificationManager {
@@ -226,7 +226,7 @@ extension NotificationManager {
 //            let currentPartition = HubManager.shared.hubData.partitions.first(where: { $0.isSelected == true })
 //            if partitionId == currentPartition!.id {
 //                //current partition
-//                Logger.LogInfo("current partition notification")
+//                print("current partition notification")
 //                if AlarmManager.shared.currentAlarm == nil {
 //                    if let navVC = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController,
 //                       let tabBar = navVC.children.first as? TabBarVC {
@@ -241,13 +241,13 @@ extension NotificationManager {
 //                }
 //            } else {
 //                //other partition
-//                Logger.LogInfo("Other partition notification")
+//                print("Other partition notification")
 //                let partitionObj = HubManager.shared.hubData.partitions.first(where: { $0.id == partitionId })
 //                self.showAlert(title: data["alarmName"] as! String, message: "There is alarm in \(partitionObj?.name ?? "")")
 //            }
 //        } else {
 //            //other hub
-//            Logger.LogInfo("Other HUB notification")
+//            print("Other HUB notification")
 //            self.showAlert(title: data["alarmName"] as! String, message: "There is alarm in other hub.")
 //        }
 //

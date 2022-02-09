@@ -165,7 +165,7 @@ extension String {
                 data.append(num)
             }
         } catch {
-            Logger.logInfo(error.localizedDescription)
+            print(error.localizedDescription)
         }
         
         guard data.count > 0 else { return nil }

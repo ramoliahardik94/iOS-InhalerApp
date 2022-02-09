@@ -41,14 +41,14 @@ extension UIView {
         DispatchQueue.main.async {
             let progressHUD = MBProgressHUD.showAdded(to: self, animated: true)
             progressHUD.show(animated: true)
-            Logger.logInfo("showProgress")       
+            print("showProgress")
         }
     }
     
     func hideProgress() {
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self, animated: true)
-            Logger.logInfo("HideProgress")
+            print("HideProgress")
         }
     }
 }

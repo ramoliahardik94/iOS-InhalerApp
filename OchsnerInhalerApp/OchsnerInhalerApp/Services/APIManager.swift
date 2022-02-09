@@ -33,7 +33,7 @@ class APIManager {
     @discardableResult
     func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, completion: ResponseBlock?) -> DataRequest? {
         if !APIManager.isConnectedToNetwork {
-            Logger.logInfo("No Internet connection")
+            print("No Internet connection")
             completion?(RuntimeError("No_Internet_Connection".local), nil)
             return nil
         }

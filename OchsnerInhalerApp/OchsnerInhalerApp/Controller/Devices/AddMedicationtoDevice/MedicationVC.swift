@@ -28,7 +28,7 @@ class MedicationVC: BaseVC {
         medicationVM.apiGetMedicationLis { result in
             switch result {
             case .success(let status):
-                Logger.logInfo("Response sucess :\(status)")
+                print("Response sucess :\(status)")
                 self.tblMedication.reloadData()
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)

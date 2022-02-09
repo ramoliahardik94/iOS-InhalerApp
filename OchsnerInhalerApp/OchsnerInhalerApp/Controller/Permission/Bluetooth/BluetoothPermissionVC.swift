@@ -28,7 +28,7 @@ class BluetoothPermissionVC: BaseVC {
     
 
     deinit {
-        Logger.logInfo("deinit LoginVC")
+        print("deinit LoginVC")
     }
     
     
@@ -39,7 +39,7 @@ class BluetoothPermissionVC: BaseVC {
     
     @objc func getisAllow(notification: Notification) {
         BLEHelper.shared.isAllowed { isAllow in
-            Logger.logInfo("isAllow  \(isAllow)")
+            print("isAllow  \(isAllow)")
             if isAllow {
                 UserDefaultManager.isGrantBLE = true
                 let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)

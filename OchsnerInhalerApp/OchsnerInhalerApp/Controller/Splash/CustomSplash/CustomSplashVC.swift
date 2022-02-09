@@ -83,7 +83,7 @@ class CustomSplashVC: BaseVC {
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
-        Logger.logInfo("deinit CustomSplashVC")
+        print("deinit CustomSplashVC")
     }
     
 }

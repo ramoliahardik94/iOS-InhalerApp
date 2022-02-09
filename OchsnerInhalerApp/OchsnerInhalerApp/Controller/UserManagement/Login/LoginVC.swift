@@ -59,7 +59,7 @@ class LoginVC: BaseVC {
     
    
     deinit {
-        Logger.logInfo("deinit LoginVC")
+        print("deinit LoginVC")
     }
     
     
@@ -69,7 +69,7 @@ class LoginVC: BaseVC {
         login.apiLogin {[weak self] (result) in
             switch result {
             case .success(let status):
-                Logger.logInfo("Response sucess :\(status)")
+                print("Response sucess :\(status)")
                 
                 if !UserDefaultManager.isGrantBLE {
                     let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)

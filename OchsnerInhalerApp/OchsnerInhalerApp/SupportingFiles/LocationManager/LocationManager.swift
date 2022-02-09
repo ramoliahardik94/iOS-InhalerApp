@@ -99,13 +99,13 @@ class LocationManager: CLLocationManager {
 extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        Logger.logInfo("LocationManager > didChangeAuthorization > Status : \(status.rawValue)")
+        print("LocationManager > didChangeAuthorization > Status : \(status.rawValue)")
         self.ssidCompletion?(getSSID())
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        Logger.logInfo("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
+        print("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
         self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
         locationManager.stopUpdatingLocation()
     }
