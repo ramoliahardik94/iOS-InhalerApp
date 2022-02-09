@@ -12,10 +12,10 @@ class CustomSplashVC: BaseVC {
     @IBOutlet weak var lblCopyRight: UILabel!
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblConnectdInhalerSensor: UILabel!
-   
+    var timer : Timer!
     override func viewDidLoad() {
         
-        _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
         
         
         lblCopyRight.text = StringCommonMessages.copyRight
@@ -36,15 +36,15 @@ class CustomSplashVC: BaseVC {
         if UserDefaultManager.isLogin {
             if !UserDefaultManager.isGrantBLE {
                 let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self.pushVC(controller: bluetoothPermissionVC)
+                self.rootVC(controller: bluetoothPermissionVC)
                 return
             } else if !UserDefaultManager.isGrantLaocation {
                 let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self.pushVC(controller: locationPermisionVC)
+                self.rootVC(controller: locationPermisionVC)
                 return
             } else if !UserDefaultManager.isGrantNotification {
                 let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                self.pushVC(controller: notificationPermissionVC)
+                self.rootVC(controller: notificationPermissionVC)
                 return
             } else {
                 BLEHelper.shared.setDelegate()
@@ -52,31 +52,37 @@ class CustomSplashVC: BaseVC {
         } else {
             let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
             // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-             pushVC(controller: loginVC)
+            
+            rootVC(controller: loginVC)
         }
     }
     @objc func getisAllow(notification: Notification) {
-        BLEHelper.shared.isAllowed { isAllow in
+        timer.invalidate()
+        timer = nil
+        BLEHelper.shared.isAllowed { [weak self] isAllow in
+            guard let `self` = self else { return }
+            
             if isAllow {
                 if UserDefaultManager.addDevice.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                self.pushVC(controller: addDeviceIntroVC)
-
+                    self.rootVC(controller: addDeviceIntroVC)
                 } else {
                     BLEHelper.shared.scanPeripheral()
                     
                     let vc1 = TemporaryDashbord()
                     DispatchQueue.main.async {
-                        self.pushVC(controller: vc1)
+                        
+                        self.rootVC(controller: vc1)
                     }
-                    
                 }
             } else {
-                _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+                
+                self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
             }
         }
     }
     deinit {
+        NotificationCenter.default.removeObserver(self)
         debugPrint("deinit CustomSplashVC")
     }
     
