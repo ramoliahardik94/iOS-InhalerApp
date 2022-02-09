@@ -82,7 +82,7 @@ struct ValidationMsg {
     static let medication = "Please select medication."
     static let bluetooth = "Please turn on all the bluetooth"
     static let bleNotfound = "There is no nearby Inhaler sensor found. Please make sure that your sensor is activated properly and nearby to your phone."
-    static let bleNotPair = "There might be some problem with pairing the Inhelor sensor. Please follow the steps mentioned on the screen to enable the paring mode and try again."
+    static let bleNotPair = "There might be some problem with pairing the Inhaler sensor. Please follow the steps mentioned on the screen to enable the paring mode and try again."
 
 }
 struct ValidationButton {
