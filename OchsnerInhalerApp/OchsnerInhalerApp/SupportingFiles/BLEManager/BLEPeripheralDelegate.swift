@@ -150,6 +150,7 @@ extension BLEHelper {
        
             charectristicRead = characteristic
         }
+        stopTimer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
             if self.discoveredPeripheral!.state == .connected {
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)

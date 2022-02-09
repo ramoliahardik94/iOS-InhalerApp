@@ -60,15 +60,6 @@ class CustomSplashVC: BaseVC {
                 } else {
                     _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
                 }
-               // } else {
-//                    CommonFunctions.showMessage(message: ValidationMsg.bluetooth, { action in
-//                        if action ?? true {
-//                            CommonFunctions.openBluetooth()
-//                        }
-//                    }
-//                    )
-//                }
-
             }
             
         } else {

@@ -41,7 +41,7 @@ class AddDeviceIntroVC: BaseVC {
         switch step {
         case .step1:
             imgRight.constant = -20
-            lblTitleleft.constant = 20
+            lblTitleleft.constant = 22
             lblAddDevice.isHidden  = false
             lblGreat.text = StringAddDevice.great
             imgAddDevice.image = #imageLiteral(resourceName: "Inhaler Graphic")
@@ -125,7 +125,7 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.backgroundColor = .gray
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
-        CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: "TryAgain") { [weak self] _ in
+        CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: ValidationButton.tryAgain) { [weak self] _ in
             BLEHelper.shared.connectPeriPheral()
             guard let weakSelf = self else { return }
             weakSelf.paringLoader.isHidden = false
@@ -139,7 +139,7 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.backgroundColor = .gray
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
-        CommonFunctions.showMessage(message: ValidationMsg.bleNotfound, titleOk: "TryAgain") { [weak self] _ in
+        CommonFunctions.showMessage(message: ValidationMsg.bleNotfound, titleOk: ValidationButton.tryAgain) { [weak self] _ in
             guard let weakSelf = self else { return }
             weakSelf.scanBLE()
         }

@@ -85,6 +85,9 @@ struct ValidationMsg {
     static let bleNotPair = "There might be some problem with pairing the Inhelor sensor. Please follow the steps mentioned on the screen to enable the paring mode and try again."
 
 }
+struct ValidationButton {
+    static let tryAgain = "Try again"
+}
 
 // MARK: Profile
 struct StringProfile {
