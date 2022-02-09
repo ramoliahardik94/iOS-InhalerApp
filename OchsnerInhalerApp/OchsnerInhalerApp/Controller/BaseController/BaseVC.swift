@@ -22,7 +22,7 @@ class BaseVC: UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
 
-    func rootVC(controller : UIViewController) {
+    func rootVC(controller: UIViewController) {
         let nav: UINavigationController = UINavigationController()
         nav.isNavigationBarHidden = true
         nav.viewControllers  = [controller]
