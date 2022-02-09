@@ -86,7 +86,7 @@ class CreateAccoutVC: BaseVC {
         createAccountVM.apiCreateAccount { [weak self] (result) in
             switch result {
             case .success(let status):
-             Logger.logInfo("Response sucess :\(status)")
+             print("Response sucess :\(status)")
                 let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self?.pushVC(controller: bluetoothPermissionVC)
             
@@ -135,7 +135,7 @@ class CreateAccoutVC: BaseVC {
     
     deinit {
        deregisterKeyboardNotifications()
-        Logger.logInfo("deinit CreateAccoutVC")
+        print("deinit CreateAccoutVC")
     }
     
 }

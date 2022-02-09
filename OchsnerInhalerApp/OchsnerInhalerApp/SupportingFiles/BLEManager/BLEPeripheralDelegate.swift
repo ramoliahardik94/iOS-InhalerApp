@@ -36,13 +36,13 @@ extension BLEHelper: CBPeripheralDelegate {
                 setRTCTime()
             } else if str == "0255" {
                 let bettery = stringFromData.getBeteryLevel()
-                Logger.logInfo("Bettery : \(bettery)")
+                print("Bettery : \(bettery)")
             } else if str == "0355" {
                 let numberofLog = stringFromData.getNumberofAccuationLog()
-                Logger.logInfo("Number Of Acuation log : \(numberofLog)")
+                print("Number Of Acuation log : \(numberofLog)")
             } else if str == "0455" {
                 let log = stringFromData.getAcuationLog()
-                Logger.logInfo("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
+                print("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
             }
         }
     }
@@ -74,7 +74,7 @@ extension BLEHelper: CBPeripheralDelegate {
      *  This is called when peripheral is ready to accept more data when using write without response
      */
     func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
-        Logger.logInfo("Peripheral is ready, send data")
+        print("Peripheral is ready, send data")
         
     }
 }
@@ -113,7 +113,7 @@ extension BLEHelper {
        
         // Again, we loop through the array, just in case and check if it's the right one
         guard let serviceCharacteristics = service.characteristics else {
-            Logger.logInfo("service error \(service)")
+            print("service error \(service)")
             return }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {

@@ -77,7 +77,7 @@ class UpdateProfileVC: BaseVC {
     }
    deinit {
        deregisterKeyboardNotifications()
-        Logger.logInfo("deinit CreateAccoutVC")
+        print("deinit CreateAccoutVC")
     }
 
 }

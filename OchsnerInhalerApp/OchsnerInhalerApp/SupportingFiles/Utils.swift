@@ -16,7 +16,7 @@ func getWiFiSSID(completion:@escaping ((String) -> Void)) {
 
 func getLocation() {
     LocationManager.shared.checkLocationPermissionAndFetchLocation { (location) in
-        Logger.logInfo("Fetch locations > locations = \(location.latitude) \(location.longitude)")
+        print("Fetch locations > locations = \(location.latitude) \(location.longitude)")
     }
 }
 
