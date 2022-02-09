@@ -170,7 +170,7 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
             do {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
             } catch {
-                print(error.localizedDescription)
+                Logger.logInfo(error.localizedDescription)
             }
         }
         return nil
@@ -204,7 +204,7 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
 
 // extension NotificationManager: MessagingDelegate {
 //    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//        print(fcmToken as Any)
+//        Logger.logInfo(fcmToken as Any)
 //    }
 // }
 extension NotificationManager {

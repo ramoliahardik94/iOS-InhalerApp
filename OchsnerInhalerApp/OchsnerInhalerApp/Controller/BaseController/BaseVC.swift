@@ -132,7 +132,7 @@ class BaseVC: UIViewController {
     // Done keyboard Observer
     
     deinit {
-        debugPrint("deinit basevc ")
+        Logger.logInfo("deinit basevc ")
     }
     
     func addAstrickSing(label: UILabel) {

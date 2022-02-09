@@ -141,7 +141,7 @@ class MedicationDetailVC: BaseVC {
     */
 
     @IBAction func reminderValue(_ sender: UISwitch) {
-        print(sender.isOn)
+        Logger.logInfo(sender.isOn)
     }
     
     @IBAction func btnAddDoseClick(_ sender: Any) {
