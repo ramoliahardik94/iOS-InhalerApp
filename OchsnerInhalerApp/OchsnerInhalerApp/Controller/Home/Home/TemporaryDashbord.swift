@@ -26,7 +26,7 @@ class TemporaryDashbord: BaseVC {
         BLEHelper.shared.getmacAddress()
         BLEHelper.shared.getBetteryLevel()
         BLEHelper.shared.getAccuationNumber()
-       
+        BLEHelper.shared.getAccuationLog()        
     }
     @objc func macDetail(notification: Notification) {
         tbvData.reloadData()
