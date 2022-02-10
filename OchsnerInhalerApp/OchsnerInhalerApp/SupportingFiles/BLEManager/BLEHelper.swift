@@ -49,6 +49,7 @@ class BLEHelper: NSObject {
     }
     func getBetteryLevel() {
         if discoveredPeripheral != nil && charectristicWrite != nil {
+            print(TransferService.requestGetBettery.hexadecimal!)
             discoveredPeripheral?.writeValue(TransferService.requestGetBettery.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
     }

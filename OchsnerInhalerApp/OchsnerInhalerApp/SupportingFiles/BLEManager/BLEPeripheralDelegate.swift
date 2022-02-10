@@ -24,7 +24,7 @@ extension BLEHelper: CBPeripheralDelegate {
         
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
-        
+        print(stringFromData)
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
             NotificationCenter.default.post(name: .BLEGetMac, object: ["MacAdd": stringFromData])
@@ -32,17 +32,20 @@ extension BLEHelper: CBPeripheralDelegate {
             var arrResponce = stringFromData.split(separator: ":")
             arrResponce.remove(at: 0)// StartByte
             let str = "\(arrResponce[0])\(arrResponce[1])"
-            if str == "0155"{
+            if str == StringCharacteristics.getType(.RTCTime)() {
                 setRTCTime()
-            } else if str == "0255" {
+            } else if str == StringCharacteristics.getType(.beteryLevel)() {
                 let bettery = stringFromData.getBeteryLevel()
-                print("Bettery : \(bettery)")
-            } else if str == "0355" {
+               // print("Bettery : \(bettery)")
+                NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
+            } else if str == StringCharacteristics.getType(.accuationLog)() {
                 let numberofLog = stringFromData.getNumberofAccuationLog()
-                print("Number Of Acuation log : \(numberofLog)")
-            } else if str == "0455" {
+              //  print("Number Of Acuation log : \(numberofLog)")
+                NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(numberofLog)"])
+            } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
-                print("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
+                NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo: ["Id": "\(log.id)", "date": "\(log.date)", "uselength": "\(log.uselength)"])
+              //  print("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
             }
         }
     }
@@ -121,10 +124,12 @@ extension BLEHelper {
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
+          
             charectristicWrite = characteristic
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
+            discoveredPeripheral!.setNotifyValue(true, for: characteristic)
             charectristicRead = characteristic
         }
         
@@ -151,4 +156,22 @@ extension Data {
         let format = options.contains(.upperCase) ? "%02hhX:" : "%02hhx:"
         return self.map { String(format: format, $0) }.joined()
     }
+}
+
+
+enum StringCharacteristics: String {
+    case RTCTime, beteryLevel, accuationLog, acuationLog
+    func getType() -> String {
+        switch self {
+        case .RTCTime :
+            return  "0155"
+        case .beteryLevel:
+            return "0255"
+        case .accuationLog :
+            return  "0355"
+        case .acuationLog :
+            return  "0455"
+        }
+    }
+    
 }
