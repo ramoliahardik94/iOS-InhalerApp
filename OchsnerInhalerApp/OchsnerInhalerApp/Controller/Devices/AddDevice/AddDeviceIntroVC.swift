@@ -9,7 +9,7 @@ import UIKit
 
 class AddDeviceIntroVC: BaseVC {
 
-    @IBOutlet weak var imgRight: NSLayoutConstraint!
+    @IBOutlet weak var lblTitleCenter: NSLayoutConstraint!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var tblScanList: UITableView!
     @IBOutlet weak var viewHeader: UIView!
@@ -20,7 +20,6 @@ class AddDeviceIntroVC: BaseVC {
     @IBOutlet weak var lblGreat: UILabel!
     @IBOutlet weak var lbldeviceInfo: UILabel!
     @IBOutlet weak var imgAddDevice: UIImageView!
-    @IBOutlet weak var lblTitleleft: NSLayoutConstraint!
     @IBOutlet weak var paringLoader: UIActivityIndicatorView!
     var step: AddDeviceSteps = .step1
     var isFromAddAnother = false
@@ -40,8 +39,7 @@ class AddDeviceIntroVC: BaseVC {
         paringLoader.isHidden = true
         switch step {
         case .step1:
-            imgRight.constant = -20
-            lblTitleleft.constant = 22
+            lblTitleCenter.constant = -20
             lblAddDevice.isHidden  = false
             lblGreat.text = StringAddDevice.great
             imgAddDevice.image = #imageLiteral(resourceName: "Inhaler Graphic")

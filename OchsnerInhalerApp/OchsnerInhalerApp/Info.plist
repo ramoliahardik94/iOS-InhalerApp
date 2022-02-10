@@ -2,16 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Need location permission</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Need location permission</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Need location permission</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Bluetooth permissions are required to access the Inhaler sensor device.</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Bluetooth permissions are required to access the Inhaler sensor device.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFProDisplay-Light.ttf</string>
