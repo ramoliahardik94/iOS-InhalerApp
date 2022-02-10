@@ -14,6 +14,9 @@ extension Notification.Name {
     static let BLEDisconnect = Notification.Name("BLEDisconnect")
     static let BLEGetMac = Notification.Name("BLEGetMac")
     static let BLEChange = Notification.Name("BLEChange")
+    static let BLEBatteryLevel = Notification.Name("BLEBatteryLevel")
+    static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
+    static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
 }
 
 // MARK: Common Message

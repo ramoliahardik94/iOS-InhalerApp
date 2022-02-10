@@ -10,14 +10,14 @@ import UIKit
 class TemporaryDashbord: BaseVC {
     @IBOutlet weak var tbvData: UITableView!
     private let itemCell = "TemoDashboardCell"
-   
+   private var batteryLevel = "N/A"
     override func viewDidLoad() {
         super.viewDidLoad()
   
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEDisconnect, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notifyBatteryLevel(notification:)), name: .BLEBatteryLevel, object: nil)
         // Do any additional setup after loading the view.
         initUI()
     }
@@ -45,7 +45,15 @@ class TemporaryDashbord: BaseVC {
        
     }
 
- 
+    @objc func notifyBatteryLevel(notification: Notification) {
+        
+        if let batteryLevel = notification.userInfo?["batteryLevel"] as? String {
+           // print("batteryLevel: \(batteryLevel)")
+            self.batteryLevel = batteryLevel
+            self.tbvData.reloadData()
+        }
+      
+    }
 
 }
 extension TemporaryDashbord: UITableViewDelegate, UITableViewDataSource {
@@ -72,7 +80,7 @@ extension TemporaryDashbord: UITableViewDelegate, UITableViewDataSource {
         }
         
        // cell.lblBattery.text = StringCommonMessages.battery
-        cell.lblBatteryPercentage.text = "100%"
+        cell.lblBatteryPercentage.text = "\(batteryLevel)%"
         
         cell.btnRemove.tag = indexPath.row
         cell.btnRemove.addTarget(self, action: #selector(tapRemove(sender:)), for: .touchUpInside)
