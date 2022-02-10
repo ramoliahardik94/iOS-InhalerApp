@@ -15,6 +15,7 @@ class MedicationModelElement: NSObject {
     var ndc: String?
     var isSelected: Bool = false
     var uuid: String = ""
+    var mac: String = ""
     override init () {
         
         self.medID = 0

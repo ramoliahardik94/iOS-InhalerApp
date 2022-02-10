@@ -62,6 +62,11 @@
 		472F643A279FE15400E37FB1 /* CreateAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F6439279FE15400E37FB1 /* CreateAccountVM.swift */; };
 		472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F643B279FF46400E37FB1 /* CommonFunction.swift */; };
 		4733205027A8EEC100695661 /* BLECommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733204F27A8EEC100695661 /* BLECommunication.swift */; };
+		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
+		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
+		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
+		4743B7FB27B53D800000C3E8 /* AcuationLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7F927B53D800000C3E8 /* AcuationLog+CoreDataClass.swift */; };
+		4743B7FC27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7FA27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
@@ -166,6 +171,11 @@
 		472F6439279FE15400E37FB1 /* CreateAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVM.swift; sourceTree = "<group>"; };
 		472F643B279FF46400E37FB1 /* CommonFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunction.swift; sourceTree = "<group>"; };
 		4733204F27A8EEC100695661 /* BLECommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECommunication.swift; sourceTree = "<group>"; };
+		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
+		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
+		4743B7F927B53D800000C3E8 /* AcuationLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AcuationLog+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/AcuationLog+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		4743B7FA27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AcuationLog+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/AcuationLog+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
@@ -219,6 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */,
 				F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +497,7 @@
 		2F0841B8F37C1807803250A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4743B7D227B529CE0000C3E8 /* CoreData.framework */,
 				0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */,
 			);
 			name = Frameworks;
@@ -542,6 +554,17 @@
 			path = ProviderListCell;
 			sourceTree = "<group>";
 		};
+		4743B7CA27B527660000C3E8 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				4743B7F927B53D800000C3E8 /* AcuationLog+CoreDataClass.swift */,
+				4743B7FA27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift */,
+				4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */,
+				4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		47C1FEE727958ECB007C6F16 /* AddDevice */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +597,7 @@
 		47CDCE10278D872F0014527D /* OchsnerInhalerApp */ = {
 			isa = PBXGroup;
 			children = (
+				4743B7CA27B527660000C3E8 /* Database */,
 				22AE96E5278E9D2400C0D851 /* AppDelegate */,
 				47CDCE8E278D89C30014527D /* Services */,
 				47CDCE5E278D89210014527D /* Helpers */,
@@ -875,6 +899,7 @@
 				227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */,
 				22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */,
 				22AE96F9278EA68900C0D851 /* BluetoothPermissionVC.swift in Sources */,
+				4743B7FB27B53D800000C3E8 /* AcuationLog+CoreDataClass.swift in Sources */,
 				2296C33E27B2621E0095CBFA /* TemoDashboardCell.swift in Sources */,
 				22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */,
 				4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */,
@@ -889,6 +914,7 @@
 				2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
+				4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */,
 				227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
@@ -924,6 +950,7 @@
 				22AE96FD278EAA0B00C0D851 /* ManageDeviceVC.swift in Sources */,
 				4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */,
 				47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */,
+				4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */,
 				22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */,
 				47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */,
 				4711F91227AA536E00AD063F /* BLECentralManagerDelegate.swift in Sources */,
@@ -937,6 +964,7 @@
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
 				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
+				4743B7FC27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
 				4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */,
@@ -1191,6 +1219,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */,
+			);
+			currentVersion = 4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */;
+			path = OchsnerDB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 47CDCE06278D872F0014527D /* Project object */;
 }

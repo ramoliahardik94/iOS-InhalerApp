@@ -21,6 +21,8 @@ class MedicationVC: BaseVC {
         super.viewDidLoad()
         self.setUp()
         // Do any additional setup after loading the view.
+        BLEHelper.shared.getmacAddress()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         self.getMedication()
     }
     
@@ -55,6 +57,13 @@ class MedicationVC: BaseVC {
     }
     // TODO: Do something
     // TODO: Rescue=1 Mantainance=2
+    
+    @objc func macDetail(notification: Notification) {
+        print(notification.object ?? "") // myObject
+          print(notification.userInfo ?? "")  // [AnyHashable("key"): "Value"]
+    }
+    
+    
     @IBAction func btnMedicationType(_ sender: UIButton) {        
             btnRescue.isSelected = sender == btnRescue
             btnMantainance.isSelected = sender == btnMantainance

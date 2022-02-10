@@ -36,12 +36,12 @@ class BLEHelper: NSObject {
         completion(isAllow)
     }
     func setRTCTime() {
-        let year =  Date().getString( format: "yyyy", isUTC: true).decimalToHax(byte: 2)
-        let day =  Date().getString(format: "dd", isUTC: true).decimalToHax()
-        let month =  Date().getString(format: "MM", isUTC: true).decimalToHax()
-        let hour =  Date().getString(format: "HH", isUTC: true).decimalToHax()
-        let min =  Date().getString(format: "mm", isUTC: true).decimalToHax()
-        let sec =  Date().getString(format: "s", isUTC: true).decimalToHax()
+        let year =  Date().getString( format: "yyyy").decimalToHax(byte: 2)
+        let day =  Date().getString(format: "dd").decimalToHax()
+        let month =  Date().getString(format: "MM").decimalToHax()
+        let hour =  Date().getString(format: "HH").decimalToHax()
+        let min =  Date().getString(format: "mm").decimalToHax()
+        let sec =  Date().getString(format: "s").decimalToHax()
         let haxRTC = TransferService.addRTSStartByte + year+day+month+hour+min+sec
         if discoveredPeripheral != nil && charectristicWrite != nil {
             discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
@@ -84,7 +84,7 @@ extension String {
         arrResponce.remove(at: 0)
         let strCount = arrResponce.joined(separator: "")
         let logCount =  UInt16(strCount, radix: 16)!
-        return Decimal(logCount)
+        return Decimal(logCount.bigEndian)
     }
     
     func getBeteryLevel() -> Decimal {
@@ -129,7 +129,7 @@ extension String {
             arrResponce.remove(at: 0)// durationTime
             arrResponce.remove(at: 0)// durationTime
             let date = "\(year)/\(month)/\(day) \(hour):\(min):\(sec)"
-            return (Decimal(logCount), date, Decimal(durationTime))
+            return (Decimal(logCount), date, Decimal(durationTime.bigEndian))
         } else {
             return (Decimal(0), Date().getString(format: "yyyy/MM/dd", isUTC: false), Decimal(0))
         }
