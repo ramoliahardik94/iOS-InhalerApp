@@ -146,6 +146,7 @@ class AddDeviceIntroVC: BaseVC {
     }
     
     @objc func inhalerConnected(notification: Notification) {
+        print("inhalerConnected")
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step4
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
@@ -167,6 +168,7 @@ class AddDeviceIntroVC: BaseVC {
             addDeviceIntroVC.isFromAddAnother = isFromAddAnother
             pushVC(controller: addDeviceIntroVC)
         case .step3:
+            BLEHelper.shared.stopTimer()
             BLEHelper.shared.connectPeriPheral()
             paringLoader.isHidden = false
             paringLoader.startAnimating()
@@ -178,7 +180,7 @@ class AddDeviceIntroVC: BaseVC {
             pushVC(controller: addDeviceIntroVC)
         case .step5:
             let medicationVC = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            pushVC(controller: medicationVC)
+            rootVC(controller: medicationVC)
             
         }
         

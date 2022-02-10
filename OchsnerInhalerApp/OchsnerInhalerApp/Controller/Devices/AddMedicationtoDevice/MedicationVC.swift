@@ -63,6 +63,9 @@ class MedicationVC: BaseVC {
     @IBAction func btnNextClick(_ sender: UIButton) {
         if selectedIndex != nil {
             if btnRescue.isSelected {
+                medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
+                UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
                 let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
                 self.pushVC(controller: connectProviderVC)
             } else {
