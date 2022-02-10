@@ -24,9 +24,13 @@ class TemporaryDashbord: BaseVC {
     
     @objc func inhalerConnected(notification: Notification) {
         BLEHelper.shared.getmacAddress()
+        BLEHelper.shared.getBetteryLevel()
+        BLEHelper.shared.getAccuationNumber()
+       
     }
     @objc func macDetail(notification: Notification) {
         tbvData.reloadData()
+        print(notification)
     }
     
     override func viewDidAppear(_ animated: Bool) {

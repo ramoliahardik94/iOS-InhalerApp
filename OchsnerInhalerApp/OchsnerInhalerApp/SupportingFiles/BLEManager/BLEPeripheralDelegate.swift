@@ -24,7 +24,7 @@ extension BLEHelper: CBPeripheralDelegate {
         
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
-        
+        print(stringFromData)
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
             NotificationCenter.default.post(name: .BLEGetMac, object: ["MacAdd": stringFromData])
@@ -121,10 +121,12 @@ extension BLEHelper {
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
+          
             charectristicWrite = characteristic
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
+            discoveredPeripheral!.setNotifyValue(true, for: characteristic)
             charectristicRead = characteristic
         }
         
