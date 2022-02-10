@@ -84,6 +84,13 @@ extension TemporaryDashbord: UITableViewDelegate, UITableViewDataSource {
         
         cell.btnRemove.tag = indexPath.row
         cell.btnRemove.addTarget(self, action: #selector(tapRemove(sender:)), for: .touchUpInside)
+        
+        cell.btnRemove.isEnabled =  (BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral!.state == .connected)
+        if cell.btnRemove.isEnabled {
+            cell.btnRemove.backgroundColor = .ButtonColorBlue
+        } else {
+            cell.btnRemove.backgroundColor = .gray
+        }
         return cell
     }
     

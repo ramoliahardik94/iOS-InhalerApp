@@ -134,8 +134,11 @@ extension BLEHelper {
         }
         
         stopTimer()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
-            if self.discoveredPeripheral!.state == .connected {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+            if self.discoveredPeripheral!.state == .connected  && !self.isConnected {
+                self.stopTimer()
+                self.isConnected = true
+                print(".BLEConnect")
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
         })

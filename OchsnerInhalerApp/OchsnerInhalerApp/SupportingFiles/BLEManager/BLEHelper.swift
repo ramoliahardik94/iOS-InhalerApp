@@ -12,7 +12,7 @@ class BLEHelper: NSObject {
     
     // MARK: Variable declaration
     static let shared = BLEHelper()
-    
+    var isConnected = false 
     var centralManager: CBCentralManager = CBCentralManager()
     var discoveredPeripheral: CBPeripheral?
     var charectristicWrite: CBCharacteristic?
