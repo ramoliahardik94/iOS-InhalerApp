@@ -185,7 +185,7 @@ class APIManager {
         dictHeader["app-type"] = CommanHeader.appType
         dictHeader["udid"] = MobileDeviceManager.shared.udid
         dictHeader["device_name"] = MobileDeviceManager.shared.name
-        dictHeader["access-token"] = UserDefaultManager.token
+        dictHeader["ac ken"] = UserDefaultManager.token
         return dictHeader
     }
     
