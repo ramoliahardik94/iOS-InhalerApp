@@ -15,8 +15,10 @@ class MedicationVC: BaseVC {
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
+    
     var selectedIndex: Int?
     let medicationVM = MedicationVM()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUp()
@@ -55,18 +57,21 @@ class MedicationVC: BaseVC {
         btnNext.setButtonView(StringAddDevice.next)
         tblMedication.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
-    // TODO: Do something
-    // TODO: Rescue=1 Mantainance=2
+    
     
     @objc func macDetail(notification: Notification) {
         print(notification.object ?? "") // myObject
           print(notification.userInfo ?? "")  // [AnyHashable("key"): "Value"]
+        if let mac = notification.userInfo!["MacAdd"] {
+            medicationVM.macAddress = mac as! String
+        }
     }
     
-    
-    @IBAction func btnMedicationType(_ sender: UIButton) {        
-            btnRescue.isSelected = sender == btnRescue
-            btnMantainance.isSelected = sender == btnMantainance
+    /// Rescue=1 Mantainance=2
+    @IBAction func btnMedicationType(_ sender: UIButton) {
+        btnRescue.isSelected = sender == btnRescue
+        btnMantainance.isSelected = sender == btnMantainance
+        medicationVM.medTypeId =  btnRescue.isSelected ? 1 : 2
     }
 
     @IBAction func btnNextClick(_ sender: UIButton) {
@@ -75,8 +80,18 @@ class MedicationVC: BaseVC {
                 medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
                 UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
                 UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
-                let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-                self.pushVC(controller: connectProviderVC)
+                medicationVM.apiAddDevice { [weak self] result in
+                    guard let `self` = self else { return }
+                    switch result {
+                    case .success(let status):
+                        print("Response sucess :\(status)")
+                        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                        self.pushVC(controller: connectProviderVC)
+                    case .failure(let message):
+                        CommonFunctions.showMessage(message: message)
+                    }
+                }
+               
             } else {
                 let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                 medicationDetailVC.index = 0

@@ -15,7 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        print("Document Directory : ",FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found !!!")
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        if paths.count != 0 {
+            print("Document Directory : ", paths[0] )
+        }
         if UserDefaultManager.isNotificationOn {
             NotificationManager.shared.register()
         }

@@ -76,64 +76,43 @@ class BLEHelper: NSObject {
 extension String {
     
     func getNumberofAccuationLog( ) -> Decimal {
-        var arrResponce = self.split(separator: ":")
-        arrResponce.remove(at: 0)//  StartByte
-        arrResponce.remove(at: 0)// OPCODE
-        arrResponce.remove(at: 0)// OPCODE
-        _ =  UInt8(arrResponce[0], radix: 16) // payloadLenth
-        arrResponce.remove(at: 0)
-        let strCount = arrResponce.joined(separator: "")
+        let arrResponce = self.split(separator: ":")
+        _ =  UInt8(arrResponce[3], radix: 16) // payloadLenth
+        let strCount = "\(arrResponce[4])\(arrResponce[5])"
         let logCount =  UInt16(strCount, radix: 16)!
         return Decimal(logCount.bigEndian)
     }
     
     func getBeteryLevel() -> Decimal {
-        var arrResponce = self.split(separator: ":")
-        arrResponce.remove(at: 0)//  StartByte
-        arrResponce.remove(at: 0)// OPCODE
-        arrResponce.remove(at: 0)// OPCODE
-        _ =  UInt8(arrResponce[0], radix: 16) // payloadLenth
-        arrResponce.remove(at: 0)// PlayLoad Lenth
-        let betteryLevel =  UInt8(arrResponce[0], radix: 16)!
+        let arrResponce = self.split(separator: ":")
+        _ =  UInt8(arrResponce[3], radix: 16) // payloadLenth
+        let betteryLevel =  UInt8(arrResponce[4], radix: 16)!
         return Decimal(betteryLevel)
     }
+    
     func getAcuationLog() ->  (id: Decimal, date: String, uselength: Decimal) {
         
-        var arrResponce = self.split(separator: ":")
-        arrResponce.remove(at: 0)//  StartByte
-        arrResponce.remove(at: 0)//  OPCODE
-        arrResponce.remove(at: 0)//  OPCODE
-        let payloadLenth =  UInt8(arrResponce[0], radix: 16)! // payloadLenth
+        let arrResponce = self.split(separator: ":")
+        let payloadLenth =  UInt8(arrResponce[3], radix: 16)! // payloadLenth
         if payloadLenth != 0 {
-            arrResponce.remove(at: 0)//  PlayLoad Lenth
-            let idStr = "\(arrResponce[0])\(arrResponce[1])"
+            let idStr = "\(arrResponce[4])\(arrResponce[5])"
             let logCount =  UInt16(idStr, radix: 16)!.bigEndian
-            arrResponce.remove(at: 0)//  ID
-            arrResponce.remove(at: 0)//  ID
-            let yearStr = "\(arrResponce[0])\(arrResponce[1])"
+            let yearStr = "\(arrResponce[6])\(arrResponce[7])"
             let year =  UInt16(yearStr, radix: 16)!.bigEndian
-            arrResponce.remove(at: 0)// Year
-            arrResponce.remove(at: 0)// Year
-            let month = UInt8(arrResponce[0], radix: 16)!
-            arrResponce.remove(at: 0)// Month
-            let day = UInt8(arrResponce[0], radix: 16)!
-            arrResponce.remove(at: 0)// day
-            let hour = UInt8(arrResponce[0], radix: 16)!
-            arrResponce.remove(at: 0)// huor
-            let min = UInt8(arrResponce[0], radix: 16)!
-            arrResponce.remove(at: 0)// min
-            let sec = UInt8(arrResponce[0], radix: 16)!
-            arrResponce.remove(at: 0)// min
-            let duration = "\(arrResponce[0])\(arrResponce[1])"
+            let month = UInt8(arrResponce[8], radix: 16)!
+            let day = UInt8(arrResponce[9], radix: 16)!
+            let hour = UInt8(arrResponce[10], radix: 16)!
+            let min = UInt8(arrResponce[11], radix: 16)!
+            let sec = UInt8(arrResponce[12], radix: 16)!
+            let duration = "\(arrResponce[13])\(arrResponce[14])"
             let durationTime =  UInt16(duration, radix: 16)!
-            arrResponce.remove(at: 0)// durationTime
-            arrResponce.remove(at: 0)// durationTime
-            let date = "\(year)/\(month)/\(day) \(hour):\(min):\(sec)"
+            let date = String(format: "%04d/%02d/%02d %02d:%02d:%02d", year, month, day, hour, min, sec)
             return (Decimal(logCount), date, Decimal(durationTime.bigEndian))
         } else {
-            return (Decimal(0), Date().getString(format: "yyyy/MM/dd", isUTC: false), Decimal(0))
+            return (Decimal(0), Date().getString(format: "yyyy/MM/dd HH:mm:ss", isUTC: false), Decimal(0))
         }
     }
+    
     func decimalToHax(byte: Int = 1) -> String {
         var haxStr = ""
         switch byte {
