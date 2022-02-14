@@ -9,6 +9,7 @@ enum APIRouter {
     case login
     case refreshToken
     case medication
+    case providerList
     
     // MARK: - Path
     var path: String {
@@ -21,6 +22,9 @@ enum APIRouter {
             return BaseURLManager.shared.getBaseURL() + "login"
         case .medication :
             return BaseURLManager.shared.getBaseURL() + "medication"
+        case .providerList :
+            return BaseURLManager.shared.getBaseURL() + "ProviderList"
+        
         }
     }
     

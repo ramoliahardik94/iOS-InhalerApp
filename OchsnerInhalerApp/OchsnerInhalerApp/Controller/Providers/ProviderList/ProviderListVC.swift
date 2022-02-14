@@ -22,6 +22,9 @@ class ProviderListVC: BaseVC {
     @IBOutlet weak var btnContinue: UIButton!
     @IBOutlet weak var btnChange: UIButton!
     
+    @IBOutlet weak var tbvData: UITableView!
+    private var providerListVM = ProviderListVM()
+   private var OAuthUrl = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -51,6 +54,7 @@ class ProviderListVC: BaseVC {
         self.btnContinue.setButtonView(StringPoviders.continueProvider)
         self.btnChange.setButtonView(StringPoviders.change, isDefaultbtn: false)
         viewConform.isHidden = true
+        doGetProviderList()
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
         self.searchProvider.searchTextField.text = ""
@@ -62,28 +66,47 @@ class ProviderListVC: BaseVC {
     }
     
     @IBAction func btnContinueClick(_ sender: Any) {
-        let addAnotherDeviceVC  = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        pushVC(controller: addAnotherDeviceVC)
+      //  let addAnotherDeviceVC  = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+       // pushVC(controller: addAnotherDeviceVC)
+        guard let url = URL(string: OAuthUrl) else { return }
+        UIApplication.shared.open(url)
     }
     @IBAction func btnChangeClick(_ sender: Any) {
         viewConform.isHidden = true
+        OAuthUrl = ""
+    }
+    
+    func doGetProviderList() {
+        providerListVM.doGetProviderList { result in
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                DispatchQueue.main.async {
+                    self.tbvData.reloadData()
+                }
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
+        }
     }
 }
 extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return providerListVM.providerList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: ProviderCell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell") as! ProviderCell
-        if indexPath.row == 1 {
-            cell.imgProvider.image = UIImage(named: "provider")
-        } else if indexPath.row == 2 {
-            cell.imgProvider.image = UIImage(named: "provider1")
-        } else {
-            cell.imgProvider.image = UIImage(named: "provider2")
-        }
+        cell.imgProvider.image = UIImage(named: providerListVM.providerList[indexPath.row].iconFilename ?? "")
+        
+//        if indexPath.row == 1 {
+//            cell.imgProvider.image = UIImage(named: "provider")
+//        } else if indexPath.row == 2 {
+//            cell.imgProvider.image = UIImage(named: "provider1")
+//        } else {
+//            cell.imgProvider.image = UIImage(named: "provider2")
+//        }
         
         return cell
     }
@@ -93,13 +116,16 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
-        if indexPath.row == 1 {
-            imgSelectedProvider.image = UIImage(named: "provider")
-        } else if indexPath.row == 2 {
-            imgSelectedProvider.image = UIImage(named: "provider1")
-        } else {
-            imgSelectedProvider.image = UIImage(named: "provider2")
-        }
+        imgSelectedProvider.image = UIImage(named: providerListVM.providerList[indexPath.row].iconFilename ?? "")
+//        if indexPath.row == 1 {
+  //          imgSelectedProvider.image = UIImage(named: "provider")
+//        } else if indexPath.row == 2 {
+//            imgSelectedProvider.image = UIImage(named: "provider1")
+//        } else {
+//            imgSelectedProvider.image = UIImage(named: "provider2")
+//        }
+        let obj =  providerListVM.providerList[indexPath.row]
+        OAuthUrl = obj.OAuthUrl ?? ""
         viewConform.isHidden = false
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

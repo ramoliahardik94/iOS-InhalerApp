@@ -351,6 +351,7 @@
                         <outlet property="lblHeader" destination="nX4-u3-aPv" id="cXi-H7-fy7"/>
                         <outlet property="lblSubHeader" destination="9an-s7-yZh" id="Cgv-kz-Neo"/>
                         <outlet property="searchProvider" destination="Mqs-1N-MME" id="iOW-XK-KF9"/>
+                        <outlet property="tbvData" destination="n18-bZ-dpw" id="qxh-0n-YhJ"/>
                         <outlet property="viewConform" destination="0DC-8d-t9r" id="WXR-Q4-dnb"/>
                         <outlet property="viewProvider" destination="dhe-q8-Hgm" id="lTY-R0-EK1"/>
                         <outlet property="viewSearch" destination="5mz-59-SlE" id="fHn-ab-wWk"/>
