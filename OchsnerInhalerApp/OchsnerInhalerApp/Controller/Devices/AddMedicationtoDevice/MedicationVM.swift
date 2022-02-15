@@ -38,12 +38,17 @@ class MedicationVM {
     
     func apiAddDevice(completionHandler: @escaping ((APIResult) -> Void)) {
         if macAddress != "N/A" {
+            var str = ""
+            if arrTime.count != 0 {
+               str = arrTime.joined(separator: ",")
+            }
             let dic: [String: Any] = [
                 "InternalId": macAddress,
                 "MedId": selectedMedication.medID!,
                 "MedTypeId": medTypeId,
                 "Puffs": puff,
-                "DailyUsage": totalDose
+                "DailyUsage": totalDose,
+                "UseTimes": str
             ]
             APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { error, response in
                 if response == nil {

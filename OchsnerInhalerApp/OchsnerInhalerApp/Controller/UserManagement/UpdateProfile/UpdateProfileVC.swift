@@ -56,7 +56,7 @@ class UpdateProfileVC: BaseVC {
         pushVC(controller: connectProviderVC)
     }
     private func setTextFieldFont(textField: UITextField) {
-        setCustomFontTextField(textField: textField, type: .regular, fontSize: 17)
+        textField.setFont()
     }
     @IBAction func tapBack(_ sender: UIButton) {
         popVC()

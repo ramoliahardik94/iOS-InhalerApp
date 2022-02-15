@@ -31,12 +31,11 @@ class LoginVC: BaseVC {
         btnLogin.setButtonView(StringUserManagement.login, 17)
         btnCreateAccount.setButtonView(StringUserManagement.createAccount, 17)
         
-        setCustomFontLabel(label: lblLogin, type: .bold, fontSize: 34)
-        setCustomFontLabel(label: lblDontHaveAccount, type: .bold, fontSize: 22)
-        setCustomFontLabel(label: lblEmail, type: .regular, fontSize: 15)
-        setCustomFontLabel(label: lblCreatePassword, type: .regular, fontSize: 15)
-        setCustomFontTextField(textField: tfEmail, type: .regular, fontSize: 17)
-        setCustomFontTextField(textField: tfPassword, type: .regular, fontSize: 17)
+        lblLogin.setFont(type: .bold, point: 34)
+        lblDontHaveAccount.setFont(type: .bold, point: 22)
+        lblCreatePassword.setFont(type: .regular, point: 15)
+        tfEmail.setFont()
+        tfPassword.setFont()
       
         tfPassword.layer.borderWidth = 1
         tfPassword.layer.borderColor = UIColor.TextFieldBorderColor.cgColor

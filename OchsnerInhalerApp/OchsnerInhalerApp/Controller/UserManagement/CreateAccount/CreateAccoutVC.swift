@@ -51,13 +51,14 @@ class CreateAccoutVC: BaseVC {
         setBorderTextField(textField: tfPassword)
         setBorderTextField(textField: tfConfirmPassword)
         
-        setCustomFontLabel(label: lblCreateAccount, type: .bold, fontSize: 32)
-        setCustomFontLabel(label: lblFirstName, type: .regular, fontSize: 15)
-        setCustomFontLabel(label: lblLastName, type: .regular, fontSize: 15)
-        setCustomFontLabel(label: lblEmail, type: .regular, fontSize: 15)
-        setCustomFontLabel(label: lblCreatePassword, type: .regular, fontSize: 15)
-        setCustomFontLabel(label: lblConfirmPassword, type: .regular, fontSize: 15)
-        setCustomFontLabel(label: lblPrivacyPolicy, type: .regular, fontSize: 15)
+        lblCreateAccount.setFont(type: .bold, point: 34)
+        lblFirstName.setFont(type: .regular, point: 15)
+        lblLastName.setFont(type: .regular, point: 15)
+        lblEmail.setFont(type: .regular, point: 15)
+        lblCreatePassword.setFont(type: .regular, point: 15)
+        lblConfirmPassword.setFont(type: .regular, point: 15)
+        lblPrivacyPolicy.setFont(type: .regular, point: 15)
+        
         addAstrickSing(label: lblFirstName)
         addAstrickSing(label: lblLastName)
         addAstrickSing(label: lblEmail)
@@ -100,7 +101,7 @@ class CreateAccoutVC: BaseVC {
         textField.layer.borderColor = UIColor.TextFieldBorderColor.cgColor
         textField.layer.cornerRadius = 4
         textField.delegate = self
-        setCustomFontTextField(textField: textField, type: .regular, fontSize: 17)
+        textField.setFont()
     }
     
     @IBAction func tapBack(_ sender: UIButton) {

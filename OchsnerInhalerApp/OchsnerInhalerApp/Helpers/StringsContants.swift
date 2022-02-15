@@ -31,6 +31,7 @@ struct StringCommonMessages {
      static let connecting = "Connecting"
      static let disconnect = "Disconnected"
      static let battery = "Battery:"
+    static let  rescueDose = "Take as needed"
 
 }
 struct AppFont {
@@ -198,5 +199,10 @@ struct StringHome {
     static let  thisWeek = "This Week"
     static let  thisMonth = "This Month"
     static let  adherance = "Adherance: "
+}
 
+struct CellIdentifier {
+    static let medicationCell = "MedicationCell"
+    static let doseTimeCell = "DoseTimeCell"
+    static let manageDeviceCell = "ManageDeviceCell"
 }

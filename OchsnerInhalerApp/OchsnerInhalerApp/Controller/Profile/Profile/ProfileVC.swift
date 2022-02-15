@@ -33,12 +33,12 @@ class ProfileVC: BaseVC {
         setupButton(button: btnLogout, title: StringProfile.logOut)
         setupButton(button: btnChangeProvider, title: StringProfile.changeProvider)
         setupButton(button: btnRemoveProvider, title: StringProfile.remove)
-        setCustomFontLabel(label: lblEmail, type: .regular, fontSize: 19)
-        setCustomFontLabel(label: lblProvider, type: .bold, fontSize: 19)
-        setCustomFontLabel(label: lblSettings, type: .bold, fontSize: 24)
-        setCustomFontLabel(label: lblReceiveNotifications, type: .regular, fontSize: 21)
-        setCustomFontLabel(label: lblShareLocation, type: .regular, fontSize: 21)
-        setCustomFontLabel(label: lblShareUsageWithProvider, type: .regular, fontSize: 21)
+        lblEmail.setFont(type: .regular, point: 19)
+        lblProvider.setFont(type: .bold, point: 19)
+        lblSettings.setFont(type: .bold, point: 24)
+        lblReceiveNotifications.setFont(type: .regular, point: 21)
+        lblShareLocation.setFont(type: .regular, point: 21)
+        lblShareUsageWithProvider.setFont(type: .regular, point: 21)
 
         
         lblEmail.text = "lauren@ipsum.com"

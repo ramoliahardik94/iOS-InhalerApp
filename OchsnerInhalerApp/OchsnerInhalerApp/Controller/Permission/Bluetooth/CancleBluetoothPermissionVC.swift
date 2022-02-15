@@ -16,9 +16,8 @@ class CancleBluetoothPermissionVC: BaseVC {
         
         lblBluetoothPermission.text = StringPermissions.sorrybluetoothPermission
         lblBluetoothPermission.textColor = .black
-        btnGrant.setButtonView(StringCommonMessages.grant)
-        setCustomFontLabel(label: lblBluetoothPermission, type: .bold, fontSize: 32)
-     
+        btnGrant.setButtonView(StringCommonMessages.grant)       
+        lblBluetoothPermission.setFont(type: .bold, point: 32)
     }
     
     @IBAction func tapGrant(_ sender: UIButton) {

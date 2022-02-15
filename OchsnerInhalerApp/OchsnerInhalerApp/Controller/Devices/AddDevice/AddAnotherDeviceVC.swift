@@ -31,11 +31,11 @@ class AddAnotherDeviceVC: BaseVC {
     }
     
     @IBAction func btnGohomeClick(_ sender: Any) {
-//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-//        pushVC(controller: homeTabBar)
-        let vc1 = TemporaryDashbord()
-        self.rootVC(controller: vc1)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+        rootVC(controller: homeTabBar)
+//        let vc1 = TemporaryDashbord()
+//        self.rootVC(controller: vc1)
     }
     
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {

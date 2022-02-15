@@ -28,11 +28,11 @@ class OchsnerCloudPermissionVC: BaseVC {
         lbShareYourInhaler.text = StringPermissions.shareYourInhaler
         
         
-        setCustomFontLabel(label: lbOneLastThing, type: .bold, fontSize: 32)
-        setCustomFontLabel(label: lblShareYourInhalerUsage, type: .bold, fontSize: 32)
-        setCustomFontLabel(label: lbConnectSensor, type: .semiBold, fontSize: 20)
-        setCustomFontLabel(label: lbKeepYourOchsner, type: .regular, fontSize: 20)
-        setCustomFontLabel(label: lbShareYourInhaler, type: .semiBold, fontSize: 20)
+        lbOneLastThing.setFont(type: .bold, point: 32 )
+        lblShareYourInhalerUsage.setFont(type: .bold, point: 32)
+        lbConnectSensor.setFont(type: .semiBold, point: 20)
+        lbKeepYourOchsner.setFont(type: .regular, point: 20 )
+        lbShareYourInhaler.setFont(type: .semiBold, point: 20 )
       
         
         

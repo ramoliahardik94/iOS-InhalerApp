@@ -19,7 +19,7 @@ class LocationPermisionVC: BaseVC {
         
         
         lblLocationPermission.text = StringPermissions.locationPermission
-        setCustomFontLabel(label: lblLocationPermission, type: .bold, fontSize: 32)
+        lblLocationPermission.setFont(type: .bold, point: 32)
         btnSkip.setButtonViewGrey(StringCommonMessages.skip)
         btnGrant.setButtonView(StringCommonMessages.grant)
         

@@ -114,6 +114,8 @@
 		47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9E278DA8A00014527D /* DeviceList.storyboard */; };
 		47CDCEA1278DA8C10014527D /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCEA0278DA8C10014527D /* Profile.storyboard */; };
 		47CDCEA3278DA9470014527D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCEA2278DA9470014527D /* UserModel.swift */; };
+		47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662527BBB843004A2006 /* ManageDeviceVM.swift */; };
+		47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662727BBB857004A2006 /* DeviceModel.swift */; };
 		47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */; };
 		F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */; };
 /* End PBXBuildFile section */
@@ -230,6 +232,8 @@
 		47CDCE9E278DA8A00014527D /* DeviceList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeviceList.storyboard; sourceTree = "<group>"; };
 		47CDCEA0278DA8C10014527D /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		47CDCEA2278DA9470014527D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		47E1662527BBB843004A2006 /* ManageDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceVM.swift; sourceTree = "<group>"; };
+		47E1662727BBB857004A2006 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.release.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -484,6 +488,7 @@
 			children = (
 				224E1C952797F500000C5D1A /* Cell */,
 				22AE96FC278EAA0B00C0D851 /* ManageDeviceVC.swift */,
+				47E1662527BBB843004A2006 /* ManageDeviceVM.swift */,
 			);
 			path = ManageDevice;
 			sourceTree = "<group>";
@@ -649,6 +654,7 @@
 				47CDCEA2278DA9470014527D /* UserModel.swift */,
 				4728C9DE27A7BF5D0057F8E5 /* MedicationModel.swift */,
 				22FC2E0727B76D2700ABE886 /* ProviderModel.swift */,
+				47E1662727BBB857004A2006 /* DeviceModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -933,6 +939,7 @@
 				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
 				22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */,
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
+				47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */,
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
 				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
 				47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */,
@@ -952,6 +959,7 @@
 				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
 				224E1C9D27981AB7000C5D1A /* HomeDeviceCell.swift in Sources */,
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
+				47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */,
 				4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
 				47CDCE93278D89C30014527D /* APIManager.swift in Sources */,

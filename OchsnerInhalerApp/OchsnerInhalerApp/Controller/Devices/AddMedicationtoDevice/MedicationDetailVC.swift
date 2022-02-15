@@ -199,7 +199,7 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: "DoseTimeCell") as! DoseTimeCell
+        let cell: DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.doseTimeCell ) as! DoseTimeCell
         cell.lblDoseTime.text = "\((indexPath.row + 1).ordinal) Dose at \(self.medicationVM.arrTime[indexPath.row])"
         cell.btnRemove.tag = indexPath.row
         cell.btnEditDose.tag = indexPath.row

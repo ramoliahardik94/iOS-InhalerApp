@@ -104,6 +104,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         setCustomFontLabel(label: cell.lblDeviceName, type: .bold, fontSize: 24)
         setCustomFontLabel(label: cell.lblDeviceType, type: .lightItalic, fontSize: 16)
+       
         setCustomFontLabel(label: cell.lblConnected, type: .regular, fontSize: 14)
         setCustomFontLabel(label: cell.lblBattery, type: .regular, fontSize: 14)
         setCustomFontLabel(label: cell.lblBatteryPercentage, type: .semiBold, fontSize: 14)

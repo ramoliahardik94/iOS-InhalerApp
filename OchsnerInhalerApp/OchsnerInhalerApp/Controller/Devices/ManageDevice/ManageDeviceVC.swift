@@ -9,12 +9,29 @@ import UIKit
 
 class ManageDeviceVC: BaseVC {
     @IBOutlet weak var tbvData: UITableView!
-    private let itemCell = "ManageDeviceCell"
-    
+    private let itemCell = CellIdentifier.manageDeviceCell
+    var manageDeviceVM = ManageDeviceVM()
     @IBOutlet weak var btnAddAnothDevice: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        manageDeviceVM.apicallForGetDeviceList  { [weak self] result in
+            guard let`self` = self else{ return }
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                self.tbvData.reloadData()
+                
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
+        }
     }
     
     private func initUI() {
@@ -27,8 +44,15 @@ class ManageDeviceVC: BaseVC {
         tbvData.dataSource = self
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
+    
     }
-
+    @objc func inhalerConnected(notification: Notification) {
+        BLEHelper.shared.getmacAddress()
+        BLEHelper.shared.getBetteryLevel()
+        DispatchQueue.main.async {
+            self.tbvData.reloadData()
+        }
+    }
     
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
@@ -41,41 +65,15 @@ class ManageDeviceVC: BaseVC {
 }
 extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return manageDeviceVM.arrDevice.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCell, for: indexPath) as! ManageDeviceCell
         cell.selectionStyle = .none
-        setCustomFontLabel(label: cell.lblDeviceName, type: .semiBold, fontSize: 17)
-        setCustomFontLabel(label: cell.lblNCDCode, type: .regular, fontSize: 17)
-        setCustomFontLabel(label: cell.lblUsageLabel, type: .regular, fontSize: 17)
-        setCustomFontLabel(label: cell.lblUsage, type: .bold, fontSize: 17)
-        setCustomFontLabel(label: cell.lblDose, type: .regular, fontSize: 17)
-        setCustomFontLabel(label: cell.lblNoOfDose, type: .regular, fontSize: 17)
-        cell.btnRemoveDevice.setButtonView(StringDevices.removeDevice, 17, AppFont.AppRegularFont)
-        cell.btnEditDirection.setButtonView(StringDevices.editDirection, 17, AppFont.AppRegularFont)
-        cell.lblUsageLabel.text = StringDevices.usage
-        if indexPath.row == 0 {
-            cell.lblUsage.textColor = #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1) // #23C154
-            cell.lblDeviceName.text  = "Teva(ProAir Generic)"
-            cell.lblNCDCode.text = "NDC Code: 0093-3174-31"
-            cell.lblUsage.text = "Maintenance"
-            cell.lblDose.text = "1 Dose = 2 Puffs"
-            cell.lblNoOfDose.text = "1st Dose at 8:30 am\n2nd Dose at 6:30 pm"
-            
-            cell.ivInhaler.image = UIImage(named: "inhaler_red")
-        } else {
-            cell.lblUsage.textColor = #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) // #E02020
-            cell.lblDeviceName.text  = "Ventolin"
-            cell.lblNCDCode.text = "NDC Code: 0173-0682-20"
-           
-            cell.lblUsage.text = "Rescue"
-            cell.lblDose.text = "1 Dose = 2 Puffs"
-            cell.lblNoOfDose.text = "Take as needed"
-            cell.ivInhaler.image = UIImage(named: "inhaler_blue")
-        }
-        
+        cell.btnRemoveDevice.tag = indexPath.row
+        cell.btnEditDirection.tag = indexPath.row
+        cell.device = manageDeviceVM.arrDevice[indexPath.row]
         return cell
     }
     
