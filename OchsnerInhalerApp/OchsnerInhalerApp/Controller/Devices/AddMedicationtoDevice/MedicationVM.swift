@@ -45,15 +45,11 @@ class MedicationVM {
                 "Puffs": puff,
                 "DailyUsage": totalDose
             ]
-            APIManager.shared.performRequest(route: APIRouter.medication.path, parameters: dic, method: .get) { error, response in
+            APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { error, response in
                 if response == nil {
                     completionHandler(.failure(error!.message))
                 } else {
-                    if let res = response as? [[String: Any]] {
-                        self.medication.removeAll()
-                        for obj in res {
-                            self.medication.append(MedicationModelElement(jSon: obj))
-                        }
+                    if (response as? [String: Any]) != nil {
                         completionHandler(.success(true))
                     } else {
                         completionHandler(.failure(ValidationMsg.CommonError))

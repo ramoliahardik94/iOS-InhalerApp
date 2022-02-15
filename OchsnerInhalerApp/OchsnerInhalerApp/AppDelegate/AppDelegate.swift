@@ -15,6 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+            UINavigationBar.appearance().shadowImage = UIImage()
+            UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().barTintColor = .ButtonColorBlue
+        UINavigationBar.appearance().isTranslucent = false
+            UINavigationBar.appearance().clipsToBounds = false
+        UINavigationBar.appearance().backgroundColor = .ButtonColorBlue
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: (UIFont(name:AppFont.AppBoldFont, size: 18))!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         if paths.count != 0 {
             print("Document Directory : ", paths[0] )
