@@ -27,7 +27,7 @@ extension BLEHelper: CBPeripheralDelegate {
         print(stringFromData)
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
-            NotificationCenter.default.post(name: .BLEGetMac, object: ["MacAdd": stringFromData])
+            NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
         } else {
             var arrResponce = stringFromData.split(separator: ":")
             arrResponce.remove(at: 0)// StartByte
@@ -44,8 +44,12 @@ extension BLEHelper: CBPeripheralDelegate {
                 NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(numberofLog)"])
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
-                NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo: ["Id": "\(log.id)", "date": "\(log.date)", "uselength": "\(log.uselength)"])
-              //  print("Id : \(log.id) \n Date: \(log.date) \n usageLength : \(log.uselength)")
+                NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
+                                                    ["Id": (log.id),
+                                                     "date": "\(log.date)",
+                                                     "uselength": log.uselength,
+                                                     "mac": addressMAC,
+                                                     "udid": peripheral.identifier.uuidString])
             }
         }
     }
@@ -154,7 +158,8 @@ extension Data {
 
     func hexEncodedString(options: HexEncodingOptions = []) -> String {
         let format = options.contains(.upperCase) ? "%02hhX:" : "%02hhx:"
-        return self.map { String(format: format, $0) }.joined()
+        let string = self.map { String(format: format, $0) }.joined()
+        return String(string.dropLast())     
     }
 }
 

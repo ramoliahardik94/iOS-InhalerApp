@@ -81,6 +81,8 @@ class APIManager {
                         }
                     } else if let data = response.value as? [[String: Any]] {
                         completion?(nil, data)
+                    } else {
+                        completion?(nil, ["key": "Success"])
                     }
                 case .failure:
                     completion?(RuntimeError(ValidationMsg.CommonError), nil)

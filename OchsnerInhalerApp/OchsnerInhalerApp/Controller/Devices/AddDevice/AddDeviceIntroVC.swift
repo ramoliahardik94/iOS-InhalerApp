@@ -146,6 +146,7 @@ class AddDeviceIntroVC: BaseVC {
     @objc func inhalerConnected(notification: Notification) {
         print("inhalerConnected")
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        BLEHelper.shared.setRTCTime()
         addDeviceIntroVC.step = .step4
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
         pushVC(controller: addDeviceIntroVC)

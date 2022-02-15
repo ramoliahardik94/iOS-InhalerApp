@@ -28,7 +28,7 @@ class MedicationDetailVC: BaseVC {
     
     let timePicker = UIDatePicker()
     var index = 0
-    var arrTime: [String] = [String]()
+   
     
     let myPicker: NMDatePicker = {
         let obj = NMDatePicker()
@@ -66,8 +66,8 @@ class MedicationDetailVC: BaseVC {
             formatter.dateFormat =  "hh:mm a"
             let selectedTime = formatter.string(from: val)
             
-            self.arrTime.remove(at: self.myPicker.tag)
-            self.arrTime.insert(selectedTime, at: self.myPicker.tag)
+            self.medicationVM.arrTime.remove(at: self.myPicker.tag)
+            self.medicationVM.arrTime.insert(selectedTime, at: self.myPicker.tag)
             self.tblDoseTime.reloadData()
             
             self.myPicker.isHidden = true
@@ -106,7 +106,7 @@ class MedicationDetailVC: BaseVC {
         btnAddDose.clipsToBounds = true
         
         lblAddDose.font = UIFont(name: AppFont.AppRegularFont, size: 17)
-        lblAddDose.text =  arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
+        lblAddDose.text =  self.medicationVM.arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
         lblAddDose.textColor = .BlueText
         self.setDatePicker()
         
@@ -121,13 +121,29 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
-        // let vc = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        // pushVC(vc: vc)
-        medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
-        UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
-        UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
-        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-        self.pushVC(controller: connectProviderVC)
+        
+        if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
+            medicationVM.apiAddDevice { [weak self] result in
+                guard let `self` = self else { return }
+                switch result {
+                case .success(let status):
+                    print("Response sucess :\(status)")
+                    self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                    UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
+                    UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
+                    let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                    self.pushVC(controller: connectProviderVC)
+                case .failure(let message):
+                    CommonFunctions.showMessage(message: message)
+                }
+            }
+        } else {
+            if medicationVM.puff == 0 {
+            CommonFunctions.showMessage(message: ValidationMsg.addPuff)
+            } else {
+                CommonFunctions.showMessage(message: ValidationMsg.addDose)
+            }
+        }
     }
     
     /*
@@ -142,15 +158,16 @@ class MedicationDetailVC: BaseVC {
 
     @IBAction func reminderValue(_ sender: UISwitch) {
         print(sender.isOn)
+        // TODO: Set Local push notification
     }
     
     @IBAction func btnAddDoseClick(_ sender: Any) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm a"
         let dosetime =  dateFormatter.string(from: Date())
-        arrTime.append(dosetime)
+        self.medicationVM.arrTime.append(dosetime)
         tblDoseTime.reloadData()
-        lblAddDose.text =  arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
+        lblAddDose.text =  self.medicationVM.arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
     }
     
     @IBAction func btnEditDose(_ sender: UIButton) {
@@ -159,9 +176,9 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnRemoveDoseTimeClick(_ sender: UIButton) {
-        arrTime.remove(at: sender.tag)
+        self.medicationVM.arrTime.remove(at: sender.tag)
         tblDoseTime.reloadData()
-        lblAddDose.text =  arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
+        lblAddDose.text =  self.medicationVM.arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
     }
     
     @IBAction func tapNoOfDose(_ sender: UIButton) {
@@ -169,22 +186,21 @@ class MedicationDetailVC: BaseVC {
         dropDown.dataSource = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
         dropDown.selectionAction = { [weak self] (_, item) in
-            self?.txtPuff.text  =     item
+            guard let `self` = self else { return }
+            self.txtPuff.text = item
+            self.medicationVM.puff = Int(item) ?? 0
         }
         dropDown.show()
-        
-        
     }
 }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrTime.count
+        return self.medicationVM.arrTime.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell: DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: "DoseTimeCell") as! DoseTimeCell
-        cell.lblDoseTime.text = "\((indexPath.row + 1).ordinal) Dose at \(arrTime[indexPath.row])"
+        cell.lblDoseTime.text = "\((indexPath.row + 1).ordinal) Dose at \(self.medicationVM.arrTime[indexPath.row])"
         cell.btnRemove.tag = indexPath.row
         cell.btnEditDose.tag = indexPath.row
         return cell

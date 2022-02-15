@@ -17,10 +17,10 @@ class ManageDeviceCell: UITableViewCell {
     @IBOutlet weak var lblNoOfDose: UILabel!
     @IBOutlet weak var btnRemoveDevice: UIButton!
     @IBOutlet weak var btnEditDirection: UIButton!
-    
     @IBOutlet weak var ivInhaler: UIImageView!
     @IBOutlet weak var ivDescription: UIImageView!
     @IBOutlet weak var ivDose: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
