@@ -18,6 +18,7 @@ class ManageDeviceVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerBatteryLevel(notification:)), name: .BLEBatteryLevel, object: nil)
         initUI()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -54,7 +55,9 @@ class ManageDeviceVC: BaseVC {
             self.tbvData.reloadData()
         }
     }
-    
+    @objc func inhalerBatteryLevel(notification: Notification) {
+        self.tbvData.reloadData()
+    }
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -101,5 +104,6 @@ extension ManageDeviceVC: ManageDeviceDelegate {
     
     func removeDevice(index: Int) {
         // TODO: - Remove device api call
+        CommonFunctions.showMessage(message: "Remove device is under development.")
     }
 }

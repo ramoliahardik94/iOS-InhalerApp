@@ -91,7 +91,7 @@ class MedicationDetailVC: BaseVC {
         txtPuff.isOchsnerView = true
         txtPuff.clipsToBounds = true
         txtPuff.font = UIFont(name: AppFont.AppRegularFont, size: 17)
-        txtPuff.text = medicationVM.puff != 0 ? "\(medicationVM.puff)" : ""
+        txtPuff.text =  "\(medicationVM.puff)" 
         lblDoseTime.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblDoseTime.text = StringMedication.doseTime
         
@@ -122,7 +122,7 @@ class MedicationDetailVC: BaseVC {
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
         
-        if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
+        if /*medicationVM.arrTime.count > 0 &&*/ medicationVM.puff > 0 {
             medicationVM.apiAddDevice { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
@@ -144,9 +144,10 @@ class MedicationDetailVC: BaseVC {
         } else {
             if medicationVM.puff == 0 {
             CommonFunctions.showMessage(message: ValidationMsg.addPuff)
-            } else {
-                CommonFunctions.showMessage(message: ValidationMsg.addDose)
             }
+//            else {
+//                CommonFunctions.showMessage(message: ValidationMsg.addDose)
+//            }
         }
     }
     

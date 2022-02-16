@@ -12,7 +12,7 @@ class MedicationVM {
     var selectedMedication: MedicationModelElement!
     var macAddress = "N/A"
     var medTypeId = 2
-    var puff = 0
+    var puff = 1
     var totalDose = 0
     var arrTime: [String] = [String]()
     var isEdit = false

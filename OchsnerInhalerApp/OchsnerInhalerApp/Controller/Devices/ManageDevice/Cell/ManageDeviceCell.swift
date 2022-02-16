@@ -36,12 +36,13 @@ class ManageDeviceCell: UITableViewCell {
             lblNCDCode.text = "NDC Code: \(device.medication.ndc!)"
             lblUsage.text = device.medTypeID ==  1 ?  "Rescue" :  "Maintenance"
             lblDose.text = "1 Dose = \(device.puffs) Puffs"
+            lblDose.isHidden = device.medTypeID == 1
             let str = device.useTimes.joined(separator: "\n")
-            lblNoOfDose.text =  device.medTypeID ==  1 ? StringCommonMessages.rescueDose : str
+            lblNoOfDose.text =  (device.medTypeID ==  1 || device.useTimes.count == 0) ? StringCommonMessages.rescueDose : str
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             lblstatus.text = BLEHelper.shared.addressMAC == device.internalID ? StringCommonMessages.connected : StringCommonMessages.disconnect
-            lblBettery.text = device.batteryLevel
+            lblBettery.text = BLEHelper.shared.addressMAC == device.internalID ? BLEHelper.shared.bettery : device.batteryLevel
             btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }
