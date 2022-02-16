@@ -86,7 +86,9 @@ struct ValidationMsg {
     static let bluetooth = "Please turn on all the bluetooth"
     static let bleNotfound = "There is no nearby Inhaler sensor found. Please make sure that your sensor is activated properly and nearby to your phone."
     static let bleNotPair = "There might be some problem with pairing the Inhaler sensor. Please follow the steps mentioned on the screen to enable the paring mode and try again."
-
+    static let addDose = "Please add daily dose."
+    static let addPuff = "Please add how many puffs per dose?"
+    
 }
 struct ValidationButton {
     static let tryAgain = "Try again"
@@ -142,6 +144,7 @@ struct StringAddDevice {
     static let addAnotherDeviceBtn = "Add Another Device Now"
     static let connect = "Connect"
     static let scanlist = "Scan device"
+    static let titleAddDevice = "Connected Inhaler Application"
 }
 // MARK: Medication
 struct StringMedication {

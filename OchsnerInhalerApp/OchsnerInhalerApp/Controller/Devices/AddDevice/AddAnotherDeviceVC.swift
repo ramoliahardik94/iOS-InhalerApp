@@ -27,7 +27,7 @@ class AddAnotherDeviceVC: BaseVC {
         
         btnGoHome.setButtonView(StringAddDevice.goHome)
         btnAddAnotherDevice.setButtonView(StringAddDevice.addAnotherDeviceBtn)
-        btnAddAnotherDevice.isHidden = true
+//        btnAddAnotherDevice.isHidden = true
     }
     
     @IBAction func btnGohomeClick(_ sender: Any) {

@@ -18,6 +18,9 @@ class ManageDeviceVC: BaseVC {
     }
     
     private func initUI() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        
         let nib = UINib(nibName: itemCell, bundle: nil)
         tbvData.register(nib, forCellReuseIdentifier: itemCell)
         tbvData.delegate = self

@@ -9,6 +9,7 @@ enum APIRouter {
     case login
     case refreshToken
     case medication
+    case device
     case providerList
     case providerAuth
     
@@ -23,6 +24,8 @@ enum APIRouter {
             return BaseURLManager.shared.getBaseURL() + "login"
         case .medication :
             return BaseURLManager.shared.getBaseURL() + "medication"
+        case .device :
+            return BaseURLManager.shared.getBaseURL() +  "device"
         case .providerList :
             return BaseURLManager.shared.getBaseURL() + "ProviderList"
         case .providerAuth :

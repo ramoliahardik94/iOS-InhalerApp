@@ -51,10 +51,12 @@ class LoginVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
-        #if targetEnvironment(simulator)
-        tfEmail.text = "nikita@gmail.com"
-        tfPassword.text = "password"
-        #endif
+       // #if targetEnvironment(simulator)
+//        tfEmail.text = "nikita@gmail.com"
+//        tfPassword.text = "password"
+        tfEmail.text = "dhaval.sabhaya@volansys.com"
+        tfPassword.text = "dhaval123"
+     //   #endif
     }
     
    
@@ -67,31 +69,32 @@ class LoginVC: BaseVC {
     @IBAction func tapLogin(_ sender: UIButton) {
         self.view.endEditing(true)
         login.apiLogin {[weak self] (result) in
+            guard let `self` = self else { return }
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
                 
                 if !UserDefaultManager.isGrantBLE {
                     let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self?.pushVC(controller: bluetoothPermissionVC)
+                    self.pushVC(controller: bluetoothPermissionVC)
                     return
                 }
                 if !UserDefaultManager.isGrantLaocation {
                     let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self?.pushVC(controller: locationPermisionVC)
+                    self.pushVC(controller: locationPermisionVC)
                     return
                 }
                 
                 if !UserDefaultManager.isNotificationOn {
                     let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self?.pushVC(controller: notificationPermissionVC)
+                    self.pushVC(controller: notificationPermissionVC)
                     return
                 }
                 
                 BLEHelper.shared.isAllowed { isAllow in
                     if isAllow {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                        self?.pushVC(controller: addDeviceIntroVC)
+                        self.pushVC(controller: addDeviceIntroVC)
                     }
                 }
                 

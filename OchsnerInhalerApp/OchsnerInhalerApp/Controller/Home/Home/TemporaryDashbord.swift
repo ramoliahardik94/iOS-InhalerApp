@@ -18,6 +18,7 @@ class TemporaryDashbord: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEDisconnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.notifyBatteryLevel(notification:)), name: .BLEBatteryLevel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
         // Do any additional setup after loading the view.
         initUI()
     }
@@ -26,7 +27,7 @@ class TemporaryDashbord: BaseVC {
         BLEHelper.shared.getmacAddress()
         BLEHelper.shared.getBetteryLevel()
         BLEHelper.shared.getAccuationNumber()
-       
+        BLEHelper.shared.getAccuationLog()        
     }
     @objc func macDetail(notification: Notification) {
         tbvData.reloadData()
@@ -53,6 +54,37 @@ class TemporaryDashbord: BaseVC {
             self.tbvData.reloadData()
         }
       
+    }
+    
+    @objc func accuationLog(notification: Notification) {
+      //  DatabaseManager.share.deleteAllAccuationLog()
+        print(notification.userInfo!)
+        LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { [weak self] coordination in
+            guard let `self` = self else { return }
+            if notification.userInfo!["uselength"]! as? Decimal != 0 {
+                let isoDate = notification.userInfo?["date"] as? String
+                let length = notification.userInfo!["uselength"]!
+                let mac = notification.userInfo?["mac"] as? String
+                let udid = notification.userInfo?["udid"] as? String
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy/dd/MM HH:mm:ss"
+                if  let date = dateFormatter.date(from: isoDate!) {
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                    let finalDate = dateFormatter.string(from: date)
+                    let dic: [String: Any] = ["date": finalDate,
+                                              "useLength": length,
+                                              "lat": "\(coordination.latitude)",
+                                              "long": "\(coordination.longitude)",
+                                              "isSync": false, "mac": mac! as Any,
+                                              "udid": udid as Any,
+                                              "batterylevel": self.batteryLevel]
+                    DatabaseManager.share.save(object: dic)
+                }
+            }
+           
+        })
+        DatabaseManager.share.getAccuationLogList()
     }
 
 }
@@ -107,7 +139,9 @@ extension TemporaryDashbord: UITableViewDelegate, UITableViewDataSource {
             addDeviceIntroVC.step = .step1
             addDeviceIntroVC.isFromAddAnother  = false
             pushVC(controller: addDeviceIntroVC)
-            
+
         }
+//        DatabaseManager.share.deleteAllAccuationLog()
+//        BLEHelper.shared.getAccuationLog()
     }
 }

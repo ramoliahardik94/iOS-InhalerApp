@@ -78,7 +78,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="685"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Mid-HH-jXs">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="609"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNK-o8-Yd1">
@@ -106,7 +106,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="YNK-o8-Yd1" secondAttribute="trailing" constant="32" id="CFd-rW-djC"/>
                                     <constraint firstItem="YNK-o8-Yd1" firstAttribute="leading" secondItem="2zF-5q-4Mc" secondAttribute="leading" constant="32" id="Q6N-l3-Nj5"/>
-                                    <constraint firstAttribute="bottom" secondItem="Mid-HH-jXs" secondAttribute="bottom" id="YwK-NX-g58"/>
+                                    <constraint firstItem="YNK-o8-Yd1" firstAttribute="top" secondItem="Mid-HH-jXs" secondAttribute="bottom" constant="10" id="YwK-NX-g58"/>
                                     <constraint firstItem="Mid-HH-jXs" firstAttribute="top" secondItem="2zF-5q-4Mc" secondAttribute="top" id="bEi-2b-Emd"/>
                                     <constraint firstItem="Mid-HH-jXs" firstAttribute="leading" secondItem="2zF-5q-4Mc" secondAttribute="leading" id="kt7-ty-Zfq"/>
                                     <constraint firstAttribute="trailing" secondItem="Mid-HH-jXs" secondAttribute="trailing" id="qHX-ee-aM5"/>
