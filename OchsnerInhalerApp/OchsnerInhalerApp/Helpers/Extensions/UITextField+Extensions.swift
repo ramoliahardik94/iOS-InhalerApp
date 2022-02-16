@@ -17,10 +17,40 @@ extension UILabel {
             }
         }
     }
-    
+    func setFont(type: FontType = .regular, point: CGFloat = 17) {
+        switch type {
+        case .regular :
+            font = UIFont(name: AppFont.AppRegularFont, size: point)
+        case .bold :
+            font = UIFont(name: AppFont.AppBoldFont, size: point)
+        case .semiBold :
+            font = UIFont(name: AppFont.AppSemiBoldFont, size: point)
+        case .lightItalic :
+            font = UIFont(name: AppFont.AppLightItalicFont, size: point)
+        case .light :
+            font = UIFont(name: AppFont.AppLightFont, size: point)
+        }
+        
+    }
 }
 
 extension UITextField {
+
+    func setFont(type: FontType = .regular, point: CGFloat = 17) {
+        switch type {
+        case .regular :
+            font = UIFont(name: AppFont.AppRegularFont, size: point)
+        case .bold :
+            font = UIFont(name: AppFont.AppBoldFont, size: point)
+        case .semiBold :
+            font = UIFont(name: AppFont.AppSemiBoldFont, size: point)
+        case .lightItalic :
+            font = UIFont(name: AppFont.AppLightItalicFont, size: point)
+        case .light :
+            font = UIFont(name: AppFont.AppLightFont, size: point)
+        }
+        
+    }
     
     @IBInspectable var isOchsnerTextFiled: Bool {
         get {
@@ -31,7 +61,7 @@ extension UITextField {
                 layer.borderWidth = 1
                 layer.borderColor = UIColor.TextFieldBorderColor.cgColor
                 layer.cornerRadius = 4
-                font = UIFont(name: AppFont.AppRegularFont, size: 17)                
+                font = UIFont(name: AppFont.AppRegularFont, size: 17)
             }
         }
     }
@@ -45,14 +75,14 @@ extension UITextField {
     fileprivate func setPasswordToggleImage(_ button: UIButton) {
         if(isSecureTextEntry) {
             button.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
-//            button.setImage(UIImage(named: "eye.slash.fill"), for: .normal)
+            //            button.setImage(UIImage(named: "eye.slash.fill"), for: .normal)
         } else {
             button.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-//            button.setImage(UIImage(named: "eye.fill"), for: .normal)
+            //            button.setImage(UIImage(named: "eye.fill"), for: .normal)
         }
         button.tintColor = .lightGray
     }
-
+    
     func enablePasswordToggle() {
         let button = UIButton(type: .custom)
         setPasswordToggleImage(button)
@@ -71,12 +101,12 @@ extension UITextField {
 
 
 class CustomUITextField: UITextField {
-   override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(UIResponderStandardEditActions.paste(_:)) {
             return false
         }
         return super.canPerformAction(action, withSender: sender)
-   }
+    }
 }
 
 extension UIView {

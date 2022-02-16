@@ -27,7 +27,6 @@ class MedicationDetailVC: BaseVC {
     var medicationVM = MedicationVM()
     
     let timePicker = UIDatePicker()
-    var index = 0
    
     
     let myPicker: NMDatePicker = {
@@ -40,8 +39,9 @@ class MedicationDetailVC: BaseVC {
         // Do any additional setup after loading the view.
         setUI()
         hideKeyBoardHideOutSideTouch(customView: self.view)
-        
+        self.navigationController?.isNavigationBarHidden = true
     }
+    
     func setDatePicker() {
         myPicker.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(myPicker)
@@ -91,7 +91,7 @@ class MedicationDetailVC: BaseVC {
         txtPuff.isOchsnerView = true
         txtPuff.clipsToBounds = true
         txtPuff.font = UIFont(name: AppFont.AppRegularFont, size: 17)
-        
+        txtPuff.text =  "\(medicationVM.puff)" 
         lblDoseTime.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblDoseTime.text = StringMedication.doseTime
         
@@ -122,17 +122,21 @@ class MedicationDetailVC: BaseVC {
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
         
-        if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
+        if /*medicationVM.arrTime.count > 0 &&*/ medicationVM.puff > 0 {
             medicationVM.apiAddDevice { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .success(let status):
                     print("Response sucess :\(status)")
-                    self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
-                    UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
-                    UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
-                    let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-                    self.pushVC(controller: connectProviderVC)
+                    if !self.medicationVM.isEdit {
+                        self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                        UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
+                        UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
+                        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                        self.pushVC(controller: connectProviderVC)
+                    } else {
+                        self.popVC()
+                    }
                 case .failure(let message):
                     CommonFunctions.showMessage(message: message)
                 }
@@ -140,9 +144,10 @@ class MedicationDetailVC: BaseVC {
         } else {
             if medicationVM.puff == 0 {
             CommonFunctions.showMessage(message: ValidationMsg.addPuff)
-            } else {
-                CommonFunctions.showMessage(message: ValidationMsg.addDose)
             }
+//            else {
+//                CommonFunctions.showMessage(message: ValidationMsg.addDose)
+//            }
         }
     }
     
@@ -192,6 +197,9 @@ class MedicationDetailVC: BaseVC {
         }
         dropDown.show()
     }
+    deinit {
+        self.navigationController?.isNavigationBarHidden = false
+    }
 }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -199,7 +207,7 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: "DoseTimeCell") as! DoseTimeCell
+        let cell: DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.doseTimeCell ) as! DoseTimeCell
         cell.lblDoseTime.text = "\((indexPath.row + 1).ordinal) Dose at \(self.medicationVM.arrTime[indexPath.row])"
         cell.btnRemove.tag = indexPath.row
         cell.btnEditDose.tag = indexPath.row
@@ -224,4 +232,5 @@ extension MedicationDetailVC: UITextFieldDelegate {
         self.view.endEditing(true)
         return true
     }
+   
 }

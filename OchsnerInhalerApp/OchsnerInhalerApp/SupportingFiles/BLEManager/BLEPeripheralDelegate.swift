@@ -35,8 +35,7 @@ extension BLEHelper: CBPeripheralDelegate {
             if str == StringCharacteristics.getType(.RTCTime)() {
                 setRTCTime()
             } else if str == StringCharacteristics.getType(.beteryLevel)() {
-                let bettery = stringFromData.getBeteryLevel()
-               // print("Bettery : \(bettery)")
+                bettery = "\(stringFromData.getBeteryLevel())"
                 NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
             } else if str == StringCharacteristics.getType(.accuationLog)() {
                 let numberofLog = stringFromData.getNumberofAccuationLog()

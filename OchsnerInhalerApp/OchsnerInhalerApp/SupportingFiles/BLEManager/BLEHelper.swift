@@ -19,6 +19,7 @@ class BLEHelper: NSObject {
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
     var addressMAC: String = "N/A"
+    var bettery: String = "N/A"
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
     var timer: Timer!

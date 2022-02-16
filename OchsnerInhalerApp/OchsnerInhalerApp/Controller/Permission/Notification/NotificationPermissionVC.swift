@@ -15,7 +15,7 @@ class NotificationPermissionVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         lblNotificationPermission.text = StringPermissions.notificationPermission
-        setCustomFontLabel(label: lblNotificationPermission, type: .bold, fontSize: 32)
+        lblNotificationPermission.setFont(type: .bold, point: 32)
         btnGrant.setButtonView(StringCommonMessages.grant)
         btnSkip.setButtonViewGrey(StringCommonMessages.skip)
     }
