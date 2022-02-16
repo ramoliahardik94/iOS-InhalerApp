@@ -362,6 +362,9 @@
 		2293DC8127B775D900A25513 /* ProviderImages */ = {
 			isa = PBXGroup;
 			children = (
+				2293DC8227B775E900A25513 /* Ochsner.png */,
+				2293DC8327B775E900A25513 /* SMH.png */,
+				2293DC8427B775E900A25513 /* STPH.png */,
 			);
 			path = ProviderImages;
 			sourceTree = "<group>";
@@ -663,9 +666,6 @@
 			isa = PBXGroup;
 			children = (
 				2293DC8127B775D900A25513 /* ProviderImages */,
-				2293DC8227B775E900A25513 /* Ochsner.png */,
-				2293DC8327B775E900A25513 /* SMH.png */,
-				2293DC8427B775E900A25513 /* STPH.png */,
 				227CD4DD27A3EBEF0005C3D9 /* BLEManager */,
 				2257006E27A2AE4A009B6415 /* NotificationManager */,
 				22AE96E6278E9D6300C0D851 /* Resource */,

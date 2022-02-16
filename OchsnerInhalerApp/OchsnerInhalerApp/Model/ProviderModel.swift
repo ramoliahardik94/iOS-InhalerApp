@@ -8,18 +8,23 @@
 import Foundation
 
 class ProviderModel: NSObject {
-    var entryId : Int?//": 1,
-    var entryName : String?//": "Ochsner Health",
-    var OAuthUrl : String?//": "irect_uri=https%3a%2f%2flocalhost%3a44340%2foauth%2fcallback",
-    var fhirUrl : String?//": null,
-    var iconFilename : String?//": "Ochsner.png",
-    var rescueFlo : Int?//": 0,
-    var maintenanceFlo : Int?//": 0,
-    var adherenceFlo : String?//": null,
-    var state : String?//": "Louisiana",
-    var clientSecret : String?//": null,
+    var entryId: Int?// ": 1,
+    var entryName: String?// ": "Ochsner Health",
+    var OAuthUrl: String?// ": "irect_uri=https%3a%2f%2flocalhost%3a44340%2foauth%2fcallback",
+    var fhirUrl: String?// ": null,
+    var iconFilename: String?// ": "Ochsner.png",
+    var rescueFlo: Int?// ": 0,
+    var maintenanceFlo: Int?// ": 0,
+    var adherenceFlo: String?// ": null,
+    var state: String?// ": "Louisiana",
+    var clientSecret: String?// ": null,
            // "User": []
  
+    // for sending data
+    var providerId: String? // ": null,
+    var accessToken: String? // ": null,
+    var expiresIn: String? // ": null,
+    var refreshToken: String? // ": null,
     
     init(jSon: [String: Any]) {
         if let value = jSon["EntryId"] as? Int {
@@ -52,4 +57,12 @@ class ProviderModel: NSObject {
         }
     }
     
+    func toDicForAuth() -> [String: Any] {
+        var dic = [String: Any]()
+        dic["ProviderId"] = self.providerId
+        dic["AccessToken"] = self.accessToken
+        dic["ExpiresIn"] = self.expiresIn
+        dic["RefreshToken"] = self.refreshToken
+        return dic
+    }
 }
