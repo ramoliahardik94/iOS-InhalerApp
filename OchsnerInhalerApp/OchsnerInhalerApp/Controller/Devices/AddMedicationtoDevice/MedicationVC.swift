@@ -94,7 +94,6 @@ class MedicationVC: BaseVC {
                
             } else {
                 let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                medicationDetailVC.index = 0
                 medicationDetailVC.medicationVM = medicationVM
                 pushVC(controller: medicationDetailVC)
             }

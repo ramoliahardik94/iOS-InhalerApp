@@ -289,18 +289,24 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fo-cO-UC3">
                                         <rect key="frame" x="0.0" y="287" width="364" height="32"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="eSE-BX-0a8">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eSE-BX-0a8">
                                                 <rect key="frame" x="0.0" y="3" width="364" height="26"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRt-DN-Cgr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="174" height="26"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="178" height="26"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                        <connections>
+                                                            <action selector="btnRemoveDeviceWithSender:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Hfi-Cy-mTW"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwW-fN-qVP">
-                                                        <rect key="frame" x="190" y="0.0" width="174" height="26"/>
+                                                        <rect key="frame" x="186" y="0.0" width="178" height="26"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                        <connections>
+                                                            <action selector="btnEditDirectionWithSender:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iwc-2J-Jrv"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>

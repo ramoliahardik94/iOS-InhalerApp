@@ -8,6 +8,8 @@
 import UIKit
 
 class ManageDeviceVC: BaseVC {
+ 
+    
     @IBOutlet weak var tbvData: UITableView!
     private let itemCell = CellIdentifier.manageDeviceCell
     var manageDeviceVM = ManageDeviceVM()
@@ -15,14 +17,18 @@ class ManageDeviceVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
+        initUI()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        manageDeviceVM.apicallForGetDeviceList  { [weak self] result in
-            guard let`self` = self else{ return }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        apiCall()
+    }
+    func apiCall() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        manageDeviceVM.apicallForGetDeviceList { [weak self] result in
+            guard let`self` = self else { return }
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
@@ -33,18 +39,13 @@ class ManageDeviceVC: BaseVC {
             }
         }
     }
-    
     private func initUI() {
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
-        
         let nib = UINib(nibName: itemCell, bundle: nil)
         tbvData.register(nib, forCellReuseIdentifier: itemCell)
         tbvData.delegate = self
         tbvData.dataSource = self
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
-    
     }
     @objc func inhalerConnected(notification: Notification) {
         BLEHelper.shared.getmacAddress()
@@ -62,6 +63,10 @@ class ManageDeviceVC: BaseVC {
         pushVC(controller: addDeviceIntroVC)
     }
     
+    deinit {
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
 }
 extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,9 +79,27 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
         cell.btnRemoveDevice.tag = indexPath.row
         cell.btnEditDirection.tag = indexPath.row
         cell.device = manageDeviceVM.arrDevice[indexPath.row]
+        cell.delegate = self
         return cell
     }
+}
+
+extension ManageDeviceVC: ManageDeviceDelegate {
+    func editDirection(index: Int) {
+
+        let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        let medication = MedicationVM()
+        medication.selectedMedication = manageDeviceVM.arrDevice[index].medication
+        medication.isEdit = true
+        medication.puff = manageDeviceVM.arrDevice[index].puffs
+        medication.arrTime = manageDeviceVM.arrDevice[index].arrTime
+        medication.macAddress = manageDeviceVM.arrDevice[index].internalID
+        medicationDetailVC.medicationVM = medication
+        
+        pushVC(controller: medicationDetailVC)
+    }
     
-    
-    
+    func removeDevice(index: Int) {
+        // TODO: - Remove device api call
+    }
 }

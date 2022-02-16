@@ -6,7 +6,10 @@
 //
 
 import UIKit
-
+protocol ManageDeviceDelegate: AnyObject {
+    func editDirection(index: Int)
+    func removeDevice(index: Int)
+}
 class ManageDeviceCell: UITableViewCell {
 
     @IBOutlet weak var lblDeviceName: UILabel!
@@ -20,11 +23,11 @@ class ManageDeviceCell: UITableViewCell {
     @IBOutlet weak var ivInhaler: UIImageView!
     @IBOutlet weak var ivDescription: UIImageView!
     @IBOutlet weak var ivDose: UIImageView!
-    @IBOutlet weak var viewState: UIView!
-    @IBOutlet weak var viewBettery: UIView!
     @IBOutlet weak var lblBettery: UILabel!
     @IBOutlet weak var lblBetteryTitle: UILabel!
     @IBOutlet weak var lblstatus: UILabel!
+    weak var delegate: ManageDeviceDelegate?
+    
     var device = DeviceModel() {
         didSet {            
             /// Rescue=1 Mantainance=2
@@ -36,9 +39,10 @@ class ManageDeviceCell: UITableViewCell {
             let str = device.useTimes.joined(separator: "\n")
             lblNoOfDose.text =  device.medTypeID ==  1 ? StringCommonMessages.rescueDose : str
             lblUsageLabel.text = StringDevices.usage
-            ivInhaler.image  =  device.medTypeID ==  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
+            ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             lblstatus.text = BLEHelper.shared.addressMAC == device.internalID ? StringCommonMessages.connected : StringCommonMessages.disconnect
             lblBettery.text = device.batteryLevel
+            btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }
     
@@ -65,4 +69,15 @@ class ManageDeviceCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func btnEditDirection(sender: UIButton) {
+        if delegate != nil {
+            delegate?.editDirection(index: sender.tag)
+        }
+    }
+    
+    @IBAction func btnRemoveDevice(sender: UIButton) {
+        if delegate != nil {
+            delegate?.removeDevice(index: sender.tag)
+        }
+    }
 }

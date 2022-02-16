@@ -18,11 +18,14 @@ class HomeVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.isNavigationBarHidden = false
         
         initUI()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleHome
+    }
     private func  initUI() {
         let nib = UINib(nibName: itemCellDevice, bundle: nil)
         tbvDeviceData.register(nib, forCellReuseIdentifier: itemCellDevice)

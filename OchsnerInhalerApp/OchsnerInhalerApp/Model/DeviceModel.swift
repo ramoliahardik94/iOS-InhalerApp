@@ -20,7 +20,8 @@ class DeviceModel: NSObject {
     var batteryLevelDate: String = ""
     var medType: MedType = MedType()
     var medication: MedicationModelElement = MedicationModelElement()
-    var useTimes : [String] = [String]()
+    var useTimes: [String] = [String]()
+    var arrTime: [String] = [String]()
     
     override init () {        
     }
@@ -65,10 +66,13 @@ class DeviceModel: NSObject {
         
         if let value = jSon["UseTimes"] as? String {
             useTimes.removeAll()
-            if value.trimmingCharacters(in: .whitespacesAndNewlines).count > 0  {
+            arrTime.removeAll()
+            if value.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
                 let time = value.split(separator: ",")
+              
                 for (index, element) in time.enumerated() {
                     let str = "\((index + 1).ordinal) Dose at \(element)"
+                    arrTime.append("\(element)")
                     useTimes.append(str)
                 }
             }

@@ -27,7 +27,6 @@ class MedicationDetailVC: BaseVC {
     var medicationVM = MedicationVM()
     
     let timePicker = UIDatePicker()
-    var index = 0
    
     
     let myPicker: NMDatePicker = {
@@ -40,8 +39,9 @@ class MedicationDetailVC: BaseVC {
         // Do any additional setup after loading the view.
         setUI()
         hideKeyBoardHideOutSideTouch(customView: self.view)
-        
+        self.navigationController?.isNavigationBarHidden = true
     }
+    
     func setDatePicker() {
         myPicker.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(myPicker)
@@ -91,7 +91,7 @@ class MedicationDetailVC: BaseVC {
         txtPuff.isOchsnerView = true
         txtPuff.clipsToBounds = true
         txtPuff.font = UIFont(name: AppFont.AppRegularFont, size: 17)
-        
+        txtPuff.text = medicationVM.puff != 0 ? "\(medicationVM.puff)" : ""
         lblDoseTime.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblDoseTime.text = StringMedication.doseTime
         
@@ -128,11 +128,15 @@ class MedicationDetailVC: BaseVC {
                 switch result {
                 case .success(let status):
                     print("Response sucess :\(status)")
-                    self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
-                    UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
-                    UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
-                    let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-                    self.pushVC(controller: connectProviderVC)
+                    if !self.medicationVM.isEdit {
+                        self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                        UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
+                        UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
+                        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                        self.pushVC(controller: connectProviderVC)
+                    } else {
+                        self.popVC()
+                    }
                 case .failure(let message):
                     CommonFunctions.showMessage(message: message)
                 }
@@ -192,6 +196,9 @@ class MedicationDetailVC: BaseVC {
         }
         dropDown.show()
     }
+    deinit {
+        self.navigationController?.isNavigationBarHidden = false
+    }
 }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -224,4 +231,5 @@ extension MedicationDetailVC: UITextFieldDelegate {
         self.view.endEditing(true)
         return true
     }
+   
 }

@@ -146,6 +146,7 @@ struct StringAddDevice {
     static let connect = "Connect"
     static let scanlist = "Scan device"
     static let titleAddDevice = "Connected Inhaler Application"
+    static let titleHome = "Home"
 }
 // MARK: Medication
 struct StringMedication {
@@ -182,7 +183,7 @@ struct StringPermissions {
 // MARK: Device
 struct StringDevices {
     static let pairedDevice = "Paired Device"
-    static let removeDevice = "Remove Device"
+    static let removeDevice = "Remove This Device"
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
