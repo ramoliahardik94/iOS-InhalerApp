@@ -94,7 +94,6 @@ class MedicationVC: BaseVC {
                
             } else {
                 let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                medicationDetailVC.index = 0
                 medicationDetailVC.medicationVM = medicationVM
                 pushVC(controller: medicationDetailVC)
             }
@@ -112,7 +111,7 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MedicationCell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell") as! MedicationCell
+        let cell: MedicationCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.medicationCell) as! MedicationCell
         cell.setMedicationDetailes(medication: medicationVM.medication[indexPath.row])
         return cell
     }

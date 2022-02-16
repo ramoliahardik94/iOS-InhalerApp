@@ -31,6 +31,7 @@ struct StringCommonMessages {
      static let connecting = "Connecting"
      static let disconnect = "Disconnected"
      static let battery = "Battery:"
+    static let  rescueDose = "Take as needed"
 
 }
 struct AppFont {
@@ -86,7 +87,7 @@ struct ValidationMsg {
     static let bluetooth = "Please turn on all the bluetooth"
     static let bleNotfound = "There is no nearby Inhaler sensor found. Please make sure that your sensor is activated properly and nearby to your phone."
     static let bleNotPair = "There might be some problem with pairing the Inhaler sensor. Please follow the steps mentioned on the screen to enable the paring mode and try again."
-    static let addDose = "Please add daily dose."
+ //   static let addDose = "Please add daily dose."
     static let addPuff = "Please add how many puffs per dose?"
     
 }
@@ -146,6 +147,7 @@ struct StringAddDevice {
     static let connect = "Connect"
     static let scanlist = "Scan device"
     static let titleAddDevice = "Connected Inhaler Application"
+    static let titleHome = "Home"
 }
 // MARK: Medication
 struct StringMedication {
@@ -182,7 +184,7 @@ struct StringPermissions {
 // MARK: Device
 struct StringDevices {
     static let pairedDevice = "Paired Device"
-    static let removeDevice = "Remove Device"
+    static let removeDevice = "Remove This Device"
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
@@ -199,5 +201,10 @@ struct StringHome {
     static let  thisWeek = "This Week"
     static let  thisMonth = "This Month"
     static let  adherance = "Adherance: "
+}
 
+struct CellIdentifier {
+    static let medicationCell = "MedicationCell"
+    static let doseTimeCell = "DoseTimeCell"
+    static let manageDeviceCell = "ManageDeviceCell"
 }

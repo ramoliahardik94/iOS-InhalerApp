@@ -22,10 +22,9 @@ class CustomSplashVC: BaseVC {
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         lblVersion.text = "V\(appVersion ?? "1")"
-        
-        setCustomFontLabel(label: lblConnectdInhalerSensor, type: .semiBold, fontSize: 22)
-        setCustomFontLabel(label: lblCopyRight, type: .regular, fontSize: 12)
-        setCustomFontLabel(label: lblVersion, type: .regular, fontSize: 12)
+        lblConnectdInhalerSensor.setFont(type: .semiBold, point: 22)
+        lblCopyRight.setFont(type: .regular, point: 12)
+        lblVersion.setFont(type: .regular, point: 12)
         lblConnectdInhalerSensor.textColor = .ColorSplashText
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
@@ -68,11 +67,12 @@ class CustomSplashVC: BaseVC {
                     self.pushVC(controller: addDeviceIntroVC)
                 } else {
                     BLEHelper.shared.scanPeripheral()
-                    
-                    let vc1 = TemporaryDashbord()
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+//                    let vc1 = TemporaryDashbord()
                     DispatchQueue.main.async {
-                        
-                        self.rootVC(controller: vc1)
+                        self.rootVC(controller: homeTabBar)
+//                        self.rootVC(controller: vc1)
                     }
                 }
             } else {

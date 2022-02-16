@@ -18,11 +18,14 @@ class HomeVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.isNavigationBarHidden = false
         
         initUI()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleHome
+    }
     private func  initUI() {
         let nib = UINib(nibName: itemCellDevice, bundle: nil)
         tbvDeviceData.register(nib, forCellReuseIdentifier: itemCellDevice)
@@ -104,6 +107,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         setCustomFontLabel(label: cell.lblDeviceName, type: .bold, fontSize: 24)
         setCustomFontLabel(label: cell.lblDeviceType, type: .lightItalic, fontSize: 16)
+       
         setCustomFontLabel(label: cell.lblConnected, type: .regular, fontSize: 14)
         setCustomFontLabel(label: cell.lblBattery, type: .regular, fontSize: 14)
         setCustomFontLabel(label: cell.lblBatteryPercentage, type: .semiBold, fontSize: 14)

@@ -36,6 +36,7 @@ class AddDeviceIntroVC: BaseVC {
     }
     
     func setUpUIBaseonStep() {
+        self.navigationController?.isNavigationBarHidden = true
         paringLoader.isHidden = true
         switch step {
         case .step1:
