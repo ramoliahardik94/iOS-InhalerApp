@@ -29,7 +29,7 @@ enum APIRouter {
         case .providerList :
             return BaseURLManager.shared.getBaseURL() + "ProviderList"
         case .providerAuth :
-            return BaseURLManager.shared.getBaseURL() + "provider"
+            return BaseURLManager.shared.getBaseURL() + "LinkUser"
         }
     }
     

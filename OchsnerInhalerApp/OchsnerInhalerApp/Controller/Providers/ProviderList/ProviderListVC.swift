@@ -117,8 +117,9 @@ class ProviderListVC: BaseVC {
         params.accessToken = "0"
         params.refreshToken = "0"
         params.expiresIn = "0"
+        // APIRouter.providerAuth.path
         
-        providerListVM.doSendAuthRequest(params: params) { result in
+        providerListVM.doSendAuthRequest(url: "https://inhlrtrackdev.ochsner.org/api/LinkUser?providerId=1&accessToken=abcdef&expiresIn=3120&refreshToken=ghijkl" ,params: params) { result in
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
@@ -196,7 +197,7 @@ extension ProviderListVC: WKNavigationDelegate {
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         CommonFunctions.hideGlobalProgressHUD(self)
-      // print("finish to load \(webView.url)")
+       //print("finish to load \(webView.url)")
        // doSendAuthRequest()
     }
 }
