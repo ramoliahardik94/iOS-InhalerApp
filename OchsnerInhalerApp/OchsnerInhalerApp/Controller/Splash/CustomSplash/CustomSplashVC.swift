@@ -69,6 +69,7 @@ class CustomSplashVC: BaseVC {
                     BLEHelper.shared.scanPeripheral()
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                    homeTabBar.selectedIndex = 1
 //                    let vc1 = TemporaryDashbord()
                     DispatchQueue.main.async {
                         self.rootVC(controller: homeTabBar)
