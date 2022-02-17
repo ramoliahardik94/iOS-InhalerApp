@@ -23,7 +23,7 @@ class AddDeviceIntroVC: BaseVC {
     @IBOutlet weak var paringLoader: UIActivityIndicatorView!
     var step: AddDeviceSteps = .step1
     var isFromAddAnother = false
-    
+    var isFromDeviceList = false
     
      override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,8 +148,10 @@ class AddDeviceIntroVC: BaseVC {
         print("inhalerConnected")
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         BLEHelper.shared.setRTCTime()
+        BLEHelper.shared.getBetteryLevel()
         addDeviceIntroVC.step = .step4
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+        addDeviceIntroVC.isFromDeviceList = isFromDeviceList
         pushVC(controller: addDeviceIntroVC)
     }
     @IBAction func btnBackClick(_ sender: Any) {
@@ -162,10 +164,12 @@ class AddDeviceIntroVC: BaseVC {
         case .step1:
             addDeviceIntroVC.step = .step2
             addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
             pushVC(controller: addDeviceIntroVC)
         case .step2:
             addDeviceIntroVC.step = .step3
             addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
             pushVC(controller: addDeviceIntroVC)
         case .step3:
             BLEHelper.shared.stopTimer()
@@ -177,10 +181,16 @@ class AddDeviceIntroVC: BaseVC {
         case .step4:
             addDeviceIntroVC.step = .step5
             addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
             pushVC(controller: addDeviceIntroVC)
         case .step5:
             let medicationVC = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            rootVC(controller: medicationVC)
+            medicationVC.isFromDeviceList = isFromDeviceList
+            if !isFromDeviceList  || !isFromAddAnother {
+                rootVC(controller: medicationVC)
+            } else {
+                pushVC(controller: medicationVC)
+            }
             
         }
         

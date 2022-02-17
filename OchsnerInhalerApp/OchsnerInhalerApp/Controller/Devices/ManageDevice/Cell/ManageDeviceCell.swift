@@ -42,7 +42,7 @@ class ManageDeviceCell: UITableViewCell {
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             lblstatus.text = BLEHelper.shared.addressMAC == device.internalID ? StringCommonMessages.connected : StringCommonMessages.disconnect
-            lblBettery.text = BLEHelper.shared.addressMAC == device.internalID ? BLEHelper.shared.bettery : device.batteryLevel
+            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? BLEHelper.shared.bettery : device.batteryLevel )%"
             btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }
