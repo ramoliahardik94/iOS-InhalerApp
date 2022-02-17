@@ -113,7 +113,7 @@ struct StringProfile {
 
 // MARK: Providers
 struct StringPoviders {
-    static let providerConnectLabel = "Connect Your Health Care Provider"
+    static let providerConnectLabel = "Connect your Health Care Provider"
     static let selectProvider = "Select Provider"
     static let skipForNow = "Skip For Now"
     static let selectOrganization = "Select an Organization"
@@ -141,8 +141,8 @@ struct StringAddDevice {
     static let medication = "Now, let us know what inhaler medication you will use with this sensor."
     static let medicationInfo = "Your Connected Inhaler Sensor tracks usage of the medication in your inhaler, so we’ll need to associate it with a current prescription."
     static let selectMedication = "Select Medication"
-    static let addAnotherDevice = "Would You Like to Add Another Device?"
-    static let goHome = "All Set, Take Me To My Home Screen"
+    static let addAnotherDevice = "Would you like to add another device?"
+    static let goHome = "All Set, Take Me To Provider Screen"
     static let addAnotherDeviceBtn = "Add another device now"
     static let connect = "Connect"
     static let scanlist = "Scan device"
@@ -151,9 +151,9 @@ struct StringAddDevice {
 }
 // MARK: Medication
 struct StringMedication {
-    static let titleMedication = "Which Medication will be \n used with this sensor?"
+    static let titleMedication = "Which Medication will be \n used with this Sensor?"
     static let inhealerType = "How will this \n Inhaler be used?"
-    static let titleMedicationDetail = "What Are The Directions For Use of This Maintenance Inhaler?"
+    static let titleMedicationDetail = "What are the Directions for use of this Maintenance Inhaler?"
     static let puffTitle = "How many puffs per dose?"
     static let doseTime = "Dose Times"
     static let reminder = "Set Reminders?"

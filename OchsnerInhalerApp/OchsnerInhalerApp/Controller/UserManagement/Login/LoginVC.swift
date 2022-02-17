@@ -50,12 +50,13 @@ class LoginVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
-        //#if targetEnvironment(simulator)
-//        tfEmail.text = "nikita@gmail.com"
-//        tfPassword.text = "password"
-       // tfEmail.text = "dhaval.sabhaya@volansys.com"
-       // tfPassword.text = "dhaval123"
-      //  #endif
+        #if DEBUG
+        tfEmail.text = "nikita@gmail.com"
+        tfPassword.text = "password"
+      
+//        tfEmail.text = "dhaval.sabhaya@volansys.com"
+//         tfPassword.text = "dhaval123"
+        #endif
     }
     
    

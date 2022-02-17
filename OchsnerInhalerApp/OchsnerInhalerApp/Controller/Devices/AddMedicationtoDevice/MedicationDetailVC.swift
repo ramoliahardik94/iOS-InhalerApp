@@ -76,7 +76,7 @@ class MedicationDetailVC: BaseVC {
     
     func setUI() {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
-        lblTitle.text = StringMedication.titleMedication
+        lblTitle.text = StringMedication.titleMedicationDetail
 
         viewMedicationName.backgroundColor = .Colorcell
         viewMedicationName.isOchsnerView = true

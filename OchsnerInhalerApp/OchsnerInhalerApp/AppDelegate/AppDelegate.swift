@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().isTranslucent = false
             UINavigationBar.appearance().clipsToBounds = false
         UINavigationBar.appearance().backgroundColor = .ButtonColorBlue
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: (UIFont(name:AppFont.AppBoldFont, size: 18))!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: (UIFont(name: AppFont.AppBoldFont, size: 18))!, NSAttributedString.Key.foregroundColor: UIColor.white]
         
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         if paths.count != 0 {
