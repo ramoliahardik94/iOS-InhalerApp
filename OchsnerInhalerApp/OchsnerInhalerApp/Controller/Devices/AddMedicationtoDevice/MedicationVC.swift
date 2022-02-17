@@ -89,7 +89,7 @@ class MedicationVC: BaseVC {
                         if self.isFromDeviceList {
                             self.navigationController?.popToRootViewController(animated: true)
                         } else {
-                        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         self.pushVC(controller: addAnotherDeviceVC)
                         }
                     case .failure(let message):

@@ -143,7 +143,7 @@ struct StringAddDevice {
     static let selectMedication = "Select Medication"
     static let addAnotherDevice = "Would you like to add another device?"
     static let goHome = "All Set, Take Me To Provider Screen"
-    static let addAnotherDeviceBtn = "Add another device now"
+    static let addAnotherDeviceBtn = "Add Another Device Now"
     static let connect = "Connect"
     static let scanlist = "Scan device"
     static let titleAddDevice = "Connected Inhaler Application"

@@ -36,7 +36,9 @@ class ConnectProviderVC: BaseVC {
     @IBAction func tapSkipNow(_ sender: UIButton) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                rootVC(controller: homeTabBar)
+       
+        homeTabBar.selectedIndex = 1
+        rootVC(controller: homeTabBar)
     }
     
     @IBAction func tapBack(_ sender: UIButton) {

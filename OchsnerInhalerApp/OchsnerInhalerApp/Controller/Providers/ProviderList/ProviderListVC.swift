@@ -33,6 +33,7 @@ class ProviderListVC: BaseVC {
     
   // private var webView: WKWebView!
     override func viewDidLoad() {
+        self.navigationController?.isNavigationBarHidden = true
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupVC()

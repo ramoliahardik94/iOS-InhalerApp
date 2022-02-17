@@ -50,6 +50,10 @@ class ProfileVC: BaseVC {
         lblShareUsageWithProvider.text = StringProfile.shareUsageWithProvider
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
+    }
     
     private func setupButton(button: UIButton, title: String) {
         button.setTitle(title, for: .normal)
