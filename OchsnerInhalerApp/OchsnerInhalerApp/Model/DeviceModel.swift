@@ -16,7 +16,7 @@ class DeviceModel: NSObject {
     var puffs: Int = 1
     var activeFL: Bool = false
     var medID: Int = 0
-    var batteryLevel: String = ""
+    var batteryLevel: String = "100"
     var batteryLevelDate: String = ""
     var medType: MedType = MedType()
     var medication: MedicationModelElement = MedicationModelElement()

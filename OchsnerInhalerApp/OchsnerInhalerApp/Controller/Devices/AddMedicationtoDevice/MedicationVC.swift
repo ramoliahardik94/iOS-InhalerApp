@@ -15,7 +15,8 @@ class MedicationVC: BaseVC {
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
-    
+    var isFromDeviceList = false
+
     var selectedIndex: Int?
     let medicationVM = MedicationVM()
 
@@ -85,8 +86,15 @@ class MedicationVC: BaseVC {
                     switch result {
                     case .success(let status):
                         print("Response sucess :\(status)")
-                        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-                        self.pushVC(controller: connectProviderVC)
+                        if self.isFromDeviceList {
+                            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                            let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                                   
+                            self.navigationController?.popToViewController(homeTabBar, animated: true)
+                        } else {
+                        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+                        self.pushVC(controller: addAnotherDeviceVC)
+                        }
                     case .failure(let message):
                         CommonFunctions.showMessage(message: message)
                     }
@@ -94,6 +102,7 @@ class MedicationVC: BaseVC {
                
             } else {
                 let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                medicationDetailVC.isFromDeviceList = isFromDeviceList
                 medicationDetailVC.medicationVM = medicationVM
                 pushVC(controller: medicationDetailVC)
             }
