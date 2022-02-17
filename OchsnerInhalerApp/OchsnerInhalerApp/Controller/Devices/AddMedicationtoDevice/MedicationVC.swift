@@ -87,10 +87,7 @@ class MedicationVC: BaseVC {
                     case .success(let status):
                         print("Response sucess :\(status)")
                         if self.isFromDeviceList {
-                            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                            let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                                   
-                            self.navigationController?.popToViewController(homeTabBar, animated: true)
+                            self.navigationController?.popToRootViewController(animated: true)
                         } else {
                         let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .providers)
                         self.pushVC(controller: addAnotherDeviceVC)
