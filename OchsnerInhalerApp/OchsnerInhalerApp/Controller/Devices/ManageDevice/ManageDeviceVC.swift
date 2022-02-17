@@ -7,8 +7,8 @@
 
 import UIKit
 
+
 class ManageDeviceVC: BaseVC {
- 
     
     @IBOutlet weak var tbvData: UITableView!
     private let itemCell = CellIdentifier.manageDeviceCell
@@ -21,20 +21,26 @@ class ManageDeviceVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerBatteryLevel(notification:)), name: .BLEBatteryLevel, object: nil)
         initUI()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        apiCall()
-    }
-    func apiCall() {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        tbvData.reloadData()
+    }
+    
+    func apiCall() {
+        CommonFunctions.showGlobalProgressHUD(self)
         manageDeviceVM.apicallForGetDeviceList { [weak self] result in
+           
             guard let`self` = self else { return }
+            CommonFunctions.hideGlobalProgressHUD(self)
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
-                self.tbvData.reloadData()
-                
+                DispatchQueue.main.async {
+                    self.tbvData.reloadData()
+                }
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
@@ -47,6 +53,7 @@ class ManageDeviceVC: BaseVC {
         tbvData.dataSource = self
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
+        apiCall()
     }
     @objc func inhalerConnected(notification: Notification) {
         BLEHelper.shared.getmacAddress()
@@ -63,6 +70,7 @@ class ManageDeviceVC: BaseVC {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step2
         addDeviceIntroVC.isFromAddAnother  = true
+        addDeviceIntroVC.isFromDeviceList  = true
         pushVC(controller: addDeviceIntroVC)
     }
     
@@ -87,9 +95,13 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ManageDeviceVC: ManageDeviceDelegate {
-    func editDirection(index: Int) {
+extension ManageDeviceVC: ManageDeviceDelegate, MedicationDelegate {
 
+    func medicationUpdated() {
+        apiCall()
+    }
+    
+    func editDirection(index: Int) {
         let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         let medication = MedicationVM()
         medication.selectedMedication = manageDeviceVM.arrDevice[index].medication
@@ -98,7 +110,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
         medication.arrTime = manageDeviceVM.arrDevice[index].arrTime
         medication.macAddress = manageDeviceVM.arrDevice[index].internalID
         medicationDetailVC.medicationVM = medication
-        
+        medicationDetailVC.delegate = self
         pushVC(controller: medicationDetailVC)
     }
     

@@ -15,9 +15,7 @@ class ConnectProviderVC: BaseVC {
     @IBOutlet weak var btnSkipNow: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
         initUI()
     }
     
@@ -36,8 +34,9 @@ class ConnectProviderVC: BaseVC {
         pushVC(controller: providerListVC)
     }
     @IBAction func tapSkipNow(_ sender: UIButton) {
-        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        pushVC(controller: addAnotherDeviceVC)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                rootVC(controller: homeTabBar)
     }
     
     @IBAction func tapBack(_ sender: UIButton) {
