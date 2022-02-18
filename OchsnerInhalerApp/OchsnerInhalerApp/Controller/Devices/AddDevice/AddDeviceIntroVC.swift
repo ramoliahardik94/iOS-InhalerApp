@@ -186,10 +186,10 @@ class AddDeviceIntroVC: BaseVC {
         case .step5:
             let medicationVC = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
             medicationVC.isFromDeviceList = isFromDeviceList
-            if !isFromDeviceList  || !isFromAddAnother {
-                rootVC(controller: medicationVC)
-            } else {
+            if isFromDeviceList {
                 pushVC(controller: medicationVC)
+            } else {
+                rootVC(controller: medicationVC)
             }
             
         }

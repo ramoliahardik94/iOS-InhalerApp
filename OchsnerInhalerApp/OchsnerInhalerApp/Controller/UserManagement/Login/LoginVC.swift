@@ -90,11 +90,21 @@ class LoginVC: BaseVC {
                     self.pushVC(controller: notificationPermissionVC)
                     return
                 }
-                
-                BLEHelper.shared.isAllowed { isAllow in
-                    if isAllow {
-                        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                        self.pushVC(controller: addDeviceIntroVC)
+                let device = self.login.getDeviceListFromDB()
+                if device.count == 0 {
+                    BLEHelper.shared.isAllowed { isAllow in
+                        if isAllow {
+                            let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                            self.pushVC(controller: addDeviceIntroVC)
+                        }
+                    }
+                } else {
+                    BLEHelper.shared.scanPeripheral()
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                    homeTabBar.selectedIndex = 1
+                    DispatchQueue.main.async {
+                        self.rootVC(controller: homeTabBar)
                     }
                 }
                 

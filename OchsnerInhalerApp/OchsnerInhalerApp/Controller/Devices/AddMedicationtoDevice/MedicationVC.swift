@@ -80,8 +80,7 @@ class MedicationVC: BaseVC {
             if btnRescue.isSelected {
                 medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
                 UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
-                UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
-                medicationVM.apiAddDevice { [weak self] result in
+                 medicationVM.apiAddDevice { [weak self] result in
                     guard let `self` = self else { return }
                     switch result {
                     case .success(let status):

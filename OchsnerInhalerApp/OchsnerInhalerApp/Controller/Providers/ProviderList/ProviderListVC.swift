@@ -109,6 +109,7 @@ class ProviderListVC: BaseVC {
         viewWebviewMain.isHidden = false
         guard let url = URL(string: OAuthUrl) else { return }
         let myRequest = URLRequest(url: url)
+        
         wvData.load(myRequest)
         
     }

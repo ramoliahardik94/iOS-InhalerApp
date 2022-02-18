@@ -17,6 +17,7 @@ extension Notification.Name {
     static let BLEBatteryLevel = Notification.Name("BLEBatteryLevel")
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
+    static let medUpdate = Notification.Name("medUpdate")
 }
 
 // MARK: Common Message
@@ -89,6 +90,7 @@ struct ValidationMsg {
     static let bleNotPair = "There might be some problem with pairing the Inhaler sensor. Please follow the steps mentioned on the screen to enable the paring mode and try again."
  //   static let addDose = "Please add daily dose."
     static let addPuff = "Please add how many puffs per dose?"
+    static let removeDevice = "Are you sure to remove this device?"
     
 }
 struct ValidationButton {
