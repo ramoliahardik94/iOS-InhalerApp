@@ -16,6 +16,7 @@ class MedicationVM {
     var totalDose = 0
     var arrTime: [String] = [String]()
     var isEdit = false
+    
     func apiGetMedicationLis(completionHandler: @escaping ((APIResult) -> Void)) {
         
         APIManager.shared.performRequest(route: APIRouter.medication.path, parameters: [String: Any](), method: .get) { error, response in
@@ -55,6 +56,8 @@ class MedicationVM {
                     completionHandler(.failure(error!.message))
                 } else {
                     if (response as? [String: Any]) != nil {
+                        DatabaseManager.share.saveDevice(object: ["mac": BLEHelper.shared.addressMAC as Any, "udid": BLEHelper.shared.discoveredPeripheral?.identifier.uuidString as Any, "email": UserDefaultManager.email])
+                        NotificationCenter.default.post(name: .medUpdate, object: nil)
                         completionHandler(.success(true))
                     } else {
                         completionHandler(.failure(ValidationMsg.CommonError))

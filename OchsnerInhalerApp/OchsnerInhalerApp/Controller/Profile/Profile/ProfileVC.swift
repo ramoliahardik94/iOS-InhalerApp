@@ -93,6 +93,8 @@ class ProfileVC: BaseVC {
     }
     
      func setRootLogin() {
+         BLEHelper.shared.centralManager.cancelPeripheralConnection(BLEHelper.shared.discoveredPeripheral!)
+         BLEHelper.shared.discoveredPeripheral = nil
          removeUser()
          let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
          let nav: UINavigationController = UINavigationController()

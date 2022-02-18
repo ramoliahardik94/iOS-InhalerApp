@@ -12,11 +12,11 @@ class CustomSplashVC: BaseVC {
     @IBOutlet weak var lblCopyRight: UILabel!
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblConnectdInhalerSensor: UILabel!
+    var deviceUDID = [String]()
     var timer: Timer!
     override func viewDidLoad() {
         
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
-        
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)        
         
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
@@ -29,6 +29,8 @@ class CustomSplashVC: BaseVC {
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEChange, object: nil)
+        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        deviceUDID = devicelist.map({$0.udid!})
     }
     
     @objc func didFinishTimer() {
@@ -62,7 +64,8 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow {
-                if UserDefaultManager.addDevice.count == 0 {
+                let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+                if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
                 } else {

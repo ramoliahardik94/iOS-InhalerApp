@@ -18,8 +18,9 @@ enum UserDefaultKey: String {
     case isLogin
     case isNotificationOn
     case deviceToken
-    case addDevice
+    // case addDevice
     case selectedMedi
+    case email
 }
 
 class UserDefaultManager {
@@ -31,6 +32,14 @@ class UserDefaultManager {
         }
         set(newValue) {
             self.set(newValue as AnyObject?, forKey: .isLogin)
+        }
+    }
+    static var email: String {
+        get {
+            return self.get(forKey: .email) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .email)
         }
     }
     static var token: String {
@@ -68,15 +77,15 @@ class UserDefaultManager {
         }
     }
     
-    static var addDevice: [String] {
-        get {
-            return self.get(forKey: .addDevice) as? [String] ?? [String]()
-        }
-        set(newValue) {
-            self.set(newValue as AnyObject?, forKey: .addDevice)
-        }
-    }
-    
+//    static var addDevice: [String] {
+//        get {
+//            return self.get(forKey: .addDevice) as? [String] ?? [String]()
+//        }
+//        set(newValue) {
+//            self.set(newValue as AnyObject?, forKey: .addDevice)
+//        }
+//    }
+//
     // MARK: - Save/Retrive/Remove Data
     
     static private func set(_ object: AnyObject?, forKey key: UserDefaultKey) {

@@ -69,6 +69,10 @@
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
+		4743B7FB27B53D800000C3E8 /* AcuationLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7F927B53D800000C3E8 /* AcuationLog+CoreDataClass.swift */; };
+		4743B7FC27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7FA27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift */; };
+		474DB54927BF5FB3009D65D9 /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474DB54827BF5FB3009D65D9 /* Device+CoreDataProperties.swift */; };
+		474DB54A27BF5FB3009D65D9 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474DB54727BF5FB3009D65D9 /* Device+CoreDataClass.swift */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
@@ -182,6 +186,10 @@
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
+		4743B7F927B53D800000C3E8 /* AcuationLog+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AcuationLog+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/AcuationLog+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		4743B7FA27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AcuationLog+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/AcuationLog+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		474DB54727BF5FB3009D65D9 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		474DB54827BF5FB3009D65D9 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
@@ -567,6 +575,10 @@
 		4743B7CA27B527660000C3E8 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				4743B7F927B53D800000C3E8 /* AcuationLog+CoreDataClass.swift */,
+				4743B7FA27B53D800000C3E8 /* AcuationLog+CoreDataProperties.swift */,
+				474DB54727BF5FB3009D65D9 /* Device+CoreDataClass.swift */,
+				474DB54827BF5FB3009D65D9 /* Device+CoreDataProperties.swift */,
 				2213838527BCB3DE00D4BFA0 /* AcuationLog+CoreDataClass.swift */,
 				2213838427BCB3DD00D4BFA0 /* AcuationLog+CoreDataProperties.swift */,
 				4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */,
@@ -925,6 +937,7 @@
 				47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */,
 				2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */,
 				2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */,
+				474DB54A27BF5FB3009D65D9 /* Device+CoreDataClass.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
 				4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */,
@@ -959,6 +972,7 @@
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
 				2213838627BCB3DE00D4BFA0 /* AcuationLog+CoreDataProperties.swift in Sources */,
 				227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */,
+				474DB54927BF5FB3009D65D9 /* Device+CoreDataProperties.swift in Sources */,
 				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
 				22609D7C279925B200B38CF4 /* GraphCell.swift in Sources */,
 				472DC2442795328D008E0060 /* ProviderCell.swift in Sources */,

@@ -16,14 +16,16 @@ class LoginVM {
         if checkValidation() {
             
             APIManager.shared.performRequest(route: APIRouter.login.path, parameters: loginModel.toDicForLogin(), method: .get, isBasicAuth: true) { [weak self] error, response in
+                guard let `self` = self else { return }
                 if response == nil {
                     completionHandler(.failure(error!.message))
                 } else {
                     if let res =  response as? [String: Any] {
-                    self?.loginModel.token = res["Token"] as? String
-                    UserDefaultManager.token = self?.loginModel.token ?? ""
-                    UserDefaultManager.isLogin = true
-                    completionHandler(.success(true))
+                        self.loginModel.token = res["Token"] as? String
+                        UserDefaultManager.token = self.loginModel.token ?? ""
+                        UserDefaultManager.email = self.loginModel.email!
+                        UserDefaultManager.isLogin = true
+                        completionHandler(.success(true))
                     }
                 }
                
@@ -31,6 +33,27 @@ class LoginVM {
         }
     }
     
+    func getDeviceListFromDB() -> [String] {
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if device.count == 0 {
+            DatabaseManager.share.deleteAllAccuationLog()
+            DatabaseManager.share.deleteAllDevice()
+            return [String]()
+        } else {
+        let manageDeviceVM = ManageDeviceVM()
+            manageDeviceVM.apicallForGetDeviceList(completionHandler: { result in
+                switch result {
+                case .success(let status):
+                    print("Response sucess :\(status)")
+                    
+                case .failure(let message):
+                    print(message)
+                    // CommonFunctions.showMessage(message: message)
+                }
+            })
+            return device.map({$0.udid!})
+        }
+    }
     
     func checkValidation() -> Bool {
         var isValid = true
