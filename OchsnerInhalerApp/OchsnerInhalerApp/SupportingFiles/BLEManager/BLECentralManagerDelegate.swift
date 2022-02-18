@@ -72,7 +72,8 @@ extension BLEHelper: CBCentralManagerDelegate {
         // Device is in range - have we already seen it?
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
-                if UserDefaultManager.addDevice.contains(where: {$0 == peripheral.identifier.uuidString}) {
+                let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+                if devicelist.contains(where: {$0 == peripheral.identifier.uuidString}) {
                     discoveredPeripheral = peripheral
                     stopScanPeriphral()
                     stopTimer()

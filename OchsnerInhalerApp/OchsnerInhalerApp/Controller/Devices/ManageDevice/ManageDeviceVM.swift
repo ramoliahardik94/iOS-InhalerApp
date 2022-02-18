@@ -35,6 +35,11 @@ class ManageDeviceVM {
             if response == nil {                
                 completionHandler(.failure(error!.message))
             } else {
+                if self.arrDevice[index].internalID == BLEHelper.shared.addressMAC {
+                    BLEHelper.shared.centralManager.cancelPeripheralConnection(BLEHelper.shared.discoveredPeripheral!)
+                    BLEHelper.shared.discoveredPeripheral = nil
+//                    BLEHelper.shared.scanPeripheral()
+                }
                     DatabaseManager.share.deleteMacAddress(macAddress: self.arrDevice[index].internalID)
                     self.arrDevice.remove(at: index)
                     completionHandler(.success(true))

@@ -29,7 +29,7 @@ class CustomSplashVC: BaseVC {
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEChange, object: nil)
-        let devicelist = DatabaseManager.share.getAddedDeviceList()
+        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         deviceUDID = devicelist.map({$0.udid!})
     }
     
@@ -64,7 +64,8 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow {
-                if UserDefaultManager.addDevice.count == 0 {
+                let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+                if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
                 } else {

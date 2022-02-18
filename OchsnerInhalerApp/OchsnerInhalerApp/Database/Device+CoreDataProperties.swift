@@ -18,5 +18,5 @@ extension Device {
 
     @NSManaged public var mac: String?
     @NSManaged public var udid: String?
-
+    @NSManaged public var email: String?
 }

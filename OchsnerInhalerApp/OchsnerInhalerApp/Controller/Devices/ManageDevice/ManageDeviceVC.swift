@@ -19,6 +19,7 @@ class ManageDeviceVC: BaseVC {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerBatteryLevel(notification:)), name: .BLEBatteryLevel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.medicationUpdate(notification:)), name: .medUpdate, object: nil)
         initUI()
     }
     
@@ -65,6 +66,9 @@ class ManageDeviceVC: BaseVC {
     @objc func inhalerBatteryLevel(notification: Notification) {
         self.tbvData.reloadData()
     }
+    @objc func medicationUpdate(notification: Notification) {
+        apiCall()
+    }
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -95,12 +99,9 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ManageDeviceVC: ManageDeviceDelegate, MedicationDelegate {
+extension ManageDeviceVC: ManageDeviceDelegate {
 
-    func medicationUpdated() {
-        apiCall()
-    }
-    
+   
     func editDirection(index: Int) {
         let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         let medication = MedicationVM()
@@ -110,7 +111,6 @@ extension ManageDeviceVC: ManageDeviceDelegate, MedicationDelegate {
         medication.arrTime = manageDeviceVM.arrDevice[index].arrTime
         medication.macAddress = manageDeviceVM.arrDevice[index].internalID
         medicationDetailVC.medicationVM = medication
-        medicationDetailVC.delegate = self
         pushVC(controller: medicationDetailVC)
     }
     
@@ -122,16 +122,24 @@ extension ManageDeviceVC: ManageDeviceDelegate, MedicationDelegate {
                 self.apiCallOfRemoveDevice(index: index)
             }
         }
-        //CommonFunctions.showMessage(message: "Remove device is under development.")
+        
     }
     func apiCallOfRemoveDevice (index: Int) {
-        manageDeviceVM.apicallForRemoveDevice(index: index)  { [weak self] result in
-            guard let`self` = self else{ return }
+        manageDeviceVM.apicallForRemoveDevice(index: index) { [weak self] result in
+            guard let`self` = self else { return }
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
+                    if self.manageDeviceVM.arrDevice.count == 0 {
+                        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                        addDeviceIntroVC.step = .step2
+                        addDeviceIntroVC.isFromAddAnother  = false
+                        addDeviceIntroVC.isFromDeviceList  = true
+                        self.pushVC(controller: addDeviceIntroVC)
+                    }
+                    
                 }
             case .failure(let message):
                 

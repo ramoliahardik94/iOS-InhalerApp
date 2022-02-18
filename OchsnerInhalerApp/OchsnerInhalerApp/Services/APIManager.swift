@@ -31,7 +31,7 @@ class APIManager {
     typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true,completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, completion: ResponseBlock?) -> DataRequest? {
         
         if !APIManager.isConnectedToNetwork {
             print("No Internet connection")

@@ -128,7 +128,6 @@ extension TemporaryDashbord: UITableViewDelegate, UITableViewDataSource {
     
     @objc func tapRemove(sender: UIButton) {
         BLEHelper.shared.centralManager.cancelPeripheralConnection(BLEHelper.shared.discoveredPeripheral!)
-        UserDefaultManager.addDevice.removeAll()
         sender.setTitle("Add Device", for: .normal)
         if let addDeviceIntroVC = self.navigationController?.viewControllers.first(where: {$0 is AddDeviceIntroVC})  as? AddDeviceIntroVC {
             addDeviceIntroVC.step = .step1

@@ -12,7 +12,9 @@ class CreateAccountVM {
     var userData = UserModel(jSon: [String: Any]())
     
     func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)) {
-    
+        UserDefaultManager.remove(forKey: .grantBLEPermission)
+        UserDefaultManager.remove(forKey: .grantLocationPermission)
+        UserDefaultManager.remove(forKey: .grantNotificationPermission)
         if checkValidation() {
             APIManager.shared.performRequest(route: APIRouter.createAccount.path, parameters: userData.toDic(), method: .post) { [weak self] error, response in
                 if response == nil {

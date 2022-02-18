@@ -31,7 +31,6 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var btnPuff: UIButton!
     var isFromDeviceList = false
 
-    weak var delegate: MedicationDelegate?
     var medicationVM = MedicationVM()
     
     let timePicker = UIDatePicker()
@@ -118,7 +117,7 @@ class MedicationDetailVC: BaseVC {
         lblAddDose.textColor = .BlueText
         self.setDatePicker()
         
-        lblNDCCode.text = "NDC Code: \(medicationVM.selectedMedication.ndc ?? "")"
+        lblNDCCode.text = "NDC Code: \(medicationVM.selectedMedication!.ndc ?? "")"
         lblMedicationName.text = medicationVM.selectedMedication.medName
        
         
@@ -137,16 +136,14 @@ class MedicationDetailVC: BaseVC {
                 case .success(let status):
                     print("Response sucess :\(status)")
                     if self.isFromDeviceList {
+                        
                         self.navigationController?.popToRootViewController(animated: true)
                     } else if !self.medicationVM.isEdit {
                         self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
                         UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
-                        UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
                         let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         self.pushVC(controller: addAnotherDeviceVC)
                     } else {
-                        guard let del = self.delegate else {return}
-                        del.medicationUpdated()
                         self.popVC()
                     }
                 case .failure(let message):

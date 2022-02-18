@@ -17,6 +17,7 @@ extension Notification.Name {
     static let BLEBatteryLevel = Notification.Name("BLEBatteryLevel")
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
+    static let medUpdate = Notification.Name("medUpdate")
 }
 
 // MARK: Common Message

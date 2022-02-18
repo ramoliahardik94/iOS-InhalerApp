@@ -33,8 +33,9 @@ class DatabaseManager {
     
     func saveDevice(object: [String: Any]) {
         let accuationLog = NSEntityDescription.insertNewObject(forEntityName: "Device", into: context!) as! Device
-        accuationLog.mac = (object["mac"] as! String)
-        accuationLog.udid = (object["udid"] as! String)
+        accuationLog.mac = (object["mac"]! as! String)
+        accuationLog.udid = (object["udid"]! as! String)
+        accuationLog.email = (object["email"]! as! String)
         do {
             try context?.save()
         } catch {
@@ -69,12 +70,12 @@ class DatabaseManager {
            }
     }
     
-    func deleteMacAddress(macAddress : String) {
+    func deleteMacAddress(macAddress: String) {
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        let predicate = NSPredicate(format: "mac == %@", macAddress)
+        fetch.predicate = predicate
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
-        request.fetchRequest.predicate = NSPredicate(
-            format: "mac LIKE %@", macAddress
-        )
+    
         do {
                 try context?.execute(request)
                 try context?.save()
@@ -83,10 +84,24 @@ class DatabaseManager {
            }
     }
     
-    func getAddedDeviceList() -> [Device] {
+    func deleteAllDevice() {
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+    
+        do {
+                try context?.execute(request)
+                try context?.save()
+           } catch {
+               print("There was an error")
+           }
+    }
+    
+    func getAddedDeviceList(email: String) -> [Device] {
         var device = [Device]()
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        let predicate = NSPredicate(format: "email == %@", email)
+        fetchRequest.predicate = predicate
         do {
             device = try context?.fetch(fetchRequest) as! [Device]
         } catch {
