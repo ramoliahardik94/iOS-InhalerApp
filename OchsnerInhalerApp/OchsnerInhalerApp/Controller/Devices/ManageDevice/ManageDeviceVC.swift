@@ -104,6 +104,27 @@ extension ManageDeviceVC: ManageDeviceDelegate {
     
     func removeDevice(index: Int) {
         // TODO: - Remove device api call
-        CommonFunctions.showMessage(message: "Remove device is under development.")
+        CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
+            guard let `self` = self else { return }
+            if isOk ?? false {
+                self.apiCallOfRemoveDevice(index: index)
+            }
+        }
+        //CommonFunctions.showMessage(message: "Remove device is under development.")
+    }
+    func apiCallOfRemoveDevice (index: Int) {
+        manageDeviceVM.apicallForRemoveDevice(index: index)  { [weak self] result in
+            guard let`self` = self else{ return }
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                DispatchQueue.main.async {
+                    self.tbvData.reloadData()
+                }
+            case .failure(let message):
+                
+                CommonFunctions.showMessage(message: message)
+            }
+        }
     }
 }

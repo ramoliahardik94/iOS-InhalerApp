@@ -55,6 +55,7 @@ class MedicationVM {
                     completionHandler(.failure(error!.message))
                 } else {
                     if (response as? [String: Any]) != nil {
+                        DatabaseManager.share.saveDevice(object: ["mac": BLEHelper.shared.macCharecteristic as Any, "udid": BLEHelper.shared.discoveredPeripheral?.identifier.uuidString as Any])
                         completionHandler(.success(true))
                     } else {
                         completionHandler(.failure(ValidationMsg.CommonError))

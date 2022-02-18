@@ -40,7 +40,7 @@ class APIManager {
         
         
         var encoding: ParameterEncoding = JSONEncoding.default
-        if method == .get {
+        if method == .get || method == .delete {
             encoding = URLEncoding.queryString
         }
         var appHeader = APIManager.header

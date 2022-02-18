@@ -79,7 +79,7 @@ class TemporaryDashbord: BaseVC {
                                               "isSync": false, "mac": mac! as Any,
                                               "udid": udid as Any,
                                               "batterylevel": self.batteryLevel]
-                    DatabaseManager.share.save(object: dic)
+                    DatabaseManager.share.saveAccuation(object: dic)
                 }
             }
            

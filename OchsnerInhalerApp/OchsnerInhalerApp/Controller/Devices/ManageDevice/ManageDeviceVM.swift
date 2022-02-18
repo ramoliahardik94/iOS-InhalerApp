@@ -32,9 +32,10 @@ class ManageDeviceVM {
         let param = ["internalId": arrDevice[index].internalID]
         APIManager.shared.performRequest(route: APIRouter.device.path, parameters: param, method: .delete, isAuth: true) {[weak self] error, response in
             guard let `self` = self else { return }
-            if response == nil {
+            if response == nil {                
                 completionHandler(.failure(error!.message))
             } else {
+                    DatabaseManager.share.deleteMacAddress(macAddress: self.arrDevice[index].internalID)
                     self.arrDevice.remove(at: index)
                     completionHandler(.success(true))
             }

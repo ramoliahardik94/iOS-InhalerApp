@@ -12,7 +12,7 @@ class DatabaseManager {
     static var share = DatabaseManager()
     
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    func save(object: [String: Any]) {
+    func saveAccuation(object: [String: Any]) {
         let accuationLog = NSEntityDescription.insertNewObject(forEntityName: "AcuationLog", into: context!) as! AcuationLog
         accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
         print(accuationLog.uselength)
@@ -30,6 +30,18 @@ class DatabaseManager {
             print("data is not save")
         }
     }
+    
+    func saveDevice(object: [String: Any]) {
+        let accuationLog = NSEntityDescription.insertNewObject(forEntityName: "Device", into: context!) as! Device
+        accuationLog.mac = (object["mac"] as! String)
+        accuationLog.udid = (object["udid"] as! String)
+        do {
+            try context?.save()
+        } catch {
+            print("data is not save")
+        }
+    }
+    
     func getAccuationLogList() {
         var accuationLog = [AcuationLog]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AcuationLog")
@@ -55,5 +67,35 @@ class DatabaseManager {
            } catch {
                print("There was an error")
            }
+    }
+    
+    func deleteMacAddress(macAddress : String) {
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+        request.fetchRequest.predicate = NSPredicate(
+            format: "mac LIKE %@", macAddress
+        )
+        do {
+                try context?.execute(request)
+                try context?.save()
+           } catch {
+               print("There was an error")
+           }
+    }
+    
+    func getAddedDeviceList() -> [Device] {
+        var device = [Device]()
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        do {
+            device = try context?.fetch(fetchRequest) as! [Device]
+        } catch {
+            print("Can not get Data")
+        }
+        for obj in device {
+            let log = obj
+            device.append(log)
+        }
+        return device
     }
 }

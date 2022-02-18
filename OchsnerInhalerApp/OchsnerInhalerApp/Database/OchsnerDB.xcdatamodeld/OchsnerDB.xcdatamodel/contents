@@ -10,7 +10,12 @@
         <attribute name="usedatelocal" optional="YES" attributeType="String"/>
         <attribute name="uselength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="Device" representedClassName="Device" syncable="YES">
+        <attribute name="mac" optional="YES" attributeType="String"/>
+        <attribute name="udid" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="AcuationLog" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="Device" positionX="-63" positionY="45" width="128" height="59"/>
     </elements>
 </model>
