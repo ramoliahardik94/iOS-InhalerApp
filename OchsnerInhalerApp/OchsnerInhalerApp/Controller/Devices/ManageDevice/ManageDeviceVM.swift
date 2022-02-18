@@ -11,7 +11,7 @@ class ManageDeviceVM {
     var arrDevice = [DeviceModel]()
     
     func apicallForGetDeviceList(completionHandler: @escaping ((APIResult) -> Void)) {
-        APIManager.shared.performRequest(route: APIRouter.device.path, parameters: [String: Any](), method: .get, isAuth: true) {[weak self] error, response in
+        APIManager.shared.performRequest(route: APIRouter.device.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) {[weak self] error, response in
             guard let `self` = self else { return }
             if response == nil {
                 completionHandler(.failure(error!.message))

@@ -24,7 +24,14 @@ class HomeVC: BaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleHome
+        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
+        
+        
+        
+    }
+    @objc func tapNotification() {
+        
     }
     private func  initUI() {
         let nib = UINib(nibName: itemCellDevice, bundle: nil)
@@ -41,6 +48,13 @@ class HomeVC: BaseVC {
      
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+            //  print("")
+        DispatchQueue.main.async {
+            self.navigationController?.navigationBar.topItem?.rightBarButtonItems?.remove(at: 0)
+        }
+    }
 
 }
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {

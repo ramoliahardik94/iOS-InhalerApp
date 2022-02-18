@@ -30,8 +30,8 @@ class ProviderListVM {
         }
     }
     
-    func doSendAuthRequest(params: ProviderModel, completionHandler: @escaping ((APIResult) -> Void)) {
-        APIManager.shared.performRequest(route: APIRouter.providerAuth.path, parameters: params.toDicForAuth(), method: .post) { error, response in
+    func doSendAuthRequest(url: String, params: ProviderModel, completionHandler: @escaping ((APIResult) -> Void)) {
+        APIManager.shared.performRequest(route: url, parameters: [:], method: .post, isAuth: true) { error, response in
             if response == nil {
                 completionHandler(.failure(error!.message))
             } else {

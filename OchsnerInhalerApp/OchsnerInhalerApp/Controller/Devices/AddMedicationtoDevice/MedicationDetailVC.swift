@@ -7,6 +7,12 @@
 
 import UIKit
 import DropDown
+
+
+protocol MedicationDelegate: AnyObject {
+    func medicationUpdated()
+}
+
 class MedicationDetailVC: BaseVC {
     
     @IBOutlet weak var lblAddDose: UILabel!
@@ -23,7 +29,9 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var lblPuffTitle: UILabel!
     @IBOutlet weak var tblDoseTime: UITableView!
     @IBOutlet weak var btnPuff: UIButton!
-    
+    var isFromDeviceList = false
+
+    weak var delegate: MedicationDelegate?
     var medicationVM = MedicationVM()
     
     let timePicker = UIDatePicker()
@@ -76,7 +84,7 @@ class MedicationDetailVC: BaseVC {
     
     func setUI() {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
-        lblTitle.text = StringMedication.titleMedication
+        lblTitle.text = StringMedication.titleMedicationDetail
 
         viewMedicationName.backgroundColor = .Colorcell
         viewMedicationName.isOchsnerView = true
@@ -128,13 +136,17 @@ class MedicationDetailVC: BaseVC {
                 switch result {
                 case .success(let status):
                     print("Response sucess :\(status)")
-                    if !self.medicationVM.isEdit {
+                    if self.isFromDeviceList {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    } else if !self.medicationVM.isEdit {
                         self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
                         UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
                         UserDefaultManager.addDevice.append(BLEHelper.shared.discoveredPeripheral!.identifier.uuidString)
-                        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-                        self.pushVC(controller: connectProviderVC)
+                        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                        self.pushVC(controller: addAnotherDeviceVC)
                     } else {
+                        guard let del = self.delegate else {return}
+                        del.medicationUpdated()
                         self.popVC()
                     }
                 case .failure(let message):

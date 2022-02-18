@@ -31,7 +31,8 @@ class APIManager {
     typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true,completion: ResponseBlock?) -> DataRequest? {
+        
         if !APIManager.isConnectedToNetwork {
             print("No Internet connection")
             completion?(RuntimeError("No_Internet_Connection".local), nil)
@@ -62,10 +63,14 @@ class APIManager {
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             url = encoded
         }
-        CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!)
+        if showLoader {
+            CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!)
+        }
         
         let request = Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: appHeader).responseJSON { (response) in
-            CommonFunctions.hideGlobalProgressHUD(UIApplication.topViewController()!)
+            if showLoader {
+                CommonFunctions.hideGlobalProgressHUD(UIApplication.topViewController()!)
+            }
             
             let statusCode = response.response?.statusCode
             if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {

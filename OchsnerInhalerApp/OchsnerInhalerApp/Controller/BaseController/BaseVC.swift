@@ -21,7 +21,12 @@ class BaseVC: UIViewController {
     func pushVC(controller: UIViewController) {
         self.navigationController?.pushViewController(controller, animated: true)
     }
-
+    func presentVC(controller: UIViewController) {
+        self.navigationController?.present(controller, animated: true, completion: nil)
+    }
+    func popPresent() {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
     func rootVC(controller: UIViewController) {
         let nav: UINavigationController = UINavigationController()
         nav.isNavigationBarHidden = true
