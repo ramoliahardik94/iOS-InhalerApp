@@ -121,6 +121,7 @@ struct StringPoviders {
     static let switchOrganization = "Switch organizations"
     static let continueProvider = "Continue"
     static let change = "Change"
+    static let providerBaseUrl = "https://inhalertracking.ochsner.app/?provider"
 }
 // MARK: Add Device
 struct StringAddDevice {
