@@ -46,15 +46,35 @@ class HomeDeviceCell: UITableViewCell {
     var count  = 0
     private let itemCellGraph = "GraphCell"
     
+    @IBOutlet var lblArray: [UILabel]!
+    @IBOutlet var stackViewArray: [UIStackView]!
     
+    var dailyAdherence =  [DailyAdherenceModel]()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        lblDeviceName.setFont(type: .bold, point: 24)
+        lblDeviceType.setFont(type: .lightItalic, point: 16)
+        lblTodayData.setFont(type: .semiBold, point: 28)
+        lblToday.setFont(type: .light, point: 17)
+        lblThisWeekData.setFont(type: .semiBold, point: 28)
+        lblThisWeek.setFont(type: .light, point: 17)
+        lblThisMonthData.setFont(type: .semiBold, point: 28)
+        lblThisMonth.setFont(type: .light, point: 17)
+        lblAdherance.setFont(type: .semiBold, point: 17)
+        lblNextDose.setFont(type: .semiBold, point: 17)
         
         let nib = UINib(nibName: itemCellGraph, bundle: nil)
         cvGraphData.register(nib, forCellWithReuseIdentifier: itemCellGraph)
         cvGraphData.delegate = self
         cvGraphData.dataSource = self
+        
+//        if dailyAdherence.count != 0 {
+//            for (index, item) in dailyAdherence.enumerated() {
+//                lblArray[index].text = item.day ?? "NA"
+//            }
+//        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -44,6 +44,8 @@
 		22AE96FD278EAA0B00C0D851 /* ManageDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96FC278EAA0B00C0D851 /* ManageDeviceVC.swift */; };
 		22AE9701278EAA8D00C0D851 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE9700278EAA8D00C0D851 /* ProfileVC.swift */; };
 		22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE970C278EDAFB00C0D851 /* StringsContants.swift */; };
+		22CA52A627C34D9E0031BDE7 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CA52A527C34D9E0031BDE7 /* HomeVM.swift */; };
+		22CA52A827C34EF50031BDE7 /* DashboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CA52A727C34EF50031BDE7 /* DashboardModel.swift */; };
 		22FC2E0627B767C700ABE886 /* ProviderListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FC2E0527B767C700ABE886 /* ProviderListVM.swift */; };
 		22FC2E0827B76D2700ABE886 /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FC2E0727B76D2700ABE886 /* ProviderModel.swift */; };
 		4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471023472796737B00F88876 /* SFProDisplay-Bold.ttf */; };
@@ -159,6 +161,8 @@
 		22AE96FC278EAA0B00C0D851 /* ManageDeviceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceVC.swift; sourceTree = "<group>"; };
 		22AE9700278EAA8D00C0D851 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		22AE970C278EDAFB00C0D851 /* StringsContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsContants.swift; sourceTree = "<group>"; };
+		22CA52A527C34D9E0031BDE7 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		22CA52A727C34EF50031BDE7 /* DashboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModel.swift; sourceTree = "<group>"; };
 		22FC2E0527B767C700ABE886 /* ProviderListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListVM.swift; sourceTree = "<group>"; };
 		22FC2E0727B76D2700ABE886 /* ProviderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderModel.swift; sourceTree = "<group>"; };
 		471023472796737B00F88876 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
@@ -416,6 +420,7 @@
 			children = (
 				224E1C9A279819AD000C5D1A /* Cell */,
 				22AE96F0278EA37F00C0D851 /* HomeVC.swift */,
+				22CA52A527C34D9E0031BDE7 /* HomeVM.swift */,
 				2296C33827B248040095CBFA /* TemporaryDashbord.swift */,
 				2296C33927B248040095CBFA /* TemporaryDashbord.xib */,
 				2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */,
@@ -648,6 +653,7 @@
 				4728C9DE27A7BF5D0057F8E5 /* MedicationModel.swift */,
 				22FC2E0727B76D2700ABE886 /* ProviderModel.swift */,
 				47E1662727BBB857004A2006 /* DeviceModel.swift */,
+				22CA52A727C34EF50031BDE7 /* DashboardModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -946,6 +952,7 @@
 				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
 				224E1C9D27981AB7000C5D1A /* HomeDeviceCell.swift in Sources */,
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
+				22CA52A827C34EF50031BDE7 /* DashboardModel.swift in Sources */,
 				47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */,
 				4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
@@ -980,6 +987,7 @@
 				4725F2112798093000BBDA28 /* BLEDeviceCell.swift in Sources */,
 				4725F20E2797FE4300BBDA28 /* AddAnotherDeviceVC.swift in Sources */,
 				47CDCE87278D89210014527D /* UITextField+Extensions.swift in Sources */,
+				22CA52A627C34D9E0031BDE7 /* HomeVM.swift in Sources */,
 				47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */,
 				2296C33A27B248040095CBFA /* TemporaryDashbord.swift in Sources */,
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
