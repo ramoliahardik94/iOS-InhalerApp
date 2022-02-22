@@ -42,7 +42,7 @@ public enum HTTPMethod: String {
 // MARK: -
 
 /// A dictionary of parameters to apply to a `URLRequest`.
-public typealias Parameters = [String: Any]
+public typealias Parameters = Any
 
 /// A type used to define how a set of parameters are applied to a `URLRequest`.
 public protocol ParameterEncoding {
@@ -181,8 +181,8 @@ public struct URLEncoding: ParameterEncoding {
                 throw AFError.parameterEncodingFailed(reason: .missingURL)
             }
 
-            if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
-                let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + query(parameters)
+            if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !(parameters as! [String: Any]).isEmpty {
+                let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + query(parameters as! [String : Any])
                 urlComponents.percentEncodedQuery = percentEncodedQuery
                 urlRequest.url = urlComponents.url
             }
@@ -191,7 +191,7 @@ public struct URLEncoding: ParameterEncoding {
                 urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
             }
 
-            urlRequest.httpBody = query(parameters).data(using: .utf8, allowLossyConversion: false)
+            urlRequest.httpBody = query(parameters as! [String : Any]).data(using: .utf8, allowLossyConversion: false)
         }
 
         return urlRequest

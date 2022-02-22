@@ -137,11 +137,15 @@ extension BLEHelper {
         }
         
         stopTimer()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: { [weak self] in
+            guard let `self` = self else { return }
             if self.discoveredPeripheral!.state == .connected  && !self.isConnected {
                 self.stopTimer()
                 self.isConnected = true
                 print(".BLEConnect")
+                self.getmacAddress()
+                self.getBetteryLevel()
+                self.timerAccuation = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getAccuationLog), userInfo: nil, repeats: true)
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
         })

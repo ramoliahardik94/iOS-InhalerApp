@@ -31,7 +31,7 @@ class APIManager {
     typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: [String: Any], method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, completion: ResponseBlock?) -> DataRequest? {
         
         if !APIManager.isConnectedToNetwork {
             print("No Internet connection")
@@ -49,12 +49,14 @@ class APIManager {
             appHeader = setUpHeaderDataWithRefreshToken(isAuth: isAuth)
 //        }
         if isBasicAuth {
-            let username = parameters["Email"] as? String
-            let password = parameters["Password"] as? String
-            let loginString = "\(username ?? ""):\(password ?? "")"
-            if let loginData = loginString.data(using: String.Encoding.utf8) {
-                let base64LoginString = loginData.base64EncodedString()
-                appHeader = setUpHeaderDataWithBASICAuth(value: "Basic \(base64LoginString)")
+            if let param = parameters as? [String: Any] {
+                let username = param["Email"] as? String
+                let password = param["Password"] as? String
+                let loginString = "\(username ?? ""):\(password ?? "")"
+                if let loginData = loginString.data(using: String.Encoding.utf8) {
+                    let base64LoginString = loginData.base64EncodedString()
+                    appHeader = setUpHeaderDataWithBASICAuth(value: "Basic \(base64LoginString)")
+                }
             }
         }
         Logger.logInfo("URL:\(route) -> Method:\(method) -> Parameters: \(parameters) -> Headers:\(appHeader)")
@@ -242,12 +244,3 @@ class BasicModel: Mappable {
         return statusCode == code.rawValue
     }
 }
-// TODO: have to check
-// class BasicModel  : Codable{
-//    var status : String?
-//    var data: [String: Any] {
-//        return (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(self))) as? [String: Any] ?? [:]
-//    }
-//
-//
-// }

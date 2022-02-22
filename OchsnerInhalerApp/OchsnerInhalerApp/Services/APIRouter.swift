@@ -13,6 +13,8 @@ enum APIRouter {
     case providerList
     case providerAuth
     case dashboard
+    case deviceuse
+    
     // MARK: - Path
     var path: String {
         switch self {
@@ -33,6 +35,8 @@ enum APIRouter {
         case .dashboard :
             return BaseURLManager.shared.getBaseURL() + "dashboard"
       
+        case .deviceuse :
+            return BaseURLManager.shared.getBaseURL() + "deviceuse"
         }
     }
     

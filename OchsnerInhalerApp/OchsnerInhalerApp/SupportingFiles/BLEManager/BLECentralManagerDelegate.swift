@@ -102,11 +102,14 @@ extension BLEHelper: CBCentralManagerDelegate {
         print("DidFail")
         self.stopTimer()
         self.isConnected = false
+        self.timerAccuation.invalidate()
+        self.timerAccuation = nil
         NotificationCenter.default.post(name: .BLENotConnect, object: nil)
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("state \(peripheral.state.rawValue)")
+        scanPeripheral(withTimer: false)
         self.isConnected = false
         self.stopTimer()
         NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
