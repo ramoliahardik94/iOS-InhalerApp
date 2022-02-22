@@ -333,7 +333,6 @@
                                                     <constraint firstItem="bRt-DN-Cgr" firstAttribute="top" secondItem="eSE-BX-0a8" secondAttribute="top" id="UNa-uh-qoY"/>
                                                     <constraint firstAttribute="height" constant="35" id="gCF-op-XU4"/>
                                                     <constraint firstAttribute="trailing" secondItem="bRt-DN-Cgr" secondAttribute="trailing" id="h13-A2-SCw"/>
-                                                    <constraint firstItem="bRt-DN-Cgr" firstAttribute="width" secondItem="rwW-fN-qVP" secondAttribute="width" id="k68-TU-w5y"/>
                                                     <constraint firstAttribute="bottom" secondItem="bRt-DN-Cgr" secondAttribute="bottom" id="yr7-Fs-4cm"/>
                                                 </constraints>
                                             </stackView>

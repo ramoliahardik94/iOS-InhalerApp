@@ -14,7 +14,8 @@ class LocationManager: CLLocationManager {
     var ssidCompletion: ((String) -> Void)!
     var locationCompletion: ((CLLocationCoordinate2D) -> Void)!
     var permissionCompletion: ((CLAuthorizationStatus) -> Void)?
-    
+    var lat: String = ""
+    var long: String = ""
     override init() {
         super.init()
     }
@@ -107,6 +108,7 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
         self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+        locationManager.delegate = nil
         locationManager.stopUpdatingLocation()
     }
     
