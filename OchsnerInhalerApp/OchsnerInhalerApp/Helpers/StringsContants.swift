@@ -18,6 +18,7 @@ extension Notification.Name {
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
     static let medUpdate = Notification.Name("medUpdate")
+    static let SYNCSUCCESSACUATION = Notification.Name("SYNC_SUCCESS_ACUATION")
 }
 
 // MARK: Common Message
@@ -34,6 +35,7 @@ struct StringCommonMessages {
      static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
     static let  noInternetConnection = "No Internet connection"
+    static let  noDataFount = "No record found"
     
 }
 struct AppFont {

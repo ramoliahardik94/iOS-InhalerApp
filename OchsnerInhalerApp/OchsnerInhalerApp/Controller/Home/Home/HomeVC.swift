@@ -11,6 +11,7 @@ import DropDown
 class HomeVC: BaseVC {
 
     
+    @IBOutlet weak var lblNoData: UILabel!
     @IBOutlet weak var tbvDeviceData: UITableView!
  
     private let itemCellDevice = "HomeDeviceCell"
@@ -26,15 +27,18 @@ class HomeVC: BaseVC {
         if (BLEHelper.shared.discoveredPeripheral == nil) {
             BLEHelper.shared.scanPeripheral(withTimer: false)
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
         initUI()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         
-        
-       // doGetHomeData()
+        BLEHelper.shared.apiCallForAccuationlog()
+       
+        // doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
     }
     @objc func tapNotification() {
         
@@ -45,8 +49,12 @@ class HomeVC: BaseVC {
         tbvDeviceData.delegate = self
         tbvDeviceData.dataSource = self
         tbvDeviceData.separatorStyle = .none
-      //   doGetHomeData()
-        doLoadJson()
+         
+     
+        lblNoData.text = StringCommonMessages.noDataFount
+        doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+        lblNoData.isHidden = true
+       // doLoadJson()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -58,9 +66,9 @@ class HomeVC: BaseVC {
     }
     
     
-    private func doGetHomeData() {
-       // homeVM.dashboardData.removeAll()
-       // self.tbvDeviceData.reloadData()
+    @objc func doGetHomeData(notification: Notification) {
+        homeVM.dashboardData.removeAll()
+        self.tbvDeviceData.reloadData()
         CommonFunctions.showGlobalProgressHUD(self)
         homeVM.doDashboardData {  [weak self] isSuccess in
             guard let`self` = self else { return }
@@ -69,6 +77,11 @@ class HomeVC: BaseVC {
             case .success(let status):
                 print("Response sucess :\(status)")
                 // print("Response sucess :\(self.homeVM.dashboardData.count)")
+                if  self.homeVM.dashboardData.count == 0 {
+                    self.lblNoData.isHidden = false
+                } else {
+                    self.lblNoData.isHidden = true
+                }
                 DispatchQueue.main.async {
                     self.tbvDeviceData.reloadData()
                 }
@@ -95,6 +108,11 @@ class HomeVC: BaseVC {
                     if dashbaord.rescueData.count != 0 {
                         homeVM.dashboardData.append(contentsOf: dashbaord.rescueData)
                     }
+                    if  self.homeVM.dashboardData.count == 0 {
+                        self.lblNoData.isHidden = false
+                    } else {
+                        self.lblNoData.isHidden = true
+                    }
                     self.tbvDeviceData.reloadData()
                    // self.graphModel = graphDatapoints
                   //  completion(true)
@@ -110,6 +128,7 @@ class HomeVC: BaseVC {
 }
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            
         return homeVM.dashboardData.count
     }
     
@@ -182,24 +201,25 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblThisMonthData.text = "\(item.thisMonth?.adherence ?? 0)%"
            
             cell.viewAdherance.isHidden = false
-            cell.lblNextDose.text = item.nextScheduledDose ?? "NA"
+            cell.lblNextDose.text = "Next Scheduled Dose: \(item.nextScheduledDose ?? "NA")"
             cell.viewNextDose.isHidden = false
             
-            cell.lblDeviceNameGraph.text = item.medName ?? "NA"
-            cell.lblDeviceTypeGraph.text = "(Schedule)"
+            cell.lblDeviceNameGraph.text = ""
+            cell.lblDeviceTypeGraph.text = "Schedule"
             if item.dailyAdherence.count != 0 {
             //    cell.dailyAdherence = item.dailyAdherence
-                let  dailyAdherence = item.dailyAdherence.reversed()
+                let dailyAdherence = item.dailyAdherence
                 
                 for (index, item) in dailyAdherence.enumerated() {
                     let label = UILabel()
                     label.text = item.day ?? "NA"
                     label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-                    label.setFont(type: .regular, point: 16)
+                 //   label.widthAnchor.constraint(equalToConstant: 18).isActive = true
+                    label.setFont(type: .regular, point: 14)
                     let date = Date()
                     let day = date.getFormattedDate(format: "EE")
                     let lastC = day.dropLast()
-                    //print(lastC)
+                    // print(lastC)
                     if item.day?.lowercased()
                         ?? "" == lastC.lowercased() {
                         label.layer.borderWidth = 1
@@ -216,7 +236,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                    // cell.stackViewArray[index].insertArrangedSubview(label, at: 0)
                     cell.stackViewArray[index].addArrangedSubview(label)
                     for  indexSub in 1...item.denominator! {
-                        let mainview = UIView()
+                       // let mainview = UIView()
                         let view = UIView()
                         view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
                         view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
@@ -225,9 +245,23 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                         view.widthAnchor.constraint(equalToConstant: 16).isActive = true
                         view.layer.cornerRadius = 8
                         view.clipsToBounds = true
-                        mainview.addSubview(view)
-                        cell.stackViewArray[index].addArrangedSubview(view)
-                       // cell.stackViewArray[index].insertArrangedSubview(label, at: indexSub)
+                        
+                        let image = UIImageView()
+                        image.heightAnchor.constraint(equalToConstant: 16).isActive = true
+                        image.widthAnchor.constraint(equalToConstant: 16).isActive = true
+                        image.image = #imageLiteral(resourceName: "cross_dot")
+                        
+                        if item.day?.lowercased()
+                                ?? "" == lastC.lowercased() {
+                            cell.stackViewArray[index].addArrangedSubview(view)
+                        } else {
+                            if indexSub <= item.numerator ?? 0 {
+                                cell.stackViewArray[index].addArrangedSubview(view)
+                            } else {
+                                cell.stackViewArray[index].addArrangedSubview(image)
+                            }
+                        }
+                       
                     }
                     let array =  cell.stackViewArray[index].arrangedSubviews.reversed()
                     for (indexArr, item) in array.enumerated() {
@@ -249,23 +283,4 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         }
         tbvDeviceData.reloadData()
     }
-}
-extension UIStackView {
-
-  func reverseSubviewsZIndex(setNeedsLayout: Bool = true) {
-    let stackedViews = self.arrangedSubviews
-
-    stackedViews.forEach {
-      self.removeArrangedSubview($0)
-      $0.removeFromSuperview()
-    }
-
-    stackedViews.reversed().forEach(addSubview(_:))
-    stackedViews.forEach(addArrangedSubview(_:))
-
-    if setNeedsLayout {
-      stackedViews.forEach { $0.setNeedsLayout() }
-    }
-  }
-
 }

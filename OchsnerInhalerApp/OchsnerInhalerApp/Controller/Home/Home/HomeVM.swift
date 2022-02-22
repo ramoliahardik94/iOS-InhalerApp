@@ -20,11 +20,12 @@ class HomeVM {
                 if let res = response as? [String: Any] {
                      let mainData = DashboardModel(jSon: res)
                     print(" main data \(mainData.maintenanceData.count)" )
-                    if  mainData.maintenanceData.count != 0 {
-                        self.dashboardData.append(contentsOf: mainData.maintenanceData)
-                    }
+                   
                     if mainData.rescueData.count != 0 {
                         self.dashboardData.append(contentsOf: mainData.rescueData)
+                    }
+                    if  mainData.maintenanceData.count != 0 {
+                        self.dashboardData.append(contentsOf: mainData.maintenanceData)
                     }
                     completionHandler(.success(true))
                 } else {

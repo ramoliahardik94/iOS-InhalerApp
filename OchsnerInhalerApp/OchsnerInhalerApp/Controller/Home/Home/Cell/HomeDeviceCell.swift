@@ -55,7 +55,7 @@ class HomeDeviceCell: UITableViewCell {
         lblThisMonth.setFont(type: .light, point: 17)
         lblAdherance.setFont(type: .semiBold, point: 17)
         lblNextDose.setFont(type: .semiBold, point: 17)
-      
+        lblDeviceTypeGraph.setFont(type: .semiBold, point: 17)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
