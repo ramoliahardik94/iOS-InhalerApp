@@ -30,7 +30,7 @@ class ProviderListVC: BaseVC {
     private var providerListVM = ProviderListVM()
     private var OAuthUrl = ""
     private var providerId = ""
-    
+    private var isCallFirstTime = true
   // private var webView: WKWebView!
     override func viewDidLoad() {
         self.navigationController?.isNavigationBarHidden = true
@@ -78,7 +78,8 @@ class ProviderListVC: BaseVC {
     }
     
     @IBAction func btnContinueClick(_ sender: Any) {
-        viewConform.isHidden = true
+        // viewConform.isHidden = true
+        isCallFirstTime = true
         setUiWebview()
     }
 
@@ -113,21 +114,21 @@ class ProviderListVC: BaseVC {
         
     }
     
-    private func doSendAuthRequest() {
-        let params =  ProviderModel(jSon: [String: Any]())
-        params.providerId = providerId
-        params.accessToken = "0"
-        params.refreshToken = "0"
-        params.expiresIn = "0"
-        // APIRouter.providerAuth.path
-        
-        providerListVM.doSendAuthRequest(url: "https://inhlrtrackdev.ochsner.org/api/LinkUser?providerId=1&accessToken=abcdef&expiresIn=3120&refreshToken=ghijkl" ,params: params) { result in
+    private func doSendAuthRequest(path: String) {
+        providerListVM.doSendAuthRequest(url: path) { result in
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
                 
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+               
+                homeTabBar.selectedIndex = 1
+                self.rootVC(controller: homeTabBar)
+                
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
+                self.viewWebviewMain.isHidden = true
             }
             
         }
@@ -199,7 +200,61 @@ extension ProviderListVC: WKNavigationDelegate {
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         CommonFunctions.hideGlobalProgressHUD(self)
-       //print("finish to load \(webView.url)")
+     //  print("finish to load \(webView.url)")
        // doSendAuthRequest()
+    }
+    func webView(webView: WKWebView!, createWebViewWithConfiguration configuration: WKWebViewConfiguration!, forNavigationAction navigationAction: WKNavigationAction!, windowFeatures: WKWindowFeatures!) -> WKWebView! {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
+    }
+    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        CommonFunctions.hideGlobalProgressHUD(self)
+        guard let serverTrust = challenge.protectionSpace.serverTrust else {
+            completionHandler(.cancelAuthenticationChallenge, nil)
+            return
+        }
+        let exceptions = SecTrustCopyExceptions(serverTrust)
+        SecTrustSetExceptions(serverTrust, exceptions)
+        completionHandler(.useCredential, URLCredential(trust: serverTrust))
+       // print("didReceive \(webView.url?.absoluteString)")
+       
+        // print("didReceive \(challenge)")
+//        let url = webView.url?.absoluteString ?? ""
+//
+//        if ((url.contains("https://inhlrtrackdev.ochsner.org"))) {
+//
+//            if isCallFirstTime {
+//                isCallFirstTime = false
+//                doSendAuthRequest(path: url )
+//            }
+//
+//        }
+    }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
+       // print("decidePolicyFor \(webView.url?.absoluteString)")
+        return .allow
+    }
+    
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
+        let url = webView.url?.absoluteString ?? ""
+        if ((url.contains(StringPoviders.providerBaseUrl))) {
+            
+            var dict = [String:String]()
+            let components = URLComponents(url: webView.url!, resolvingAgainstBaseURL: false)!
+            if let queryItems = components.queryItems {
+                for item in queryItems {
+                    dict[item.name] = item.value!
+                }
+            }
+          //  print(dict)
+            if isCallFirstTime {
+                isCallFirstTime = false
+                let urlFinal =  "\(APIRouter.providerAuth.path)?providerId=\(dict["provider"] ?? "")&accessToken=\(dict["accessToken"] ?? "")&expiresIn=\(dict["expiresIn"] ?? "")&refreshToken=\(dict["refreshToken"] ?? "")"
+                doSendAuthRequest(path: urlFinal)
+            }
+        }
     }
 }
