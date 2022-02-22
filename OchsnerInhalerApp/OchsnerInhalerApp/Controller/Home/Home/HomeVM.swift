@@ -12,7 +12,7 @@ class HomeVM {
      
     func doDashboardData(completionHandler: @escaping ((APIResult) -> Void)) {
         
-        APIManager.shared.performRequest(route: APIRouter.dashboard.path, parameters: [String: Any](), method: .get, isAuth: true) { error, response in
+        APIManager.shared.performRequest(route: APIRouter.dashboard.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) { error, response in
             if response == nil {
                 
                 completionHandler(.failure(error!.message))

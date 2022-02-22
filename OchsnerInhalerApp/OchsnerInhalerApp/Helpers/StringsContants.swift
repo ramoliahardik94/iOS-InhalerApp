@@ -33,7 +33,8 @@ struct StringCommonMessages {
      static let disconnect = "Disconnected"
      static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
-
+    static let  noInternetConnection = "No Internet connection"
+    
 }
 struct AppFont {
     static let AppRegularFont = Constants.CustomFont.SFProTextRegular

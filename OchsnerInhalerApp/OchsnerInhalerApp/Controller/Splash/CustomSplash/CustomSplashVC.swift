@@ -64,6 +64,17 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow {
+                
+                BLEHelper.shared.scanPeripheral()
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                homeTabBar.selectedIndex = 1
+//                    let vc1 = TemporaryDashbord()
+                DispatchQueue.main.async {
+                    self.rootVC(controller: homeTabBar)
+//                        self.rootVC(controller: vc1)
+                }
+                return
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)

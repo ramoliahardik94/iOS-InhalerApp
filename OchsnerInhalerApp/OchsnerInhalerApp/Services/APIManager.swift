@@ -35,7 +35,7 @@ class APIManager {
         
         if !APIManager.isConnectedToNetwork {
             print("No Internet connection")
-            completion?(RuntimeError("No_Internet_Connection".local), nil)
+            completion?(RuntimeError(StringCommonMessages.noInternetConnection), nil)
             return nil
         }
         

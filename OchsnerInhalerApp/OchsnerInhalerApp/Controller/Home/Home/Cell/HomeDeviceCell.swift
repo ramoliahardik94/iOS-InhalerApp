@@ -29,24 +29,15 @@ class HomeDeviceCell: UITableViewCell {
     @IBOutlet weak var ivExpand: UIImageView!
     @IBOutlet weak var btnExpand: UIButton!
     // for graph
-    @IBOutlet weak var svDays: UIStackView!
-    @IBOutlet weak var lblMonday: UILabel!
-    @IBOutlet weak var lblTuesday: UILabel!
-    @IBOutlet weak var lblWednesday: UILabel!
-    @IBOutlet weak var lblThursday: UILabel!
-    @IBOutlet weak var lblFriday: UILabel!
-    @IBOutlet weak var lblSaturday: UILabel!
-    @IBOutlet weak var lblSunday: UILabel!
     @IBOutlet weak var lblDeviceNameGraph: UILabel!
     @IBOutlet weak var lblDeviceTypeGraph: UILabel!
-    @IBOutlet weak var cvGraphData: UICollectionView!
-    @IBOutlet weak var conHeightCollectionView: NSLayoutConstraint!
+  //  @IBOutlet weak var cvGraphData: UICollectionView!
+  //  @IBOutlet weak var conHeightCollectionView: NSLayoutConstraint!
     
     @IBOutlet weak var viewCollectionView: UIView!
     var count  = 0
     private let itemCellGraph = "GraphCell"
-    
-    @IBOutlet var lblArray: [UILabel]!
+   
     @IBOutlet var stackViewArray: [UIStackView]!
     
     var dailyAdherence =  [DailyAdherenceModel]()
@@ -64,17 +55,7 @@ class HomeDeviceCell: UITableViewCell {
         lblThisMonth.setFont(type: .light, point: 17)
         lblAdherance.setFont(type: .semiBold, point: 17)
         lblNextDose.setFont(type: .semiBold, point: 17)
-        
-        let nib = UINib(nibName: itemCellGraph, bundle: nil)
-        cvGraphData.register(nib, forCellWithReuseIdentifier: itemCellGraph)
-        cvGraphData.delegate = self
-        cvGraphData.dataSource = self
-        
-//        if dailyAdherence.count != 0 {
-//            for (index, item) in dailyAdherence.enumerated() {
-//                lblArray[index].text = item.day ?? "NA"
-//            }
-//        }
+      
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

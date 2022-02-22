@@ -32,7 +32,7 @@ class HomeVC: BaseVC {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         
         
-        doGetHomeData()
+       // doGetHomeData()
     }
     @objc func tapNotification() {
         
@@ -43,7 +43,8 @@ class HomeVC: BaseVC {
         tbvDeviceData.delegate = self
         tbvDeviceData.dataSource = self
         tbvDeviceData.separatorStyle = .none
-        // doGetHomeData()
+      //   doGetHomeData()
+        doLoadJson()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -56,7 +57,12 @@ class HomeVC: BaseVC {
     
     
     private func doGetHomeData() {
-        homeVM.doDashboardData {  isSuccess in
+       // homeVM.dashboardData.removeAll()
+       // self.tbvDeviceData.reloadData()
+        CommonFunctions.showGlobalProgressHUD(self)
+        homeVM.doDashboardData {  [weak self] isSuccess in
+            guard let`self` = self else { return }
+            CommonFunctions.hideGlobalProgressHUD(self)
             switch isSuccess {
             case .success(let status):
                 print("Response sucess :\(status)")
@@ -67,8 +73,36 @@ class HomeVC: BaseVC {
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
-            
         }
+    }
+    
+    // This is for reference testing purpose
+    private func doLoadJson() {
+        if let path = Bundle.main.path(forResource: "dashboard_response", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+                do {
+                    let dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+                    
+                    let dashbaord = DashboardModel(jSon: dict)
+                    print(dashbaord.maintenanceData.count)
+                    
+                    if  dashbaord.maintenanceData.count != 0 {
+                        homeVM.dashboardData.append(contentsOf: dashbaord.maintenanceData)
+                    }
+                    if dashbaord.rescueData.count != 0 {
+                        homeVM.dashboardData.append(contentsOf: dashbaord.rescueData)
+                    }
+                    self.tbvDeviceData.reloadData()
+                   // self.graphModel = graphDatapoints
+                  //  completion(true)
+                }
+            } catch {
+               // DDLogError("GraphDatapointViewModel > fetchOldDataFromJson failed To load JSON file from Path")
+               // completion(false)
+            }
+        }
+        
     }
 
 }
@@ -96,7 +130,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
        // cell.btnExpand.addTarget(self, action: #selector(tapExpand(sender:)), for: .touchUpInside)
       
         let item = homeVM.dashboardData[indexPath.row]
-        cell.lblDeviceName.text = item.medName ?? ""
+        cell.lblDeviceName.text = item.medName ?? "NA"
        
         
         if item.thisMonth?.change?.lowercased() ?? ""  == "up" {
@@ -146,84 +180,61 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblThisMonthData.text = "\(item.thisMonth?.adherence ?? 0)%"
            
             cell.viewAdherance.isHidden = false
-            if let nextDose = item.nextScheduledDose {
-                cell.lblNextDose.text = nextDose
-                cell.viewNextDose.isHidden = false
-            } else {
-                cell.viewNextDose.isHidden = true
-            }
-            cell.lblDeviceNameGraph.text = item.medName ?? ""
+            cell.lblNextDose.text = item.nextScheduledDose ?? "NA"
+            cell.viewNextDose.isHidden = false
+            
+            cell.lblDeviceNameGraph.text = item.medName ?? "NA"
             cell.lblDeviceTypeGraph.text = "(Schedule)"
             if item.dailyAdherence.count != 0 {
             //    cell.dailyAdherence = item.dailyAdherence
                 let  dailyAdherence = item.dailyAdherence.reversed()
+                
                 for (index, item) in dailyAdherence.enumerated() {
-                    cell.lblArray[index].text = item.day ?? "NA"
-                   
-                    for  _ in 1...item.denominator! {
-                        let view = UIView()
-                        view.backgroundColor = .BlueText
-                        view.heightAnchor.constraint(equalToConstant: 18).isActive = true
-                        view.widthAnchor.constraint(equalToConstant: 18).isActive = true
-                       // view.centerXAnchor
-                        //    .constraint(equalTo: cell.lblArray[index].centerXAnchor).isActive = true
-                      //  view.layer.cornerRadius = cell.lblArray[index].frame.size.width / 2
-                        view.clipsToBounds = true
-                     //   stackViewArray[index].
-                        cell.stackViewArray[index].addArrangedSubview(view)
+                    let label = UILabel()
+                    label.text = item.day ?? "NA"
+                    label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+                    label.setFont(type: .regular, point: 16)
+                    let date = Date()
+                    let day = date.getFormattedDate(format: "EE")
+                    let lastC = day.dropLast()
+                    //print(lastC)
+                    if item.day?.lowercased()
+                        ?? "" == lastC.lowercased() {
+                        label.layer.borderWidth = 1
+                        label.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+                    } else {
+                        label.layer.borderWidth = 0
+                        label.layer.borderColor = UIColor.clear.cgColor // #8E8E93
                     }
-                  //  cell.stackViewArray[0].centerXAnchor
-//                    let view = UIView()
-//                    view.backgroundColor = .BlueText
-//                    view.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//                   // view.widthAnchor.constraint(equalToConstant: 4).isActive = true
-//                    cell.stackViewArray[index].addArrangedSubview(view)
-             
-                    
+                    cell.stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
+                    cell.stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
+                    cell.stackViewArray[index].alignment = UIStackView.Alignment.center
+                    cell.stackViewArray[index].spacing   = 4
+                   
+                   // cell.stackViewArray[index].insertArrangedSubview(label, at: 0)
+                    cell.stackViewArray[index].addArrangedSubview(label)
+                    for  indexSub in 1...item.denominator! {
+                        let mainview = UIView()
+                        let view = UIView()
+                        view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+                        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+                        view.layer.borderWidth = 1
+                        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+                        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+                        view.layer.cornerRadius = 8
+                        view.clipsToBounds = true
+                        mainview.addSubview(view)
+                        cell.stackViewArray[index].addArrangedSubview(view)
+                       // cell.stackViewArray[index].insertArrangedSubview(label, at: indexSub)
+                    }
+                    let array =  cell.stackViewArray[index].arrangedSubviews.reversed()
+                    for (indexArr, item) in array.enumerated() {
+                        cell.stackViewArray[index].insertArrangedSubview(item, at: indexArr)
+                    }
                 }
              }
         }
       
-      
-        /*if
-        } else {
-          
-             
-           
-           
-            
-            setCustomFontLabel(label: cell.lblDeviceName, type: .bold, fontSize: 17)
-            setCustomFontLabel(label: cell.lblDeviceType, type: .regular, fontSize: 13)
-            setCustomFontLabel(label: cell.lblMonday, type: .regular, fontSize: 16)
-            setCustomFontLabel(label: cell.lblTuesday, type: .regular, fontSize: 16)
-            setCustomFontLabel(label: cell.lblWednesday, type: .regular, fontSize: 16)
-            setCustomFontLabel(label: cell.lblThursday, type: .regular, fontSize: 16)
-            setCustomFontLabel(label: cell.lblFriday, type: .regular, fontSize: 16)
-            setCustomFontLabel(label: cell.lblSaturday, type: .regular, fontSize: 16)
-            setCustomFontLabel(label: cell.lblSunday, type: .regular, fontSize: 16)
-            cell.lblMonday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-            cell.lblTuesday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-            cell.lblWednesday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-            cell.lblThursday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-            cell.lblFriday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-            cell.lblSaturday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-            cell.lblSunday.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-            cell.lblMonday.text = "M"
-            cell.lblTuesday.text = "T"
-            cell.lblWednesday.text = "W"
-            cell.lblThursday.text = "T"
-            cell.lblFriday.text = "F"
-            cell.lblSaturday.text = "S"
-            cell.lblSunday.text = "S"
-            
-            cell.lblFriday.layer.borderWidth = 1
-            cell.lblFriday.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-           cell.svDays.isHidden = false
-            cell.count = 14
-            cell.conHeightCollectionView.constant = 56
-            cell.viewCollectionView.isHidden = false
-        }*/
-        
         return cell
     }
     
@@ -236,4 +247,23 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         }
         tbvDeviceData.reloadData()
     }
+}
+extension UIStackView {
+
+  func reverseSubviewsZIndex(setNeedsLayout: Bool = true) {
+    let stackedViews = self.arrangedSubviews
+
+    stackedViews.forEach {
+      self.removeArrangedSubview($0)
+      $0.removeFromSuperview()
+    }
+
+    stackedViews.reversed().forEach(addSubview(_:))
+    stackedViews.forEach(addArrangedSubview(_:))
+
+    if setNeedsLayout {
+      stackedViews.forEach { $0.setNeedsLayout() }
+    }
+  }
+
 }
