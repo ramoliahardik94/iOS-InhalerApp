@@ -99,10 +99,10 @@ class LoginVC: BaseVC {
                         }
                     }
                 } else {
-                    BLEHelper.shared.scanPeripheral()
+                    BLEHelper.shared.scanPeripheral(withTimer: false)
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                    homeTabBar.selectedIndex = 1
+                   // homeTabBar.selectedIndex = 1
                     DispatchQueue.main.async {
                         self.rootVC(controller: homeTabBar)
                     }

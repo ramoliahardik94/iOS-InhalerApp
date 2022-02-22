@@ -20,7 +20,9 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        
+        if (BLEHelper.shared.discoveredPeripheral == nil) {
+            BLEHelper.shared.scanPeripheral(withTimer: false)
+        }
         initUI()
     }
     override func viewWillAppear(_ animated: Bool) {

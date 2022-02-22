@@ -3,6 +3,7 @@
     <entity name="AcuationLog" representedClassName="AcuationLog" syncable="YES">
         <attribute name="batterylevel" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="deviceidmac" optional="YES" attributeType="String"/>
+        <attribute name="devicesyncdateutc" optional="YES" attributeType="String"/>
         <attribute name="deviceuuid" optional="YES" attributeType="String"/>
         <attribute name="issync" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String"/>
@@ -16,7 +17,7 @@
         <attribute name="udid" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="AcuationLog" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="AcuationLog" positionX="-63" positionY="-18" width="128" height="164"/>
         <element name="Device" positionX="-63" positionY="45" width="128" height="74"/>
     </elements>
 </model>
