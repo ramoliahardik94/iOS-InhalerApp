@@ -65,8 +65,8 @@ class AddDeviceIntroVC: BaseVC {
             lbldeviceInfo.text = StringAddDevice.connectDeviceInfo
             btnStartSetUp.setButtonView(StringAddDevice.pareDevice)
             btnStartSetUp.isEnabled = false
-            
             btnStartSetUp.backgroundColor = .gray
+            
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerFound(notification:)), name: .BLEFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotFound(notification:)), name: .BLENotFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)

@@ -51,11 +51,11 @@ class LoginVC: BaseVC {
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
         #if DEBUG
-//        tfEmail.text = "nikita@gmail.com"
-//        tfPassword.text = "password"
+        tfEmail.text = "nikita@gmail.com"
+        tfPassword.text = "password"
       
-        tfEmail.text = "dhaval.sabhaya@volansys.com"
-         tfPassword.text = "dhaval123"
+//        tfEmail.text = "dhaval.sabhaya@volansys.com"
+//         tfPassword.text = "dhaval123"
         #endif
     }
     
@@ -99,10 +99,10 @@ class LoginVC: BaseVC {
                         }
                     }
                 } else {
-                    BLEHelper.shared.scanPeripheral()
+                    BLEHelper.shared.scanPeripheral(withTimer: false)
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                    homeTabBar.selectedIndex = 1
+                   // homeTabBar.selectedIndex = 1
                     DispatchQueue.main.async {
                         self.rootVC(controller: homeTabBar)
                     }

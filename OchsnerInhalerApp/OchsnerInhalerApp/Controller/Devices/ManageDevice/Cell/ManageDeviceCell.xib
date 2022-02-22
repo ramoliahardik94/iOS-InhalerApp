@@ -308,40 +308,39 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fo-cO-UC3">
                                         <rect key="frame" x="0.0" y="284" width="364" height="35"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eSE-BX-0a8">
-                                                <rect key="frame" x="0.0" y="0.0" width="364" height="35"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwW-fN-qVP">
-                                                        <rect key="frame" x="0.0" y="0.0" width="178" height="35"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                                        <connections>
-                                                            <action selector="btnEditDirectionWithSender:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iwc-2J-Jrv"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRt-DN-Cgr">
-                                                        <rect key="frame" x="186" y="0.0" width="178" height="35"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                                        <connections>
-                                                            <action selector="btnRemoveDeviceWithSender:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Hfi-Cy-mTW"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwW-fN-qVP">
+                                                <rect key="frame" x="0.0" y="0.0" width="178" height="35"/>
                                                 <constraints>
-                                                    <constraint firstItem="bRt-DN-Cgr" firstAttribute="width" secondItem="eSE-BX-0a8" secondAttribute="width" multiplier="0.489011" id="Db3-pR-9Uj"/>
-                                                    <constraint firstItem="bRt-DN-Cgr" firstAttribute="top" secondItem="eSE-BX-0a8" secondAttribute="top" id="UNa-uh-qoY"/>
-                                                    <constraint firstAttribute="height" constant="35" id="gCF-op-XU4"/>
-                                                    <constraint firstAttribute="trailing" secondItem="bRt-DN-Cgr" secondAttribute="trailing" id="h13-A2-SCw"/>
-                                                    <constraint firstAttribute="bottom" secondItem="bRt-DN-Cgr" secondAttribute="bottom" id="yr7-Fs-4cm"/>
+                                                    <constraint firstAttribute="height" constant="35" id="7sb-j5-Be4"/>
                                                 </constraints>
-                                            </stackView>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnEditDirectionWithSender:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iwc-2J-Jrv"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRt-DN-Cgr">
+                                                <rect key="frame" x="186" y="0.0" width="178" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="Blq-Zg-tG1"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnRemoveDeviceWithSender:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Hfi-Cy-mTW"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="eSE-BX-0a8" secondAttribute="trailing" id="4I9-r3-O2h"/>
-                                            <constraint firstItem="eSE-BX-0a8" firstAttribute="leading" secondItem="7fo-cO-UC3" secondAttribute="leading" id="C9F-iN-Icy"/>
-                                            <constraint firstItem="eSE-BX-0a8" firstAttribute="centerY" secondItem="7fo-cO-UC3" secondAttribute="centerY" id="i2b-1v-1dP"/>
+                                            <constraint firstItem="bRt-DN-Cgr" firstAttribute="leading" secondItem="rwW-fN-qVP" secondAttribute="trailing" constant="8" id="PHE-CD-Gv2"/>
+                                            <constraint firstAttribute="trailing" secondItem="bRt-DN-Cgr" secondAttribute="trailing" id="VvX-t7-V6q"/>
+                                            <constraint firstItem="bRt-DN-Cgr" firstAttribute="width" secondItem="rwW-fN-qVP" secondAttribute="width" id="dfu-iy-cGg"/>
+                                            <constraint firstItem="rwW-fN-qVP" firstAttribute="top" secondItem="7fo-cO-UC3" secondAttribute="top" id="lUV-K8-fgb"/>
+                                            <constraint firstItem="rwW-fN-qVP" firstAttribute="leading" secondItem="7fo-cO-UC3" secondAttribute="leading" id="qw5-cf-dtA"/>
+                                            <constraint firstAttribute="bottom" secondItem="rwW-fN-qVP" secondAttribute="bottom" id="tOK-YJ-mEe"/>
+                                            <constraint firstAttribute="bottom" secondItem="bRt-DN-Cgr" secondAttribute="bottom" id="uZs-nq-kgd"/>
+                                            <constraint firstItem="bRt-DN-Cgr" firstAttribute="top" secondItem="7fo-cO-UC3" secondAttribute="top" id="wCB-jR-wOB"/>
                                             <constraint firstAttribute="height" constant="35" id="wgC-gJ-ifG"/>
                                         </constraints>
                                     </view>
@@ -356,6 +355,8 @@
                                     <constraint firstItem="7hf-49-pWq" firstAttribute="top" secondItem="GFr-0j-b6g" secondAttribute="bottom" constant="4" id="W7y-6Y-ohQ"/>
                                     <constraint firstAttribute="trailing" secondItem="JIA-AY-IeA" secondAttribute="trailing" id="c2U-lV-Yte"/>
                                     <constraint firstItem="Bq2-l2-Sij" firstAttribute="leading" secondItem="LF5-rE-Agj" secondAttribute="leading" id="dXx-7e-H2h"/>
+                                    <constraint firstItem="7fo-cO-UC3" firstAttribute="leading" secondItem="JIA-AY-IeA" secondAttribute="leading" id="kXf-Wo-iAi"/>
+                                    <constraint firstItem="7fo-cO-UC3" firstAttribute="trailing" secondItem="JIA-AY-IeA" secondAttribute="trailing" id="pgB-3k-pEQ"/>
                                     <constraint firstItem="JIA-AY-IeA" firstAttribute="leading" secondItem="LF5-rE-Agj" secondAttribute="leading" id="sQe-64-0Vm"/>
                                 </constraints>
                             </stackView>

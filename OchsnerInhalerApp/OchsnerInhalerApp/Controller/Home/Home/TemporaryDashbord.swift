@@ -59,6 +59,7 @@ class TemporaryDashbord: BaseVC {
     @objc func accuationLog(notification: Notification) {
       //  DatabaseManager.share.deleteAllAccuationLog()
         print(notification.userInfo!)
+        LocationManager.shared.locationManager
         LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { [weak self] coordination in
             guard let `self` = self else { return }
             if notification.userInfo!["uselength"]! as? Decimal != 0 {
@@ -84,7 +85,7 @@ class TemporaryDashbord: BaseVC {
             }
            
         })
-        DatabaseManager.share.getAccuationLogList()
+       
     }
 
 }

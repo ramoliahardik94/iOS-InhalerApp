@@ -23,9 +23,11 @@ class BLEHelper: NSObject {
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
     var timer: Timer!
+    var timerAccuation: Timer!
     
     func setDelegate() {
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+        NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
     }
     
     
@@ -61,7 +63,7 @@ class BLEHelper: NSObject {
         }
     }
     
-    func getAccuationLog() {
+    @objc func getAccuationLog() {
         if discoveredPeripheral != nil && charectristicWrite != nil {
             discoveredPeripheral?.writeValue(TransferService.requestGetAcuationLog.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
@@ -69,6 +71,77 @@ class BLEHelper: NSObject {
     func getmacAddress() {
         if discoveredPeripheral != nil && macCharecteristic != nil {
             discoveredPeripheral?.readValue(for: macCharecteristic!)
+        }
+    }
+    
+    @objc func accuationLog(notification: Notification) {
+        //  DatabaseManager.share.deleteAllAccuationLog()
+        print(notification.userInfo!)
+        LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { coordination in
+            if notification.userInfo!["uselength"]! as? Decimal != 0 {
+                let isoDate = notification.userInfo?["date"] as? String
+                let length = notification.userInfo!["uselength"]!
+                let mac = notification.userInfo?["mac"] as? String
+                let udid = notification.userInfo?["udid"] as? String
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy/dd/MM HH:mm:ss"
+                if  let date = dateFormatter.date(from: isoDate!) {
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                    let finalDate = dateFormatter.string(from: date)
+                    let dic: [String: Any] = ["date": finalDate,
+                                              "useLength": length,
+                                              "lat": "\(coordination.latitude)",
+                                              "long": "\(coordination.longitude)",
+                                              "isSync": false, "mac": mac! as Any,
+                                              "udid": udid as Any,
+                                              "batterylevel": BLEHelper.shared.bettery]
+                    DatabaseManager.share.saveAccuation(object: dic)
+                    self.apiCallForAccuationlog()
+                }
+            }
+        })
+    }
+    
+    func apiCallForAccuationlog() {
+        if APIManager.isConnectedToNetwork {
+            DispatchQueue.global(qos: .background).sync {
+                self.apiCallDeviceUsage()
+            }
+        }
+    }
+    
+    func prepareAcuationLogParam() -> [[String: Any]] {
+        var parameter = [[String: Any]]()
+        var param = [String: Any]()
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        for obj in device {
+            let usage = DatabaseManager.share.getAccuationLogList(mac: obj.mac!)
+            if usage.count != 0 {
+                param["DeviceId"] = obj.mac!
+                param["Usage"] = usage
+                parameter.append(param)
+            }
+        }
+        print(parameter)
+        return parameter
+    }
+    
+    func apiCallDeviceUsage() {
+        let param = prepareAcuationLogParam()
+        if param.count != 0 {
+            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: true) { error, response in
+                if response == nil {
+                    print(error!.message)
+                } else {
+                    if (response as? [String: Any]) != nil {
+                        DatabaseManager.share.updateAccuationLog(param)
+                        print("Success")
+                    } else {
+                        print(ValidationMsg.CommonError)
+                    }
+                }
+            }
         }
     }
 }

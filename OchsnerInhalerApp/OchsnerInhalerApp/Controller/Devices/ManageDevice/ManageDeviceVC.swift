@@ -57,8 +57,6 @@ class ManageDeviceVC: BaseVC {
         apiCall()
     }
     @objc func inhalerConnected(notification: Notification) {
-        BLEHelper.shared.getmacAddress()
-        BLEHelper.shared.getBetteryLevel()
         DispatchQueue.main.async {
             self.tbvData.reloadData()
         }

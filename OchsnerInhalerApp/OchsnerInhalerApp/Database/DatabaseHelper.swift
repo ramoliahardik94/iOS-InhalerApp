@@ -52,7 +52,10 @@ class DatabaseManager {
         var accuationLog = [AcuationLog]()
         var usage = [[String: Any]]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AcuationLog")
-        let predicate = NSPredicate(format: "deviceidmac == %@", mac)
+        let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
+        let predicate2 =  NSPredicate(format: "issync == %d", false)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        
         fetchRequest.predicate = predicate
         do {
             accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
@@ -70,11 +73,11 @@ class DatabaseManager {
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AcuationLog")
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
         do {
-                try context?.execute(request)
-                try context?.save()
-           } catch {
-               print("There was an error")
-           }
+            try context?.execute(request)
+            try context?.save()
+        } catch {
+            print("There was an error")
+        }
     }
     
     func deleteMacAddress(macAddress: String) {
@@ -82,25 +85,25 @@ class DatabaseManager {
         let predicate = NSPredicate(format: "mac == %@", macAddress)
         fetch.predicate = predicate
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
-    
+        
         do {
-                try context?.execute(request)
-                try context?.save()
-           } catch {
-               print("There was an error")
-           }
+            try context?.execute(request)
+            try context?.save()
+        } catch {
+            print("There was an error")
+        }
     }
     
     func deleteAllDevice() {
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
-    
+        
         do {
-                try context?.execute(request)
-                try context?.save()
-           } catch {
-               print("There was an error")
-           }
+            try context?.execute(request)
+            try context?.save()
+        } catch {
+            print("There was an error")
+        }
     }
     
     func getAddedDeviceList(email: String) -> [Device] {
@@ -117,4 +120,33 @@ class DatabaseManager {
         
         return device
     }
+    
+    func updateAccuationLog(_ updateObj: [[String: Any]]) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AcuationLog")
+        for obj in updateObj {
+            let mac = obj["DeviceId"] as! String
+            if let usage = obj["Usage"] as? [[String: Any]] {
+                
+                for data in usage {
+                    let date = data["UseDateLocal"] as! String
+                    let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
+                    let predicate2 =  NSPredicate(format: "usedatelocal == %@", date)
+                    let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+                    
+                    fetchRequest.predicate = predicate
+                    do {
+                        let logs = try context?.fetch(fetchRequest) as! [AcuationLog]
+                        for log in logs {
+                            log.issync = true
+                            try context?.save()
+                        }
+                    } catch {
+                        print("cant update :\(error.localizedDescription)")
+                    }
+                }
+            }
+            
+        }
+    }
 }
+
