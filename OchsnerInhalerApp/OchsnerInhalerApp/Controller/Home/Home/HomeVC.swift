@@ -52,9 +52,9 @@ class HomeVC: BaseVC {
          
      
         lblNoData.text = StringCommonMessages.noDataFount
-        doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
         lblNoData.isHidden = true
-       // doLoadJson()
+        doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+       //   doLoadJson()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -102,11 +102,12 @@ class HomeVC: BaseVC {
                     let dashbaord = DashboardModel(jSon: dict)
                     print(dashbaord.maintenanceData.count)
                     
-                    if  dashbaord.maintenanceData.count != 0 {
-                        homeVM.dashboardData.append(contentsOf: dashbaord.maintenanceData)
-                    }
+                   
                     if dashbaord.rescueData.count != 0 {
                         homeVM.dashboardData.append(contentsOf: dashbaord.rescueData)
+                    }
+                    if  dashbaord.maintenanceData.count != 0 {
+                        homeVM.dashboardData.append(contentsOf: dashbaord.maintenanceData)
                     }
                     if  self.homeVM.dashboardData.count == 0 {
                         self.lblNoData.isHidden = false
@@ -151,9 +152,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
        // cell.btnExpand.addTarget(self, action: #selector(tapExpand(sender:)), for: .touchUpInside)
       
         let item = homeVM.dashboardData[indexPath.row]
-        cell.lblDeviceName.text = item.medName ?? "NA"
+       // cell.lblDeviceName.text = item.medName ?? StringCommonMessages.notSet
        
-        
         if item.thisMonth?.change?.lowercased() ?? ""  == "up" {
             cell.ivThisMonth.image = UIImage(named: "arrow_up_home")
         } else {
@@ -182,26 +182,37 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.ivThisWeek.setImageColor(.ColorHomeIconRed)// #FF5A5A
         }
+        let firstAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppBoldFont, size: 24)! ]
+        let sendcotAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppLightItalicFont, size: 16)! ]
         
+        let firstString = NSMutableAttributedString(string: "\(item.medName ?? StringCommonMessages.notSet)", attributes: firstAttributes)
         if item.type == "1" {
             // for rescue
+           
+            let seconfString = NSMutableAttributedString(string: "\(StringAddDevice.rescueInhaler)", attributes: sendcotAttributes)
+            firstString.append(seconfString)
+            cell.lblDeviceName.attributedText = firstString
             cell.viewCollectionView.isHidden = true
             cell.viewNextDose.isHidden = true
             cell.viewAdherance.isHidden = true
-            cell.lblDeviceType.text = "(Rescue Inhaler)"
+         // cell.lblDeviceType.text = "(Rescue Inhaler)"
             cell.viewToday.isHidden = false
             cell.lblTodayData.text = "\(item.today?.count ?? 0)"
             cell.lblThisWeekData.text = "\(item.thisWeek?.count ?? 0)"
             cell.lblThisMonthData.text = "\(item.thisMonth?.count ?? 0)"
         } else {
             // maintaince
-            cell.lblDeviceType.text = "(Maintenance Inhaler)"
+            
+            let seconfString = NSMutableAttributedString(string: "\(StringAddDevice.maintenanceInhaler)", attributes: sendcotAttributes)
+            firstString.append(seconfString)
+            cell.lblDeviceName.attributedText = firstString
+            
+            // cell.lblDeviceType.text = "(Maintenance Inhaler)"
             cell.viewToday.isHidden = true
             cell.lblThisWeekData.text = "\(item.thisWeek?.adherence ?? 0)%"
             cell.lblThisMonthData.text = "\(item.thisMonth?.adherence ?? 0)%"
-           
             cell.viewAdherance.isHidden = false
-            cell.lblNextDose.text = "Next Scheduled Dose: \(item.nextScheduledDose ?? "NA")"
+            cell.lblNextDose.text = "Next Scheduled Dose: \(item.nextScheduledDose ?? StringCommonMessages.notSet)"
             cell.viewNextDose.isHidden = false
             
             cell.lblDeviceNameGraph.text = ""
@@ -209,10 +220,14 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             if item.dailyAdherence.count != 0 {
             //    cell.dailyAdherence = item.dailyAdherence
                 let dailyAdherence = item.dailyAdherence
-                
+                let maxvalu = item.dailyAdherence.sorted { item1, item2 in
+                    return item1.denominator ?? 0 > item2.denominator ?? 0
+                }
+                 
                 for (index, item) in dailyAdherence.enumerated() {
+                    cell.stackViewArray[index].removeFullyAllArrangedSubviews()
                     let label = UILabel()
-                    label.text = item.day ?? "NA"
+                    label.text = item.day ?? StringCommonMessages.notSet
                     label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
                  //   label.widthAnchor.constraint(equalToConstant: 18).isActive = true
                     label.setFont(type: .regular, point: 14)
@@ -235,6 +250,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                    
                    // cell.stackViewArray[index].insertArrangedSubview(label, at: 0)
                     cell.stackViewArray[index].addArrangedSubview(label)
+                    
                     for  indexSub in 1...item.denominator! {
                        // let mainview = UIView()
                         let view = UIView()
@@ -252,7 +268,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                         image.image = #imageLiteral(resourceName: "cross_dot")
                         
                         if item.day?.lowercased()
-                                ?? "" == lastC.lowercased() {
+                            ?? "" == lastC.lowercased() {
                             cell.stackViewArray[index].addArrangedSubview(view)
                         } else {
                             if indexSub <= item.numerator ?? 0 {
@@ -261,7 +277,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                                 cell.stackViewArray[index].addArrangedSubview(image)
                             }
                         }
-                       
+                    }
+                    if maxvalu[0].denominator ?? 0 > item.denominator ?? 0 {
+                        let valueOne = maxvalu[0].denominator ?? 0
+                        let valueTwo =  item.denominator ?? 0
+                        let remainItem =  valueOne - valueTwo
+                        for _ in 1...remainItem {
+                            let view = UIView()
+                            view.backgroundColor = .clear
+                            cell.stackViewArray[index].addArrangedSubview(view)
+                        }
                     }
                     let array =  cell.stackViewArray[index].arrangedSubviews.reversed()
                     for (indexArr, item) in array.enumerated() {
@@ -283,4 +308,19 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         }
         tbvDeviceData.reloadData()
     }
+}
+
+extension UIStackView {
+    
+    func removeFully(view: UIView) {
+        removeArrangedSubview(view)
+        view.removeFromSuperview()
+    }
+    
+    func removeFullyAllArrangedSubviews() {
+        arrangedSubviews.forEach { (view) in
+            removeFully(view: view)
+        }
+    }
+    
 }
