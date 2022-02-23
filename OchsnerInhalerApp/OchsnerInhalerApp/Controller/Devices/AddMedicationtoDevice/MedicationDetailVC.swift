@@ -129,7 +129,7 @@ class MedicationDetailVC: BaseVC {
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
         
-        if /*medicationVM.arrTime.count > 0 &&*/ medicationVM.puff > 0 {
+        if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
             medicationVM.apiAddDevice { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
@@ -153,10 +153,9 @@ class MedicationDetailVC: BaseVC {
         } else {
             if medicationVM.puff == 0 {
             CommonFunctions.showMessage(message: ValidationMsg.addPuff)
+            } else {
+                CommonFunctions.showMessage(message: StringMedication.addDose)
             }
-//            else {
-//                CommonFunctions.showMessage(message: ValidationMsg.addDose)
-//            }
         }
     }
     

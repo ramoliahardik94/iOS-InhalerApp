@@ -39,16 +39,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tesing tesingtesingt" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uib-iY-zel">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="24"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNE-OD-JrJ">
-                                                        <rect key="frame" x="154" y="6" width="0.0" height="0.0"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="180" id="aqM-ay-Roy"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="0.0" y="0.0" width="352" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -67,19 +58,17 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="sNE-OD-JrJ" firstAttribute="top" secondItem="sDC-3a-VeD" secondAttribute="top" constant="6" id="3st-Fh-8DJ"/>
                                                     <constraint firstItem="5yw-bH-dx9" firstAttribute="top" secondItem="sDC-3a-VeD" secondAttribute="top" id="7XR-eF-s7k"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="8VB-N3-Y8M"/>
                                                     <constraint firstAttribute="trailing" secondItem="Z4Z-kG-8aQ" secondAttribute="trailing" id="Cpm-wK-MMW"/>
                                                     <constraint firstItem="Uib-iY-zel" firstAttribute="top" secondItem="sDC-3a-VeD" secondAttribute="top" id="Qwq-n8-aQW"/>
                                                     <constraint firstItem="Uib-iY-zel" firstAttribute="leading" secondItem="sDC-3a-VeD" secondAttribute="leading" id="Rda-Yv-0Jt"/>
-                                                    <constraint firstItem="Z4Z-kG-8aQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sNE-OD-JrJ" secondAttribute="trailing" constant="4" id="fba-eR-L9B"/>
                                                     <constraint firstItem="Z4Z-kG-8aQ" firstAttribute="centerY" secondItem="sDC-3a-VeD" secondAttribute="centerY" id="iL1-s9-B0a"/>
                                                     <constraint firstAttribute="trailing" secondItem="5yw-bH-dx9" secondAttribute="trailing" id="keh-I8-fkM"/>
                                                     <constraint firstItem="5yw-bH-dx9" firstAttribute="leading" secondItem="sDC-3a-VeD" secondAttribute="leading" id="l2h-Ty-htf"/>
                                                     <constraint firstAttribute="bottom" secondItem="Uib-iY-zel" secondAttribute="bottom" id="pZJ-TV-2aP"/>
+                                                    <constraint firstItem="Z4Z-kG-8aQ" firstAttribute="leading" secondItem="Uib-iY-zel" secondAttribute="trailing" constant="4" id="yc6-hu-pKj"/>
                                                     <constraint firstAttribute="bottom" secondItem="5yw-bH-dx9" secondAttribute="bottom" id="z0Q-EB-Jbt"/>
-                                                    <constraint firstItem="sNE-OD-JrJ" firstAttribute="leading" secondItem="Uib-iY-zel" secondAttribute="trailing" constant="4" id="zfB-MH-3qn"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -394,7 +383,6 @@
                 <outlet property="lblAdherance" destination="RUT-vV-rXS" id="Yyc-Ve-9uk"/>
                 <outlet property="lblDeviceName" destination="Uib-iY-zel" id="t1k-GP-7Ai"/>
                 <outlet property="lblDeviceNameGraph" destination="Z4m-I8-XRX" id="AIQ-20-lqZ"/>
-                <outlet property="lblDeviceType" destination="sNE-OD-JrJ" id="H5C-f4-Inf"/>
                 <outlet property="lblDeviceTypeGraph" destination="zIX-lZ-xgs" id="mjH-ax-hvE"/>
                 <outlet property="lblNextDose" destination="7dI-Pr-7QS" id="kgm-DP-auT"/>
                 <outlet property="lblThisMonth" destination="3j7-eP-8iH" id="nbu-BS-QQf"/>

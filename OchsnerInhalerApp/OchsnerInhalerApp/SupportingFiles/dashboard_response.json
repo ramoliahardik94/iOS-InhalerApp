@@ -1,1 +1,131 @@
-{"RescueData":[],"MaintenanceData":[]}
+{ "RescueData": [
+    {
+        "MedName": "ProAir",
+        "Today": {
+            "Count": 4,
+            "Adherence": null,
+            "Status": null,
+            "Change": null
+        },
+        "ThisWeek": {
+            "Count": 27,
+            "Adherence": null,
+            "Status": 1,
+            "Change": "Down"
+        },
+        "ThisMonth": {
+            "Count": 137,
+            "Adherence": null,
+            "Status": 2,
+            "Change": "Up"
+        }
+    }
+],
+"MaintenanceData": [
+    {
+        "MedName": "Teva (ProAir Generic)",
+        "NextScheduledDose": null,
+        "ThisWeek": {
+            "Count": null,
+            "Adherence": 7,
+            "Status": 1,
+            "Change": "Up"
+        },
+        "ThisMonth": {
+            "Count": null,
+            "Adherence": 2,
+            "Status": 2,
+            "Change": "Down"
+        },
+        "DailyAdherence": [
+            {
+                "Day": "Tu",
+                "Denominator": 2,
+                "Numerator": 0
+            },
+            {
+                "Day": "We",
+                "Denominator": 2,
+                "Numerator": 0
+            },
+            {
+                "Day": "Th",
+                "Denominator": 2,
+                "Numerator": 0
+            },
+            {
+                "Day": "Fr",
+                "Denominator": 2,
+                "Numerator": 0
+            },
+            {
+                "Day": "Sa",
+                "Denominator": 2,
+                "Numerator": 0
+            },
+            {
+                "Day": "Su",
+                "Denominator": 2,
+                "Numerator": 0
+            },
+            {
+                "Day": "Mo",
+                "Denominator": 2,
+                "Numerator": 1
+            }
+        ]
+    },
+    {
+        "MedName": "Ventolin",
+        "NextScheduledDose": null,
+        "ThisWeek": {
+            "Count": null,
+            "Adherence": 64,
+            "Status": 3,
+            "Change": "Down"
+        },
+        "ThisMonth": {
+            "Count": null,
+            "Adherence": 88,
+            "Status": 1,
+            "Change": "Up"
+        },
+        "DailyAdherence": [
+            {
+                "Day": "Tu",
+                "Denominator": 3,
+                "Numerator": 2
+            },
+            {
+                "Day": "We",
+                "Denominator": 2,
+                "Numerator": 0
+            },
+            {
+                "Day": "Th",
+                "Denominator": 1,
+                "Numerator": 2
+            },
+            {
+                "Day": "Fr",
+                "Denominator": 5,
+                "Numerator": 2
+            },
+            {
+                "Day": "Sa",
+                "Denominator": 7,
+                "Numerator": 1
+            },
+            {
+                "Day": "Su",
+                "Denominator": 4,
+                "Numerator": 2
+            },
+            {
+                "Day": "Mo",
+                "Denominator": 6,
+                "Numerator": 0
+            }
+        ]
+    }
+]}
