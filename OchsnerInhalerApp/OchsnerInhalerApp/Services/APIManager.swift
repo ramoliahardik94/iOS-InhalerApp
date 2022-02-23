@@ -59,6 +59,13 @@ class APIManager {
                 }
             }
         }
+        if let theJSONData = try? JSONSerialization.data(
+            withJSONObject: parameters,
+            options: []) {
+            let theJSONText = String(data: theJSONData,
+                                       encoding: .ascii)
+            print("JSON string = \(theJSONText!)")
+        }
         Logger.logInfo("\nURL:\(route)\n Method:\(method)\nParameters: \(parameters)\nHeaders:\(appHeader)")
         var url = route
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {

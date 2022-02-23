@@ -14,6 +14,7 @@ class CustomSplashVC: BaseVC {
     @IBOutlet weak var lblConnectdInhalerSensor: UILabel!
     var deviceUDID = [String]()
     var timer: Timer!
+    var isTime = false
     override func viewDidLoad() {
         
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)        
@@ -31,6 +32,13 @@ class CustomSplashVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEChange, object: nil)
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         deviceUDID = devicelist.map({$0.udid!})
+        
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
+                BLEHelper.shared.setDelegate()
+                BLEHelper.shared.scanPeripheral()
+                BLEHelper.shared.apiCallDeviceUsage()
+         }
+        
     }
     
     @objc func didFinishTimer() {
@@ -48,6 +56,7 @@ class CustomSplashVC: BaseVC {
                 self.rootVC(controller: notificationPermissionVC)
                 return
             } else {
+                isTime = true
                 BLEHelper.shared.setDelegate()
          }
         } else {
@@ -63,9 +72,9 @@ class CustomSplashVC: BaseVC {
         BLEHelper.shared.isAllowed { [weak self] isAllow in
             guard let `self` = self else { return }
             
-            if isAllow {
+            if isAllow && self.isTime {
                 
-                BLEHelper.shared.scanPeripheral()
+//                BLEHelper.shared.scanPeripheral()
                
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {

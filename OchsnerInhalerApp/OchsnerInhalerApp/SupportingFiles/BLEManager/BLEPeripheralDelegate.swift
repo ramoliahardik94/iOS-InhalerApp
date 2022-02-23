@@ -39,7 +39,12 @@ extension BLEHelper: CBPeripheralDelegate {
                 NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
             } else if str == StringCharacteristics.getType(.accuationLog)() {
                 let numberofLog = stringFromData.getNumberofAccuationLog()
-              //  print("Number Of Acuation log : \(numberofLog)")
+                if numberofLog > 0 {
+                    getAccuationLog()
+                } else {
+                    apiCallForAccuationlog()
+                }
+                print("Number Of Acuation log : \(numberofLog)")
                 NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(numberofLog)"])
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
@@ -139,13 +144,17 @@ extension BLEHelper {
         stopTimer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: { [weak self] in
             guard let `self` = self else { return }
+            print("Found :\(self.discoveredPeripheral?.identifier.uuidString) \(self.isConnected)")
+            print(self.discoveredPeripheral)
+            
             if self.discoveredPeripheral!.state == .connected  && !self.isConnected {
                 self.stopTimer()
                 self.isConnected = true
                 print(".BLEConnect")
                 self.getmacAddress()
                 self.getBetteryLevel()
-                self.timerAccuation = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getAccuationLog), userInfo: nil, repeats: true)
+                self.getAccuationNumber()
+//                self.timerAccuation = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getAccuationNumber), userInfo: nil, repeats: true)
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
         })

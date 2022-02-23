@@ -107,9 +107,9 @@ class AddDeviceIntroVC: BaseVC {
     func scanBLE() {
         paringLoader.isHidden = false
         paringLoader.startAnimating()
-        btnStartSetUp.isEnabled = false
-        
+        btnStartSetUp.isEnabled = false        
         btnStartSetUp.backgroundColor = .gray
+        BLEHelper.shared.isAddAnother = true
         BLEHelper.shared.scanPeripheral()
     }
     @objc func inhalerFound(notification: Notification) {
@@ -139,8 +139,8 @@ class AddDeviceIntroVC: BaseVC {
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
         CommonFunctions.showMessage(message: ValidationMsg.bleNotfound, titleOk: ValidationButton.tryAgain) { [weak self] _ in
-            guard let weakSelf = self else { return }
-            weakSelf.scanBLE()
+            guard let `self` = self else { return }
+            self.scanBLE()
         }
     }
     
@@ -173,6 +173,7 @@ class AddDeviceIntroVC: BaseVC {
             pushVC(controller: addDeviceIntroVC)
         case .step3:
             BLEHelper.shared.stopTimer()
+            BLEHelper.shared.isConnected = false
             BLEHelper.shared.connectPeriPheral()
             paringLoader.isHidden = false
             paringLoader.startAnimating()
