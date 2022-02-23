@@ -59,7 +59,10 @@ class APIManager {
                 }
             }
         }
-        Logger.logInfo("URL:\(route) -> Method:\(method) -> Parameters: \(parameters) -> Headers:\(appHeader)")
+        Logger.logInfo("\n URL:\(route)")
+        debugPrint("Method:\(method)")
+        debugPrint("Parameters: \(parameters)")
+        debugPrint("Headers:\(appHeader)")
         
         var url = route
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
