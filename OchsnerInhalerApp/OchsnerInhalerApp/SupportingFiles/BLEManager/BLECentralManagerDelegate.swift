@@ -20,6 +20,7 @@ extension BLEHelper: CBCentralManagerDelegate {
         case .poweredOff:
             isAllow = false
             NotificationCenter.default.post(name: .BLEChange, object: nil)
+            NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
            // CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
             // In a real app, you'd deal with all the states accordingly
             return

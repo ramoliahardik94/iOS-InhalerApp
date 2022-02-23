@@ -64,8 +64,10 @@ class BLEHelper: NSObject {
     }
     
     @objc func getAccuationLog() {
-        if discoveredPeripheral != nil && charectristicWrite != nil {
+        if discoveredPeripheral != nil && charectristicWrite != nil && discoveredPeripheral?.state == .connected {
             discoveredPeripheral?.writeValue(TransferService.requestGetAcuationLog.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
+        } else if self.discoveredPeripheral?.state == .disconnected {
+            NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
         }
     }
     func getmacAddress() {
