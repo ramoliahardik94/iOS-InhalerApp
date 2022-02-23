@@ -20,6 +20,7 @@ class ManageDeviceVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerBatteryLevel(notification:)), name: .BLEBatteryLevel, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.medicationUpdate(notification:)), name: .medUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEDisconnect, object: nil)
         initUI()
     }
     
@@ -132,7 +133,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                     self.tbvData.reloadData()
                     if self.manageDeviceVM.arrDevice.count == 0 {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                        addDeviceIntroVC.step = .step2
+                        addDeviceIntroVC.step = .step1
                         addDeviceIntroVC.isFromAddAnother  = false
                         addDeviceIntroVC.isFromDeviceList  = true
                         self.pushVC(controller: addDeviceIntroVC)

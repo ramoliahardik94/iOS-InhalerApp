@@ -25,11 +25,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKo-VR-EhZ">
+                                        <rect key="frame" x="8" y="342.66666666666669" width="359" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="LKo-VR-EhZ" firstAttribute="centerY" secondItem="aV7-8C-REy" secondAttribute="centerY" id="LOY-WK-ouM"/>
+                                    <constraint firstAttribute="trailing" secondItem="LKo-VR-EhZ" secondAttribute="trailing" constant="8" id="MS1-Vf-lhD"/>
                                     <constraint firstItem="cne-xt-lSt" firstAttribute="leading" secondItem="aV7-8C-REy" secondAttribute="leading" id="ZlA-fn-wSE"/>
                                     <constraint firstAttribute="trailing" secondItem="cne-xt-lSt" secondAttribute="trailing" id="eFf-M2-aTq"/>
+                                    <constraint firstItem="LKo-VR-EhZ" firstAttribute="leading" secondItem="aV7-8C-REy" secondAttribute="leading" constant="8" id="lMD-zX-Gxe"/>
                                     <constraint firstAttribute="bottom" secondItem="cne-xt-lSt" secondAttribute="bottom" id="sdV-qQ-ra6"/>
                                     <constraint firstItem="cne-xt-lSt" firstAttribute="top" secondItem="aV7-8C-REy" secondAttribute="top" id="y0e-fw-oSk"/>
                                 </constraints>
@@ -48,6 +57,7 @@
                         <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="lblNoData" destination="LKo-VR-EhZ" id="boq-Kx-neG"/>
                         <outlet property="tbvDeviceData" destination="cne-xt-lSt" id="Afc-Ym-mLu"/>
                     </connections>
                 </viewController>

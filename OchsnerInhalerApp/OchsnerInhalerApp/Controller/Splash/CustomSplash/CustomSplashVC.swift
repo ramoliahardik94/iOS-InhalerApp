@@ -64,6 +64,9 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow {
+                
+                BLEHelper.shared.scanPeripheral()
+               
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
