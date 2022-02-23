@@ -38,6 +38,7 @@ class MedicationVM {
     }
     
     func apiAddDevice(completionHandler: @escaping ((APIResult) -> Void)) {
+        totalDose = arrTime.count
         if macAddress != "N/A" {
             var str = ""
             if arrTime.count != 0 {
