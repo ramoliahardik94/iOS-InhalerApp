@@ -59,7 +59,9 @@ class MedicationVM {
                     if (response as? [String: Any]) != nil {
                         DatabaseManager.share.saveDevice(object: ["mac": BLEHelper.shared.addressMAC as Any, "udid": BLEHelper.shared.discoveredPeripheral?.identifier.uuidString as Any, "email": UserDefaultManager.email])
                         NotificationCenter.default.post(name: .medUpdate, object: nil)
+                        BLEHelper.shared.isAddAnother = false
                         completionHandler(.success(true))
+                        
                     } else {
                         completionHandler(.failure(ValidationMsg.CommonError))
                     }

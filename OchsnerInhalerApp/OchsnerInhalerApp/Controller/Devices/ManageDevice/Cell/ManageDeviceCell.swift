@@ -41,7 +41,25 @@ class ManageDeviceCell: UITableViewCell {
             lblNoOfDose.text =  (device.medTypeID ==  1 || device.useTimes.count == 0) ? StringCommonMessages.rescueDose : str
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
-            lblstatus.text = BLEHelper.shared.addressMAC == device.internalID ? StringCommonMessages.connected : StringCommonMessages.disconnect
+            var textStatus = StringCommonMessages.disconnect
+            if BLEHelper.shared.addressMAC == device.internalID {
+                if BLEHelper.shared.discoveredPeripheral != nil {
+                    switch BLEHelper.shared.discoveredPeripheral!.state {
+                    case .connected :
+                        textStatus = StringCommonMessages.connected
+                    case .disconnected :
+                        textStatus = StringCommonMessages.disconnect
+                    case .connecting :
+                        textStatus = StringCommonMessages.connecting
+                    case .disconnecting:
+                        textStatus = StringCommonMessages.disconnect
+                    @unknown default:
+                        textStatus = StringCommonMessages.disconnect
+                    }
+                }
+            }
+            lblstatus.text = textStatus
+            
             lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? BLEHelper.shared.bettery : device.batteryLevel )%"
             btnEditDirection.isHidden = device.medTypeID ==  1
         }

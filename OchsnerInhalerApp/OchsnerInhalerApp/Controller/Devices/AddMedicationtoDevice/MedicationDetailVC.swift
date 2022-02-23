@@ -154,7 +154,7 @@ class MedicationDetailVC: BaseVC {
             if medicationVM.puff == 0 {
             CommonFunctions.showMessage(message: ValidationMsg.addPuff)
             } else {
-                CommonFunctions.showMessage(message: StringMedication.addDose)
+                CommonFunctions.showMessage(message: ValidationMsg.addDose)
             }
         }
     }

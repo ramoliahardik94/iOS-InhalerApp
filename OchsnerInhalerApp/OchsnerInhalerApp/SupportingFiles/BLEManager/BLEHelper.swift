@@ -23,7 +23,8 @@ class BLEHelper: NSObject {
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
     var timer: Timer!
-    var timerAccuation: Timer!
+    var isAddAnother = false
+//    var timerAccuation: Timer!
     
     func setDelegate() {
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
@@ -57,16 +58,16 @@ class BLEHelper: NSObject {
         }
     }
     
-    func getAccuationNumber() {
+    @objc func getAccuationNumber() {
         if discoveredPeripheral != nil && charectristicWrite != nil {
             discoveredPeripheral?.writeValue(TransferService.requestGetNoAccuation.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
     }
     
     @objc func getAccuationLog() {
-        if discoveredPeripheral != nil && charectristicWrite != nil {
+        if discoveredPeripheral != nil && charectristicWrite != nil && discoveredPeripheral?.state == .connected {
             discoveredPeripheral?.writeValue(TransferService.requestGetAcuationLog.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
-        }
+        } 
     }
     func getmacAddress() {
         if discoveredPeripheral != nil && macCharecteristic != nil {
@@ -76,31 +77,33 @@ class BLEHelper: NSObject {
     
     @objc func accuationLog(notification: Notification) {
         //  DatabaseManager.share.deleteAllAccuationLog()
-        print(notification.userInfo!)
-        LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { coordination in
-            if notification.userInfo!["uselength"]! as? Decimal != 0 {
-                let isoDate = notification.userInfo?["date"] as? String
-                let length = notification.userInfo!["uselength"]!
-                let mac = notification.userInfo?["mac"] as? String
-                let udid = notification.userInfo?["udid"] as? String
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy/dd/MM HH:mm:ss"
-                if  let date = dateFormatter.date(from: isoDate!) {
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-                    let finalDate = dateFormatter.string(from: date)
-                    let dic: [String: Any] = ["date": finalDate,
-                                              "useLength": length,
-                                              "lat": "\(coordination.latitude)",
-                                              "long": "\(coordination.longitude)",
-                                              "isSync": false, "mac": mac! as Any,
-                                              "udid": udid as Any,
-                                              "batterylevel": BLEHelper.shared.bettery]
-                    DatabaseManager.share.saveAccuation(object: dic)
-                    self.apiCallForAccuationlog()
+       print(notification.userInfo!)
+        if let object = notification.userInfo as? [String: Any] {
+            LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { coordination in
+                if object["uselength"]! as? Decimal != 0 {
+                    let isoDate = object["date"] as? String
+                    let length = object["uselength"]!
+                    let mac = object["mac"] as? String
+                    let udid = object["udid"] as? String
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy/dd/MM HH:mm:ss"
+                    if  let date = dateFormatter.date(from: isoDate!) {
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                        let finalDate = dateFormatter.string(from: date)
+                        let dic: [String: Any] = ["date": finalDate,
+                                                  "useLength": length,
+                                                  "lat": "\(coordination.latitude)",
+                                                  "long": "\(coordination.longitude)",
+                                                  "isSync": false, "mac": mac! as Any,
+                                                  "udid": udid as Any,
+                                                  "batterylevel": BLEHelper.shared.bettery]
+                        DatabaseManager.share.saveAccuation(object: dic)
+                        self.apiCallForAccuationlog()
+                    }
                 }
-            }
-        })
+            })
+        }
     }
     
     func apiCallForAccuationlog() {
@@ -130,7 +133,7 @@ class BLEHelper: NSObject {
     func apiCallDeviceUsage() {
         let param = prepareAcuationLogParam()
         if param.count != 0 {
-            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: true) { error, response in
+            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { error, response in
                 if response == nil {
                     print(error!.message)
                 } else {

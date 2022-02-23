@@ -32,7 +32,8 @@ extension AcuationLog {
                       "DeviceSyncDateUTC": devicesyncdateutc! as Any,
                       "Latitude": Double(latitude!)! as Any,
                       "Longitude": Double(longitude!)! as Any,
-                      "UseLength": uselength]
+                      "UseLength": uselength,
+                      "BatteryLevel": Double(BLEHelper.shared.bettery)! as Any]
         return dicLog
     }
 }

@@ -21,6 +21,7 @@ class ManageDeviceVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerBatteryLevel(notification:)), name: .BLEBatteryLevel, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.medicationUpdate(notification:)), name: .medUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEDisconnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEChange, object: nil)
         initUI()
     }
     
@@ -28,6 +29,9 @@ class ManageDeviceVC: BaseVC {
         super.viewDidAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        if self.manageDeviceVM.arrDevice.count == 0 {
+            apiCall()
+        }
         tbvData.reloadData()
     }
     
@@ -74,6 +78,7 @@ class ManageDeviceVC: BaseVC {
         addDeviceIntroVC.step = .step2
         addDeviceIntroVC.isFromAddAnother  = true
         addDeviceIntroVC.isFromDeviceList  = true
+        BLEHelper.shared.cleanup()
         pushVC(controller: addDeviceIntroVC)
     }
     

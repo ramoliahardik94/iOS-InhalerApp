@@ -32,6 +32,14 @@ extension BLEHelper {
         timer = nil
       }
     }
+    func bleConnect() {
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
+            if isAllow {
+                BLEHelper.shared.scanPeripheral()
+            }
+         }
+    }
+    
     @objc func didFinishScan() {
             NotificationCenter.default.post(name: .BLENotFound, object: nil)
         self.stopScanPeriphral()
