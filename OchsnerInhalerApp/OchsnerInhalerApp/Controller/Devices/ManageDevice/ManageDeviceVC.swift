@@ -78,6 +78,7 @@ class ManageDeviceVC: BaseVC {
         addDeviceIntroVC.step = .step2
         addDeviceIntroVC.isFromAddAnother  = true
         addDeviceIntroVC.isFromDeviceList  = true
+        BLEHelper.shared.cleanup()
         pushVC(controller: addDeviceIntroVC)
     }
     
