@@ -10,7 +10,7 @@ import UIKit
 class HomeDeviceCell: UITableViewCell {
 
     @IBOutlet weak var lblDeviceName: UILabel!
-    @IBOutlet weak var lblDeviceType: UILabel!
+   // @IBOutlet weak var lblDeviceType: UILabel!
     @IBOutlet weak var lblToday: UILabel!
     @IBOutlet weak var lblTodayData: UILabel!
     @IBOutlet weak var lblThisWeekData: UILabel!
@@ -46,7 +46,7 @@ class HomeDeviceCell: UITableViewCell {
         // Initialization code
         
         lblDeviceName.setFont(type: .bold, point: 24)
-        lblDeviceType.setFont(type: .lightItalic, point: 16)
+      //  lblDeviceType.setFont(type: .lightItalic, point: 16)
         lblTodayData.setFont(type: .semiBold, point: 28)
         lblToday.setFont(type: .light, point: 17)
         lblThisWeekData.setFont(type: .semiBold, point: 28)

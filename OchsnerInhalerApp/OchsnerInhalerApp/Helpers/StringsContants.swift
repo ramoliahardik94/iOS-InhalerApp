@@ -36,6 +36,7 @@ struct StringCommonMessages {
     static let  rescueDose = "Take as needed"
     static let  noInternetConnection = "No Internet connection"
     static let  noDataFount = "No record found"
+    static let  notSet = "Not set"
     
 }
 struct AppFont {
@@ -154,6 +155,8 @@ struct StringAddDevice {
     static let scanlist = "Scan device"
     static let titleAddDevice = "Connected Inhaler Application"
     static let titleHome = "Home"
+    static let rescueInhaler = "(Rescue Inhaler)"
+    static let maintenanceInhaler = "(Maintenance Inhaler)"
 }
 // MARK: Medication
 struct StringMedication {
