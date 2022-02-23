@@ -138,6 +138,7 @@ class BLEHelper: NSObject {
                 } else {
                     if (response as? [String: Any]) != nil {
                         DatabaseManager.share.updateAccuationLog(param)
+                        NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
                         print("Success")
                     } else {
                         print(ValidationMsg.CommonError)

@@ -97,3 +97,11 @@ extension TimeZone {
         return Int(localTimeZoneFormatter.string(from: Date())) ?? 0
     }
 }
+
+extension Date {
+   func getFormattedDate(format: String) -> String {
+        let dateformat = DateFormatter()
+        dateformat.dateFormat = format
+        return dateformat.string(from: self)
+    }
+}

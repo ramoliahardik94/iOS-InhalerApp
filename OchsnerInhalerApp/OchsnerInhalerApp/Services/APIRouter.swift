@@ -12,6 +12,7 @@ enum APIRouter {
     case device
     case providerList
     case providerAuth
+    case dashboard
     case deviceuse
     
     // MARK: - Path
@@ -31,6 +32,9 @@ enum APIRouter {
             return BaseURLManager.shared.getBaseURL() + "ProviderList"
         case .providerAuth :
             return BaseURLManager.shared.getBaseURL() + "LinkUser"
+        case .dashboard :
+            return BaseURLManager.shared.getBaseURL() + "dashboard"
+      
         case .deviceuse :
             return BaseURLManager.shared.getBaseURL() + "deviceuse"
         }
