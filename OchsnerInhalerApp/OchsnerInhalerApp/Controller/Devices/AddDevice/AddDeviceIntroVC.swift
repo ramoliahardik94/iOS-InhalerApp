@@ -69,14 +69,14 @@ class AddDeviceIntroVC: BaseVC {
            
             let attributeString =  NSMutableAttributedString()
                 .bold("1. Scanning")
-                .normal(" - Your Device is being scanned right now. Please wait!\n\n")
+                .normal(" - Your device is being scanned right now. This may take few seconds.\n\n")
                 .bold("2. Pair Device")
                 .normal(" - Once enabled,")
-                .italic("Tap 3 times on the Device")
-                .normal(" and click \"Pair Device\"")
-                .italic(" within 5 seconds of tapping. \n\n")
+                .italic("Tap 3 times on the device")
+                .italic(" and within 5 seconds")
+                .normal(" click \"Pair Device\". \n\n")
                 .bold("3. Pairing")
-                .normal(" - Your Device is being paired.")
+                .normal(" - Your device is being paired.")
             
            
 //            let attributeString2 =  NSMutableAttributedString()
