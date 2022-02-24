@@ -33,6 +33,7 @@ class ProviderListVC: BaseVC {
     private var providerId = ""
     private var isCallFirstTime = true
     private var providerName = ""
+    var comeFrom = ""
   // private var webView: WKWebView!
     override func viewDidLoad() {
         self.navigationController?.isNavigationBarHidden = true
@@ -78,6 +79,8 @@ class ProviderListVC: BaseVC {
       
         wvData.navigationDelegate = self
         tbvData.separatorStyle = .none
+        
+        
         
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
@@ -139,7 +142,10 @@ class ProviderListVC: BaseVC {
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                         let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                
-               // homeTabBar.selectedIndex = 1
+                if self.comeFrom == "profile" {
+                    homeTabBar.selectedIndex = 2
+                }
+                
                 self.rootVC(controller: homeTabBar)
                 
             case .failure(let message):
