@@ -62,8 +62,24 @@ class AddDeviceIntroVC: BaseVC {
             lblGreat.text = StringAddDevice.connectDevice
             imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
             lblAddDevice.isHidden  = true
-            lbldeviceInfo.text = StringAddDevice.connectDeviceInfo
-            btnStartSetUp.setButtonView(StringAddDevice.pareDevice)
+            let attributeString =  NSMutableAttributedString()
+                .bold("1. Scanning")
+                .normal(" - Your Device is being scanned right now. Please wait!\n\n")
+                .bold("2. Pair Device")
+                .normal(" - Once enabled,")
+                .italic("Tap 3 times on the Device")
+                .normal(" and click \"Pair Device\"")
+                .italic(" within 5 seconds of tapping. \n\n")
+                .bold("3. Pairing")
+                .normal(" - Your Device is being paired.")
+            
+            
+//            1. \"Scanning\" - Your Device is being scanned right now. Please wait! \n\n 2. \"Pair Device\" - Once enabled, Tap 3 times on the Device and click \"Pair Device\" within 5 seconds of tapping. \n\n 3. \"Pairing\" - Your Device is being paired."
+            
+            lbldeviceInfo.attributedText = attributeString // StringAddDevice.connectDeviceInfo
+            lbldeviceInfo.textAlignment = .left
+            
+            btnStartSetUp.setButtonView(StringAddDevice.scanningDevice)
             btnStartSetUp.isEnabled = false
             btnStartSetUp.backgroundColor = .gray
             
@@ -110,9 +126,10 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.isEnabled = false        
         btnStartSetUp.backgroundColor = .gray
         BLEHelper.shared.isAddAnother = true
-        BLEHelper.shared.scanPeripheral()
+        BLEHelper.shared.scanPeripheral(isTimer: true)
     }
     @objc func inhalerFound(notification: Notification) {
+        btnStartSetUp.setButtonView(StringAddDevice.pairDevice)
         btnStartSetUp.isEnabled = true
         btnStartSetUp.backgroundColor = .ButtonColorBlue
         paringLoader.stopAnimating()
@@ -130,7 +147,7 @@ class AddDeviceIntroVC: BaseVC {
             weakSelf.paringLoader.isHidden = false
             weakSelf.paringLoader.startAnimating()
             weakSelf.btnStartSetUp.isEnabled = false
-            weakSelf.btnStartSetUp.backgroundColor = .gray
+            weakSelf.btnStartSetUp.backgroundColor = .ButtonColorBlue
         }
     }
     @objc func inhalerNotFound(notification: Notification) {
@@ -177,8 +194,9 @@ class AddDeviceIntroVC: BaseVC {
             BLEHelper.shared.connectPeriPheral()
             paringLoader.isHidden = false
             paringLoader.startAnimating()
+            btnStartSetUp.setButtonView(StringAddDevice.pairingDevice)
             btnStartSetUp.isEnabled = false
-            btnStartSetUp.backgroundColor = .gray
+            btnStartSetUp.backgroundColor = .ButtonColorBlue
         case .step4:
             addDeviceIntroVC.step = .step5
             addDeviceIntroVC.isFromAddAnother = isFromAddAnother

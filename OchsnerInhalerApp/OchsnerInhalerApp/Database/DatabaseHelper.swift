@@ -14,6 +14,7 @@ class DatabaseManager {
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
     func saveAccuation(object: [String: Any]) {
+        
         let accuationLog = NSEntityDescription.insertNewObject(forEntityName: "AcuationLog", into: context!) as! AcuationLog
         accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
         print(object)

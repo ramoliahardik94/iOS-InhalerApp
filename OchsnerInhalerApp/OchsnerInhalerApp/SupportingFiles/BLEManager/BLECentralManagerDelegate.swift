@@ -70,8 +70,16 @@ extension BLEHelper: CBCentralManagerDelegate {
     }
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
+       
         // Device is in range - have we already seen it?
+        
+//        guard RSSI.intValue >= -50
+//            else {
+//                print("Discovered perhiperal not in expected range, at %d", RSSI.intValue)
+//                return
+//        }
+       
+        print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
@@ -85,12 +93,16 @@ extension BLEHelper: CBCentralManagerDelegate {
                         discoveredPeripheral = peripheral
                         stopScanPeriphral()
                         stopTimer()
-                        NotificationCenter.default.post(name: .BLEFound, object: nil)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+                            NotificationCenter.default.post(name: .BLEFound, object: nil)
+                        })
                     } else if discoveredPeripheral == nil {
                         discoveredPeripheral = peripheral
                         stopScanPeriphral()
                         stopTimer()
-                        NotificationCenter.default.post(name: .BLEFound, object: nil)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+                            NotificationCenter.default.post(name: .BLEFound, object: nil)
+                        })
                     }
                 }
             }
@@ -119,7 +131,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("state \(peripheral.state.rawValue)")
         if !isAddAnother {
-            scanPeripheral(withTimer: false)
+            scanPeripheral(isTimer: false)
         }
         self.isConnected = false
         self.stopTimer()
