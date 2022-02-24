@@ -9,6 +9,7 @@ import UIKit
 
 class AddDeviceIntroVC: BaseVC {
 
+    @IBOutlet weak var imgTemp: UIImageView!
     @IBOutlet weak var lblTitleCenter: NSLayoutConstraint!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var tblScanList: UITableView!
@@ -62,6 +63,10 @@ class AddDeviceIntroVC: BaseVC {
             lblGreat.text = StringAddDevice.connectDevice
             imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
             lblAddDevice.isHidden  = true
+//            let attributeString1 =  NSMutableAttributedString()
+//                .bold("1. Scanning")
+//                .normal(" - Your Device is being scanned right now. Please wait!\n\n")
+           
             let attributeString =  NSMutableAttributedString()
                 .bold("1. Scanning")
                 .normal(" - Your Device is being scanned right now. Please wait!\n\n")
@@ -72,6 +77,33 @@ class AddDeviceIntroVC: BaseVC {
                 .italic(" within 5 seconds of tapping. \n\n")
                 .bold("3. Pairing")
                 .normal(" - Your Device is being paired.")
+            
+           
+//            let attributeString2 =  NSMutableAttributedString()
+//                .bold("1. Scanning")
+//                .normal(" - Your Device is being scanned right now. Please wait!\n\n")
+//                .bold("2. Pair Device")
+//                .normal(" - Once enabled,")
+//            UIView.transition(with: lbldeviceInfo,
+//                              duration: 0.75,
+//                           options: .transitionCrossDissolve,
+//                        animations: { [weak self] in
+//                self?.lbldeviceInfo.attributedText = attributeString1
+//            }, completion: { [self] _ in
+//                         UIView.transition(with: lbldeviceInfo,
+//                                           duration: 1,
+//                                        options: .transitionCrossDissolve,
+//                                     animations: { [weak self] in
+//                             self?.lbldeviceInfo.attributedText = attributeString2
+//                         }, completion: { [self] _ in
+//                                      UIView.transition(with: lbldeviceInfo,
+//                                                    duration: 0.75,
+//                                                     options: .transitionCrossDissolve,
+//                                                  animations: { [weak self] in
+//                                          self?.lbldeviceInfo.attributedText = attributeString
+//                                               }, completion: nil)
+//                                  })
+//                     })
             
             
 //            1. \"Scanning\" - Your Device is being scanned right now. Please wait! \n\n 2. \"Pair Device\" - Once enabled, Tap 3 times on the Device and click \"Pair Device\" within 5 seconds of tapping. \n\n 3. \"Pairing\" - Your Device is being paired."
