@@ -82,6 +82,9 @@ class LoginVC: BaseVC {
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
+                UserDefaultManager.userEmailAddress = self.tfEmail.text ?? ""
+//                print("UserDefaultManager.userEmailAddress  \(UserDefaultManager.userEmailAddress)")
+//                print("self.tfEmail.text ??  \(self.tfEmail.text ?? "") ")
                 
                 if !UserDefaultManager.isGrantBLE {
                     let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)

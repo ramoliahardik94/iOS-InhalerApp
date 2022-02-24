@@ -26,7 +26,7 @@ class ProviderListVC: BaseVC {
     
     @IBOutlet weak var lbProviderName: UILabel!
     @IBOutlet weak var wvData: WKWebView!
-    
+    @IBOutlet weak var lblProviderNameConfirm: UILabel!
     
     private var providerListVM = ProviderListVM()
     private var OAuthUrl = ""
@@ -49,6 +49,10 @@ class ProviderListVC: BaseVC {
         lbProviderName.setFont(type: .semiBold, point: 16)
         lbProviderName.text = ""
         lbProviderName.textColor = .white
+        lblProviderNameConfirm.setFont(type: .semiBold, point: 16)
+        lblProviderNameConfirm.text = ""
+        lblProviderNameConfirm.textColor = .white
+        
         self.view.backgroundColor = .ColorHeader
 //        viewSearch.backgroundColor = .ColorHeaderSearch
 //        self.searchProvider.barTintColor = .ColorHeaderSearch
@@ -87,6 +91,7 @@ class ProviderListVC: BaseVC {
     
     @IBAction func btnContinueClick(_ sender: Any) {
         // viewConform.isHidden = true
+      
         isCallFirstTime = true
         setUiWebview()
     }
@@ -124,15 +129,17 @@ class ProviderListVC: BaseVC {
     }
     
     private func doSendAuthRequest(path: String) {
-        providerListVM.doSendAuthRequest(url: path) { result in
+        providerListVM.doSendAuthRequest(url: path) { [weak self] result in
+            guard let`self` = self else { return }
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
+                UserDefaultManager.providerName = self.providerName
                 
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                         let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                
-                homeTabBar.selectedIndex = 1
+               // homeTabBar.selectedIndex = 1
                 self.rootVC(controller: homeTabBar)
                 
             case .failure(let message):
@@ -172,6 +179,7 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
         self.view.endEditing(true)
         imgSelectedProvider.image = UIImage(named: providerListVM.providerList[indexPath.row].iconFilename ?? "")
         providerName = providerListVM.providerList[indexPath.row].entryName ?? ""
+        lblProviderNameConfirm.text = providerName
 //        if indexPath.row == 1 {
   //          imgSelectedProvider.image = UIImage(named: "provider")
 //        } else if indexPath.row == 2 {
@@ -236,7 +244,7 @@ extension ProviderListVC: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
+     //   print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
         let url = webView.url?.absoluteString ?? ""
         if ((url.contains(StringPoviders.providerBaseUrl))) {
             

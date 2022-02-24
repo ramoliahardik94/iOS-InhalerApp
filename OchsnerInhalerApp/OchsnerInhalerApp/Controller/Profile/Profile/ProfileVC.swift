@@ -41,8 +41,8 @@ class ProfileVC: BaseVC {
         lblShareUsageWithProvider.setFont(type: .regular, point: 21)
 
         
-        lblEmail.text = "lauren@ipsum.com"
-        lblProvider.text = "Provider: Ochsner Health"
+        lblEmail.text =  UserDefaultManager.userEmailAddress
+        lblProvider.text = "Provider: \(UserDefaultManager.providerName)"
         
         lblSettings.text = StringProfile.settings
         lblReceiveNotifications.text = StringProfile.receiveNotifications
