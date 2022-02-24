@@ -24,13 +24,15 @@ class ProviderListVC: BaseVC {
     @IBOutlet weak var tbvData: UITableView!
     @IBOutlet weak var viewWebviewMain: UIView!
     
+    @IBOutlet weak var lbProviderName: UILabel!
     @IBOutlet weak var wvData: WKWebView!
-    
+    @IBOutlet weak var lblProviderNameConfirm: UILabel!
     
     private var providerListVM = ProviderListVM()
     private var OAuthUrl = ""
     private var providerId = ""
     private var isCallFirstTime = true
+    private var providerName = ""
   // private var webView: WKWebView!
     override func viewDidLoad() {
         self.navigationController?.isNavigationBarHidden = true
@@ -42,6 +44,15 @@ class ProviderListVC: BaseVC {
        // self.btnCancel.isEnabled = false
         lblHeader.text = StringPoviders.selectOrganization
         lblSubHeader.text = StringPoviders.providerSubHeader
+        lblHeader.setFont(type: .semiBold, point: 16)
+        lblSubHeader.setFont(type: .regular, point: 14)
+        lbProviderName.setFont(type: .semiBold, point: 16)
+        lbProviderName.text = ""
+        lbProviderName.textColor = .white
+        lblProviderNameConfirm.setFont(type: .semiBold, point: 16)
+        lblProviderNameConfirm.text = ""
+        lblProviderNameConfirm.textColor = .white
+        
         self.view.backgroundColor = .ColorHeader
 //        viewSearch.backgroundColor = .ColorHeaderSearch
 //        self.searchProvider.barTintColor = .ColorHeaderSearch
@@ -65,8 +76,9 @@ class ProviderListVC: BaseVC {
         doGetProviderList()
         
       
-       wvData.navigationDelegate = self
-     
+        wvData.navigationDelegate = self
+        tbvData.separatorStyle = .none
+        
     }
     @IBAction func btnCancelClick(_ sender: UIButton) {
       //  self.searchProvider.searchTextField.text = ""
@@ -79,6 +91,7 @@ class ProviderListVC: BaseVC {
     
     @IBAction func btnContinueClick(_ sender: Any) {
         // viewConform.isHidden = true
+      
         isCallFirstTime = true
         setUiWebview()
     }
@@ -107,6 +120,7 @@ class ProviderListVC: BaseVC {
     
     private func  setUiWebview() {
         viewWebviewMain.isHidden = false
+        lbProviderName.text = providerName
         guard let url = URL(string: OAuthUrl) else { return }
         let myRequest = URLRequest(url: url)
         
@@ -115,15 +129,17 @@ class ProviderListVC: BaseVC {
     }
     
     private func doSendAuthRequest(path: String) {
-        providerListVM.doSendAuthRequest(url: path) { result in
+        providerListVM.doSendAuthRequest(url: path) { [weak self] result in
+            guard let`self` = self else { return }
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
+                UserDefaultManager.providerName = self.providerName
                 
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                         let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                
-                homeTabBar.selectedIndex = 1
+               // homeTabBar.selectedIndex = 1
                 self.rootVC(controller: homeTabBar)
                 
             case .failure(let message):
@@ -162,6 +178,8 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
         imgSelectedProvider.image = UIImage(named: providerListVM.providerList[indexPath.row].iconFilename ?? "")
+        providerName = providerListVM.providerList[indexPath.row].entryName ?? ""
+        lblProviderNameConfirm.text = providerName
 //        if indexPath.row == 1 {
   //          imgSelectedProvider.image = UIImage(named: "provider")
 //        } else if indexPath.row == 2 {
@@ -210,7 +228,7 @@ extension ProviderListVC: WKNavigationDelegate {
         return nil
     }
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        CommonFunctions.hideGlobalProgressHUD(self)
+      
         guard let serverTrust = challenge.protectionSpace.serverTrust else {
             completionHandler(.cancelAuthenticationChallenge, nil)
             return
@@ -218,31 +236,19 @@ extension ProviderListVC: WKNavigationDelegate {
         let exceptions = SecTrustCopyExceptions(serverTrust)
         SecTrustSetExceptions(serverTrust, exceptions)
         completionHandler(.useCredential, URLCredential(trust: serverTrust))
-       // print("didReceive \(webView.url?.absoluteString)")
-       
-        // print("didReceive \(challenge)")
-//        let url = webView.url?.absoluteString ?? ""
-//
-//        if ((url.contains("https://inhlrtrackdev.ochsner.org"))) {
-//
-//            if isCallFirstTime {
-//                isCallFirstTime = false
-//                doSendAuthRequest(path: url )
-//            }
-//
-//        }
     }
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
        // print("decidePolicyFor \(webView.url?.absoluteString)")
         return .allow
     }
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
+     //   print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
         let url = webView.url?.absoluteString ?? ""
         if ((url.contains(StringPoviders.providerBaseUrl))) {
             
-            var dict = [String:String]()
+            var dict = [String: String]()
             let components = URLComponents(url: webView.url!, resolvingAgainstBaseURL: false)!
             if let queryItems = components.queryItems {
                 for item in queryItems {
@@ -251,6 +257,7 @@ extension ProviderListVC: WKNavigationDelegate {
             }
           //  print(dict)
             if isCallFirstTime {
+                CommonFunctions.hideGlobalProgressHUD(self)
                 isCallFirstTime = false
                 let urlFinal =  "\(APIRouter.providerAuth.path)?providerId=\(dict["provider"] ?? "")&accessToken=\(dict["accessToken"] ?? "")&expiresIn=\(dict["expiresIn"] ?? "")&refreshToken=\(dict["refreshToken"] ?? "")"
                 doSendAuthRequest(path: urlFinal)

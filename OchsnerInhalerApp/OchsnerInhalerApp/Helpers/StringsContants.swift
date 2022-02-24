@@ -37,6 +37,7 @@ struct StringCommonMessages {
     static let  noInternetConnection = "No Internet connection"
     static let  noDataFount = "No record found"
     static let  notSet = "Not set"
+    static let  schedule = "Schedule"
     
 }
 struct AppFont {
@@ -210,6 +211,9 @@ struct StringHome {
     static let  thisWeek = "This Week"
     static let  thisMonth = "This Month"
     static let  adherance = "Adherance: "
+    static let  nextScheduled = "Next Scheduled Dose: "
+    
+   
 }
 
 struct CellIdentifier {
