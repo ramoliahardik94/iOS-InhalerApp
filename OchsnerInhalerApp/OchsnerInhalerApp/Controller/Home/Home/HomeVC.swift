@@ -9,17 +9,12 @@ import UIKit
 import DropDown
 
 class HomeVC: BaseVC {
-
-    
     @IBOutlet weak var lblNoData: UILabel!
-    @IBOutlet weak var tbvDeviceData: UITableView!
- 
+    @IBOutlet weak var viewMainTableview: UIView!
+    var tbvDeviceData: UITableView!
     private let itemCellDevice = "HomeDeviceCell"
-    private let itemCellGraph = "HomeGraphCell"
-    
     private var homeVM = HomeVM()
-    
-    var expandFalg = [true, true]
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +23,7 @@ class HomeVC: BaseVC {
             BLEHelper.shared.scanPeripheral()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
-        initUI()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,22 +35,45 @@ class HomeVC: BaseVC {
         }
         BLEHelper.shared.apiCallForAccuationlog()
         // doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+
+        initUI()
+
     }
     @objc func tapNotification() {
         
     }
     private func  initUI() {
+        initTableview()
+        lblNoData.text = StringCommonMessages.noDataFount
+        lblNoData.isHidden = true
+        doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+       //   doLoadJson()
+    }
+    
+    private func initTableview() {
+        if let viewFound = viewMainTableview.viewWithTag(10001) {
+            viewFound.removeFromSuperview()
+        }
+        self.view.setNeedsLayout()
+        tbvDeviceData = UITableView.init(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: viewMainTableview.frame.size.height))
+        tbvDeviceData.tag = 10001
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tbvDeviceData.addSubview(refreshControl) // not required when using UITableViewController
+        viewMainTableview.addSubview(tbvDeviceData)
+        
         let nib = UINib(nibName: itemCellDevice, bundle: nil)
         tbvDeviceData.register(nib, forCellReuseIdentifier: itemCellDevice)
         tbvDeviceData.delegate = self
         tbvDeviceData.dataSource = self
         tbvDeviceData.separatorStyle = .none
-         
-     
-        lblNoData.text = StringCommonMessages.noDataFount
-        lblNoData.isHidden = true
+       }
+    
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        refreshControl.endRefreshing()
+        initTableview()
         doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
-       //   doLoadJson()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -139,57 +157,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellDevice, for: indexPath) as! HomeDeviceCell
         
         cell.selectionStyle = .none
-        
-        cell.lblTodayData.textColor = .ButtonColorBlue
-        cell.lblThisMonthData.textColor = .ButtonColorBlue
-        cell.lblThisWeekData.textColor = .ButtonColorBlue
-        
-        
-        cell.lblToday.text = StringHome.today
-        cell.lblThisWeek.text = StringHome.thisWeek
-        cell.lblThisMonth.text = StringHome.thisMonth
-        cell.lblAdherance.text = StringHome.adherance
-      //  cell.btnExpand.tag = indexPath.row
-       // cell.btnExpand.addTarget(self, action: #selector(tapExpand(sender:)), for: .touchUpInside)
-      
-        let item = homeVM.dashboardData[indexPath.row]
-       // cell.lblDeviceName.text = item.medName ?? StringCommonMessages.notSet
        
-        if item.thisMonth?.change?.lowercased() ?? ""  == "up" {
-            cell.ivThisMonth.image = UIImage(named: "arrow_up_home")
-        } else {
-            cell.ivThisMonth.image = UIImage(named: "arrow_down_home")
-        }
-        
-        if item.thisMonth?.status ?? 0 == 1 {
-            cell.ivThisMonth.setImageColor(.ColorHomeIconGreen)// #34C759
-        } else if item.thisMonth?.status ?? 0 == 2 {
-            cell.ivThisMonth.setImageColor(.ColorHomeIconOranage)// #FFA52F
-        } else {
-            cell.ivThisMonth.setImageColor(.ColorHomeIconRed)// #FF5A5A
-        }
-        
-        
-        if item.thisWeek?.change?.lowercased() ?? ""  == "up" {
-            cell.ivThisWeek.image = UIImage(named: "arrow_up_home")
-        } else {
-            cell.ivThisWeek.image = UIImage(named: "arrow_down_home")
-        }
-        
-        if item.thisWeek?.status ?? 0 == 1 {
-            cell.ivThisWeek.setImageColor(.ColorHomeIconGreen)// #34C759
-        } else if item.thisWeek?.status ?? 0 == 2 {
-            cell.ivThisWeek.setImageColor(.ColorHomeIconOranage)// #FFA52F
-        } else {
-            cell.ivThisWeek.setImageColor(.ColorHomeIconRed)// #FF5A5A
-        }
+        let item = homeVM.dashboardData[indexPath.row]
+        cell.item = item
         let firstAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppBoldFont, size: 24)! ]
         let sendcotAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppLightItalicFont, size: 16)! ]
         
         let firstString = NSMutableAttributedString(string: "\(item.medName ?? StringCommonMessages.notSet)", attributes: firstAttributes)
+        
         if item.type == "1" {
             // for rescue
-           
             let seconfString = NSMutableAttributedString(string: "\(StringAddDevice.rescueInhaler)", attributes: sendcotAttributes)
             firstString.append(seconfString)
             cell.lblDeviceName.attributedText = firstString
@@ -203,7 +180,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblThisMonthData.text = "\(item.thisMonth?.count ?? 0)"
         } else {
             // maintaince
-            
             let seconfString = NSMutableAttributedString(string: "\(StringAddDevice.maintenanceInhaler)", attributes: sendcotAttributes)
             firstString.append(seconfString)
             cell.lblDeviceName.attributedText = firstString
@@ -213,25 +189,26 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblThisWeekData.text = "\(item.thisWeek?.adherence ?? 0)%"
             cell.lblThisMonthData.text = "\(item.thisMonth?.adherence ?? 0)%"
             cell.viewAdherance.isHidden = false
-            cell.lblNextDose.text = "Next Scheduled Dose: \(item.nextScheduledDose ?? StringCommonMessages.notSet)"
+            cell.lblNextDose.text = "\(StringHome.nextScheduled) \(item.nextScheduledDose ?? StringCommonMessages.notSet)"
             cell.viewNextDose.isHidden = false
             
             cell.lblDeviceNameGraph.text = ""
-            cell.lblDeviceTypeGraph.text = "Schedule"
+            cell.lblDeviceTypeGraph.text = StringCommonMessages.schedule
             if item.dailyAdherence.count != 0 {
             //    cell.dailyAdherence = item.dailyAdherence
                 let dailyAdherence = item.dailyAdherence
                 let maxvalu = item.dailyAdherence.sorted { item1, item2 in
                     return item1.denominator ?? 0 > item2.denominator ?? 0
                 }
-                 
+          
                 for (index, item) in dailyAdherence.enumerated() {
+                    cell.stackViewArray[index].isHidden = false
                     cell.stackViewArray[index].removeFullyAllArrangedSubviews()
                     let label = UILabel()
                     label.text = item.day ?? StringCommonMessages.notSet
                     label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-                 //   label.widthAnchor.constraint(equalToConstant: 18).isActive = true
                     label.setFont(type: .regular, point: 14)
+                
                     let date = Date()
                     let day = date.getFormattedDate(format: "EE")
                     let lastC = day.dropLast()
@@ -248,12 +225,9 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                     cell.stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
                     cell.stackViewArray[index].alignment = UIStackView.Alignment.center
                     cell.stackViewArray[index].spacing   = 4
-                   
-                   // cell.stackViewArray[index].insertArrangedSubview(label, at: 0)
                     cell.stackViewArray[index].addArrangedSubview(label)
-                    
+                  
                     for  indexSub in 1...item.denominator! {
-                       // let mainview = UIView()
                         let view = UIView()
                         view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
                         view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
@@ -300,15 +274,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
-    @objc func tapExpand(sender: UIButton) {
-        if expandFalg[sender.tag] {
-            expandFalg[sender.tag] = false
-        } else {
-            expandFalg[sender.tag] = true
-        }
-        tbvDeviceData.reloadData()
-    }
 }
 
 extension UIStackView {

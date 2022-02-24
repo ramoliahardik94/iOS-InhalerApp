@@ -41,8 +41,8 @@ class ProfileVC: BaseVC {
         lblShareUsageWithProvider.setFont(type: .regular, point: 21)
 
         
-        lblEmail.text = "lauren@ipsum.com"
-        lblProvider.text = "Provider: Ochsner Health"
+        lblEmail.text =  UserDefaultManager.userEmailAddress
+        lblProvider.text = "Provider: \(UserDefaultManager.providerName)"
         
         lblSettings.text = StringProfile.settings
         lblReceiveNotifications.text = StringProfile.receiveNotifications
@@ -53,6 +53,7 @@ class ProfileVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
     }
     
     private func setupButton(button: UIButton, title: String) {
@@ -86,6 +87,7 @@ class ProfileVC: BaseVC {
     }
     @IBAction func tapChangeProvider(_ sender: Any) {
         let providerListVC = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
+        providerListVC.comeFrom = "profile"
         pushVC(controller: providerListVC)
     }
     @IBAction func tapRemoveProvider(_ sender: Any) {
@@ -102,4 +104,5 @@ class ProfileVC: BaseVC {
          UIApplication.shared.windows.first?.rootViewController = nav
          UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
+   
 }

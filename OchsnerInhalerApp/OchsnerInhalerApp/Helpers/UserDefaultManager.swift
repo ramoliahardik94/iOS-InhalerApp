@@ -21,6 +21,8 @@ enum UserDefaultKey: String {
     // case addDevice
     case selectedMedi
     case email
+    case providerName
+    case userEmailAddress
 }
 
 class UserDefaultManager {
@@ -148,5 +150,24 @@ class UserDefaultManager {
             self.set(newValue as AnyObject?, forKey: .deviceToken)
         }
     }
+    
+    
+    static var providerName: String {
+        get {
+            return self.get(forKey: .providerName) as? String ?? "Ochsner Health"
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .providerName)
+        }
+    }
+    static var userEmailAddress: String {
+        get {
+            return self.get(forKey: .userEmailAddress) as? String ?? "Ochsner Health"
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .userEmailAddress)
+        }
+    }
+    
     
 }

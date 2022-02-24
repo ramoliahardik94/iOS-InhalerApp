@@ -31,16 +31,48 @@ class HomeDeviceCell: UITableViewCell {
     // for graph
     @IBOutlet weak var lblDeviceNameGraph: UILabel!
     @IBOutlet weak var lblDeviceTypeGraph: UILabel!
-  //  @IBOutlet weak var cvGraphData: UICollectionView!
-  //  @IBOutlet weak var conHeightCollectionView: NSLayoutConstraint!
-    
+   // @IBOutlet weak var cvGraphData: UICollectionView!
     @IBOutlet weak var viewCollectionView: UIView!
     var count  = 0
     private let itemCellGraph = "GraphCell"
    
     @IBOutlet var stackViewArray: [UIStackView]!
     
+    @IBOutlet weak var stackViewMain: UIStackView!
     var dailyAdherence =  [DailyAdherenceModel]()
+    
+    var item = MaintenanceModel() {
+        didSet {
+            if item.thisMonth?.change?.lowercased() ?? ""  == "up" {
+                ivThisMonth.image = UIImage(named: "arrow_up_home")
+            } else {
+                ivThisMonth.image = UIImage(named: "arrow_down_home")
+            }
+            if item.thisMonth?.status ?? 0 == 1 {
+                ivThisMonth.setImageColor(.ColorHomeIconGreen)// #34C759
+            } else if item.thisMonth?.status ?? 0 == 2 {
+                ivThisMonth.setImageColor(.ColorHomeIconOranage)// #FFA52F
+            } else {
+                ivThisMonth.setImageColor(.ColorHomeIconRed)// #FF5A5A
+            }
+            
+           // for week
+            if item.thisWeek?.change?.lowercased() ?? ""  == "up" {
+                ivThisWeek.image = UIImage(named: "arrow_up_home")
+            } else {
+                ivThisWeek.image = UIImage(named: "arrow_down_home")
+            }
+            
+            if item.thisWeek?.status ?? 0 == 1 {
+                ivThisWeek.setImageColor(.ColorHomeIconGreen)// #34C759
+            } else if item.thisWeek?.status ?? 0 == 2 {
+                ivThisWeek.setImageColor(.ColorHomeIconOranage)// #FFA52F
+            } else {
+                ivThisWeek.setImageColor(.ColorHomeIconRed)// #FF5A5A
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -56,6 +88,15 @@ class HomeDeviceCell: UITableViewCell {
         lblAdherance.setFont(type: .semiBold, point: 17)
         lblNextDose.setFont(type: .semiBold, point: 17)
         lblDeviceTypeGraph.setFont(type: .semiBold, point: 17)
+        
+        lblTodayData.textColor = .ButtonColorBlue
+        lblThisMonthData.textColor = .ButtonColorBlue
+        lblThisWeekData.textColor = .ButtonColorBlue
+        lblToday.text = StringHome.today
+        lblThisWeek.text = StringHome.thisWeek
+        lblThisMonth.text = StringHome.thisMonth
+        lblAdherance.text = StringHome.adherance
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -75,7 +116,7 @@ extension HomeDeviceCell: UICollectionViewDataSource, UICollectionViewDelegate, 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellGraph, for: indexPath) as! GraphCell
         
           
-        if count >= 21 {
+       /* if count >= 21 {
             
             cell.viewMain.layer.cornerRadius =  8
            
@@ -110,8 +151,12 @@ extension HomeDeviceCell: UICollectionViewDataSource, UICollectionViewDelegate, 
             }
            
             
-        }
+        }*/
         
+        cell.viewMain.layer.cornerRadius =  8
+       
+        cell.viewMain.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+        cell.viewMain.layer.borderWidth = 1
         // cell.viewMain.layer.masksToBounds = true
         
         return cell
