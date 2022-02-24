@@ -20,8 +20,8 @@ class LocationManager: CLLocationManager {
     override init() {
         super.init()
         if UserDefaultManager.isGrantLaocation {
-//            locationManager.delegate = self
-//            locationManager.startUpdatingLocation()
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
         }
     }
     
@@ -114,7 +114,9 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
         cordinate = manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-        self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+        if self.locationCompletion != nil {
+            self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+        }
       
     }
     
