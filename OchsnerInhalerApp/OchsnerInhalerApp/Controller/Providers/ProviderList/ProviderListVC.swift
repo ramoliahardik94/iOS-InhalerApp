@@ -251,7 +251,7 @@ extension ProviderListVC: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
      //   print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
-        let url = webView.url?.absoluteString ?? ""
+        if let url = webView.url?.absoluteString {
         if ((url.contains(StringPoviders.providerBaseUrl))) {
             
             var dict = [String: String]()
@@ -269,5 +269,6 @@ extension ProviderListVC: WKNavigationDelegate {
                 doSendAuthRequest(path: urlFinal)
             }
         }
+    }
     }
 }

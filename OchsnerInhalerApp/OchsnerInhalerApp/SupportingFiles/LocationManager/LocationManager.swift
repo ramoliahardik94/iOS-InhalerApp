@@ -14,10 +14,15 @@ class LocationManager: CLLocationManager {
     var ssidCompletion: ((String) -> Void)!
     var locationCompletion: ((CLLocationCoordinate2D) -> Void)!
     var permissionCompletion: ((CLAuthorizationStatus) -> Void)?
+    var cordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     var lat: String = ""
     var long: String = ""
     override init() {
         super.init()
+        if UserDefaultManager.isGrantLaocation {
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+        }
     }
     
     func isAllowed(askPermission: Bool = false, completion: @escaping ((CLAuthorizationStatus) -> Void)) {
@@ -47,6 +52,7 @@ class LocationManager: CLLocationManager {
             locationManager.requestWhenInUseAuthorization()
         } else if status == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
+//            completion(cordinate)
         } else {
             self.locationCompletion(CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
         }
@@ -107,9 +113,11 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
-        self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
-        locationManager.delegate = nil
-        locationManager.stopUpdatingLocation()
+        cordinate = manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+        if self.locationCompletion != nil {
+            self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+        }
+      
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

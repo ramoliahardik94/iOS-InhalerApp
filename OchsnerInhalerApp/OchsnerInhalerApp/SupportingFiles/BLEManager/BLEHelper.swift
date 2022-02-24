@@ -24,6 +24,7 @@ class BLEHelper: NSObject {
     var isAllow = false
     var timer: Timer!
     var isAddAnother = false
+    var accuationLog : Decimal = 0
 //    var timerAccuation: Timer!
     
     func setDelegate() {
@@ -79,13 +80,13 @@ class BLEHelper: NSObject {
         //  DatabaseManager.share.deleteAllAccuationLog()
        print(notification.userInfo!)
         if let object = notification.userInfo as? [String: Any] {
-            LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { coordination in
+           // LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { coordination in
                 if object["uselength"]! as? Decimal != 0 {
                     let isoDate = object["date"] as? String
                     let length = object["uselength"]!
                     let mac = object["mac"] as? String
                     let udid = object["udid"] as? String
-                    
+                    let id = object["Id"] as? Decimal
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy/dd/MM HH:mm:ss"
                     if  let date = dateFormatter.date(from: isoDate!) {
@@ -93,16 +94,23 @@ class BLEHelper: NSObject {
                         let finalDate = dateFormatter.string(from: date)
                         let dic: [String: Any] = ["date": finalDate,
                                                   "useLength": length,
-                                                  "lat": "\(coordination.latitude)",
-                                                  "long": "\(coordination.longitude)",
+                                                  "lat": "\(LocationManager.shared.cordinate.latitude)",
+                                                  "long": "\(LocationManager.shared.cordinate.longitude)",
                                                   "isSync": false, "mac": mac! as Any,
                                                   "udid": udid as Any,
                                                   "batterylevel": BLEHelper.shared.bettery]
+                        print("Data Save: \(dic)")
                         DatabaseManager.share.saveAccuation(object: dic)
-                        self.apiCallForAccuationlog()
+                        print("\(id!) == \(self.accuationLog)")
+                        if id! == self.accuationLog {
+                            self.accuationLog = 0
+                            self.apiCallForAccuationlog()
+                        }
                     }
                 }
-            })
+           // })
+            
+           
         }
     }
     

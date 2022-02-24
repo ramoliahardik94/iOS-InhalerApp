@@ -28,6 +28,7 @@ class Constants: NSObject {
         static let SFProDisplayLightItalic = "SFProDisplay-LightItalic"
         static let SFProDisplayLight = "SFProDisplay-Light"
         static let SFProTextBold = "SFProText-Bold"
+        static let SFProDisplayBoldItalic = "SFProDisplay-BoldItalic"
     }
     
     struct DirectoryPath {

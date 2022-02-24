@@ -19,9 +19,8 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        if (BLEHelper.shared.discoveredPeripheral == nil) {
-            debugPrint("Peripheral not found")
-            BLEHelper.shared.scanPeripheral(withTimer: false)
+        if (BLEHelper.shared.discoveredPeripheral == nil) {        
+            BLEHelper.shared.scanPeripheral()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
         
@@ -32,10 +31,13 @@ class HomeVC: BaseVC {
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
-            
             BLEHelper.shared.getAccuationNumber()
         }
+        BLEHelper.shared.apiCallForAccuationlog()
+        // doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+
         initUI()
+
     }
     @objc func tapNotification() {
         

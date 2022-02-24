@@ -33,10 +33,11 @@ class CustomSplashVC: BaseVC {
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         deviceUDID = devicelist.map({$0.udid!})
         
-        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
                 BLEHelper.shared.setDelegate()
                 BLEHelper.shared.scanPeripheral()
                 BLEHelper.shared.apiCallDeviceUsage()
+                LocationManager()
          }
         
     }
@@ -81,7 +82,7 @@ class CustomSplashVC: BaseVC {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
                 } else {
-                    BLEHelper.shared.scanPeripheral(withTimer: false)
+                    BLEHelper.shared.scanPeripheral()
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                   //  homeTabBar.selectedIndex = 1

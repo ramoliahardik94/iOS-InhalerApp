@@ -38,16 +38,17 @@ extension BLEHelper: CBPeripheralDelegate {
                 bettery = "\(stringFromData.getBeteryLevel())"
                 NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
             } else if str == StringCharacteristics.getType(.accuationLog)() {
-                let numberofLog = stringFromData.getNumberofAccuationLog()
-                if numberofLog > 0 {
+                accuationLog = stringFromData.getNumberofAccuationLog()
+                if accuationLog > 0 {
                     getAccuationLog()
                 } else {
                     apiCallForAccuationlog()
                 }
-                print("Number Of Acuation log : \(numberofLog)")
-                NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(numberofLog)"])
+                print("Number Of Acuation log : \(accuationLog)")
+                NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(accuationLog)"])
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
+                print("Acuation log : \(log)")
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
                                                     ["Id": (log.id),
                                                      "date": "\(log.date)",
@@ -144,9 +145,8 @@ extension BLEHelper {
         stopTimer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: { [weak self] in
             guard let `self` = self else { return }
-            print("Found :\(self.discoveredPeripheral?.identifier.uuidString) \(self.isConnected)")
-            print(self.discoveredPeripheral)
-            
+            print("Found :\(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid") \(self.isConnected)")
+            print(self.discoveredPeripheral!)
             if self.discoveredPeripheral!.state == .connected  && !self.isConnected {
                 self.stopTimer()
                 self.isConnected = true

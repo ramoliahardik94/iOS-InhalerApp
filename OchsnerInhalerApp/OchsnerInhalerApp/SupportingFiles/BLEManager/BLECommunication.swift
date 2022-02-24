@@ -11,13 +11,15 @@ import CoreBluetooth
 
 extension BLEHelper {
     
-    func scanPeripheral(withTimer: Bool = true) {
+    func scanPeripheral(isTimer: Bool = false) {
         stopTimer()
-        if withTimer {
+        if isTimer {
             timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-        }
+            centralManager.scanForPeripherals(withServices: nil, options: nil)
+        } else {
         // TODO:  Replace hear Service array make a param if needed then
-        centralManager.scanForPeripherals(withServices: nil, options: nil)
+            centralManager.scanForPeripherals(withServices: nil, options: nil)
+        }
     }
     
     func connectPeriPheral() {
@@ -33,7 +35,8 @@ extension BLEHelper {
       }
     }
     func bleConnect() {
-        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
+        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
             if isAllow {
                 BLEHelper.shared.scanPeripheral()
             }

@@ -111,7 +111,7 @@ class LoginVC: BaseVC {
                         }
                     }
                 } else {
-                    BLEHelper.shared.scanPeripheral(withTimer: false)
+                    BLEHelper.shared.scanPeripheral()
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                    // homeTabBar.selectedIndex = 1
