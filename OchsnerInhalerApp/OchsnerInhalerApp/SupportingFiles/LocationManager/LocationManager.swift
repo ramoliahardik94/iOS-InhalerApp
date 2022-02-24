@@ -20,8 +20,8 @@ class LocationManager: CLLocationManager {
     override init() {
         super.init()
         if UserDefaultManager.isGrantLaocation {
-            locationManager.delegate = self
-            locationManager.startUpdatingLocation()
+//            locationManager.delegate = self
+//            locationManager.startUpdatingLocation()
         }
     }
     

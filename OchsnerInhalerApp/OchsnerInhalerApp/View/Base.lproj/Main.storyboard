@@ -373,7 +373,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wh7-tX-3Nm">
-                                                                        <rect key="frame" x="16" y="17" width="351" height="72"/>
+                                                                        <rect key="frame" x="16" y="17" width="351" height="120"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="ybT-td-d15"/>
                                                                         </constraints>
@@ -382,7 +382,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Bi5-CU-bvc">
-                                                                        <rect key="frame" x="16" y="111" width="343" height="128"/>
+                                                                        <rect key="frame" x="16" y="159" width="343" height="80"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8T-XA-XTw">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="32"/>
@@ -432,8 +432,8 @@
                                                                                     <constraint firstItem="0FM-lV-tA9" firstAttribute="centerY" secondItem="58Q-Dv-U9s" secondAttribute="centerY" id="vI4-qv-EJK"/>
                                                                                 </constraints>
                                                                             </view>
-                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOG-am-p7T">
-                                                                                <rect key="frame" x="0.0" y="96" width="343" height="32"/>
+                                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOG-am-p7T">
+                                                                                <rect key="frame" x="0.0" y="80" width="343" height="32"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAv-bV-hbd">
                                                                                         <rect key="frame" x="0.0" y="4" width="282" height="24"/>
@@ -442,7 +442,7 @@
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WdW-1r-6pr">
-                                                                                        <rect key="frame" x="286" y="0.66666666666668561" width="51" height="31"/>
+                                                                                        <rect key="frame" x="286" y="0.66666666666662877" width="51" height="31"/>
                                                                                     </switch>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -457,7 +457,7 @@
                                                                                 </constraints>
                                                                             </view>
                                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4k-hh-485">
-                                                                                <rect key="frame" x="0.0" y="128" width="343" height="32"/>
+                                                                                <rect key="frame" x="0.0" y="80" width="343" height="32"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3Z-n2-VOb">
                                                                                         <rect key="frame" x="0.0" y="4" width="282" height="24"/>
