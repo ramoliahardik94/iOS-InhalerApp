@@ -21,10 +21,12 @@ class DatabaseManager {
         let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
-            var accuationLog = NSEntityDescription.insertNewObject(forEntityName: "AcuationLog", into: context!) as! AcuationLog
+            var accuationLog: AcuationLog!
             let arrAccuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
             if arrAccuationLog.count != 0 {
                 accuationLog = arrAccuationLog[0]
+            } else {
+                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: "AcuationLog", into: context!) as! AcuationLog)
             }
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
             print(object)
@@ -40,28 +42,6 @@ class DatabaseManager {
             try context?.save()
         } catch {
             print("Can not get Data")
-        }
-        
-        
-        
-        let accuationLog = NSEntityDescription.insertNewObject(forEntityName: "AcuationLog", into: context!) as! AcuationLog
-        
-        
-        accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
-        print(object)
-        accuationLog.usedatelocal = (object["date"] as! String)
-        accuationLog.longitude = (object["long"] as! String)
-        accuationLog.latitude = (object["lat"] as! String)
-        accuationLog.issync = (object["isSync"] as! Bool)
-        accuationLog.deviceidmac = ( object["mac"] as! String)
-        accuationLog.deviceuuid = (object["udid"] as! String)
-        accuationLog.batterylevel = Double(object["batterylevel"] as! String)!
-        accuationLog.uselength = Double("\(object["useLength"]!)")!
-        accuationLog.devicesyncdateutc = Date().getString(format: "yyyy-MM-dd'T'HH:mm:ss'Z'", isUTC: true)
-        do {
-            try context?.save()
-        } catch {
-            print("data is not save")
         }
     }
     
@@ -181,4 +161,3 @@ class DatabaseManager {
         }
     }
 }
-

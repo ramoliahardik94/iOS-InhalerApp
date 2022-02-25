@@ -73,9 +73,9 @@ extension BLEHelper: CBCentralManagerDelegate {
        
         // Device is in range - have we already seen it?
         
-//        guard RSSI.intValue >= -50
+//        guard RSSI.intValue >= -55
 //            else {
-//                print("Discovered perhiperal not in expected range, at %d", RSSI.intValue)
+//                print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
 //                return
 //        }
        

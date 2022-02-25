@@ -122,6 +122,8 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         Logger.logError("LocationManager > \(error)")
-        self.locationCompletion(CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+        if self.locationCompletion != nil {
+            self.locationCompletion(CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+        }
     }
 }
