@@ -217,7 +217,6 @@ class MedicationDetailVC: BaseVC {
                     }
                     print("Saved Event")
                 }
-                
             }
         }
     }
