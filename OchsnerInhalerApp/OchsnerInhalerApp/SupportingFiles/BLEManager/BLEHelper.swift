@@ -71,8 +71,7 @@ class BLEHelper: NSObject {
     }
     
     @objc func accuationLog(notification: Notification) {
-        //  DatabaseManager.share.deleteAllAccuationLog()
-       print(notification.userInfo!)
+      
         if let object = notification.userInfo as? [String: Any] {
            // LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { coordination in
                 if object["uselength"]! as? Decimal != 0 {
@@ -93,7 +92,6 @@ class BLEHelper: NSObject {
                                                   "isSync": false, "mac": mac! as Any,
                                                   "udid": udid as Any,
                                                   "batterylevel": BLEHelper.shared.bettery]
-                        print("Data Save: \(dic)")
                         DatabaseManager.share.saveAccuation(object: dic)
                         print("\(id!) == \(self.accuationLog)")
                         if id! == self.accuationLog {
@@ -128,7 +126,6 @@ class BLEHelper: NSObject {
                 parameter.append(param)
             }
         }
-        print(parameter)
         return parameter
     }
     
