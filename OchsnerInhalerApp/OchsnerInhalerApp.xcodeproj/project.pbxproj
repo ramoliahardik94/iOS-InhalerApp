@@ -562,13 +562,6 @@
 			path = AddMedicationtoDevice;
 			sourceTree = "<group>";
 		};
-		4725F20F2798091300BBDA28 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		472DC2422795328D008E0060 /* ProviderListCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,7 +586,6 @@
 		47C1FEE727958ECB007C6F16 /* AddDevice */ = {
 			isa = PBXGroup;
 			children = (
-				4725F20F2798091300BBDA28 /* Cell */,
 				47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */,
 				4725F2102798093000BBDA28 /* BLEDeviceCell.swift */,
 				4725F20D2797FE4300BBDA28 /* AddAnotherDeviceVC.swift */,

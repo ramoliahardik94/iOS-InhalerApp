@@ -16,6 +16,19 @@ class HomeVC: BaseVC {
     private var homeVM = HomeVM()
     var refreshControl = UIRefreshControl()
     
+    var viewSelected: UIView {
+        let view = UIView()
+       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
+        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+        view.layer.borderWidth = 1
+        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        return view
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -209,18 +222,18 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                     label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
                     label.setFont(type: .regular, point: 14)
                 
-                    let date = Date()
-                    let day = date.getFormattedDate(format: "EE")
-                    let lastC = day.dropLast()
+//                    let date = Date()
+//                    let day = date.getFormattedDate(format: "EE")
+//                    let lastC = day.dropLast()
                     // print(lastC)
-                    if item.day?.lowercased()
-                        ?? "" == lastC.lowercased() {
-                        label.layer.borderWidth = 1
-                        label.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-                    } else {
-                        label.layer.borderWidth = 0
-                        label.layer.borderColor = UIColor.clear.cgColor // #8E8E93
-                    }
+//                    if item.day?.lowercased()
+//                        ?? "" == lastC.lowercased() {
+//                        label.layer.borderWidth = 1
+//                        label.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+//                    } else {
+//                        label.layer.borderWidth = 0
+//                        label.layer.borderColor = UIColor.clear.cgColor // #8E8E93
+//                    }
                     cell.stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
                     cell.stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
                     cell.stackViewArray[index].alignment = UIStackView.Alignment.center
@@ -228,30 +241,37 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                     cell.stackViewArray[index].addArrangedSubview(label)
                   
                     for  indexSub in 1...item.denominator! {
-                        let view = UIView()
-                        view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
-                        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
-                        view.layer.borderWidth = 1
-                        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
-                        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
-                        view.layer.cornerRadius = 8
-                        view.clipsToBounds = true
+//                        let view = UIView()
+//                       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+//                        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
+//                        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+//                        view.layer.borderWidth = 1
+//                        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+//                        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+//                        view.layer.cornerRadius = 8
+//                        view.clipsToBounds = true
                         
                         let image = UIImageView()
                         image.heightAnchor.constraint(equalToConstant: 16).isActive = true
                         image.widthAnchor.constraint(equalToConstant: 16).isActive = true
                         image.image = #imageLiteral(resourceName: "cross_dot")
                         
-                        if item.day?.lowercased()
-                            ?? "" == lastC.lowercased() {
-                            cell.stackViewArray[index].addArrangedSubview(view)
+                        if indexSub <= item.numerator ?? 0 {
+                            cell.stackViewArray[index].addArrangedSubview(viewSelected)
                         } else {
-                            if indexSub <= item.numerator ?? 0 {
-                                cell.stackViewArray[index].addArrangedSubview(view)
-                            } else {
-                                cell.stackViewArray[index].addArrangedSubview(image)
-                            }
+                            cell.stackViewArray[index].addArrangedSubview(image)
                         }
+                        
+//                        if item.day?.lowercased()
+//                            ?? "" == lastC.lowercased() {
+//                            cell.stackViewArray[index].addArrangedSubview(view)
+//                        } else {
+//                            if indexSub <= item.numerator ?? 0 {
+//                                cell.stackViewArray[index].addArrangedSubview(view)
+//                            } else {
+//                                cell.stackViewArray[index].addArrangedSubview(image)
+//                            }
+//                        }
                     }
                     if maxvalu[0].denominator ?? 0 > item.denominator ?? 0 {
                         let valueOne = maxvalu[0].denominator ?? 0

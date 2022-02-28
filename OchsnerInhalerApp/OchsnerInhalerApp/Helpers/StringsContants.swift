@@ -38,7 +38,7 @@ struct StringCommonMessages {
     static let  noDataFount = "No record found"
     static let  notSet = "Not set"
     static let  schedule = "Schedule"
-    
+    static let  privacyUrl = "https://connectedliving.ochsner.org/privacy.html"
 }
 struct AppFont {
     static let AppRegularFont = Constants.CustomFont.SFProTextRegular
