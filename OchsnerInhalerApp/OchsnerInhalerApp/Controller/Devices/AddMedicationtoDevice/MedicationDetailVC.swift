@@ -7,7 +7,7 @@
 
 import UIKit
 import DropDown
-
+import EventKit
 
 protocol MedicationDelegate: AnyObject {
     func medicationUpdated()
@@ -47,6 +47,9 @@ class MedicationDetailVC: BaseVC {
         setUI()
         hideKeyBoardHideOutSideTouch(customView: self.view)
         self.navigationController?.isNavigationBarHidden = true
+        if medicationVM.arrTime.count == 0 {
+          btnAddDoseClick(UIButton())
+        }
     }
     
     func setDatePicker() {
@@ -128,7 +131,9 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
-        
+        if swReminder.isOn {
+            setReminders()
+        }
         if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
             medicationVM.apiAddDevice { [weak self] result in
                 guard let `self` = self else { return }
@@ -158,6 +163,65 @@ class MedicationDetailVC: BaseVC {
             }
         }
     }
+    func setReminders() {
+        
+        let appDelegate = UIApplication.shared.delegate
+        as! AppDelegate
+        if appDelegate.eventStore == nil {
+            appDelegate.eventStore = EKEventStore()
+            appDelegate.eventStore?.requestAccess(
+                to: EKEntityType.event, completion: { (granted, error) in
+                    if !granted {
+                        print("Access to store not granted")
+                        print(error?.localizedDescription as Any)
+                    } else {
+                        print("Access granted")
+                    }
+                })
+        } else {
+            self.addReminderToCalender()
+        }
+    }
+    
+    func addReminderToCalender() {
+        for obj in self.medicationVM.arrTime {
+            let appDelegate = UIApplication.shared.delegate
+            as! AppDelegate
+            if let appleEventStore = appDelegate.eventStore {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "hh:mm a"
+                let today = Date()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                let strDate = "\(dateFormatter.string(from: today)) \(obj)"
+                dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+                if let date = dateFormatter.date(from: strDate) {
+                    let event: EKEvent = EKEvent(eventStore: appleEventStore)
+                    event.title = "Your Next Dose is on \(obj)."
+                    event.startDate = date
+                    event.endDate = date.addingTimeInterval(525600) // 525600 One year time interval
+                    event.isAllDay = true
+                    event.notes = "This is a note"
+                    
+                    event.calendar = appleEventStore.defaultCalendarForNewEvents
+                    
+                    let alarm = EKAlarm(absoluteDate: date.addingTimeInterval(-300)) // Before 5 min alarm is show
+                    event.addAlarm(alarm)
+                    do {
+                        try appleEventStore.save(event, span: .thisEvent)
+                        
+                        print("events added with dates:")
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    print("Saved Event")
+                }
+                
+            }
+        }
+    }
+    
     
     /*
     // MARK: - Navigation
@@ -171,7 +235,24 @@ class MedicationDetailVC: BaseVC {
 
     @IBAction func reminderValue(_ sender: UISwitch) {
         print(sender.isOn)
-        // TODO: Set Local push notification
+        if sender.isOn {
+            let appDelegate = UIApplication.shared.delegate
+            as! AppDelegate
+            if appDelegate.eventStore == nil {
+                appDelegate.eventStore = EKEventStore()
+                
+                appDelegate.eventStore?.requestAccess(
+                    to: EKEntityType.event, completion: { (granted, error) in
+                        if !granted {
+                            print("Access to store not granted")
+                            print(error?.localizedDescription as Any)
+                        } else {
+                            print("Access granted")
+                            
+                        }
+                    })
+            }
+        }
     }
     
     @IBAction func btnAddDoseClick(_ sender: Any) {
@@ -217,6 +298,7 @@ extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: DoseTimeCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.doseTimeCell ) as! DoseTimeCell
         cell.lblDoseTime.text = "\((indexPath.row + 1).ordinal) Dose at \(self.medicationVM.arrTime[indexPath.row])"
+        cell.btnRemove.isHidden = (indexPath.row == 0)
         cell.btnRemove.tag = indexPath.row
         cell.btnEditDose.tag = indexPath.row
         return cell

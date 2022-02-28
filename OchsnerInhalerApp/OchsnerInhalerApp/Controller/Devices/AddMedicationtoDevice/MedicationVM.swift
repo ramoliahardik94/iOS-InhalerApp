@@ -11,7 +11,7 @@ class MedicationVM {
     var medication = [MedicationModelElement]()
     var selectedMedication: MedicationModelElement!
     var macAddress = "N/A"
-    var medTypeId = 2
+    var medTypeId = 1
     var puff = 1
     var totalDose = 0
     var arrTime: [String] = [String]()
