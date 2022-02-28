@@ -23,6 +23,7 @@ enum UserDefaultKey: String {
     case email
     case providerName
     case userEmailAddress
+    case isLocationOn
 }
 
 class UserDefaultManager {
@@ -169,5 +170,13 @@ class UserDefaultManager {
         }
     }
     
+    static var isLocationOn: Bool {
+        get {
+            return self.get(forKey: .isLocationOn) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .isLocationOn)
+        }
+    }
     
 }

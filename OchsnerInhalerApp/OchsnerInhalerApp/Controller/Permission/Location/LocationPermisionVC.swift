@@ -37,7 +37,7 @@ class LocationPermisionVC: BaseVC {
             }
             
             if status == .authorizedWhenInUse || status == .authorizedAlways {
-               
+                UserDefaultManager.isLocationOn = true
                 let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self.pushVC(controller: notificationPermissionVC)
             }

@@ -21,6 +21,12 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var lblShareLocation: UILabel!
     @IBOutlet weak var lblShareUsageWithProvider: UILabel!
     @IBOutlet weak var lblUseFaceID: UILabel!
+    @IBOutlet weak var switchNotification: UISwitch!
+    @IBOutlet weak var switchLocation: UISwitch!
+    private var profileVM = ProfileVM()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,16 +47,18 @@ class ProfileVC: BaseVC {
         lblShareUsageWithProvider.setFont(type: .regular, point: 21)
 
         
-        lblEmail.text =  UserDefaultManager.userEmailAddress
-        lblProvider.text = "Provider: \(UserDefaultManager.providerName)"
+        lblEmail.text =  ""
+        lblProvider.text = ""
         
         lblSettings.text = StringProfile.settings
         lblReceiveNotifications.text = StringProfile.receiveNotifications
         lblShareLocation.text = StringProfile.shareLocation
         lblShareUsageWithProvider.text = StringProfile.shareUsageWithProvider
-
+        doGetProfileData()
     }
     override func viewWillAppear(_ animated: Bool) {
+        switchLocation.setOn(UserDefaultManager.isLocationOn, animated: true)
+        switchNotification.setOn(UserDefaultManager.isNotificationOn, animated: true)
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
@@ -94,7 +102,16 @@ class ProfileVC: BaseVC {
   
     }
     
-     func setRootLogin() {
+  
+    
+    @IBAction func onChangeSwitch(_ sender: UISwitch) {
+        if sender.tag == SwitchButtonsTag.switchNotification.rawValue {
+            UserDefaultManager.isNotificationOn = sender.isOn
+        } else if sender.tag == SwitchButtonsTag.switchLocation.rawValue {
+            UserDefaultManager.isLocationOn = sender.isOn
+        }
+    }
+    func setRootLogin() {
          BLEHelper.shared.cleanup()
          removeUser()
          let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
@@ -104,5 +121,26 @@ class ProfileVC: BaseVC {
          UIApplication.shared.windows.first?.rootViewController = nav
          UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
+    
+    private func doGetProfileData() {
+        CommonFunctions.showGlobalProgressHUD(self)
+        profileVM.doGetProfile { [weak self] result in
+            guard let `self` = self else { return }
+            CommonFunctions.hideGlobalProgressHUD(self)
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                self.lblEmail.text =  self.profileVM.userData.user?.emailAddress ?? StringCommonMessages.notSet
+                self.lblProvider.text = "Provider: \(self.profileVM.userData.user?.providerName ?? StringCommonMessages.notSet)"
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
+        }
+    }
    
+}
+
+enum SwitchButtonsTag: Int {
+    case switchNotification = 0
+    case switchLocation = 1
 }

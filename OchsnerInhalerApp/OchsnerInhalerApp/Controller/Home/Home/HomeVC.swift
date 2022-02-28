@@ -43,14 +43,18 @@ class HomeVC: BaseVC {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
-        if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
-            BLEHelper.shared.getAccuationNumber()
-        }
+        self.getAccuationLog()
         BLEHelper.shared.apiCallForAccuationlog()
         // doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
 
         initUI()
 
+    }
+    
+    func getAccuationLog() {
+        if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
+            BLEHelper.shared.getAccuationNumber()
+        }
     }
     @objc func tapNotification() {
         
@@ -84,6 +88,7 @@ class HomeVC: BaseVC {
     
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
+        self.getAccuationLog()
         refreshControl.endRefreshing()
         initTableview()
         doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
@@ -241,15 +246,15 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                     cell.stackViewArray[index].addArrangedSubview(label)
                   
                     for  indexSub in 1...item.denominator! {
-//                        let view = UIView()
-//                       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
-//                        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
-//                        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
-//                        view.layer.borderWidth = 1
-//                        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
-//                        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
-//                        view.layer.cornerRadius = 8
-//                        view.clipsToBounds = true
+                        let view = UIView()
+                       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+                        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
+                        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+                        view.layer.borderWidth = 1
+                        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+                        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+                        view.layer.cornerRadius = 8
+                        view.clipsToBounds = true
                         
                         let image = UIImageView()
                         image.heightAnchor.constraint(equalToConstant: 16).isActive = true
@@ -257,7 +262,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                         image.image = #imageLiteral(resourceName: "cross_dot")
                         
                         if indexSub <= item.numerator ?? 0 {
-                            cell.stackViewArray[index].addArrangedSubview(viewSelected)
+                            cell.stackViewArray[index].addArrangedSubview(view)
                         } else {
                             cell.stackViewArray[index].addArrangedSubview(image)
                         }

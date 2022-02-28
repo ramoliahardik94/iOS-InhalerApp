@@ -395,6 +395,9 @@
                                                                                     </label>
                                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rGZ-5u-JsV">
                                                                                         <rect key="frame" x="286" y="0.66666666666668561" width="51" height="31"/>
+                                                                                        <connections>
+                                                                                            <action selector="onChangeSwitch:" destination="6vb-2b-xsQ" eventType="valueChanged" id="fgE-yY-Qpo"/>
+                                                                                        </connections>
                                                                                     </switch>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -417,8 +420,11 @@
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0FM-lV-tA9">
+                                                                                    <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0FM-lV-tA9">
                                                                                         <rect key="frame" x="286" y="0.66666666666668561" width="51" height="31"/>
+                                                                                        <connections>
+                                                                                            <action selector="onChangeSwitch:" destination="6vb-2b-xsQ" eventType="valueChanged" id="zW5-3m-Cpc"/>
+                                                                                        </connections>
                                                                                     </switch>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -555,6 +561,8 @@
                         <outlet property="lblShareLocation" destination="Cd1-b9-14J" id="cXF-xZ-Xir"/>
                         <outlet property="lblShareUsageWithProvider" destination="qAv-bV-hbd" id="WIj-Yk-dRi"/>
                         <outlet property="lblUseFaceID" destination="g3Z-n2-VOb" id="rrF-Jo-YBR"/>
+                        <outlet property="switchLocation" destination="0FM-lV-tA9" id="1nw-Ip-GRU"/>
+                        <outlet property="switchNotification" destination="rGZ-5u-JsV" id="KWY-jX-FKe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyY-l8-e6G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
