@@ -59,13 +59,13 @@ class APIManager {
                 }
             }
         }
-        if let theJSONData = try? JSONSerialization.data(
-            withJSONObject: parameters,
-            options: []) {
-            let theJSONText = String(data: theJSONData,
-                                       encoding: .ascii)
-            print("JSON string = \(theJSONText!)")
-        }
+//        if let theJSONData = try? JSONSerialization.data(
+//            withJSONObject: parameters,
+//            options: []) {
+//            let theJSONText = String(data: theJSONData,
+//                                       encoding: .ascii)
+//            print("JSON string = \(theJSONText!)")
+//        }
         Logger.logInfo("\nURL:\(route)\n Method:\(method)\nParameters: \(parameters)\nHeaders:\(appHeader)")
         var url = route
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
@@ -82,7 +82,7 @@ class APIManager {
             
             let statusCode = response.response?.statusCode
             if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {
-                Logger.logInfo("Response :: success :: \(String(describing: response.value))")
+                Logger.logInfo("Response :: success ::  \(String(describing: response.value))")
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {

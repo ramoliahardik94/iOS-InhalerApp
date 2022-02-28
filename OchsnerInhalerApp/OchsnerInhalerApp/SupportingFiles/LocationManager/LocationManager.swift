@@ -88,8 +88,7 @@ class LocationManager: CLLocationManager {
         return ssid
     }
     
-    @objc func applicationDidBecomeActive() {
-        NotificationCenter.default.removeObserver(self)
+    @objc func applicationDidBecomeActive() {       
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             permissionCompletion?(.authorizedWhenInUse)
@@ -111,8 +110,8 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
+//        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        // print("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
         cordinate = manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         if self.locationCompletion != nil {
             self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
