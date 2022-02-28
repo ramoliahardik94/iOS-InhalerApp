@@ -35,7 +35,7 @@ class ProfileVC: BaseVC {
         
         
         setupButton(button: btnUpdateEmail, title: StringProfile.updateEmail)
-        setupButton(button: btnChangePassword, title: StringProfile.changePassword)
+       // setupButton(button: btnChangePassword, title: StringProfile.changePassword)
         setupButton(button: btnLogout, title: StringProfile.logOut)
         setupButton(button: btnChangeProvider, title: StringProfile.changeProvider)
         setupButton(button: btnRemoveProvider, title: StringProfile.remove)
@@ -58,7 +58,7 @@ class ProfileVC: BaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         switchLocation.setOn(UserDefaultManager.isLocationOn, animated: true)
-        switchNotification.setOn(UserDefaultManager.isNotificationOn, animated: true)
+     //   switchNotification.setOn(UserDefaultManager.isNotificationOn, animated: true)
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
@@ -107,8 +107,14 @@ class ProfileVC: BaseVC {
     @IBAction func onChangeSwitch(_ sender: UISwitch) {
         if sender.tag == SwitchButtonsTag.switchNotification.rawValue {
             UserDefaultManager.isNotificationOn = sender.isOn
+           // profileVM.getAllCalenderEvent()
         } else if sender.tag == SwitchButtonsTag.switchLocation.rawValue {
             UserDefaultManager.isLocationOn = sender.isOn
+            if sender.isOn {
+                _ = LocationManager()
+            } else {
+                LocationManager.shared.offLocation()
+            }
         }
     }
     func setRootLogin() {
@@ -137,7 +143,9 @@ class ProfileVC: BaseVC {
             }
         }
     }
+  
    
+    
 }
 
 enum SwitchButtonsTag: Int {

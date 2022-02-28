@@ -107,7 +107,7 @@ struct StringProfile {
     static let name = "Name"
     static let  updateEmail = "Update Email"
     static let  changePassword = "Change Password"
-    static let  logOut = "Log Out"
+    static let  logOut = "Logout"
     static let  changeProvider = "Change Provider"
     static let  remove = "Remove"
     static let  settings = "Settings"
@@ -209,6 +209,7 @@ struct StringDevices {
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
+    static let yourNextDose = "Your Next Dose is at"
     
 }
 

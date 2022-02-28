@@ -99,6 +99,11 @@ class LocationManager: CLLocationManager {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    func offLocation() {
+        LocationManager.shared.locationManager.stopUpdatingLocation()
+        LocationManager.shared.locationManager.delegate = nil
+        LocationManager.shared.cordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    }
 }
 
 // MARK: - CLLocationManagerDelegate

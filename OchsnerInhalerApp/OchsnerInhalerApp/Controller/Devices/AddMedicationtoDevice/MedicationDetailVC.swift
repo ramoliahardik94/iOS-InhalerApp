@@ -134,6 +134,8 @@ class MedicationDetailVC: BaseVC {
         if swReminder.isOn {
             setReminders()
         }
+        
+        return
         if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
             medicationVM.apiAddDevice { [weak self] result in
                 guard let `self` = self else { return }
@@ -196,19 +198,16 @@ class MedicationDetailVC: BaseVC {
                 dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
                 if let date = dateFormatter.date(from: strDate) {
                     let event: EKEvent = EKEvent(eventStore: appleEventStore)
-                    event.title = "Your Next Dose is on \(obj)."
+                    event.title = "\(StringDevices.yourNextDose) \(obj)."
                     event.startDate = date
-                    event.endDate = date.addingTimeInterval(525600) // 525600 One year time interval
+                    event.endDate = date.addingTimeInterval(315360000) // 525600 One year time interval
                     event.isAllDay = true
-                    event.notes = "This is a note"
-                    
+                    event.notes = ""
                     event.calendar = appleEventStore.defaultCalendarForNewEvents
-                    
                     let alarm = EKAlarm(absoluteDate: date.addingTimeInterval(-300)) // Before 5 min alarm is show
                     event.addAlarm(alarm)
                     do {
                         try appleEventStore.save(event, span: .thisEvent)
-                        
                         print("events added with dates:")
                         
                     } catch {

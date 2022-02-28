@@ -206,18 +206,17 @@
                                                                                 <rect key="frame" x="0.0" y="25" width="268" height="32"/>
                                                                                 <subviews>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2V-6s-cyc">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="32"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="32"/>
                                                                                         <constraints>
-                                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="46" id="r0x-AH-Kqi"/>
+                                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="r0x-AH-Kqi"/>
                                                                                         </constraints>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                                        <state key="normal" title="Button"/>
                                                                                         <connections>
                                                                                             <action selector="tapChangePassword:" destination="6vb-2b-xsQ" eventType="touchUpInside" id="TZs-5o-Gj4"/>
                                                                                         </connections>
                                                                                     </button>
-                                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWg-j2-vba">
-                                                                                        <rect key="frame" x="54" y="6" width="1" height="20"/>
+                                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWg-j2-vba">
+                                                                                        <rect key="frame" x="38" y="6" width="1" height="20"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="1" id="FtR-lh-vvC"/>
@@ -225,7 +224,7 @@
                                                                                         </constraints>
                                                                                     </view>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylE-Ui-NUc">
-                                                                                        <rect key="frame" x="63" y="0.0" width="46" height="32"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="32"/>
                                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                                         <state key="normal" title="Button"/>
                                                                                         <connections>
@@ -242,9 +241,9 @@
                                                                                     <constraint firstItem="g2V-6s-cyc" firstAttribute="top" secondItem="8fe-bn-q7P" secondAttribute="top" id="ViO-fg-H7f"/>
                                                                                     <constraint firstItem="mWg-j2-vba" firstAttribute="centerY" secondItem="g2V-6s-cyc" secondAttribute="centerY" id="Wms-b6-s4u"/>
                                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ylE-Ui-NUc" secondAttribute="trailing" constant="4" id="act-qd-ZoK"/>
+                                                                                    <constraint firstItem="ylE-Ui-NUc" firstAttribute="leading" secondItem="8fe-bn-q7P" secondAttribute="leading" id="gRj-Yk-88A"/>
                                                                                     <constraint firstAttribute="bottom" secondItem="g2V-6s-cyc" secondAttribute="bottom" id="otj-z5-3aM"/>
                                                                                     <constraint firstAttribute="bottom" secondItem="ylE-Ui-NUc" secondAttribute="bottom" id="qHe-Wj-TcB"/>
-                                                                                    <constraint firstItem="ylE-Ui-NUc" firstAttribute="leading" secondItem="mWg-j2-vba" secondAttribute="trailing" constant="8" id="rjo-hC-3oJ"/>
                                                                                 </constraints>
                                                                             </view>
                                                                         </subviews>
@@ -567,7 +566,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyY-l8-e6G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2882" y="79"/>
+            <point key="canvasLocation" x="2880.8000000000002" y="78.325123152709367"/>
         </scene>
         <!--Custom SplashVC-->
         <scene sceneID="JQu-hc-TyS">
