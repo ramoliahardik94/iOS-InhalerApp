@@ -52,7 +52,8 @@ enum FontType {
 enum AddDeviceSteps {
     case step1 // "Add Device"
     case step2 // "Remove battery Isolation tag"
-    case step3 // "Pair Device"
-    case step4 // "Mount device to inhaler"
-    case step5 // "let us now what inhaler medicine into"
+    case step3 // "scan Device"
+    case step4 // "Pair Device"
+    case step5 // "Mount device to inhaler"
+    case step6 // "let us now what inhaler medicine into"
  }

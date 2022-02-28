@@ -18,7 +18,9 @@ extension BLEHelper {
             centralManager.scanForPeripherals(withServices: nil, options: nil)
         } else {
         // TODO:  Replace hear Service array make a param if needed then
-            centralManager.scanForPeripherals(withServices: nil, options: nil)
+            DispatchQueue.global(qos: .background).sync {
+                centralManager.scanForPeripherals(withServices: nil, options: nil)
+            }
         }
     }
     

@@ -25,7 +25,7 @@ class AddDeviceIntroVC: BaseVC {
     var step: AddDeviceSteps = .step1
     var isFromAddAnother = false
     var isFromDeviceList = false
-    
+    // MARK: - ViewController lifeCycal Functions
      override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,6 +36,19 @@ class AddDeviceIntroVC: BaseVC {
         self.setVC()
     }
     
+    
+    deinit {
+        BLEHelper.shared.stopTimer()
+        NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLEDisconnect, object: nil)
+        
+    }
+    
+    // MARK: - UI SetUp functions
+    /// Step2 and Step3 is combind so no need of this step as of now.
     func setUpUIBaseonStep() {
         self.navigationController?.isNavigationBarHidden = true
         paringLoader.isHidden = true
@@ -59,80 +72,51 @@ class AddDeviceIntroVC: BaseVC {
             btnStartSetUp.setButtonView(StringAddDevice.next)
      
         case .step3:
-            paringLoader.isHidden = false
-            lblGreat.text = StringAddDevice.connectDevice
-            imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
+            lblGreat.text = StringAddDevice.removeIsolationTag
+            imgAddDevice.image = #imageLiteral(resourceName: "removeTag")
             lblAddDevice.isHidden  = true
-//            let attributeString1 =  NSMutableAttributedString()
-//                .bold("1. Scanning")
-//                .normal(" - Your Device is being scanned right now. Please wait!\n\n")
-           
-            let attributeString =  NSMutableAttributedString()
-                .bold("1. Scanning")
-                .normal(" - Your device is being scanned right now. This may take few seconds.\n\n")
-                .bold("2. Pair Device")
-                .normal(" - Once enabled,")
-                .italic("Tap 3 times on the device")
-                .italic(" and within 5 seconds")
-                .normal(" click \"Pair Device\". \n\n")
-                .bold("3. Pairing")
-                .normal(" - Your device is being paired.")
+            lbldeviceInfo.text = StringAddDevice.removeIsolationTagWithScan
+            BLEHelper.shared.isAddAnother = true
+            BLEHelper.shared.discoveredPeripheral = nil
             
-           
-//            let attributeString2 =  NSMutableAttributedString()
-//                .bold("1. Scanning")
-//                .normal(" - Your Device is being scanned right now. Please wait!\n\n")
-//                .bold("2. Pair Device")
-//                .normal(" - Once enabled,")
-//            UIView.transition(with: lbldeviceInfo,
-//                              duration: 0.75,
-//                           options: .transitionCrossDissolve,
-//                        animations: { [weak self] in
-//                self?.lbldeviceInfo.attributedText = attributeString1
-//            }, completion: { [self] _ in
-//                         UIView.transition(with: lbldeviceInfo,
-//                                           duration: 1,
-//                                        options: .transitionCrossDissolve,
-//                                     animations: { [weak self] in
-//                             self?.lbldeviceInfo.attributedText = attributeString2
-//                         }, completion: { [self] _ in
-//                                      UIView.transition(with: lbldeviceInfo,
-//                                                    duration: 0.75,
-//                                                     options: .transitionCrossDissolve,
-//                                                  animations: { [weak self] in
-//                                          self?.lbldeviceInfo.attributedText = attributeString
-//                                               }, completion: nil)
-//                                  })
-//                     })
+//            lbldeviceInfo.text = StringAddDevice.scanInstructionOne // StringAddDevice.connectDeviceInfo
+//            lblGreat.text = StringAddDevice.scanDevicetitle
             
-            
-//            1. \"Scanning\" - Your Device is being scanned right now. Please wait! \n\n 2. \"Pair Device\" - Once enabled, Tap 3 times on the Device and click \"Pair Device\" within 5 seconds of tapping. \n\n 3. \"Pairing\" - Your Device is being paired."
-            
-            lbldeviceInfo.attributedText = attributeString // StringAddDevice.connectDeviceInfo
-            lbldeviceInfo.textAlignment = .left
-            
-            btnStartSetUp.setButtonView(StringAddDevice.scanningDevice)
-            btnStartSetUp.isEnabled = false
-            btnStartSetUp.backgroundColor = .gray
+            paringLoader.isHidden = true
+            btnStartSetUp.setButtonView(StringAddDevice.scanDevice)
+            btnStartSetUp.isEnabled = true
+            btnStartSetUp.backgroundColor = .ButtonColorBlue
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerFound(notification:)), name: .BLEFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotFound(notification:)), name: .BLENotFound, object: nil)
+                      
+        case .step4:
+            lblGreat.text = StringAddDevice.connectDevice
+            imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
+            lblAddDevice.isHidden  = true
+            
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLENotConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
+ 
             
-            scanBLE()
+            lbldeviceInfo.text = StringAddDevice.pairScreen
+            lbldeviceInfo.textAlignment = .center
             
-        case .step4:
+            btnStartSetUp.setButtonView(StringAddDevice.pairDevice)
+            btnStartSetUp.isEnabled = true
+            btnStartSetUp.backgroundColor = .ButtonColorBlue
+            paringLoader.isHidden = true
+            paringLoader.stopAnimating()
+            
+        case .step5:
             lblGreat.text = StringAddDevice.mountDevice
             imgAddDevice.image = #imageLiteral(resourceName: "mount")
-          //  lblAddDevice.text = ""
             lblAddDevice.isHidden  = true
             lbldeviceInfo.text = StringAddDevice.mountDeviceInfo
             btnStartSetUp.setButtonView(StringAddDevice.next)
-           
-            
-        case .step5:
+                       
+        case .step6:
             lblGreat.text = StringAddDevice.great
             imgAddDevice.image = #imageLiteral(resourceName: "medication")
             let attributedString = attributedText(withString: StringAddDevice.medicationInfo, boldString: StringAddDevice.ConnectedInhalerSensor, font: UIFont(name: AppFont.AppRegularFont, size: 17)!)
@@ -155,17 +139,90 @@ class AddDeviceIntroVC: BaseVC {
     func scanBLE() {
         paringLoader.isHidden = false
         paringLoader.startAnimating()
-        btnStartSetUp.isEnabled = false        
-        btnStartSetUp.backgroundColor = .gray
+        btnStartSetUp.isEnabled = false
+        btnStartSetUp.backgroundColor = .ButtonColorBlue
         BLEHelper.shared.isAddAnother = true
         BLEHelper.shared.scanPeripheral(isTimer: true)
     }
+   // MARK: - IBActions related Functions
+    @IBAction func btnBackClick(_ sender: Any) {
+        popVC()
+    }
+    
+    @IBAction func btnNextClick(_ sender: UIButton) {
+        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        switch step {
+        case .step1:
+            addDeviceIntroVC.step = .step3
+            addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
+            pushVC(controller: addDeviceIntroVC)
+        case .step2:
+            addDeviceIntroVC.step = .step3
+            addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
+            pushVC(controller: addDeviceIntroVC)
+        case .step3:
+                BLEHelper.shared.scanPeripheral(isTimer: true)
+                btnStartSetUp.setButtonView(StringAddDevice.scanningDevice)
+                btnStartSetUp.isEnabled = false
+                btnStartSetUp.backgroundColor = .ButtonColorBlue
+                paringLoader.isHidden = false
+                paringLoader.startAnimating()
+                BLEHelper.shared.scanPeripheral()
+        case .step4:
+            BLEHelper.shared.stopTimer()
+            BLEHelper.shared.isConnected = false
+            BLEHelper.shared.connectPeriPheral()
+            paringLoader.isHidden = false
+            paringLoader.startAnimating()
+            btnStartSetUp.setButtonView(StringAddDevice.pairingDevice)
+            btnStartSetUp.isEnabled = false
+            btnStartSetUp.backgroundColor = .ButtonColorBlue
+        case .step5:
+            addDeviceIntroVC.step = .step6
+            addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
+            pushVC(controller: addDeviceIntroVC)
+        case .step6:
+            let medicationVC = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+            medicationVC.isFromDeviceList = isFromDeviceList
+            if isFromDeviceList {
+                pushVC(controller: medicationVC)
+            } else {
+                rootVC(controller: medicationVC)
+            }
+            
+        }
+        
+    }
+    
+    @IBAction func btnConnectClick(_ sender: UIButton) {
+        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        addDeviceIntroVC.step = .step4
+        addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+        pushVC(controller: addDeviceIntroVC)
+    }
+
+}
+// MARK: - Notification Functions
+extension AddDeviceIntroVC {
     @objc func inhalerFound(notification: Notification) {
-        btnStartSetUp.setButtonView(StringAddDevice.pairDevice)
-        btnStartSetUp.isEnabled = true
-        btnStartSetUp.backgroundColor = .ButtonColorBlue
-        paringLoader.stopAnimating()
+        
+//        btnStartSetUp.setButtonView(StringAddDevice.next)
+//        btnStartSetUp.isEnabled = true
+//        btnStartSetUp.backgroundColor = .ButtonColorBlue
+//        lbldeviceInfo.text = StringAddDevice.scanInstructionTwo //        btnStartSetUp.setButtonView(StringAddDevice.pairDevice)
         paringLoader.isHidden = true
+        paringLoader.stopAnimating()
+        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        addDeviceIntroVC.step = .step4
+        addDeviceIntroVC.isFromAddAnother = isFromAddAnother
+        addDeviceIntroVC.isFromDeviceList = isFromDeviceList
+        pushVC(controller: addDeviceIntroVC)
+        
+
+
     }
     @objc func inhalerNotConnect(notification: Notification) {
         btnStartSetUp.isEnabled = false
@@ -198,76 +255,9 @@ class AddDeviceIntroVC: BaseVC {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         BLEHelper.shared.setRTCTime()
         BLEHelper.shared.getBetteryLevel()
-        addDeviceIntroVC.step = .step4
+        addDeviceIntroVC.step = .step5
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
         addDeviceIntroVC.isFromDeviceList = isFromDeviceList
         pushVC(controller: addDeviceIntroVC)
-    }
-    @IBAction func btnBackClick(_ sender: Any) {
-        popVC()
-    }
-    
-    @IBAction func btnNextClick(_ sender: UIButton) {
-        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        switch step {
-        case .step1:
-            addDeviceIntroVC.step = .step2
-            addDeviceIntroVC.isFromAddAnother = isFromAddAnother
-            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
-            pushVC(controller: addDeviceIntroVC)
-        case .step2:
-            addDeviceIntroVC.step = .step3
-            addDeviceIntroVC.isFromAddAnother = isFromAddAnother
-            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
-            pushVC(controller: addDeviceIntroVC)
-        case .step3:
-            BLEHelper.shared.stopTimer()
-            BLEHelper.shared.isConnected = false
-            BLEHelper.shared.connectPeriPheral()
-            paringLoader.isHidden = false
-            paringLoader.startAnimating()
-            btnStartSetUp.setButtonView(StringAddDevice.pairingDevice)
-            btnStartSetUp.isEnabled = false
-            btnStartSetUp.backgroundColor = .ButtonColorBlue
-        case .step4:
-            addDeviceIntroVC.step = .step5
-            addDeviceIntroVC.isFromAddAnother = isFromAddAnother
-            addDeviceIntroVC.isFromDeviceList = isFromDeviceList
-            pushVC(controller: addDeviceIntroVC)
-        case .step5:
-            let medicationVC = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            medicationVC.isFromDeviceList = isFromDeviceList
-            if isFromDeviceList {
-                pushVC(controller: medicationVC)
-            } else {
-                rootVC(controller: medicationVC)
-            }
-            
-        }
-        
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    @IBAction func btnConnectClick(_ sender: UIButton) {
-        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        addDeviceIntroVC.step = .step4
-        addDeviceIntroVC.isFromAddAnother = isFromAddAnother
-        pushVC(controller: addDeviceIntroVC)
-    }
-    
-    deinit {
-        BLEHelper.shared.stopTimer()
-        NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .BLEDisconnect, object: nil)
     }
 }

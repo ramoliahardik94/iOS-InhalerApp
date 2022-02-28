@@ -17,8 +17,7 @@ class CustomSplashVC: BaseVC {
     var isTime = false
     override func viewDidLoad() {
         
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)        
-        
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
@@ -37,7 +36,7 @@ class CustomSplashVC: BaseVC {
                 BLEHelper.shared.setDelegate()
                 BLEHelper.shared.scanPeripheral()
                 BLEHelper.shared.apiCallDeviceUsage()
-                LocationManager()
+                _ = LocationManager()
          }
         
     }
@@ -63,7 +62,6 @@ class CustomSplashVC: BaseVC {
         } else {
             let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
             // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            
             rootVC(controller: loginVC)
         }
     }
@@ -73,10 +71,7 @@ class CustomSplashVC: BaseVC {
         BLEHelper.shared.isAllowed { [weak self] isAllow in
             guard let `self` = self else { return }
             
-            if isAllow && self.isTime {
-                
-//                BLEHelper.shared.scanPeripheral()
-               
+            if isAllow && self.isTime {                
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
