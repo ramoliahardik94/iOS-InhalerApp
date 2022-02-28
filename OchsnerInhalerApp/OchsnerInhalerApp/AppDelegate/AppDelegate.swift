@@ -7,28 +7,27 @@
 
 import UIKit
 import CoreData
+import EventKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
+    var eventStore: EKEventStore?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         // Override point for customization after application launch.
+        navigationBarUI()
         
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().barTintColor = .ButtonColorBlue
-        UINavigationBar.appearance().isTranslucent = false
-            UINavigationBar.appearance().clipsToBounds = false
-        UINavigationBar.appearance().backgroundColor = .ButtonColorBlue
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: (UIFont(name: AppFont.AppBoldFont, size: 18))!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        NotificationCenter.default.addObserver(self, selector: #selector(backgroundCall), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(foregroundCall), name: UIApplication.didBecomeActiveNotification, object: nil)
         
-        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         if paths.count != 0 {
-            print("Document Directory : ", paths[0] )
+            print("Library Directory : ", paths[0] )
         }
+        
         if UserDefaultManager.isNotificationOn {
             NotificationManager.shared.register()
         }
@@ -93,5 +92,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    @objc func foregroundCall() {
+        print("App moved to foreground")
+//        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
+//            if BLEHelper.shared.discoveredPeripheral != nil {
+//                switch BLEHelper.shared.discoveredPeripheral!.state {
+//                case .disconnected:
+//                    BLEHelper.shared.connectPeriPheral()
+//                default:
+//                    break
+//                }
+//            }
+//        }
+    }
+    
+    @objc func backgroundCall() {
+       print("App moved to background!")
+    }
+    
+    func navigationBarUI() {
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: UIBarMetrics.default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().barTintColor = .ButtonColorBlue
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().clipsToBounds = false
+        UINavigationBar.appearance().backgroundColor = .ButtonColorBlue
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: (UIFont(name: AppFont.AppBoldFont, size: 18))!, NSAttributedString.Key.foregroundColor: UIColor.white]
+    }
 }

@@ -19,6 +19,7 @@ extension BLEHelper: CBPeripheralDelegate {
         // Deal with errors (if any)
         if let error = error {
            print("Error discovering characteristics: %s", error.localizedDescription)
+            
             return
         }
         
@@ -27,6 +28,7 @@ extension BLEHelper: CBPeripheralDelegate {
         print(stringFromData)
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
+            Logger.logInfo("Mac Address: \(addressMAC)")
             NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
         } else {
             var arrResponce = stringFromData.split(separator: ":")
@@ -44,11 +46,11 @@ extension BLEHelper: CBPeripheralDelegate {
                 } else {
                     apiCallForAccuationlog()
                 }
-                print("Number Of Acuation log : \(accuationLog)")
+                Logger.logInfo("Number Of Acuation log : \(accuationLog)")
                 NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(accuationLog)"])
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
-                print("Acuation log : \(log)")
+                Logger.logInfo("Acuation log : \(log)")
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
                                                     ["Id": (log.id),
                                                      "date": "\(log.date)",
@@ -155,6 +157,7 @@ extension BLEHelper {
                 self.getBetteryLevel()
                 self.getAccuationNumber()
 //                self.timerAccuation = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getAccuationNumber), userInfo: nil, repeats: true)
+                Logger.logInfo("BLEConnect with idebtifyer \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
         })

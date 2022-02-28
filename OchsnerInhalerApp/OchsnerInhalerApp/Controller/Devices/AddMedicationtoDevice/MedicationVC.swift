@@ -48,7 +48,8 @@ class MedicationVC: BaseVC {
         lblmedicationType.text = StringMedication.inhealerType
         btnRescue.titleLabel?.font = UIFont(name: AppFont.SFProTextBold, size: 14)
         btnMantainance.titleLabel?.font = UIFont(name: AppFont.SFProTextBold, size: 14)
-        
+        btnRescue.isSelected = true
+        btnMantainance.isSelected = false
         btnRescue.backgroundColor = .Colorcell
         btnRescue.isOchsnerView = true
         
@@ -78,7 +79,9 @@ class MedicationVC: BaseVC {
     @IBAction func btnNextClick(_ sender: UIButton) {
         if selectedIndex != nil {
             if btnRescue.isSelected {
-                medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                if BLEHelper.shared.discoveredPeripheral != nil {
+                    medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                }
                 UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
                  medicationVM.apiAddDevice { [weak self] result in
                     guard let `self` = self else { return }

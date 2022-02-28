@@ -24,18 +24,12 @@ class BLEHelper: NSObject {
     var isAllow = false
     var timer: Timer!
     var isAddAnother = false
-    var accuationLog : Decimal = 0
-//    var timerAccuation: Timer!
+    var accuationLog: Decimal = 0
     
     func setDelegate() {
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
     }
-    
-    
-    // MARK: Function declarations
-    // / This function is used for starScan of peripheral base on service(CBUUID) UUID
-    // /
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
         completion(isAllow)
