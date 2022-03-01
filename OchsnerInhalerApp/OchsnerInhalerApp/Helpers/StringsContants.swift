@@ -205,7 +205,7 @@ struct StringPermissions {
 // MARK: Device
 struct StringDevices {
     static let pairedDevice = "Paired Device"
-    static let removeDevice = "Remove This Device"
+    static let removeDevice = "Remove Device"
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"

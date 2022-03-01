@@ -163,6 +163,9 @@ class HomeVC: BaseVC {
         
     }
 
+    override func viewWillLayoutSubviews() {
+        tbvDeviceData.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: viewMainTableview.frame.size.height)
+    }
 }
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
