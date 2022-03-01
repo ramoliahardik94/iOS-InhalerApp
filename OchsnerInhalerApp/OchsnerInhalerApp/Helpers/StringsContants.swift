@@ -53,6 +53,7 @@ struct AppFont {
 struct StringUserManagement {
     static let login = "Login"
     static let createAccount = "Create Account"
+    static let forgotePass = "Forgot password"
     static let updateProfile = "Update Profile"
     static let update = "Update"
     static let usePassword = "Use Password"

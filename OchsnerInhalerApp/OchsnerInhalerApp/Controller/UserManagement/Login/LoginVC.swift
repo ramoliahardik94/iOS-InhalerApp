@@ -9,6 +9,7 @@ import UIKit
 
 class LoginVC: BaseVC {
 
+    @IBOutlet weak var btnForgotePsw: UIButton!
     @IBOutlet weak var lblLogin: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnCreateAccount: UIButton!
@@ -50,6 +51,7 @@ class LoginVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
+        btnForgotePsw.setTitle(StringUserManagement.forgotePass, for: .normal)
         #if DEBUG
         
         tfEmail.text = "nikita@gmail.com"
@@ -125,11 +127,32 @@ class LoginVC: BaseVC {
                 CommonFunctions.showMessage(message: message)
             }
         }
-        
-        
       
     }
     
+    @IBAction func btnForgotPassClick(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: StringUserManagement.forgotePass, message: "", preferredStyle: .alert)
+
+        alertController.addTextField { (textField: UITextField!) -> Void in
+            textField.placeholder = "Enter Email"
+            textField.text = self.login.loginModel.email
+        }
+
+        let saveAction = UIAlertAction(title: "Send email", style: .default, handler: { _ -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            print(firstTextField.text!)
+    
+        })
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
+
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
     @IBAction func tapCreateAccount(_ sender: UIButton) {
         let createAccoutVC  = CreateAccoutVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(controller: createAccoutVC)
