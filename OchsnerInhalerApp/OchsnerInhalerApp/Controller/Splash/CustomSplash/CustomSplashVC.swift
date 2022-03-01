@@ -36,9 +36,10 @@ class CustomSplashVC: BaseVC {
                 BLEHelper.shared.setDelegate()
                 BLEHelper.shared.scanPeripheral()
                 BLEHelper.shared.apiCallDeviceUsage()
+            if UserDefaultManager.isLocationOn {
                 _ = LocationManager()
+            }
          }
-        
     }
     
     @objc func didFinishTimer() {
