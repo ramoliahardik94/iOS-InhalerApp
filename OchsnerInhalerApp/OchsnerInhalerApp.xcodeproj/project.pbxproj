@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2213838627BCB3DE00D4BFA0 /* AcuationLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2213838427BCB3DD00D4BFA0 /* AcuationLog+CoreDataProperties.swift */; };
 		2213838727BCB3DE00D4BFA0 /* AcuationLog+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2213838527BCB3DE00D4BFA0 /* AcuationLog+CoreDataClass.swift */; };
+		221B3C1D27CCAADD00A3AFD6 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B3C1C27CCAADD00A3AFD6 /* ProfileVM.swift */; };
+		221B3C1F27CCAC4600A3AFD6 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B3C1E27CCAC4600A3AFD6 /* ProfileModel.swift */; };
 		224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */; };
 		224E1C992797F53A000C5D1A /* ManageDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */; };
 		224E1C9D27981AB7000C5D1A /* HomeDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224E1C9B27981AB7000C5D1A /* HomeDeviceCell.swift */; };
@@ -129,6 +131,8 @@
 		212586064C4682A1CC8CF618 /* Pods-OchsnerInhalerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.debug.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2213838427BCB3DD00D4BFA0 /* AcuationLog+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AcuationLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2213838527BCB3DE00D4BFA0 /* AcuationLog+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AcuationLog+CoreDataClass.swift"; sourceTree = "<group>"; };
+		221B3C1C27CCAADD00A3AFD6 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
+		221B3C1E27CCAC4600A3AFD6 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		224E1C962797F53A000C5D1A /* ManageDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceCell.swift; sourceTree = "<group>"; };
 		224E1C972797F53A000C5D1A /* ManageDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageDeviceCell.xib; sourceTree = "<group>"; };
 		224E1C9B27981AB7000C5D1A /* HomeDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDeviceCell.swift; sourceTree = "<group>"; };
@@ -508,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				22AE9700278EAA8D00C0D851 /* ProfileVC.swift */,
+				221B3C1C27CCAADD00A3AFD6 /* ProfileVM.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -565,13 +570,6 @@
 			path = AddMedicationtoDevice;
 			sourceTree = "<group>";
 		};
-		4725F20F2798091300BBDA28 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		472DC2422795328D008E0060 /* ProviderListCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,7 +594,6 @@
 		47C1FEE727958ECB007C6F16 /* AddDevice */ = {
 			isa = PBXGroup;
 			children = (
-				4725F20F2798091300BBDA28 /* Cell */,
 				47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */,
 				4725F2102798093000BBDA28 /* BLEDeviceCell.swift */,
 				4725F20D2797FE4300BBDA28 /* AddAnotherDeviceVC.swift */,
@@ -661,6 +658,7 @@
 				22FC2E0727B76D2700ABE886 /* ProviderModel.swift */,
 				47E1662727BBB857004A2006 /* DeviceModel.swift */,
 				22CA52A727C34EF50031BDE7 /* DashboardModel.swift */,
+				221B3C1E27CCAC4600A3AFD6 /* ProfileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -971,6 +969,7 @@
 				47CDCE93278D89C30014527D /* APIManager.swift in Sources */,
 				47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */,
 				227197C0278FFFA20014BC3E /* ConnectProviderVC.swift in Sources */,
+				221B3C1D27CCAADD00A3AFD6 /* ProfileVM.swift in Sources */,
 				47CDCE79278D89210014527D /* MobileDeviceManager.swift in Sources */,
 				472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */,
 				47CDCE89278D89210014527D /* GlobalStoryboards.swift in Sources */,
@@ -1008,6 +1007,7 @@
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
 				22FC2E0827B76D2700ABE886 /* ProviderModel.swift in Sources */,
+				221B3C1F27CCAC4600A3AFD6 /* ProfileModel.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
 				228B155727BFD93900B4527F /* Device+CoreDataProperties.swift in Sources */,
 				4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */,

@@ -16,6 +16,19 @@ class HomeVC: BaseVC {
     private var homeVM = HomeVM()
     var refreshControl = UIRefreshControl()
     
+    var viewSelected: UIView {
+        let view = UIView()
+       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
+        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+        view.layer.borderWidth = 1
+        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        return view
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -29,15 +42,19 @@ class HomeVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
-        if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
-            BLEHelper.shared.getAccuationNumber()
-        }
+      //  self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
+        self.getAccuationLog()
         BLEHelper.shared.apiCallForAccuationlog()
         // doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
 
         initUI()
 
+    }
+    
+    func getAccuationLog() {
+        if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
+            BLEHelper.shared.getAccuationNumber()
+        }
     }
     @objc func tapNotification() {
         
@@ -71,6 +88,7 @@ class HomeVC: BaseVC {
     
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
+        self.getAccuationLog()
         refreshControl.endRefreshing()
         initTableview()
         doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
@@ -79,9 +97,9 @@ class HomeVC: BaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
             //  print("")
-        DispatchQueue.main.async {
-            self.navigationController?.navigationBar.topItem?.rightBarButtonItems?.remove(at: 0)
-        }
+//        DispatchQueue.main.async {
+//            self.navigationController?.navigationBar.topItem?.rightBarButtonItems?.remove(at: 0)
+//        }
     }
     
     
@@ -145,6 +163,9 @@ class HomeVC: BaseVC {
         
     }
 
+    override func viewWillLayoutSubviews() {
+        tbvDeviceData.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: viewMainTableview.frame.size.height)
+    }
 }
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -209,18 +230,18 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                     label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
                     label.setFont(type: .regular, point: 14)
                 
-                    let date = Date()
-                    let day = date.getFormattedDate(format: "EE")
-                    let lastC = day.dropLast()
+//                    let date = Date()
+//                    let day = date.getFormattedDate(format: "EE")
+//                    let lastC = day.dropLast()
                     // print(lastC)
-                    if item.day?.lowercased()
-                        ?? "" == lastC.lowercased() {
-                        label.layer.borderWidth = 1
-                        label.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-                    } else {
-                        label.layer.borderWidth = 0
-                        label.layer.borderColor = UIColor.clear.cgColor // #8E8E93
-                    }
+//                    if item.day?.lowercased()
+//                        ?? "" == lastC.lowercased() {
+//                        label.layer.borderWidth = 1
+//                        label.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+//                    } else {
+//                        label.layer.borderWidth = 0
+//                        label.layer.borderColor = UIColor.clear.cgColor // #8E8E93
+//                    }
                     cell.stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
                     cell.stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
                     cell.stackViewArray[index].alignment = UIStackView.Alignment.center
@@ -229,7 +250,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                   
                     for  indexSub in 1...item.denominator! {
                         let view = UIView()
-                        view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+                       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+                        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
                         view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
                         view.layer.borderWidth = 1
                         view.heightAnchor.constraint(equalToConstant: 16).isActive = true
@@ -242,16 +264,22 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                         image.widthAnchor.constraint(equalToConstant: 16).isActive = true
                         image.image = #imageLiteral(resourceName: "cross_dot")
                         
-                        if item.day?.lowercased()
-                            ?? "" == lastC.lowercased() {
+                        if indexSub <= item.numerator ?? 0 {
                             cell.stackViewArray[index].addArrangedSubview(view)
                         } else {
-                            if indexSub <= item.numerator ?? 0 {
-                                cell.stackViewArray[index].addArrangedSubview(view)
-                            } else {
-                                cell.stackViewArray[index].addArrangedSubview(image)
-                            }
+                            cell.stackViewArray[index].addArrangedSubview(image)
                         }
+                        
+//                        if item.day?.lowercased()
+//                            ?? "" == lastC.lowercased() {
+//                            cell.stackViewArray[index].addArrangedSubview(view)
+//                        } else {
+//                            if indexSub <= item.numerator ?? 0 {
+//                                cell.stackViewArray[index].addArrangedSubview(view)
+//                            } else {
+//                                cell.stackViewArray[index].addArrangedSubview(image)
+//                            }
+//                        }
                     }
                     if maxvalu[0].denominator ?? 0 > item.denominator ?? 0 {
                         let valueOne = maxvalu[0].denominator ?? 0

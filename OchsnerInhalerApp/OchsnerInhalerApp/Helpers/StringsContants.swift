@@ -38,7 +38,7 @@ struct StringCommonMessages {
     static let  noDataFount = "No record found"
     static let  notSet = "Not set"
     static let  schedule = "Schedule"
-    
+    static let  privacyUrl = "https://connectedliving.ochsner.org/privacy.html"
 }
 struct AppFont {
     static let AppRegularFont = Constants.CustomFont.SFProTextRegular
@@ -108,7 +108,7 @@ struct StringProfile {
     static let name = "Name"
     static let  updateEmail = "Update Email"
     static let  changePassword = "Change Password"
-    static let  logOut = "Log Out"
+    static let  logOut = "Logout"
     static let  changeProvider = "Change Provider"
     static let  remove = "Remove"
     static let  settings = "Settings"
@@ -206,10 +206,11 @@ struct StringPermissions {
 // MARK: Device
 struct StringDevices {
     static let pairedDevice = "Paired Device"
-    static let removeDevice = "Remove This Device"
+    static let removeDevice = "Remove Device"
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
+    static let yourNextDose = "Your Next Dose is at"
     
 }
 
