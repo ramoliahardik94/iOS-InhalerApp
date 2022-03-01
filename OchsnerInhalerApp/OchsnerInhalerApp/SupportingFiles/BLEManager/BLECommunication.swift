@@ -11,7 +11,12 @@ import CoreBluetooth
 
 extension BLEHelper {
     
+    
+    /// For scan peripheral
+    /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
+    /// isTimer default value is false
     func scanPeripheral(isTimer: Bool = false) {
+        stopScanPeriphral()
         stopTimer()
         if isTimer {
             timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
@@ -24,18 +29,21 @@ extension BLEHelper {
         }
     }
     
-    func connectPeriPheral() {
-        print(discoveredPeripheral!)
-        if discoveredPeripheral != nil {
-            centralManager.connect(discoveredPeripheral!, options: nil)
-        }
-    }
     func stopTimer() {
       if timer != nil {
         timer!.invalidate()
         timer = nil
       }
     }
+    
+    /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
+    func connectPeriPheral() {
+        print(discoveredPeripheral!)
+        if discoveredPeripheral != nil {
+            centralManager.connect(discoveredPeripheral!, options: nil)
+        }
+    }
+    
     func bleConnect() {
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
