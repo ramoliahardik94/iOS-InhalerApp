@@ -20,6 +20,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         case .poweredOff:
             isAllow = false
+            bleConnect()
             NotificationCenter.default.post(name: .BLEChange, object: nil)
             NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
            // CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
@@ -71,12 +72,12 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
        
-        // Device is in range - have we already seen it?
-        guard RSSI.intValue >= -55
-            else {
-                print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-                return
-        }
+        
+//        guard RSSI.intValue >= -55
+//            else {
+//                print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+//                return
+//        }
        
         print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         if let name =  peripheral.name {

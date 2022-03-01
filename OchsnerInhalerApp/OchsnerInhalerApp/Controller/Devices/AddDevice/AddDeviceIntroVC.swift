@@ -93,6 +93,8 @@ class AddDeviceIntroVC: BaseVC {
         case .step4:
             lblGreat.text = StringAddDevice.connectDevice
             imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
+//            let advTimeGif = UIImage.gifImageWithName("gifanimated")
+//            imgAddDevice.image = advTimeGif
             lblAddDevice.isHidden  = true
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)

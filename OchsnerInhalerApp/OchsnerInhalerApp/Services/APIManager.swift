@@ -67,6 +67,7 @@ class APIManager {
 //            print("JSON string = \(theJSONText!)")
 //        }
         Logger.logInfo("\nURL:\(route)\n Method:\(method)\nParameters: \(parameters)\nHeaders:\(appHeader)")
+        
         var url = route
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             url = encoded

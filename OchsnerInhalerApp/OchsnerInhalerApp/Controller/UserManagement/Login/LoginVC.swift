@@ -54,8 +54,8 @@ class LoginVC: BaseVC {
         btnForgotePsw.setTitle(StringUserManagement.forgotePass, for: .normal)
         #if DEBUG
         
-        tfEmail.text = "nikita@gmail.com"
-        tfPassword.text = "password"
+//        tfEmail.text = "nikita@gmail.com"
+//        tfPassword.text = "password"
 
 //         tfEmail.text = "mherzog@ochsner.org"
 //        tfPassword.text = "password"
@@ -67,6 +67,9 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "himanshi.shah@volansys.com"
 //        tfPassword.text = "abc123"
 
+        tfEmail.text = "abc@mail.com"
+        tfPassword.text = "Test123"
+        
         #endif
     }
     
@@ -132,25 +135,9 @@ class LoginVC: BaseVC {
     
     @IBAction func btnForgotPassClick(_ sender: Any) {
         
-        let alertController = UIAlertController(title: StringUserManagement.forgotePass, message: "", preferredStyle: .alert)
-
-        alertController.addTextField { (textField: UITextField!) -> Void in
-            textField.placeholder = "Enter Email"
-            textField.text = self.login.loginModel.email
-        }
-
-        let saveAction = UIAlertAction(title: "Send email", style: .default, handler: { _ -> Void in
-            let firstTextField = alertController.textFields![0] as UITextField
-            print(firstTextField.text!)
-    
-        })
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
-
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
-
-        self.present(alertController, animated: true, completion: nil)
+        let forgotPassVC  = ForgotPassVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        forgotPassVC.login = login
+        pushVC(controller: forgotPassVC)
         
     }
     @IBAction func tapCreateAccount(_ sender: UIButton) {

@@ -60,6 +60,7 @@
 		4711F91427AA55E000AD063F /* BLEPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */; };
 		4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4722F4722799148700F505D2 /* ChangePasswordVC.swift */; };
 		4722F47927994C3E00F505D2 /* UpdateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4722F47827994C3E00F505D2 /* UpdateProfileVC.swift */; };
+		47242BA727CDEAAD00C753EA /* ForgotPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47242BA627CDEAAD00C753EA /* ForgotPassVC.swift */; };
 		4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */; };
 		4725F2082797D5CE00BBDA28 /* DoseTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */; };
 		4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */; };
@@ -179,6 +180,7 @@
 		4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEPeripheralDelegate.swift; sourceTree = "<group>"; };
 		4722F4722799148700F505D2 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		4722F47827994C3E00F505D2 /* UpdateProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileVC.swift; sourceTree = "<group>"; };
+		47242BA627CDEAAD00C753EA /* ForgotPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassVC.swift; sourceTree = "<group>"; };
 		4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDetailVC.swift; sourceTree = "<group>"; };
 		4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseTimeCell.swift; sourceTree = "<group>"; };
 		4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 			children = (
 				47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */,
 				22AE96E9278E9F1E00C0D851 /* LoginVC.swift */,
+				47242BA627CDEAAD00C753EA /* ForgotPassVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -951,6 +954,7 @@
 				4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */,
 				227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
+				47242BA727CDEAAD00C753EA /* ForgotPassVC.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
 				2257007027A2AE4A009B6415 /* NotificationManager.swift in Sources */,
 				224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */,

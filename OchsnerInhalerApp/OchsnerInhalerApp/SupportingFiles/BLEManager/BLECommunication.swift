@@ -18,14 +18,19 @@ extension BLEHelper {
     func scanPeripheral(isTimer: Bool = false) {
         stopScanPeriphral()
         stopTimer()
+        Logger.logInfo("Scaning start")
+        
+        
+        
         if isTimer {
             timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-            centralManager.scanForPeripherals(withServices: nil, options: nil)
         } else {
         // TODO:  Replace hear Service array make a param if needed then
-            DispatchQueue.global(qos: .background).sync {
-                centralManager.scanForPeripherals(withServices: nil, options: nil)
-            }
+            timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+         
+        }
+        DispatchQueue.global(qos: .background).sync {
+            centralManager.scanForPeripherals(withServices: nil, options: nil)
         }
     }
     
@@ -49,16 +54,21 @@ extension BLEHelper {
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
             if isAllow {
                 BLEHelper.shared.scanPeripheral()
+            } else {
+                BLEHelper.shared.setDelegate()
             }
          }
     }
     
     @objc func didFinishScan() {
+        if isAddAnother {
             NotificationCenter.default.post(name: .BLENotFound, object: nil)
+        }
         self.stopScanPeriphral()
     }
     
     func stopScanPeriphral() {
+        Logger.logInfo("Scaning stop")
         centralManager.stopScan()
     }
     

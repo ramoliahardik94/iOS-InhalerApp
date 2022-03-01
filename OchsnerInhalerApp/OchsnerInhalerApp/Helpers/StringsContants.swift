@@ -62,7 +62,7 @@ struct StringUserManagement {
     static let createPassword = "Create Password"
     static let firstName = "First Name"
     static let lastName = "Last Name"
-    
+    static let sendLink = "Send Link"
     static let emailPlaceHolder = "Enter email"
     static let passwordPlaceHolder = "Enter password"
     static let confirmPasswordPlaceHolder = "Enter confirm password"
