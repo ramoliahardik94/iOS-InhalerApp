@@ -134,8 +134,6 @@ class MedicationDetailVC: BaseVC {
         if swReminder.isOn {
             setReminders()
         }
-        
-        return
         if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
             medicationVM.apiAddDevice { [weak self] result in
                 guard let `self` = self else { return }
