@@ -14,6 +14,7 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var btnChangeProvider: UIButton!
     @IBOutlet weak var btnRemoveProvider: UIButton!
    
+    @IBOutlet weak var btnAppVersion: UIButton!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblProvider: UILabel!
     @IBOutlet weak var lblSettings: UILabel!
@@ -21,6 +22,10 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var lblShareLocation: UILabel!
     @IBOutlet weak var lblShareUsageWithProvider: UILabel!
     @IBOutlet weak var lblUseFaceID: UILabel!
+
+    
+    var tap = 1
+
     @IBOutlet weak var switchNotification: UISwitch!
     @IBOutlet weak var switchLocation: UISwitch!
     private var profileVM = ProfileVM()
@@ -54,7 +59,11 @@ class ProfileVC: BaseVC {
         lblReceiveNotifications.text = StringProfile.receiveNotifications
         lblShareLocation.text = StringProfile.shareLocation
         lblShareUsageWithProvider.text = StringProfile.shareUsageWithProvider
+
+        btnAppVersion.setTitle("V - \(appVersion())", for: .normal)
+
         doGetProfileData()
+
     }
     override func viewWillAppear(_ animated: Bool) {
         switchLocation.setOn(UserDefaultManager.isLocationOn, animated: true)
@@ -145,6 +154,16 @@ class ProfileVC: BaseVC {
     }
   
    
+    @IBAction func btnAppVersionClick(_ sender: Any) {
+        if tap == 3 {
+            Constants.appdel.sendEmailLogs()
+            tap = 1
+        }
+        else {
+            tap += 1
+        }
+    }
+
     
 }
 

@@ -18,7 +18,7 @@ class BLEHelper: NSObject {
     var charectristicWrite: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
-    var addressMAC: String = "70:05:00:00:00:3e"
+    var addressMAC: String = ""
     var bettery: String = "100"
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
@@ -48,7 +48,6 @@ class BLEHelper: NSObject {
     }
     func getBetteryLevel() {
         if discoveredPeripheral != nil && charectristicWrite != nil {
-            print(TransferService.requestGetBettery.hexadecimal!)
             discoveredPeripheral?.writeValue(TransferService.requestGetBettery.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
     }
@@ -93,7 +92,6 @@ class BLEHelper: NSObject {
                                                   "udid": udid as Any,
                                                   "batterylevel": BLEHelper.shared.bettery]
                         DatabaseManager.share.saveAccuation(object: dic)
-                        print("\(id!) == \(self.accuationLog)")
                         if id! == self.accuationLog {
                             self.accuationLog = 0
                             self.apiCallForAccuationlog()
@@ -133,15 +131,10 @@ class BLEHelper: NSObject {
         let param = prepareAcuationLogParam()
         if param.count != 0 {
             APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { error, response in
-                if response == nil {
-                    print(error!.message)
-                } else {
+                if response != nil  {
                     if (response as? [String: Any]) != nil {
                         DatabaseManager.share.updateAccuationLog(param)
                         NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
-                        print("Success")
-                    } else {
-                        print(ValidationMsg.CommonError)
                     }
                 }
             }
@@ -183,8 +176,14 @@ extension String {
             let sec = UInt8(arrResponce[12], radix: 16)!
             let duration = "\(arrResponce[13])\(arrResponce[14])"
             let durationTime =  UInt16(duration, radix: 16)!
-            let date = String(format: "%04d/%02d/%02d %02d:%02d:%02d", year, month, day, hour, min, sec)
-            return (Decimal(logCount), date, Decimal(durationTime.bigEndian))
+            let onlyDate = String(format: "%04d/%02d/%02d", year, month, day)
+            if onlyDate == "2000/01/01" {
+                BLEHelper.shared.setRTCTime()
+                return (Decimal(0), Date().getString(format: "yyyy/MM/dd HH:mm:ss", isUTC: false), Decimal(0))
+            } else {
+                let date = String(format: "%04d/%02d/%02d %02d:%02d:%02d", year, month, day, hour, min, sec)
+                return (Decimal(logCount), date, Decimal(durationTime.bigEndian))
+            }
         } else {
             return (Decimal(0), Date().getString(format: "yyyy/MM/dd HH:mm:ss", isUTC: false), Decimal(0))
         }
@@ -222,7 +221,7 @@ extension String {
                 data.append(num)
             }
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error.localizedDescription)
         }
         
         guard data.count > 0 else { return nil }

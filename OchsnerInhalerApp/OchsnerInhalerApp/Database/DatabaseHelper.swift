@@ -54,9 +54,9 @@ class DatabaseManager {
         accuationLog.email = (object["email"]! as! String)
         do {
             try context?.save()
-            print("Save Device \(BLEHelper.shared.addressMAC)")
+            
         } catch {
-            print("data is not save")
+            
         }
     }
     

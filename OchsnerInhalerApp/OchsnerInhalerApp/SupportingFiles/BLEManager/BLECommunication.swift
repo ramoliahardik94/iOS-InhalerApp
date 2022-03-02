@@ -18,14 +18,17 @@ extension BLEHelper {
     func scanPeripheral(isTimer: Bool = false) {
         stopScanPeriphral()
         stopTimer()
+        
         if isTimer {
+            Logger.logInfo("Scaning start with 15 sec timer")
             timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-            centralManager.scanForPeripherals(withServices: nil, options: nil)
         } else {
         // TODO:  Replace hear Service array make a param if needed then
-            DispatchQueue.global(qos: .background).sync {
-                centralManager.scanForPeripherals(withServices: nil, options: nil)
-            }
+            Logger.logInfo("Scaning start with 30 sec timer")
+            timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+        }
+        DispatchQueue.global(qos: .background).sync {
+            centralManager.scanForPeripherals(withServices: nil, options: nil)
         }
     }
     
@@ -38,7 +41,6 @@ extension BLEHelper {
     
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
     func connectPeriPheral() {
-        print(discoveredPeripheral!)
         if discoveredPeripheral != nil {
             centralManager.connect(discoveredPeripheral!, options: nil)
         }
@@ -49,12 +51,17 @@ extension BLEHelper {
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
             if isAllow {
                 BLEHelper.shared.scanPeripheral()
+            } else {
+                BLEHelper.shared.setDelegate()
             }
          }
     }
     
     @objc func didFinishScan() {
+        isAddAnother ? Logger.logInfo("Scaning stop with 15 sec timer") : Logger.logInfo("Scaning stop with 30 sec timer")
+        if isAddAnother {
             NotificationCenter.default.post(name: .BLENotFound, object: nil)
+        }
         self.stopScanPeriphral()
     }
     
