@@ -18,14 +18,12 @@ extension BLEHelper: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Deal with errors (if any)
         if let error = error {
-           print("Error discovering characteristics: %s", error.localizedDescription)
-            
+            Logger.logInfo("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
         
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
-        print(stringFromData)
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
             Logger.logInfo("Mac Address: \(addressMAC)")
@@ -38,6 +36,7 @@ extension BLEHelper: CBPeripheralDelegate {
                 setRTCTime()
             } else if str == StringCharacteristics.getType(.beteryLevel)() {
                 bettery = "\(stringFromData.getBeteryLevel())"
+                Logger.logInfo("Bettery : \(bettery)")
                 NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
             } else if str == StringCharacteristics.getType(.accuationLog)() {
                 accuationLog = stringFromData.getNumberofAccuationLog()
@@ -51,6 +50,7 @@ extension BLEHelper: CBPeripheralDelegate {
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
                 Logger.logInfo("Acuation log : \(log)")
+                
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
                                                     ["Id": (log.id),
                                                      "date": "\(log.date)",
@@ -67,7 +67,7 @@ extension BLEHelper: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         // Deal with errors (if any)
         if let error = error {
-            print("Error changing notification state: %s", error.localizedDescription)
+            Logger.logInfo("Error changing notification state: \(error.localizedDescription)")
             return
         }
         
@@ -76,28 +76,21 @@ extension BLEHelper: CBPeripheralDelegate {
         
         if characteristic.isNotifying {
             // Notification has started
-            print("Notification began on %@", characteristic)
+            Logger.logInfo("Notification began on \(characteristic)")
         } else {
             // Notification has stopped, so disconnect from the peripheral
-            print("Notification stopped on %@. Disconnecting", characteristic)
+            Logger.logInfo("Notification stopped on \(characteristic). Disconnecting")
         }
         
     }
-    
-    /*
-     *  This is called when peripheral is ready to accept more data when using write without response
-     */
-    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
-        print("Peripheral is ready, send data")
-        
-    }
+  
 }
 
 // MARK: - BLE Service and Characteristics
 extension BLEHelper {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let error = error {
-            print("Error discovering services: %s", error.localizedDescription)
+            Logger.logInfo("Error discovering services: \(error.localizedDescription)")
      
             return
         }
@@ -120,14 +113,14 @@ extension BLEHelper {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         // Deal with errors (if any).
         if let error = error {
-            print("Error discovering characteristics: %s", error.localizedDescription)
+            Logger.logInfo("Error discovering characteristics: \(error.localizedDescription)")
 
             return
         }
        
         // Again, we loop through the array, just in case and check if it's the right one
         guard let serviceCharacteristics = service.characteristics else {
-            print("service error \(service)")
+            Logger.logInfo("service error \(service)")
             return }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
@@ -147,17 +140,13 @@ extension BLEHelper {
         stopTimer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: { [weak self] in
             guard let `self` = self else { return }
-            print("Found :\(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid") \(self.isConnected)")
-            print(self.discoveredPeripheral!)
             if self.discoveredPeripheral!.state == .connected  && !self.isConnected {
                 self.stopTimer()
                 self.isConnected = true
-                print(".BLEConnect")
                 self.getmacAddress()
                 self.getBetteryLevel()
                 self.getAccuationNumber()
-//                self.timerAccuation = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.getAccuationNumber), userInfo: nil, repeats: true)
-                Logger.logInfo("BLEConnect with idebtifyer \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
+                Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
         })

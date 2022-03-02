@@ -34,7 +34,6 @@ class APIManager {
     func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, completion: ResponseBlock?) -> DataRequest? {
         
         if !APIManager.isConnectedToNetwork {
-            print("No Internet connection")
             completion?(RuntimeError(StringCommonMessages.noInternetConnection), nil)
             return nil
         }
@@ -59,14 +58,8 @@ class APIManager {
                 }
             }
         }
-//        if let theJSONData = try? JSONSerialization.data(
-//            withJSONObject: parameters,
-//            options: []) {
-//            let theJSONText = String(data: theJSONData,
-//                                       encoding: .ascii)
-//            print("JSON string = \(theJSONText!)")
-//        }
-        Logger.logInfo("\nURL:\(route)\n Method:\(method)\nParameters: \(parameters)\nHeaders:\(appHeader)")
+
+        Logger.logInfo("\n\n\nURL:\(route)\n Method:\(method)\nParameters: \(parameters)\nHeaders:\(appHeader)")
         
         var url = route
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
@@ -83,7 +76,7 @@ class APIManager {
             
             let statusCode = response.response?.statusCode
             if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {
-                Logger.logInfo("Response :: success ::  \(String(describing: response.value))")
+                Logger.logInfo("Response :: success :: \(route) :: \n\n\(String(describing: response.value))")
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {
@@ -102,7 +95,7 @@ class APIManager {
                     completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
             } else {
-                Logger.logError("Add Response :: failure :: \(String(describing: response.value))")
+                Logger.logError("Add Response :: failure ::  \(route) ::\n\n\(String(describing: response.value))")
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {

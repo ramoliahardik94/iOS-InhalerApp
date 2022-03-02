@@ -18,16 +18,14 @@ extension BLEHelper {
     func scanPeripheral(isTimer: Bool = false) {
         stopScanPeriphral()
         stopTimer()
-        Logger.logInfo("Scaning start")
-        
-        
         
         if isTimer {
+            Logger.logInfo("Scaning start with 15 sec timer")
             timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
         } else {
         // TODO:  Replace hear Service array make a param if needed then
+            Logger.logInfo("Scaning start with 30 sec timer")
             timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-         
         }
         DispatchQueue.global(qos: .background).sync {
             centralManager.scanForPeripherals(withServices: nil, options: nil)
@@ -43,7 +41,6 @@ extension BLEHelper {
     
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
     func connectPeriPheral() {
-        print(discoveredPeripheral!)
         if discoveredPeripheral != nil {
             centralManager.connect(discoveredPeripheral!, options: nil)
         }
@@ -61,6 +58,7 @@ extension BLEHelper {
     }
     
     @objc func didFinishScan() {
+        isAddAnother ? Logger.logInfo("Scaning stop with 15 sec timer") : Logger.logInfo("Scaning stop with 30 sec timer")
         if isAddAnother {
             NotificationCenter.default.post(name: .BLENotFound, object: nil)
         }
@@ -68,7 +66,6 @@ extension BLEHelper {
     }
     
     func stopScanPeriphral() {
-        Logger.logInfo("Scaning stop")
         centralManager.stopScan()
     }
     

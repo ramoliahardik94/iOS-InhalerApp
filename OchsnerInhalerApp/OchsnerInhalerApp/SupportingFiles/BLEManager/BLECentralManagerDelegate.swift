@@ -79,7 +79,7 @@ extension BLEHelper: CBCentralManagerDelegate {
 //                return
 //        }
        
-        print("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
+        Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
@@ -87,7 +87,6 @@ extension BLEHelper: CBCentralManagerDelegate {
                     discoveredPeripheral = peripheral
                     stopScanPeriphral()
                     stopTimer()
-                    Logger.logInfo("BLEFound With discoveredPeripheral?.identifier.uuidString != peripheral.identifier.uuidString and isAddAnother true")
                     connectPeriPheral()
                 } else if isAddAnother {
                     if (discoveredPeripheral != nil && discoveredPeripheral?.identifier.uuidString != peripheral.identifier.uuidString) {
@@ -95,7 +94,6 @@ extension BLEHelper: CBCentralManagerDelegate {
                         stopScanPeriphral()
                         stopTimer()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
-                            Logger.logInfo("BLEFound With discoveredPeripheral?.identifier.uuidString != peripheral.identifier.uuidString and isAddAnother true")
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
                         })
                     } else if discoveredPeripheral == nil {
@@ -103,7 +101,6 @@ extension BLEHelper: CBCentralManagerDelegate {
                         stopScanPeriphral()
                         stopTimer()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
-                            Logger.logInfo("BLEFound With discoveredPeripheral == nil")
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
                         })
                     }
@@ -113,9 +110,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Peripheral Connected")
         if peripheral.state == .connected {
-            print("Scanning stopped")
             stopScanPeriphral()
             peripheral.delegate = self
             peripheral.discoverServices([TransferService.otaServiceUUID, TransferService.inhealerUTCservice])
@@ -123,7 +118,6 @@ extension BLEHelper: CBCentralManagerDelegate {
     }
         
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        print("DidFail")
         self.stopTimer()
         self.isConnected = false
         Logger.logError("BLENotConnect With Fail \(error?.localizedDescription ?? "")")
@@ -131,7 +125,6 @@ extension BLEHelper: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("state \(peripheral.state.rawValue)")
         if !isAddAnother {
             scanPeripheral(isTimer: false)
         }
@@ -139,7 +132,6 @@ extension BLEHelper: CBCentralManagerDelegate {
         self.stopTimer()
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
-        print("DidDissconnect")
     }
     
     
