@@ -28,10 +28,19 @@ class ForgotPassVC: BaseVC {
         txtEmail.layer.borderWidth = 1
         txtEmail.layer.borderColor = UIColor.TextFieldBorderColor.cgColor
         txtEmail.text = login.loginModel.email
+        txtEmail.keyboardType = .emailAddress
+        addAstrickSing(label: lblEmail)
+        hideKeyBoardHideOutSideTouch(customView: self.view)
         txtEmail.setFont()
     }
     @IBAction func btnForgotClick(_ sender: Any) {
-        
+        if (txtEmail.text!.isValidEmail) {
+            print(txtEmail.text!.isValidEmail)
+            
+        } else {
+            CommonFunctions.showMessage(message: ValidationMsg.email)
+            
+        }
     }
     @IBAction func btnBackClick(_ sender: Any) {
         self.popVC()
