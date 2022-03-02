@@ -30,17 +30,15 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var tblDoseTime: UITableView!
     @IBOutlet weak var btnPuff: UIButton!
     var isFromDeviceList = false
-
     var medicationVM = MedicationVM()
-    
     let timePicker = UIDatePicker()
-   
-    
     let myPicker: NMDatePicker = {
         let obj = NMDatePicker()
         return obj
     }()
     let dropDown = DropDown()
+    private var  eventStore = EKEventStore()
+    private var reminders = [EKReminder]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -48,7 +46,7 @@ class MedicationDetailVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         self.navigationController?.isNavigationBarHidden = true
         if medicationVM.arrTime.count == 0 {
-          btnAddDoseClick(UIButton())
+            btnAddDoseClick(UIButton())
         }
     }
     
@@ -123,7 +121,7 @@ class MedicationDetailVC: BaseVC {
         lblNDCCode.text = "NDC Code: \(medicationVM.selectedMedication!.ndc ?? "")"
         lblMedicationName.text = medicationVM.selectedMedication.medName
        
-        
+        swReminder.isOn =  UserDefaultManager.isAddReminder
     }
     
     @IBAction func btnBackClick(_ sender: Any) {
@@ -131,6 +129,8 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
+        removeReminders()
+       
         if swReminder.isOn {
             setReminders()
         }
@@ -140,6 +140,7 @@ class MedicationDetailVC: BaseVC {
                 switch result {
                 case .success(let status):
                     print("Response sucess :\(status)")
+                    UserDefaultManager.isAddReminder = self.swReminder.isOn
                     if self.isFromDeviceList {
                         
                         self.navigationController?.popToRootViewController(animated: true)
@@ -164,20 +165,10 @@ class MedicationDetailVC: BaseVC {
         }
     }
     func setReminders() {
-        
         let appDelegate = UIApplication.shared.delegate
         as! AppDelegate
         if appDelegate.eventStore == nil {
-            appDelegate.eventStore = EKEventStore()
-            appDelegate.eventStore?.requestAccess(
-                to: EKEntityType.event, completion: { (granted, error) in
-                    if !granted {
-                        print("Access to store not granted")
-                        print(error?.localizedDescription as Any)
-                    } else {
-                        print("Access granted")
-                    }
-                })
+            permissionForReminder()
         } else {
             self.addReminderToCalender()
         }
@@ -195,20 +186,29 @@ class MedicationDetailVC: BaseVC {
                 let strDate = "\(dateFormatter.string(from: today)) \(obj)"
                 dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
                 if let date = dateFormatter.date(from: strDate) {
-                    let event: EKEvent = EKEvent(eventStore: appleEventStore)
-                    event.title = "\(StringDevices.yourNextDose) \(obj)."
-                    event.startDate = date
-                    event.endDate = date.addingTimeInterval(315360000) // 525600 One year time interval
-                    event.isAllDay = true
-                    event.notes = ""
-                    event.calendar = appleEventStore.defaultCalendarForNewEvents
-                    let alarm = EKAlarm(absoluteDate: date.addingTimeInterval(-300)) // Before 5 min alarm is show
-                    event.addAlarm(alarm)
+                    let reminder: EKReminder = EKReminder(eventStore: appleEventStore)
+                    reminder.title = "\(StringAddDevice.titleAddDevice)\n\(StringDevices.yourNextDose) \(obj) for \(lblMedicationName.text ?? "")"
+                    reminder.notes = ""
+                    let cal = Calendar(identifier: .gregorian)
+                    let nextyearDate = cal.date(byAdding: .year, value: 1, to: Date())
+                    reminder.dueDateComponents = cal.dateComponents([.year, .month, .day, .hour, .minute], from: nextyearDate!)
+                    print(nextyearDate!)
+                    reminder.priority = 1
+                    // reminder.
+                    reminder.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .daily, interval: 7, end: nil))
+                    // reminder.notes = ""
+                    reminder.calendar = appleEventStore.defaultCalendarForNewReminders()
+                    let alarm = EKAlarm(absoluteDate: date.addingTimeInterval(-600)) // Before 10 min alarm is show
+                    reminder.addAlarm(alarm)
+                   
                     do {
-                        try appleEventStore.save(event, span: .thisEvent)
+                        try appleEventStore.save(reminder, commit: true)
+                        //                        save(event, span: .thisEvent)
+                        
                         print("events added with dates:")
                         
                     } catch {
+                       
                         print(error.localizedDescription)
                         return
                     }
@@ -218,36 +218,11 @@ class MedicationDetailVC: BaseVC {
         }
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     @IBAction func reminderValue(_ sender: UISwitch) {
         print(sender.isOn)
         if sender.isOn {
-            let appDelegate = UIApplication.shared.delegate
-            as! AppDelegate
-            if appDelegate.eventStore == nil {
-                appDelegate.eventStore = EKEventStore()
-                
-                appDelegate.eventStore?.requestAccess(
-                    to: EKEntityType.event, completion: { (granted, error) in
-                        if !granted {
-                            print("Access to store not granted")
-                            print(error?.localizedDescription as Any)
-                        } else {
-                            print("Access granted")
-                            
-                        }
-                    })
-            }
+            permissionForReminder()
+        } else {
         }
     }
     
@@ -284,6 +259,65 @@ class MedicationDetailVC: BaseVC {
     }
     deinit {
         self.navigationController?.isNavigationBarHidden = false
+    }
+    private func permissionForReminder() {
+        let appDelegate = UIApplication.shared.delegate
+        as! AppDelegate
+        if appDelegate.eventStore == nil {
+            appDelegate.eventStore = EKEventStore()
+            
+            appDelegate.eventStore?.requestAccess(
+                to: .reminder, completion: { (granted, error) in
+                    if !granted {
+                        print("Access to store not granted")
+                        print(error?.localizedDescription as Any)
+                    } else {
+                        print("Access granted")
+                        
+                    }
+                })
+        }
+    }
+    
+    func removeReminders() {
+        if reminders.count > 0 {
+            for item in  reminders {
+                if item.title.contains(StringDevices.yourNextDose) {
+                    do {
+                        try eventStore.remove(item, commit: true)
+                        //                        save(event, span: .thisEvent)
+                        print("events remove")
+                        //   self.reminders.remove(at: index)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        }
+    }
+   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.medicationVM.medTypeId = 2
+        doGetAddReminders()
+    }
+    private func doGetAddReminders() {
+        eventStore.requestAccess(
+            to: .reminder, completion: { (granted, error) in
+                if !granted {
+                    print("Access to store not granted")
+                    print(error?.localizedDescription as Any)
+                } else {
+                    print("Access granted")
+                    
+                    let predicate = self.eventStore.predicateForReminders(in: nil)
+                    
+                    self.eventStore.fetchReminders(matching: predicate, completion: { reminders in
+                        self.reminders = reminders ?? []
+                       // print("remnders count  \(reminders?.count)")
+                    })
+                }
+            })
     }
 }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {

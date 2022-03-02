@@ -209,7 +209,7 @@ struct StringDevices {
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
-    static let yourNextDose = "Your Next Dose is at"
+    static let yourNextDose = "Your next dose is at"
     
 }
 

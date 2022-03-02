@@ -18,32 +18,25 @@ class NotificationPermissionVC: BaseVC {
         lblNotificationPermission.setFont(type: .bold, point: 32)
         btnGrant.setButtonView(StringCommonMessages.grant)
         btnSkip.setButtonViewGrey(StringCommonMessages.skip)
+        UserDefaultManager.isGrantNotification = true
     }
-    
     // MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
         
         NotificationManager.shared.askUserPermission { isAllow in
             if isAllow {
-                DispatchQueue.main.async {
-                    UserDefaultManager.isGrantNotification = true
-                    UserDefaultManager.isNotificationOn = true
-                    let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.pushVC(controller: addDeviceIntroVC)
-                   
-                }
+                //  DispatchQueue.main.async {
+                UserDefaultManager.isNotificationOn = true
+                let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                self.pushVC(controller: addDeviceIntroVC)
+                //  }
             }
         }
     }
-     
     
     @IBAction func tapSkip(_ sender: UIButton) {
-        UserDefaultManager.isGrantNotification = true
         UserDefaultManager.isNotificationOn = false
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         self.pushVC(controller: addDeviceIntroVC)
     }
-        
-    
-
 }
