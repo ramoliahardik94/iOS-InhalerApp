@@ -182,6 +182,8 @@ struct StringMedication {
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
     static let addDose = "Add another daily dose."
     static let addFirstDose = "Add daily dose."
+    static let permissionDose = "Need permission to enable reminders of your daily doses.\nGoto Settings,Select OchsnerInhelarApp and turn on Reminders"
+   
 }
 // MARK: Permissions
 struct StringPermissions {
@@ -209,7 +211,7 @@ struct StringDevices {
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
-    static let yourNextDose = "Your next dose is at"
+    static let yourNextDose = "Your dose is at"
     
 }
 

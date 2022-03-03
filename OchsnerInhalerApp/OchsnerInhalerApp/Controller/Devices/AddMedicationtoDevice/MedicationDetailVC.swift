@@ -7,7 +7,6 @@
 
 import UIKit
 import DropDown
-import EventKit
 
 protocol MedicationDelegate: AnyObject {
     func medicationUpdated()
@@ -37,8 +36,7 @@ class MedicationDetailVC: BaseVC {
         return obj
     }()
     let dropDown = DropDown()
-    private var  eventStore = EKEventStore()
-    private var reminders = [EKReminder]()
+    private let reminderManager  = ReminderManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -129,10 +127,10 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
-        removeReminders()
-       
+        reminderManager.addReminderMainList()
+        reminderManager.removeReminder()
         if swReminder.isOn {
-            setReminders()
+            addReminderToCalender()
         }
         if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
             medicationVM.apiAddDevice { [weak self] result in
@@ -161,59 +159,6 @@ class MedicationDetailVC: BaseVC {
             CommonFunctions.showMessage(message: ValidationMsg.addPuff)
             } else {
                 CommonFunctions.showMessage(message: ValidationMsg.addDose)
-            }
-        }
-    }
-    func setReminders() {
-        let appDelegate = UIApplication.shared.delegate
-        as! AppDelegate
-        if appDelegate.eventStore == nil {
-            permissionForReminder()
-        } else {
-            self.addReminderToCalender()
-        }
-    }
-    
-    func addReminderToCalender() {
-        for obj in self.medicationVM.arrTime {
-            let appDelegate = UIApplication.shared.delegate
-            as! AppDelegate
-            if let appleEventStore = appDelegate.eventStore {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm a"
-                let today = Date()
-                dateFormatter.dateFormat = "dd/MM/yyyy"
-                let strDate = "\(dateFormatter.string(from: today)) \(obj)"
-                dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
-                if let date = dateFormatter.date(from: strDate) {
-                    let reminder: EKReminder = EKReminder(eventStore: appleEventStore)
-                    reminder.title = "\(StringAddDevice.titleAddDevice)\n\(StringDevices.yourNextDose) \(obj) for \(lblMedicationName.text ?? "")"
-                    reminder.notes = ""
-                    let cal = Calendar(identifier: .gregorian)
-                    let nextyearDate = cal.date(byAdding: .year, value: 1, to: Date())
-                    reminder.dueDateComponents = cal.dateComponents([.year, .month, .day, .hour, .minute], from: nextyearDate!)
-                    print(nextyearDate!)
-                    reminder.priority = 1
-                    // reminder.
-                    reminder.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .daily, interval: 7, end: nil))
-                    // reminder.notes = ""
-                    reminder.calendar = appleEventStore.defaultCalendarForNewReminders()
-                    let alarm = EKAlarm(absoluteDate: date.addingTimeInterval(-600)) // Before 10 min alarm is show
-                    reminder.addAlarm(alarm)
-                   
-                    do {
-                        try appleEventStore.save(reminder, commit: true)
-                        //                        save(event, span: .thisEvent)
-                        
-                        print("events added with dates:")
-                        
-                    } catch {
-                       
-                        print(error.localizedDescription)
-                        return
-                    }
-                    print("Saved Event")
-                }
             }
         }
     }
@@ -260,66 +205,60 @@ class MedicationDetailVC: BaseVC {
     deinit {
         self.navigationController?.isNavigationBarHidden = false
     }
-    private func permissionForReminder() {
-        let appDelegate = UIApplication.shared.delegate
-        as! AppDelegate
-        if appDelegate.eventStore == nil {
-            appDelegate.eventStore = EKEventStore()
-            
-            appDelegate.eventStore?.requestAccess(
-                to: .reminder, completion: { (granted, error) in
-                    if !granted {
-                        print("Access to store not granted")
-                        print(error?.localizedDescription as Any)
-                    } else {
-                        print("Access granted")
-                        
-                    }
-                })
-        }
-    }
+  
     
-    func removeReminders() {
-        if reminders.count > 0 {
-            for item in  reminders {
-                if item.title.contains(StringDevices.yourNextDose) {
-                    do {
-                        try eventStore.remove(item, commit: true)
-                        //                        save(event, span: .thisEvent)
-                        print("events remove")
-                        //   self.reminders.remove(at: index)
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                }
-            }
-        }
-    }
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.medicationVM.medTypeId = 2
-        doGetAddReminders()
+        
     }
-    private func doGetAddReminders() {
-        eventStore.requestAccess(
-            to: .reminder, completion: { (granted, error) in
-                if !granted {
-                    print("Access to store not granted")
-                    print(error?.localizedDescription as Any)
-                } else {
-                    print("Access granted")
-                    
-                    let predicate = self.eventStore.predicateForReminders(in: nil)
-                    
-                    self.eventStore.fetchReminders(matching: predicate, completion: { reminders in
-                        self.reminders = reminders ?? []
-                       // print("remnders count  \(reminders?.count)")
-                    })
+    // for add reminder event
+    
+    private func permissionForReminder() {
+        switch(reminderManager.getAuthorizationStatus()) {
+        case .authorized :
+            
+            break
+        case .notDetermined :
+            reminderManager.requestAccess { (accessGranted, _) in
+                if !accessGranted {
+                    DispatchQueue.main.async {
+                        self.swReminder.setOn(false, animated: true)
+                    }
                 }
-            })
+            }
+        case .denied, .restricted:
+            DispatchQueue.main.async {
+                self.swReminder.setOn(false, animated: true)
+            }
+            CommonFunctions.showMessage(message: StringMedication.permissionDose, {_ in })
+        @unknown default:
+            break
+        }
     }
-}
+    
+    func addReminderToCalender() {
+        
+        for obj in self.medicationVM.arrTime {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "hh:mm a"
+                let today = Date()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                let strDate = "\(dateFormatter.string(from: today)) \(obj)"
+                dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+                if let date = dateFormatter.date(from: strDate) {
+                    
+                    let title = "\(StringAddDevice.titleAddDevice)\n\(StringDevices.yourNextDose) \(obj) for \(lblMedicationName.text ?? "")"
+                    
+                    reminderManager.addEventToCalendar(title: title, date: date) {  _ in
+                        print("Saved Event")
+                    }
+                    
+                }
+        }
+    }
+ }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.medicationVM.arrTime.count

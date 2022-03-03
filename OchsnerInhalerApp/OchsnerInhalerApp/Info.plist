@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSRemindersUsageDescription</key>
-	<string>Need Reminders permission</string>
+	<string>This will enable reminders of your daily doses.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This will allow the Application to fetch and bind user location with actuation logs.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
