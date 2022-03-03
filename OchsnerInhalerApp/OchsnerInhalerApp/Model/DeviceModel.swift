@@ -16,13 +16,14 @@ class DeviceModel: NSObject {
     var puffs: Int = 1
     var activeFL: Bool = false
     var medID: Int = 0
-    var batteryLevel: String = "100"
+    var batteryLevel: String = "Not Set"
     var batteryLevelDate: String = ""
     var medType: MedType = MedType()
     var medication: MedicationModelElement = MedicationModelElement()
     var useTimes: [String] = [String]()
     var arrTime: [String] = [String]()
-    
+    var isReminder = false
+    var udid = ""
     override init () {        
     }
     init(jSon: [String: Any]) {

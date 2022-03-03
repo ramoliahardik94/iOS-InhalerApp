@@ -37,7 +37,7 @@ class MedicationVM {
         }
     }
     
-    func apiAddDevice(completionHandler: @escaping ((APIResult) -> Void)) {
+    func apiAddDevice(isreminder: Bool, completionHandler: @escaping ((APIResult) -> Void)) {
         totalDose = arrTime.count
         if macAddress != "N/A" {
             var str = ""
@@ -52,12 +52,18 @@ class MedicationVM {
                 "DailyUsage": totalDose, 
                 "UseTimes": str
             ]
-            APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { error, response in
+            APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { [weak self] error, response in
+                guard let `self` = self else { return }
                 if response == nil {
                     completionHandler(.failure(error!.message))
                 } else {
                     if (response as? [String: Any]) != nil {
-                        DatabaseManager.share.saveDevice(object: ["mac": BLEHelper.shared.addressMAC as Any, "udid": BLEHelper.shared.discoveredPeripheral?.identifier.uuidString as Any, "email": UserDefaultManager.email])
+                        let device = DeviceModel()
+                        device.internalID = BLEHelper.shared.addressMAC
+                        device.udid = BLEHelper.shared.discoveredPeripheral?.identifier.uuidString ?? ""
+                        device.isReminder = isreminder
+                        device.medTypeID = self.medTypeId
+                        DatabaseManager.share.saveDevice(object: device)
                         NotificationCenter.default.post(name: .medUpdate, object: nil)
                         BLEHelper.shared.isAddAnother = false
                         completionHandler(.success(true))

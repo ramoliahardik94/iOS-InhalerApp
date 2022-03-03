@@ -14,6 +14,7 @@ extension Notification.Name {
     static let BLEDisconnect = Notification.Name("BLEDisconnect")
     static let BLEGetMac = Notification.Name("BLEGetMac")
     static let BLEChange = Notification.Name("BLEChange")
+    static let BLEOnOff = Notification.Name("BLEOnOff")
     static let BLEBatteryLevel = Notification.Name("BLEBatteryLevel")
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
@@ -30,8 +31,10 @@ struct StringCommonMessages {
      static let share = "Share"
      static let copyRight = "©2022 Ochsner Health"
      static let connected = "Connected"
-     static let connecting = "Connecting"
+     static let connecting = "Connecting..."
+    static let notInRange = "Not in range"
      static let disconnect = "Disconnected"
+    static let scanning = "Scanning..."
      static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
     static let  noInternetConnection = "No Internet connection"
@@ -97,7 +100,7 @@ struct ValidationMsg {
     static let addDose = "Please add daily dose."
     static let addPuff = "Please add how many puffs per dose?"
     static let removeDevice = "Are you sure to remove this device?"
-    
+    static let mantainance = "Cannot add more than one mantainance device."
 }
 struct ValidationButton {
     static let tryAgain = "Try again"

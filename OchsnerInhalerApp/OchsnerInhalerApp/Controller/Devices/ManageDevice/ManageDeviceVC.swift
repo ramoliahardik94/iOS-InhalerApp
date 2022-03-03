@@ -14,6 +14,7 @@ class ManageDeviceVC: BaseVC {
     private let itemCell = CellIdentifier.manageDeviceCell
     var manageDeviceVM = ManageDeviceVM()
     @IBOutlet weak var btnAddAnothDevice: UIButton!
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,12 +56,26 @@ class ManageDeviceVC: BaseVC {
     private func initUI() {
         let nib = UINib(nibName: itemCell, bundle: nil)
         tbvData.register(nib, forCellReuseIdentifier: itemCell)
+        
         tbvData.delegate = self
         tbvData.dataSource = self
+        
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tbvData.addSubview(refreshControl)
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
+        btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont
         apiCall()
     }
+    
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral!.state == .disconnected {
+            BLEHelper.shared.scanPeripheral()
+        }
+        refreshControl.endRefreshing()
+    }
+    
     @objc func inhalerConnected(notification: Notification) {
         DispatchQueue.main.async {
             self.tbvData.reloadData()

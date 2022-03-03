@@ -83,7 +83,7 @@ class MedicationVC: BaseVC {
                     medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
                 }
                 UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
-                 medicationVM.apiAddDevice { [weak self] result in
+                medicationVM.apiAddDevice(isreminder: false) { [weak self] result in
                     guard let `self` = self else { return }
                     switch result {
                     case .success(let status):
@@ -98,12 +98,15 @@ class MedicationVC: BaseVC {
                         CommonFunctions.showMessage(message: message)
                     }
                 }
-               
             } else {
-                let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                medicationDetailVC.isFromDeviceList = isFromDeviceList
-                medicationDetailVC.medicationVM = medicationVM
-                pushVC(controller: medicationDetailVC)
+                if DatabaseManager.share.isMantenanceAllow(mac: BLEHelper.shared.addressMAC) {
+                    let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                    medicationDetailVC.isFromDeviceList = isFromDeviceList
+                    medicationDetailVC.medicationVM = medicationVM
+                    pushVC(controller: medicationDetailVC)
+                } else {
+                    CommonFunctions.showMessage(message: ValidationMsg.mantainance)
+                }
             }
         } else {
             CommonFunctions.showMessage(message: ValidationMsg.medication)

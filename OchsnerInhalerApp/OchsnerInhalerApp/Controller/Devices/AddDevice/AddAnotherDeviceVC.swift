@@ -27,6 +27,7 @@ class AddAnotherDeviceVC: BaseVC {
         
         btnGoHome.setButtonView(StringAddDevice.goHome)
         btnAddAnotherDevice.setButtonView(StringAddDevice.addAnotherDeviceBtn)
+        btnAddAnotherDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont
 //        btnAddAnotherDevice.isHidden = true
     }
     

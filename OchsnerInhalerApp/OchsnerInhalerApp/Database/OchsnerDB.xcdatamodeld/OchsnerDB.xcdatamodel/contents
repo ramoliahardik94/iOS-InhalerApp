@@ -14,10 +14,12 @@
     <entity name="Device" representedClassName="Device" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="mac" optional="YES" attributeType="String"/>
+        <attribute name="medtypeid" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="reminder" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="udid" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="AcuationLog" positionX="-63" positionY="-18" width="128" height="164"/>
-        <element name="Device" positionX="-63" positionY="45" width="128" height="74"/>
+        <element name="Device" positionX="-63" positionY="45" width="128" height="104"/>
     </elements>
 </model>

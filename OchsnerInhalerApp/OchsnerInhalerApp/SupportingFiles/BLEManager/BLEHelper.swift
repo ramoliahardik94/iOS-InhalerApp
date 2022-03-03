@@ -7,19 +7,20 @@
 
 import Foundation
 import CoreBluetooth
+import UIKit
 
 class BLEHelper: NSObject {
     
     // MARK: Variable declaration
-    static let shared = BLEHelper()
-    var isConnected = false 
+    static let shared = BLEHelper()    
     var centralManager: CBCentralManager = CBCentralManager()
     var discoveredPeripheral: CBPeripheral?
+    var isScanning = false
     var charectristicWrite: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
     var addressMAC: String = ""
-    var bettery: String = "100"
+    var bettery: String = "0"
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
     var timer: Timer!

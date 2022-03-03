@@ -727,6 +727,35 @@
             </objects>
             <point key="canvasLocation" x="1013.0434782608696" y="79.6875"/>
         </scene>
+        <!--BaseVC-->
+        <scene sceneID="Jeb-3j-hHA">
+            <objects>
+                <viewController id="8Sh-2G-Fr4" customClass="BaseVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sYq-I3-qfy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sc-AD-FSH">
+                                <rect key="frame" x="0.0" y="728" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="NTl-4H-Zuj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wxx-yg-OT1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wxx-yg-OT1" firstAttribute="trailing" secondItem="1sc-AD-FSH" secondAttribute="trailing" id="rIi-7t-VXo"/>
+                            <constraint firstItem="1sc-AD-FSH" firstAttribute="leading" secondItem="wxx-yg-OT1" secondAttribute="leading" id="vFV-cs-0o4"/>
+                            <constraint firstItem="1sc-AD-FSH" firstAttribute="bottom" secondItem="wxx-yg-OT1" secondAttribute="bottom" id="vK8-bk-FF7"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="518-cN-k3h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2268" y="-1280"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Inhaler Graphic" width="172" height="406"/>
@@ -744,6 +773,9 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

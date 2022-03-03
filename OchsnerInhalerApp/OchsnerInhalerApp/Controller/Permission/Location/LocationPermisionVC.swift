@@ -22,7 +22,7 @@ class LocationPermisionVC: BaseVC {
         lblLocationPermission.setFont(type: .bold, point: 32)
         btnSkip.setButtonViewGrey(StringCommonMessages.skip)
         btnGrant.setButtonView(StringCommonMessages.grant)
-        
+        UserDefaultManager.isLocationOn = true
     }
     
     // MARK: Actions
