@@ -67,8 +67,6 @@ class CustomSplashVC: BaseVC {
         }
     }
     @objc func getisAllow(notification: Notification) {
-        timer.invalidate()
-        timer = nil
         BLEHelper.shared.isAllowed { [weak self] isAllow in
             guard let `self` = self else { return }
             
@@ -78,10 +76,9 @@ class CustomSplashVC: BaseVC {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
                 } else {
-                    BLEHelper.shared.scanPeripheral()
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                  //  homeTabBar.selectedIndex = 1
+                   homeTabBar.selectedIndex = 1
                     DispatchQueue.main.async {
                         self.rootVC(controller: homeTabBar)
                     }
