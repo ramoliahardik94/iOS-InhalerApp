@@ -15,6 +15,7 @@ class ManageDeviceVC: BaseVC {
     var manageDeviceVM = ManageDeviceVM()
     @IBOutlet weak var btnAddAnothDevice: UIButton!
     let refreshControl = UIRefreshControl()
+    @IBOutlet weak var addDevicebtnHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,8 @@ class ManageDeviceVC: BaseVC {
         tbvData.addSubview(refreshControl)
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
+        
+        addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont ? 0 : 50
         btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont
         apiCall()
     }
@@ -158,6 +161,8 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                         addDeviceIntroVC.isFromAddAnother  = false
                         addDeviceIntroVC.isFromDeviceList  = true
                         self.pushVC(controller: addDeviceIntroVC)
+                        self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont ? 0 : 50
+                        self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont
                     }
                     
                 }
