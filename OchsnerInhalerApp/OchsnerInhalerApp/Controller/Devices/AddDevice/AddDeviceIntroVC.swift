@@ -174,7 +174,6 @@ class AddDeviceIntroVC: BaseVC {
                 BLEHelper.shared.scanPeripheral()
         case .step4:
             BLEHelper.shared.stopTimer()
-            BLEHelper.shared.isConnected = false
             BLEHelper.shared.connectPeriPheral()
             paringLoader.isHidden = false
             paringLoader.startAnimating()

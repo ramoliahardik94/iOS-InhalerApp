@@ -93,16 +93,16 @@ extension BLEHelper: CBCentralManagerDelegate {
                         discoveredPeripheral = peripheral
                         stopScanPeriphral()
                         stopTimer()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+                        delay(15) {
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
-                        })
+                        }
                     } else if discoveredPeripheral == nil {
                         discoveredPeripheral = peripheral
                         stopScanPeriphral()
                         stopTimer()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+                        delay(15) {
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
-                        })
+                        }
                     }
                 }
             }
@@ -115,11 +115,11 @@ extension BLEHelper: CBCentralManagerDelegate {
             peripheral.delegate = self
             peripheral.discoverServices([TransferService.otaServiceUUID, TransferService.inhealerUTCservice])
         }
+        NotificationCenter.default.post(name: .BLEChange, object: nil)
     }
         
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         self.stopTimer()
-        self.isConnected = false
         Logger.logError("BLENotConnect With Fail \(error?.localizedDescription ?? "")")
         NotificationCenter.default.post(name: .BLENotConnect, object: nil)
     }
@@ -128,8 +128,8 @@ extension BLEHelper: CBCentralManagerDelegate {
         if !isAddAnother {
             scanPeripheral(isTimer: false)
         }
-        self.isConnected = false
         self.stopTimer()
+        self.cleanup()
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
     }

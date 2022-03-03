@@ -41,26 +41,33 @@ class ManageDeviceCell: UITableViewCell {
             lblNoOfDose.text =  (device.medTypeID ==  1 || device.useTimes.count == 0) ? StringCommonMessages.rescueDose : str
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
-            var textStatus = StringCommonMessages.disconnect
-            if BLEHelper.shared.addressMAC == device.internalID {
-                if BLEHelper.shared.discoveredPeripheral != nil {
-                    switch BLEHelper.shared.discoveredPeripheral!.state {
-                    case .connected :
-                        textStatus = StringCommonMessages.connected
-                    case .disconnected :
-                        textStatus = StringCommonMessages.disconnect
-                    case .connecting :
-                        textStatus = StringCommonMessages.connecting
-                    case .disconnecting:
-                        textStatus = StringCommonMessages.disconnect
-                    @unknown default:
-                        textStatus = StringCommonMessages.disconnect
+            var textStatus = BLEHelper.shared.discoveredPeripheral == nil ? StringCommonMessages.notInRange : StringCommonMessages.disconnect
+            if BLEHelper.shared.isScanning {
+                textStatus = StringCommonMessages.scanning
+            } else {
+                if BLEHelper.shared.addressMAC == device.internalID {
+                    print("BLE State:\(BLEHelper.shared.discoveredPeripheral!)")
+                    if BLEHelper.shared.discoveredPeripheral != nil {
+                        switch BLEHelper.shared.discoveredPeripheral!.state {
+                        case .connected :
+                            textStatus = StringCommonMessages.connected
+                        case .disconnected :
+                            textStatus = StringCommonMessages.disconnect
+                        case .connecting :
+                            textStatus = StringCommonMessages.connecting
+                        case .disconnecting:
+                            textStatus = StringCommonMessages.disconnect
+                        @unknown default:
+                            textStatus = StringCommonMessages.connecting
+                        }
+                    } else {
+                        textStatus = StringCommonMessages.notInRange
                     }
                 }
             }
             lblstatus.text = textStatus
             
-            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? BLEHelper.shared.bettery : device.batteryLevel )%"
+            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? (BLEHelper.shared.bettery != "0" ? BLEHelper.shared.bettery : device.batteryLevel ): device.batteryLevel )%"
             btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }
