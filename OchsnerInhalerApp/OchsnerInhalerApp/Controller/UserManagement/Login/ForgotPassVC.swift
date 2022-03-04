@@ -32,10 +32,24 @@ class ForgotPassVC: BaseVC {
         addAstrickSing(label: lblEmail)
         hideKeyBoardHideOutSideTouch(customView: self.view)
         txtEmail.setFont()
+        txtEmail.delegate = self
     }
+    
     @IBAction func btnForgotClick(_ sender: Any) {
         if (txtEmail.text!.isValidEmail) {
             print(txtEmail.text!.isValidEmail)
+            login.loginModel.email = txtEmail.text
+            login.apiForgotPassword(completionHandler: { [weak self] result in
+                guard let`self` = self else { return }
+                switch result {
+                case .success:
+                    CommonFunctions.showMessage(message: ValidationMsg.forgoteSuccess) { _ in
+                        self.popVC()
+                    }
+                case .failure(let message):
+                    CommonFunctions.showMessage(message: message)
+                }
+            })
             
         } else {
             CommonFunctions.showMessage(message: ValidationMsg.email)
@@ -56,4 +70,9 @@ class ForgotPassVC: BaseVC {
     }
     */
 
+}
+extension ForgotPassVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return view.endEditing(true)
+    }
 }

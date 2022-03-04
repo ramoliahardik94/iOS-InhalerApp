@@ -1170,7 +1170,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDc-k7-KLq">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="ZIp-Lg-kpc">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="ZIp-Lg-kpc">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WA3-4t-GrS">
@@ -1216,10 +1216,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XE9-Lu-39Q">
-                                                <rect key="frame" x="0.0" y="50" width="375" height="734"/>
+                                                <rect key="frame" x="0.0" y="50" width="375" height="684"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AtJ-N3-wuL">
-                                                        <rect key="frame" x="32" y="190.66666666666669" width="311" height="193"/>
+                                                        <rect key="frame" x="32" y="165.66666666666669" width="311" height="193"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="nuQ-Wh-yDo">
                                                                 <rect key="frame" x="0.0" y="16" width="311" height="172"/>
@@ -1304,10 +1304,10 @@
                                             <constraint firstAttribute="bottom" secondItem="XE9-Lu-39Q" secondAttribute="bottom" id="3xp-Bh-OSs"/>
                                             <constraint firstItem="WA3-4t-GrS" firstAttribute="top" secondItem="ZIp-Lg-kpc" secondAttribute="top" id="L7w-E7-vbM"/>
                                             <constraint firstItem="XE9-Lu-39Q" firstAttribute="leading" secondItem="ZIp-Lg-kpc" secondAttribute="leading" id="Rda-of-ZRx"/>
-                                            <constraint firstItem="XE9-Lu-39Q" firstAttribute="height" secondItem="ZIp-Lg-kpc" secondAttribute="height" id="WTR-DT-ygw"/>
+                                            <constraint firstItem="XE9-Lu-39Q" firstAttribute="height" secondItem="ZIp-Lg-kpc" secondAttribute="height" constant="-50" id="WTR-DT-ygw"/>
                                             <constraint firstItem="XE9-Lu-39Q" firstAttribute="width" secondItem="ZIp-Lg-kpc" secondAttribute="width" id="g0q-UG-lPt"/>
                                             <constraint firstAttribute="trailing" secondItem="XE9-Lu-39Q" secondAttribute="trailing" id="niO-uo-HHf"/>
-                                            <constraint firstItem="XE9-Lu-39Q" firstAttribute="top" secondItem="WA3-4t-GrS" secondAttribute="bottom" id="p3C-eY-ORl"/>
+                                            <constraint firstItem="XE9-Lu-39Q" firstAttribute="top" secondItem="WA3-4t-GrS" secondAttribute="bottom" id="rZS-dK-HUQ"/>
                                             <constraint firstAttribute="trailing" secondItem="WA3-4t-GrS" secondAttribute="trailing" id="ywb-nK-5Ro"/>
                                         </constraints>
                                     </scrollView>

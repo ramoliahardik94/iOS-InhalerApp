@@ -58,4 +58,5 @@ class UserModel: NSObject {
         dic["Password"] = self.password
         return dic
     }
+    
 }

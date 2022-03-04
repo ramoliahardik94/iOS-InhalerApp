@@ -94,7 +94,7 @@ class ManageDeviceVC: BaseVC {
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        addDeviceIntroVC.step = .step2
+        addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true
         addDeviceIntroVC.isFromDeviceList  = true
         BLEHelper.shared.isAddAnother = true

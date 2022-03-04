@@ -58,6 +58,7 @@ class AddDeviceIntroVC: BaseVC {
             lblGreat.text = StringAddDevice.great
             imgAddDevice.image = #imageLiteral(resourceName: "Inhaler Graphic")
             lblAddDevice.text = StringAddDevice.addDevice
+            BLEHelper.shared.stopTimer()
             let attributedString = attributedText(withString: StringAddDevice.addDeviceInto, boldString: StringAddDevice.ConnectedInhalerSensor, font: UIFont(name: AppFont.AppRegularFont, size: 17)!)
             lbldeviceInfo.attributedText = attributedString
             btnStartSetUp.setButtonView(StringAddDevice.startSetup)
@@ -77,10 +78,6 @@ class AddDeviceIntroVC: BaseVC {
             lbldeviceInfo.text = StringAddDevice.removeIsolationTagWithScan
             BLEHelper.shared.isAddAnother = true
             BLEHelper.shared.discoveredPeripheral = nil
-            
-//            lbldeviceInfo.text = StringAddDevice.scanInstructionOne // StringAddDevice.connectDeviceInfo
-//            lblGreat.text = StringAddDevice.scanDevicetitle
-            
             paringLoader.isHidden = true
             btnStartSetUp.setButtonView(StringAddDevice.scanDevice)
             btnStartSetUp.isEnabled = true
@@ -91,11 +88,10 @@ class AddDeviceIntroVC: BaseVC {
            
                       
         case .step4:
-            
             lblGreat.text = StringAddDevice.connectDevice
-            imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
-//            let advTimeGif = UIImage.gifImageWithName("gifanimated")
-//            imgAddDevice.image = advTimeGif
+//            imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
+            let advTimeGif = UIImage.gifImageWithName("Tap-Animation")
+            imgAddDevice.image = advTimeGif
             lblAddDevice.isHidden  = true
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)

@@ -9,13 +9,7 @@ extension UIImageView {
         tintColor = color
     }
 }
-//
-//  iOSDevCenters+GIF.swift
-//  GIF-Swift
-//
-//  Created by iOSDevCenters on 11/12/15.
-//  Copyright © 2016 iOSDevCenters. All rights reserved.
-//
+
 
 import ImageIO
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
@@ -73,7 +67,7 @@ extension UIImage {
     }
     
     class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
-        var delay = 0.1
+        var delay = 0.05
         
         let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
         let gifProperties: CFDictionary = unsafeBitCast(
@@ -92,10 +86,10 @@ extension UIImage {
         
         delay = delayObject as! Double
         
-        if delay < 0.1 {
-            delay = 0.1
-        }
-        
+//        if delay < 0.1 {
+//            delay = 0.1
+//        }
+//        
         return delay
     }
     

@@ -17,10 +17,9 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
-
-        DispatchQueue.global(qos: .userInteractive).sync { [self] in
-            if UserDefaultManager.isLogin {
-                
+        if isAllow {
+            DispatchQueue.global(qos: .userInteractive).sync { [self] in
+                if UserDefaultManager.isLogin {
                     if isTimer {
                         if timer == nil || !timer.isValid {
                             Logger.logInfo("Scaning start with 15 sec timer")
@@ -38,19 +37,22 @@ extension BLEHelper {
                                 guard let `self` = self else { return }
                                 self.centralManager.scanForPeripherals(withServices: nil, options: nil)
                             }
-                            
                         }
-                        
                     }
                     isScanning = true
-                
-                NotificationCenter.default.post(name: .BLEChange, object: nil)
+                    NotificationCenter.default.post(name: .BLEChange, object: nil)
+                }
+            }
+        } else {
+            if let topVC =  UIApplication.topViewController() {
+                topVC.view.showToast(toastMessage: ValidationMsg.bluetoothOn, duration: 10)
             }
         }
     }
     
     func stopTimer() {
         print("timerStop")
+        isScanning = false
       if timer != nil {
         timer!.invalidate()
         timer = nil
@@ -59,10 +61,16 @@ extension BLEHelper {
     
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
     func connectPeriPheral() {
-        if discoveredPeripheral != nil {
-            centralManager.connect(discoveredPeripheral!, options: nil)
-            delay(2) {
-                NotificationCenter.default.post(name: .BLEChange, object: nil)
+        if isAllow {
+            if discoveredPeripheral != nil {
+                centralManager.connect(discoveredPeripheral!, options: nil)
+                delay(2) {
+                    NotificationCenter.default.post(name: .BLEChange, object: nil)
+                }
+            }
+        } else {
+            if let topVC =  UIApplication.topViewController() {
+                topVC.view.showToast(toastMessage: ValidationMsg.bluetoothOn, duration: 10)
             }
         }
     }
@@ -75,7 +83,7 @@ extension BLEHelper {
             } else {
               //  BLEHelper.shared.setDelegate()
                 if let topVC =  UIApplication.topViewController() {
-                    topVC.view.showToast(toastMessage: "Please Turn on Bluetooth", duration: 10)
+                    topVC.view.showToast(toastMessage: ValidationMsg.bluetoothOn, duration: 10)
                 }
                
             }

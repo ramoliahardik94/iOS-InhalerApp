@@ -77,6 +77,7 @@
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
+		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
 		47594B3427D0839C00F23C53 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */; };
 		47594B3527D0839C00F23C53 /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
@@ -198,6 +199,7 @@
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
+		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
 		47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 		22AE96E6278E9D6300C0D851 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				4757D08E27D209E800224605 /* Tap-Animation */,
 				47CDCE1A278D87300014527D /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -595,6 +598,14 @@
 				4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		4757D08E27D209E800224605 /* Tap-Animation */ = {
+			isa = PBXGroup;
+			children = (
+				4757D08F27D209E800224605 /* Tap-Animation.gif */,
+			);
+			path = "Tap-Animation";
 			sourceTree = "<group>";
 		};
 		47C1FEE727958ECB007C6F16 /* AddDevice */ = {
@@ -846,6 +857,7 @@
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
 				224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */,
 				2296C33F27B2621E0095CBFA /* TemoDashboardCell.xib in Resources */,
+				4757D09127D209E800224605 /* Tap-Animation.gif in Resources */,
 				22FCEA6227C4AA8700A91A6A /* dashboard_response.json in Resources */,
 				4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */,
 				22609D792799236700B38CF4 /* HomeGraphCell.xib in Resources */,
