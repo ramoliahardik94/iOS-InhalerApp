@@ -17,10 +17,12 @@ extension BLEHelper: CBCentralManagerDelegate {
             // ... so start working with the peripheral
             isAllow = true
             bleConnect()
+            NotificationCenter.default.post(name: .BLEOnOff, object: nil)
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         case .poweredOff:
             isAllow = false
             bleConnect()
+            NotificationCenter.default.post(name: .BLEOnOff, object: nil)
             NotificationCenter.default.post(name: .BLEChange, object: nil)
             NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
            // CommonFunctions.showMessagePermission(message: StringPermissions.turnOn, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.settings, isOpenBluetooth: true)
@@ -80,29 +82,26 @@ extension BLEHelper: CBCentralManagerDelegate {
 //        }
        
         Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+        let devicelist = device.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
-                let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+                
                 if devicelist.contains(where: {$0 == peripheral.identifier.uuidString}) && !isAddAnother {
                     discoveredPeripheral = peripheral
                     stopScanPeriphral()
                     stopTimer()
                     connectPeriPheral()
-                } else if isAddAnother {
-                    if (discoveredPeripheral != nil && discoveredPeripheral?.identifier.uuidString != peripheral.identifier.uuidString) {
-                        discoveredPeripheral = peripheral
-                        stopScanPeriphral()
-                        stopTimer()
+                } else {
+                    discoveredPeripheral = peripheral
+                    stopScanPeriphral()
+                    stopTimer()
+                    if isAddAnother {
                         delay(15) {
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
                         }
-                    } else if discoveredPeripheral == nil {
-                        discoveredPeripheral = peripheral
-                        stopScanPeriphral()
-                        stopTimer()
-                        delay(15) {
-                            NotificationCenter.default.post(name: .BLEFound, object: nil)
-                        }
+                    } else {
+                        connectPeriPheral()
                     }
                 }
             }
@@ -125,7 +124,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        if !isAddAnother {
+        if !isAddAnother && UserDefaultManager.isLogin {
             scanPeripheral(isTimer: false)
         }
         self.stopTimer()

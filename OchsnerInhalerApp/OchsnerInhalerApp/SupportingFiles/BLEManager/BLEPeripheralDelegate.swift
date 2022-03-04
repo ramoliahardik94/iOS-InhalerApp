@@ -140,14 +140,14 @@ extension BLEHelper {
         stopTimer()
         delay(15) {
             [weak self] in
-               guard let `self` = self else { return }
-                   self.stopTimer()
-                   self.getmacAddress()
-                   self.getBetteryLevel()
-                   self.getAccuationNumber()
-                   Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
-                   NotificationCenter.default.post(name: .BLEConnect, object: nil)
-               
+            guard let `self` = self else { return }
+            self.getmacAddress()
+            self.getBetteryLevel()
+            self.getAccuationNumber()
+            Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
+            self.isScanning = false
+            NotificationCenter.default.post(name: .BLEConnect, object: nil)
+            
         }
         // Once this is complete, we just need to wait for the data to come in.
     }

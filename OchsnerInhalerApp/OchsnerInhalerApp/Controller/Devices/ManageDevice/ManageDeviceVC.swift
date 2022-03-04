@@ -15,6 +15,7 @@ class ManageDeviceVC: BaseVC {
     var manageDeviceVM = ManageDeviceVM()
     @IBOutlet weak var btnAddAnothDevice: UIButton!
     let refreshControl = UIRefreshControl()
+    @IBOutlet weak var addDevicebtnHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class ManageDeviceVC: BaseVC {
             apiCall()
         }
         tbvData.reloadData()
+        refresh(self)
     }
     
     func apiCall() {
@@ -64,6 +66,9 @@ class ManageDeviceVC: BaseVC {
         tbvData.addSubview(refreshControl)
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
+        
+        addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
+        btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
         apiCall()
     }
     
@@ -151,12 +156,16 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 print("Response sucess :\(status)")
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
+                    
+                    self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
+                    self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
                     if self.manageDeviceVM.arrDevice.count == 0 {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         addDeviceIntroVC.step = .step1
                         addDeviceIntroVC.isFromAddAnother  = false
                         addDeviceIntroVC.isFromDeviceList  = true
                         self.pushVC(controller: addDeviceIntroVC)
+                        self.view.layoutSubviews()
                     }
                     
                 }

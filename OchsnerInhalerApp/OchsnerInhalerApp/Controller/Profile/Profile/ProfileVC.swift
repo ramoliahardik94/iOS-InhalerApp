@@ -127,8 +127,9 @@ class ProfileVC: BaseVC {
         }
     }
     func setRootLogin() {
+        removeUser()
          BLEHelper.shared.cleanup()
-         removeUser()
+        
          let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
          let nav: UINavigationController = UINavigationController()
          nav.isNavigationBarHidden = true

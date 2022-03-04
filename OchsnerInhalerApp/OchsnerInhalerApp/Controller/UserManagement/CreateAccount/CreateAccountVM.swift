@@ -10,7 +10,7 @@ import Foundation
 class CreateAccountVM {
     
     var userData = UserModel(jSon: [String: Any]())
-    
+    var isPrivacy = false
     func apiCreateAccount(completionHandler: @escaping ((APIResult) -> Void)) {
         UserDefaultManager.remove(forKey: .grantBLEPermission)
         UserDefaultManager.remove(forKey: .grantLocationPermission)
@@ -53,7 +53,11 @@ class CreateAccountVM {
         } else if  userData.confirmPassword != userData.password {
             CommonFunctions.showMessage(message: ValidationMsg.matchPass)
             isValid = false
+        } else if !isPrivacy {
+            CommonFunctions.showMessage(message: ValidationMsg.privacyPolicy)
+            isValid = false
         }
+        
         return isValid
     }
     

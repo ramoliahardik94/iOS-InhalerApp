@@ -34,12 +34,6 @@ class LoginVM {
     }
     
     func getDeviceListFromDB() -> [String] {
-        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        if device.count == 0 {
-            DatabaseManager.share.deleteAllAccuationLog()
-            DatabaseManager.share.deleteAllDevice()
-            return [String]()
-        } else {
         let manageDeviceVM = ManageDeviceVM()
             manageDeviceVM.apicallForGetDeviceList(completionHandler: { result in
                 switch result {
@@ -51,9 +45,11 @@ class LoginVM {
                     // CommonFunctions.showMessage(message: message)
                 }
             })
-            return device.map({$0.udid!})
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid!})
+        let devicelist = device.filter({$0.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
+            return devicelist
         }
-    }
+    
     
     func checkValidation() -> Bool {
         var isValid = true

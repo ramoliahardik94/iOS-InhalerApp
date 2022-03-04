@@ -23,7 +23,7 @@ class BluetoothPermissionVC: BaseVC {
         btnGrant.setButtonView(StringCommonMessages.grant)
         lblBluetoothPermission.setFont(type: .bold, point: 32)
         btnCancel.isHidden = true
-        NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
     }
     
 

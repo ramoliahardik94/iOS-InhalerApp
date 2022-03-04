@@ -116,6 +116,7 @@ class CreateAccoutVC: BaseVC {
     @IBAction func tapCheckBox(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         ivCheckBox.image = sender.isSelected ?  UIImage(named: "check_box") : UIImage(named: "check_box_outline")
+        createAccountVM.isPrivacy.toggle()
     }
     
     

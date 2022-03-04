@@ -14,6 +14,7 @@ extension Notification.Name {
     static let BLEDisconnect = Notification.Name("BLEDisconnect")
     static let BLEGetMac = Notification.Name("BLEGetMac")
     static let BLEChange = Notification.Name("BLEChange")
+    static let BLEOnOff = Notification.Name("BLEOnOff")
     static let BLEBatteryLevel = Notification.Name("BLEBatteryLevel")
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
@@ -99,7 +100,8 @@ struct ValidationMsg {
     static let addDose = "Please add daily dose."
     static let addPuff = "Please add how many puffs per dose?"
     static let removeDevice = "Are you sure to remove this device?"
-    
+    static let mantainance = "Cannot add more than one mantainance device."
+    static let privacyPolicy = "You must accept our privacy policy!"
 }
 struct ValidationButton {
     static let tryAgain = "Try again"
@@ -177,7 +179,7 @@ struct StringAddDevice {
 struct StringMedication {
     static let titleMedication = "Which Medication will be \n used with this Sensor?"
     static let inhealerType = "How will this \n Inhaler be used?"
-    static let titleMedicationDetail = "What are the Directions for use of this Maintenance Inhaler?"
+    static let titleMedicationDetail = "What are the directions for use of this Maintenance Inhaler?"
     static let puffTitle = "How many puffs per dose?"
     static let doseTime = "Dose Times"
     static let reminder = "Set Reminders?"

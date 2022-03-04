@@ -41,7 +41,7 @@ class ManageDeviceCell: UITableViewCell {
             lblNoOfDose.text =  (device.medTypeID ==  1 || device.useTimes.count == 0) ? StringCommonMessages.rescueDose : str
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
-            var textStatus = BLEHelper.shared.discoveredPeripheral == nil ? StringCommonMessages.notInRange : StringCommonMessages.disconnect
+            var textStatus =  StringCommonMessages.disconnect
             if BLEHelper.shared.isScanning {
                 textStatus = StringCommonMessages.scanning
             } else {
@@ -61,13 +61,13 @@ class ManageDeviceCell: UITableViewCell {
                             textStatus = StringCommonMessages.connecting
                         }
                     } else {
-                        textStatus = StringCommonMessages.notInRange
+                        textStatus = StringCommonMessages.disconnect
                     }
                 }
             }
             lblstatus.text = textStatus
             
-            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? (BLEHelper.shared.bettery != "0" ? BLEHelper.shared.bettery : device.batteryLevel ): device.batteryLevel )%"
+            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? (BLEHelper.shared.bettery != "0" ? "\(BLEHelper.shared.bettery)%" : device.batteryLevel ): device.batteryLevel)"
             btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }

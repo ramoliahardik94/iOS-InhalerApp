@@ -28,23 +28,27 @@ class CustomSplashVC: BaseVC {
         lblConnectdInhalerSensor.textColor = .ColorSplashText
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
-        NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         deviceUDID = devicelist.map({$0.udid!})
         
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
-                BLEHelper.shared.setDelegate()
+            BLEHelper.shared.setDelegate()
+            delay(2) {
                 BLEHelper.shared.scanPeripheral()
-                BLEHelper.shared.apiCallDeviceUsage()
+            }
+            
+            BLEHelper.shared.apiCallDeviceUsage()
             if UserDefaultManager.isLocationOn {
                 _ = LocationManager()
             }
-         }
+        }
     }
     
     @objc func didFinishTimer() {
         if UserDefaultManager.isLogin {
             if !UserDefaultManager.isGrantBLE {
+                
                 let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self.rootVC(controller: bluetoothPermissionVC)
                 return
@@ -74,11 +78,10 @@ class CustomSplashVC: BaseVC {
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.pushVC(controller: addDeviceIntroVC)
+                    self.rootVC(controller: addDeviceIntroVC)
                 } else {
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                   homeTabBar.selectedIndex = 1
                     DispatchQueue.main.async {
                         self.rootVC(controller: homeTabBar)
                     }

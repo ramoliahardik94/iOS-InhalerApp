@@ -38,7 +38,6 @@ class AddDeviceIntroVC: BaseVC {
     
     
     deinit {
-        BLEHelper.shared.stopTimer()
         NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
@@ -48,7 +47,7 @@ class AddDeviceIntroVC: BaseVC {
     }
     
     // MARK: - UI SetUp functions
-    /// Step2 and Step3 is combind so no need of this step as of now.
+    /// Step2 and Step3 is combind so no need of this step2 as of now.
     func setUpUIBaseonStep() {
         self.navigationController?.isNavigationBarHidden = true
         paringLoader.isHidden = true
@@ -89,8 +88,10 @@ class AddDeviceIntroVC: BaseVC {
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerFound(notification:)), name: .BLEFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotFound(notification:)), name: .BLENotFound, object: nil)
+           
                       
         case .step4:
+            
             lblGreat.text = StringAddDevice.connectDevice
             imgAddDevice.image = #imageLiteral(resourceName: "pairDevice")
 //            let advTimeGif = UIImage.gifImageWithName("gifanimated")
@@ -171,7 +172,6 @@ class AddDeviceIntroVC: BaseVC {
                 btnStartSetUp.backgroundColor = .ButtonColorBlue
                 paringLoader.isHidden = false
                 paringLoader.startAnimating()
-                BLEHelper.shared.scanPeripheral()
         case .step4:
             BLEHelper.shared.stopTimer()
             BLEHelper.shared.connectPeriPheral()
@@ -214,6 +214,8 @@ extension AddDeviceIntroVC {
 //        btnStartSetUp.isEnabled = true
 //        btnStartSetUp.backgroundColor = .ButtonColorBlue
 //        lbldeviceInfo.text = StringAddDevice.scanInstructionTwo //        btnStartSetUp.setButtonView(StringAddDevice.pairDevice)
+        NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
         paringLoader.isHidden = true
         paringLoader.stopAnimating()
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -249,10 +251,13 @@ extension AddDeviceIntroVC {
             guard let `self` = self else { return }
             self.scanBLE()
         }
+        
     }
     
     @objc func inhalerConnected(notification: Notification) {
         print("inhalerConnected")
+        NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         BLEHelper.shared.setRTCTime()
         BLEHelper.shared.getBetteryLevel()

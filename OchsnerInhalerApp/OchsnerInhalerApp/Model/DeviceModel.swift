@@ -22,7 +22,8 @@ class DeviceModel: NSObject {
     var medication: MedicationModelElement = MedicationModelElement()
     var useTimes: [String] = [String]()
     var arrTime: [String] = [String]()
-    
+    var isReminder = false
+    var udid = ""
     override init () {        
     }
     init(jSon: [String: Any]) {
@@ -52,7 +53,7 @@ class DeviceModel: NSObject {
             self.medID = value
         }
         if let value = jSon["BatteryLevel"] as? String {
-            self.batteryLevel = value
+            self.batteryLevel = "\(value)%"
         }
         if let value = jSon["BatteryLevelDate"] as? String {
             self.batteryLevelDate = value
