@@ -99,7 +99,7 @@ class ProfileVC: BaseVC {
         pushVC(controller: providerListVC)
     }
     @IBAction func tapRemoveProvider(_ sender: Any) {
-  
+        removeProvider()
     }
     
   
@@ -109,9 +109,26 @@ class ProfileVC: BaseVC {
             UserDefaultManager.isNotificationOn = sender.isOn
            // profileVM.getAllCalenderEvent()
         } else if sender.tag == SwitchButtonsTag.switchLocation.rawValue {
-            UserDefaultManager.isLocationOn = sender.isOn
+            UserDefaultManager.isLocationOn = switchLocation.isOn
             if sender.isOn {
-                _ = LocationManager()
+                LocationManager.shared.isAllowed(askPermission: true, completion: { status in
+                    //   print("location status \(status)")
+                    switch(status) {
+                    case .notDetermined:
+                        break
+                    case .denied, .restricted:
+                        DispatchQueue.main.async {
+                            self.switchLocation.setOn(false, animated: true)
+                        }
+                        UserDefaultManager.isLocationOn = false
+                        CommonFunctions.showMessage(message: StringProfile.locarionPermission, {_ in })
+                    case .authorizedAlways, .authorizedWhenInUse:
+                        LocationManager.shared = LocationManager()
+                    @unknown default:
+                        break
+                    }
+                    
+                })
             } else {
                 LocationManager.shared.offLocation()
             }
@@ -144,6 +161,22 @@ class ProfileVC: BaseVC {
         }
     }
   
+    private func removeProvider() {
+        let url =  "\(APIRouter.providerAuth.path)?providerId=\("")&accessToken=\("")&expiresIn=\("")&refreshToken=\("")"
+        profileVM.removeProvider(url: url) { [weak self] result in
+            guard let`self` = self else { return }
+            switch(result) {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                self.doGetProfileData()
+                
+            case .failure(let message) :
+                CommonFunctions.showMessage(message: message)
+            }
+            
+        }
+        
+    }
    
     
 }

@@ -116,6 +116,7 @@ struct StringProfile {
     static let  shareUsageWithProvider = "Share Usage With Provider"
     static let  useFaceID = "Use FaceID"
     static let  sureLogout = "Are you sure you want to logout?"
+    static let  locarionPermission = "Turn on your location\nGoto Settings, Select OchsnerInhelarApp select location and tap Always or While Usings"
 }
 
 // MARK: Providers

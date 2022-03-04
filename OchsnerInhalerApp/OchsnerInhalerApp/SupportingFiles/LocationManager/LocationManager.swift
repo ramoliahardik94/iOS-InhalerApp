@@ -9,7 +9,7 @@ import SystemConfiguration.CaptiveNetwork
 class LocationManager: CLLocationManager {
     
     // MARK: Properties
-    static let shared = LocationManager()
+    static var shared = LocationManager()
     var locationManager = CLLocationManager()
     var ssidCompletion: ((String) -> Void)!
     var locationCompletion: ((CLLocationCoordinate2D) -> Void)!
@@ -88,7 +88,8 @@ class LocationManager: CLLocationManager {
         return ssid
     }
     
-    @objc func applicationDidBecomeActive() {       
+    @objc func applicationDidBecomeActive() {
+        NotificationCenter.default.removeObserver(self)
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             permissionCompletion?(.authorizedWhenInUse)

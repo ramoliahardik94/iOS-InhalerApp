@@ -13,6 +13,7 @@ typealias EventsCalendarManagerResponse = (_ result: Result<Bool, CustomError>) 
 
 class ReminderManager: NSObject {
     var eventStore: EKEventStore!
+    static let sheredInstance = ReminderManager()
     
     override init() {
         eventStore = EKEventStore()
@@ -82,6 +83,7 @@ class ReminderManager: NSObject {
         completion(.success(true))
     }
     
+    // check already added reminder
     func eventAlreadyExists() -> Bool {
         for item in eventStore.sources {
             for itemSub in item.calendars(for: .reminder) where itemSub.title ==  StringAddDevice.titleAddDevice {
@@ -103,7 +105,7 @@ class ReminderManager: NSObject {
         return EKCalendar(for: .reminder, eventStore: eventStore)
     }
     
-    
+    //getting local source
      func bestPossibleEKSource() -> EKSource? {
         let `default` = eventStore.defaultCalendarForNewEvents?.source
         let iCloud = eventStore.sources.first(where: { $0.title == "iCloud" }) // this is fragile, user can rename the source
@@ -138,7 +140,7 @@ class ReminderManager: NSObject {
          }
      }
     
-    
+    //Create instance of reminder
     private func generateReminder(title: String, date: Date) -> EKReminder {
         let reminder = EKReminder(eventStore: eventStore)
         reminder.title = title
@@ -157,7 +159,7 @@ class ReminderManager: NSObject {
         return reminder
     }
     
-    
+    // remove old remiders
     func removeReminder() {
         if  getAuthorizationStatus() == .authorized {
             let predicate = self.eventStore.predicateForReminders(in: nil)
@@ -178,7 +180,7 @@ class ReminderManager: NSObject {
     }
     
 }
-
+// enum for error reminders
 enum CustomError: Error {
     case calendarAccessDeniedOrRestricted
     case eventNotAddedToCalendar

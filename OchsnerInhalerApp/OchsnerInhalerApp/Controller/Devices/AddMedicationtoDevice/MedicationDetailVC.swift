@@ -28,6 +28,7 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var lblPuffTitle: UILabel!
     @IBOutlet weak var tblDoseTime: UITableView!
     @IBOutlet weak var btnPuff: UIButton!
+    @IBOutlet weak var viewAddDose: UIView!
     var isFromDeviceList = false
     var medicationVM = MedicationVM()
     let timePicker = UIDatePicker()
@@ -36,7 +37,7 @@ class MedicationDetailVC: BaseVC {
         return obj
     }()
     let dropDown = DropDown()
-    private let reminderManager  = ReminderManager()
+   // private let reminderManager  = ReminderManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -127,8 +128,8 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
-        reminderManager.addReminderMainList()
-        reminderManager.removeReminder()
+        ReminderManager.sheredInstance.addReminderMainList()
+        ReminderManager.sheredInstance.removeReminder()
         if swReminder.isOn {
             addReminderToCalender()
         }
@@ -178,6 +179,7 @@ class MedicationDetailVC: BaseVC {
         self.medicationVM.arrTime.append(dosetime)
         tblDoseTime.reloadData()
         lblAddDose.text =  self.medicationVM.arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
+        viewAddDose.isHidden = self.medicationVM.arrTime.count  == 10
     }
     
     @IBAction func btnEditDose(_ sender: UIButton) {
@@ -189,6 +191,7 @@ class MedicationDetailVC: BaseVC {
         self.medicationVM.arrTime.remove(at: sender.tag)
         tblDoseTime.reloadData()
         lblAddDose.text =  self.medicationVM.arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
+        viewAddDose.isHidden = self.medicationVM.arrTime.count  == 10
     }
     
     @IBAction func tapNoOfDose(_ sender: UIButton) {
@@ -216,12 +219,12 @@ class MedicationDetailVC: BaseVC {
     // for add reminder event
     
     private func permissionForReminder() {
-        switch(reminderManager.getAuthorizationStatus()) {
+        switch(ReminderManager.sheredInstance.getAuthorizationStatus()) {
         case .authorized :
             
             break
         case .notDetermined :
-            reminderManager.requestAccess { (accessGranted, _) in
+            ReminderManager.sheredInstance.requestAccess { (accessGranted, _) in
                 if !accessGranted {
                     DispatchQueue.main.async {
                         self.swReminder.setOn(false, animated: true)
@@ -251,7 +254,7 @@ class MedicationDetailVC: BaseVC {
                     
                     let title = "\(StringAddDevice.titleAddDevice)\n\(StringDevices.yourNextDose) \(obj) for \(lblMedicationName.text ?? "")"
                     
-                    reminderManager.addEventToCalendar(title: title, date: date) {  _ in
+                    ReminderManager.sheredInstance.addEventToCalendar(title: title, date: date) {  _ in
                         print("Saved Event")
                     }
                     
