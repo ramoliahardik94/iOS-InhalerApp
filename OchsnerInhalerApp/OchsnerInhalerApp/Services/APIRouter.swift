@@ -7,6 +7,7 @@ import Alamofire
 enum APIRouter {
     case createAccount
     case login
+    case forgote
     case refreshToken
     case medication
     case device
@@ -38,7 +39,9 @@ enum APIRouter {
             return BaseURLManager.shared.getBaseURL() + "deviceuse"
         case .user :
             return BaseURLManager.shared.getBaseURL() + "user"
-        }
+        case .forgote :
+            return BaseURLManager.shared.getBaseURL() + "forgotpassword"
+    }
     }
     
 
