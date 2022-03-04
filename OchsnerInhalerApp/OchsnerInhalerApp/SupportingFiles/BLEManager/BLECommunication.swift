@@ -8,31 +8,49 @@
 import Foundation
 
 import CoreBluetooth
+import UIKit
 
 extension BLEHelper {
     
     
     /// For scan peripheral
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
-    /// isTimer default value is false
+    /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
-        stopScanPeriphral()
-        stopTimer()
-        
-        if isTimer {
-            Logger.logInfo("Scaning start with 15 sec timer")
-            timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-        } else {
-        // TODO:  Replace hear Service array make a param if needed then
-            Logger.logInfo("Scaning start with 30 sec timer")
-            timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-        }
-        DispatchQueue.global(qos: .background).sync {
-            centralManager.scanForPeripherals(withServices: nil, options: nil)
+
+        DispatchQueue.global(qos: .userInteractive).sync { [self] in
+            if UserDefaultManager.isLogin {
+                
+                    if isTimer {
+                        if timer == nil || !timer.isValid {
+                            Logger.logInfo("Scaning start with 15 sec timer")
+                            timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+                            DispatchQueue.global(qos: .utility).async { [weak self] in
+                                guard let `self` = self else { return }
+                                self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+                            }
+                        }
+                    } else {
+                        if timer == nil || !timer.isValid {
+                            Logger.logInfo("Scaning start with 30 sec timer")
+                            timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+                            DispatchQueue.global(qos: .utility).async { [weak self] in
+                                guard let `self` = self else { return }
+                                self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+                            }
+                            
+                        }
+                        
+                    }
+                    isScanning = true
+                
+                NotificationCenter.default.post(name: .BLEChange, object: nil)
+            }
         }
     }
     
     func stopTimer() {
+        print("timerStop")
       if timer != nil {
         timer!.invalidate()
         timer = nil
@@ -43,6 +61,9 @@ extension BLEHelper {
     func connectPeriPheral() {
         if discoveredPeripheral != nil {
             centralManager.connect(discoveredPeripheral!, options: nil)
+            delay(2) {
+                NotificationCenter.default.post(name: .BLEChange, object: nil)
+            }
         }
     }
     
@@ -52,7 +73,11 @@ extension BLEHelper {
             if isAllow {
                 BLEHelper.shared.scanPeripheral()
             } else {
-                BLEHelper.shared.setDelegate()
+              //  BLEHelper.shared.setDelegate()
+                if let topVC =  UIApplication.topViewController() {
+                    topVC.view.showToast(toastMessage: "Please Turn on Bluetooth", duration: 10)
+                }
+               
             }
          }
     }
@@ -62,11 +87,19 @@ extension BLEHelper {
         if isAddAnother {
             NotificationCenter.default.post(name: .BLENotFound, object: nil)
         }
+        isScanning = false
+        self.stopTimer()
         self.stopScanPeriphral()
     }
     
     func stopScanPeriphral() {
+        if timer != nil {
+             Logger.logInfo("Scaning stop")
+        }
         centralManager.stopScan()
+        NotificationCenter.default.post(name: .BLEChange, object: nil)
+    
+
     }
     
     // This function is use for cleanup BLE Task

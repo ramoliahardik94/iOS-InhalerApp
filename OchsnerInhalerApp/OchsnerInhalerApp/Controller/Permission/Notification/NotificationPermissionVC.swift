@@ -18,6 +18,7 @@ class NotificationPermissionVC: BaseVC {
         lblNotificationPermission.setFont(type: .bold, point: 32)
         btnGrant.setButtonView(StringCommonMessages.grant)
         btnSkip.setButtonViewGrey(StringCommonMessages.skip)
+        UserDefaultManager.isGrantNotification = true
     }
     
     // MARK: Actions
@@ -29,7 +30,7 @@ class NotificationPermissionVC: BaseVC {
                     UserDefaultManager.isGrantNotification = true
                     UserDefaultManager.isNotificationOn = true
                     let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.pushVC(controller: addDeviceIntroVC)
+                    self.rootVC(controller: addDeviceIntroVC)
                    
                 }
             }
@@ -41,7 +42,7 @@ class NotificationPermissionVC: BaseVC {
         UserDefaultManager.isGrantNotification = true
         UserDefaultManager.isNotificationOn = false
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        self.pushVC(controller: addDeviceIntroVC)
+        self.rootVC(controller: addDeviceIntroVC)
     }
         
     

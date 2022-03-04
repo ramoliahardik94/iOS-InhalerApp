@@ -14,6 +14,8 @@ class ManageDeviceVC: BaseVC {
     private let itemCell = CellIdentifier.manageDeviceCell
     var manageDeviceVM = ManageDeviceVM()
     @IBOutlet weak var btnAddAnothDevice: UIButton!
+    let refreshControl = UIRefreshControl()
+    @IBOutlet weak var addDevicebtnHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,7 @@ class ManageDeviceVC: BaseVC {
             apiCall()
         }
         tbvData.reloadData()
+        refresh(self)
     }
     
     func apiCall() {
@@ -55,12 +58,28 @@ class ManageDeviceVC: BaseVC {
     private func initUI() {
         let nib = UINib(nibName: itemCell, bundle: nil)
         tbvData.register(nib, forCellReuseIdentifier: itemCell)
+        
         tbvData.delegate = self
         tbvData.dataSource = self
+        
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tbvData.addSubview(refreshControl)
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
+        
+        addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
+        btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
         apiCall()
     }
+    
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral!.state == .disconnected {
+            BLEHelper.shared.scanPeripheral()
+        }
+        refreshControl.endRefreshing()
+    }
+    
     @objc func inhalerConnected(notification: Notification) {
         DispatchQueue.main.async {
             self.tbvData.reloadData()
@@ -137,12 +156,16 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 print("Response sucess :\(status)")
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
+                    
+                    self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
+                    self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
                     if self.manageDeviceVM.arrDevice.count == 0 {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         addDeviceIntroVC.step = .step1
                         addDeviceIntroVC.isFromAddAnother  = false
                         addDeviceIntroVC.isFromDeviceList  = true
                         self.pushVC(controller: addDeviceIntroVC)
+                        self.view.layoutSubviews()
                     }
                     
                 }

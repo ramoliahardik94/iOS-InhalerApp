@@ -14,6 +14,7 @@ extension Notification.Name {
     static let BLEDisconnect = Notification.Name("BLEDisconnect")
     static let BLEGetMac = Notification.Name("BLEGetMac")
     static let BLEChange = Notification.Name("BLEChange")
+    static let BLEOnOff = Notification.Name("BLEOnOff")
     static let BLEBatteryLevel = Notification.Name("BLEBatteryLevel")
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
@@ -30,8 +31,10 @@ struct StringCommonMessages {
      static let share = "Share"
      static let copyRight = "©2022 Ochsner Health"
      static let connected = "Connected"
-     static let connecting = "Connecting"
+     static let connecting = "Connecting..."
+    static let notInRange = "Not in range"
      static let disconnect = "Disconnected"
+    static let scanning = "Scanning..."
      static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
     static let  noInternetConnection = "No Internet connection"
@@ -177,7 +180,7 @@ struct StringAddDevice {
 struct StringMedication {
     static let titleMedication = "Which Medication will be \n used with this Sensor?"
     static let inhealerType = "How will this \n Inhaler be used?"
-    static let titleMedicationDetail = "What are the Directions for use of this Maintenance Inhaler?"
+    static let titleMedicationDetail = "What are the directions for use of this Maintenance Inhaler?"
     static let puffTitle = "How many puffs per dose?"
     static let doseTime = "Dose Times"
     static let reminder = "Set Reminders?"

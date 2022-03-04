@@ -2,7 +2,7 @@
 //  Device+CoreDataProperties.swift
 //  
 //
-//  Created by Nikita Bhatt on 18/02/22.
+//  Created by Nikita Bhatt on 03/03/22.
 //
 //
 
@@ -16,7 +16,10 @@ extension Device {
         return NSFetchRequest<Device>(entityName: "Device")
     }
 
+    @NSManaged public var email: String?
     @NSManaged public var mac: String?
     @NSManaged public var udid: String?
-    @NSManaged public var email: String?
+    @NSManaged public var medtypeid: Int16
+    @NSManaged public var reminder: Bool
+
 }
