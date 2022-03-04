@@ -14,6 +14,7 @@ extension Notification.Name {
     static let BLEDisconnect = Notification.Name("BLEDisconnect")
     static let BLEGetMac = Notification.Name("BLEGetMac")
     static let BLEChange = Notification.Name("BLEChange")
+    static let BLEOnOff = Notification.Name("BLEOnOff")
     static let BLEBatteryLevel = Notification.Name("BLEBatteryLevel")
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
@@ -30,8 +31,10 @@ struct StringCommonMessages {
      static let share = "Share"
      static let copyRight = "©2022 Ochsner Health"
      static let connected = "Connected"
-     static let connecting = "Connecting"
+     static let connecting = "Connecting..."
+    static let notInRange = "Not in range"
      static let disconnect = "Disconnected"
+    static let scanning = "Scanning..."
      static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
     static let  noInternetConnection = "No Internet connection"
@@ -53,6 +56,7 @@ struct AppFont {
 struct StringUserManagement {
     static let login = "Login"
     static let createAccount = "Create Account"
+    static let forgotePass = "Forgot password"
     static let updateProfile = "Update Profile"
     static let update = "Update"
     static let usePassword = "Use Password"
@@ -61,7 +65,7 @@ struct StringUserManagement {
     static let createPassword = "Create Password"
     static let firstName = "First Name"
     static let lastName = "Last Name"
-    
+    static let sendLink = "Send Link"
     static let emailPlaceHolder = "Enter email"
     static let passwordPlaceHolder = "Enter password"
     static let confirmPasswordPlaceHolder = "Enter confirm password"
@@ -96,7 +100,8 @@ struct ValidationMsg {
     static let addDose = "Please add daily dose."
     static let addPuff = "Please add how many puffs per dose?"
     static let removeDevice = "Are you sure to remove this device?"
-    
+    static let mantainance = "Cannot add more than one mantainance device."
+    static let privacyPolicy = "You must accept our privacy policy!"
 }
 struct ValidationButton {
     static let tryAgain = "Try again"
@@ -175,7 +180,7 @@ struct StringAddDevice {
 struct StringMedication {
     static let titleMedication = "Which Medication will be \n used with this Sensor?"
     static let inhealerType = "How will this \n Inhaler be used?"
-    static let titleMedicationDetail = "What are the Directions for use of this Maintenance Inhaler?"
+    static let titleMedicationDetail = "What are the directions for use of this Maintenance Inhaler?"
     static let puffTitle = "How many puffs per dose?"
     static let doseTime = "Dose Times"
     static let reminder = "Set Reminders?"

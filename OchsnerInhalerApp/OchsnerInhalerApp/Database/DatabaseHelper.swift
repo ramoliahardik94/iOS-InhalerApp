@@ -29,7 +29,7 @@ class DatabaseManager {
                 accuationLog = (NSEntityDescription.insertNewObject(forEntityName: "AcuationLog", into: context!) as! AcuationLog)
             }
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
-            print(object)
+            debugPrint(object)
             accuationLog.usedatelocal = (object["date"] as! String)
             accuationLog.longitude = (object["long"] as! String)
             accuationLog.latitude = (object["lat"] as! String)
@@ -41,22 +41,74 @@ class DatabaseManager {
             accuationLog.devicesyncdateutc = Date().getString(format: "yyyy-MM-dd'T'HH:mm:ss'Z'", isUTC: true)
             try context?.save()
         } catch {
-            print("Can not get Data")
+            debugPrint("Can not get Data")
         }
     }
     
-    func saveDevice(object: [String: Any]) {
-        
-        deleteMacAddress(macAddress: BLEHelper.shared.addressMAC)
-        let accuationLog = NSEntityDescription.insertNewObject(forEntityName: "Device", into: context!) as! Device
-        accuationLog.mac = (object["mac"]! as! String)
-        accuationLog.udid = (object["udid"]! as! String)
-        accuationLog.email = (object["email"]! as! String)
+    func isMantenanceAllow( mac: String) -> Bool {
+        var arrDevice = [Device]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        let predicate =  NSPredicate(format: "medtypeid == 2")
+        fetchRequest.predicate = predicate
         do {
-            try context?.save()
-            print("Save Device \(BLEHelper.shared.addressMAC)")
+             arrDevice = try context?.fetch(fetchRequest) as! [Device]
         } catch {
-            print("data is not save")
+            debugPrint("can not get data")
+        }
+        if arrDevice.count == 0 {
+            return true
+        } else {
+            return arrDevice[0].mac == mac
+        }
+    }
+    
+    func isReminder() -> Bool {
+        var arrDevice = [Device]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        let predicate =  NSPredicate(format: "medtypeid == 2")
+        fetchRequest.predicate = predicate
+        do {
+             arrDevice = try context?.fetch(fetchRequest) as! [Device]
+        } catch {
+            debugPrint("can not get data")
+        }
+        if arrDevice.count == 0 {
+            return false
+        } else {
+            return arrDevice[0].reminder
+        }
+    }
+    
+    func saveDevice(object: DeviceModel) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        
+        let predicate1 =  NSPredicate(format: "mac == %@", object.internalID)
+        let predicate2 =  NSPredicate(format: "email == %@", UserDefaultManager.email)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        fetchRequest.predicate = predicate
+        do {
+            var accuationLog: Device!
+            let arrAccuationLog = try context?.fetch(fetchRequest) as! [Device]
+            if arrAccuationLog.count != 0 {
+                accuationLog = arrAccuationLog[0]
+                if accuationLog.udid == "" && object.udid != "" {
+                    accuationLog.mac = object.internalID
+                    accuationLog.udid = object.udid
+                    accuationLog.email = UserDefaultManager.email
+                    accuationLog.medtypeid = Int16(object.medTypeID)
+                }
+                accuationLog.reminder =  object.isReminder
+            } else {
+                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: "Device", into: context!) as! Device)
+                accuationLog.mac = object.internalID
+                accuationLog.udid = object.udid
+                accuationLog.email = UserDefaultManager.email
+                accuationLog.reminder =  object.isReminder
+                accuationLog.medtypeid = Int16(object.medTypeID)
+            }
+            try context?.save()
+        } catch {
+            
         }
     }
     
@@ -72,7 +124,7 @@ class DatabaseManager {
         do {
             accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
         } catch {
-            print("Can not get Data")
+            debugPrint("Can not get Data")
         }
         for obj in accuationLog {
             let log = obj
@@ -88,7 +140,7 @@ class DatabaseManager {
             try context?.execute(request)
             try context?.save()
         } catch {
-            print("There was an error")
+            debugPrint("There was an error")
         }
     }
     
@@ -102,9 +154,11 @@ class DatabaseManager {
             try context?.execute(request)
             try context?.save()
         } catch {
-            print("There was an error")
+            debugPrint("There was an error")
         }
     }
+    
+    
     
     func deleteAllDevice() {
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
@@ -114,7 +168,7 @@ class DatabaseManager {
             try context?.execute(request)
             try context?.save()
         } catch {
-            print("There was an error")
+            debugPrint("There was an error")
         }
     }
     
@@ -127,7 +181,7 @@ class DatabaseManager {
         do {
             device = try context?.fetch(fetchRequest) as! [Device]
         } catch {
-            print("Can not get Data")
+            debugPrint("Can not get Data")
         }
         
         return device
@@ -153,7 +207,7 @@ class DatabaseManager {
                             try context?.save()
                         }
                     } catch {
-                        print("cant update :\(error.localizedDescription)")
+                        debugPrint("cant update :\(error.localizedDescription)")
                     }
                 }
             }

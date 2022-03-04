@@ -9,6 +9,7 @@ import UIKit
 
 class LoginVC: BaseVC {
 
+    @IBOutlet weak var btnForgotePsw: UIButton!
     @IBOutlet weak var lblLogin: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnCreateAccount: UIButton!
@@ -50,10 +51,11 @@ class LoginVC: BaseVC {
         hideKeyBoardHideOutSideTouch(customView: self.view)
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
+        btnForgotePsw.setTitle(StringUserManagement.forgotePass, for: .normal)
         #if DEBUG
         
-        tfEmail.text = "nikita@gmail.com"
-        tfPassword.text = "password"
+//        tfEmail.text = "nikita@gmail.com"
+//        tfPassword.text = "password"
 
 //         tfEmail.text = "mherzog@ochsner.org"
 //        tfPassword.text = "password"
@@ -65,6 +67,9 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "himanshi.shah@volansys.com"
 //        tfPassword.text = "abc123"
 
+        tfEmail.text = "abc@mail.com"
+        tfPassword.text = "Test123"
+        
         #endif
     }
     
@@ -125,11 +130,16 @@ class LoginVC: BaseVC {
                 CommonFunctions.showMessage(message: message)
             }
         }
-        
-        
       
     }
     
+    @IBAction func btnForgotPassClick(_ sender: Any) {
+        
+        let forgotPassVC  = ForgotPassVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        forgotPassVC.login = login
+        pushVC(controller: forgotPassVC)
+        
+    }
     @IBAction func tapCreateAccount(_ sender: UIButton) {
         let createAccoutVC  = CreateAccoutVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(controller: createAccoutVC)

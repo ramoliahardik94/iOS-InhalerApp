@@ -19,7 +19,8 @@ class ManageDeviceVM {
                 if let res = response as? [[String: Any]] {
                     self.arrDevice.removeAll()
                     for obj in res {
-                        self.arrDevice.append(DeviceModel(jSon: obj))
+                        self.arrDevice.append(DeviceModel(jSon: obj))                        
+                        DatabaseManager.share.saveDevice(object: DeviceModel(jSon: obj))
                     }
                     completionHandler(.success(true))
                 } else {
@@ -37,7 +38,7 @@ class ManageDeviceVM {
             } else {
                 DatabaseManager.share.deleteMacAddress(macAddress: self.arrDevice[index].internalID)
                 if self.arrDevice[index].internalID == BLEHelper.shared.addressMAC {
-                    BLEHelper.shared.centralManager.cancelPeripheralConnection(BLEHelper.shared.discoveredPeripheral!)
+                    BLEHelper.shared.cleanup()
                     BLEHelper.shared.discoveredPeripheral = nil
                 }
                 self.arrDevice.remove(at: index)

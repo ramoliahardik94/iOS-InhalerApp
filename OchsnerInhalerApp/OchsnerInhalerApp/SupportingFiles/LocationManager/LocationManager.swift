@@ -92,8 +92,10 @@ class LocationManager: CLLocationManager {
         NotificationCenter.default.removeObserver(self)
         switch locationManager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
+            print("permissionCompletion")
             permissionCompletion?(.authorizedWhenInUse)
         default:
+            print("permissionCompletion")
             permissionCompletion?(.notDetermined)
         }
     }

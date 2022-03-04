@@ -33,8 +33,6 @@
 		227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */; };
 		227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */; };
 		227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4E027A3EC540005C3D9 /* TransferService.swift */; };
-		228B155727BFD93900B4527F /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B155527BFD93900B4527F /* Device+CoreDataProperties.swift */; };
-		228B155827BFD93900B4527F /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B155627BFD93900B4527F /* Device+CoreDataClass.swift */; };
 		2296C33A27B248040095CBFA /* TemporaryDashbord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C33827B248040095CBFA /* TemporaryDashbord.swift */; };
 		2296C33B27B248040095CBFA /* TemporaryDashbord.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2296C33927B248040095CBFA /* TemporaryDashbord.xib */; };
 		2296C33E27B2621E0095CBFA /* TemoDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */; };
@@ -63,6 +61,7 @@
 		4711F91427AA55E000AD063F /* BLEPeripheralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */; };
 		4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4722F4722799148700F505D2 /* ChangePasswordVC.swift */; };
 		4722F47927994C3E00F505D2 /* UpdateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4722F47827994C3E00F505D2 /* UpdateProfileVC.swift */; };
+		47242BA727CDEAAD00C753EA /* ForgotPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47242BA627CDEAAD00C753EA /* ForgotPassVC.swift */; };
 		4725F2052797CA4B00BBDA28 /* MedicationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */; };
 		4725F2082797D5CE00BBDA28 /* DoseTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */; };
 		4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */; };
@@ -78,6 +77,8 @@
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
+		47594B3427D0839C00F23C53 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */; };
+		47594B3527D0839C00F23C53 /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
@@ -117,8 +118,6 @@
 		47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE98278DA8040014527D /* UserManagement.storyboard */; };
 		47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9A278DA8570014527D /* Providers.storyboard */; };
 		47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9C278DA8820014527D /* Permissions.storyboard */; };
-		47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9E278DA8A00014527D /* DeviceList.storyboard */; };
-		47CDCEA1278DA8C10014527D /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCEA0278DA8C10014527D /* Profile.storyboard */; };
 		47CDCEA3278DA9470014527D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCEA2278DA9470014527D /* UserModel.swift */; };
 		47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662527BBB843004A2006 /* ManageDeviceVM.swift */; };
 		47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662727BBB857004A2006 /* DeviceModel.swift */; };
@@ -155,8 +154,6 @@
 		227197CD27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OchsnerCloudPermissionVC.swift; sourceTree = "<group>"; };
 		227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
 		227CD4E027A3EC540005C3D9 /* TransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
-		228B155527BFD93900B4527F /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		228B155627BFD93900B4527F /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2296C33827B248040095CBFA /* TemporaryDashbord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryDashbord.swift; sourceTree = "<group>"; };
 		2296C33927B248040095CBFA /* TemporaryDashbord.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemporaryDashbord.xib; sourceTree = "<group>"; };
 		2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemoDashboardCell.swift; sourceTree = "<group>"; };
@@ -185,6 +182,7 @@
 		4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEPeripheralDelegate.swift; sourceTree = "<group>"; };
 		4722F4722799148700F505D2 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		4722F47827994C3E00F505D2 /* UpdateProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileVC.swift; sourceTree = "<group>"; };
+		47242BA627CDEAAD00C753EA /* ForgotPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassVC.swift; sourceTree = "<group>"; };
 		4725F2042797CA4B00BBDA28 /* MedicationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDetailVC.swift; sourceTree = "<group>"; };
 		4725F2072797D5CE00BBDA28 /* DoseTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseTimeCell.swift; sourceTree = "<group>"; };
 		4725F20B2797EC4F00BBDA28 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -200,6 +198,8 @@
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
+		47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
@@ -241,8 +241,6 @@
 		47CDCE98278DA8040014527D /* UserManagement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserManagement.storyboard; sourceTree = "<group>"; };
 		47CDCE9A278DA8570014527D /* Providers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Providers.storyboard; sourceTree = "<group>"; };
 		47CDCE9C278DA8820014527D /* Permissions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Permissions.storyboard; sourceTree = "<group>"; };
-		47CDCE9E278DA8A00014527D /* DeviceList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeviceList.storyboard; sourceTree = "<group>"; };
-		47CDCEA0278DA8C10014527D /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		47CDCEA2278DA9470014527D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		47E1662527BBB843004A2006 /* ManageDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceVM.swift; sourceTree = "<group>"; };
 		47E1662727BBB857004A2006 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
@@ -413,6 +411,7 @@
 			children = (
 				47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */,
 				22AE96E9278E9F1E00C0D851 /* LoginVC.swift */,
+				47242BA627CDEAAD00C753EA /* ForgotPassVC.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -588,8 +587,8 @@
 		4743B7CA27B527660000C3E8 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				228B155627BFD93900B4527F /* Device+CoreDataClass.swift */,
-				228B155527BFD93900B4527F /* Device+CoreDataProperties.swift */,
+				47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */,
+				47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */,
 				2213838527BCB3DE00D4BFA0 /* AcuationLog+CoreDataClass.swift */,
 				2213838427BCB3DD00D4BFA0 /* AcuationLog+CoreDataProperties.swift */,
 				4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */,
@@ -774,8 +773,6 @@
 				47CDCE17278D872F0014527D /* Main.storyboard */,
 				47CDCE9A278DA8570014527D /* Providers.storyboard */,
 				47CDCE9C278DA8820014527D /* Permissions.storyboard */,
-				47CDCE9E278DA8A00014527D /* DeviceList.storyboard */,
-				47CDCEA0278DA8C10014527D /* Profile.storyboard */,
 				47CDCE98278DA8040014527D /* UserManagement.storyboard */,
 				47CDCE1C278D87300014527D /* LaunchScreen.storyboard */,
 			);
@@ -844,13 +841,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47CDCEA1278DA8C10014527D /* Profile.storyboard in Resources */,
 				47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */,
 				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
 				224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */,
 				2296C33F27B2621E0095CBFA /* TemoDashboardCell.xib in Resources */,
-				47CDCE9F278DA8A00014527D /* DeviceList.storyboard in Resources */,
 				22FCEA6227C4AA8700A91A6A /* dashboard_response.json in Resources */,
 				4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */,
 				22609D792799236700B38CF4 /* HomeGraphCell.xib in Resources */,
@@ -950,8 +945,8 @@
 				22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */,
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
 				47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */,
+				47594B3527D0839C00F23C53 /* Device+CoreDataProperties.swift in Sources */,
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
-				228B155827BFD93900B4527F /* Device+CoreDataClass.swift in Sources */,
 				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
 				47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */,
 				2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */,
@@ -961,6 +956,7 @@
 				4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */,
 				227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
+				47242BA727CDEAAD00C753EA /* ForgotPassVC.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
 				2257007027A2AE4A009B6415 /* NotificationManager.swift in Sources */,
 				224E1C982797F53A000C5D1A /* ManageDeviceCell.swift in Sources */,
@@ -968,6 +964,7 @@
 				47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */,
 				22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */,
 				47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */,
+				47594B3427D0839C00F23C53 /* Device+CoreDataClass.swift in Sources */,
 				224E1C9D27981AB7000C5D1A /* HomeDeviceCell.swift in Sources */,
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
 				22CA52A827C34EF50031BDE7 /* DashboardModel.swift in Sources */,
@@ -1017,7 +1014,6 @@
 				22FC2E0827B76D2700ABE886 /* ProviderModel.swift in Sources */,
 				221B3C1F27CCAC4600A3AFD6 /* ProfileModel.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
-				228B155727BFD93900B4527F /* Device+CoreDataProperties.swift in Sources */,
 				4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */,
 				227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */,
 				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
