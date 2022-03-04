@@ -95,9 +95,9 @@ class DatabaseManager {
                     accuationLog.mac = object.internalID
                     accuationLog.udid = object.udid
                     accuationLog.email = UserDefaultManager.email
-                    accuationLog.reminder =  object.isReminder
                     accuationLog.medtypeid = Int16(object.medTypeID)
                 }
+                accuationLog.reminder =  object.isReminder
             } else {
                 accuationLog = (NSEntityDescription.insertNewObject(forEntityName: "Device", into: context!) as! Device)
                 accuationLog.mac = object.internalID
