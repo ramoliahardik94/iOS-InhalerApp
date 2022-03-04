@@ -7,9 +7,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Need Calendars permission</string>
-
 	<key>NSRemindersUsageDescription</key>
 	<string>This will enable reminders of your daily doses.</string>
 
