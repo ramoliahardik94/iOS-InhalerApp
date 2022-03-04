@@ -101,6 +101,7 @@ struct ValidationMsg {
     static let addPuff = "Please add how many puffs per dose?"
     static let removeDevice = "Are you sure to remove this device?"
     static let mantainance = "Cannot add more than one mantainance device."
+    static let privacyPolicy = "You must accept our privacy policy!"
 }
 struct ValidationButton {
     static let tryAgain = "Try again"

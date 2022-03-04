@@ -86,6 +86,7 @@ extension BLEHelper: CBCentralManagerDelegate {
         let devicelist = device.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
         if let name =  peripheral.name {
             if name.lowercased() == "ochsner inhaler tracker" {
+                
                 if devicelist.contains(where: {$0 == peripheral.identifier.uuidString}) && !isAddAnother {
                     discoveredPeripheral = peripheral
                     stopScanPeriphral()

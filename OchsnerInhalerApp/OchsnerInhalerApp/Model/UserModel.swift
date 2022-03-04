@@ -8,12 +8,12 @@
 import UIKit
 
 class UserModel: NSObject {
-        var firstName: String?
-        var lastName: String?
-        var email: String?
-        var password: String?
-        var confirmPassword: String?
-        var token: String?
+        var firstName: String? = ""
+        var lastName: String? = ""
+        var email: String? = ""
+        var password: String? = ""
+        var confirmPassword: String? = ""
+        var token: String? = ""
     
     override init () {
         self.firstName = ""
