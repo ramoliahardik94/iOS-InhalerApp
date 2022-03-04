@@ -17,6 +17,7 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
+
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             if UserDefaultManager.isLogin {
                 if isTimer {
@@ -95,7 +96,6 @@ extension BLEHelper {
              Logger.logInfo("Scaning stop")
         }
         centralManager.stopScan()
-       
         NotificationCenter.default.post(name: .BLEChange, object: nil)
     
 
