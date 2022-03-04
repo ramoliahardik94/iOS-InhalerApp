@@ -123,7 +123,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        if !isAddAnother {
+        if !isAddAnother && UserDefaultManager.isLogin {
             scanPeripheral(isTimer: false)
         }
         self.stopTimer()

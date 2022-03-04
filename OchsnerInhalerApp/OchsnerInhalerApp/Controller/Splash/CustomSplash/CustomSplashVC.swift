@@ -33,13 +33,16 @@ class CustomSplashVC: BaseVC {
         deviceUDID = devicelist.map({$0.udid!})
         
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
-                BLEHelper.shared.setDelegate()
+            BLEHelper.shared.setDelegate()
+            delay(2) {
                 BLEHelper.shared.scanPeripheral()
-                BLEHelper.shared.apiCallDeviceUsage()
+            }
+            
+            BLEHelper.shared.apiCallDeviceUsage()
             if UserDefaultManager.isLocationOn {
                 _ = LocationManager()
             }
-         }
+        }
     }
     
     @objc func didFinishTimer() {

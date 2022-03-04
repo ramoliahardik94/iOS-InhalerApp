@@ -17,28 +17,29 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
-        if UserDefaultManager.isLogin {
-            if isTimer {
-                if timer == nil || !timer.isValid {
-                    Logger.logInfo("Scaning start with 15 sec timer")
-                    timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-                    DispatchQueue.global(qos: .utility).async { [weak self] in
-                        guard let `self` = self else { return }
-                        self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            if UserDefaultManager.isLogin {
+                if isTimer {
+                    if timer == nil || !timer.isValid {
+                        Logger.logInfo("Scaning start with 15 sec timer")
+                        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+                        DispatchQueue.global(qos: .utility).async { [weak self] in
+                            guard let `self` = self else { return }
+                            self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+                        }
+                    }
+                } else {
+                    if timer == nil || !timer.isValid {
+                        Logger.logInfo("Scaning start with 30 sec timer")
+                        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+                        DispatchQueue.global(qos: .utility).async { [weak self] in
+                            guard let `self` = self else { return }
+                            self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+                        }
+                        
                     }
                 }
-            } else {
-                if timer == nil || !timer.isValid {
-                    Logger.logInfo("Scaning start with 30 sec timer")
-                    timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-                    DispatchQueue.global(qos: .utility).async { [weak self] in
-                        guard let `self` = self else { return }
-                        self.centralManager.scanForPeripherals(withServices: nil, options: nil)
-                    }
-                    
-                }
-            }
-            DispatchQueue.global(qos: .background).sync {
+                
                 
                 isScanning = true
                 NotificationCenter.default.post(name: .BLEChange, object: nil)
