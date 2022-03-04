@@ -155,14 +155,16 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 print("Response sucess :\(status)")
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
+                    
+                    self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont ? 0 : 50
+                    self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont
                     if self.manageDeviceVM.arrDevice.count == 0 {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         addDeviceIntroVC.step = .step1
                         addDeviceIntroVC.isFromAddAnother  = false
                         addDeviceIntroVC.isFromDeviceList  = true
                         self.pushVC(controller: addDeviceIntroVC)
-                        self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont ? 0 : 50
-                        self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maxDeviceCont
+                        self.view.layoutSubviews()
                     }
                     
                 }
