@@ -35,6 +35,7 @@ class ManageDeviceVC: BaseVC {
             apiCall()
         }
         tbvData.reloadData()
+        refresh(self)
     }
     
     func apiCall() {

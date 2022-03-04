@@ -140,7 +140,7 @@ extension BLEHelper {
         stopTimer()
         delay(15) {
             [weak self] in
-            guard let `self` = self else { return }        
+            guard let `self` = self else { return }
             self.getmacAddress()
             self.getBetteryLevel()
             self.getAccuationNumber()

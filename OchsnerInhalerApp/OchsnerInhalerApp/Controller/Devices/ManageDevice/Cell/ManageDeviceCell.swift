@@ -67,7 +67,7 @@ class ManageDeviceCell: UITableViewCell {
             }
             lblstatus.text = textStatus
             
-            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? (BLEHelper.shared.bettery != "0" ? BLEHelper.shared.bettery : device.batteryLevel ): device.batteryLevel )%"
+            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? (BLEHelper.shared.bettery != "0" ? "\(BLEHelper.shared.bettery)%" : device.batteryLevel ): device.batteryLevel)"
             btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }
