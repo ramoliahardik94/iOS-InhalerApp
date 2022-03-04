@@ -20,7 +20,6 @@ class NotificationPermissionVC: BaseVC {
         btnSkip.setButtonViewGrey(StringCommonMessages.skip)
         UserDefaultManager.isGrantNotification = true
     }
-    
     // MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
         
@@ -36,15 +35,10 @@ class NotificationPermissionVC: BaseVC {
             }
         }
     }
-     
     
     @IBAction func tapSkip(_ sender: UIButton) {
-        UserDefaultManager.isGrantNotification = true
         UserDefaultManager.isNotificationOn = false
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         self.rootVC(controller: addDeviceIntroVC)
     }
-        
-    
-
 }

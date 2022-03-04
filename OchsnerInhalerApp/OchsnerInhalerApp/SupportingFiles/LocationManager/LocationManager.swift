@@ -9,7 +9,7 @@ import SystemConfiguration.CaptiveNetwork
 class LocationManager: CLLocationManager {
     
     // MARK: Properties
-    static let shared = LocationManager()
+    static var shared = LocationManager()
     var locationManager = CLLocationManager()
     var ssidCompletion: ((String) -> Void)!
     var locationCompletion: ((CLLocationCoordinate2D) -> Void)!
