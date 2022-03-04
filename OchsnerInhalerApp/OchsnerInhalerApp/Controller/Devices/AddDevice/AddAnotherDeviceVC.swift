@@ -51,7 +51,6 @@ class AddAnotherDeviceVC: BaseVC {
             addDeviceIntroVC.isFromAddAnother  = true
             self.navigationController?.popToViewController(addDeviceIntroVC, animated: false)
         } else {
-            BLEHelper.shared.cleanup()
             let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
             addDeviceIntroVC.step = .step1
             addDeviceIntroVC.isFromAddAnother  = true
