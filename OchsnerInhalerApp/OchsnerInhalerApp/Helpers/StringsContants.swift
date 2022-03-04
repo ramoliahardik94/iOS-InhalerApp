@@ -123,6 +123,7 @@ struct StringProfile {
     static let  shareUsageWithProvider = "Share Usage With Provider"
     static let  useFaceID = "Use FaceID"
     static let  sureLogout = "Are you sure you want to logout?"
+    static let  locarionPermission = "Turn on your location\nGoto Settings, Select OchsnerInhelarApp select location and tap Always or While Usings"
 }
 
 // MARK: Providers
@@ -189,6 +190,8 @@ struct StringMedication {
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
     static let addDose = "Add another daily dose."
     static let addFirstDose = "Add daily dose."
+    static let permissionDose = "Need permission to enable reminders of your daily doses.\nGoto Settings,Select OchsnerInhelarApp and turn on Reminders"
+   
 }
 // MARK: Permissions
 struct StringPermissions {
@@ -216,7 +219,7 @@ struct StringDevices {
     static let editDirection = "Edit Directions"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
-    static let yourNextDose = "Your Next Dose is at"
+    static let yourNextDose = "Your dose is at"
     
 }
 

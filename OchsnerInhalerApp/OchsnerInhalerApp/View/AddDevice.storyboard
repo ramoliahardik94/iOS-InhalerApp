@@ -617,66 +617,92 @@
                                             </constraints>
                                         </view>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="PCB-1M-tdH">
-                                            <rect key="frame" x="0.0" y="504" width="360" height="153"/>
+                                            <rect key="frame" x="0.0" y="504" width="360" height="110"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Reminders?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X78-q7-qjG">
-                                                    <rect key="frame" x="5" y="85" width="291" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ouW-1P-cKe">
-                                                    <rect key="frame" x="301" y="80" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="reminderValue:" destination="VAX-uH-QDl" eventType="valueChanged" id="UIb-j8-dGY"/>
-                                                    </connections>
-                                                </switch>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hL2-1w-5ox">
-                                                    <rect key="frame" x="5" y="20" width="31" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="31" id="cG9-Qx-GN3"/>
-                                                        <constraint firstAttribute="height" constant="31" id="cHx-OR-YmH"/>
-                                                    </constraints>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <size key="titleShadowOffset" width="1" height="0.0"/>
-                                                    <state key="normal" title=" + "/>
-                                                    <connections>
-                                                        <action selector="btnAddDoseClick:" destination="VAX-uH-QDl" eventType="touchUpInside" id="Z1N-t1-Gjx"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add another daily dose." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO6-hV-MwX">
-                                                    <rect key="frame" x="46" y="20" width="304" height="31"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfo-XE-bP3">
-                                                    <rect key="frame" x="5" y="20" width="345" height="31"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <connections>
-                                                        <action selector="btnAddDoseClick:" destination="VAX-uH-QDl" eventType="touchUpInside" id="iTd-qg-BXH"/>
-                                                    </connections>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gg1-ha-c2Q">
+                                                    <rect key="frame" x="8" y="8" width="344" height="94"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7r-cv-vf9">
+                                                            <rect key="frame" x="0.0" y="0.0" width="344" height="54"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hL2-1w-5ox">
+                                                                    <rect key="frame" x="0.0" y="11.5" width="31" height="31"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="31" id="cG9-Qx-GN3"/>
+                                                                        <constraint firstAttribute="height" constant="31" id="cHx-OR-YmH"/>
+                                                                    </constraints>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <size key="titleShadowOffset" width="1" height="0.0"/>
+                                                                    <state key="normal" title=" + "/>
+                                                                    <connections>
+                                                                        <action selector="btnAddDoseClick:" destination="VAX-uH-QDl" eventType="touchUpInside" id="Z1N-t1-Gjx"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add another daily dose." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO6-hV-MwX">
+                                                                    <rect key="frame" x="39" y="0.0" width="297" height="54"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfo-XE-bP3">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="344" height="54"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <connections>
+                                                                        <action selector="btnAddDoseClick:" destination="VAX-uH-QDl" eventType="touchUpInside" id="iTd-qg-BXH"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="QO6-hV-MwX" firstAttribute="leading" secondItem="hL2-1w-5ox" secondAttribute="trailing" constant="8" id="9Wf-20-S8W"/>
+                                                                <constraint firstAttribute="bottom" secondItem="pfo-XE-bP3" secondAttribute="bottom" id="UdX-I4-A7D"/>
+                                                                <constraint firstItem="pfo-XE-bP3" firstAttribute="top" secondItem="a7r-cv-vf9" secondAttribute="top" id="W0V-0C-65E"/>
+                                                                <constraint firstAttribute="trailing" secondItem="QO6-hV-MwX" secondAttribute="trailing" constant="8" id="YON-fF-MkQ"/>
+                                                                <constraint firstItem="hL2-1w-5ox" firstAttribute="leading" secondItem="a7r-cv-vf9" secondAttribute="leading" id="a1G-tv-9LB"/>
+                                                                <constraint firstItem="hL2-1w-5ox" firstAttribute="centerY" secondItem="a7r-cv-vf9" secondAttribute="centerY" id="fbY-Fb-PM5"/>
+                                                                <constraint firstItem="QO6-hV-MwX" firstAttribute="top" secondItem="a7r-cv-vf9" secondAttribute="top" id="fpV-K3-aRN"/>
+                                                                <constraint firstAttribute="trailing" secondItem="pfo-XE-bP3" secondAttribute="trailing" id="q2H-Zn-P5j"/>
+                                                                <constraint firstAttribute="bottom" secondItem="QO6-hV-MwX" secondAttribute="bottom" id="qSV-Wb-cNf"/>
+                                                                <constraint firstAttribute="height" constant="50" id="qkY-fC-nnn"/>
+                                                                <constraint firstItem="pfo-XE-bP3" firstAttribute="leading" secondItem="a7r-cv-vf9" secondAttribute="leading" id="zCd-Jv-cUK"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zZh-K9-5gE">
+                                                            <rect key="frame" x="0.0" y="54" width="344" height="40"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Reminders?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X78-q7-qjG">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="279" height="40"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ouW-1P-cKe">
+                                                                    <rect key="frame" x="287" y="4.5" width="51" height="31"/>
+                                                                    <connections>
+                                                                        <action selector="reminderValue:" destination="VAX-uH-QDl" eventType="valueChanged" id="UIb-j8-dGY"/>
+                                                                    </connections>
+                                                                </switch>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="X78-q7-qjG" firstAttribute="top" secondItem="zZh-K9-5gE" secondAttribute="top" id="5bx-Ir-E6Q"/>
+                                                                <constraint firstItem="ouW-1P-cKe" firstAttribute="leading" secondItem="X78-q7-qjG" secondAttribute="trailing" constant="8" id="AWX-UQ-HZe"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ouW-1P-cKe" secondAttribute="trailing" constant="8" id="EXD-g5-dBW"/>
+                                                                <constraint firstAttribute="height" constant="40" id="NAg-GB-PJm"/>
+                                                                <constraint firstItem="ouW-1P-cKe" firstAttribute="centerY" secondItem="zZh-K9-5gE" secondAttribute="centerY" id="Ya8-RI-hxS"/>
+                                                                <constraint firstAttribute="bottom" secondItem="X78-q7-qjG" secondAttribute="bottom" id="oLt-9Z-fmr"/>
+                                                                <constraint firstItem="X78-q7-qjG" firstAttribute="leading" secondItem="zZh-K9-5gE" secondAttribute="leading" id="y2k-EI-mPv"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstItem="pfo-XE-bP3" firstAttribute="leading" secondItem="hL2-1w-5ox" secondAttribute="leading" id="1vd-eF-5oQ"/>
-                                                <constraint firstItem="ouW-1P-cKe" firstAttribute="centerY" secondItem="X78-q7-qjG" secondAttribute="centerY" id="2RC-0v-1q0"/>
-                                                <constraint firstItem="ouW-1P-cKe" firstAttribute="leading" secondItem="X78-q7-qjG" secondAttribute="trailing" constant="5" id="Ctr-g3-Ctc"/>
-                                                <constraint firstItem="QO6-hV-MwX" firstAttribute="leading" secondItem="hL2-1w-5ox" secondAttribute="trailing" constant="10" id="Ehr-8O-w3L"/>
-                                                <constraint firstItem="QO6-hV-MwX" firstAttribute="bottom" secondItem="hL2-1w-5ox" secondAttribute="bottom" id="HyM-7y-Gvn"/>
-                                                <constraint firstAttribute="trailing" secondItem="ouW-1P-cKe" secondAttribute="trailing" constant="10" id="LU2-ty-I2L"/>
-                                                <constraint firstAttribute="trailing" secondItem="QO6-hV-MwX" secondAttribute="trailing" constant="10" id="N8R-wp-zrP"/>
-                                                <constraint firstItem="X78-q7-qjG" firstAttribute="top" secondItem="hL2-1w-5ox" secondAttribute="bottom" constant="34" id="T6A-1J-MAy"/>
-                                                <constraint firstItem="QO6-hV-MwX" firstAttribute="top" secondItem="hL2-1w-5ox" secondAttribute="top" id="Uml-S3-3ah"/>
-                                                <constraint firstItem="pfo-XE-bP3" firstAttribute="bottom" secondItem="hL2-1w-5ox" secondAttribute="bottom" id="fjU-HV-XSY"/>
-                                                <constraint firstItem="hL2-1w-5ox" firstAttribute="top" secondItem="PCB-1M-tdH" secondAttribute="top" constant="20" id="q39-rR-hRB"/>
-                                                <constraint firstItem="pfo-XE-bP3" firstAttribute="top" secondItem="hL2-1w-5ox" secondAttribute="top" id="tiz-Wo-qm9"/>
-                                                <constraint firstItem="X78-q7-qjG" firstAttribute="leading" secondItem="PCB-1M-tdH" secondAttribute="leading" constant="5" id="wac-Ai-hBI"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="X78-q7-qjG" secondAttribute="bottom" constant="10" id="wej-Iz-Tnd"/>
-                                                <constraint firstItem="QO6-hV-MwX" firstAttribute="trailing" secondItem="pfo-XE-bP3" secondAttribute="trailing" id="x7h-cA-A2A"/>
-                                                <constraint firstItem="X78-q7-qjG" firstAttribute="leading" secondItem="hL2-1w-5ox" secondAttribute="leading" id="yyW-Fa-xHL"/>
+                                                <constraint firstAttribute="trailing" secondItem="Gg1-ha-c2Q" secondAttribute="trailing" constant="8" id="Gdu-ot-UQm"/>
+                                                <constraint firstItem="Gg1-ha-c2Q" firstAttribute="leading" secondItem="PCB-1M-tdH" secondAttribute="leading" constant="8" id="LWM-h3-YiM"/>
+                                                <constraint firstItem="Gg1-ha-c2Q" firstAttribute="top" secondItem="PCB-1M-tdH" secondAttribute="top" constant="8" id="YiY-rb-HrJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Gg1-ha-c2Q" secondAttribute="bottom" constant="8" id="sWw-6q-BZZ"/>
                                             </constraints>
                                         </view>
                                         <prototypes>
@@ -701,7 +727,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1st Dose at 8:30 am" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aL-21-0kl">
-                                                                            <rect key="frame" x="15" y="9.5" width="240" height="21"/>
+                                                                            <rect key="frame" x="15" y="10" width="240" height="20.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -842,12 +868,13 @@
                         <outlet property="swReminder" destination="ouW-1P-cKe" id="0Gw-uz-LYF"/>
                         <outlet property="tblDoseTime" destination="bRp-V3-9lj" id="kmH-At-ia4"/>
                         <outlet property="txtPuff" destination="B2k-9R-0tq" id="zad-8J-79N"/>
+                        <outlet property="viewAddDose" destination="a7r-cv-vf9" id="Qvw-Wr-32g"/>
                         <outlet property="viewMedicationName" destination="OYi-GU-GIg" id="nKj-yw-nhc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CgB-09-j5r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2614.4927536231885" y="102.71739130434783"/>
+            <point key="canvasLocation" x="2614.4927536231885" y="102.45535714285714"/>
         </scene>
         <!--Add Another DeviceVC-->
         <scene sceneID="Ou4-zX-Vyo">

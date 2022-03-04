@@ -24,6 +24,7 @@ enum UserDefaultKey: String {
     case providerName
     case userEmailAddress
     case isLocationOn
+    case isAddReminder
 }
 
 class UserDefaultManager {
@@ -178,5 +179,15 @@ class UserDefaultManager {
             self.set(NSNumber(value: newValue), forKey: .isLocationOn)
         }
     }
+    
+    static var isAddReminder: Bool {
+        get {
+            return self.get(forKey: .isAddReminder) as? Bool ?? false
+        }
+        set(newValue) {
+            self.set(NSNumber(value: newValue), forKey: .isAddReminder)
+        }
+    }
+    
     
 }
