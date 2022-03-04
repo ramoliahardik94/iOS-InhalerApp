@@ -64,7 +64,10 @@ class LoginVM {
     }
     
     func apiForgotPassword(completionHandler: @escaping ((APIResult) -> Void)) {
-        APIManager.shared.performRequest(route: APIRouter.forgote.path, parameters: loginModel.toDicForLogin(), method: .get, isBasicAuth: true) { [weak self] error, response in
+        let url = "\(APIRouter.forgote.path)?emailAddress=\(loginModel.email ?? "")"
+        
+        
+        APIManager.shared.performRequest(route: url, parameters: [String: Any](), method: .post, isBasicAuth: true) { [weak self] error, response in
             guard self != nil else { return }
             if response == nil {
 //                completionHandler(.failure(error!.message))
