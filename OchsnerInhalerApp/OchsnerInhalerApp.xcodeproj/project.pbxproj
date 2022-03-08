@@ -80,6 +80,7 @@
 		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
 		47594B3427D0839C00F23C53 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */; };
 		47594B3527D0839C00F23C53 /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */; };
+		479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
@@ -120,6 +121,7 @@
 		47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9A278DA8570014527D /* Providers.storyboard */; };
 		47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9C278DA8820014527D /* Permissions.storyboard */; };
 		47CDCEA3278DA9470014527D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCEA2278DA9470014527D /* UserModel.swift */; };
+		47E118AA27D720880071280B /* Tost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E118A927D720880071280B /* Tost.swift */; };
 		47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662527BBB843004A2006 /* ManageDeviceVM.swift */; };
 		47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662727BBB857004A2006 /* DeviceModel.swift */; };
 		47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */; };
@@ -202,6 +204,8 @@
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
 		47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchsnerInhalerApp.entitlements; sourceTree = "<group>"; };
+		479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
@@ -244,6 +248,7 @@
 		47CDCE9A278DA8570014527D /* Providers.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Providers.storyboard; sourceTree = "<group>"; };
 		47CDCE9C278DA8820014527D /* Permissions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Permissions.storyboard; sourceTree = "<group>"; };
 		47CDCEA2278DA9470014527D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		47E118A927D720880071280B /* Tost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tost.swift; sourceTree = "<group>"; };
 		47E1662527BBB843004A2006 /* ManageDeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDeviceVM.swift; sourceTree = "<group>"; };
 		47E1662727BBB857004A2006 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
@@ -255,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */,
 				4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */,
 				F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */,
 			);
@@ -537,6 +543,7 @@
 		2F0841B8F37C1807803250A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */,
 				4743B7D227B529CE0000C3E8 /* CoreData.framework */,
 				0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */,
 			);
@@ -639,6 +646,7 @@
 		47CDCE10278D872F0014527D /* OchsnerInhalerApp */ = {
 			isa = PBXGroup;
 			children = (
+				479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */,
 				4743B7CA27B527660000C3E8 /* Database */,
 				22AE96E5278E9D2400C0D851 /* AppDelegate */,
 				47CDCE8E278D89C30014527D /* Services */,
@@ -742,6 +750,7 @@
 				22AE970C278EDAFB00C0D851 /* StringsContants.swift */,
 				4725F21227981BBC00BBDA28 /* NMDatePicker.swift */,
 				472F643B279FF46400E37FB1 /* CommonFunction.swift */,
+				47E118A927D720880071280B /* Tost.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -956,6 +965,7 @@
 				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
 				22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */,
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
+				47E118AA27D720880071280B /* Tost.swift in Sources */,
 				47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */,
 				47594B3527D0839C00F23C53 /* Device+CoreDataProperties.swift in Sources */,
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
@@ -1183,6 +1193,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1192,9 +1203,10 @@
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Need location permission";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Need location permission";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need location permission";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
+				INFOPLIST_KEY_NSRemindersUsageDescription = "This will enable reminders of your daily doses.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1223,7 +1235,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
@@ -1232,9 +1245,10 @@
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Need location permission";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Need location permission";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need location permission";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
+				INFOPLIST_KEY_NSRemindersUsageDescription = "This will enable reminders of your daily doses.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1250,7 +1264,7 @@
 				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ochsner_adhoc_profile;
+				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

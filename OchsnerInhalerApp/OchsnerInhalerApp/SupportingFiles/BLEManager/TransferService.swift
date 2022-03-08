@@ -9,10 +9,10 @@ import Foundation
 import CoreBluetooth
 
 struct TransferService {
-    static let otaServiceUUID = CBUUID(string: "0000D0FF-3C17-D293-8E48-14FE2E4DA212")
+    static let otaServiceUUID =  CBUUID(string: "0000d0ff-3c17-d293-8e48-14fe2e4da212")
     static let macCharecteristic = CBUUID(string: "FFD2")
     
-    static let inhealerUTCservice = CBUUID(string: "00000EC2-3C17-D293-8E48-14FE2E4DA212")
+    static let inhealerUTCservice = CBUUID(string: "00000ec2-3c17-d293-8e48-14fe2e4da212")
     static let characteristicNotifyUUID = CBUUID(string: "B004")
     static let characteristicWriteUUID = CBUUID(string: "B002")
     static let addRTSStartByte = "AA015507"
@@ -21,4 +21,5 @@ struct TransferService {
     static let requestGetBettery = "AA025500"
     static let requestGetNoAccuation = "AA035500"
     static let requestGetAcuationLog = "AA045500"
+    static let serviceArray =  [inhealerUTCservice, otaServiceUUID]
 }

@@ -35,6 +35,9 @@ class ManageDeviceVC: BaseVC {
             apiCall()
         }
         tbvData.reloadData()
+        let device = BLEHelper.shared.centralManager.retrieveConnectedPeripherals(withServices: TransferService.serviceArray)
+        print("\(device)")
+        BLEHelper.shared.centralManager.de
         refresh(self)
     }
     
@@ -67,8 +70,8 @@ class ManageDeviceVC: BaseVC {
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
         
-        addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
-        btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
+//        addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
+//        btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
         apiCall()
     }
     
@@ -98,7 +101,6 @@ class ManageDeviceVC: BaseVC {
         addDeviceIntroVC.isFromAddAnother  = true
         addDeviceIntroVC.isFromDeviceList  = true
         BLEHelper.shared.isAddAnother = true
-        BLEHelper.shared.cleanup()
         pushVC(controller: addDeviceIntroVC)
     }
     
@@ -157,8 +159,8 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
                     
-                    self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
-                    self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
+//                    self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
+//                    self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
                     if self.manageDeviceVM.arrDevice.count == 0 {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         addDeviceIntroVC.step = .step1
