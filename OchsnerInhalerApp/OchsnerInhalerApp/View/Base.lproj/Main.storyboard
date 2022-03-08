@@ -326,46 +326,59 @@
                                                                             <action selector="tapChangeProvider:" destination="6vb-2b-xsQ" eventType="touchUpInside" id="5T9-iV-BKD"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yj6-vg-mdU">
-                                                                        <rect key="frame" x="153" y="47" width="1" height="20"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ETA-cH-xlg">
+                                                                        <rect key="frame" x="153" y="42" width="214" height="30"/>
+                                                                        <subviews>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yj6-vg-mdU">
+                                                                                <rect key="frame" x="0.0" y="5" width="1" height="20"/>
+                                                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="20" id="CVk-1Y-xt6"/>
+                                                                                    <constraint firstAttribute="width" constant="1" id="Ng3-Ue-caj"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCv-iC-nYH">
+                                                                                <rect key="frame" x="9" y="0.0" width="46" height="30"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="30" id="XSM-KG-iVP"/>
+                                                                                </constraints>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="Button"/>
+                                                                                <connections>
+                                                                                    <action selector="tapRemoveProvider:" destination="6vb-2b-xsQ" eventType="touchUpInside" id="XyT-k6-TwG"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="20" id="CVk-1Y-xt6"/>
-                                                                            <constraint firstAttribute="width" constant="1" id="Ng3-Ue-caj"/>
+                                                                            <constraint firstItem="oCv-iC-nYH" firstAttribute="leading" secondItem="yj6-vg-mdU" secondAttribute="trailing" constant="8" id="0zi-gb-MxL"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="oCv-iC-nYH" secondAttribute="bottom" id="6Fh-Tq-140"/>
+                                                                            <constraint firstAttribute="height" constant="30" id="Hd0-D2-BTs"/>
+                                                                            <constraint firstItem="yj6-vg-mdU" firstAttribute="leading" secondItem="ETA-cH-xlg" secondAttribute="leading" id="Xqf-Zg-Oyx"/>
+                                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oCv-iC-nYH" secondAttribute="trailing" constant="4" id="dWI-aN-gWV"/>
+                                                                            <constraint firstItem="oCv-iC-nYH" firstAttribute="top" secondItem="ETA-cH-xlg" secondAttribute="top" id="jzx-K9-sk3"/>
+                                                                            <constraint firstItem="yj6-vg-mdU" firstAttribute="centerY" secondItem="ETA-cH-xlg" secondAttribute="centerY" id="qzr-cB-qR9"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCv-iC-nYH">
-                                                                        <rect key="frame" x="162" y="42" width="46" height="30"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="30" id="XSM-KG-iVP"/>
-                                                                        </constraints>
-                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                        <state key="normal" title="Button"/>
-                                                                        <connections>
-                                                                            <action selector="tapRemoveProvider:" destination="6vb-2b-xsQ" eventType="touchUpInside" id="XyT-k6-TwG"/>
-                                                                        </connections>
-                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="L1w-3l-RXQ" firstAttribute="centerY" secondItem="qt7-dP-Uzy" secondAttribute="centerY" id="255-Oz-Tv1"/>
-                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oCv-iC-nYH" secondAttribute="trailing" constant="4" id="8Fs-n3-mLW"/>
-                                                                    <constraint firstItem="yj6-vg-mdU" firstAttribute="leading" secondItem="uLe-8H-yNj" secondAttribute="trailing" constant="8" id="EKm-7C-lrz"/>
                                                                     <constraint firstItem="uLe-8H-yNj" firstAttribute="top" secondItem="gW3-HL-YIE" secondAttribute="bottom" constant="4" id="G89-jm-uNP"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ShX-nM-87S" secondAttribute="trailing" id="Mex-dw-uZA"/>
                                                                     <constraint firstItem="ShX-nM-87S" firstAttribute="leading" secondItem="qt7-dP-Uzy" secondAttribute="leading" id="NeS-Z3-HlY"/>
                                                                     <constraint firstAttribute="trailing" secondItem="wRA-BI-qgk" secondAttribute="trailing" id="OCG-5y-ikC"/>
                                                                     <constraint firstItem="ShX-nM-87S" firstAttribute="top" secondItem="qt7-dP-Uzy" secondAttribute="top" id="R1E-7c-qFt"/>
+                                                                    <constraint firstItem="ETA-cH-xlg" firstAttribute="leading" secondItem="uLe-8H-yNj" secondAttribute="trailing" constant="8" id="Sb3-RE-9kE"/>
+                                                                    <constraint firstItem="ETA-cH-xlg" firstAttribute="top" secondItem="gW3-HL-YIE" secondAttribute="bottom" constant="4" id="aGh-4P-3k9"/>
                                                                     <constraint firstItem="uLe-8H-yNj" firstAttribute="leading" secondItem="L1w-3l-RXQ" secondAttribute="trailing" constant="28" id="bxm-hO-hzl"/>
                                                                     <constraint firstItem="wRA-BI-qgk" firstAttribute="top" secondItem="uLe-8H-yNj" secondAttribute="bottom" constant="21" id="eE8-pJ-qYA"/>
-                                                                    <constraint firstItem="yj6-vg-mdU" firstAttribute="centerY" secondItem="uLe-8H-yNj" secondAttribute="centerY" id="eJR-Nr-UPI"/>
                                                                     <constraint firstItem="gW3-HL-YIE" firstAttribute="top" secondItem="ShX-nM-87S" secondAttribute="bottom" constant="16" id="fYr-Mq-LbF"/>
-                                                                    <constraint firstItem="oCv-iC-nYH" firstAttribute="leading" secondItem="yj6-vg-mdU" secondAttribute="trailing" constant="8" id="hdT-p6-fDE"/>
                                                                     <constraint firstItem="L1w-3l-RXQ" firstAttribute="leading" secondItem="qt7-dP-Uzy" secondAttribute="leading" constant="21" id="jNu-3y-WPn"/>
                                                                     <constraint firstAttribute="trailing" secondItem="gW3-HL-YIE" secondAttribute="trailing" constant="8" id="npX-7T-Mmq"/>
                                                                     <constraint firstItem="wRA-BI-qgk" firstAttribute="leading" secondItem="qt7-dP-Uzy" secondAttribute="leading" id="pgL-12-Nt0"/>
                                                                     <constraint firstAttribute="bottom" secondItem="wRA-BI-qgk" secondAttribute="bottom" id="qam-32-5T7"/>
-                                                                    <constraint firstItem="oCv-iC-nYH" firstAttribute="top" secondItem="gW3-HL-YIE" secondAttribute="bottom" constant="4" id="tLm-kY-cXB"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="ETA-cH-xlg" secondAttribute="trailing" constant="8" id="yl1-ys-KRH"/>
                                                                     <constraint firstItem="gW3-HL-YIE" firstAttribute="leading" secondItem="L1w-3l-RXQ" secondAttribute="trailing" constant="28" id="yxL-kg-2iY"/>
                                                                 </constraints>
                                                             </view>
@@ -581,6 +594,7 @@
                         <outlet property="lblUseFaceID" destination="g3Z-n2-VOb" id="rrF-Jo-YBR"/>
                         <outlet property="switchLocation" destination="0FM-lV-tA9" id="1nw-Ip-GRU"/>
                         <outlet property="switchNotification" destination="rGZ-5u-JsV" id="KWY-jX-FKe"/>
+                        <outlet property="viewRemovePriver" destination="ETA-cH-xlg" id="v9B-Ch-2yq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyY-l8-e6G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

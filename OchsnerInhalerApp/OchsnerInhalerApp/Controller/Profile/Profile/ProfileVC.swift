@@ -23,6 +23,7 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var lblShareUsageWithProvider: UILabel!
     @IBOutlet weak var lblUseFaceID: UILabel!
 
+    @IBOutlet weak var viewRemovePriver: UIView!
     
     var tap = 1
 
@@ -165,6 +166,7 @@ class ProfileVC: BaseVC {
                 print("Response sucess :\(status)")
                 self.lblEmail.text =  self.profileVM.userData.user?.emailAddress ?? StringCommonMessages.notSet
                 self.lblProvider.text = "Provider: \(self.profileVM.userData.user?.providerName ?? StringCommonMessages.notSet)"
+                self.viewRemovePriver.isHidden = self.profileVM.userData.user?.providerName ?? "" == ""
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
@@ -192,8 +194,7 @@ class ProfileVC: BaseVC {
         if tap == 3 {
             Constants.appdel.sendEmailLogs()
             tap = 1
-        }
-        else {
+        }else {
             tap += 1
         }
     }
