@@ -11,6 +11,7 @@ import EventKit
 class ProfileVM {
     var userData = ProfileModel()
     var store = EKEventStore()
+    
     func doGetProfile(completionHandler: @escaping ((APIResult) -> Void)) {
         APIManager.shared.performRequest(route: APIRouter.user.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) { error, response in
             if response == nil {

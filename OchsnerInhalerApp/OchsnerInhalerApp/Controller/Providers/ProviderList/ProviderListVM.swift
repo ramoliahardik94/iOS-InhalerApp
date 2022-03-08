@@ -9,7 +9,7 @@ import Foundation
 
 class ProviderListVM {
     var providerList = [ProviderModel]()
-   
+    
     func doGetProviderList(completionHandler: @escaping ((APIResult) -> Void)) {
         
         APIManager.shared.performRequest(route: APIRouter.providerList.path, parameters: [String: Any](), method: .get) { error, response in
@@ -32,7 +32,7 @@ class ProviderListVM {
     
     func doSendAuthRequest(url: String, completionHandler: @escaping ((APIResult) -> Void)) {
         APIManager.shared.performRequest(route: url, parameters: [:], method: .post, isAuth: true) { error, response in
-          
+            
             if response == nil {
                 completionHandler(.failure(error!.message))
             } else {
@@ -43,5 +43,4 @@ class ProviderListVM {
         }
         
     }
-    
 }

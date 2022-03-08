@@ -33,6 +33,8 @@ extension NSMutableAttributedString {
     var boldFont: UIFont { return UIFont(name: AppFont.AppBoldFont, size: fontSize) ?? UIFont.boldSystemFont(ofSize: fontSize) }
     var normalFont: UIFont { return UIFont(name: AppFont.AppRegularFont, size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)}
     var italicFont: UIFont { return UIFont(name: Constants.CustomFont.SFProDisplayBoldItalic, size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)}
+    var normalSmallFont: UIFont { return UIFont(name: AppFont.AppRegularFont, size: 15) ?? UIFont.systemFont(ofSize: 15)}
+  
     func bold(_ value: String) -> NSMutableAttributedString {
         
         let attributes: [NSAttributedString.Key: Any] = [
@@ -93,6 +95,25 @@ extension NSMutableAttributedString {
             .font: normalFont,
             .underlineStyle: NSUnderlineStyle.single.rawValue
             
+        ]
+        
+        self.append(NSAttributedString(string: value, attributes: attributes))
+        return self
+    }
+    
+    func chanageColorString(_ value: String) -> NSMutableAttributedString {
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: boldFont,
+            .foregroundColor: UIColor.ButtonColorBlue]
+        
+        self.append(NSAttributedString(string: value, attributes: attributes))
+        return self
+    }
+    func normalSmall(_ value: String) -> NSMutableAttributedString {
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: normalSmallFont
         ]
         
         self.append(NSAttributedString(string: value, attributes: attributes))

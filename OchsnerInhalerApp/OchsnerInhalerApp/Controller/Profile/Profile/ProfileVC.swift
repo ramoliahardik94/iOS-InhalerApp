@@ -13,7 +13,6 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var btnLogout: UIButton!
     @IBOutlet weak var btnChangeProvider: UIButton!
     @IBOutlet weak var btnRemoveProvider: UIButton!
-   
     @IBOutlet weak var btnAppVersion: UIButton!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblProvider: UILabel!
@@ -22,17 +21,12 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var lblShareLocation: UILabel!
     @IBOutlet weak var lblShareUsageWithProvider: UILabel!
     @IBOutlet weak var lblUseFaceID: UILabel!
-
     @IBOutlet weak var viewRemovePriver: UIView!
-    
-    var tap = 1
-
     @IBOutlet weak var switchNotification: UISwitch!
     @IBOutlet weak var switchLocation: UISwitch!
     private var profileVM = ProfileVM()
-    
-    
-    
+    var tap = 1
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,6 +60,7 @@ class ProfileVC: BaseVC {
         doGetProfileData()
 
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         switchLocation.setOn(UserDefaultManager.isLocationOn, animated: true)
      //   switchNotification.setOn(UserDefaultManager.isNotificationOn, animated: true)
@@ -90,10 +85,12 @@ class ProfileVC: BaseVC {
         pushVC(controller: updateProfileVC)
   
     }
+   
     @IBAction func tapChangePassword(_ sender: Any) {
         let changePasswordVC  = ChangePasswordVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(controller: changePasswordVC)
     }
+   
     @IBAction func tapLogout(_ sender: Any) {
         
         CommonFunctions.showMessageYesNo(message: StringProfile.sureLogout, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.logOut) { isOk in
@@ -103,16 +100,16 @@ class ProfileVC: BaseVC {
             
         }
     }
+   
     @IBAction func tapChangeProvider(_ sender: Any) {
         let providerListVC = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         providerListVC.comeFrom = "profile"
         pushVC(controller: providerListVC)
     }
+   
     @IBAction func tapRemoveProvider(_ sender: Any) {
         removeProvider()
     }
-    
-  
     
     @IBAction func onChangeSwitch(_ sender: UISwitch) {
         if sender.tag == SwitchButtonsTag.switchNotification.rawValue {
@@ -144,6 +141,7 @@ class ProfileVC: BaseVC {
             }
         }
     }
+    
     func setRootLogin() {
         removeUser()
          BLEHelper.shared.cleanup()
@@ -194,12 +192,11 @@ class ProfileVC: BaseVC {
         if tap == 3 {
             Constants.appdel.sendEmailLogs()
             tap = 1
-        }else {
+        } else {
             tap += 1
         }
     }
 
-    
 }
 
 enum SwitchButtonsTag: Int {
