@@ -45,7 +45,7 @@ extension BLEHelper {
             }
         } else {
             if let topVC =  UIApplication.topViewController() {
-                topVC.view.showToast(toastMessage: ValidationMsg.bluetoothOn, duration: 10)
+                topVC.view.makeToast(ValidationMsg.bluetoothOn)
             }
         }
     }
@@ -70,7 +70,7 @@ extension BLEHelper {
             }
         } else {
             if let topVC =  UIApplication.topViewController() {
-                topVC.view.showToast(toastMessage: ValidationMsg.bluetoothOn, duration: 10)
+                topVC.view.makeToast(ValidationMsg.bluetoothOn)
             }
         }
     }
@@ -83,7 +83,7 @@ extension BLEHelper {
             } else {
               //  BLEHelper.shared.setDelegate()
                 if let topVC =  UIApplication.topViewController() {
-                    topVC.view.showToast(toastMessage: ValidationMsg.bluetoothOn, duration: 10)
+                    topVC.view.makeToast(ValidationMsg.bluetoothOn)
                 }
                
             }

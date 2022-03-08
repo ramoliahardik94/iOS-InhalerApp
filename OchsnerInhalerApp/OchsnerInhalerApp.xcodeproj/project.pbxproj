@@ -49,6 +49,7 @@
 		22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE970C278EDAFB00C0D851 /* StringsContants.swift */; };
 		22CA52A627C34D9E0031BDE7 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CA52A527C34D9E0031BDE7 /* HomeVM.swift */; };
 		22CA52A827C34EF50031BDE7 /* DashboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CA52A727C34EF50031BDE7 /* DashboardModel.swift */; };
+		22F532E727D724700016D40A /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F532E627D724700016D40A /* Toast.swift */; };
 		22FC2E0627B767C700ABE886 /* ProviderListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FC2E0527B767C700ABE886 /* ProviderListVM.swift */; };
 		22FC2E0827B76D2700ABE886 /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FC2E0727B76D2700ABE886 /* ProviderModel.swift */; };
 		22FCEA6227C4AA8700A91A6A /* dashboard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 22FCEA6127C4AA8700A91A6A /* dashboard_response.json */; };
@@ -171,6 +172,7 @@
 		22AE970C278EDAFB00C0D851 /* StringsContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsContants.swift; sourceTree = "<group>"; };
 		22CA52A527C34D9E0031BDE7 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		22CA52A727C34EF50031BDE7 /* DashboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModel.swift; sourceTree = "<group>"; };
+		22F532E627D724700016D40A /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		22FC2E0527B767C700ABE886 /* ProviderListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListVM.swift; sourceTree = "<group>"; };
 		22FC2E0727B76D2700ABE886 /* ProviderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderModel.swift; sourceTree = "<group>"; };
 		22FCEA6127C4AA8700A91A6A /* dashboard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dashboard_response.json; sourceTree = "<group>"; };
@@ -742,6 +744,7 @@
 				22AE970C278EDAFB00C0D851 /* StringsContants.swift */,
 				4725F21227981BBC00BBDA28 /* NMDatePicker.swift */,
 				472F643B279FF46400E37FB1 /* CommonFunction.swift */,
+				22F532E627D724700016D40A /* Toast.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -998,6 +1001,7 @@
 				22AE96F5278EA5D700C0D851 /* ProviderListVC.swift in Sources */,
 				4725F21327981BBC00BBDA28 /* NMDatePicker.swift in Sources */,
 				4733205027A8EEC100695661 /* BLECommunication.swift in Sources */,
+				22F532E727D724700016D40A /* Toast.swift in Sources */,
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
 				2213838627BCB3DE00D4BFA0 /* AcuationLog+CoreDataProperties.swift in Sources */,
 				227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */,
