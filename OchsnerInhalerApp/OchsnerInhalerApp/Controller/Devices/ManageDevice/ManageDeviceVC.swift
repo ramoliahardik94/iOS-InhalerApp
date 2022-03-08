@@ -35,9 +35,7 @@ class ManageDeviceVC: BaseVC {
             apiCall()
         }
         tbvData.reloadData()
-        let device = BLEHelper.shared.centralManager.retrieveConnectedPeripherals(withServices: TransferService.serviceArray)
-        print("\(device)")
-        BLEHelper.shared.centralManager.de
+       
         refresh(self)
     }
     
