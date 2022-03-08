@@ -10,39 +10,38 @@ import SafariServices
 import WebKit
 
 class ProviderListVC: BaseVC {
-
     @IBOutlet weak var viewProvider: UIView!
-   // @IBOutlet weak var btnCancel: UIButton!
+    // @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var lblSubHeader: UILabel!
-   // @IBOutlet weak var viewSearch: UIView!
+    // @IBOutlet weak var viewSearch: UIView!
     @IBOutlet weak var viewConform: UIView!
-   // @IBOutlet weak var searchProvider: UISearchBar!
+    // @IBOutlet weak var searchProvider: UISearchBar!
     @IBOutlet weak var imgSelectedProvider: UIImageView!
     @IBOutlet weak var btnContinue: UIButton!
     @IBOutlet weak var btnChange: UIButton!
     @IBOutlet weak var tbvData: UITableView!
     @IBOutlet weak var viewWebviewMain: UIView!
-    
     @IBOutlet weak var lbProviderName: UILabel!
     @IBOutlet weak var wvData: WKWebView!
     @IBOutlet weak var lblProviderNameConfirm: UILabel!
-    
     private var providerListVM = ProviderListVM()
     private var OAuthUrl = ""
     private var providerId = ""
     private var isCallFirstTime = true
     private var providerName = ""
     var comeFrom = ""
-  // private var webView: WKWebView!
+  
+    // private var webView: WKWebView!
     override func viewDidLoad() {
         self.navigationController?.isNavigationBarHidden = true
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupVC()
     }
+    
     func setupVC() {
-       // self.btnCancel.isEnabled = false
+        // self.btnCancel.isEnabled = false
         lblHeader.text = StringPoviders.selectOrganization
         lblSubHeader.text = StringPoviders.providerSubHeader
         lblHeader.setFont(type: .semiBold, point: 16)
@@ -53,52 +52,48 @@ class ProviderListVC: BaseVC {
         lblProviderNameConfirm.setFont(type: .semiBold, point: 16)
         lblProviderNameConfirm.text = ""
         lblProviderNameConfirm.textColor = .white
-        
         self.view.backgroundColor = .ColorHeader
-//        viewSearch.backgroundColor = .ColorHeaderSearch
-//        self.searchProvider.barTintColor = .ColorHeaderSearch
-//        self.searchProvider.backgroundColor = .ColorHeaderSearch
-//        self.searchProvider.searchTextField.borderStyle = .none
-//        self.searchProvider.searchTextField.backgroundColor = .white
-//        self.searchProvider.searchTextField.layer.cornerRadius = 10
-//        self.searchProvider.searchTextField.clipsToBounds = true
-//        self.btnCancel.setTitleColor(.lightGray, for: .disabled)
-//        self.btnCancel.setTitleColor(.white, for: .normal)
-//        self.searchProvider.layer.borderWidth = 1
-//        self.searchProvider.layer.borderColor = UIColor.ColorHeaderSearch.cgColor
-//        self.lblHeader.font = UIFont(name: AppFont.AppRegularFont, size: 14)
-//        self.btnCancel.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 12)
-//        self.searchProvider.searchTextField.font = UIFont(name: AppFont.AppRegularFont, size: 12)
-//        self.searchProvider.delegate = self
+        //        viewSearch.backgroundColor = .ColorHeaderSearch
+        //        self.searchProvider.barTintColor = .ColorHeaderSearch
+        //        self.searchProvider.backgroundColor = .ColorHeaderSearch
+        //        self.searchProvider.searchTextField.borderStyle = .none
+        //        self.searchProvider.searchTextField.backgroundColor = .white
+        //        self.searchProvider.searchTextField.layer.cornerRadius = 10
+        //        self.searchProvider.searchTextField.clipsToBounds = true
+        //        self.btnCancel.setTitleColor(.lightGray, for: .disabled)
+        //        self.btnCancel.setTitleColor(.white, for: .normal)
+        //        self.searchProvider.layer.borderWidth = 1
+        //        self.searchProvider.layer.borderColor = UIColor.ColorHeaderSearch.cgColor
+        //        self.lblHeader.font = UIFont(name: AppFont.AppRegularFont, size: 14)
+        //        self.btnCancel.titleLabel?.font = UIFont(name: AppFont.AppRegularFont, size: 12)
+        //        self.searchProvider.searchTextField.font = UIFont(name: AppFont.AppRegularFont, size: 12)
+        //        self.searchProvider.delegate = self
         viewProvider.isOchsnerView = true
         self.btnContinue.setButtonView(StringPoviders.continueProvider)
         self.btnChange.setButtonView(StringPoviders.change, isDefaultbtn: false)
         viewConform.isHidden = true
         doGetProviderList()
-        
-      
         wvData.navigationDelegate = self
         tbvData.separatorStyle = .none
-        
-        
-        
     }
+    
     @IBAction func btnCancelClick(_ sender: UIButton) {
-      //  self.searchProvider.searchTextField.text = ""
+        //  self.searchProvider.searchTextField.text = ""
         self.view.endEditing(true)
         sender.isEnabled = false
     }
+    
     @IBAction func btnBackClick(_ sender: Any) {
         self.popVC()
     }
     
     @IBAction func btnContinueClick(_ sender: Any) {
         // viewConform.isHidden = true
-      
+        
         isCallFirstTime = true
         setUiWebview()
     }
-
+    
     @IBAction func btnChangeClick(_ sender: Any) {
         viewConform.isHidden = true
         OAuthUrl = ""
@@ -107,6 +102,7 @@ class ProviderListVC: BaseVC {
     @IBAction func tapBackWebview(_ sender: Any) {
         viewWebviewMain.isHidden = true
     }
+    
     func doGetProviderList() {
         providerListVM.doGetProviderList { result in
             switch result {
@@ -140,8 +136,8 @@ class ProviderListVC: BaseVC {
                 UserDefaultManager.providerName = self.providerName
                 
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-               
+                let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                
                 if self.comeFrom == "profile" {
                     homeTabBar.selectedIndex = 2
                 }
@@ -167,16 +163,17 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
         let cell: ProviderCell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell") as! ProviderCell
         cell.imgProvider.image = UIImage(named: providerListVM.providerList[indexPath.row].iconFilename ?? "")
         
-//        if indexPath.row == 1 {
-//            cell.imgProvider.image = UIImage(named: "provider")
-//        } else if indexPath.row == 2 {
-//            cell.imgProvider.image = UIImage(named: "provider1")
-//        } else {
-//            cell.imgProvider.image = UIImage(named: "provider2")
-//        }
+        //        if indexPath.row == 1 {
+        //            cell.imgProvider.image = UIImage(named: "provider")
+        //        } else if indexPath.row == 2 {
+        //            cell.imgProvider.image = UIImage(named: "provider1")
+        //        } else {
+        //            cell.imgProvider.image = UIImage(named: "provider2")
+        //        }
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
@@ -186,55 +183,59 @@ extension ProviderListVC: UITableViewDelegate, UITableViewDataSource {
         imgSelectedProvider.image = UIImage(named: providerListVM.providerList[indexPath.row].iconFilename ?? "")
         providerName = providerListVM.providerList[indexPath.row].entryName ?? ""
         lblProviderNameConfirm.text = providerName
-//        if indexPath.row == 1 {
-  //          imgSelectedProvider.image = UIImage(named: "provider")
-//        } else if indexPath.row == 2 {
-//            imgSelectedProvider.image = UIImage(named: "provider1")
-//        } else {
-//            imgSelectedProvider.image = UIImage(named: "provider2")
-//        }
+        //        if indexPath.row == 1 {
+        //          imgSelectedProvider.image = UIImage(named: "provider")
+        //        } else if indexPath.row == 2 {
+        //            imgSelectedProvider.image = UIImage(named: "provider1")
+        //        } else {
+        //            imgSelectedProvider.image = UIImage(named: "provider2")
+        //        }
         let obj =  providerListVM.providerList[indexPath.row]
         OAuthUrl = obj.OAuthUrl ?? ""
         providerId = "\(obj.entryId ?? 0)"
         viewConform.isHidden = false
     }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
     }
 }
 
-
-
 extension ProviderListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-       // btnCancel.isEnabled = searchBar.searchTextField.text!.count > 0
+        // btnCancel.isEnabled = searchBar.searchTextField.text!.count > 0
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
     }
 }
+
 extension ProviderListVC: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         CommonFunctions.hideGlobalProgressHUD(self)
         print(error)
     }
+    
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         CommonFunctions.showGlobalProgressHUD(self)
     }
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         CommonFunctions.hideGlobalProgressHUD(self)
-     //  print("finish to load \(webView.url)")
-       // doSendAuthRequest()
+        //  print("finish to load \(webView.url)")
+        // doSendAuthRequest()
     }
+    
     func webView(webView: WKWebView!, createWebViewWithConfiguration configuration: WKWebViewConfiguration!, forNavigationAction navigationAction: WKNavigationAction!, windowFeatures: WKWindowFeatures!) -> WKWebView! {
         if navigationAction.targetFrame == nil {
             webView.load(navigationAction.request)
         }
         return nil
     }
+    
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-      
+        
         guard let serverTrust = challenge.protectionSpace.serverTrust else {
             completionHandler(.cancelAuthenticationChallenge, nil)
             return
@@ -243,32 +244,32 @@ extension ProviderListVC: WKNavigationDelegate {
         SecTrustSetExceptions(serverTrust, exceptions)
         completionHandler(.useCredential, URLCredential(trust: serverTrust))
     }
-
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
-       // print("decidePolicyFor \(webView.url?.absoluteString)")
+        // print("decidePolicyFor \(webView.url?.absoluteString)")
         return .allow
     }
     
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-     //   print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
+        //   print("didReceiveServerRedirectForProvisionalNavigation \(webView.url)")
         if let url = webView.url?.absoluteString {
-        if ((url.contains(StringPoviders.providerBaseUrl))) {
-            
-            var dict = [String: String]()
-            let components = URLComponents(url: webView.url!, resolvingAgainstBaseURL: false)!
-            if let queryItems = components.queryItems {
-                for item in queryItems {
-                    dict[item.name] = item.value!
+            if ((url.contains(StringPoviders.providerBaseUrl))) {
+                
+                var dict = [String: String]()
+                let components = URLComponents(url: webView.url!, resolvingAgainstBaseURL: false)!
+                if let queryItems = components.queryItems {
+                    for item in queryItems {
+                        dict[item.name] = item.value!
+                    }
+                }
+                //  print(dict)
+                if isCallFirstTime {
+                    CommonFunctions.hideGlobalProgressHUD(self)
+                    isCallFirstTime = false
+                    let urlFinal =  "\(APIRouter.providerAuth.path)?providerId=\(dict["provider"] ?? "")&accessToken=\(dict["accessToken"] ?? "")&expiresIn=\(dict["expiresIn"] ?? "")&refreshToken=\(dict["refreshToken"] ?? "")"
+                    doSendAuthRequest(path: urlFinal)
                 }
             }
-          //  print(dict)
-            if isCallFirstTime {
-                CommonFunctions.hideGlobalProgressHUD(self)
-                isCallFirstTime = false
-                let urlFinal =  "\(APIRouter.providerAuth.path)?providerId=\(dict["provider"] ?? "")&accessToken=\(dict["accessToken"] ?? "")&expiresIn=\(dict["expiresIn"] ?? "")&refreshToken=\(dict["refreshToken"] ?? "")"
-                doSendAuthRequest(path: urlFinal)
-            }
         }
-    }
     }
 }

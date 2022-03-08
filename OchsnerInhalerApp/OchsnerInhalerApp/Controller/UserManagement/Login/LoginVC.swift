@@ -79,58 +79,72 @@ class LoginVC: BaseVC {
     }
     
     
+    func setNextView() {        
+        
+        if !UserDefaultManager.isGrantBLE {
+            let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+            self.pushVC(controller: bluetoothPermissionVC)
+            return
+        }
+        if !UserDefaultManager.isGrantLaocation {
+            let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+            self.pushVC(controller: locationPermisionVC)
+            return
+        }
+        
+        if !UserDefaultManager.isNotificationOn {
+            let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
+            self.pushVC(controller: notificationPermissionVC)
+            return
+        }
+        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if devicelist.count == 0 {
+            BLEHelper.shared.isAllowed { isAllow in
+                if isAllow {
+                    let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                    self.pushVC(controller: addDeviceIntroVC)
+                }
+            }
+        } else {
+            BLEHelper.shared.scanPeripheral()
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+            // homeTabBar.selectedIndex = 1
+            DispatchQueue.main.async {
+                self.rootVC(controller: homeTabBar)
+            }
+        }
+    }
+    
+    
     // MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
         self.view.endEditing(true)
+       
         login.apiLogin {[weak self] (result) in
             guard let `self` = self else { return }
             switch result {
-            case .success(let status):
-                print("Response sucess :\(status)")
+            case .success:
                 UserDefaultManager.userEmailAddress = self.tfEmail.text ?? ""
-//                print("UserDefaultManager.userEmailAddress  \(UserDefaultManager.userEmailAddress)")
-//                print("self.tfEmail.text ??  \(self.tfEmail.text ?? "") ")
-                
-                if !UserDefaultManager.isGrantBLE {
-                    let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self.pushVC(controller: bluetoothPermissionVC)
-                    return
-                }
-                if !UserDefaultManager.isGrantLaocation {
-                    let locationPermisionVC = LocationPermisionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self.pushVC(controller: locationPermisionVC)
-                    return
-                }
-                
-                if !UserDefaultManager.isNotificationOn {
-                    let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
-                    self.pushVC(controller: notificationPermissionVC)
-                    return
-                }
-                let device = self.login.getDeviceListFromDB()
-                if device.count == 0 {
-                    BLEHelper.shared.isAllowed { isAllow in
-                        if isAllow {
-                            let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                            self.pushVC(controller: addDeviceIntroVC)
-                        }
-                    }
-                } else {
-                    BLEHelper.shared.scanPeripheral()
-                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                   // homeTabBar.selectedIndex = 1
-                    DispatchQueue.main.async {
-                        self.rootVC(controller: homeTabBar)
-                    }
-                }
-                
-                
+                self.getDeviceFromAPI()
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
         }
       
+    }
+    func getDeviceFromAPI() {
+        self.login.getDeviceList(completionHandler: { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                self.setNextView()
+            case .failure:
+                break
+                // CommonFunctions.showMessage(message: message)
+            }
+        })
     }
     
     @IBAction func btnForgotPassClick(_ sender: Any) {

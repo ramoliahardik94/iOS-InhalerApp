@@ -75,7 +75,12 @@ class AddDeviceIntroVC: BaseVC {
             lblGreat.text = StringAddDevice.removeIsolationTag
             imgAddDevice.image = #imageLiteral(resourceName: "removeTag")
             lblAddDevice.isHidden  = true
-            lbldeviceInfo.text = StringAddDevice.removeIsolationTagWithScan
+            let attributedString = NSMutableAttributedString()
+                .normal(StringAddDevice.removeAndDiscard)
+                .chanageColorString(StringAddDevice.infoCharecter)
+                .normalSmall(StringAddDevice.deviceNearBy)
+            lbldeviceInfo.attributedText = attributedString
+            
             BLEHelper.shared.isAddAnother = true
             BLEHelper.shared.discoveredPeripheral = nil
             paringLoader.isHidden = true
@@ -99,8 +104,16 @@ class AddDeviceIntroVC: BaseVC {
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
  
             
-            lbldeviceInfo.text = StringAddDevice.pairScreen
-            lbldeviceInfo.textAlignment = .center
+            let attributedString = NSMutableAttributedString()
+                .normal(StringAddDevice.pairScreenStringArray[0])
+                .bold(StringAddDevice.pairScreenStringArray[1])
+                .normal(StringAddDevice.pairScreenStringArray[2])
+                .bold(StringAddDevice.pairScreenStringArray[3])
+                .normal(StringAddDevice.pairScreenStringArray[4])
+            lbldeviceInfo.attributedText = attributedString
+            
+           // lbldeviceInfo.text = StringAddDevice.pairScreen
+            // lbldeviceInfo.textAlignment = .center
             
             btnStartSetUp.setButtonView(StringAddDevice.pairDevice)
             btnStartSetUp.isEnabled = true
