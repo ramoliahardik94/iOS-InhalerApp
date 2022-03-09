@@ -148,7 +148,7 @@ extension BLEHelper {
         }
         
         stopTimer()
-        delay(15) {
+        delay(isAddAnother ? 15 : 0) {
             [weak self] in
             guard let `self` = self else { return }
             self.getmacAddress()
