@@ -105,12 +105,12 @@ extension BLEHelper: CBCentralManagerDelegate {
                     discoveredPeripheral = peripheral
                     stopScanPeriphral()
                     stopTimer()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+                    delay(isAddAnother ? 15 : 0) {
                         Logger.logInfo("Discovered peripheral with isAddAnother true")
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
                         }
-                    })
+                    }
                 } else {
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         discoveredPeripheral = peripheral
