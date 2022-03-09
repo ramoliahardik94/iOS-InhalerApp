@@ -150,14 +150,16 @@ extension BLEHelper {
         stopTimer()
         delay(isAddAnother ? 15 : 0) {
             [weak self] in
-            guard let `self` = self else { return }
-            self.getmacAddress()
-            self.getBetteryLevel()
-            self.getAccuationNumber()
-            Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
-            self.isScanning = false
-            DispatchQueue.main.async { [self] in
-            NotificationCenter.default.post(name: .BLEConnect, object: nil)
+            if self.discoveredPeripheral!.state == .connected {
+                guard let `self` = self else { return }
+                self.getmacAddress()
+                self.getBetteryLevel()
+                self.getAccuationNumber()
+                Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
+                self.isScanning = false
+                DispatchQueue.main.async { [self] in
+                    NotificationCenter.default.post(name: .BLEConnect, object: nil)
+                }
             }
             
         }
