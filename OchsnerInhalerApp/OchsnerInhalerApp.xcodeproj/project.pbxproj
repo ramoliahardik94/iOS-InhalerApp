@@ -80,8 +80,6 @@
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
 		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
-		47594B3427D0839C00F23C53 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */; };
-		47594B3527D0839C00F23C53 /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */; };
 		4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4796597927D8BD7C00A4D403 /* removeTag.gif */; };
 		479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
@@ -207,8 +205,6 @@
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
-		47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		4796597927D8BD7C00A4D403 /* removeTag.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = removeTag.gif; sourceTree = "<group>"; };
 		479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchsnerInhalerApp.entitlements; sourceTree = "<group>"; };
 		479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -1204,7 +1200,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
@@ -1227,7 +1223,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.1;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
@@ -1246,7 +1242,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
@@ -1269,7 +1265,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.1;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
