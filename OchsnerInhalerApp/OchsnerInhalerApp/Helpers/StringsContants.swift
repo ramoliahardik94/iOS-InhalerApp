@@ -103,6 +103,9 @@ struct ValidationMsg {
     static let privacyPolicy = "You must accept our privacy policy!"
     static let forgoteSuccess = "Reset password link sent to your email please check"
     static let bluetoothOn = "Please Turn on Bluetooth"
+    static let mismatchUUID = "Your devices have been changed from the previously paired. Re-configure the device to track the medication."
+    static let yes = "Yes"
+    static let no = "No"
 }
 
 struct ValidationButton {

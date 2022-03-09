@@ -21,13 +21,18 @@ extension BLEHelper: CBPeripheralDelegate {
             Logger.logInfo("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
-        
+       
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
+        Logger.logInfo("Notify Data: \(String(describing: stringFromData))")
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
+            
             Logger.logInfo("Mac Address: \(addressMAC)")
-            NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
+            }
+            
         } else {
             var arrResponce = stringFromData.split(separator: ":")
             arrResponce.remove(at: 0)// StartByte
@@ -37,7 +42,9 @@ extension BLEHelper: CBPeripheralDelegate {
             } else if str == StringCharacteristics.getType(.beteryLevel)() {
                 bettery = "\(stringFromData.getBeteryLevel())"
                 Logger.logInfo("Bettery : \(bettery)")
-                NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
+                DispatchQueue.main.async { [self] in
+                    NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
+                }
             } else if str == StringCharacteristics.getType(.accuationLog)() {
                 accuationLog = stringFromData.getNumberofAccuationLog()
                 if accuationLog > 0 {
@@ -46,17 +53,20 @@ extension BLEHelper: CBPeripheralDelegate {
                     apiCallForAccuationlog()
                 }
                 Logger.logInfo("Number Of Acuation log : \(accuationLog)")
-                NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(accuationLog)"])
+                DispatchQueue.main.async { [self] in
+                    NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(accuationLog)"])
+                }
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
                 Logger.logInfo("Acuation log : \(log)")
-                
+              
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
                                                     ["Id": (log.id),
                                                      "date": "\(log.date)",
                                                      "uselength": log.uselength,
                                                      "mac": addressMAC,
                                                      "udid": peripheral.identifier.uuidString])
+                
             }
         }
     }
@@ -94,7 +104,7 @@ extension BLEHelper {
      
             return
         }
-        
+        print("Discover Servivce: \(peripheral.services)")
         guard let peripheralServices = peripheral.services else { return }
         
         for service in peripheralServices where service.uuid == TransferService.otaServiceUUID {
@@ -138,15 +148,22 @@ extension BLEHelper {
         }
         
         stopTimer()
-        delay(15) {
+        delay(isAddAnother ? 15 : 0) {
             [weak self] in
             guard let `self` = self else { return }
-            self.getmacAddress()
-            self.getBetteryLevel()
-            self.getAccuationNumber()
-            Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
-            self.isScanning = false
-            NotificationCenter.default.post(name: .BLEConnect, object: nil)
+            switch self.discoveredPeripheral?.state {
+            case .connected :
+                self.getmacAddress()
+                self.getBetteryLevel()
+                self.getAccuationNumber()
+                Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
+                self.isScanning = false
+                DispatchQueue.main.async { 
+                    NotificationCenter.default.post(name: .BLEConnect, object: nil)
+                }
+            default:
+                break
+            }
             
         }
         // Once this is complete, we just need to wait for the data to come in.

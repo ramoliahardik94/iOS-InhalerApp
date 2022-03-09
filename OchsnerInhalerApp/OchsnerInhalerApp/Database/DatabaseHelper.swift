@@ -8,6 +8,16 @@
 import Foundation
 import CoreData
 import UIKit
+import KeychainSwift
+
+
+struct EntityName {
+    static let acuationLog = "AcuationLog"
+    static let device = "Device"
+}
+
+
+
 class DatabaseManager {
     static var share = DatabaseManager()
     
@@ -15,7 +25,7 @@ class DatabaseManager {
     
     func saveAccuation(object: [String: Any]) {
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AcuationLog")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
         let predicate2 =  NSPredicate(format: "issync == %d", false)
         let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
@@ -26,7 +36,7 @@ class DatabaseManager {
             if arrAccuationLog.count != 0 {
                 accuationLog = arrAccuationLog[0]
             } else {
-                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: "AcuationLog", into: context!) as! AcuationLog)
+                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.acuationLog, into: context!) as! AcuationLog)
             }
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
             debugPrint(object)
@@ -47,7 +57,7 @@ class DatabaseManager {
     
     func isMantenanceAllow( mac: String) -> Bool {
         var arrDevice = [Device]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         let predicate =  NSPredicate(format: "medtypeid == 2")
         fetchRequest.predicate = predicate
         do {
@@ -64,7 +74,7 @@ class DatabaseManager {
     
     func isReminder() -> Bool {
         var arrDevice = [Device]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         let predicate =  NSPredicate(format: "medtypeid == 2")
         fetchRequest.predicate = predicate
         do {
@@ -80,7 +90,13 @@ class DatabaseManager {
     }
     
     func saveDevice(object: DeviceModel) {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        
+        if object.udid != "" {
+            setupUDID(mac: object.internalID, udid: object.udid)
+        } else {
+            object.udid = getUDID(mac: object.internalID)
+        }
         
         let predicate1 =  NSPredicate(format: "mac == %@", object.internalID)
         let predicate2 =  NSPredicate(format: "email == %@", UserDefaultManager.email)
@@ -99,7 +115,7 @@ class DatabaseManager {
                 }
                 accuationLog.reminder =  object.isReminder
             } else {
-                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: "Device", into: context!) as! Device)
+                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
                 accuationLog.mac = object.internalID
                 accuationLog.udid = object.udid
                 accuationLog.email = UserDefaultManager.email
@@ -115,7 +131,7 @@ class DatabaseManager {
     func getAccuationLogList(mac: String) -> [[String: Any]] {
         var accuationLog = [AcuationLog]()
         var usage = [[String: Any]]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AcuationLog")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
         let predicate2 =  NSPredicate(format: "issync == %d", false)
         let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
@@ -134,7 +150,7 @@ class DatabaseManager {
     }
     
     func deleteAllAccuationLog() {
-        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AcuationLog")
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.acuationLog)
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
         do {
             try context?.execute(request)
@@ -145,7 +161,7 @@ class DatabaseManager {
     }
     
     func deleteMacAddress(macAddress: String) {
-        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
         let predicate = NSPredicate(format: "mac == %@", macAddress)
         fetch.predicate = predicate
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
@@ -161,7 +177,7 @@ class DatabaseManager {
     
     
     func deleteAllDevice() {
-        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
         
         do {
@@ -175,7 +191,7 @@ class DatabaseManager {
     func getAddedDeviceList(email: String) -> [Device] {
         var device = [Device]()
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Device")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         let predicate = NSPredicate(format: "email == %@", email)
         fetchRequest.predicate = predicate
         do {
@@ -188,7 +204,7 @@ class DatabaseManager {
     }
     
     func updateAccuationLog(_ updateObj: [[String: Any]]) {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "AcuationLog")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         for obj in updateObj {
             let mac = obj["DeviceId"] as! String
             if let usage = obj["Usage"] as? [[String: Any]] {
@@ -213,5 +229,19 @@ class DatabaseManager {
             }
             
         }
+    }
+    
+    func setupUDID(mac: String, udid: String) {
+        let keychain = KeychainSwift()
+        keychain.set(udid, forKey: mac)
+    }
+    
+    func getUDID(mac: String) -> String {
+        let keychain = KeychainSwift()
+        guard let oldUDID = keychain.get(mac) else {
+            // udid not found in keychain
+            return ""
+        }
+        return oldUDID
     }
 }

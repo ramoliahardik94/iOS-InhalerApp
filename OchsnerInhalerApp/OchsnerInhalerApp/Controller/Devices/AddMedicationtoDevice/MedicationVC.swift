@@ -97,14 +97,14 @@ class MedicationVC: BaseVC {
                     }
                 }
             } else {
-                if DatabaseManager.share.isMantenanceAllow(mac: BLEHelper.shared.addressMAC) {
+               // if DatabaseManager.share.isMantenanceAllow(mac: BLEHelper.shared.addressMAC) {
                     let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     medicationDetailVC.isFromDeviceList = isFromDeviceList
                     medicationDetailVC.medicationVM = medicationVM
                     pushVC(controller: medicationDetailVC)
-                } else {
-                    CommonFunctions.showMessage(message: ValidationMsg.mantainance)
-                }
+//                } else {
+//                    CommonFunctions.showMessage(message: ValidationMsg.mantainance)
+//                }
             }
         } else {
             CommonFunctions.showMessage(message: ValidationMsg.medication)

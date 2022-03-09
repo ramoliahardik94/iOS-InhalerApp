@@ -28,8 +28,18 @@ class NotificationPermissionVC: BaseVC {
                 DispatchQueue.main.async {
                     UserDefaultManager.isGrantNotification = true
                     UserDefaultManager.isNotificationOn = true
-                    let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.rootVC(controller: addDeviceIntroVC)
+                    let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+                    if devicelist.count == 0 {
+                        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                        self.rootVC(controller: addDeviceIntroVC)
+                    }
+                    else{
+                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                        DispatchQueue.main.async {
+                            self.rootVC(controller: homeTabBar)
+                        }
+                    }
                    
                 }
             }

@@ -131,11 +131,13 @@ class BLEHelper: NSObject {
     func apiCallDeviceUsage() {
         let param = prepareAcuationLogParam()
         if param.count != 0 {
-            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { error, response in
-                if response != nil  {
+            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { _, response in
+                if response != nil {
                     if (response as? [String: Any]) != nil {
                         DatabaseManager.share.updateAccuationLog(param)
+                        DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
+                        }
                     }
                 }
             }

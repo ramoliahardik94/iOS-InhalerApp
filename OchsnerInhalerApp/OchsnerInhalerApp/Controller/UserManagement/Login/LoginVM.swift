@@ -33,21 +33,23 @@ class LoginVM {
         }
     }
     
-    func getDeviceListFromDB() -> [String] {
-        let manageDeviceVM = ManageDeviceVM()
-        manageDeviceVM.apicallForGetDeviceList(completionHandler: { result in
-            switch result {
-            case .success(let status):
-                print("Response sucess :\(status)")
-                
-            case .failure(let message):
-                print(message)
-                // CommonFunctions.showMessage(message: message)
+    func getDeviceList(completionHandler: @escaping ((APIResult) -> Void)) {
+        APIManager.shared.performRequest(route: APIRouter.device.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) {[weak self] error, response in
+            guard let `self` = self else { return }
+            if response == nil {
+                completionHandler(.failure(error!.message))
+            } else {
+                if let res = response as? [[String: Any]] {
+                    for obj in res {
+                        DatabaseManager.share.saveDevice(object: DeviceModel(jSon: obj))
+                    }
+                    completionHandler(.success(true))
+                } else {
+                    completionHandler(.failure(ValidationMsg.CommonError))
+                }
             }
-        })
-        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid!})
-        let devicelist = device.filter({$0.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
-        return devicelist
+        }
+        
     }
     
     func checkValidation() -> Bool {
@@ -70,8 +72,8 @@ class LoginVM {
         APIManager.shared.performRequest(route: url, parameters: [String: Any](), method: .post, isBasicAuth: true) { [weak self] error, response in
             guard self != nil else { return }
             if response == nil {
-//                completionHandler(.failure(error!.message))
-                completionHandler(.success(true))
+                completionHandler(.failure(error!.message))
+       
             } else {
                 completionHandler(.success(true))
             }
