@@ -8,15 +8,14 @@
 import UIKit
 
 class MedicationVC: BaseVC {
-
     @IBOutlet weak var lblmedicationType: UILabel!
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnMantainance: UIButton!
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
-    var isFromDeviceList = false
 
+    var isFromDeviceList = false
     var selectedIndex: Int?
     let medicationVM = MedicationVM()
 
@@ -59,7 +58,6 @@ class MedicationVC: BaseVC {
         btnNext.setButtonView(StringAddDevice.next)
         tblMedication.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
-    
     
     @objc func macDetail(notification: Notification) {
         print(notification.object ?? "") // myObject
@@ -112,10 +110,9 @@ class MedicationVC: BaseVC {
             CommonFunctions.showMessage(message: ValidationMsg.medication)
         }
     }
-
-  
-
+    
 }
+
 extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return medicationVM.medication.count
@@ -126,6 +123,7 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
         cell.setMedicationDetailes(medication: medicationVM.medication[indexPath.row])
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

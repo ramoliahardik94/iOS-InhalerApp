@@ -23,12 +23,8 @@ class BaseVC: UIViewController {
     func pushVC(controller: UIViewController) {
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    func presentVC(controller: UIViewController) {
-        self.navigationController?.present(controller, animated: true, completion: nil)
-    }
-    func popPresent() {
-        self.navigationController?.dismiss(animated: true, completion: nil)
-    }
+   
+   
     func rootVC(controller: UIViewController) {
         let nav: UINavigationController = UINavigationController()
         nav.isNavigationBarHidden = true
@@ -36,37 +32,7 @@ class BaseVC: UIViewController {
         UIApplication.shared.windows.first?.rootViewController = nav
         UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
-    func setCustomFontLabel(label: UILabel, type: FontType, fontSize: CGFloat = 14) {
-        if type == .regular {
-            label.font = UIFont(name: AppFont.AppRegularFont, size: fontSize)
-        }
-        if type == .bold {
-            label.font = UIFont(name: AppFont.AppBoldFont, size: fontSize)
-        }
-        if type == .semiBold {
-            label.font = UIFont(name: AppFont.AppSemiBoldFont, size: fontSize)
-        }
-        if type == .lightItalic {
-            label.font = UIFont(name: AppFont.AppLightItalicFont, size: fontSize)
-        }
-        if type == .light {
-            label.font = UIFont(name: AppFont.AppLightFont, size: fontSize)
-        }
-        
-    }
-    
-    func setCustomFontTextField(textField: UITextField, type: FontType, fontSize: CGFloat = 14) {
-        if type == .regular {
-            textField.font = UIFont(name: AppFont.AppRegularFont, size: fontSize)
-        }
-        if type == .bold {
-            textField.font = UIFont(name: AppFont.AppBoldFont, size: fontSize)
-        }
-        if type == .semiBold {
-            textField.font = UIFont(name: AppFont.AppSemiBoldFont, size: fontSize)
-        }
-
-    }
+  
     func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string,
                                                      attributes: [NSAttributedString.Key.font: font])

@@ -24,18 +24,18 @@ extension Notification.Name {
 
 // MARK: Common Message
 struct StringCommonMessages {
-     static let commonMessage = ""
-     static let cancel = "Cancel"
-     static let skip = "Skip"
-     static let grant = "Grant"
-     static let share = "Share"
-     static let copyRight = "©2022 Ochsner Health"
-     static let connected = "Connected"
-     static let connecting = "Connecting..."
+    static let commonMessage = ""
+    static let cancel = "Cancel"
+    static let skip = "Skip"
+    static let grant = "Grant"
+    static let share = "Share"
+    static let copyRight = "©2022 Ochsner Health"
+    static let connected = "Connected"
+    static let connecting = "Connecting..."
     static let notInRange = "Not in range"
-     static let disconnect = "Disconnected"
+    static let disconnect = "Disconnected"
     static let scanning = "Scanning..."
-     static let battery = "Battery:"
+    static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
     static let  noInternetConnection = "No Internet connection"
     static let  noDataFount = "No record found"
@@ -43,6 +43,7 @@ struct StringCommonMessages {
     static let  schedule = "Schedule"
     static let  privacyUrl = "https://connectedliving.ochsner.org/privacy.html"
 }
+
 struct AppFont {
     static let AppRegularFont = Constants.CustomFont.SFProTextRegular
     static let AppBoldFont = Constants.CustomFont.SFProDisplayBold
@@ -71,20 +72,18 @@ struct StringUserManagement {
     static let confirmPasswordPlaceHolder = "Enter confirm password"
     static let placeHolderFirstName = "Enter first name"
     static let placeHolderLastName = "Enter last name"
-    
     static let changePassTitle = "Change Password"
     static let currrentPassPlaceholder = "Enter current password"
     static let currentPass = "Current Password"
-    
     static let newPassPlaceholder = "Enter new password"
     static let newPass = "New Password"
-    
     static let confiremPassPlaceholder = "Enter confirm password"
     static let confiremPassword = "Confirm Password"
     static let updatePass = "Update Password"
     static let password = "Password"
     static let signup = "Sign Up"
 }
+
 struct ValidationMsg {
     static let fName = "Please enter Firstname"
     static let lName = "Please enter Lastname"
@@ -105,6 +104,7 @@ struct ValidationMsg {
     static let forgoteSuccess = "Reset password link sent to your email please check"
     static let bluetoothOn = "Please Turn on Bluetooth"
 }
+
 struct ValidationButton {
     static let tryAgain = "Try again"
 }
@@ -138,6 +138,7 @@ struct StringPoviders {
     static let change = "Change"
     static let providerBaseUrl = "https://inhalertracking.ochsner.app/?provider"
 }
+
 // MARK: Add Device
 struct StringAddDevice {
     static let great = "Great!"
@@ -163,7 +164,7 @@ struct StringAddDevice {
     static let scanDevice = "Scan Device"
     static let pairingDevice = "Pairing"
     static let mountDevice = "Mount device to your Inhaler"
-   // static let mountDeviceInfo = "Once paired to mobile phone, slip device over top of a compatible inhaler tank and press firmly into place."
+    // static let mountDeviceInfo = "Once paired to mobile phone, slip device over top of a compatible inhaler tank and press firmly into place."
     static let mountDeviceInfo = "Device is successfully paired to mobile phone, Now slip device over top of a compatible inhaler tank and press firmly into place."
     static let medication = "Now, let us know what inhaler medication you will use with this sensor."
     static let medicationInfo = "Your Connected Inhaler Sensor tracks usage of the medication in your inhaler, so we’ll need to associate it with a current prescription."
@@ -181,8 +182,8 @@ struct StringAddDevice {
     static let infoCharecter = "\n\n\nⓘ "
     static let deviceNearBy = "Make sure the device is nearby to the phone."
     static let pairScreenStringArray = ["Tap", " 3 times ", "on the device, within", "\n5 seconds ", "click \"Pair Device\"."]
-    
 }
+
 // MARK: Medication
 struct StringMedication {
     static let titleMedication = "Which Medication will be \n used with this Sensor?"
@@ -196,14 +197,14 @@ struct StringMedication {
     static let addDose = "Add another daily dose."
     static let addFirstDose = "Add daily dose."
     static let permissionDose = "Need permission to enable reminders of your daily doses.\nGoto Settings,Select OchsnerInhelarApp and turn on Reminders"
-   
 }
+
 // MARK: Permissions
 struct StringPermissions {
     static let bluetoothPermission = "Grant Bluetooth Permissions"
     static let locationPermission = "Grant Location Permissions"
     static let notificationPermission = "Grant Notification Permissions"
-
+    
     static let shareYourInhalerUsage = "Share Your\nInhaler Usage\nWith Ochsner"
     static let sorrybluetoothPermission = "Sorry, Bluetooth Permissions Are Required"
     static let oneLastThing = "One last thing…"
@@ -212,10 +213,7 @@ struct StringPermissions {
     static let shareYourInhaler = "Share your inhaler usage information with Ochsner."
     static let blePermissionMsg = "Bluetooth permissions are required to access the Inhaler sensor device."
     static let turnOn = "Ochsner Inhaler Connect need to turn on Bluetooth."
-
-    
 }
-
 
 // MARK: Device
 struct StringDevices {
@@ -225,13 +223,17 @@ struct StringDevices {
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
     static let yourNextDose = "Your dose is at"
-    
+    static let rescue = "Rescue"
+    static let maintenance = "Maintenance"
+    static let NCDCode = "NDC Code:"
+    static let oneDose = "1 Dose ="
 }
 
 // MARK: Splash
 struct StringSplash {
     static let connectdInhalerSensor = "Connected\nInhaler Sensor"
 }
+
 // MARK: Home screen
 struct StringHome {
     static let  today = "Today"
@@ -239,8 +241,6 @@ struct StringHome {
     static let  thisMonth = "This Month"
     static let  adherance = "Adherance: "
     static let  nextScheduled = "Next Scheduled Dose: "
-    
-   
 }
 
 struct CellIdentifier {

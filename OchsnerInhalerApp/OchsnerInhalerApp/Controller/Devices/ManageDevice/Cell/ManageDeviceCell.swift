@@ -11,7 +11,6 @@ protocol ManageDeviceDelegate: AnyObject {
     func removeDevice(index: Int)
 }
 class ManageDeviceCell: UITableViewCell {
-
     @IBOutlet weak var lblDeviceName: UILabel!
     @IBOutlet weak var lblNCDCode: UILabel!
     @IBOutlet weak var lblUsageLabel: UILabel!
@@ -33,9 +32,9 @@ class ManageDeviceCell: UITableViewCell {
             /// Rescue=1 Mantainance=2
             lblUsage.textColor = device.medTypeID ==  1 ?  #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) :  #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1)
             lblDeviceName.text  = device.medication.medName!
-            lblNCDCode.text = "NDC Code: \(device.medication.ndc!)"
-            lblUsage.text = device.medTypeID ==  1 ?  "Rescue" :  "Maintenance"
-            lblDose.text = "1 Dose = \(device.puffs) Puffs"
+            lblNCDCode.text = "\(StringDevices.NCDCode) \(device.medication.ndc ?? "")"
+            lblUsage.text = device.medTypeID ==  1 ?  StringDevices.rescue :  StringDevices.maintenance
+            lblDose.text = "\(StringDevices.oneDose) \(device.puffs) Puffs"
             lblDose.isHidden = device.medTypeID == 1
             let str = device.useTimes.joined(separator: "\n")
             lblNoOfDose.text =  (device.medTypeID ==  1 || device.useTimes.count == 0) ? StringCommonMessages.rescueDose : str

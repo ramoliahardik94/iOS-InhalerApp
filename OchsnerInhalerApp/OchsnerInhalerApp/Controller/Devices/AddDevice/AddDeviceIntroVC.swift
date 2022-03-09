@@ -25,6 +25,7 @@ class AddDeviceIntroVC: BaseVC {
     var step: AddDeviceSteps = .step1
     var isFromAddAnother = false
     var isFromDeviceList = false
+    
     // MARK: - ViewController lifeCycal Functions
      override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +37,12 @@ class AddDeviceIntroVC: BaseVC {
         self.setVC()
     }
     
-    
     deinit {
         NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEDisconnect, object: nil)
-        
     }
     
     // MARK: - UI SetUp functions
@@ -156,6 +155,7 @@ class AddDeviceIntroVC: BaseVC {
         BLEHelper.shared.isAddAnother = true
         BLEHelper.shared.scanPeripheral(isTimer: true)
     }
+    
    // MARK: - IBActions related Functions
     @IBAction func btnBackClick(_ sender: Any) {
         popVC()
@@ -215,6 +215,7 @@ class AddDeviceIntroVC: BaseVC {
     }
 
 }
+
 // MARK: - Notification Functions
 extension AddDeviceIntroVC {
     @objc func inhalerFound(notification: Notification) {

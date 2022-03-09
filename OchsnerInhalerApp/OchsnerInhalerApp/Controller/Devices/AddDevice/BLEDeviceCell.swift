@@ -10,6 +10,7 @@ import UIKit
 class BLEDeviceCell: UITableViewCell {
     @IBOutlet weak var lblDeviceName: UILabel!    
     @IBOutlet weak var btnConnect: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

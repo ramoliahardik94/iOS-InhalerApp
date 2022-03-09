@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 class CustomSplashVC: BaseVC {
-    
     @IBOutlet weak var lblCopyRight: UILabel!
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblConnectdInhalerSensor: UILabel!
     var deviceUDID = [String]()
     var timer: Timer!
     var isTime = false
+    
     override func viewDidLoad() {
         
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
@@ -70,6 +70,7 @@ class CustomSplashVC: BaseVC {
             rootVC(controller: loginVC)
         }
     }
+    
     @objc func getisAllow(notification: Notification) {
         BLEHelper.shared.isAllowed { [weak self] isAllow in
             guard let `self` = self else { return }
@@ -92,6 +93,7 @@ class CustomSplashVC: BaseVC {
             }
         }
     }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
         print("deinit CustomSplashVC")

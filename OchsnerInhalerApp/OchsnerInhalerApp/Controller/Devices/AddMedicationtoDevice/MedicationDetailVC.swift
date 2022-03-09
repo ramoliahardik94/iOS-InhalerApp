@@ -13,7 +13,6 @@ protocol MedicationDelegate: AnyObject {
 }
 
 class MedicationDetailVC: BaseVC {
-    
     @IBOutlet weak var lblAddDose: UILabel!
     @IBOutlet weak var btnDone: UIButton!
     @IBOutlet weak var lblTitle: UILabel!
@@ -29,6 +28,7 @@ class MedicationDetailVC: BaseVC {
     @IBOutlet weak var tblDoseTime: UITableView!
     @IBOutlet weak var btnPuff: UIButton!
     @IBOutlet weak var viewAddDose: UIView!
+    
     var isFromDeviceList = false
     var medicationVM = MedicationVM()
     let timePicker = UIDatePicker()
@@ -37,7 +37,7 @@ class MedicationDetailVC: BaseVC {
         return obj
     }()
     let dropDown = DropDown()
-   // private let reminderManager  = ReminderManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -205,11 +205,10 @@ class MedicationDetailVC: BaseVC {
         }
         dropDown.show()
     }
+    
     deinit {
         self.navigationController?.isNavigationBarHidden = false
     }
-  
-    
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -262,6 +261,7 @@ class MedicationDetailVC: BaseVC {
         }
     }
  }
+
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.medicationVM.arrTime.count
