@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import UIKit
+import KeychainSwift
 
 
 struct EntityName {
@@ -90,6 +91,12 @@ class DatabaseManager {
     
     func saveDevice(object: DeviceModel) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        
+        if object.udid != "" {
+            setupUDID(mac: object.internalID, udid: object.udid)
+        } else {
+            object.udid = getUDID(mac: object.internalID)
+        }
         
         let predicate1 =  NSPredicate(format: "mac == %@", object.internalID)
         let predicate2 =  NSPredicate(format: "email == %@", UserDefaultManager.email)
@@ -222,5 +229,19 @@ class DatabaseManager {
             }
             
         }
+    }
+    
+    func setupUDID(mac: String, udid: String) {
+        let keychain = KeychainSwift()
+        keychain.set(udid, forKey: mac)
+    }
+    
+    func getUDID(mac: String) -> String {
+        let keychain = KeychainSwift()
+        guard let oldUDID = keychain.get(mac) else {
+            // udid not found in keychain
+            return ""
+        }
+        return oldUDID
     }
 }

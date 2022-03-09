@@ -85,16 +85,16 @@ extension BLEHelper: CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         
-//                guard RSSI.intValue >= -55
-//                    else {
-//                        print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-//                        return
-//                }
+//        guard RSSI.intValue >= -55
+//        else {
+//            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+//            return
+//        }
         
         Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
         //        let devicelist = device.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
-       
+        
         if let name =  peripheral.name {
             debugPrint("Service : \(String(describing: peripheral.services))")
             
@@ -112,28 +112,11 @@ extension BLEHelper: CBCentralManagerDelegate {
                         }
                     })
                 } else {
-                    
-                   
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         discoveredPeripheral = peripheral
                         stopScanPeriphral()
                         stopTimer()
                         connectPeriPheral()
-                    } else {                        
-//                        DispatchQueue.main.async {
-//                            CommonFunctions.showMessageYesNo(message: ValidationMsg.mismatchUUID, cancelTitle: ValidationMsg.no, okTitle: ValidationMsg.yes) { [self] isContinue in
-//                                if isContinue! {
-//                                    addAnotherDevice()
-//                                    stopScanPeriphral()
-//                                    stopTimer()
-//
-//                                }else{
-//                                    isScanning = false
-//                                    stopScanPeriphral()
-//                                    stopTimer()
-//                                }
-//                            }
-//                        }
                     }
                 }
             }
