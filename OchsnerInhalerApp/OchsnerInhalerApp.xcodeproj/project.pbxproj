@@ -80,6 +80,7 @@
 		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
 		47594B3427D0839C00F23C53 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */; };
 		47594B3527D0839C00F23C53 /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */; };
+		4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4796597927D8BD7C00A4D403 /* removeTag.gif */; };
 		479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
@@ -204,6 +205,7 @@
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
 		47594B3227D0839C00F23C53 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		47594B3327D0839C00F23C53 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "/Users/nikitabhatt/NikitaWork/LiveProjects/Ochner_Details/OC_PROJECT/OchsnerInhalerApp/OchsnerInhalerApp/Database/Device+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		4796597927D8BD7C00A4D403 /* removeTag.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = removeTag.gif; sourceTree = "<group>"; };
 		479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchsnerInhalerApp.entitlements; sourceTree = "<group>"; };
 		479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 		4757D08E27D209E800224605 /* Tap-Animation */ = {
 			isa = PBXGroup;
 			children = (
+				4796597927D8BD7C00A4D403 /* removeTag.gif */,
 				4757D08F27D209E800224605 /* Tap-Animation.gif */,
 			);
 			path = "Tap-Animation";
@@ -882,6 +885,7 @@
 				2296C33B27B248040095CBFA /* TemporaryDashbord.xib in Resources */,
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
+				4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */,
 				471023502796CA8500F88876 /* SFProText-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
