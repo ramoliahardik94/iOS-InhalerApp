@@ -132,6 +132,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return .portrait
     }
+    
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        Logger.logInfo(" applicationWillTerminate")
+        setNotification()
+    }
+    func setNotification() {
+        Logger.logInfo(" setNotification start")
+           let content = UNMutableNotificationContent()
+           let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+           content.title = "Reminder"
+           content.body =  "After terminate app notification will display."
+           content.sound = UNNotificationSound.default
+         
+           let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
+           UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            //   Logger.logInfo(" withCompletionHandler")
+               if let error = error {
+                   print("SOMETHING WENT WRONG\(error.localizedDescription))")
+               }
+           })
+        Logger.logInfo(" setNotification End")
+       }
+    func applicationWillResignActive(_ application: UIApplication) {
+        Logger.logInfo(" applicationWillResignActive")
+        setNotification()
+    }
 }
 extension AppDelegate {
     // MARK: Loggers
@@ -202,4 +229,3 @@ extension AppDelegate: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true)
     }
 }
-

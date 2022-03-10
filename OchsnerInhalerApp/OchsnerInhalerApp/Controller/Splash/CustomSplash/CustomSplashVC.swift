@@ -98,5 +98,22 @@ class CustomSplashVC: BaseVC {
         NotificationCenter.default.removeObserver(self)
         print("deinit CustomSplashVC")
     }
-    
+    func setNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder"
+        content.body =  "After splash app notification will display."
+        content.sound = UNNotificationSound.default
+        
+
+     //   let triggerDaily = Calendar.current.dateComponents([.day, .month, .month,.hour,.minute,.second,], from: Date())
+       // let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDaily, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
+       UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+           if let error = error {
+               print("SOMETHING WENT WRONG\(error.localizedDescription))")
+          }
+      })
+    }
+
 }
