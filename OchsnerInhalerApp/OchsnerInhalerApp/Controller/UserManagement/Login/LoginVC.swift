@@ -67,8 +67,11 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "himanshi.shah@volansys.com"
 //        tfPassword.text = "abc123"
 
-        tfEmail.text = "abc@mail.com"
-        tfPassword.text = "Test123"
+//        tfEmail.text = "abc@mail.com"
+//        tfPassword.text = "Test123"
+        
+//        tfEmail.text = "bhoomika.chauhan@volansys.com"
+//        tfPassword.text = "1234"
         
         #endif
     }

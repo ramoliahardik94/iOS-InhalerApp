@@ -76,6 +76,8 @@
 		472F643A279FE15400E37FB1 /* CreateAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F6439279FE15400E37FB1 /* CreateAccountVM.swift */; };
 		472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F643B279FF46400E37FB1 /* CommonFunction.swift */; };
 		4733205027A8EEC100695661 /* BLECommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733204F27A8EEC100695661 /* BLECommunication.swift */; };
+		473D0F4827E0500F006081B0 /* HaxToDecimalConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0F4727E0500F006081B0 /* HaxToDecimalConversion.swift */; };
+		473D0F4A27E05490006081B0 /* AccuationLogVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0F4927E05490006081B0 /* AccuationLogVM.swift */; };
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
@@ -201,6 +203,8 @@
 		472F6439279FE15400E37FB1 /* CreateAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVM.swift; sourceTree = "<group>"; };
 		472F643B279FF46400E37FB1 /* CommonFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunction.swift; sourceTree = "<group>"; };
 		4733204F27A8EEC100695661 /* BLECommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECommunication.swift; sourceTree = "<group>"; };
+		473D0F4727E0500F006081B0 /* HaxToDecimalConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaxToDecimalConversion.swift; sourceTree = "<group>"; };
+		473D0F4927E05490006081B0 /* AccuationLogVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuationLogVM.swift; sourceTree = "<group>"; };
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
@@ -380,9 +384,11 @@
 			children = (
 				227CD4E027A3EC540005C3D9 /* TransferService.swift */,
 				227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */,
+				473D0F4927E05490006081B0 /* AccuationLogVM.swift */,
 				4733204F27A8EEC100695661 /* BLECommunication.swift */,
 				4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */,
 				4711F91127AA536E00AD063F /* BLECentralManagerDelegate.swift */,
+				473D0F4727E0500F006081B0 /* HaxToDecimalConversion.swift */,
 			);
 			path = BLEManager;
 			sourceTree = "<group>";
@@ -967,6 +973,7 @@
 				47CDCE49278D88FE0014527D /* ResultType.swift in Sources */,
 				225F315A27D0A1F10059566E /* ReminderManager.swift in Sources */,
 				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
+				473D0F4A27E05490006081B0 /* AccuationLogVM.swift in Sources */,
 				22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */,
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
 				47E118AA27D720880071280B /* Tost.swift in Sources */,
@@ -1031,6 +1038,7 @@
 				22CA52A627C34D9E0031BDE7 /* HomeVM.swift in Sources */,
 				47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */,
 				2296C33A27B248040095CBFA /* TemporaryDashbord.swift in Sources */,
+				473D0F4827E0500F006081B0 /* HaxToDecimalConversion.swift in Sources */,
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
 				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,

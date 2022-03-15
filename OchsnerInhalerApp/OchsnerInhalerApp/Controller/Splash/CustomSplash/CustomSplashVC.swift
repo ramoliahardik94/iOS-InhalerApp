@@ -74,7 +74,7 @@ class CustomSplashVC: BaseVC {
         BLEHelper.shared.isAllowed { [weak self] isAllow in
             guard let `self` = self else { return }
             
-            if isAllow && self.isTime {                
+            if isAllow && self.isTime {
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)

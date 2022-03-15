@@ -17,10 +17,12 @@ extension BLEHelper: CBCentralManagerDelegate {
             // ... so start working with the peripheral
             isAllow = true
             bleConnect()
+          
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEOnOff, object: nil)
                 NotificationCenter.default.post(name: .BLEChange, object: nil)
             }
+            
         case .poweredOff:
             isAllow = false
             bleConnect()
@@ -106,13 +108,14 @@ extension BLEHelper: CBCentralManagerDelegate {
                     stopScanPeriphral()
                     stopTimer()
                     delay(isAddAnother ? 15 : 0) {
-                        Logger.logInfo("Discovered peripheral with isAddAnother true")
+                        Logger.logInfo("isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString})")
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
                         }
                     }
                 } else {
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
+                        Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
                         discoveredPeripheral = peripheral
                         stopScanPeriphral()
                         stopTimer()
@@ -153,11 +156,13 @@ extension BLEHelper: CBCentralManagerDelegate {
         isScanning = false
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         DispatchQueue.main.async {
+            Logger.logInfo("BLEDisconnect,BLEChange notification fire")
             NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
     }
-    func addAnotherDevice(){
+    
+    func addAnotherDevice() {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true
@@ -165,6 +170,20 @@ extension BLEHelper: CBCentralManagerDelegate {
         BLEHelper.shared.isAddAnother = true     
         if let topVC =  UIApplication.topViewController() {
             topVC.navigationController?.pushViewController(addDeviceIntroVC, animated: true)
+        }
+    }
+    
+    func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
+        // get the handle to the peripheral already connected by the os and set ourselves as the delegate
+        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
+            if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
+                if (peripherals.count > 0) {
+                    Logger.logInfo("willRestoreState \(peripherals)")
+                    discoveredPeripheral = peripherals[0]
+                    discoveredPeripheral!.delegate = self
+                }
+            }
         }
     }
 }
