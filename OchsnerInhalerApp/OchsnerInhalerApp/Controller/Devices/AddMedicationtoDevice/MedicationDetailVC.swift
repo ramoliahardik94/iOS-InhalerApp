@@ -37,7 +37,7 @@ class MedicationDetailVC: BaseVC {
         return obj
     }()
     let dropDown = DropDown()
-   // private let reminderManager  = ReminderManager()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -128,8 +128,6 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
-        ReminderManager.sheredInstance.addReminderMainList()
-        ReminderManager.sheredInstance.removeReminder()
         if swReminder.isOn {
             addReminderToCalender()
         }
@@ -168,7 +166,6 @@ class MedicationDetailVC: BaseVC {
         print(sender.isOn)
         if sender.isOn {
             permissionForReminder()
-        } else {
         }
     }
     
@@ -219,31 +216,12 @@ class MedicationDetailVC: BaseVC {
     // for add reminder event
     
     private func permissionForReminder() {
-        switch(ReminderManager.sheredInstance.getAuthorizationStatus()) {
-        case .authorized :
-            
-            break
-        case .notDetermined :
-            ReminderManager.sheredInstance.requestAccess { (accessGranted, _) in
-                if !accessGranted {
-                    DispatchQueue.main.async {
-                        self.swReminder.setOn(false, animated: true)
-                    }
-                }
-            }
-        case .denied, .restricted:
-            DispatchQueue.main.async {
-                self.swReminder.setOn(false, animated: true)
-            }
-            CommonFunctions.showMessage(message: StringMedication.permissionDose, {_ in })
-        @unknown default:
-            break
-        }
+     
     }
     
     func addReminderToCalender() {
         
-        for obj in self.medicationVM.arrTime {
+       /* for obj in self.medicationVM.arrTime {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "hh:mm a"
                 let today = Date()
@@ -254,12 +232,47 @@ class MedicationDetailVC: BaseVC {
                     
                     let title = "\(StringAddDevice.titleAddDevice)\n\(StringDevices.yourNextDose) \(obj) for \(lblMedicationName.text ?? "")"
                     
-                    ReminderManager.sheredInstance.addEventToCalendar(title: title, date: date) {  _ in
-                        print("Saved Event")
-                    }
-                    
                 }
+        }*/
+        
+        var arrayDate = [Date]()
+        for obj in self.medicationVM.arrTime {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            let today = Date()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            let strDate = "\(dateFormatter.string(from: today)) \(obj)"
+            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+            if let date = dateFormatter.date(from: strDate) {
+                arrayDate.append(date)
+                //       print("test date \(date)")
+            }
         }
+        
+        if let graterDate = arrayDate.sorted(by: { $0 > $1 }).first {
+            let calendar = Calendar.current
+            let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate) ?? Date()
+            let title = "\(StringDevices.yourNextDose) \(graterDate) for \(lblMedicationName.text ?? "")"
+            setNotification(date: datesub, titile: title)
+        }
+        
+    }
+    
+    func setNotification(date: Date, titile: String) {
+        Logger.logInfo(" setNotification start \(date)")
+        let content = UNMutableNotificationContent()
+        let components = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        content.title = StringAddDevice.titleAddDevice
+        content.body =  StringLocalNotifiaction.titleForRimander
+        content.sound = UNNotificationSound.default
+        let request = UNNotificationRequest(identifier: StringLocalNotifiaction.idRimander, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            if let error = error {
+                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            }
+        })
+        Logger.logInfo(" setNotification End")
     }
  }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {

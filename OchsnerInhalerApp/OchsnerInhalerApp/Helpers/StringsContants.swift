@@ -242,12 +242,19 @@ struct StringHome {
     static let  thisMonth = "This Month"
     static let  adherance = "Adherance: "
     static let  nextScheduled = "Next Scheduled Dose: "
-    
-   
 }
 
 struct CellIdentifier {
     static let medicationCell = "MedicationCell"
     static let doseTimeCell = "DoseTimeCell"
     static let manageDeviceCell = "ManageDeviceCell"
+}
+
+// MARK: Local Notification
+struct StringLocalNotifiaction {
+    static let title = StringAddDevice.titleAddDevice
+    static let body = "You will no longer able to track the medication usage"
+    static let titleForRimander = "Your schedule dose time"
+    static let idRimander = "com.ochsner.inhalertrack.reminderdose"
+    
 }
