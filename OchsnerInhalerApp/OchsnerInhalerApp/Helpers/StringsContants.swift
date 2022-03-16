@@ -198,7 +198,7 @@ struct StringMedication {
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
     static let addDose = "Add another daily dose."
     static let addFirstDose = "Add daily dose."
-    static let permissionDose = "Need permission to enable reminders of your daily doses.\nGoto Settings,Select OchsnerInhelarApp and turn on Reminders"
+    static let permissionDose = "Need permission to enable reminders of your daily doses.\nGoto Settings,Select OchsnerInhelarApp and turn on Notification"
    
 }
 // MARK: Permissions
@@ -253,8 +253,7 @@ struct CellIdentifier {
 // MARK: Local Notification
 struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
-    static let body = "You will no longer able to track the medication usage"
+    static let body = "You will be no longer able to track the medicine usage"
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
-    
 }

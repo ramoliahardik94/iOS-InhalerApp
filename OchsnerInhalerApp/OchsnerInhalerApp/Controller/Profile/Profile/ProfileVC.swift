@@ -113,8 +113,7 @@ class ProfileVC: BaseVC {
     
     @IBAction func onChangeSwitch(_ sender: UISwitch) {
         if sender.tag == SwitchButtonsTag.switchNotification.rawValue {
-            UserDefaultManager.isNotificationOn = sender.isOn
-           // profileVM.getAllCalenderEvent()
+            //UserDefaultManager.isNotificationOn = sender.isOn
         } else if sender.tag == SwitchButtonsTag.switchLocation.rawValue {
             UserDefaultManager.isLocationOn = switchLocation.isOn
             if sender.isOn {
