@@ -254,5 +254,7 @@ struct CellIdentifier {
 struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
     static let body = "You will no longer able to track the medication usage"
+    static let titleForRimander = "Your schedule dose time"
+    static let idRimander = "com.ochsner.inhalertrack.reminderdose"
     
 }

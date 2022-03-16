@@ -264,9 +264,9 @@ class MedicationDetailVC: BaseVC {
         let components = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         content.title = StringAddDevice.titleAddDevice
-        content.body =  titile
+        content.body =  StringLocalNotifiaction.titleForRimander
         content.sound = UNNotificationSound.default
-        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: StringLocalNotifiaction.idRimander, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             if let error = error {
                 print("SOMETHING WENT WRONG\(error.localizedDescription))")
