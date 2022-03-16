@@ -67,12 +67,14 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "himanshi.shah@volansys.com"
 //        tfPassword.text = "abc123"
 
+
 //        tfEmail.text = "abc@mail.com"
 //        tfPassword.text = "Test123"
         
-//        tfEmail.text = "bhoomika.chauhan@volansys.com"
-//        tfPassword.text = "1234"
-        
+        tfEmail.text = "bhoomika.chauhan@volansys.com"
+        tfPassword.text = "1234"
+
+       // forceCrash()
         #endif
     }
     
@@ -162,7 +164,17 @@ class LoginVC: BaseVC {
         pushVC(controller: createAccoutVC)
     }
     
-    
+    private func forceCrash() {
+        let button = UIButton(type: .roundedRect)
+        button.frame = CGRect(x: 20, y: 50, width: 100, height: 30)
+        button.setTitle("Test Crash", for: [])
+        button.addTarget(self, action: #selector(self.crashButtonTapped(_:)), for: .touchUpInside)
+        view.addSubview(button)
+    }
+    @IBAction func crashButtonTapped(_ sender: AnyObject) {
+          let numbers = [0]
+          _ = numbers[1]
+      }
 }
 
 extension LoginVC: UITextFieldDelegate {
