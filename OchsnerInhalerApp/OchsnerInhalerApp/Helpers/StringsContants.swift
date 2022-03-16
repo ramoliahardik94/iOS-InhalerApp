@@ -242,8 +242,6 @@ struct StringHome {
     static let  thisMonth = "This Month"
     static let  adherance = "Adherance: "
     static let  nextScheduled = "Next Scheduled Dose: "
-    
-   
 }
 
 struct CellIdentifier {
