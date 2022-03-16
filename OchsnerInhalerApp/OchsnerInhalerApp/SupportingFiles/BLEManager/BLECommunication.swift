@@ -18,7 +18,7 @@ extension BLEHelper {
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
         if isAllow {
-            if UserDefaultManager.isLogin && (discoveredPeripheral == nil || discoveredPeripheral!.state == .disconnected || isAddAnother) {
+            if UserDefaultManager.isLogin && (discoveredPeripheral == nil || discoveredPeripheral!.state != .connected || isAddAnother) {
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0
                     Logger.logInfo("Scaning start with \(time) sec timer")

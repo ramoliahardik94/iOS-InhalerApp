@@ -35,7 +35,6 @@ class ManageDeviceVC: BaseVC {
             apiCall()
         }
         tbvData.reloadData()
-       
         refresh(self)
     }
     
@@ -75,9 +74,10 @@ class ManageDeviceVC: BaseVC {
     
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
-        if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral!.state == .disconnected {
+        if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral!.state != .connected {
             BLEHelper.shared.scanPeripheral()
         }
+        tbvData.reloadData()
         refreshControl.endRefreshing()
     }
     
