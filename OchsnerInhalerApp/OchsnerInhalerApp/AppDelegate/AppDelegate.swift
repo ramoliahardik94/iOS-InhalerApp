@@ -10,7 +10,8 @@ import CoreData
 import EventKit
 import CocoaLumberjack
 import MessageUI
-
+import Firebase
+    
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -37,9 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initLoggers()
         Logger.logInfo("\n\n\n===========================\nLaunched Ochsner Inhaler App > Environment: , App Version: \(appVersion()), Device: \(UIDevice.modelName), iOS Version: \(UIDevice.current.systemVersion), Data Connection:)")
         
+        initFirebase()
         return true
     }
 
+    func initFirebase() {
+        FirebaseApp.configure()
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -132,6 +137,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return .portrait
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        Logger.logInfo(" applicationWillTerminate")
+        setNotification()
+    }
+    
+//    func applicationWillResignActive(_ application: UIApplication) {
+//        Logger.logInfo(" applicationWillResignActive")
+//        setNotification()
+//    }
+    
+    func setNotification() {
+        Logger.logInfo(" setNotification start")
+        let content = UNMutableNotificationContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        content.title = StringLocalNotifiaction.title
+        content.body =  StringLocalNotifiaction.body
+        content.sound = UNNotificationSound.default
+        
+        let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            //   Logger.logInfo(" withCompletionHandler")
+            if let error = error {
+                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            }
+        })
+        Logger.logInfo(" setNotification End")
+    }
+    
 }
 extension AppDelegate {
     // MARK: Loggers
@@ -202,4 +236,3 @@ extension AppDelegate: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true)
     }
 }
-

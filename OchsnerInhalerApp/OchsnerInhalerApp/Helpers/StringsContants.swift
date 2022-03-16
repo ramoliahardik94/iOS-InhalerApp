@@ -249,3 +249,10 @@ struct CellIdentifier {
     static let doseTimeCell = "DoseTimeCell"
     static let manageDeviceCell = "ManageDeviceCell"
 }
+
+// MARK: Local Notification
+struct StringLocalNotifiaction {
+    static let title = StringAddDevice.titleAddDevice
+    static let body = "You will no longer able to track the medication usage"
+    
+}
