@@ -17,6 +17,9 @@ class HomeVM {
                 
                 completionHandler(.failure(error!.message))
             } else {
+                if self.dashboardData.count > 0 {
+                    self.dashboardData.removeAll()
+                }
                 if let res = response as? [String: Any] {
                      let mainData = DashboardModel(jSon: res)
                   //  print(" main data \(mainData.maintenanceData.count)" )

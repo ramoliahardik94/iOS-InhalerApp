@@ -12,4 +12,6 @@ target 'OchsnerInhalerApp' do
 	pod 'CocoaLumberjack/Swift', '~> 3.7.0'
   pod 'DropDown'
   pod 'SwiftLint'
+  pod 'Firebase/Analytics', '~> 8.4.0'
+  pod 'Firebase/Crashlytics', '~> 8.4.0'
 end

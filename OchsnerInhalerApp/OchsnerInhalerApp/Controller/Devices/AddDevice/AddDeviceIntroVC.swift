@@ -73,7 +73,9 @@ class AddDeviceIntroVC: BaseVC {
      
         case .step3:
             lblGreat.text = StringAddDevice.removeIsolationTag
-            imgAddDevice.image = #imageLiteral(resourceName: "removeTag")
+            let advTimeGif = UIImage.gifImageWithName("removeTag")
+            
+            imgAddDevice.image = advTimeGif
             lblAddDevice.isHidden  = true
             let attributedString = NSMutableAttributedString()
                 .normal(StringAddDevice.removeAndDiscard)
