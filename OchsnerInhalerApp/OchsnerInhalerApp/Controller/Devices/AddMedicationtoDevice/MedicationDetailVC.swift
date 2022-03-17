@@ -37,7 +37,7 @@ class MedicationDetailVC: BaseVC {
         return obj
     }()
     let dropDown = DropDown()
-  
+  private var userName = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -121,6 +121,8 @@ class MedicationDetailVC: BaseVC {
         lblMedicationName.text = medicationVM.selectedMedication.medName
        
         swReminder.isOn =  UserDefaultManager.isAddReminder
+        doGetProfileData()
+        permissionForReminder(isShowMsg: false)
     }
     
     @IBAction func btnBackClick(_ sender: Any) {
@@ -165,7 +167,7 @@ class MedicationDetailVC: BaseVC {
     @IBAction func reminderValue(_ sender: UISwitch) {
         print(sender.isOn)
         if sender.isOn {
-            permissionForReminder()
+            permissionForReminder(isShowMsg: true)
         }
     }
     
@@ -215,64 +217,111 @@ class MedicationDetailVC: BaseVC {
     }
     // for add reminder event
     
-    private func permissionForReminder() {
-     
+    private func permissionForReminder(isShowMsg: Bool) {
+        NotificationManager.shared.isAllowed { isAllow in
+            if !isAllow {
+                DispatchQueue.main.async {
+                    self.swReminder.setOn(false, animated: true)
+                    if isShowMsg {
+                        CommonFunctions.showMessage(message: StringMedication.permissionDose, {_ in })
+                    }
+                }
+            }
+        }
     }
     
     func addReminderToCalender() {
-        
-       /* for obj in self.medicationVM.arrTime {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm a"
-                let today = Date()
-                dateFormatter.dateFormat = "dd/MM/yyyy"
-                let strDate = "\(dateFormatter.string(from: today)) \(obj)"
-                dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
-                if let date = dateFormatter.date(from: strDate) {
-                    
-                    let title = "\(StringAddDevice.titleAddDevice)\n\(StringDevices.yourNextDose) \(obj) for \(lblMedicationName.text ?? "")"
-                    
-                }
-        }*/
-        
-        var arrayDate = [Date]()
-        for obj in self.medicationVM.arrTime {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm a"
-            let today = Date()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            let strDate = "\(dateFormatter.string(from: today)) \(obj)"
-            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
-            if let date = dateFormatter.date(from: strDate) {
-                arrayDate.append(date)
-                //       print("test date \(date)")
-            }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
+        // var arrayDate = [Date]()
+       // var stingDate = ""
+       var graterDate =  Date()
+       var showDoesTime  = ""
+       let dateFormatter = DateFormatter()
+       dateFormatter.dateFormat = "dd/MM/yyyy"
+       let strDate = dateFormatter.string(from: Date())
+       let arrTime = self.medicationVM.arrTime.map({"\(strDate) \($0)".getDate(format: "dd/MM/yyyy hh:mm a", isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending })
+       print(arrTime)
+       graterDate = arrTime[0]
+        let time = graterDate.getString(format: "dd/MM/yyyy hh:mm a",isUTC: true).split(separator: " ")
+        if time.count >= 2 {
+            showDoesTime = "\(time[1]) \(time[2])"
         }
-        
-        if let graterDate = arrayDate.sorted(by: { $0 > $1 }).first {
-            let calendar = Calendar.current
-            let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate) ?? Date()
-            let title = "\(StringDevices.yourNextDose) \(graterDate) for \(lblMedicationName.text ?? "")"
-            setNotification(date: datesub, titile: title)
-        }
-        
-    }
+        print(showDoesTime)
+       
+//        for obj in self.medicationVM.arrTime {
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "hh:mm a"
+//            let today = Date()
+//            dateFormatter.dateFormat = "dd/MM/yyyy"
+//            let strDate = "\(dateFormatter.string(from: today)) \(obj)"
+//            print("strDate \(strDate)")
+//            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+//            if stingDate == "" {
+//                stingDate = strDate
+//                showDoesTime = obj
+//            }
+//            if let date = dateFormatter.date(from: strDate) {
+//                if stingDate == "" {
+//                    graterDate = date
+//                }
+//                if date > dateFormatter.date(from: stingDate) ?? Date() {
+//                    stingDate = strDate
+//                    graterDate = date
+//                    showDoesTime = obj
+//                }
+//            }
+//        }
+       
+       
+       print("graterDate \(graterDate)")
+       
+       var calendar = Calendar(identifier: .gregorian)
+       calendar.timeZone = TimeZone(identifier: "UTC")!
+//        var component = calendar.dateComponents([.hour, .minute, .second], from: graterDate)
+      
+       let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+       
+//        calendar.date(byAdding: .minute, value: 30, to: graterDate) ?? Date()
+       let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
+       setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
+       
+   }
     
-    func setNotification(date: Date, titile: String) {
+    func setNotification(date: Date, titile: String, calendar: Calendar) {
         Logger.logInfo(" setNotification start \(date)")
+        
         let content = UNMutableNotificationContent()
-        let components = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
+        let components = calendar.dateComponents([.hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        
         content.title = StringAddDevice.titleAddDevice
-        content.body =  StringLocalNotifiaction.titleForRimander
+        content.body =  titile
         content.sound = UNNotificationSound.default
-        let request = UNNotificationRequest(identifier: StringLocalNotifiaction.idRimander, content: content, trigger: trigger)
+        
+        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             if let error = error {
                 print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            } else {
+                Logger.logInfo("Notification set for \(components)")
             }
+            
         })
         Logger.logInfo(" setNotification End")
+    }
+    private func doGetProfileData() {
+        let profileVM = ProfileVM()
+      
+        profileVM.doGetProfile { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                self.userName = "Hi \(profileVM.userData.user?.firstName ?? ""), "
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
+        }
     }
  }
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {

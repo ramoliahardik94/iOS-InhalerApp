@@ -102,11 +102,12 @@ struct ValidationMsg {
     static let removeDevice = "Are you sure to remove this device?"
     static let mantainance = "Cannot add more than one mantainance device."
     static let privacyPolicy = "You must accept our privacy policy!"
-    static let forgoteSuccess = "Reset password link sent to your email please check"
+    static let forgoteSuccess = "If an account with this email exists, a link to reset your password will be sent to it."
     static let bluetoothOn = "Please Turn on Bluetooth"
     static let mismatchUUID = "Your devices have been changed from the previously paired. Re-configure the device to track the medication."
-    static let yes = "Yes"
-    static let no = "No"
+
+    static let successAcuation = "Data sync to cloud successfully"
+    static let failAcuation = "Data sync to cloud fail"
 }
 struct ValidationButton {
     static let tryAgain = "Try again"
@@ -198,7 +199,7 @@ struct StringMedication {
     static let shareYourInhalerUsage = "Share Your Inhaler Usage With Ochsner"
     static let addDose = "Add another daily dose."
     static let addFirstDose = "Add daily dose."
-    static let permissionDose = "Need permission to enable reminders of your daily doses.\nGoto Settings,Select OchsnerInhelarApp and turn on Reminders"
+    static let permissionDose = "Need permission to enable reminders of your daily doses.\nGoto Settings,Select OchsnerInhelarApp and turn on Notification"
    
 }
 // MARK: Permissions
@@ -253,8 +254,7 @@ struct CellIdentifier {
 // MARK: Local Notification
 struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
-    static let body = "You will no longer able to track the medication usage"
+    static let body = "You will be no longer able to track the medicine usage"
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
-    
 }

@@ -45,9 +45,9 @@ class ManageDeviceCell: UITableViewCell {
             if BLEHelper.shared.isScanning {
                 textStatus = StringCommonMessages.scanning
             } else {
-                if BLEHelper.shared.addressMAC == device.internalID {
+                if BLEHelper.shared.discoveredPeripheral != nil  && (BLEHelper.shared.addressMAC == device.internalID || BLEHelper.shared.discoveredPeripheral!.identifier.uuidString == DatabaseManager.share.getUDID(mac: device.internalID) ) {
                     print("BLE State:\(BLEHelper.shared.discoveredPeripheral!)")
-                    if BLEHelper.shared.discoveredPeripheral != nil {
+                    
                         switch BLEHelper.shared.discoveredPeripheral!.state {
                         case .connected :
                             textStatus = StringCommonMessages.connected
@@ -59,11 +59,12 @@ class ManageDeviceCell: UITableViewCell {
                             textStatus = StringCommonMessages.disconnect
                         @unknown default:
                             textStatus = StringCommonMessages.connecting
+                        
                         }
-                    } else {
+                    
+                } else {
                         textStatus = StringCommonMessages.disconnect
                     }
-                }
             }
             lblstatus.text = textStatus
             

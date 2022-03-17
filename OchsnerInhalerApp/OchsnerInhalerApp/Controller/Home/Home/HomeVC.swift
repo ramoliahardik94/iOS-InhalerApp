@@ -51,9 +51,9 @@ class HomeVC: BaseVC {
 
     }
     
-    func getAccuationLog() {
+    func getAccuationLog(isPulltoRefresh: Bool = false) {
         if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
-            BLEHelper.shared.getAccuationNumber()
+            BLEHelper.shared.getAccuationNumber(isPulltoRefresh)
         }
     }
     @objc func tapNotification() {
@@ -90,13 +90,13 @@ class HomeVC: BaseVC {
        // Code to refresh table view
         
         if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral!.state == .connected {
-            self.getAccuationLog()
-        } else {
-            BLEHelper.shared.scanPeripheral()
+            self.getAccuationLog(isPulltoRefresh: true)
+        }else {
+            doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
         }
         refreshControl.endRefreshing()
         initTableview()
-        doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+//
     }
 
     override func viewDidDisappear(_ animated: Bool) {

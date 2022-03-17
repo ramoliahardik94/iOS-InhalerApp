@@ -27,23 +27,23 @@ class DatabaseManager {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
-        let predicate2 =  NSPredicate(format: "issync == %d", false)
-        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+//        let predicate2 =  NSPredicate(format: "issync == %d", false)
+        let predicate = predicate1 //NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
             var accuationLog: AcuationLog!
             let arrAccuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
             if arrAccuationLog.count != 0 {
                 accuationLog = arrAccuationLog[0]
+                accuationLog.issync = accuationLog.issync
             } else {
                 accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.acuationLog, into: context!) as! AcuationLog)
+                accuationLog.issync = (object["isSync"] as! Bool)
             }
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
-            debugPrint(object)
             accuationLog.usedatelocal = (object["date"] as! String)
             accuationLog.longitude = (object["long"] as! String)
             accuationLog.latitude = (object["lat"] as! String)
-            accuationLog.issync = (object["isSync"] as! Bool)
             accuationLog.deviceidmac = ( object["mac"] as! String)
             accuationLog.deviceuuid = (object["udid"] as! String)
             accuationLog.batterylevel = Double(object["batterylevel"] as! String)!

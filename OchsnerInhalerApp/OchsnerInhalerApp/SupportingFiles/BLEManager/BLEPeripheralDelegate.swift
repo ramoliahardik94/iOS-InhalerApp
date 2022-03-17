@@ -24,10 +24,10 @@ extension BLEHelper: CBPeripheralDelegate {
        
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
-        Logger.logInfo("Notify Data: \(String(describing: stringFromData))")
+     
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
-            
+            Logger.logInfo("Mac Address Data: \(String(describing: stringFromData))")
             Logger.logInfo("Mac Address: \(addressMAC)")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
@@ -38,9 +38,11 @@ extension BLEHelper: CBPeripheralDelegate {
             arrResponce.remove(at: 0)// StartByte
             let str = "\(arrResponce[0])\(arrResponce[1])"
             if str == StringCharacteristics.getType(.RTCTime)() {
-                setRTCTime()
+                Logger.logInfo("RTC Log : \(stringFromData)")
+//                setRTCTime()
             } else if str == StringCharacteristics.getType(.beteryLevel)() {
                 bettery = "\(stringFromData.getBeteryLevel())"
+                Logger.logInfo("Bettery Data: \(String(describing: stringFromData))")
                 Logger.logInfo("Bettery : \(bettery)")
                 DispatchQueue.main.async { [self] in
                     NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
@@ -52,12 +54,14 @@ extension BLEHelper: CBPeripheralDelegate {
                 } else {
                     apiCallForAccuationlog()
                 }
+                Logger.logInfo("Number Of Acuation log Data: \(String(describing: stringFromData))")
                 Logger.logInfo("Number Of Acuation log : \(accuationLog)")
                 DispatchQueue.main.async { [self] in
                     NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(accuationLog)"])
                 }
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
+                Logger.logInfo("Acuation log Data: \(String(describing: stringFromData))")
                 Logger.logInfo("Acuation log : \(log)")
               
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
@@ -124,7 +128,6 @@ extension BLEHelper {
         // Deal with errors (if any).
         if let error = error {
             Logger.logInfo("Error discovering characteristics: \(error.localizedDescription)")
-
             return
         }
        
