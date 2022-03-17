@@ -78,6 +78,9 @@ class ManageDeviceVC: BaseVC {
         if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral!.state == .disconnected {
             BLEHelper.shared.scanPeripheral()
         }
+        background {
+            self.apiCall()
+        }
         refreshControl.endRefreshing()
     }
     

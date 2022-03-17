@@ -208,7 +208,7 @@
                                                                                     <action selector="tapUpdateEmail:" destination="6vb-2b-xsQ" eventType="touchUpInside" id="biu-Ku-uCL"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNa-TV-7iA">
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="SNa-TV-7iA">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="268" height="21"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="21" id="u5h-p3-i0g"/>
