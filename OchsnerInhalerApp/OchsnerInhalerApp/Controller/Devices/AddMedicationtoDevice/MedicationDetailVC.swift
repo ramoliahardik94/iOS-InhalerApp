@@ -232,68 +232,78 @@ class MedicationDetailVC: BaseVC {
     
     func addReminderToCalender() {
          UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
-       /* for obj in self.medicationVM.arrTime {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm a"
-                let today = Date()
-                dateFormatter.dateFormat = "dd/MM/yyyy"
-                let strDate = "\(dateFormatter.string(from: today)) \(obj)"
-                dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
-                if let date = dateFormatter.date(from: strDate) {
-                    
-                    let title = "\(StringAddDevice.titleAddDevice)\n\(StringDevices.yourNextDose) \(obj) for \(lblMedicationName.text ?? "")"
-                    
-                }
-        }*/
+ 
         
        // var arrayDate = [Date]()
         var stingDate = ""
         var graterDate =  Date()
         var showDoesTime  = ""
-        for obj in self.medicationVM.arrTime {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm a"
-            let today = Date()
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            let strDate = "\(dateFormatter.string(from: today)) \(obj)"
-            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
-            if stingDate == "" {
-                stingDate = strDate
-                showDoesTime = obj
-            }
-            
-            if let date = dateFormatter.date(from: strDate) {
-                if stingDate == "" {
-                    graterDate = date
-                }
-                if date > dateFormatter.date(from: stingDate) ?? Date() {
-                    stingDate = strDate
-                    graterDate = date
-                    showDoesTime = obj
-                }
-            }
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let strDate = dateFormatter.string(from: Date())
+        let arrTime = self.medicationVM.arrTime.map({"\(strDate) \($0)".getDate(format: "dd/MM/yyyy hh:mm a", isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending })
+        print(arrTime)
+        graterDate = arrTime[0]
+        
+        
+//        for obj in self.medicationVM.arrTime {
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "hh:mm a"
+//            let today = Date()
+//            dateFormatter.dateFormat = "dd/MM/yyyy"
+//            let strDate = "\(dateFormatter.string(from: today)) \(obj)"
+//            print("strDate \(strDate)")
+//            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+//            if stingDate == "" {
+//                stingDate = strDate
+//                showDoesTime = obj
+//            }
+//            if let date = dateFormatter.date(from: strDate) {
+//                if stingDate == "" {
+//                    graterDate = date
+//                }
+//                if date > dateFormatter.date(from: stingDate) ?? Date() {
+//                    stingDate = strDate
+//                    graterDate = date
+//                    showDoesTime = obj
+//                }
+//            }
+//        }
+        
+        
         print("graterDate \(graterDate)")
-        let calendar = Calendar.current
-        let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate) ?? Date()
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+//        var component = calendar.dateComponents([.hour, .minute, .second], from: graterDate)
+       
+        let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+        
+//        calendar.date(byAdding: .minute, value: 30, to: graterDate) ?? Date()
         let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
-        setNotification(date: datesub, titile: title)
+        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
         
     }
     
-    func setNotification(date: Date, titile: String) {
+    func setNotification(date: Date, titile: String, calendar: Calendar) {
         Logger.logInfo(" setNotification start \(date)")
+        
         let content = UNMutableNotificationContent()
-        let components = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
+        let components = calendar.dateComponents([.hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        
         content.title = StringAddDevice.titleAddDevice
         content.body =  titile
         content.sound = UNNotificationSound.default
+        
         let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             if let error = error {
                 print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            } else {
+                Logger.logInfo("Notification set for \(components)")
             }
+            
         })
         Logger.logInfo(" setNotification End")
     }
