@@ -102,7 +102,7 @@ struct ValidationMsg {
     static let removeDevice = "Are you sure to remove this device?"
     static let mantainance = "Cannot add more than one mantainance device."
     static let privacyPolicy = "You must accept our privacy policy!"
-    static let forgoteSuccess = "Reset password link sent to your email please check"
+    static let forgoteSuccess = "If an account with this email exists, a link to reset your password will be sent to it."
     static let bluetoothOn = "Please Turn on Bluetooth"
     static let mismatchUUID = "Your devices have been changed from the previously paired. Re-configure the device to track the medication."
     static let yes = "Yes"
