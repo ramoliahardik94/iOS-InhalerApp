@@ -44,6 +44,8 @@ class BLEHelper: NSObject {
         let min =  Date().getString(format: "mm").decimalToHax()
         let sec =  Date().getString(format: "s").decimalToHax()
         let haxRTC = TransferService.addRTSStartByte + year+day+month+hour+min+sec
+        
+        Logger.logInfo("RTC Time Set From Device\(haxRTC)")
         if discoveredPeripheral != nil && charectristicWrite != nil {
             discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
