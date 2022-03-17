@@ -289,6 +289,7 @@ class MedicationDetailVC: BaseVC {
         content.title = StringAddDevice.titleAddDevice
         content.body =  titile
         content.sound = UNNotificationSound.default
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
         let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             if let error = error {
