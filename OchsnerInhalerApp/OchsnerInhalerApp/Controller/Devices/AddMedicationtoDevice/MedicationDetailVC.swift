@@ -231,21 +231,23 @@ class MedicationDetailVC: BaseVC {
     }
     
     func addReminderToCalender() {
-         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
- 
-        
-       // var arrayDate = [Date]()
-        var stingDate = ""
-        var graterDate =  Date()
-        var showDoesTime  = ""
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let strDate = dateFormatter.string(from: Date())
-        let arrTime = self.medicationVM.arrTime.map({"\(strDate) \($0)".getDate(format: "dd/MM/yyyy hh:mm a", isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending })
-        print(arrTime)
-        graterDate = arrTime[0]
-        
-        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
+        // var arrayDate = [Date]()
+       // var stingDate = ""
+       var graterDate =  Date()
+       var showDoesTime  = ""
+       let dateFormatter = DateFormatter()
+       dateFormatter.dateFormat = "dd/MM/yyyy"
+       let strDate = dateFormatter.string(from: Date())
+       let arrTime = self.medicationVM.arrTime.map({"\(strDate) \($0)".getDate(format: "dd/MM/yyyy hh:mm a", isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending })
+       print(arrTime)
+       graterDate = arrTime[0]
+        let time = graterDate.getString(format: "dd/MM/yyyy hh:mm a",isUTC: true).split(separator: " ")
+        if time.count >= 2 {
+            showDoesTime = "\(time[1]) \(time[2])"
+        }
+        print(showDoesTime)
+       
 //        for obj in self.medicationVM.arrTime {
 //            let dateFormatter = DateFormatter()
 //            dateFormatter.dateFormat = "hh:mm a"
@@ -269,21 +271,21 @@ class MedicationDetailVC: BaseVC {
 //                }
 //            }
 //        }
-        
-        
-        print("graterDate \(graterDate)")
-        
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "UTC")!
-//        var component = calendar.dateComponents([.hour, .minute, .second], from: graterDate)
        
-        let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
-        
+       
+       print("graterDate \(graterDate)")
+       
+       var calendar = Calendar(identifier: .gregorian)
+       calendar.timeZone = TimeZone(identifier: "UTC")!
+//        var component = calendar.dateComponents([.hour, .minute, .second], from: graterDate)
+      
+       let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+       
 //        calendar.date(byAdding: .minute, value: 30, to: graterDate) ?? Date()
-        let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
-        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
-        
-    }
+       let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
+       setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
+       
+   }
     
     func setNotification(date: Date, titile: String, calendar: Calendar) {
         Logger.logInfo(" setNotification start \(date)")
