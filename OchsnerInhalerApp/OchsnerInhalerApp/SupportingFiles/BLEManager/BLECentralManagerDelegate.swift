@@ -128,6 +128,8 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         if peripheral.state == .connected {
+            macCharecteristic = nil
+            charectristicWrite = nil
             stopScanPeriphral()
             peripheral.delegate = self
             peripheral.discoverServices(TransferService.serviceArray)

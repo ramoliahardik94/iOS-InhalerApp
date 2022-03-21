@@ -156,25 +156,28 @@ extension BLEHelper {
         }
         
         stopTimer()
-        delay(isAddAnother ? 15 : 0) {
-            [weak self] in
-            guard let `self` = self else { return }
-            if self.discoveredPeripheral != nil {
-                switch self.discoveredPeripheral?.state {
-                case .connected :
-                    if !DatabaseManager.share.getIsSetRTC(udid: self.discoveredPeripheral!.identifier.uuidString) {
-                        self.setRTCTime()
+        if macCharecteristic != nil && charectristicWrite != nil {
+            delay(isAddAnother ? 15 : 0) {
+                [weak self] in
+                guard let `self` = self else { return }
+                if self.discoveredPeripheral != nil {
+                    switch self.discoveredPeripheral?.state {
+                    case .connected :
+                        print("Connected \(self.discoveredPeripheral!.identifier.uuidString)")
+                        if !DatabaseManager.share.getIsSetRTC(udid: self.discoveredPeripheral!.identifier.uuidString) {
+                            self.setRTCTime()
+                        }
+                        self.getmacAddress()
+                        self.getBetteryLevel()
+                        self.getAccuationNumber()
+                        Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
+                        self.isScanning = false
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .BLEConnect, object: nil)
+                        }
+                    default:
+                        break
                     }
-                    self.getmacAddress()
-                    self.getBetteryLevel()
-                    self.getAccuationNumber()
-                    Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
-                    self.isScanning = false
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: .BLEConnect, object: nil)
-                    }
-                default:
-                    break
                 }
             }
         }
