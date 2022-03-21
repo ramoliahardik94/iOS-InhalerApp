@@ -125,7 +125,7 @@ class LoginVC: BaseVC {
     // MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
         self.view.endEditing(true)
-       
+        Logger.logInfo("LogIn Click")
         login.apiLogin {[weak self] (result) in
             guard let `self` = self else { return }
             switch result {

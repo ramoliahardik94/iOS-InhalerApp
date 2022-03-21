@@ -16,8 +16,8 @@ struct TransferService {
     static let characteristicNotifyUUID = CBUUID(string: "B004")
     static let characteristicWriteUUID = CBUUID(string: "B002")
     static let addRTSStartByte = "AA015507"
-    static let responseSuccessRTC = "AA01550101"
-    static let responseFailRTC = "AA01550100"
+    static let responseSuccessRTC = "aa:01:55:01:01"
+    static let responseFailRTC = "aa:01:55:01:00"
     static let requestGetBettery = "AA025500"
     static let requestGetNoAccuation = "AA035500"
     static let requestGetAcuationLog = "AA045500"

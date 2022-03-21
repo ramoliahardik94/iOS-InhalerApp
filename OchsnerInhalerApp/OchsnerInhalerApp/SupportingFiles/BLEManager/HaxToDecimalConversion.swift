@@ -40,16 +40,16 @@ extension String {
             let sec = UInt8(arrResponce[12], radix: 16)!
             let duration = "\(arrResponce[13])\(arrResponce[14])"
             let durationTime =  UInt16(duration, radix: 16)!
-            let onlyDate = String(format: "%04d/%02d/%02d", year, month, day)
+            let onlyDate = String(format: "%04d-%02d-%02d", year, month, day)
             if onlyDate == "2000/01/01" {
                 BLEHelper.shared.setRTCTime()
-                return (Decimal(0), Date().getString(format: "yyyy/MM/dd HH:mm:ss", isUTC: false), Decimal(0))
+                return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))
             } else {
-                let date = String(format: "%04d/%02d/%02d %02d:%02d:%02d", year, month, day, hour, min, sec)
+                let date = String(format: "%04d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, sec)
                 return (Decimal(logCount), date, Decimal(durationTime.bigEndian))
             }
         } else {
-            return (Decimal(0), Date().getString(format: "yyyy/MM/dd HH:mm:ss", isUTC: false), Decimal(0))
+            return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))
         }
     }
     

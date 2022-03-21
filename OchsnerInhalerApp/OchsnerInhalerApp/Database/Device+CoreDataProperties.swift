@@ -21,5 +21,6 @@ extension Device {
     @NSManaged public var udid: String?
     @NSManaged public var medtypeid: Int16
     @NSManaged public var reminder: Bool
+    @NSManaged public var setrtc: Bool
 
 }

@@ -95,6 +95,7 @@ class ProfileVC: BaseVC {
         
         CommonFunctions.showMessageYesNo(message: StringProfile.sureLogout, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.logOut) { isOk in
             if isOk ?? false {
+                Logger.logInfo("Logout Click")                
                 self.setRootLogin()
             }
             

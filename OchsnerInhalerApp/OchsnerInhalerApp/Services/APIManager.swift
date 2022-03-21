@@ -60,7 +60,6 @@ class APIManager {
         }
 
         Logger.logInfo("\n\n\nURL:\(route)\n Method:\(method)\nParameters: \(parameters)\nHeaders:\(appHeader)")
-        
         var url = route
         if isEncoding, let encoded = route.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             url = encoded
@@ -76,7 +75,7 @@ class APIManager {
             
             let statusCode = response.response?.statusCode
             if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {
-                Logger.logInfo("Response :: success :: \(route) :: \n\n\(String(describing: response.value))")
+                Logger.logInfo("Response :: success :: \(route) \n\n \(String(describing: response.value!))")
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {
@@ -95,7 +94,7 @@ class APIManager {
                     completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
             } else {
-                Logger.logError("Add Response :: failure ::  \(route) ::\n\n\(String(describing: response.value))")
+                Logger.logError("Add Response :: failure ::  \(route) ::\n\n \(String(describing: response.value))")
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {
@@ -111,38 +110,6 @@ class APIManager {
                     completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
             }
-//
-//            switch response.result {
-//
-//            case .success:
-//                Logger.LogInfo("Response :: success :: \(String(describing: response.value))")
-//
-//                guard let basicModelObj =  BasicModel(JSON: response.value as! [String: Any]) else {
-//                    completion?(RuntimeError(""), nil)
-//                    return
-//                }
-//                guard let statusCode = basicModelObj.statusCode else {
-//                    completion?(RuntimeError("Status code not received."), nil)
-//                    return
-//                }
-//
-//                if statusCode == StatusCode.tokenExpired.rawValue {
-//                    Logger.LogInfo("Response:: expire:: Access Token Expired")
-//                    self.generateNewAccessToken(route: route, parameters: parameters, method: method, completion: completion)
-//                } else if statusCode == StatusCode.refreshTokenExpired.rawValue {
-//                    Logger.LogInfo("Response:: expire:: Refresh Token Expired")
-//                    removeUser()
-//                } else if statusCode >= StatusCode.success.rawValue && statusCode < 300 {
-//                    completion?(nil, basicModelObj)
-//                } else {
-//                    if let message = basicModelObj.message {
-//                        completion?(RuntimeError(message, statusCode), nil)
-//                    }
-//                }
-//            case .failure:
-//                Logger.LogError("Add Response :: failure :: \(String(describing: response.value))")
-//                 completion?(RuntimeError("Server Error"), nil)
-//            }
         }
         
         return request
@@ -150,26 +117,6 @@ class APIManager {
         // return nil
     }
     
-//    func generateNewAccessToken(route: String, parameters: [String: Any]?, method: HTTPMethod, completion: ResponseBlock?) {
-//        self.performRequest(route: APIRouter.refreshToken.path, parameters: [String: Any](), method: HTTPMethod.post) { (error, basicModel) in
-//            guard let basicModel = basicModel else {
-//                completion?(error, nil)
-//                return
-//            }
-//
-//            if basicModel.checkStatusCode(.success) {
-////                if let shareobj = UserDefaultManager.loggedInUserModel {
-////                    shareobj.token = (basicModel.data["accessToken"] as! String)
-////                    UserDefaultManager.loggedInUserModel = shareobj
-////                }
-//                self.resumeAPICallwithNewAccessToken(route: route, parameters: parameters, method: method, completion: completion)
-//            } else {
-//                Logger.LogError("Add Response :: failure :: API Error Generating New Access Token -> \(error!.localizedDescription)")
-//                completion?(error, nil)
-//                return
-//            }
-//        }
-//    }
     
     func resumeAPICallwithNewAccessToken(route: String, parameters: [String: Any]?, method: HTTPMethod, completion: ResponseBlock?) {
         self.performRequest(route: route, parameters: parameters!, method: method) { (error, basicModel) in

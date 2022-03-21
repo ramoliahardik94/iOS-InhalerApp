@@ -94,13 +94,13 @@ extension BLEHelper: CBCentralManagerDelegate {
 //        }
         
         Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
+        
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
-        //        let devicelist = device.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
         
         if let name =  peripheral.name {
             debugPrint("Service : \(String(describing: peripheral.services))")
             
-            if name.lowercased() == "ochsner inhaler tracker" {
+            if name.lowercased() == Constants.deviceName {
                 let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
@@ -128,6 +128,8 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         if peripheral.state == .connected {
+            macCharecteristic = nil
+            charectristicWrite = nil
             stopScanPeriphral()
             peripheral.delegate = self
             peripheral.discoverServices(TransferService.serviceArray)

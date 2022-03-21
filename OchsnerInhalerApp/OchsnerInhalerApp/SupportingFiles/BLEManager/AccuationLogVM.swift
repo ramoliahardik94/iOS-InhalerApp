@@ -13,7 +13,6 @@ extension BLEHelper {
     @objc func accuationLog(notification: Notification) {
       
         if let object = notification.userInfo as? [String: Any] {
-           // LocationManager.shared.checkLocationPermissionAndFetchLocation(completion: { coordination in
                 if object["uselength"]! as? Decimal != 0 {
                     let isoDate = object["date"] as? String
                     let length = object["uselength"]!
@@ -21,9 +20,9 @@ extension BLEHelper {
                     let udid = object["udid"] as? String
                     let id = object["Id"] as? Decimal
                     let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy/dd/MM HH:mm:ss"
+                    dateFormatter.dateFormat = DateFormate.dateFromLog
                     if  let date = dateFormatter.date(from: isoDate!) {
-                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                        dateFormatter.dateFormat = DateFormate.useDateLocalAPI
                         let finalDate = dateFormatter.string(from: date)
                         let dic: [String: Any] = ["date": finalDate,
                                                   "useLength": length,
@@ -37,6 +36,8 @@ extension BLEHelper {
                             self.accuationLog = 0
                             self.apiCallForAccuationlog()
                         }
+                    } else {
+                        Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
                     }
                 }
            // })

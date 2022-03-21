@@ -78,6 +78,7 @@ class ManageDeviceVC: BaseVC {
             BLEHelper.shared.scanPeripheral()
         }
         tbvData.reloadData()
+        apiCall()
         refreshControl.endRefreshing()
     }
     
@@ -94,6 +95,7 @@ class ManageDeviceVC: BaseVC {
     }
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
+        Logger.logInfo("Add Another Device Click")
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true
@@ -127,6 +129,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
 
    
     func editDirection(index: Int) {
+        Logger.logInfo("Edit Direction Click")
         let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         let medication = MedicationVM()
         medication.selectedMedication = manageDeviceVM.arrDevice[index].medication
@@ -143,7 +146,11 @@ extension ManageDeviceVC: ManageDeviceDelegate {
         CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
             guard let `self` = self else { return }
             if isOk ?? false {
+                Logger.logInfo("Remove Device Click")
+                let id = DatabaseManager.share.getUDID(mac: self.manageDeviceVM.arrDevice[index].internalID)
+                DatabaseManager.share.setRTCFor(udid: id, value: false)
                 self.apiCallOfRemoveDevice(index: index)
+                
             }
         }
         
@@ -157,8 +164,6 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
                     
-//                    self.addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
-//                    self.btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
                     if self.manageDeviceVM.arrDevice.count == 0 {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         addDeviceIntroVC.step = .step1
