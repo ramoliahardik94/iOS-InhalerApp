@@ -37,13 +37,14 @@ class HomeVC: BaseVC {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
       //  self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
-        self.getAccuationLog()
+        self.getAccuationLogHome()
         BLEHelper.shared.apiCallForAccuationlog()
         // doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
 
@@ -51,7 +52,7 @@ class HomeVC: BaseVC {
 
     }
     
-    func getAccuationLog(isPulltoRefresh: Bool = false) {
+    func getAccuationLogHome(isPulltoRefresh: Bool = false) {
         if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
             BLEHelper.shared.getAccuationNumber(isPulltoRefresh)
         }
@@ -90,8 +91,8 @@ class HomeVC: BaseVC {
        // Code to refresh table view
         
         if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral!.state == .connected {
-            self.getAccuationLog(isPulltoRefresh: true)
-        }else {
+            self.getAccuationLogHome(isPulltoRefresh: true)
+        } else {
             doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
         }
         refreshControl.endRefreshing()

@@ -41,15 +41,22 @@ class DatabaseManager {
                 accuationLog.issync = (object["isSync"] as! Bool)
             }
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
-            accuationLog.usedatelocal = (object["date"] as! String)
+            
+            if let date = object["date"] as? String {
+                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
+                accuationLog.isbadlog = logDate > Date()
+                accuationLog.usedatelocal = date
+            }
+            
             accuationLog.longitude = (object["long"] as! String)
             accuationLog.latitude = (object["lat"] as! String)
             accuationLog.deviceidmac = ( object["mac"] as! String)
             accuationLog.deviceuuid = (object["udid"] as! String)
             accuationLog.batterylevel = Double(object["batterylevel"] as! String)!
             accuationLog.uselength = Double("\(object["useLength"]!)")!
-            accuationLog.devicesyncdateutc = Date().getString(format: "yyyy-MM-dd'T'HH:mm:ss'Z'", isUTC: true)
+            accuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
             try context?.save()
+            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")
         } catch {
             debugPrint("Can not get Data")
         }
@@ -134,7 +141,8 @@ class DatabaseManager {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
         let predicate2 =  NSPredicate(format: "issync == %d", false)
-        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        let predicate3 =  NSPredicate(format: "isbadlog == %d", false)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2, predicate3])
         
         fetchRequest.predicate = predicate
         do {
@@ -144,7 +152,12 @@ class DatabaseManager {
         }
         for obj in accuationLog {
             let log = obj
-            usage.append(log.APILog())
+            if let date = log.usedatelocal {
+                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
+                if logDate < Date() {
+                    usage.append(log.APILog())
+                }
+            }
         }
         return usage
     }

@@ -258,3 +258,11 @@ struct StringLocalNotifiaction {
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
 }
+
+// MARK: Date Formate
+struct DateFormate {
+    static let dateFromLog = "yyyy-MM-dd HH:mm:ss"
+    static let useDateLocalAPI = "yyyy-MM-dd'T'HH:mm:ssZ"
+    static let deviceSyncDateUTCAPI = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+}
+

@@ -18,7 +18,7 @@ extension BLEHelper: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         // Deal with errors (if any)
         if let error = error {
-            Logger.logInfo("Error discovering characteristics: \(error.localizedDescription)")
+            Logger.logError("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
        
@@ -27,8 +27,7 @@ extension BLEHelper: CBPeripheralDelegate {
      
         if characteristic.uuid == TransferService.macCharecteristic {
             addressMAC = stringFromData
-            Logger.logInfo("Mac Address Data: \(String(describing: stringFromData))")
-            Logger.logInfo("Mac Address: \(addressMAC)")
+            Logger.logInfo("Mac Address Hax: \(String(describing: stringFromData)) \n Mac Address Decimal: \(addressMAC)")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
             }
@@ -38,32 +37,34 @@ extension BLEHelper: CBPeripheralDelegate {
             arrResponce.remove(at: 0)// StartByte
             let str = "\(arrResponce[0])\(arrResponce[1])"
             if str == StringCharacteristics.getType(.RTCTime)() {
-                Logger.logInfo("RTC Log : \(stringFromData)")
-//                setRTCTime()
+                
+                Logger.logInfo("RTC Log Hax: \(stringFromData)")
+                
             } else if str == StringCharacteristics.getType(.beteryLevel)() {
+                
                 bettery = "\(stringFromData.getBeteryLevel())"
-                Logger.logInfo("Bettery Data: \(String(describing: stringFromData))")
-                Logger.logInfo("Bettery : \(bettery)")
+                Logger.logInfo("Bettery Hax: \(String(describing: stringFromData)) \n Bettery Decimal: \(bettery)")
                 DispatchQueue.main.async { [self] in
                     NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
                 }
-            } else if str == StringCharacteristics.getType(.accuationLog)() {
+                
+            } else if str == StringCharacteristics.getType(.accuationLogNumber)() {
+                
                 accuationLog = stringFromData.getNumberofAccuationLog()
+                Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) \n Number Of Acuation log Decimal: \(accuationLog)")
                 if accuationLog > 0 {
                     getAccuationLog()
                 } else {
                     apiCallForAccuationlog()
                 }
-                Logger.logInfo("Number Of Acuation log Data: \(String(describing: stringFromData))")
-                Logger.logInfo("Number Of Acuation log : \(accuationLog)")
                 DispatchQueue.main.async { [self] in
                     NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(accuationLog)"])
                 }
+                
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 let log = stringFromData.getAcuationLog()
-                Logger.logInfo("Acuation log Data: \(String(describing: stringFromData))")
-                Logger.logInfo("Acuation log : \(log)")
-              
+                Logger.logInfo("Acuation log Hax: \(String(describing: stringFromData)) \n Acuation log Decimal: \(log)")
+                
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
                                                     ["Id": (log.id),
                                                      "date": "\(log.date)",
@@ -81,7 +82,7 @@ extension BLEHelper: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         // Deal with errors (if any)
         if let error = error {
-            Logger.logInfo("Error changing notification state: \(error.localizedDescription)")
+            Logger.logError("Error changing notification state: \(error.localizedDescription)")
             return
         }
         
@@ -104,7 +105,7 @@ extension BLEHelper: CBPeripheralDelegate {
 extension BLEHelper {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let error = error {
-            Logger.logInfo("Error discovering services: \(error.localizedDescription)")
+            Logger.logError("Error discovering services: \(error.localizedDescription)")
      
             return
         }
@@ -127,13 +128,13 @@ extension BLEHelper {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         // Deal with errors (if any).
         if let error = error {
-            Logger.logInfo("Error discovering characteristics: \(error.localizedDescription)")
+            Logger.logError("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
        
         // Again, we loop through the array, just in case and check if it's the right one
         guard let serviceCharacteristics = service.characteristics else {
-            Logger.logInfo("service error \(service)")
+            Logger.logError("service error \(service)")
             return }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
@@ -188,14 +189,14 @@ extension Data {
 
 
 enum StringCharacteristics: String {
-    case RTCTime, beteryLevel, accuationLog, acuationLog
+    case RTCTime, beteryLevel, accuationLogNumber, acuationLog
     func getType() -> String {
         switch self {
         case .RTCTime :
             return  "0155"
         case .beteryLevel:
             return "0255"
-        case .accuationLog :
+        case .accuationLogNumber :
             return  "0355"
         case .acuationLog :
             return  "0455"

@@ -6,7 +6,7 @@ import UIKit
 class Constants: NSObject {
     
     static let appdel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-    //static let maximumDevice = 3
+    static let deviceName = "ochsner inhaler tracker"
     static let ScreenWidth  =  UIScreen.main.bounds.size.width
     static let ScreenHeight =  UIScreen.main.bounds.size.height
 

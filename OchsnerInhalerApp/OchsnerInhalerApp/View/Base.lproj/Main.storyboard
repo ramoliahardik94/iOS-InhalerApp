@@ -195,10 +195,10 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="aKk-5i-Lud">
-                                                                        <rect key="frame" x="99" y="32" width="268" height="57"/>
+                                                                        <rect key="frame" x="99" y="32" width="266" height="57"/>
                                                                         <subviews>
                                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPf-vf-8hl">
-                                                                                <rect key="frame" x="0.0" y="-30" width="268" height="30"/>
+                                                                                <rect key="frame" x="0.0" y="-30" width="266" height="30"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="30" id="FMT-g4-wVF"/>
                                                                                 </constraints>
@@ -208,8 +208,8 @@
                                                                                     <action selector="tapUpdateEmail:" destination="6vb-2b-xsQ" eventType="touchUpInside" id="biu-Ku-uCL"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNa-TV-7iA">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="268" height="21"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="SNa-TV-7iA">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="266" height="21"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="21" id="u5h-p3-i0g"/>
                                                                                 </constraints>
@@ -218,7 +218,7 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fe-bn-q7P">
-                                                                                <rect key="frame" x="0.0" y="25" width="268" height="32"/>
+                                                                                <rect key="frame" x="0.0" y="25" width="266" height="32"/>
                                                                                 <subviews>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2V-6s-cyc">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="32"/>
@@ -273,7 +273,7 @@
                                                                     <constraint firstItem="aKk-5i-Lud" firstAttribute="leading" secondItem="Mxv-9j-cUZ" secondAttribute="trailing" constant="28" id="AKf-bq-Xp7"/>
                                                                     <constraint firstAttribute="height" constant="121" id="ARn-sD-bmG"/>
                                                                     <constraint firstItem="dAU-IZ-lR5" firstAttribute="top" secondItem="5iJ-bJ-5gS" secondAttribute="top" id="Cm9-r2-AUu"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="aKk-5i-Lud" secondAttribute="trailing" constant="8" id="LRb-7Z-9bz"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="aKk-5i-Lud" secondAttribute="trailing" constant="10" id="LRb-7Z-9bz"/>
                                                                     <constraint firstItem="aKk-5i-Lud" firstAttribute="centerY" secondItem="5iJ-bJ-5gS" secondAttribute="centerY" id="REX-uP-jVk"/>
                                                                     <constraint firstItem="dAU-IZ-lR5" firstAttribute="leading" secondItem="5iJ-bJ-5gS" secondAttribute="leading" id="Z8g-Uo-Juy"/>
                                                                     <constraint firstAttribute="trailing" secondItem="UkQ-jK-5gI" secondAttribute="trailing" id="hBN-Kr-ava"/>

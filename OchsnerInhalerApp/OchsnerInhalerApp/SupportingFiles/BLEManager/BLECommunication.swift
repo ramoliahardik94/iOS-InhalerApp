@@ -109,7 +109,7 @@ extension BLEHelper {
     
     func stopScanPeriphral() {
         if timer != nil {
-             Logger.logInfo("Scaning stop")
+            Logger.logInfo("Scaning stop with device \(String(describing: discoveredPeripheral))")
         }
         centralManager.stopScan()
         DispatchQueue.main.async {  

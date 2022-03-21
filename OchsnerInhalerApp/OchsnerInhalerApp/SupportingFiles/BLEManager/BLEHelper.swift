@@ -28,9 +28,10 @@ class BLEHelper: NSObject {
     var accuationLog: Decimal = 0
     var isPullToRefresh = false
     func setDelegate() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
 //        centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
-        NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
+       
     }
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
@@ -38,14 +39,15 @@ class BLEHelper: NSObject {
     }
     func setRTCTime() {
         let year =  Date().getString( format: "yyyy").decimalToHax(byte: 2)
+        
         let day =  Date().getString(format: "dd").decimalToHax()
         let month =  Date().getString(format: "MM").decimalToHax()
         let hour =  Date().getString(format: "HH").decimalToHax()
         let min =  Date().getString(format: "mm").decimalToHax()
         let sec =  Date().getString(format: "s").decimalToHax()
-        let haxRTC = TransferService.addRTSStartByte + year+day+month+hour+min+sec
-        Logger.logInfo("RTC set on Date \(Date())")
-        Logger.logInfo("RTC Time Set From Device\(haxRTC)")
+        let haxRTC = TransferService.addRTSStartByte + year+month+day+hour+min+sec
+        let decimal = "\(Date().getString( format: "yyyy")): \(Date().getString(format: "MM")): \( Date().getString(format: "dd")): \(Date().getString(format: "HH")): \(Date().getString(format: "mm")): \( Date().getString(format: "s"))"
+        Logger.logInfo("RTC set on Date \(decimal) \n RTC Time Set From Device \(haxRTC)")
         if discoveredPeripheral != nil && charectristicWrite != nil {
             discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
