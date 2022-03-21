@@ -162,6 +162,39 @@ class DatabaseManager {
         return usage
     }
     
+    
+    func setRTCFor(udid: String, value: Bool) {
+        var device = [Device]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        let predicate = NSPredicate(format: "udid == %@", udid)
+        fetchRequest.predicate = predicate
+        do {
+            device = try context?.fetch(fetchRequest) as! [Device]
+            if device.count > 0 {
+                device = device.map({ obj in
+                    obj.setrtc = value
+                    return obj
+                })
+            }
+            try context?.save()
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        
+    }
+    func getIsSetRTC(udid: String) -> Bool {
+        var device = [Device]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        let predicate = NSPredicate(format: "udid == %@", udid)
+        fetchRequest.predicate = predicate
+        do {
+            device = try context?.fetch(fetchRequest) as! [Device]
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        if device.count > 0 { return device[0].setrtc } else { return true}
+    }
+    
     func deleteAllAccuationLog() {
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.acuationLog)
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
