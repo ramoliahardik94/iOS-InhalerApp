@@ -11,13 +11,14 @@ import EventKit
 import CocoaLumberjack
 import MessageUI
 import Firebase
-    
+import BackgroundTasks
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var fileLogger: DDFileLogger!
     var eventStore: EKEventStore?
-    
+    let backgroundScanning = "com.ochsnerInhaler.scan"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
@@ -39,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Logger.logInfo("\n\n\n===========================\nLaunched Ochsner Inhaler App > Environment: , App Version: \(appVersion()), Device: \(UIDevice.modelName), iOS Version: \(UIDevice.current.systemVersion), Data Connection:)")
         
         initFirebase()
+        registerBackgroundTaks()
         return true
     }
 
@@ -121,6 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func backgroundCall() {
        print("App moved to background!")
+        scheduleSanner()
     }
     
     func navigationBarUI() {
@@ -234,5 +237,58 @@ extension AppDelegate: MFMailComposeViewControllerDelegate {
     // MARK: MFMailComposeViewControllerDelegate
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
+    }
+}
+// MARK: - BG Task
+extension AppDelegate {
+    // MARK: Register BackGround Tasks
+    private func registerBackgroundTaks() {
+        
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundScanning, using: nil) { task in
+            // This task is cast with processing request (BGProcessingTask)
+            
+            Logger.logInfo(" backgroundAppProcesserIdentifier ")
+            
+            self.handleBLELogGet(task: task as! BGProcessingTask)
+        }
+    }
+    
+    func handleBLELogGet(task: BGProcessingTask) {
+        
+        
+        // Todo Work
+        task.expirationHandler = {
+            Logger.logInfo("This Block call by System")
+            // This Block call by System
+            // Canle your all tak's & queues
+        
+        }
+        
+        // Get & Set New Data
+        Logger.logInfo("handleBLELogGet")
+        if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral?.state != .connected {
+            BLEHelper.shared.scanPeripheral(isTimer: false)
+        } else {
+            BLEHelper.shared.getAccuationNumber()
+        }
+        //
+        task.setTaskCompleted(success: true)
+        scheduleSanner()
+    }
+    
+    func scheduleSanner() {
+        let request = BGProcessingTaskRequest(identifier: backgroundScanning)
+        request.requiresNetworkConnectivity = true // Need to true if your task need to network process. Defaults to false.
+        request.requiresExternalPower = false
+        // If we keep requiredExternalPower = true then it required device is connected to external power.
+        
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1) // fetch Scanne after 1 minute.
+        // Note :: EarliestBeginDate should not be set to too far into the future.
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            Logger.logInfo("Task submit success")
+        } catch {
+            Logger.logError("Could not schedule scanner Task: \(error)")
+        }
     }
 }

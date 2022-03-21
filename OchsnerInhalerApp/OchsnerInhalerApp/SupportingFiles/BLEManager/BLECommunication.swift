@@ -23,7 +23,7 @@ extension BLEHelper {
                     let time = isTimer ? 15.0 : 30.0
                     Logger.logInfo("Scaning start with \(time) sec timer")
                     timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-                    self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+                    self.centralManager.scanForPeripherals(withServices: [TransferService.inhealerUTCservice], options: nil)
                 }
                 isScanning = true
                 DispatchQueue.main.async {

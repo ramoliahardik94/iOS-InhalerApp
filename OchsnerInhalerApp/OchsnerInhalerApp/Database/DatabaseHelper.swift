@@ -28,7 +28,7 @@ class DatabaseManager {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
 //        let predicate2 =  NSPredicate(format: "issync == %d", false)
-        let predicate = predicate1 //NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        let predicate = predicate1 // NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
             var accuationLog: AcuationLog!
