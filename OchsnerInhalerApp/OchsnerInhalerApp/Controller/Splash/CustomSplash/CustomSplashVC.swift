@@ -15,9 +15,11 @@ class CustomSplashVC: BaseVC {
     var deviceUDID = [String]()
     var timer: Timer!
     var isTime = false
+    
     override func viewDidLoad() {
-        
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+        DispatchQueue.global(qos: .userInteractive).sync {
+            self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+        }
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
@@ -35,7 +37,9 @@ class CustomSplashVC: BaseVC {
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
             BLEHelper.shared.setDelegate()
             delay(2) {
-                BLEHelper.shared.scanPeripheral()
+                if BLEHelper.shared.centralManager.state == .poweredOn {
+                    BLEHelper.shared.scanPeripheral()
+                }
             }
             
             BLEHelper.shared.apiCallDeviceUsage()
@@ -87,8 +91,9 @@ class CustomSplashVC: BaseVC {
                     }
                 }
             } else {
-                
+                DispatchQueue.global(qos: .userInteractive).sync {
                 self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+                }
             }
         }
     }

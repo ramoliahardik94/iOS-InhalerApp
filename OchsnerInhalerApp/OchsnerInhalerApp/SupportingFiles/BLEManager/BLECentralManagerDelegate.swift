@@ -177,17 +177,19 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
         // get the handle to the peripheral already connected by the os and set ourselves as the delegate
-        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
-            if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
-                if (peripherals.count > 0) {
-                    if let peripheral = peripherals.first(where: {$0.state == .connected}) {
-                    Logger.logInfo("willRestoreState \(peripherals)")
-                        discoveredPeripheral = peripheral                    
-                    } else {
-                        discoveredPeripheral = peripherals[0]
+        if centralManager.state == .poweredOn {
+            let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+            if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
+                if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
+                    if (peripherals.count > 0) {
+                        if let peripheral = peripherals.first(where: {$0.state == .connected}) {
+                            Logger.logInfo("willRestoreState \(peripherals)")
+                            discoveredPeripheral = peripheral                    
+                        } else {
+                            discoveredPeripheral = peripherals[0]
+                        }
+                        discoveredPeripheral!.delegate = self
                     }
-                    discoveredPeripheral!.delegate = self
                 }
             }
         }
