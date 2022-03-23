@@ -25,7 +25,8 @@ class BLEHelper: NSObject {
     var isAllow = false
     var timer: Timer!
     var isAddAnother = false
-    var accuationLog: Decimal = 0
+    var noOfLog: Decimal = 0
+    var logCounter = 0
     var isPullToRefresh = false
     func setDelegate() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)

@@ -54,19 +54,20 @@ extension BLEHelper: CBPeripheralDelegate {
                 
             } else if str == StringCharacteristics.getType(.accuationLogNumber)() {
                 
-                accuationLog = stringFromData.getNumberofAccuationLog()
-                Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) \n Number Of Acuation log Decimal: \(accuationLog)")
-                if accuationLog > 0 {
+                noOfLog = stringFromData.getNumberofAccuationLog()
+                Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) \n Number Of Acuation log Decimal: \(noOfLog)")
+                if noOfLog > 0 {
                     getAccuationLog()
                 } else {
                     apiCallForAccuationlog()
                 }
                 DispatchQueue.main.async { [self] in
-                    NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(accuationLog)"])
+                    NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(noOfLog)"])
                 }
                 
             } else if str == StringCharacteristics.getType(.acuationLog)() {
-                let log = stringFromData.getAcuationLog()
+                logCounter += 1
+                let log = stringFromData.getAcuationLog(counter: logCounter)
                 Logger.logInfo("Acuation log Hax: \(String(describing: stringFromData)) \n Acuation log Decimal: \(log)")
                 
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:

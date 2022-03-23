@@ -84,11 +84,14 @@ class CustomSplashVC: BaseVC {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.rootVC(controller: addDeviceIntroVC)
                 } else {
-                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                    DispatchQueue.main.async {
-                        self.rootVC(controller: homeTabBar)
-                    }
+//                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+//                    DispatchQueue.main.async {
+//                        self.rootVC(controller: homeTabBar)
+//                    }
+                    
+                    let addDeviceIntroVC = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                        self.rootVC(controller: addDeviceIntroVC)
                 }
             } else {
                 DispatchQueue.global(qos: .userInteractive).sync {

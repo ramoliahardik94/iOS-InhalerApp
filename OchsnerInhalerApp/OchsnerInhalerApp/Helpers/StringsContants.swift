@@ -184,7 +184,7 @@ struct StringAddDevice {
     static let removeAndDiscard = "Remove and discard the yellow tag to activate your device."
     static let infoCharecter = "\n\n\nⓘ "
     static let deviceNearBy = "Make sure the device is nearby to the phone."
-    static let pairScreenStringArray = ["Tap", " 3 times ", "on the device, within", "\n5 seconds ", "click \"Pair Device\"."]
+    static let pairScreenStringArray = ["Tap", " 3 times ", "on the device within", "\n5 seconds ", "then click \"Pair Device\"."]
     
 }
 // MARK: Medication

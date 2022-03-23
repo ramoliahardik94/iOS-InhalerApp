@@ -28,7 +28,7 @@ class DatabaseManager {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
 //        let predicate2 =  NSPredicate(format: "issync == %d", false)
-        let predicate = predicate1 //NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        let predicate = predicate1 // NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
             var accuationLog: AcuationLog!
@@ -43,8 +43,9 @@ class DatabaseManager {
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
             
             if let date = object["date"] as? String {
-                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
-                accuationLog.isbadlog = logDate > Date()
+                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: true)                
+                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
+                accuationLog.isbadlog = (logDate > Date() || logDate < pastDate)
                 accuationLog.usedatelocal = date
             }
             
@@ -289,5 +290,28 @@ class DatabaseManager {
             return ""
         }
         return oldUDID
+    }
+    
+    func isContinuasBadReading() -> Bool {
+            var accuationLog = [AcuationLog]()
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
+            let predicate1 =  NSPredicate(format: "deviceidmac == %@", BLEHelper.shared.addressMAC)
+            let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1])
+            
+            let sortDescriptor = [NSSortDescriptor.init(key: "usedatelocal", ascending: false)]
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = sortDescriptor
+            fetchRequest.fetchLimit = 10
+            
+            do {
+                accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+                if accuationLog.first(where: {$0.isbadlog == false}) == nil {
+                    return true
+                }
+                return false
+            } catch {
+                debugPrint("Can not get Data")
+                return false
+            }
     }
 }

@@ -36,4 +36,10 @@ extension String {
         formatter.timeZone = isUTC ? TimeZone(identifier: "UTC") : .current
         return formatter.date(from: self)!
     }
+    func isDateVallid(format: String = "yyyy-MM-dd") -> Bool {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        guard formatter.date(from: self) != nil else { return false }
+        return true
+    }
 }
