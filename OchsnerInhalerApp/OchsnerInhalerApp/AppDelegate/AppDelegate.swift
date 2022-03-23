@@ -130,8 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func backgroundCall() {
        print("App moved to background!")
-        scheduleSanner(identifier: backgroundScanning)
-        scheduleSanner(identifier: backgroundReScanning)
+        scheduleSanner(identifier: backgroundScanning,isRefreshing: false)
+        scheduleSanner(identifier: backgroundReScanning,isRefreshing: true)
     }
     
     func navigationBarUI() {
@@ -276,36 +276,45 @@ extension AppDelegate {
         }
         
         workItem.notify(queue: .main, execute: {
-            Logger.logInfo("Task Complited.")
-            self.scheduleSanner(identifier: task.identifier == self.backgroundScanning ? self.backgroundReScanning : self.backgroundScanning)
+            Logger.logInfo("Task Complited \(task.identifier).")
+            task.setTaskCompleted(success: true)
         })
         let queue = DispatchQueue.global(qos: .utility)
         queue.async(execute: workItem)
-//        // Get & Set New Data
+
         task.expirationHandler = {
             Logger.logInfo("This Block call by System")
             // This Block call by System
             // Canle your all tak's & queues
         }
-
-//
-//        task.setTaskCompleted(success: true)
     }
     
-    func scheduleSanner(identifier: String ) {
-        let request = BGProcessingTaskRequest(identifier: identifier)
-        request.requiresNetworkConnectivity = true // Need to true if your task need to network process. Defaults to false.
-        request.requiresExternalPower = false
-        
-        // If we keep requiredExternalPower = true then it required device is connected to external power.
-        
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 1) // fetch Scanne after 1 sec.
-        // Note :: EarliestBeginDate should not be set to too far into the future.
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            Logger.logInfo("Task submit success \(identifier)")
-        } catch {
-            Logger.logError("Could not schedule scanner Task: \(error)")
+    func scheduleSanner(identifier: String,isRefreshing: Bool ) {
+        if isRefreshing {
+            let request = BGAppRefreshTaskRequest(identifier: identifier)
+            request.earliestBeginDate = Date(timeIntervalSinceNow: 2 * 60) // App Refresh after 2 minute.
+            //Note :: EarliestBeginDate should not be set to too far into the future.
+            do {
+                try BGTaskScheduler.shared.submit(request)
+                Logger.logInfo("Task submit success \(identifier)")
+            } catch {
+                print("Could not schedule app refresh: \(error)")
+            }
+        } else {
+            let request = BGProcessingTaskRequest(identifier: identifier)
+            request.requiresNetworkConnectivity = true // Need to true if your task need to network process. Defaults to false.
+            request.requiresExternalPower = false
+            
+            // If we keep requiredExternalPower = true then it required device is connected to external power.
+            
+            request.earliestBeginDate = Date(timeIntervalSinceNow: 1 * 60) // fetch Scanne after 1 sec.
+            // Note :: EarliestBeginDate should not be set to too far into the future.
+            do {
+                try BGTaskScheduler.shared.submit(request)
+                Logger.logInfo("Task submit success \(identifier)")
+            } catch {
+                Logger.logError("Could not schedule scanner Task: \(error)")
+            }
         }
     }
 }
