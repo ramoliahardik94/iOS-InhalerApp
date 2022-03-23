@@ -5,6 +5,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.ochsnerInhaler.scan</string>
+		<string>com.ochsnerInhaler.rescan</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var fileLogger: DDFileLogger!
     var eventStore: EKEventStore?
     let backgroundScanning = "com.ochsnerInhaler.scan"
+    let backgroundReScanning = "com.ochsnerInhaler.rescan"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
@@ -41,6 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         initFirebase()
         registerBackgroundTaks()
+        
+        BGTaskScheduler.shared.getPendingTaskRequests { arrTask in
+            for task in arrTask {
+                Logger.logInfo("Pending Task :-> \(task.identifier)")
+            }
+        }
         return true
     }
 
@@ -123,7 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func backgroundCall() {
        print("App moved to background!")
-        scheduleSanner()
+        scheduleSanner(identifier: backgroundScanning)
+        scheduleSanner(identifier: backgroundReScanning)
     }
     
     func navigationBarUI() {
@@ -243,50 +251,59 @@ extension AppDelegate: MFMailComposeViewControllerDelegate {
 extension AppDelegate {
     // MARK: Register BackGround Tasks
     private func registerBackgroundTaks() {
-        
         BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundScanning, using: nil) { task in
             // This task is cast with processing request (BGProcessingTask)
+            Logger.logInfo(" background Scanning ")
+            self.handleBLELogGet(task: task as! BGProcessingTask)
+        }
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundReScanning, using: nil) { task in
+            // This task is cast with processing request (BGProcessingTask)
             
-            Logger.logInfo(" backgroundAppProcesserIdentifier ")
-            
+            Logger.logInfo(" background Rescanning ")
             self.handleBLELogGet(task: task as! BGProcessingTask)
         }
     }
     
     func handleBLELogGet(task: BGProcessingTask) {
         
+        let workItem = DispatchWorkItem {
+            Logger.logInfo("handleBLELogGet")
+            if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral?.state != .connected {
+                BLEHelper.shared.scanPeripheral(isTimer: false)
+            } else {
+                BLEHelper.shared.getAccuationNumber()
+            }
+        }
         
-        // Todo Work
+        workItem.notify(queue: .main, execute: {
+            Logger.logInfo("Task Complited.")
+            self.scheduleSanner(identifier: task.identifier == self.backgroundScanning ? self.backgroundReScanning : self.backgroundScanning)
+        })
+        let queue = DispatchQueue.global(qos: .utility)
+        queue.async(execute: workItem)
+//        // Get & Set New Data
         task.expirationHandler = {
             Logger.logInfo("This Block call by System")
             // This Block call by System
             // Canle your all tak's & queues
-        
         }
-        
-        // Get & Set New Data
-        Logger.logInfo("handleBLELogGet")
-        if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral?.state != .connected {
-            BLEHelper.shared.scanPeripheral(isTimer: false)
-        } else {
-            BLEHelper.shared.getAccuationNumber()
-        }
-        //
-        task.setTaskCompleted(success: true)
-        scheduleSanner()
+
+//
+//        task.setTaskCompleted(success: true)
     }
     
-    func scheduleSanner() {
-        let request = BGProcessingTaskRequest(identifier: backgroundScanning)
+    func scheduleSanner(identifier: String ) {
+        let request = BGProcessingTaskRequest(identifier: identifier)
         request.requiresNetworkConnectivity = true // Need to true if your task need to network process. Defaults to false.
         request.requiresExternalPower = false
+        
         // If we keep requiredExternalPower = true then it required device is connected to external power.
         
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 1) // fetch Scanne after 1 minute.
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1) // fetch Scanne after 1 sec.
         // Note :: EarliestBeginDate should not be set to too far into the future.
         do {
             try BGTaskScheduler.shared.submit(request)
-            Logger.logInfo("Task submit success")
+            Logger.logInfo("Task submit success \(identifier)")
         } catch {
             Logger.logError("Could not schedule scanner Task: \(error)")
         }
