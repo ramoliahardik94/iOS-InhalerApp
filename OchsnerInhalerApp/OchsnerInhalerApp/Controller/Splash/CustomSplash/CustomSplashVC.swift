@@ -18,7 +18,7 @@ class CustomSplashVC: BaseVC {
     
     override func viewDidLoad() {
         DispatchQueue.global(qos: .userInteractive).sync {
-            self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
         }
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
@@ -35,17 +35,10 @@ class CustomSplashVC: BaseVC {
         deviceUDID = devicelist.map({$0.udid!})
         
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
-            BLEHelper.shared.setDelegate()
-            delay(2) {
-                if BLEHelper.shared.centralManager.state == .poweredOn {
-                    BLEHelper.shared.scanPeripheral()
-                }
-            }
-            
-            BLEHelper.shared.apiCallDeviceUsage()
             if UserDefaultManager.isLocationOn {
                 LocationManager.shared = LocationManager()
             }
+            BLEHelper.shared.apiCallDeviceUsage()
         }
     }
     
@@ -79,7 +72,7 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow && self.isTime {
-                BLEHelper.shared.setDelegate()
+            
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
