@@ -38,6 +38,7 @@ class MedicationDetailVC: BaseVC {
     }()
     let dropDown = DropDown()
   private var userName = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -54,29 +55,28 @@ class MedicationDetailVC: BaseVC {
         view.addSubview(myPicker)
         let conObj = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            
-            // custom picker view should cover the whole view
             myPicker.topAnchor.constraint(equalTo: conObj.topAnchor),
             myPicker.leadingAnchor.constraint(equalTo: conObj.leadingAnchor),
             myPicker.trailingAnchor.constraint(equalTo: conObj.trailingAnchor),
-            myPicker.bottomAnchor.constraint(equalTo: conObj.bottomAnchor)])
-        
-        // hide custom picker view
+            myPicker.bottomAnchor.constraint(equalTo: conObj.bottomAnchor)
+        ])
         myPicker.isHidden = true
         myPicker.mode = .time
-        // add closures to custom picker view
         myPicker.dismissClosure = { [weak self] val in
             guard let self = self else {
                 return
             }
             let formatter = DateFormatter()
-            formatter.dateFormat =  "hh:mm a"
+            formatter.dateFormat =  DateFormate.doseTime
             let selectedTime = formatter.string(from: val)
-            
-            self.medicationVM.arrTime.remove(at: self.myPicker.tag)
-            self.medicationVM.arrTime.insert(selectedTime, at: self.myPicker.tag)
+            if !self.validateTime(time: selectedTime, isEdit: true, index: self.myPicker.tag) {
+                self.view.makeToast(ValidationMsg.doseError)
+            } else {
+                self.medicationVM.arrTime.remove(at: self.myPicker.tag)
+                self.medicationVM.arrTime.insert(selectedTime, at: self.myPicker.tag)
+            }
+            self.setArrTime(descending: false)
             self.tblDoseTime.reloadData()
-            
             self.myPicker.isHidden = true
         }
     }
@@ -129,38 +129,52 @@ class MedicationDetailVC: BaseVC {
         self.popVC()
     }
     
-    @IBAction func btnDoneClick(_ sender: UIButton) {
-        if swReminder.isOn {
-            addReminderToCalender()
+    func validateDosesOnDone() -> Bool {
+        for (index, element) in self.medicationVM.arrTime.enumerated() {
+            print("Item \(index): \(element)")
+            if !validateTime(time: element, isEdit: true, index: index) {
+                return false
+            }
         }
-        if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
-            medicationVM.apiAddDevice(isreminder: swReminder.isOn) { [weak self] result in
-                guard let `self` = self else { return }
-                switch result {
-                case .success(let status):
-                    print("Response sucess :\(status)")
-                    UserDefaultManager.isAddReminder = self.swReminder.isOn
-                    if self.isFromDeviceList {
-                        
-                        self.navigationController?.popToRootViewController(animated: true)
-                    } else if !self.medicationVM.isEdit {
-                        self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
-                        UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
-                        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                        self.pushVC(controller: addAnotherDeviceVC)
-                    } else {
-                        self.popVC()
+
+        return true
+    }
+    
+    @IBAction func btnDoneClick(_ sender: UIButton) {
+        if validateDosesOnDone() {
+            if swReminder.isOn {
+                addReminderToCalender()
+            }
+            if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
+                medicationVM.apiAddDevice(isreminder: swReminder.isOn) { [weak self] result in
+                    guard let `self` = self else { return }
+                    switch result {
+                    case .success(let status):
+                        print("Response sucess :\(status)")
+                        UserDefaultManager.isAddReminder = self.swReminder.isOn
+                        if self.isFromDeviceList {
+                            self.navigationController?.popToRootViewController(animated: true)
+                        } else if !self.medicationVM.isEdit {
+                            self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                            UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
+                            let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                            self.pushVC(controller: addAnotherDeviceVC)
+                        } else {
+                            self.popVC()
+                        }
+                    case .failure(let message):
+                        CommonFunctions.showMessage(message: message)
                     }
-                case .failure(let message):
-                    CommonFunctions.showMessage(message: message)
+                }
+            } else {
+                if medicationVM.puff == 0 {
+                    CommonFunctions.showMessage(message: ValidationMsg.addPuff)
+                } else {
+                    CommonFunctions.showMessage(message: ValidationMsg.addDose)
                 }
             }
         } else {
-            if medicationVM.puff == 0 {
-            CommonFunctions.showMessage(message: ValidationMsg.addPuff)
-            } else {
-                CommonFunctions.showMessage(message: ValidationMsg.addDose)
-            }
+            CommonFunctions.showMessage(message: ValidationMsg.doseError)
         }
     }
     
@@ -173,9 +187,22 @@ class MedicationDetailVC: BaseVC {
     
     @IBAction func btnAddDoseClick(_ sender: Any) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
-        let dosetime =  dateFormatter.string(from: Date())
+        dateFormatter.dateFormat = DateFormate.doseTime
+        var displayDate: Date
+        let date = self.medicationVM.arrTime.map({dateFormatter.date(from: $0)!})
+        //TODO: Hours gap for two dose add time
+        let hour = 8
+        if date.count > 0 {
+            displayDate = date[self.medicationVM.arrTime.count - 1].addingTimeInterval(TimeInterval((60*60) * hour))
+        } else {
+            displayDate = Date()
+        }
+        let dosetime =  dateFormatter.string(from: displayDate)
+        if !validateTime(time: dosetime) {
+            self.view.makeToast(ValidationMsg.doseError)
+        }
         self.medicationVM.arrTime.append(dosetime)
+        setArrTime(descending: false)
         tblDoseTime.reloadData()
         lblAddDose.text =  self.medicationVM.arrTime.count == 0 ? StringMedication.addFirstDose : StringMedication.addDose
         viewAddDose.isHidden = self.medicationVM.arrTime.count  == 10
@@ -184,6 +211,14 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnEditDose(_ sender: UIButton) {
         myPicker.tag = sender.tag
         myPicker.isHidden = false
+        myPicker.tag = sender.tag
+        myPicker.isHidden = false
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormate.doseTime
+        let dosetime = dateFormatter.date(from: self.medicationVM.arrTime[sender.tag])
+        myPicker.selectedDate = dosetime!
+        myPicker.dPicker.setDate(dosetime ?? Date(), animated: false)
+        
     }
     
     @IBAction func btnRemoveDoseTimeClick(_ sender: UIButton) {
@@ -232,60 +267,24 @@ class MedicationDetailVC: BaseVC {
     
     func addReminderToCalender() {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
-        // var arrayDate = [Date]()
-       // var stingDate = ""
-       var graterDate =  Date()
-       var showDoesTime  = ""
-       let dateFormatter = DateFormatter()
-       dateFormatter.dateFormat = "dd/MM/yyyy"
-       let strDate = dateFormatter.string(from: Date())
-       let arrTime = self.medicationVM.arrTime.map({"\(strDate) \($0)".getDate(format: "dd/MM/yyyy hh:mm a", isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending })
-       print(arrTime)
-       graterDate = arrTime[0]
-        let time = graterDate.getString(format: "dd/MM/yyyy hh:mm a",isUTC: true).split(separator: " ")
+        var graterDate =  Date()
+        var showDoesTime  = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let strDate = dateFormatter.string(from: Date())
+        let arrTime = self.medicationVM.arrTime.map({"\(strDate) \($0)".getDate(format: "dd/MM/yyyy hh:mm a", isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending })
+        graterDate = arrTime[0]
+        let time = graterDate.getString(format: "dd/MM/yyyy hh:mm a", isUTC: true).split(separator: " ")
         if time.count >= 2 {
             showDoesTime = "\(time[1]) \(time[2])"
         }
-        print(showDoesTime)
-       
-//        for obj in self.medicationVM.arrTime {
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "hh:mm a"
-//            let today = Date()
-//            dateFormatter.dateFormat = "dd/MM/yyyy"
-//            let strDate = "\(dateFormatter.string(from: today)) \(obj)"
-//            print("strDate \(strDate)")
-//            dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
-//            if stingDate == "" {
-//                stingDate = strDate
-//                showDoesTime = obj
-//            }
-//            if let date = dateFormatter.date(from: strDate) {
-//                if stingDate == "" {
-//                    graterDate = date
-//                }
-//                if date > dateFormatter.date(from: stingDate) ?? Date() {
-//                    stingDate = strDate
-//                    graterDate = date
-//                    showDoesTime = obj
-//                }
-//            }
-//        }
-       
-       
-       print("graterDate \(graterDate)")
-       
-       var calendar = Calendar(identifier: .gregorian)
-       calendar.timeZone = TimeZone(identifier: "UTC")!
-//        var component = calendar.dateComponents([.hour, .minute, .second], from: graterDate)
-      
-       let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
-       
-//        calendar.date(byAdding: .minute, value: 30, to: graterDate) ?? Date()
-       let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
-       setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
-       
-   }
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+        let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
+        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
+    }
     
     func setNotification(date: Date, titile: String, calendar: Calendar) {
         Logger.logInfo(" setNotification start \(date)")
@@ -305,7 +304,6 @@ class MedicationDetailVC: BaseVC {
             } else {
                 Logger.logInfo("Notification set for \(components)")
             }
-            
         })
         Logger.logInfo(" setNotification End")
     }
@@ -323,7 +321,42 @@ class MedicationDetailVC: BaseVC {
             }
         }
     }
+    
+    func setArrTime(descending: Bool) {
+        if descending {
+            self.medicationVM.arrTime = self.medicationVM.arrTime.map({$0.getDate(format: DateFormate.doseTime, isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending }).map({$0.getString(format: DateFormate.doseTime, isUTC: true)})
+        } else {
+            self.medicationVM.arrTime = self.medicationVM.arrTime.map({$0.getDate(format: DateFormate.doseTime, isUTC: true)}).sorted().map({$0.getString(format: DateFormate.doseTime, isUTC: true)})
+        }
+        print(self.medicationVM.arrTime)
+    }
+    
+    func validateTime(time: String, isEdit: Bool = false, index: Int = 0) -> Bool {
+        var inx = 0
+        if self.medicationVM.arrTime.count > 1 {
+            while(inx !=  self.medicationVM.arrTime.count - 1 ) {
+                if (isEdit && inx != index) || !isEdit {
+                    let timeformatter = DateFormatter()
+                    timeformatter.timeZone = .current
+                    timeformatter.dateFormat = DateFormate.doseTime
+                    guard let time1 = timeformatter.date(from: self.medicationVM.arrTime[inx]),
+                          let time2 = timeformatter.date(from: time) else { return false }
+                    let interval = time2.timeIntervalSince(time1)
+                    let hour = interval / 3600
+                    // TODO: minimum time for two dose
+                    if abs(hour) == 0 { //  if abs(hour) < 1 { for minimum one hour
+                        return false
+                    }
+                    print("\(inx) == \(self.medicationVM.arrTime.count)")
+                }
+                inx += 1
+            }
+        }
+        return true
+    }
+    
  }
+
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.medicationVM.arrTime.count

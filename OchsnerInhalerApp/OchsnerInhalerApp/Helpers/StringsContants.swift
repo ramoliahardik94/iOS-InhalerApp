@@ -108,6 +108,7 @@ struct ValidationMsg {
 
     static let successAcuation = "Data sync to cloud successfully"
     static let failAcuation = "Data sync to cloud fail"
+    static let doseError = "Multiple doses for the same time cannot be scheduled!"
 }
 struct ValidationButton {
     static let tryAgain = "Try again"
@@ -264,5 +265,6 @@ struct DateFormate {
     static let dateFromLog = "yyyy-MM-dd HH:mm:ss"
     static let useDateLocalAPI = "yyyy-MM-dd'T'HH:mm:ssZ"
     static let deviceSyncDateUTCAPI = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    static let doseTime = "hh:mm a"
 }
 

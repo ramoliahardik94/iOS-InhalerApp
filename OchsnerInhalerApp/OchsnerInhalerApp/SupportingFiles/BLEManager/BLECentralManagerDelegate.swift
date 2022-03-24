@@ -87,11 +87,11 @@ extension BLEHelper: CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         
-        guard RSSI.intValue >= -55
-        else {
-            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-            return
-        }
+//        guard RSSI.intValue >= -55
+//        else {
+//            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+//            return
+//        }
         
         Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         
@@ -177,7 +177,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
         // get the handle to the peripheral already connected by the os and set ourselves as the delegate
-        if centralManager.state == .poweredOn {
+        Logger.logInfo("willRestoreState")
             let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
             if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
                 if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
@@ -192,6 +192,5 @@ extension BLEHelper: CBCentralManagerDelegate {
                     }
                 }
             }
-        }
     }
 }
