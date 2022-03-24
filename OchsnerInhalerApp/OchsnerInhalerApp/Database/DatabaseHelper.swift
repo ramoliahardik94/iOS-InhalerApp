@@ -43,7 +43,7 @@ class DatabaseManager {
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
             
             if let date = object["date"] as? String {
-                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: true)                
+                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: true)
                 let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
                 accuationLog.isbadlog = (logDate > Date() || logDate < pastDate)
                 accuationLog.usedatelocal = date
@@ -155,7 +155,8 @@ class DatabaseManager {
             let log = obj
             if let date = log.usedatelocal {
                 let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
-                if logDate < Date() {
+                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
+                if logDate <= Date() && logDate >= pastDate {
                     usage.append(log.APILog())
                 }
             }
