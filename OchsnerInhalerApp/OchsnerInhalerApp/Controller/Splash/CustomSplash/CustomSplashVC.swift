@@ -32,6 +32,7 @@ class CustomSplashVC: BaseVC {
        
         DispatchQueue.global(qos: .userInteractive).sync {
             self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+            Logger.logInfo("Timer For Custom splash")
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
@@ -63,6 +64,7 @@ class CustomSplashVC: BaseVC {
                 return
             } else {
                 isTime = true
+                Logger.logInfo("didFinishTimer > !UserDefaultManager.isGrantBLE")
                 BLEHelper.shared.setDelegate()
          }
         } else {
@@ -76,7 +78,7 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow && self.isTime {
-            
+                Logger.logInfo("getisAllow > If > isAllow = \(isAllow) && isTime = \(self.isTime) ")
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -90,6 +92,7 @@ class CustomSplashVC: BaseVC {
                 }
             } else {
                 DispatchQueue.global(qos: .userInteractive).sync {
+                    Logger.logInfo("getisAllow > Else > isAllow = \(isAllow) ")
                 self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
                 }
             }

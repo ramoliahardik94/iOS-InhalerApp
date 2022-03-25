@@ -266,11 +266,8 @@ class MedicationDetailVC: BaseVC {
         if self.medicationVM.arrTime.count > 0 {
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
             if let graterDate =  self.medicationVM.arrTime.last?.getDate(format: DateFormate.doseTime) {
-                let time = self.medicationVM.arrTime.last!
-                var showDoesTime  = " "
-                if time.count >= 2 {
-                    showDoesTime = "\(time[0]) \(time[1])"
-                }
+               
+                let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                 var calendar = Calendar(identifier: .gregorian)
                 calendar.timeZone = .current
                 let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
