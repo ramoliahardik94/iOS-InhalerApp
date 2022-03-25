@@ -266,29 +266,28 @@ class MedicationDetailVC: BaseVC {
     }
     
     func addReminderToCalender() {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
-        var graterDate =  Date()
-        var showDoesTime  = ""
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let strDate = dateFormatter.string(from: Date())
-        let arrTime = self.medicationVM.arrTime.map({"\(strDate) \($0)".getDate(format: "dd/MM/yyyy hh:mm a", isUTC: true)}).sorted(by: { $0.compare($1) == .orderedDescending })
-        graterDate = arrTime[0]
-        let time = graterDate.getString(format: "dd/MM/yyyy hh:mm a", isUTC: true).split(separator: " ")
-        if time.count >= 2 {
-            showDoesTime = "\(time[1]) \(time[2])"
+        if self.medicationVM.arrTime.count > 0 {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
+            if let graterDate =  self.medicationVM.arrTime.last?.getDate(format: DateFormate.doseTime) {
+                let time = self.medicationVM.arrTime.last!
+                var showDoesTime  = " "
+                if time.count >= 2 {
+                    showDoesTime = "\(time[0]) \(time[1])"
+                }
+                var calendar = Calendar(identifier: .gregorian)
+                calendar.timeZone = .current
+                let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+             
+                let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", showDoesTime )
+                
+                // let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
+                setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
+            }
         }
-        
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "UTC")!
-        let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
-        let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
-        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
     }
     
     func setNotification(date: Date, titile: String, calendar: Calendar) {
-        Logger.logInfo(" setNotification start \(date)")
-        
+        Logger.logInfo("Set Reminder For Time : \(date)")
         let content = UNMutableNotificationContent()
         let components = calendar.dateComponents([.hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
@@ -299,13 +298,13 @@ class MedicationDetailVC: BaseVC {
         
         let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            
             if let error = error {
-                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+                Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
             } else {
                 Logger.logInfo("Notification set for \(components)")
             }
         })
-        Logger.logInfo(" setNotification End")
     }
     private func doGetProfileData() {
         let profileVM = ProfileVM()
@@ -354,7 +353,6 @@ class MedicationDetailVC: BaseVC {
         }
         return true
     }
-    
  }
 
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {

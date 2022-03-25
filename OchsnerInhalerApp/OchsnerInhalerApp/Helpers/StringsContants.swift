@@ -256,6 +256,7 @@ struct CellIdentifier {
 struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
     static let body = "You will be no longer able to track the medicine usage"
+    static let reminderBody = "%@ Just reminding you about your scheduled %@ doses at %@.Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
 }
@@ -266,5 +267,6 @@ struct DateFormate {
     static let useDateLocalAPI = "yyyy-MM-dd'T'HH:mm:ssZ"
     static let deviceSyncDateUTCAPI = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     static let doseTime = "hh:mm a"
+    static let reminder = "dd/MM/yyyy hh:mm a"
 }
 
