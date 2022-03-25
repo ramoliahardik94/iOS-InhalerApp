@@ -43,9 +43,9 @@ extension BLEHelper {
     
     func stopTimer() {
         print("timerStop")
-        if timer != nil {
-            timer!.invalidate()
-            timer = nil
+        if self.timer != nil {
+            //self.timer!.invalidate()
+            self.timer = nil
         }
         isScanning = false
     }

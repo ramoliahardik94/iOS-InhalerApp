@@ -32,7 +32,8 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        if (BLEHelper.shared.discoveredPeripheral == nil) {        
+        if (BLEHelper.shared.discoveredPeripheral == nil) {
+            Logger.logInfo("HoeVC >> scanPeripheral ")
             BLEHelper.shared.scanPeripheral()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)

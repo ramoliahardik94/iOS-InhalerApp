@@ -111,6 +111,7 @@ class LoginVC: BaseVC {
                 }
             }
         } else {
+            Logger.logInfo("LoginVC >> scanPeripheral ")
             BLEHelper.shared.scanPeripheral()
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController

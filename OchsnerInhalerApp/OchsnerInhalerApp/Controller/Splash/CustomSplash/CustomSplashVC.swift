@@ -13,11 +13,12 @@ class CustomSplashVC: BaseVC {
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblConnectdInhalerSensor: UILabel!
     var deviceUDID = [String]()
-    var timer: Timer!
+    var timerSplash: Timer!
     var isTime = false
     override func viewDidLoad() {
         
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+        timerSplash = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+        Logger.logInfo("Timer start with Custom splash")
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
@@ -35,6 +36,7 @@ class CustomSplashVC: BaseVC {
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
             BLEHelper.shared.setDelegate()
             delay(2) {
+                Logger.logInfo("CustomSplash >> scanPeripheral ")
                 BLEHelper.shared.scanPeripheral()
             }
             
@@ -43,6 +45,10 @@ class CustomSplashVC: BaseVC {
                 LocationManager.shared = LocationManager()
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     @objc func didFinishTimer() {
@@ -61,8 +67,13 @@ class CustomSplashVC: BaseVC {
                 self.rootVC(controller: notificationPermissionVC)
                 return
             } else {
+                Logger.logInfo(" didFinishTimer > UserDefaultManager.isLogin >>  !UserDefaultManager.isGrantBLE >>> Else ")
                 isTime = true
-                BLEHelper.shared.setDelegate()
+                    if !BLEHelper.shared.isAllow {
+                        BLEHelper.shared.setDelegate()
+                    } else {
+                        getisAllow(notification: Notification(name: .BLEOnOff, object: nil, userInfo: nil))
+                    }
          }
         } else {
             let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
@@ -75,11 +86,14 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow && self.isTime {
+                Logger.logInfo("  getisAllow(notification: Notification) > isAllow = \(isAllow) && isTime = \(self.isTime) >> If")
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
-                let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                    Logger.logInfo("  getisAllow(notification: Notification) > devicelist.count == 0 >> If")
+                    let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.rootVC(controller: addDeviceIntroVC)
                 } else {
+                    Logger.logInfo("  getisAllow(notification: Notification) > devicelist.count == 0 >> ElseBLE")
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                     DispatchQueue.main.async {
@@ -87,8 +101,8 @@ class CustomSplashVC: BaseVC {
                     }
                 }
             } else {
-                
-                self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+                Logger.logInfo("  getisAllow(notification: Notification) > isAllow = \(isAllow) && isTime = \(self.isTime) >> Else")
+                self.timerSplash = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
             }
         }
     }
