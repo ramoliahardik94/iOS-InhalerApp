@@ -186,18 +186,17 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnAddDoseClick(_ sender: Any) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = DateFormate.doseTime
+       
         var displayDate: Date
-        let date = self.medicationVM.arrTime.map({dateFormatter.date(from: $0)!})
-        //TODO: Hours gap for two dose add time
+        let date = self.medicationVM.arrTime.map({ $0.getDate(format: DateFormate.doseTime)})
+        // TODO: Hours gap for two dose add time
         let hour = 8
         if date.count > 0 {
             displayDate = date[self.medicationVM.arrTime.count - 1].addingTimeInterval(TimeInterval((60*60) * hour))
         } else {
             displayDate = Date()
         }
-        let dosetime =  dateFormatter.string(from: displayDate)
+        let dosetime =   displayDate.getString(format: DateFormate.doseTime)
         if !validateTime(time: dosetime) {
             self.view.makeToast(ValidationMsg.doseError)
         }
@@ -213,11 +212,9 @@ class MedicationDetailVC: BaseVC {
         myPicker.isHidden = false
         myPicker.tag = sender.tag
         myPicker.isHidden = false
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = DateFormate.doseTime
-        let dosetime = dateFormatter.date(from: self.medicationVM.arrTime[sender.tag])
-        myPicker.selectedDate = dosetime!
-        myPicker.dPicker.setDate(dosetime ?? Date(), animated: false)
+        let dosetime = self.medicationVM.arrTime[sender.tag].getDate(format: DateFormate.doseTime)
+        myPicker.selectedDate = self.medicationVM.arrTime[sender.tag].getDate(format: DateFormate.doseTime)
+        myPicker.dPicker.setDate(dosetime, animated: false)
         
     }
     

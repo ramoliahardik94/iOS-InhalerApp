@@ -31,10 +31,11 @@ extension TimeInterval {
 
 extension String {
     func getDate(format: String = "dd/MM/yyyy hh:mm a", isUTC: Bool = false) -> Date {
+        let defaultStr = Date().getString(format: format)
         let formatter = DateFormatter()
         formatter.dateFormat = format
         formatter.timeZone = isUTC ? TimeZone(identifier: "UTC") : .current
-        return formatter.date(from: self)!
+        return formatter.date(from: self) ?? formatter.date(from: defaultStr)!
     }
     func isDateVallid(format: String = "yyyy-MM-dd") -> Bool {
         let formatter = DateFormatter()

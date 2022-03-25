@@ -269,4 +269,3 @@ struct DateFormate {
     static let doseTime = "hh:mm a"
     static let reminder = "dd/MM/yyyy hh:mm a"
 }
-
