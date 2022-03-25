@@ -88,6 +88,7 @@ class CreateAccoutVC: BaseVC {
             switch result {
             case .success(let status):
              print("Response sucess :\(status)")
+                UserDefaultManager.email = self?.createAccountVM.userData.email ?? ""
                 let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self?.pushVC(controller: bluetoothPermissionVC)
             

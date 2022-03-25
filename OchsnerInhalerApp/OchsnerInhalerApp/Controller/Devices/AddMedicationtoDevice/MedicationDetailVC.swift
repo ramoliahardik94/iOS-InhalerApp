@@ -277,7 +277,6 @@ class MedicationDetailVC: BaseVC {
              
                 let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", showDoesTime )
                 
-                // let title = "\(self.userName)Just reminding you about your scheduled \(lblMedicationName.text ?? "") doses at \(showDoesTime).Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
                 setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
             }
         }
@@ -300,6 +299,8 @@ class MedicationDetailVC: BaseVC {
                 Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
             } else {
                 Logger.logInfo("Notification set for \(components)")
+                Logger.logInfo("\(StringAddDevice.titleAddDevice)")
+                Logger.logInfo("\(titile)")
             }
         })
     }
