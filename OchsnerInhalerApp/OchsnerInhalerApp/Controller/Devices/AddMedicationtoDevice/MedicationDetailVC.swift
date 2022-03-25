@@ -309,7 +309,7 @@ class MedicationDetailVC: BaseVC {
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
-                self.userName = "Hi \(profileVM.userData.user?.firstName ?? ""), "
+                self.userName = profileVM.userData.user?.firstName ?? ""
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
