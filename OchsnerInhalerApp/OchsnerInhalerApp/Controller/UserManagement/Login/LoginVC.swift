@@ -71,8 +71,11 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "abc@mail.com"
 //        tfPassword.text = "Test123"
         
-        tfEmail.text = "bhoomika.chauhan@volansys.com"
-        tfPassword.text = "1234"
+//        tfEmail.text = "bhoomika.chauhan@volansys.com"
+//        tfPassword.text = "1234"
+        
+        tfEmail.text = "shekhawatdhaval@gmail.com"
+        tfPassword.text = "Dhaval@1234"
 
        // forceCrash()
         #endif
@@ -111,7 +114,9 @@ class LoginVC: BaseVC {
                 }
             }
         } else {
-            BLEHelper.shared.scanPeripheral()
+            if BLEHelper.shared.centralManager.state == .poweredOn {
+                BLEHelper.shared.scanPeripheral()
+            }
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
             // homeTabBar.selectedIndex = 1

@@ -92,7 +92,7 @@ class AddDeviceIntroVC: BaseVC {
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerFound(notification:)), name: .BLEFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotFound(notification:)), name: .BLENotFound, object: nil)
-           
+            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
                       
         case .step4:
             lblGreat.text = StringAddDevice.connectDevice
@@ -239,18 +239,22 @@ extension AddDeviceIntroVC {
 
     }
     @objc func inhalerNotConnect(notification: Notification) {
-        btnStartSetUp.isEnabled = false
-        
-        btnStartSetUp.backgroundColor = .gray
-        paringLoader.stopAnimating()
-        paringLoader.isHidden = true
-        CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: ValidationButton.tryAgain) { [weak self] _ in
-            BLEHelper.shared.connectPeriPheral()
-            guard let weakSelf = self else { return }
-            weakSelf.paringLoader.isHidden = false
-            weakSelf.paringLoader.startAnimating()
-            weakSelf.btnStartSetUp.isEnabled = false
-            weakSelf.btnStartSetUp.backgroundColor = .ButtonColorBlue
+        if self.step == .step4 {
+            btnStartSetUp.isEnabled = false
+            btnStartSetUp.backgroundColor = .gray
+            paringLoader.stopAnimating()
+            paringLoader.isHidden = true
+            CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: ValidationButton.tryAgain) { [weak self] _ in
+                BLEHelper.shared.connectPeriPheral()
+                guard let weakSelf = self else { return }
+                weakSelf.paringLoader.isHidden = false
+                weakSelf.paringLoader.startAnimating()
+                weakSelf.btnStartSetUp.isEnabled = false
+                weakSelf.btnStartSetUp.backgroundColor = .ButtonColorBlue
+            }
+            
+        } else if self.step == .step3 {
+            inhalerNotFound(notification: Notification(name: .BLENotFound))
         }
     }
     @objc func inhalerNotFound(notification: Notification) {

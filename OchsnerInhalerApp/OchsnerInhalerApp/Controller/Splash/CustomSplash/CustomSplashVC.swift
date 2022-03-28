@@ -15,9 +15,10 @@ class CustomSplashVC: BaseVC {
     var deviceUDID = [String]()
     var timer: Timer!
     var isTime = false
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
         
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
@@ -28,20 +29,21 @@ class CustomSplashVC: BaseVC {
         lblConnectdInhalerSensor.textColor = .ColorSplashText
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
+       
+        DispatchQueue.global(qos: .userInteractive).sync {
+            self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+            Logger.logInfo("Timer For Custom splash")
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
+        
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         deviceUDID = devicelist.map({$0.udid!})
-        
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
-            BLEHelper.shared.setDelegate()
-            delay(2) {
-                BLEHelper.shared.scanPeripheral()
-            }
-            
-            BLEHelper.shared.apiCallDeviceUsage()
             if UserDefaultManager.isLocationOn {
                 LocationManager.shared = LocationManager()
             }
+            BLEHelper.shared.apiCallDeviceUsage()
         }
     }
     
@@ -62,6 +64,7 @@ class CustomSplashVC: BaseVC {
                 return
             } else {
                 isTime = true
+                Logger.logInfo("didFinishTimer > !UserDefaultManager.isGrantBLE")
                 BLEHelper.shared.setDelegate()
          }
         } else {
@@ -75,11 +78,12 @@ class CustomSplashVC: BaseVC {
             guard let `self` = self else { return }
             
             if isAllow && self.isTime {
+                Logger.logInfo("getisAllow > If > isAllow = \(isAllow) && isTime = \(self.isTime) ")
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
                 if devicelist.count == 0 {
                 let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.rootVC(controller: addDeviceIntroVC)
-                } else {
+                } else {                    
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                     DispatchQueue.main.async {
@@ -87,8 +91,10 @@ class CustomSplashVC: BaseVC {
                     }
                 }
             } else {
-                
+                DispatchQueue.global(qos: .userInteractive).sync {
+                    Logger.logInfo("getisAllow > Else > isAllow = \(isAllow) ")
                 self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+                }
             }
         }
     }

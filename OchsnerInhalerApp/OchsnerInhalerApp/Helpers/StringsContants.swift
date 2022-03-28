@@ -108,6 +108,7 @@ struct ValidationMsg {
 
     static let successAcuation = "Data sync to cloud successfully"
     static let failAcuation = "Data sync to cloud fail"
+    static let doseError = "Multiple doses for the same time cannot be scheduled!"
 }
 struct ValidationButton {
     static let tryAgain = "Try again"
@@ -184,7 +185,7 @@ struct StringAddDevice {
     static let removeAndDiscard = "Remove and discard the yellow tag to activate your device."
     static let infoCharecter = "\n\n\nⓘ "
     static let deviceNearBy = "Make sure the device is nearby to the phone."
-    static let pairScreenStringArray = ["Tap", " 3 times ", "on the device, within", "\n5 seconds ", "click \"Pair Device\"."]
+    static let pairScreenStringArray = ["Tap", " 3 times ", "on the device within", "\n5 seconds ", "then click \"Pair Device\"."]
     
 }
 // MARK: Medication
@@ -255,6 +256,7 @@ struct CellIdentifier {
 struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
     static let body = "You will be no longer able to track the medicine usage"
+    static let reminderBody = "Hi, %@ Just reminding you about your scheduled %@ doses at %@.Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
 }
@@ -264,5 +266,6 @@ struct DateFormate {
     static let dateFromLog = "yyyy-MM-dd HH:mm:ss"
     static let useDateLocalAPI = "yyyy-MM-dd'T'HH:mm:ssZ"
     static let deviceSyncDateUTCAPI = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    static let doseTime = "hh:mm a"
+    static let reminder = "dd/MM/yyyy hh:mm a"
 }
-

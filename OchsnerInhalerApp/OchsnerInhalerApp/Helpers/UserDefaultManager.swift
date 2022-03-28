@@ -182,7 +182,7 @@ class UserDefaultManager {
     
     static var isAddReminder: Bool {
         get {
-            return self.get(forKey: .isAddReminder) as? Bool ?? false
+            return self.get(forKey: .isAddReminder) as? Bool ?? true
         }
         set(newValue) {
             self.set(NSNumber(value: newValue), forKey: .isAddReminder)

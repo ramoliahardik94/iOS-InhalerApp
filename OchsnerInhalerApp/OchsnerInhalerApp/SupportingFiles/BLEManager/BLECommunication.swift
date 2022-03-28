@@ -17,7 +17,8 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
-        if isAllow {
+    
+        if centralManager.state == .poweredOn {
             if UserDefaultManager.isLogin && (discoveredPeripheral == nil || discoveredPeripheral!.state != .connected || isAddAnother) {
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0
@@ -71,7 +72,6 @@ extension BLEHelper {
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
             if isAllow {
-//                BLEHelper.shared.scanPeripheral()
                 if discoveredPeripheral != nil {
                     switch discoveredPeripheral?.state {
                     case .connected:
@@ -83,7 +83,9 @@ extension BLEHelper {
                         break
                     }
                 } else {
-                    scanPeripheral()
+                    if BLEHelper.shared.centralManager.state == .poweredOn {
+                        scanPeripheral()
+                    }
                 }
             } else {
               //  BLEHelper.shared.setDelegate()

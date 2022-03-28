@@ -11,14 +11,23 @@ import UIKit
 class NMDatePicker: UIView {
     var changeClosure: (Date) -> Void = {_ in }
     var dismissClosure: (Date) -> Void = {_ in }
-   // var changeClosure: ((Date) -> ())?
-   // var dismissClosure: ((Date)-> ())?
-
+ 
     var selectedDate = Date()
     let dPicker: UIDatePicker = {
         let obj = UIDatePicker()
         return obj
     }()
+    
+    let btnOk: UIButton = {
+        let obj = UIButton()
+        return obj
+    }()
+    
+    let btnCancel: UIButton = {
+        let obj = UIButton()
+        return obj
+    }()
+    
     var mode: UIDatePicker.Mode?
     
     override init(frame: CGRect) {
@@ -63,8 +72,17 @@ class NMDatePicker: UIView {
             dPicker.topAnchor.constraint(equalTo: pickerHolderView.topAnchor, constant: 20.0),
             dPicker.leadingAnchor.constraint(equalTo: pickerHolderView.leadingAnchor, constant: 20.0),
             dPicker.trailingAnchor.constraint(equalTo: pickerHolderView.trailingAnchor, constant: -20.0),
-            dPicker.bottomAnchor.constraint(equalTo: pickerHolderView.bottomAnchor, constant: -20.0)])
-       
+            dPicker.bottomAnchor.constraint(equalTo: pickerHolderView.bottomAnchor, constant: -20.0)
+//            ,
+        
+//            btnOk.topAnchor.constraint(equalTo: pickerHolderView.bottomAnchor, constant: 20.0),
+//            btnOk.leadingAnchor.constraint(equalTo: pickerHolderView.leadingAnchor, constant: 20.0),
+//            btnOk.trailingAnchor.constraint(equalTo: pickerHolderView.trailingAnchor, constant: -20.0),
+//            btnOk.heightAnchor.constraint(equalTo: , constant: 50)
+        
+        
+        ])
+        
         if #available(iOS 14.0, *) {
             dPicker.preferredDatePickerStyle = .wheels
         } else {

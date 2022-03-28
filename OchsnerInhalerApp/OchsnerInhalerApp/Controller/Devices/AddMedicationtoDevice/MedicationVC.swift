@@ -15,8 +15,9 @@ class MedicationVC: BaseVC {
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
+    
+    let refreshControl = UIRefreshControl()
     var isFromDeviceList = false
-
     var selectedIndex: Int?
     let medicationVM = MedicationVM()
 
@@ -58,8 +59,15 @@ class MedicationVC: BaseVC {
         
         btnNext.setButtonView(StringAddDevice.next)
         tblMedication.separatorStyle = UITableViewCell.SeparatorStyle.none
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tblMedication.addSubview(refreshControl)
     }
     
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
+        getMedication()
+        refreshControl.endRefreshing()
+    }
     
     @objc func macDetail(notification: Notification) {
         print(notification.object ?? "") // myObject

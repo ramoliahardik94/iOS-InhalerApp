@@ -24,13 +24,13 @@ extension String {
         return Decimal(betteryLevel)
     }
     
-    func getAcuationLog() ->  (id: Decimal, date: String, uselength: Decimal) {
+    func getAcuationLog(counter: Int) ->  (id: Decimal, date: String, uselength: Decimal) {
         
         let arrResponce = self.split(separator: ":")
         let payloadLenth =  UInt8(arrResponce[3], radix: 16)! // payloadLenth
         if payloadLenth != 0 {
             let idStr = "\(arrResponce[4])\(arrResponce[5])"
-            let logCount =  UInt16(idStr, radix: 16)!.bigEndian
+            let id =  UInt16(idStr, radix: 16)!.bigEndian
             let yearStr = "\(arrResponce[6])\(arrResponce[7])"
             let year =  UInt16(yearStr, radix: 16)!.bigEndian
             let month = UInt8(arrResponce[8], radix: 16)!
@@ -41,12 +41,14 @@ extension String {
             let duration = "\(arrResponce[13])\(arrResponce[14])"
             let durationTime =  UInt16(duration, radix: 16)!
             let onlyDate = String(format: "%04d-%02d-%02d", year, month, day)
-            if onlyDate == "2000/01/01" {
+            let isValid = onlyDate.isDateVallid()
+            
+            if  BLEHelper.shared.noOfLog == Decimal(counter) && (onlyDate == "2000-01-01" ||  !isValid || DatabaseManager.share.isContinuasBadReading()) {
                 BLEHelper.shared.setRTCTime()
                 return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))
             } else {
                 let date = String(format: "%04d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, sec)
-                return (Decimal(logCount), date, Decimal(durationTime.bigEndian))
+                return (Decimal(id), date, Decimal(durationTime.bigEndian))
             }
         } else {
             return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))

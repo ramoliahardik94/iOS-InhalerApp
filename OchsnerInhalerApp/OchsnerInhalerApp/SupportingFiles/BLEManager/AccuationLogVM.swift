@@ -18,7 +18,7 @@ extension BLEHelper {
                     let length = object["uselength"]!
                     let mac = object["mac"] as? String
                     let udid = object["udid"] as? String
-                    let id = object["Id"] as? Decimal
+                    _ = object["Id"] as? Decimal
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = DateFormate.dateFromLog
                     if  let date = dateFormatter.date(from: isoDate!) {
@@ -32,8 +32,9 @@ extension BLEHelper {
                                                   "udid": udid as Any,
                                                   "batterylevel": BLEHelper.shared.bettery]
                         DatabaseManager.share.saveAccuation(object: dic)
-                        if id! == self.accuationLog {
-                            self.accuationLog = 0
+                        if Decimal(logCounter) == self.noOfLog {
+                            self.noOfLog = 0
+                            self.logCounter = 0
                             self.apiCallForAccuationlog()
                         }
                     } else {

@@ -13,6 +13,7 @@ class BLEHelper: NSObject {
     
     // MARK: Variable declaration
     static let shared = BLEHelper()
+    var isSet = false
     var centralManager: CBCentralManager = CBCentralManager()
     var discoveredPeripheral: CBPeripheral?
     var isScanning = false
@@ -25,10 +26,19 @@ class BLEHelper: NSObject {
     var isAllow = false
     var timer: Timer!
     var isAddAnother = false
-    var accuationLog: Decimal = 0
+    var noOfLog: Decimal = 0
+    var logCounter = 0
     var isPullToRefresh = false
-    func setDelegate() {
+    
+    func addLogObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
+        isSet = true
+    }
+    
+    func setDelegate() {
+        if !isSet {
+            addLogObserver()
+        }
 //        centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
        
