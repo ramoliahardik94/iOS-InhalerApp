@@ -264,22 +264,22 @@ class MedicationDetailVC: BaseVC {
     
     func addReminderToCalender() {
         if self.medicationVM.arrTime.count > 0 {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
-            if let graterDate =  self.medicationVM.arrTime.last?.getDate(format: DateFormate.doseTime) {
-               
-                let showDoesTime  = self.medicationVM.arrTime.last ?? ""
+            getPendingNotification()
+           // UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
+           
+            for item in self.medicationVM.arrTime {
+                let graterDate =  item.getDate(format: DateFormate.doseTime)
+              //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                 var calendar = Calendar(identifier: .gregorian)
                 calendar.timeZone = .current
                 let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
-             
-                let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", showDoesTime )
-                
+                let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", item )
                 setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
             }
         }
     }
     
-    func setNotification(date: Date, titile: String, calendar: Calendar) {
+    func setNotification(date: Date, titile: String, calendar: Calendar ) {
         Logger.logInfo("Set Reminder For Time : \(date)")
         let content = UNMutableNotificationContent()
         let components = calendar.dateComponents([.hour, .minute, .second], from: date)
@@ -288,8 +288,8 @@ class MedicationDetailVC: BaseVC {
         content.title = StringAddDevice.titleAddDevice
         content.body =  titile
         content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
+       // let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(date.timeIntervalSince1970)", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             
             if let error = error {
@@ -347,6 +347,27 @@ class MedicationDetailVC: BaseVC {
             }
         }
         return true
+    }
+    
+    private func getPendingNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            
+            let filterArrat = requests.filter { item in
+                item.identifier.contains("com.ochsner.inhalertrack.reminderdose")
+            }
+            let mapp : [String] = requests.map { item in
+                item.identifier.contains("com.ochsner.inhalertrack.reminderdose")
+            }
+            
+            UNUserNotificationCenter.current().remove
+//
+            print(filterArrat)
+//            for request in requests {
+//                print(request)
+//              //  UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
+//            }
+        })
     }
  }
 
