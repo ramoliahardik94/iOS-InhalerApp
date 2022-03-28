@@ -152,10 +152,3 @@ class BaseVC: UIViewController {
      }
    
 }
-
-extension UINavigationController {
-    
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
-}
