@@ -21,10 +21,10 @@ class NotificationManager: NSObject {
     // MARK: APNS Notification Handlers
     func register() {
         UNUserNotificationCenter.current().delegate = self
-       // Messaging.messaging().delegate = self
+        // Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             print("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
-            foreground {            
+            foreground {
                 if !granted {
                     self.statusReceived?(.notDetermined)
                 } else {
@@ -65,85 +65,8 @@ class NotificationManager: NSObject {
         })
     }
     
-//    func saveToken(_ data: Data) {
-//        Messaging.messaging().apnsToken = data
-//        if let token = Messaging.messaging().fcmToken {
-//            print("NotificationManager > saveToken > Token: \(token)")
-//            print("FCM Token: \(String(describing: Messaging.messaging().fcmToken))")
-//            UserDefaultManager.deviceToken = token
-//            self.statusReceived?(.authorized)
-//        }
-//    }
-    
-//    func receivePushNotification(_ dict: [AnyHashable: Any]) {
-//        guard let operation = dict["operation"] as? String,
-//              let data = dict["data"] as? [String: Any] else {
-//            return
-//        }
-//
-//        switch operation {
-//        case "alarm":
-//       //    self.handelAlarm(data: data)
-//            break
-//        default:
-//            if let message = dict["message"] as? String {
-//                self.showAlert(title: "Notification", message: message)
-//            } else {
-//                print("Alert Not show: \(dict)")
-//            }
-//            break
-//        }
-//    }
-    
-//    func handleNotification() -> AlarmModel? {
-//        if let notification = notifications.popLast() {
-//            print("notification Payload: \(notification.request.content.userInfo)")
-//            if let dict = notification.request.content.userInfo["gcm.notification.payload"],
-//               let payload = self.convertToDictionary(text: dict as! String),
-//                let data = payload["data"] as? [String: Any]
-//            {
-//                if let operation = payload["operation"] as? String{
-//                    switch operation {
-//                    case "alarm":
-//                        let alarmObj = Mapper<AlarmModel>().map(JSON: data)
-//                        return alarmObj
-//                    default:
-//                        return nil
-//                    }
-//                }
-//
-//            }
-//        }
-//        return nil
-//    }
-    
-//    func handelShowPushType(_ dict: [AnyHashable: Any]) -> UNNotificationPresentationOptions{
-//        print("handelShowPushType: \(dict)")
-//        guard let operation = dict["operation"] as? String,
-//              let data = dict["data"] as? [String: Any] else {
-//            return [.alert,.badge]
-//        }
-//        switch operation {
-//        case "alarm":
-//            if let hubId = data["hubId"] as? String,
-//               let partitionId = data["partitionId"] as? String,
-//               let currentHub = HubManager.shared.hubData,
-//               hubId == currentHub.id {
-//                let currentPartition = HubManager.shared.hubData.partitions.first(where: { $0.isSelected == true })
-//                if partitionId == currentPartition!.id {
-//                    return []
-//                }
-//            }
-//            break
-//        default:
-//            break
-//        }
-//        return [.alert,.badge]
-//    }
-    
     func askUserPermission(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-          //  print("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
             foreground {
                 completion(true)
                 if granted {
@@ -153,15 +76,83 @@ class NotificationManager: NSObject {
         }
     }
     
+    // for add local notificaion reminders
+    func setNotification(date: Date, titile: String, calendar: Calendar, macAddress: String) {
+        Logger.logInfo("Set Reminder For Time : \(date)")
+        let content = UNMutableNotificationContent()
+        let components = calendar.dateComponents([.hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        
+        content.title = StringAddDevice.titleAddDevice
+        content.body =  titile
+        content.sound = UNNotificationSound.default
+        // let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress)\(date.timeIntervalSince1970)", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            
+            if let error = error {
+                Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
+            } else {
+                Logger.logInfo("Notification set for \(components)")
+                Logger.logInfo("\(StringAddDevice.titleAddDevice)")
+                Logger.logInfo("\(titile)")
+            }
+        })
+    }
+    
+    // For Remove All local notification
+    func removeAllPendingLocalNotification() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    // add notification from local database
+    func addReminderLocal(userName: String) {
+        if UserDefaultManager.isNotificationOn {
+            let arrDevice = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+            let arrScedule = arrDevice.filter({$0.scheduledoses != nil && $0.scheduledoses != ""})
+            for objDevice in arrScedule {
+                Logger.logInfo("main device Obj \(objDevice.mac ?? "Blank")  ) == >> \(objDevice.scheduledoses) ")
+                if objDevice.reminder {
+                    clearDeviceRemindersNotification(macAddress: objDevice.mac ?? "")
+                    let arrDose = objDevice.scheduledoses?.components(separatedBy: ",")
+                    
+                    for item in arrDose ?? [] {
+                        Logger.logInfo("sub array dose time device Obj \(item)")
+                        
+                        let graterDate =  item.getDate(format: DateFormate.doseTime)
+                        //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
+                        var calendar = Calendar(identifier: .gregorian)
+                        calendar.timeZone = .current
+                        let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+                        let title = String(format: StringLocalNotifiaction.reminderBody, userName .trimmingCharacters(in: .whitespacesAndNewlines), objDevice.medname ?? "", item )
+                        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: objDevice.mac ?? "")
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
+    func clearDeviceRemindersNotification(macAddress: String) {
+    let center = UNUserNotificationCenter.current()
+    center.getPendingNotificationRequests(completionHandler: { requests in
+        let filterArray = requests.map({ (item) -> String in item.identifier })
+        let commonArray = filterArray.filter { item in
+            return item.contains("com.ochsner.inhalertrack.reminderdose\(macAddress)")
+        }
+        print("filter Arrya \(filterArray)")
+        // Logger.logInfo(" Filter notification \(commonArray)")
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: commonArray)
+        Logger.logInfo(" Remove notification \(commonArray)")
+        
+    })
+}
+    
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print(notification.request.content.userInfo)
-//        if let dict = notification.request.content.userInfo["gcm.notification.payload"] {
-//            completionHandler([self.handelShowPushType(self.convertToDictionary(text: dict as! String)!)])
-//            return
-//        }
         completionHandler([.banner, .badge])
     }
     
@@ -178,35 +169,13 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications() // clear all the notification from notification center
-//        if let dict = response.notification.request.content.userInfo["gcm.notification.payload"],
-//           var payload = self.convertToDictionary(text: dict as! String)
-//        {
-//            print("Push notification Received.\(response.notification)")
-//            if DeviceListManager.shared.isDeviceListRetrieved.value {//Display notification when device list has load
-//                guard let _ = payload["operation"] as? String,
-//                      let _ = payload["data"] as? [String: Any] else {
-//                    print("operation & data not received.\(payload)")
-//                    return
-//                }
-//                if payload["message"]  == nil {
-//                    payload["message"] = response.notification.request.content.body
-//                    print("message not received add message in payload.\(payload)")
-//                }
-//                receivePushNotification(payload)
-//            } else {
-//                print("Push notification added: \(response.notification)")
-//                notifications.append(response.notification)
-//            }
-//        }
+        if UserDefaultManager.isNotificationOn {
+            unregister()
+        }
         completionHandler()
     }
 }
 
-// extension NotificationManager: MessagingDelegate {
-//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//        print(fcmToken as Any)
-//    }
-// }
 extension NotificationManager {
     
     func showAlert(title: String, message: String) {
@@ -218,38 +187,4 @@ extension NotificationManager {
             UIApplication.topViewController()?.presentAlert(withTitle: title, message: message)
         }
     }
-    
-//    func handelAlarm(data: [String: Any]) {
-//        if let hubId = data["hubId"] as? String,
-//           let partitionId = data["partitionId"] as? String,
-//           hubId == HubManager.shared.hubData.id {
-//            let currentPartition = HubManager.shared.hubData.partitions.first(where: { $0.isSelected == true })
-//            if partitionId == currentPartition!.id {
-//                //current partition
-//                print("current partition notification")
-//                if AlarmManager.shared.currentAlarm == nil {
-//                    if let navVC = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController,
-//                       let tabBar = navVC.children.first as? TabBarVC {
-//                        let vc = NotificationDetailsVC.instantiateFromAppStoryboard(appStoryboard: .notification)
-//                        let alarmObj = Mapper<AlarmModel>().map(JSON: data)
-//                        AlarmManager.shared.currentAlarm = alarmObj!
-//                        vc.setAlarmData(alarmObj!)
-//                        let nav = UINavigationController(rootViewController: vc)
-//                        nav.modalPresentationStyle = .fullScreen
-//                        tabBar.present(nav, animated: true, completion: nil)
-//                    }
-//                }
-//            } else {
-//                //other partition
-//                print("Other partition notification")
-//                let partitionObj = HubManager.shared.hubData.partitions.first(where: { $0.id == partitionId })
-//                self.showAlert(title: data["alarmName"] as! String, message: "There is alarm in \(partitionObj?.name ?? "")")
-//            }
-//        } else {
-//            //other hub
-//            print("Other HUB notification")
-//            self.showAlert(title: data["alarmName"] as! String, message: "There is alarm in other hub.")
-//        }
-//
-//    }
 }
