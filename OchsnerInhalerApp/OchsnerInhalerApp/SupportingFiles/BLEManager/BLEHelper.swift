@@ -17,6 +17,8 @@ class PeriperalType: NSObject {
     var charectristicWrite: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
+    var noOfLog: Decimal = 0
+    var logCounter = 0
     
     override init() {
         super.init()
@@ -45,8 +47,7 @@ class BLEHelper: NSObject {
     var isAllow = false
     var timer: Timer!
     var isAddAnother = false
-    var noOfLog: Decimal = 0
-    var logCounter = 0
+   
     var isPullToRefresh = false
     
     func addLogObserver() {
@@ -93,10 +94,10 @@ class BLEHelper: NSObject {
     
     @objc func getAccuationNumber(_ isPulltoRefresh: Bool = false) {
         self.isPullToRefresh = isPulltoRefresh
-        
+        print(connectedPeripheral.count)
         for obj in connectedPeripheral {
             if obj.discoveredPeripheral != nil && obj.charectristicWrite != nil && obj.discoveredPeripheral?.state == .connected {
-                delay(20) {
+                delay(1) {
                     Logger.logInfo("Get Accuation number for \(obj.addressMAC)")
                     obj.discoveredPeripheral?.writeValue(TransferService.requestGetNoAccuation.hexadecimal!, for: obj.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
                 }

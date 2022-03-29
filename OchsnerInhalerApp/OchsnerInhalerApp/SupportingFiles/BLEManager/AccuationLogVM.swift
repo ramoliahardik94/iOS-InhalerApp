@@ -22,6 +22,15 @@ extension BLEHelper {
                     let bettery = object["bettery"] as? String
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = DateFormate.dateFromLog
+                    print(udid)
+                    print(BLEHelper.shared.connectedPeripheral[0].discoveredPeripheral!.identifier.uuidString)
+                    print(BLEHelper.shared.connectedPeripheral[1].discoveredPeripheral!.identifier.uuidString)
+                    guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: { udid == $0.discoveredPeripheral!.identifier.uuidString}) else {
+                        print("Fail")
+                        return
+                        
+                    }
+                    
                     if  let date = dateFormatter.date(from: isoDate!) {
                         dateFormatter.dateFormat = DateFormate.useDateLocalAPI
                         let finalDate = dateFormatter.string(from: date)
@@ -33,9 +42,9 @@ extension BLEHelper {
                                                   "udid": udid as Any,
                                                   "batterylevel": bettery as Any]
                         DatabaseManager.share.saveAccuation(object: dic)
-                        if Decimal(logCounter) == self.noOfLog {
-                            self.noOfLog = 0
-                            self.logCounter = 0
+                        if Decimal(discoverPeripheral.logCounter) == discoverPeripheral.noOfLog {
+                            discoverPeripheral.noOfLog = 0
+                            discoverPeripheral.logCounter = 0
                             self.apiCallForAccuationlog()
                         }
                     } else {

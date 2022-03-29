@@ -24,8 +24,11 @@ extension String {
         return Decimal(betteryLevel)
     }
     
-    func getAcuationLog(counter: Int,uuid: String) ->  (id: Decimal, date: String, uselength: Decimal) {
+    func getAcuationLog(counter: Int, uuid: String) ->  (id: Decimal, date: String, uselength: Decimal) {
         
+        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: { uuid == $0.discoveredPeripheral!.identifier.uuidString}) else {
+              return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))
+            }
         let arrResponce = self.split(separator: ":")
         let payloadLenth =  UInt8(arrResponce[3], radix: 16)! // payloadLenth
         if payloadLenth != 0 {
@@ -43,7 +46,7 @@ extension String {
             let onlyDate = String(format: "%04d-%02d-%02d", year, month, day)
             let isValid = onlyDate.isDateVallid()
             
-            if  BLEHelper.shared.noOfLog == Decimal(counter) && (onlyDate == "2000-01-01" ||  !isValid || DatabaseManager.share.isContinuasBadReading(uuid: uuid)) {
+            if  discoverPeripheral.noOfLog == Decimal(counter) && (onlyDate == "2000-01-01" ||  !isValid || DatabaseManager.share.isContinuasBadReading(uuid: uuid)) {
                 // TODO: - Set RTC For Bad Records
               //  BLEHelper.shared.setRTCTime()
                 return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))

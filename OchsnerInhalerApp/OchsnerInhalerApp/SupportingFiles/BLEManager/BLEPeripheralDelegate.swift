@@ -24,10 +24,10 @@ extension BLEHelper: CBPeripheralDelegate {
        
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
-        if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
-            Logger.logInfo("For Device \(connectedPeripheral[index].addressMAC)")
-        }
-     
+        
+        guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+        
+        Logger.logInfo("For Device \(discoverPeripheral.addressMAC)")
         if characteristic.uuid == TransferService.macCharecteristic {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                 connectedPeripheral[index].addressMAC = stringFromData
@@ -60,20 +60,20 @@ extension BLEHelper: CBPeripheralDelegate {
                 
             } else if str == StringCharacteristics.getType(.accuationLogNumber)() {
                 
-                noOfLog = stringFromData.getNumberofAccuationLog()
-                Logger.logInfo("\n Number Of Acuation log Hax: \(String(describing: stringFromData)) \n Number Of Acuation log Decimal: \(noOfLog)")
-                if noOfLog > 0 {
+                discoverPeripheral.noOfLog = stringFromData.getNumberofAccuationLog()
+                Logger.logInfo("\n Number Of Acuation log Hax: \(String(describing: stringFromData)) \n Number Of Acuation log Decimal: \(discoverPeripheral.noOfLog)")
+                if discoverPeripheral.noOfLog > 0 {
                     getAccuationLog()
                 } else {
                     apiCallForAccuationlog()
                 }
-                DispatchQueue.main.async { [self] in
-                    NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(noOfLog)"])
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(discoverPeripheral.noOfLog)"])
                 }
                 
             } else if str == StringCharacteristics.getType(.acuationLog)() {
-                logCounter += 1
-                let log = stringFromData.getAcuationLog(counter: logCounter,uuid: peripheral.identifier.uuidString)
+                discoverPeripheral.logCounter += 1
+                let log = stringFromData.getAcuationLog(counter: discoverPeripheral.logCounter, uuid: peripheral.identifier.uuidString)
                 Logger.logInfo("Acuation log Hax: \(String(describing: stringFromData)) \n Acuation log Decimal: \(log)")
                 let mac = DatabaseManager.share.getMac(UDID: peripheral.identifier.uuidString)
                 guard let bettery = connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString}) else { return }

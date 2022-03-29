@@ -187,6 +187,7 @@ extension BLEHelper: CBCentralManagerDelegate {
         Logger.logInfo(" willRestoreState  \n\n   \(dict)  ")
             let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
             if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
+                connectedPeripheral.removeAll()
                 if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
                     if (peripherals.count > 0) {
                         for obj in peripherals {
