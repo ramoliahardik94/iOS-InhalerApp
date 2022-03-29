@@ -17,15 +17,12 @@ extension BLEHelper {
                     let isoDate = object["date"] as? String
                     let length = object["uselength"]!
                     let mac = object["mac"] as? String
-                    let udid = object["udid"] as? String
+                    let logPeripheralUUID = object["udid"] as? String
                     _ = object["Id"] as? Decimal
                     let bettery = object["bettery"] as? String
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = DateFormate.dateFromLog
-                    print(udid)
-                    print(BLEHelper.shared.connectedPeripheral[0].discoveredPeripheral!.identifier.uuidString)
-                    print(BLEHelper.shared.connectedPeripheral[1].discoveredPeripheral!.identifier.uuidString)
-                    guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: { udid == $0.discoveredPeripheral!.identifier.uuidString}) else {
+                    guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: { logPeripheralUUID == $0.discoveredPeripheral!.identifier.uuidString}) else {
                         print("Fail")
                         return
                         
@@ -39,7 +36,7 @@ extension BLEHelper {
                                                   "lat": "\(LocationManager.shared.cordinate.latitude)",
                                                   "long": "\(LocationManager.shared.cordinate.longitude)",
                                                   "isSync": false, "mac": mac! as Any,
-                                                  "udid": udid as Any,
+                                                  "udid": logPeripheralUUID as Any,
                                                   "batterylevel": bettery as Any]
                         DatabaseManager.share.saveAccuation(object: dic)
                         if Decimal(discoverPeripheral.logCounter) == discoverPeripheral.noOfLog {
