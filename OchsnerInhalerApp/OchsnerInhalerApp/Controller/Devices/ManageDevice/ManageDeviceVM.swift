@@ -37,10 +37,9 @@ class ManageDeviceVM {
                 completionHandler(.failure(error!.message))
             } else {
                 DatabaseManager.share.deleteMacAddress(macAddress: self.arrDevice[index].internalID)
-                if self.arrDevice[index].internalID == BLEHelper.shared.addressMAC {
-                    BLEHelper.shared.cleanup()
-                    BLEHelper.shared.discoveredPeripheral = nil
-                }
+                    if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == self.arrDevice[index].internalID}) {
+                        BLEHelper.shared.cleanup(peripheral: peripheral.discoveredPeripheral!)
+                    }
                 self.arrDevice.remove(at: index)
                 completionHandler(.success(true))
             }

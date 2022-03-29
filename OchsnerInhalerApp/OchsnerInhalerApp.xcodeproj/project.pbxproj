@@ -36,8 +36,6 @@
 		2275748727D86DA6006B0122 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2275748527D86DA6006B0122 /* Device+CoreDataClass.swift */; };
 		227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */; };
 		227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4E027A3EC540005C3D9 /* TransferService.swift */; };
-		2296C33A27B248040095CBFA /* TemporaryDashbord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C33827B248040095CBFA /* TemporaryDashbord.swift */; };
-		2296C33B27B248040095CBFA /* TemporaryDashbord.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2296C33927B248040095CBFA /* TemporaryDashbord.xib */; };
 		2296C33E27B2621E0095CBFA /* TemoDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */; };
 		2296C33F27B2621E0095CBFA /* TemoDashboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
@@ -164,8 +162,6 @@
 		2275748527D86DA6006B0122 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
 		227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
 		227CD4E027A3EC540005C3D9 /* TransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
-		2296C33827B248040095CBFA /* TemporaryDashbord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryDashbord.swift; sourceTree = "<group>"; };
-		2296C33927B248040095CBFA /* TemporaryDashbord.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemporaryDashbord.xib; sourceTree = "<group>"; };
 		2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemoDashboardCell.swift; sourceTree = "<group>"; };
 		2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemoDashboardCell.xib; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -457,8 +453,6 @@
 				224E1C9A279819AD000C5D1A /* Cell */,
 				22AE96F0278EA37F00C0D851 /* HomeVC.swift */,
 				22CA52A527C34D9E0031BDE7 /* HomeVM.swift */,
-				2296C33827B248040095CBFA /* TemporaryDashbord.swift */,
-				2296C33927B248040095CBFA /* TemporaryDashbord.xib */,
 				2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */,
 				2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */,
 			);
@@ -893,7 +887,6 @@
 				22609D7D279925B200B38CF4 /* GraphCell.xib in Resources */,
 				225835BF27DB167F00826713 /* GoogleService-Info.plist in Resources */,
 				4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */,
-				2296C33B27B248040095CBFA /* TemporaryDashbord.xib in Resources */,
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
 				4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */,
@@ -1061,7 +1054,6 @@
 				47CDCE87278D89210014527D /* UITextField+Extensions.swift in Sources */,
 				22CA52A627C34D9E0031BDE7 /* HomeVM.swift in Sources */,
 				47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */,
-				2296C33A27B248040095CBFA /* TemporaryDashbord.swift in Sources */,
 				473D0F4827E0500F006081B0 /* HaxToDecimalConversion.swift in Sources */,
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,

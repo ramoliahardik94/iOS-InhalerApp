@@ -87,8 +87,10 @@ class MedicationVC: BaseVC {
     @IBAction func btnNextClick(_ sender: UIButton) {
         if selectedIndex != nil {
             if btnRescue.isSelected {
-                if BLEHelper.shared.discoveredPeripheral != nil {
-                    medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                if BLEHelper.shared.connectedPeripheral.count > 1 {
+                    if let discoveredPeripheral = BLEHelper.shared.connectedPeripheral[BLEHelper.shared.connectedPeripheral.count - 1].discoveredPeripheral {
+                        medicationVM.selectedMedication.uuid = discoveredPeripheral.identifier.uuidString
+                    }
                 }
                 UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
                 medicationVM.apiAddDevice(isreminder: false) { [weak self] result in

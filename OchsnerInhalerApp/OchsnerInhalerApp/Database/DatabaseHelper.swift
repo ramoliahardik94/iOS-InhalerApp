@@ -209,6 +209,7 @@ class DatabaseManager {
     }
     
     func deleteMacAddress(macAddress: String) {
+        setupUDID(mac: macAddress, udid: "", isDelete: true)
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
         let predicate = NSPredicate(format: "mac == %@", macAddress)
         fetch.predicate = predicate
@@ -279,9 +280,13 @@ class DatabaseManager {
         }
     }
     
-    func setupUDID(mac: String, udid: String) {
+    func setupUDID(mac: String, udid: String, isDelete: Bool = false) {
         let keychain = KeychainSwift()
+        if isDelete {
+            keychain.delete(mac)
+        } else {
         keychain.set(udid, forKey: mac)
+        }
     }
     
     func getUDID(mac: String) -> String {
@@ -293,10 +298,27 @@ class DatabaseManager {
         return oldUDID
     }
     
-    func isContinuasBadReading() -> Bool {
+    func getMac(UDID: String) -> String {
+        var device = [Device]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        let predicate = NSPredicate(format: "udid == %@", UDID)
+        fetchRequest.predicate = predicate
+        do {
+            device = try context?.fetch(fetchRequest) as! [Device]
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        if device.count > 0 {
+            return device[0].mac!
+        } else {
+            return ""
+        }
+    }
+    
+    func isContinuasBadReading(uuid: String) -> Bool {
             var accuationLog = [AcuationLog]()
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
-            let predicate1 =  NSPredicate(format: "deviceidmac == %@", BLEHelper.shared.addressMAC)
+            let predicate1 =  NSPredicate(format: "deviceuuid == %@", uuid)
             let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1])
             
             let sortDescriptor = [NSSortDescriptor.init(key: "usedatelocal", ascending: false)]

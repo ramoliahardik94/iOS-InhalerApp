@@ -32,7 +32,7 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        if (BLEHelper.shared.discoveredPeripheral == nil) {        
+        if (BLEHelper.shared.connectedPeripheral.count == 0) {
             BLEHelper.shared.scanPeripheral()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
@@ -53,9 +53,7 @@ class HomeVC: BaseVC {
     }
     
     func getAccuationLogHome(isPulltoRefresh: Bool = false) {
-        if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral?.state == .connected {
-            BLEHelper.shared.getAccuationNumber(isPulltoRefresh)
-        }
+          BLEHelper.shared.getAccuationNumber(isPulltoRefresh)
     }
     @objc func tapNotification() {
         
@@ -90,11 +88,11 @@ class HomeVC: BaseVC {
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
         
-        if BLEHelper.shared.discoveredPeripheral != nil && BLEHelper.shared.discoveredPeripheral!.state == .connected {
+      
             self.getAccuationLogHome(isPulltoRefresh: true)
-        } else {
+   
             doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
-        }
+        
         refreshControl.endRefreshing()
         initTableview()
 //

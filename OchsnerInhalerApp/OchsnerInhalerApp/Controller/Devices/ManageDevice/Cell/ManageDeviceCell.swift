@@ -29,7 +29,7 @@ class ManageDeviceCell: UITableViewCell {
     weak var delegate: ManageDeviceDelegate?
     
     var device = DeviceModel() {
-        didSet {            
+        didSet {
             /// Rescue=1 Mantainance=2
             lblUsage.textColor = device.medTypeID ==  1 ?  #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) :  #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1)
             lblDeviceName.text  = device.medication.medName!
@@ -42,34 +42,32 @@ class ManageDeviceCell: UITableViewCell {
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             var textStatus =  StringCommonMessages.disconnect
+            var bettery = device.batteryLevel
             if BLEHelper.shared.isScanning {
                 textStatus = StringCommonMessages.scanning
             } else {
-                if BLEHelper.shared.discoveredPeripheral != nil  && (BLEHelper.shared.addressMAC == device.internalID || BLEHelper.shared.discoveredPeripheral!.identifier.uuidString == DatabaseManager.share.getUDID(mac: device.internalID) ) {
-                    print("BLE State:\(BLEHelper.shared.discoveredPeripheral!)")
-                    
-                        switch BLEHelper.shared.discoveredPeripheral!.state {
-                        case .connected :
-                            textStatus = StringCommonMessages.connected
-                        case .disconnected :
-                            textStatus = StringCommonMessages.disconnect
-                        case .connecting :
-                            textStatus = StringCommonMessages.connecting
-                        case .disconnecting:
-                            textStatus = StringCommonMessages.disconnect
-                        @unknown default:
-                            textStatus = StringCommonMessages.connecting
-                        
-                        }
-                    
-                } else {
+                if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.internalID}) {
+                    bettery =  peripheral.bettery != "0" ? "\(peripheral.bettery)%" :  device.batteryLevel
+                    switch peripheral.discoveredPeripheral!.state {
+                    case .connected :
+                        textStatus = StringCommonMessages.connected
+                    case .disconnected :
                         textStatus = StringCommonMessages.disconnect
+                    case .connecting :
+                        textStatus = StringCommonMessages.connecting
+                    case .disconnecting:
+                        textStatus = StringCommonMessages.disconnect
+                    @unknown default:
+                        textStatus = StringCommonMessages.connecting
+                        
                     }
+                } else {
+                    textStatus = StringCommonMessages.disconnect
+                }
+                lblstatus.text = textStatus
+                lblBettery.text = bettery
+                btnEditDirection.isHidden = device.medTypeID ==  1
             }
-            lblstatus.text = textStatus
-            
-            lblBettery.text = "\(BLEHelper.shared.addressMAC == device.internalID ? (BLEHelper.shared.bettery != "0" ? "\(BLEHelper.shared.bettery)%" : device.batteryLevel ): device.batteryLevel)"
-            btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }
     

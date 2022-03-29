@@ -82,9 +82,7 @@ class AddDeviceIntroVC: BaseVC {
                 .chanageColorString(StringAddDevice.infoCharecter)
                 .normalSmall(StringAddDevice.deviceNearBy)
             lbldeviceInfo.attributedText = attributedString
-            
             BLEHelper.shared.isAddAnother = true
-            BLEHelper.shared.discoveredPeripheral = nil
             paringLoader.isHidden = true
             btnStartSetUp.setButtonView(StringAddDevice.scanDevice)
             btnStartSetUp.isEnabled = true
@@ -185,7 +183,7 @@ class AddDeviceIntroVC: BaseVC {
                 paringLoader.startAnimating()
         case .step4:
             BLEHelper.shared.stopTimer()
-            BLEHelper.shared.connectPeriPheral()
+            BLEHelper.shared.connectPeriPheral(peripheral: BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral!)
             paringLoader.isHidden = false
             paringLoader.startAnimating()
             btnStartSetUp.setButtonView(StringAddDevice.pairingDevice)
@@ -245,7 +243,7 @@ extension AddDeviceIntroVC {
             paringLoader.stopAnimating()
             paringLoader.isHidden = true
             CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: ValidationButton.tryAgain) { [weak self] _ in
-                BLEHelper.shared.connectPeriPheral()
+                BLEHelper.shared.connectPeriPheral(peripheral: BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral!)
                 guard let weakSelf = self else { return }
                 weakSelf.paringLoader.isHidden = false
                 weakSelf.paringLoader.startAnimating()
@@ -274,7 +272,7 @@ extension AddDeviceIntroVC {
         NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        BLEHelper.shared.setRTCTime()
+        BLEHelper.shared.setRTCTime(uuid: BLEHelper.shared.connectedPeripheral[BLEHelper.shared.connectedPeripheral.count - 1].discoveredPeripheral?.identifier.uuidString ?? "")
         BLEHelper.shared.getBetteryLevel()
         addDeviceIntroVC.step = .step5
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother

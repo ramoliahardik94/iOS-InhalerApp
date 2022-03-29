@@ -33,7 +33,7 @@ extension AcuationLog {
                       "Latitude": Double(latitude!)! as Any,
                       "Longitude": Double(longitude!)! as Any,
                       "UseLength": uselength,
-                      "BatteryLevel": Double(BLEHelper.shared.bettery)! as Any]
+                      "BatteryLevel": batterylevel as Any]
         return dicLog
     }
     
@@ -44,7 +44,7 @@ extension AcuationLog {
                       "Latitude": Double(latitude!)! as Any,
                       "Longitude": Double(longitude!)! as Any,
                       "UseLength": uselength,
-                      "BatteryLevel": Double(BLEHelper.shared.bettery)! as Any,
+                      "BatteryLevel": batterylevel as Any,
                       "MacAddress": deviceidmac as Any,
                       "UUID": deviceuuid as Any,
                       "isSync": issync as Any,

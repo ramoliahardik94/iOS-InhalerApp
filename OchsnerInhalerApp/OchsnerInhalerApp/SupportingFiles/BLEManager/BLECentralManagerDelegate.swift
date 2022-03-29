@@ -87,11 +87,11 @@ extension BLEHelper: CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         
-//        guard RSSI.intValue >= -55
-//        else {
-//            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-//            return
-//        }
+        guard RSSI.intValue >= -55
+        else {
+            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+            return
+        }
         
         Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         
@@ -104,7 +104,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
-                    discoveredPeripheral = peripheral
+                    connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
                     stopTimer()
                     delay(isAddAnother ? 15 : 0) {
@@ -116,10 +116,12 @@ extension BLEHelper: CBCentralManagerDelegate {
                 } else {
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
-                        discoveredPeripheral = peripheral
-                        stopScanPeriphral()
-                        stopTimer()
-                        connectPeriPheral()
+                        connectedPeripheral.append(PeriperalType(peripheral: peripheral))
+                        if connectedPeripheral.count == device.count {
+                            stopScanPeriphral()
+                            stopTimer()
+                        }
+                        connectPeriPheral(peripheral: peripheral)
                     }
                 }
             }
@@ -154,7 +156,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             scanPeripheral(isTimer: false)
         }
         self.stopTimer()
-        self.cleanup()
+        self.cleanup(peripheral: peripheral)
         isScanning = false
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         DispatchQueue.main.async {
@@ -182,13 +184,11 @@ extension BLEHelper: CBCentralManagerDelegate {
             if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
                 if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
                     if (peripherals.count > 0) {
-                        if let peripheral = peripherals.first(where: {$0.state == .connected}) {
-                            Logger.logInfo("willRestoreState \(peripherals)")
-                            discoveredPeripheral = peripheral                    
-                        } else {
-                            discoveredPeripheral = peripherals[0]
+                        for obj in peripherals {
+                            let mac = DatabaseManager.share.getMac(UDID: obj.identifier.uuidString)
+                            connectedPeripheral.append(PeriperalType(peripheral: obj, mac: mac))
+                            obj.delegate = self
                         }
-                        discoveredPeripheral!.delegate = self
                     }
                 }
             }

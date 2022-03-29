@@ -58,12 +58,14 @@ class MedicationVM {
                     completionHandler(.failure(error!.message))
                 } else {
                     if (response as? [String: Any]) != nil {
-                        let device = DeviceModel()
-                        device.internalID = BLEHelper.shared.addressMAC
-                        device.udid = BLEHelper.shared.discoveredPeripheral?.identifier.uuidString ?? ""
-                        device.isReminder = isreminder
-                        device.medTypeID = self.medTypeId
-                        DatabaseManager.share.saveDevice(object: device)
+                        if let peripheral = BLEHelper.shared.connectedPeripheral.last {
+                            let device = DeviceModel()
+                            device.internalID = peripheral.addressMAC
+                            device.udid = peripheral.discoveredPeripheral?.identifier.uuidString ?? ""
+                            device.isReminder = isreminder
+                            device.medTypeID = self.medTypeId
+                            DatabaseManager.share.saveDevice(object: device)
+                        }
                         NotificationCenter.default.post(name: .medUpdate, object: nil)
                         BLEHelper.shared.isAddAnother = false
                         completionHandler(.success(true))

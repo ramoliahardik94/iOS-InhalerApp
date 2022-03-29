@@ -26,8 +26,10 @@ extension BLEHelper: CBPeripheralDelegate {
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
      
         if characteristic.uuid == TransferService.macCharecteristic {
-            addressMAC = stringFromData
-            Logger.logInfo("Mac Address Hax: \(String(describing: stringFromData)) \n Mac Address Decimal: \(addressMAC)")
+            if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
+                connectedPeripheral[index].addressMAC = stringFromData
+            }
+            Logger.logInfo("Mac Address Hax: \(String(describing: stringFromData)) \n Mac Address Decimal: \(stringFromData)")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
             }
@@ -41,15 +43,16 @@ extension BLEHelper: CBPeripheralDelegate {
                 if stringFromData == TransferService.responseSuccessRTC {
                     DatabaseManager.share.setRTCFor(udid: peripheral.identifier.uuidString, value: true)
                 } else if stringFromData == TransferService.responseFailRTC {
-                    setRTCTime()
+                    setRTCTime(uuid: peripheral.identifier.uuidString)
                 }
                 
             } else if str == StringCharacteristics.getType(.beteryLevel)() {
-                
-                bettery = "\(stringFromData.getBeteryLevel())"
-                Logger.logInfo("Bettery Hax: \(String(describing: stringFromData)) \n Bettery Decimal: \(bettery)")
-                DispatchQueue.main.async { [self] in
-                    NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(bettery)"])
+                if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
+                    connectedPeripheral[index].bettery = "\(stringFromData.getBeteryLevel())"
+                }
+                Logger.logInfo("Bettery Hax: \(String(describing: stringFromData)) \n Bettery Decimal: \(stringFromData.getBeteryLevel())")
+                DispatchQueue.main.async { 
+                    NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(stringFromData.getBeteryLevel())"])
                 }
                 
             } else if str == StringCharacteristics.getType(.accuationLogNumber)() {
@@ -67,15 +70,18 @@ extension BLEHelper: CBPeripheralDelegate {
                 
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 logCounter += 1
-                let log = stringFromData.getAcuationLog(counter: logCounter)
+                let log = stringFromData.getAcuationLog(counter: logCounter,uuid: peripheral.identifier.uuidString)
                 Logger.logInfo("Acuation log Hax: \(String(describing: stringFromData)) \n Acuation log Decimal: \(log)")
-                
+                let mac = DatabaseManager.share.getMac(UDID: peripheral.identifier.uuidString)
+                guard let bettery = connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString}) else { return }
                 NotificationCenter.default.post(name: .BLEAcuationLog, object: nil, userInfo:
                                                     ["Id": (log.id),
                                                      "date": "\(log.date)",
                                                      "uselength": log.uselength,
-                                                     "mac": addressMAC,
-                                                     "udid": peripheral.identifier.uuidString])
+                                                     "mac": mac,
+                                                     "udid": peripheral.identifier.uuidString,
+                                                     "bettery": bettery.bettery])
+                
                 
             }
         }
@@ -114,7 +120,7 @@ extension BLEHelper {
      
             return
         }
-        print("Discover Servivce: \(peripheral.services)")
+        print("Discover Servivce: \(String(describing: peripheral.services))")
         guard let peripheralServices = peripheral.services else { return }
         
         for service in peripheralServices where service.uuid == TransferService.otaServiceUUID {
@@ -152,7 +158,7 @@ extension BLEHelper {
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
-            discoveredPeripheral!.setNotifyValue(true, for: characteristic)
+            peripheral.setNotifyValue(true, for: characteristic)
             charectristicRead = characteristic
         }
         
@@ -161,24 +167,22 @@ extension BLEHelper {
             delay(isAddAnother ? 15 : 0) {
                 [weak self] in
                 guard let `self` = self else { return }
-                if self.discoveredPeripheral != nil {
-                    switch self.discoveredPeripheral?.state {
-                    case .connected :
-                        print("Connected \(self.discoveredPeripheral!.identifier.uuidString)")
-                        if !DatabaseManager.share.getIsSetRTC(udid: self.discoveredPeripheral!.identifier.uuidString) {
-                            self.setRTCTime()
-                        }
-                        self.getmacAddress()
-                        self.getBetteryLevel()
-                        self.getAccuationNumber()
-                        Logger.logInfo("BLEConnect with identifier \(self.discoveredPeripheral?.identifier.uuidString ?? "Not Found udid")")
-                        self.isScanning = false
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .BLEConnect, object: nil)
-                        }
-                    default:
-                        break
+                
+                switch peripheral.state {
+                case .connected :
+                    if !DatabaseManager.share.getIsSetRTC(udid: peripheral.identifier.uuidString) {
+                        self.setRTCTime(uuid: peripheral.identifier.uuidString)
                     }
+                    self.getmacAddress()
+                    self.getBetteryLevel()
+                    self.getAccuationNumber()
+                    Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
+                    self.isScanning = false
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: .BLEConnect, object: nil)
+                    }
+                default:
+                    break
                 }
             }
         }
