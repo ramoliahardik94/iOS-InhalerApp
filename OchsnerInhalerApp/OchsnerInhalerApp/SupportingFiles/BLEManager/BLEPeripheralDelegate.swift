@@ -24,6 +24,9 @@ extension BLEHelper: CBPeripheralDelegate {
        
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
+        if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
+            Logger.logInfo("For Device \(connectedPeripheral[index].addressMAC)")
+        }
      
         if characteristic.uuid == TransferService.macCharecteristic {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
@@ -58,7 +61,7 @@ extension BLEHelper: CBPeripheralDelegate {
             } else if str == StringCharacteristics.getType(.accuationLogNumber)() {
                 
                 noOfLog = stringFromData.getNumberofAccuationLog()
-                Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) \n Number Of Acuation log Decimal: \(noOfLog)")
+                Logger.logInfo("\n Number Of Acuation log Hax: \(String(describing: stringFromData)) \n Number Of Acuation log Decimal: \(noOfLog)")
                 if noOfLog > 0 {
                     getAccuationLog()
                 } else {
@@ -142,28 +145,32 @@ extension BLEHelper {
             Logger.logError("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
-       
+        guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         // Again, we loop through the array, just in case and check if it's the right one
         guard let serviceCharacteristics = service.characteristics else {
             Logger.logError("service error \(service)")
             return }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
-           macCharecteristic = characteristic
+            discoverPeripheral.macCharecteristic = characteristic
+        }
+        
+        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
+            peripheral.setNotifyValue(true, for: characteristic)
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
           
-            charectristicWrite = characteristic
+            discoverPeripheral.charectristicWrite = characteristic
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
             peripheral.setNotifyValue(true, for: characteristic)
-            charectristicRead = characteristic
+            discoverPeripheral.charectristicRead = characteristic
         }
         
         stopTimer()
-        if macCharecteristic != nil && charectristicWrite != nil {
+        if discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicWrite != nil {
             delay(isAddAnother ? 15 : 0) {
                 [weak self] in
                 guard let `self` = self else { return }
@@ -173,8 +180,8 @@ extension BLEHelper {
                     if !DatabaseManager.share.getIsSetRTC(udid: peripheral.identifier.uuidString) {
                         self.setRTCTime(uuid: peripheral.identifier.uuidString)
                     }
-                    self.getmacAddress()
-                    self.getBetteryLevel()
+                    self.getmacAddress(peripheral: discoverPeripheral)
+                    self.getBetteryLevel(peripheral: discoverPeripheral)
                     self.getAccuationNumber()
                     Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
                     self.isScanning = false

@@ -98,6 +98,9 @@ class AddDeviceIntroVC: BaseVC {
             let advTimeGif = UIImage.gifImageWithName("Tap-Animation")
             imgAddDevice.image = advTimeGif
             lblAddDevice.isHidden  = true
+            NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
+            NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLENotConnect, object: nil)
@@ -272,8 +275,9 @@ extension AddDeviceIntroVC {
         NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        BLEHelper.shared.setRTCTime(uuid: BLEHelper.shared.connectedPeripheral[BLEHelper.shared.connectedPeripheral.count - 1].discoveredPeripheral?.identifier.uuidString ?? "")
-        BLEHelper.shared.getBetteryLevel()
+        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+        BLEHelper.shared.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
+        BLEHelper.shared.getBetteryLevel(peripheral: discoverPeripheral)
         addDeviceIntroVC.step = .step5
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
         addDeviceIntroVC.isFromDeviceList = isFromDeviceList

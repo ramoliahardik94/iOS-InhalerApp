@@ -104,6 +104,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
+                    uuid = peripheral.identifier.uuidString
                     connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
                     stopTimer()
@@ -114,8 +115,10 @@ extension BLEHelper: CBCentralManagerDelegate {
                         }
                     }
                 } else {
+                    
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
+                        uuid = ""
                         connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                         if connectedPeripheral.count == device.count {
                             stopScanPeriphral()
@@ -130,9 +133,10 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         if peripheral.state == .connected {
-            macCharecteristic = nil
-            charectristicWrite = nil
-            stopScanPeriphral()
+            guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+            discoverPeripheral.macCharecteristic = nil
+            discoverPeripheral.charectristicWrite = nil
+//            stopScanPeriphral()
             peripheral.delegate = self
             peripheral.discoverServices(TransferService.serviceArray)
         }
@@ -179,7 +183,8 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
         // get the handle to the peripheral already connected by the os and set ourselves as the delegate
-        Logger.logInfo("willRestoreState")
+        
+        Logger.logInfo(" willRestoreState  \n\n   \(dict)  ")
             let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
             if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
                 if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {

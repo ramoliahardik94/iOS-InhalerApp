@@ -209,12 +209,12 @@ class DatabaseManager {
     }
     
     func deleteMacAddress(macAddress: String) {
+        
         setupUDID(mac: macAddress, udid: "", isDelete: true)
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
         let predicate = NSPredicate(format: "mac == %@", macAddress)
         fetch.predicate = predicate
-        let request = NSBatchDeleteRequest(fetchRequest: fetch)
-        
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)        
         do {
             try context?.execute(request)
             try context?.save()
@@ -282,6 +282,7 @@ class DatabaseManager {
     
     func setupUDID(mac: String, udid: String, isDelete: Bool = false) {
         let keychain = KeychainSwift()
+        
         if isDelete {
             keychain.delete(mac)
         } else {

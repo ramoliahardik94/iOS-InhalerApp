@@ -25,7 +25,8 @@ class MedicationVC: BaseVC {
         super.viewDidLoad()
         self.setUp()
         // Do any additional setup after loading the view.
-        BLEHelper.shared.getmacAddress()
+        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+        BLEHelper.shared.getmacAddress(peripheral: discoverPeripheral)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         self.getMedication()
     }

@@ -19,7 +19,8 @@ extension BLEHelper {
     func scanPeripheral(isTimer: Bool = false) {
     
         if centralManager.state == .poweredOn {
-            if UserDefaultManager.isLogin && (connectedPeripheral.isEmpty || isAddAnother) {
+            let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+            if UserDefaultManager.isLogin && (connectedPeripheral.count !=  devicelist.count || isAddAnother) {
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0
                     Logger.logInfo("Scaning start with \(time) sec timer")
@@ -84,13 +85,8 @@ extension BLEHelper {
                                 }
                             }
                         }
-                } else {
-                    if BLEHelper.shared.centralManager.state == .poweredOn {
-                        scanPeripheral()
-                    }
-                }
+                } 
             } else {
-              //  BLEHelper.shared.setDelegate()
                 if let topVC =  UIApplication.topViewController() {
                     topVC.view.makeToast(ValidationMsg.bluetoothOn)
                 }
