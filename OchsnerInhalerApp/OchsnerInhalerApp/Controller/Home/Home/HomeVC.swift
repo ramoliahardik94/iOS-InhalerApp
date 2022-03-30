@@ -44,7 +44,7 @@ class HomeVC: BaseVC {
         
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.count !=  deviceList.count {
-            BLEHelper.shared.scanPeripheral()
+             BLEHelper.shared.scanPeripheral()
         } else {
              let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
                 for obj in disconnectedDevice {

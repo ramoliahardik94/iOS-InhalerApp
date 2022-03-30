@@ -87,11 +87,11 @@ extension BLEHelper: CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         
-        guard RSSI.intValue >= -55
-        else {
-            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-            return
-        }
+//        guard RSSI.intValue >= -55
+//        else {
+//            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+//            return
+//        }
         
         Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         
@@ -120,11 +120,12 @@ extension BLEHelper: CBCentralManagerDelegate {
                         Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
                         uuid = ""
                         connectedPeripheral.append(PeriperalType(peripheral: peripheral))
+                        connectPeriPheral(peripheral: peripheral)
+                        
                         if connectedPeripheral.count == device.count {
                             stopScanPeriphral()
                             stopTimer()
                         }
-                        connectPeriPheral(peripheral: peripheral)
                     }
                 }
             }
@@ -158,6 +159,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if !isAddAnother && UserDefaultManager.isLogin {
            //TODO: Optimize this
+            
             scanPeripheral(isTimer: false)
         }
         self.stopTimer()
