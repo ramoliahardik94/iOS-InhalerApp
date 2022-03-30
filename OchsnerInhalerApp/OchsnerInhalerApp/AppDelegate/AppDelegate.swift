@@ -36,6 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationManager.shared.register()
         }
         initLoggers()
+        
+        if UserDefaultManager.isSecondLaunc == false {
+            DatabaseManager.share.deleteAllAccuationLog()
+            UserDefaultManager.isSecondLaunc = true
+        }
+        
         Logger.logInfo("\n\n\n===========================\nLaunched Ochsner Inhaler App > Environment: , App Version: \(appVersion()), Device: \(UIDevice.modelName), iOS Version: \(UIDevice.current.systemVersion), Data Connection:)")
         
         initFirebase()
