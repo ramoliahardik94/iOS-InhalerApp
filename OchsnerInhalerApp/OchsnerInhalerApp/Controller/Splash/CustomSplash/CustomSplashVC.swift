@@ -43,7 +43,7 @@ class CustomSplashVC: BaseVC {
             if UserDefaultManager.isLocationOn {
                 LocationManager.shared = LocationManager()
             }
-            BLEHelper.shared.apiCallDeviceUsage()
+            BLEHelper.shared.apiCallForAccuationlog()
         }
     }
     

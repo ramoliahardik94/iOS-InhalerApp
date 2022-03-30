@@ -23,9 +23,7 @@ extension BLEHelper {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = DateFormate.dateFromLog
                     guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: { logPeripheralUUID == $0.discoveredPeripheral!.identifier.uuidString}) else {
-                        print("Fail")
                         return
-                        
                     }
                     
                     if  let date = dateFormatter.date(from: isoDate!) {
@@ -35,14 +33,15 @@ extension BLEHelper {
                                                   "useLength": length,
                                                   "lat": "\(LocationManager.shared.cordinate.latitude)",
                                                   "long": "\(LocationManager.shared.cordinate.longitude)",
-                                                  "isSync": false, "mac": mac! as Any,
+                                                  "isSync": false,
+                                                  "mac": mac! as Any,
                                                   "udid": logPeripheralUUID as Any,
                                                   "batterylevel": bettery as Any]
                         DatabaseManager.share.saveAccuation(object: dic)
                         if Decimal(discoverPeripheral.logCounter) == discoverPeripheral.noOfLog {
                             discoverPeripheral.noOfLog = 0
                             discoverPeripheral.logCounter = 0
-                            self.apiCallForAccuationlog()
+                            self.apiCallForAccuationlog(mac: mac!)
                         }
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
@@ -54,15 +53,15 @@ extension BLEHelper {
         }
     }
     
-    func apiCallForAccuationlog() {
+    func apiCallForAccuationlog(mac: String = "") {
         if APIManager.isConnectedToNetwork {
             DispatchQueue.global(qos: .background).sync {
-                self.apiCallDeviceUsage()
+                self.apiCallDeviceUsage(mac: mac)
             }
         }
     }
     
-    func prepareAcuationLogParam() -> [[String: Any]] {
+    func prepareAcuationLogParam(mac: String) -> [[String: Any]] {
         var parameter = [[String: Any]]()
         var param = [String: Any]()
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
@@ -74,11 +73,14 @@ extension BLEHelper {
                 parameter.append(param)
             }
         }
+        if mac != "" {
+            parameter = parameter.filter({ ($0["DeviceId"] as! String) == mac })
+        }
         return parameter
     }
     
-    func apiCallDeviceUsage() {
-        let param = prepareAcuationLogParam()
+    func apiCallDeviceUsage(mac: String) {
+        let param = prepareAcuationLogParam(mac: mac)
         if param.count != 0 {
             APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] _, response in
                 if response != nil {
