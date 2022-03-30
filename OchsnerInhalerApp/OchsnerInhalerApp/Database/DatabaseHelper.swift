@@ -208,21 +208,25 @@ class DatabaseManager {
         }
     }
     
-    func deleteMacAddress(macAddress: String) {
+    func deleteMacAddress(macAddress: String) {        
         
-        setupUDID(mac: macAddress, udid: "", isDelete: true)
-        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         let predicate = NSPredicate(format: "mac == %@", macAddress)
-        fetch.predicate = predicate
-        let request = NSBatchDeleteRequest(fetchRequest: fetch)        
+        fetchRequest.predicate = predicate
         do {
-            try context?.execute(request)
-            try context?.save()
+            if let  arrDevice = try context?.fetch(fetchRequest) {
+                for obj in arrDevice {
+                    context?.delete(obj)
+                }
+                try context?.save()
+            }
+            setupUDID(mac: macAddress, udid: "", isDelete: true)
         } catch {
             debugPrint("There was an error")
         }
     }
-    
+//
     
     
     func deleteAllDevice() {

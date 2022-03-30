@@ -32,9 +32,7 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        if (BLEHelper.shared.connectedPeripheral.count == 0) {
-            BLEHelper.shared.scanPeripheral()
-        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
     }
     
@@ -42,9 +40,18 @@ class HomeVC: BaseVC {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         self.getAccuationLogHome()
-        BLEHelper.shared.apiCallForAccuationlog()
         initUI()
-
+        
+        let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if BLEHelper.shared.connectedPeripheral.count !=  deviceList.count {
+            BLEHelper.shared.scanPeripheral()
+        } else {
+             let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
+                for obj in disconnectedDevice {
+                    BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
+                }
+        }
+        BLEHelper.shared.apiCallForAccuationlog()
     }
     
     func getAccuationLogHome(isPulltoRefresh: Bool = false) {

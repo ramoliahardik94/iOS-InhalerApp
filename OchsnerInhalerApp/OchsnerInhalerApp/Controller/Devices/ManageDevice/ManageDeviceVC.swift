@@ -77,6 +77,11 @@ class ManageDeviceVC: BaseVC {
         
         if BLEHelper.shared.connectedPeripheral.count !=  self.manageDeviceVM.arrDevice.count {
             BLEHelper.shared.scanPeripheral()
+        } else {
+             let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
+                for obj in disconnectedDevice {
+                    BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
+                }
         }
         tbvData.reloadData()
         apiCall()

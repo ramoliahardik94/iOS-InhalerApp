@@ -55,7 +55,12 @@ class MedicationVM {
             APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { [weak self] error, response in
                 guard let `self` = self else { return }
                 if response == nil {
+                    if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == self.macAddress}) {
+                        BLEHelper.shared.cleanup(peripheral: (peripheral.discoveredPeripheral!))
+                        BLEHelper.shared.connectedPeripheral.removeAll(where: {$0.addressMAC == self.macAddress})
+                    }
                     completionHandler(.failure(error!.message))
+                
                 } else {
                     if (response as? [String: Any]) != nil {
                         if let peripheral = BLEHelper.shared.connectedPeripheral.last {

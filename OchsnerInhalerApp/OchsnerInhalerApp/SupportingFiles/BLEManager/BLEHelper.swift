@@ -114,7 +114,7 @@ class BLEHelper: NSObject {
         }
     }
     
-    func getmacAddress(peripheral: PeriperalType) {
+    func getmacAddress(peripheral: PeriperalType) {        
         if peripheral.discoveredPeripheral != nil && peripheral.macCharecteristic != nil && peripheral.discoveredPeripheral!.state == .connected {
             peripheral.discoveredPeripheral!.readValue(for: peripheral.macCharecteristic!)
             }
