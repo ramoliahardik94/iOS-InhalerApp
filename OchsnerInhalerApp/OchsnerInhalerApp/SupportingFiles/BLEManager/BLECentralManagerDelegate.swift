@@ -119,10 +119,14 @@ extension BLEHelper: CBCentralManagerDelegate {
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
                         uuid = ""
-                        connectedPeripheral.append(PeriperalType(peripheral: peripheral))
+                        let isContenits = connectedPeripheral.contains(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString})
+                        if !isContenits {
+                            connectedPeripheral.append(PeriperalType(peripheral: peripheral))
+                        }
                         connectPeriPheral(peripheral: peripheral)
-                        
-                        if connectedPeripheral.count == device.count {
+                        let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected || $0.discoveredPeripheral?.state == .connecting})
+                        print("\(connectedDevice.count)")
+                        if connectedDevice.count == device.count {
                             stopScanPeriphral()
                             stopTimer()
                         }
@@ -158,8 +162,6 @@ extension BLEHelper: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if !isAddAnother && UserDefaultManager.isLogin {
-           //TODO: Optimize this
-            
             scanPeripheral(isTimer: false)
         }
         self.stopTimer()

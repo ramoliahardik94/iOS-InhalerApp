@@ -17,10 +17,11 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
-    
+
         if centralManager.state == .poweredOn {
-            let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-            if UserDefaultManager.isLogin && (connectedPeripheral.count !=  devicelist.count || isAddAnother) {
+            Logger.logInfo("Scan \(UserDefaultManager.isLogin) && (\(isTimer) || \(isAddAnother)) ")
+            if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {
+                
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0
                     Logger.logInfo("Scaning start with \(time) sec timer")
@@ -55,7 +56,9 @@ extension BLEHelper {
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
     func connectPeriPheral(peripheral: CBPeripheral) {
         if isAllow {
+            if peripheral.state != .connected || peripheral.state != .connecting {
                 centralManager.connect(peripheral, options: nil)
+            }
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .BLEChange, object: nil)
                 }

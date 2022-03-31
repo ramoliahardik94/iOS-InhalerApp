@@ -169,7 +169,7 @@ extension BLEHelper {
             discoverPeripheral.charectristicRead = characteristic
         }
         
-        stopTimer()
+//        stopTimer()
         if discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicWrite != nil {
             delay(isAddAnother ? 15 : 0) {
                 [weak self] in

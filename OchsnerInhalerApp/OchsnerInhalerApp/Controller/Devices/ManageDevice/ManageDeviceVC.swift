@@ -74,12 +74,12 @@ class ManageDeviceVC: BaseVC {
     
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
-        
-        if BLEHelper.shared.connectedPeripheral.count !=  self.manageDeviceVM.arrDevice.count {
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if BLEHelper.shared.connectedPeripheral.count !=  device.count {
             BLEHelper.shared.scanPeripheral()
         } else {
              let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
-                for obj in disconnectedDevice {
+                for obj in disconnectedDevice {                    
                     BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
                 }
         }

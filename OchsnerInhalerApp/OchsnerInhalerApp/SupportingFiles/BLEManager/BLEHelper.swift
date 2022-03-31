@@ -50,6 +50,8 @@ class BLEHelper: NSObject {
    
     var isPullToRefresh = false
     
+    
+    
     func addLogObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
         isSet = true
@@ -97,10 +99,11 @@ class BLEHelper: NSObject {
         print(connectedPeripheral.count)
         for obj in connectedPeripheral {
             if obj.discoveredPeripheral != nil && obj.charectristicWrite != nil && obj.discoveredPeripheral?.state == .connected {
-                delay(1) {
+            
                     Logger.logInfo("Get Accuation number for \(obj.addressMAC)")
                     obj.discoveredPeripheral?.writeValue(TransferService.requestGetNoAccuation.hexadecimal!, for: obj.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
-                }
+                
+                
             }
                
         }

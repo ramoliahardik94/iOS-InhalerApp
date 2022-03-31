@@ -25,7 +25,7 @@ extension BLEHelper {
                     guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: { logPeripheralUUID == $0.discoveredPeripheral!.identifier.uuidString}) else {
                         return
                     }
-                    
+                    Logger.logInfo("Notification for AccuationLog")
                     if  let date = dateFormatter.date(from: isoDate!) {
                         dateFormatter.dateFormat = DateFormate.useDateLocalAPI
                         let finalDate = dateFormatter.string(from: date)
@@ -41,7 +41,9 @@ extension BLEHelper {
                         if Decimal(discoverPeripheral.logCounter) == discoverPeripheral.noOfLog {
                             discoverPeripheral.noOfLog = 0
                             discoverPeripheral.logCounter = 0
-                            self.apiCallForAccuationlog(mac: mac!)
+                            DispatchQueue.global(qos: .utility).sync {
+                                self.apiCallForAccuationlog(mac: mac!)                                
+                            }
                         }
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")

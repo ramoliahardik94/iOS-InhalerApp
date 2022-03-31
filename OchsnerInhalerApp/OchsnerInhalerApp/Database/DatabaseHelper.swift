@@ -97,7 +97,7 @@ class DatabaseManager {
         }
     }
     
-    func saveDevice(object: DeviceModel , isFromDirection: Bool = false) {
+    func saveDevice(object: DeviceModel, isFromDirection: Bool = false) {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         
@@ -127,7 +127,7 @@ class DatabaseManager {
                 }
                  
                 accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
-                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses)")
+                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses ?? "")")
                 accuationLog.medname =  object.medication.medName
             } else {
                 accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
@@ -137,7 +137,7 @@ class DatabaseManager {
                 accuationLog.reminder =  object.isReminder
                 accuationLog.medtypeid = Int16(object.medTypeID)
                 accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
-                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses)")
+                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses ?? "")")
                 accuationLog.medname =  object.medication.medName
             }
             try context?.save()
