@@ -63,7 +63,7 @@ class ProfileVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         switchLocation.setOn(UserDefaultManager.isLocationOn, animated: true)
-     //   switchNotification.setOn(UserDefaultManager.isNotificationOn, animated: true)
+        switchNotification.setOn(UserDefaultManager.isNotificationOn, animated: true)
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
@@ -114,7 +114,14 @@ class ProfileVC: BaseVC {
     
     @IBAction func onChangeSwitch(_ sender: UISwitch) {
         if sender.tag == SwitchButtonsTag.switchNotification.rawValue {
-            //UserDefaultManager.isNotificationOn = sender.isOn
+            UserDefaultManager.isNotificationOn = sender.isOn
+            if sender.isOn {
+                Logger.logInfo("Toggle On")
+                NotificationManager.shared.addReminderLocal(userName: self.profileVM.userData.user?.firstName ?? "")
+            } else {
+                NotificationManager.shared.removeAllPendingLocalNotification()
+            }
+            
         } else if sender.tag == SwitchButtonsTag.switchLocation.rawValue {
             UserDefaultManager.isLocationOn = switchLocation.isOn
             if sender.isOn {
@@ -147,13 +154,13 @@ class ProfileVC: BaseVC {
         for obj in BLEHelper.shared.connectedPeripheral {
             BLEHelper.shared.cleanup(peripheral: obj.discoveredPeripheral!)
         }
-        
-         let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
-         let nav: UINavigationController = UINavigationController()
-         nav.isNavigationBarHidden = true
-         nav.viewControllers  = [loginVC]
-         UIApplication.shared.windows.first?.rootViewController = nav
-         UIApplication.shared.windows.first?.makeKeyAndVisible()
+        NotificationManager.shared.removeAllPendingLocalNotification()
+        let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
+        let nav: UINavigationController = UINavigationController()
+        nav.isNavigationBarHidden = true
+        nav.viewControllers  = [loginVC]
+        UIApplication.shared.windows.first?.rootViewController = nav
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
     
     private func doGetProfileData() {

@@ -32,6 +32,8 @@ class BaseVC: UIViewController {
     func rootVC(controller: UIViewController) {
         let nav: UINavigationController = UINavigationController()
         nav.isNavigationBarHidden = true
+        nav.navigationBar.barStyle = .black
+        nav.view.backgroundColor = .ButtonColorBlue
         nav.viewControllers  = [controller]
         UIApplication.shared.windows.first?.rootViewController = nav
         UIApplication.shared.windows.first?.makeKeyAndVisible()

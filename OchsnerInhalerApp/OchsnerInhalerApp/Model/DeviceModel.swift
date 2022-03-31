@@ -22,7 +22,7 @@ class DeviceModel: NSObject {
     var medication: MedicationModelElement = MedicationModelElement()
     var useTimes: [String] = [String]()
     var arrTime: [String] = [String]()
-    var isReminder = false
+    var isReminder = true
     var udid = ""
     override init () {        
     }
@@ -75,6 +75,7 @@ class DeviceModel: NSObject {
                     let str = "\((index + 1).ordinal) Dose at \(element)"
                     arrTime.append("\(element)")
                     useTimes.append(str)
+                    print(" DeviceModel STORE UseTimes == \(arrTime.description)")
                 }
             }
         }

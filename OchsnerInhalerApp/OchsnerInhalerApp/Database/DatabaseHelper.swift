@@ -97,7 +97,8 @@ class DatabaseManager {
         }
     }
     
-    func saveDevice(object: DeviceModel) {
+    func saveDevice(object: DeviceModel , isFromDirection: Bool = false) {
+        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         
         if object.udid != "" {
@@ -121,7 +122,13 @@ class DatabaseManager {
                     accuationLog.email = UserDefaultManager.email
                     accuationLog.medtypeid = Int16(object.medTypeID)
                 }
-                accuationLog.reminder =  object.isReminder
+                if isFromDirection {
+                    accuationLog.reminder =  object.isReminder
+                }
+                 
+                accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
+                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses)")
+                accuationLog.medname =  object.medication.medName
             } else {
                 accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
                 accuationLog.mac = object.internalID
@@ -129,6 +136,9 @@ class DatabaseManager {
                 accuationLog.email = UserDefaultManager.email
                 accuationLog.reminder =  object.isReminder
                 accuationLog.medtypeid = Int16(object.medTypeID)
+                accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
+                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses)")
+                accuationLog.medname =  object.medication.medName
             }
             try context?.save()
         } catch {
@@ -208,9 +218,7 @@ class DatabaseManager {
         }
     }
     
-    func deleteMacAddress(macAddress: String) {        
-        
-        
+    func deleteMacAddress(macAddress: String) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         let predicate = NSPredicate(format: "mac == %@", macAddress)
         fetchRequest.predicate = predicate
@@ -293,6 +301,8 @@ class DatabaseManager {
         keychain.set(udid, forKey: mac)
         }
     }
+            
+            
     
     func getUDID(mac: String) -> String {
         let keychain = KeychainSwift()

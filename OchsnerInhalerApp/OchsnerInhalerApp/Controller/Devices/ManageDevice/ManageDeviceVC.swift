@@ -9,7 +9,6 @@ import UIKit
 
 
 class ManageDeviceVC: BaseVC {
-    
     @IBOutlet weak var tbvData: UITableView!
     private let itemCell = CellIdentifier.manageDeviceCell
     var manageDeviceVM = ManageDeviceVM()
@@ -55,6 +54,7 @@ class ManageDeviceVC: BaseVC {
             }
         }
     }
+    
     private func initUI() {
         let nib = UINib(nibName: itemCell, bundle: nil)
         tbvData.register(nib, forCellReuseIdentifier: itemCell)
@@ -93,12 +93,15 @@ class ManageDeviceVC: BaseVC {
             self.tbvData.reloadData()
         }
     }
+    
     @objc func inhalerBatteryLevel(notification: Notification) {
         self.tbvData.reloadData()
     }
+    
     @objc func medicationUpdate(notification: Notification) {
         apiCall()
     }
+    
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
         Logger.logInfo("Add Another Device Click")
@@ -133,7 +136,6 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ManageDeviceVC: ManageDeviceDelegate {
 
-   
     func editDirection(index: Int) {
         Logger.logInfo("Edit Direction Click")
         let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -152,6 +154,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
         CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
             guard let `self` = self else { return }
             if isOk ?? false {
+                self.clearDeviceRemindersNotification(internalId: self.manageDeviceVM.arrDevice[index].internalID)
                 Logger.logInfo("Remove Device Click")
                 let id = DatabaseManager.share.getUDID(mac: self.manageDeviceVM.arrDevice[index].internalID)
                 DatabaseManager.share.setRTCFor(udid: id, value: false)
@@ -161,6 +164,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
         }
         
     }
+    
     func apiCallOfRemoveDevice (index: Int) {
         manageDeviceVM.apicallForRemoveDevice(index: index) { [weak self] result in
             guard let`self` = self else { return }
@@ -186,4 +190,17 @@ extension ManageDeviceVC: ManageDeviceDelegate {
             }
         }
     }
+    
+    private func clearDeviceRemindersNotification(internalId: String) {
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            let filterArray = requests.map({ (item) -> String in item.identifier })
+            let commonArray = filterArray.filter { item in
+                return item.contains("com.ochsner.inhalertrack.reminderdose\(internalId)")
+            }
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: commonArray)
+            Logger.logInfo(" Remove notification \(commonArray)")
+        })
+    }
+    
 }

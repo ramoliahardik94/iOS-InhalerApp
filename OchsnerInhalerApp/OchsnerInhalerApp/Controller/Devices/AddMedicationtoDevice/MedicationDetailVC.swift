@@ -37,7 +37,8 @@ class MedicationDetailVC: BaseVC {
         return obj
     }()
     let dropDown = DropDown()
-  private var userName = ""
+    private var userName = ""
+    var macAddress = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +85,7 @@ class MedicationDetailVC: BaseVC {
     func setUI() {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedicationDetail
-
+        
         viewMedicationName.backgroundColor = .Colorcell
         viewMedicationName.isOchsnerView = true
         viewMedicationName.clipsToBounds = true
@@ -98,7 +99,7 @@ class MedicationDetailVC: BaseVC {
         txtPuff.isOchsnerView = true
         txtPuff.clipsToBounds = true
         txtPuff.font = UIFont(name: AppFont.AppRegularFont, size: 17)
-        txtPuff.text =  "\(medicationVM.puff)" 
+        txtPuff.text =  "\(medicationVM.puff)"
         lblDoseTime.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblDoseTime.text = StringMedication.doseTime
         
@@ -119,7 +120,7 @@ class MedicationDetailVC: BaseVC {
         
         lblNDCCode.text = "NDC Code: \(medicationVM.selectedMedication!.ndc ?? "")"
         lblMedicationName.text = medicationVM.selectedMedication.medName
-       
+        
         swReminder.isOn =  UserDefaultManager.isAddReminder
         doGetProfileData()
         permissionForReminder(isShowMsg: false)
@@ -136,15 +137,18 @@ class MedicationDetailVC: BaseVC {
                 return false
             }
         }
-
+        
         return true
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
         if validateDosesOnDone() {
-            if swReminder.isOn {
+            if swReminder.isOn && UserDefaultManager.isNotificationOn {
                 addReminderToCalender()
+            } else {
+                clearDeviceRemindersNotification()
             }
+            
             if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
                 medicationVM.apiAddDevice(isreminder: swReminder.isOn) { [weak self] result in
                     guard let `self` = self else { return }
@@ -152,6 +156,10 @@ class MedicationDetailVC: BaseVC {
                     case .success(let status):
                         print("Response sucess :\(status)")
                         UserDefaultManager.isAddReminder = self.swReminder.isOn
+                        //                        background {
+                        //                            self.clearDeviceRemindersNotification()
+                        //                            NotificationManager.shared.addReminderLocal(userName: self.userName)
+                        //                        }
                         if self.isFromDeviceList {
                             self.navigationController?.popToRootViewController(animated: true)
                         } else if !self.medicationVM.isEdit {
@@ -179,14 +187,12 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func reminderValue(_ sender: UISwitch) {
-        print(sender.isOn)
         if sender.isOn {
             permissionForReminder(isShowMsg: true)
         }
     }
     
     @IBAction func btnAddDoseClick(_ sender: Any) {
-       
         var displayDate: Date
         let date = self.medicationVM.arrTime.map({ $0.getDate(format: DateFormate.doseTime)})
         // TODO: Hours gap for two dose add time
@@ -215,7 +221,6 @@ class MedicationDetailVC: BaseVC {
         let dosetime = self.medicationVM.arrTime[sender.tag].getDate(format: DateFormate.doseTime)
         myPicker.selectedDate = self.medicationVM.arrTime[sender.tag].getDate(format: DateFormate.doseTime)
         myPicker.dPicker.setDate(dosetime, animated: false)
-        
     }
     
     @IBAction func btnRemoveDoseTimeClick(_ sender: UIButton) {
@@ -228,7 +233,7 @@ class MedicationDetailVC: BaseVC {
     @IBAction func tapNoOfDose(_ sender: UIButton) {
         dropDown.anchorView = btnPuff
         dropDown.dataSource = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-
+        
         dropDown.selectionAction = { [weak self] (_, item) in
             guard let `self` = self else { return }
             self.txtPuff.text = item
@@ -236,12 +241,11 @@ class MedicationDetailVC: BaseVC {
         }
         dropDown.show()
     }
+    
     deinit {
         self.navigationController?.isNavigationBarHidden = false
     }
-  
     
-   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.medicationVM.medTypeId = 2
@@ -264,46 +268,22 @@ class MedicationDetailVC: BaseVC {
     
     func addReminderToCalender() {
         if self.medicationVM.arrTime.count > 0 {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderdose"])
-            if let graterDate =  self.medicationVM.arrTime.last?.getDate(format: DateFormate.doseTime) {
-               
-                let showDoesTime  = self.medicationVM.arrTime.last ?? ""
+            clearDeviceRemindersNotification()
+            for item in self.medicationVM.arrTime {
+                let graterDate =  item.getDate(format: DateFormate.doseTime)
+                //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                 var calendar = Calendar(identifier: .gregorian)
                 calendar.timeZone = .current
                 let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
-             
-                let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", showDoesTime )
-                
-                setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
+                let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", item )
+                // setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
+                NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: self.medicationVM.macAddress)
             }
         }
     }
     
-    func setNotification(date: Date, titile: String, calendar: Calendar) {
-        Logger.logInfo("Set Reminder For Time : \(date)")
-        let content = UNMutableNotificationContent()
-        let components = calendar.dateComponents([.hour, .minute, .second], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-        
-        content.title = StringAddDevice.titleAddDevice
-        content.body =  titile
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
-            
-            if let error = error {
-                Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
-            } else {
-                Logger.logInfo("Notification set for \(components)")
-                Logger.logInfo("\(StringAddDevice.titleAddDevice)")
-                Logger.logInfo("\(titile)")
-            }
-        })
-    }
     private func doGetProfileData() {
         let profileVM = ProfileVM()
-      
         profileVM.doGetProfile { [weak self] result in
             guard let `self` = self else { return }
             switch result {
@@ -322,7 +302,6 @@ class MedicationDetailVC: BaseVC {
         } else {
             self.medicationVM.arrTime = self.medicationVM.arrTime.map({$0.getDate(format: DateFormate.doseTime, isUTC: true)}).sorted().map({$0.getString(format: DateFormate.doseTime, isUTC: true)})
         }
-        print(self.medicationVM.arrTime)
     }
     
     func validateTime(time: String, isEdit: Bool = false, index: Int = 0) -> Bool {
@@ -348,7 +327,24 @@ class MedicationDetailVC: BaseVC {
         }
         return true
     }
- }
+    
+    private func clearDeviceRemindersNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            let filterArray = requests.map({ (item) -> String in item.identifier })
+            let commonArray = filterArray.filter { item in
+                return item.contains("com.ochsner.inhalertrack.reminderdose\(self.medicationVM.macAddress)")
+            }
+            // print("filter Arrya \(filterArray)")
+            // Logger.logInfo(" Filter notification \(commonArray)")
+            
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: commonArray)
+            Logger.logInfo(" Remove notification \(commonArray)")
+            
+        })
+    }
+    
+}
 
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -382,5 +378,4 @@ extension MedicationDetailVC: UITextFieldDelegate {
         self.view.endEditing(true)
         return true
     }
-   
 }

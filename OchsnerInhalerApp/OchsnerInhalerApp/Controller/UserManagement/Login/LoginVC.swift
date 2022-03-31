@@ -103,7 +103,7 @@ class LoginVC: BaseVC {
             return
         }
         
-        if !UserDefaultManager.isNotificationOn {
+        if !UserDefaultManager.isGrantNotification {
             let notificationPermissionVC = NotificationPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
             self.pushVC(controller: notificationPermissionVC)
             return
@@ -152,6 +152,9 @@ class LoginVC: BaseVC {
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
+                background {
+                    self.getProfile()
+                }
                 self.setNextView()
             case .failure:
                 break
@@ -159,6 +162,21 @@ class LoginVC: BaseVC {
             }
         })
     }
+    
+    func getProfile() {
+        let profileVM = ProfileVM()
+        profileVM.doGetProfile { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                NotificationManager.shared.addReminderLocal(userName: profileVM.userData.user?.firstName ?? "")
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
+        }
+    }
+    
     
     @IBAction func btnForgotPassClick(_ sender: Any) {
         

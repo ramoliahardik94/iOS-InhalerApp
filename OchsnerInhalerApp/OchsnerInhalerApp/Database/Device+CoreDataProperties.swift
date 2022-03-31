@@ -22,5 +22,7 @@ extension Device {
     @NSManaged public var medtypeid: Int16
     @NSManaged public var reminder: Bool
     @NSManaged public var setrtc: Bool
-
+    @NSManaged public var scheduledoses: String?
+    @NSManaged public var medname: String?
+    
 }
