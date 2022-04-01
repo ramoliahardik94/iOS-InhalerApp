@@ -63,7 +63,6 @@ class BLEHelper: NSObject {
         }
 //        centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
-       
     }
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
@@ -94,19 +93,14 @@ class BLEHelper: NSObject {
             }
     }
     
-    @objc func getAccuationNumber(_ isPulltoRefresh: Bool = false) {
+    @objc func getAccuationNumber(_ isPulltoRefresh: Bool = false, peripheral: PeriperalType) {
         self.isPullToRefresh = isPulltoRefresh
         print(connectedPeripheral.count)
-        for obj in connectedPeripheral {
-            if obj.discoveredPeripheral != nil && obj.charectristicWrite != nil && obj.discoveredPeripheral?.state == .connected {
-            
-                    Logger.logInfo("Get Accuation number for \(obj.addressMAC)")
-                    obj.discoveredPeripheral?.writeValue(TransferService.requestGetNoAccuation.hexadecimal!, for: obj.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
-                
+            if peripheral.discoveredPeripheral != nil && peripheral.charectristicWrite != nil && peripheral.discoveredPeripheral?.state == .connected {
+                Logger.logInfo("Get Accuation number for \(peripheral.addressMAC)")
+                peripheral.discoveredPeripheral?.writeValue(TransferService.requestGetNoAccuation.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
                 
             }
-               
-        }
     }
     
     @objc func getAccuationLog() {

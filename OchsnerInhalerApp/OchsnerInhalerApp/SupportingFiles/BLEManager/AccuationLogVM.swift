@@ -41,17 +41,14 @@ extension BLEHelper {
                         if Decimal(discoverPeripheral.logCounter) == discoverPeripheral.noOfLog {
                             discoverPeripheral.noOfLog = 0
                             discoverPeripheral.logCounter = 0
-                            DispatchQueue.global(qos: .utility).sync {
-                                self.apiCallForAccuationlog(mac: mac!)                                
-                            }
+//                            DispatchQueue.global(qos: .utility).sync {
+//                                self.apiCallForAccuationlog(mac: mac!)
+//                            }
                         }
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
                     }
                 }
-           // })
-            
-           
         }
     }
     
