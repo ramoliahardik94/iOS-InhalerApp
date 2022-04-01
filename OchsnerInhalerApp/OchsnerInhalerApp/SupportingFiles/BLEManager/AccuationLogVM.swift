@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension BLEHelper {
-    
+    ///Whenever BLE Device/Peripheral send Accuation log BLEHelper notify hear with thair log details in *notification* object
     @objc func accuationLog(notification: Notification) {
       
         if let object = notification.userInfo as? [String: Any] {
@@ -51,15 +51,15 @@ extension BLEHelper {
                 }
         }
     }
-    
+    /// use this function for API Call of *deviceuse* if *mac* is not blank the get specific mac unsync data from Local databse and try to sync them and if *mac* is blank then sync all unsync data from local database
     func apiCallForAccuationlog(mac: String = "") {
-        if APIManager.isConnectedToNetwork {
-            DispatchQueue.global(qos: .background).sync {
-                self.apiCallDeviceUsage(mac: mac)
-            }
+    if APIManager.isConnectedToNetwork {
+        DispatchQueue.global(qos: .background).sync {
+            self.apiCallDeviceUsage(mac: mac)
         }
     }
-    
+}
+    /// use for get parameter from databse for sync data to *deviceuse* API
     func prepareAcuationLogParam(mac: String) -> [[String: Any]] {
         var parameter = [[String: Any]]()
         var param = [String: Any]()
@@ -77,7 +77,7 @@ extension BLEHelper {
         }
         return parameter
     }
-    
+    /// Cloud API call of *deviceuse*
     func apiCallDeviceUsage(mac: String) {
         let param = prepareAcuationLogParam(mac: mac)
         if param.count != 0 {

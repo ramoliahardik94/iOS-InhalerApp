@@ -10,8 +10,6 @@ import CoreBluetooth
 
 // MARK: - CBPeripheral Delegate
 extension BLEHelper: CBPeripheralDelegate {
-    
-  
     /*
      *   This callback lets us know more data has arrived via notification on the characteristic
      */
@@ -132,8 +130,7 @@ extension BLEHelper {
             peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
         }
 
-    }
-    
+    }    
     /*
      *  The Transfer characteristic was discovered.
      *  Once this has been found, we want to subscribe to it, which lets the peripheral know we want the data it contains
