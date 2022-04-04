@@ -25,6 +25,11 @@ extension BLEHelper: CBPeripheralDelegate {
         
         guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         
+        
+        if characteristic.uuid == TransferService.characteristicAutoNotify {
+            Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
+        }
+       
         if characteristic.uuid == TransferService.macCharecteristic {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                 connectedPeripheral[index].addressMAC = stringFromData
@@ -62,7 +67,8 @@ extension BLEHelper: CBPeripheralDelegate {
                 if discoverPeripheral.noOfLog > 0 {
                     getAccuationLog()
                 } else {
-                    apiCallForAccuationlog()
+                    logCounter += 1
+                    accuationAPI_LastAccuation()
                 }
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(discoverPeripheral.noOfLog)"])
@@ -178,10 +184,8 @@ extension BLEHelper {
                     }
                     self.getmacAddress(peripheral: discoverPeripheral)
                     self.getBetteryLevel(peripheral: discoverPeripheral)
-                   
-                    self.getAccuationNumber(peripheral: discoverPeripheral)
-                    delay(2) {
-                        self.apiCallForAccuationlog(mac: discoverPeripheral.addressMAC)
+                    if !self.isAddAnother {
+                        self.getAccuationNumber(peripheral: discoverPeripheral)
                     }
                     Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
                     self.isScanning = false

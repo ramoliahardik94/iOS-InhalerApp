@@ -47,7 +47,7 @@ class BLEHelper: NSObject {
     var isAllow = false
     var timer: Timer!
     var isAddAnother = false
-   
+    var logCounter = 0
     var isPullToRefresh = false
     
     
@@ -109,7 +109,8 @@ class BLEHelper: NSObject {
     }
     /// This function is use for get Accuation Logs from BLE Device
     @objc func getAccuationLog() {
-        for obj in connectedPeripheral {
+        let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral!.state == .connected})
+        for obj in connectedDevice {
             if obj.discoveredPeripheral != nil && obj.charectristicWrite != nil && obj.discoveredPeripheral?.state == .connected {
                 obj.discoveredPeripheral?.writeValue(TransferService.requestGetAcuationLog.hexadecimal!, for: obj.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
             }

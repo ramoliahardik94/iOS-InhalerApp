@@ -25,4 +25,5 @@ extension Device {
     @NSManaged public var scheduledoses: String?
     @NSManaged public var medname: String?
     
+    
 }

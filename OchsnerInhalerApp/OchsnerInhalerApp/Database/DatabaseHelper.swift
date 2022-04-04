@@ -112,35 +112,38 @@ class DatabaseManager {
         let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
-            var accuationLog: Device!
-            let arrAccuationLog = try context?.fetch(fetchRequest) as! [Device]
-            if arrAccuationLog.count != 0 {
-                accuationLog = arrAccuationLog[0]
-                if accuationLog.udid == "" && object.udid != "" {
-                    accuationLog.mac = object.internalID
-                    accuationLog.udid = object.udid
-                    accuationLog.email = UserDefaultManager.email
-                    accuationLog.medtypeid = Int16(object.medTypeID)
+            var device: Device!
+            if object.internalID != "" {
+                let arrDevice = try context?.fetch(fetchRequest) as! [Device]
+                if arrDevice.count != 0 {
+                    device = arrDevice[0]
+                    if device.udid == "" && object.udid != "" {
+                        device.mac = object.internalID
+                        device.udid = object.udid
+                        device.email = UserDefaultManager.email
+                        device.medtypeid = Int16(object.medTypeID)
+                    }
+                    if isFromDirection {
+                        device.reminder =  object.isReminder
+                    }
+                    device.scheduledoses = object.arrTime.joined(separator: ",")
+                    print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(device.scheduledoses ?? "")")
+                    device.medname =  object.medication.medName
+                    Logger.logInfo("DB Device \(String(describing: device.mac)) with uuid \(String(describing: device.udid)) Update")
+                } else {
+                    device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
+                    device.mac = object.internalID
+                    device.udid = object.udid
+                    device.email = UserDefaultManager.email
+                    device.reminder =  object.isReminder
+                    device.medtypeid = Int16(object.medTypeID)
+                    device.scheduledoses = object.arrTime.joined(separator: ",")
+                    print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(device.scheduledoses ?? "")")
+                    device.medname =  object.medication.medName
+                    Logger.logInfo("DB Device \(String(describing: device.mac)) with uuid \(String(describing: device.udid)) Add")
                 }
-                if isFromDirection {
-                    accuationLog.reminder =  object.isReminder
-                }
-                 
-                accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
-                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses ?? "")")
-                accuationLog.medname =  object.medication.medName
-            } else {
-                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
-                accuationLog.mac = object.internalID
-                accuationLog.udid = object.udid
-                accuationLog.email = UserDefaultManager.email
-                accuationLog.reminder =  object.isReminder
-                accuationLog.medtypeid = Int16(object.medTypeID)
-                accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
-                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses ?? "")")
-                accuationLog.medname =  object.medication.medName
+                try context?.save()
             }
-            try context?.save()
         } catch {
             
         }
@@ -299,6 +302,7 @@ class DatabaseManager {
             keychain.delete(mac)
         } else {
         keychain.set(udid, forKey: mac)
+            print("setUUID\(udid) for mac \(mac)")
         }
     }
             
@@ -310,7 +314,9 @@ class DatabaseManager {
             // udid not found in keychain
             return ""
         }
+        print("GetUUID From Mac: \(mac) : \(oldUDID)")
         return oldUDID
+        
     }
     
     func getMac(UDID: String) -> String {

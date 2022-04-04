@@ -9,6 +9,15 @@ import Foundation
 import UIKit
 
 extension BLEHelper {
+    
+    
+    func accuationAPI_LastAccuation() {
+        let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral!.state == .connected})
+        if logCounter == connectedDevice.count {
+            logCounter = 0
+            apiCallForAccuationlog()
+        }
+    }
     ///Whenever BLE Device/Peripheral send Accuation log BLEHelper notify hear with thair log details in *notification* object
     @objc func accuationLog(notification: Notification) {
       
@@ -37,13 +46,14 @@ extension BLEHelper {
                                                   "mac": mac! as Any,
                                                   "udid": logPeripheralUUID as Any,
                                                   "batterylevel": bettery as Any]
-                        DatabaseManager.share.saveAccuation(object: dic)
+                        if mac != nil {
+                            DatabaseManager.share.saveAccuation(object: dic)
+                        }
                         if Decimal(discoverPeripheral.logCounter) == discoverPeripheral.noOfLog {
                             discoverPeripheral.noOfLog = 0
                             discoverPeripheral.logCounter = 0
-//                            DispatchQueue.global(qos: .utility).sync {
-//                                self.apiCallForAccuationlog(mac: mac!)
-//                            }
+                            logCounter += 1
+                            accuationAPI_LastAccuation()
                         }
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
@@ -65,6 +75,9 @@ extension BLEHelper {
         var param = [String: Any]()
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         for obj in device {
+            if obj.mac == "" {
+                obj.mac = DatabaseManager.share.getMac(UDID: obj.udid!)
+            }
             let usage = DatabaseManager.share.getAccuationLogList(mac: obj.mac!)
             if usage.count != 0 {
                 param["DeviceId"] = obj.mac!
