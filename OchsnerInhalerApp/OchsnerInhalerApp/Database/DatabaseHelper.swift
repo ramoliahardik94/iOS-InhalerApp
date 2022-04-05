@@ -60,6 +60,14 @@ class DatabaseManager {
             accuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
             try context?.save()
             Logger.logInfo("Log Save \(accuationLog.DBDictionary())")
+            
+            if Decimal(BLEHelper.shared.logCounter) == BLEHelper.shared.noOfLog {
+                BLEHelper.shared.noOfLog = 0
+                BLEHelper.shared.logCounter = 0
+                BLEHelper.shared.apiCallForAccuationlog()               
+                print("LogCount Equal")
+            }
+            
         } catch {
             debugPrint("Can not get Data")
         }

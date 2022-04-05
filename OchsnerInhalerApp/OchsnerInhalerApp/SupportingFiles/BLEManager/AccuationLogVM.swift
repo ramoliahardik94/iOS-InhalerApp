@@ -32,15 +32,7 @@ extension BLEHelper {
                                                   "udid": udid as Any,
                                                   "batterylevel": BLEHelper.shared.bettery]
                         DatabaseManager.share.saveAccuation(object: dic)
-                        if Decimal(logCounter) == self.noOfLog {
-                            self.noOfLog = 0
-                            self.logCounter = 0
-                            delay(3) {
-                                self.apiCallForAccuationlog()
-                            }
-                           
-                            print("LogCount Equal")
-                        }
+                       
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
                     }
