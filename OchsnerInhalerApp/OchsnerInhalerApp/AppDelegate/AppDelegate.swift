@@ -113,16 +113,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func foregroundCall() {
         print("App moved to foreground")
-//        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
-//            if BLEHelper.shared.discoveredPeripheral != nil {
-//                switch BLEHelper.shared.discoveredPeripheral!.state {
-//                case .disconnected:
-//                    BLEHelper.shared.connectPeriPheral()
-//                default:
-//                    break
-//                }
-//            }
-//        }
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
+            if BLEHelper.shared.discoveredPeripheral != nil {
+                switch BLEHelper.shared.discoveredPeripheral!.state {
+                case .disconnected:
+                    BLEHelper.shared.connectPeriPheral()
+                case .connected:
+                    BLEHelper.shared.getAccuationNumber()
+                default:
+                    break
+                }
+            }
+        }
     }
     
     @objc func backgroundCall() {
