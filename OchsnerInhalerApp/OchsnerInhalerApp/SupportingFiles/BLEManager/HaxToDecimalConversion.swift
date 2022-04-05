@@ -44,6 +44,7 @@ extension String {
             let isValid = onlyDate.isDateVallid()
             
             if  BLEHelper.shared.noOfLog == Decimal(counter) && (onlyDate == "2000-01-01" ||  !isValid || DatabaseManager.share.isContinuasBadReading()) {
+                Logger.logInfo(" noOfLog : \(BLEHelper.shared.noOfLog) == counter: \(Decimal(counter)) && onlyDate:\(onlyDate == "2000-01-01") ||  !isValid : \(isValid) || DatabaseManager.share.isContinuasBadReading():\(DatabaseManager.share.isContinuasBadReading())")
                 BLEHelper.shared.setRTCTime()
                 return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))
             } else {
