@@ -398,10 +398,8 @@ class DatabaseManager {
             
             do {
                 accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
-                if accuationLog.first(where: {$0.isbadlog == false}) == nil {
-                    return true
-                }
-                return false
+                let arrBad = accuationLog.filter({$0.isbadlog == false})
+                return arrBad.count == 10
             } catch {
                 debugPrint("Can not get Data")
                 return false
