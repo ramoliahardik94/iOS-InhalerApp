@@ -188,7 +188,7 @@ extension BLEHelper {
                         self.getAccuationNumber(peripheral: discoverPeripheral)
                     }
                     Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
-                    self.isScanning = false
+                    //self.isScanning = false
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .BLEConnect, object: nil)
                     }

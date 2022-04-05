@@ -43,9 +43,6 @@ class ManageDeviceCell: UITableViewCell {
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             var textStatus =  StringCommonMessages.disconnect
             var bettery = device.batteryLevel
-            if BLEHelper.shared.isScanning {
-                textStatus = StringCommonMessages.scanning
-            } else {
                 if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.internalID}) {
                     bettery =  peripheral.bettery != "0" ? "\(peripheral.bettery)%" :  device.batteryLevel
                     switch peripheral.discoveredPeripheral!.state {
@@ -58,16 +55,14 @@ class ManageDeviceCell: UITableViewCell {
                     case .disconnecting:
                         textStatus = StringCommonMessages.disconnect
                     @unknown default:
-                        textStatus = StringCommonMessages.connecting
-                        
+                        textStatus = BLEHelper.shared.isScanning ? StringCommonMessages.scanning : StringCommonMessages.disconnect
                     }
                 } else {
-                    textStatus = StringCommonMessages.disconnect
+                    textStatus = BLEHelper.shared.isScanning ? StringCommonMessages.scanning : StringCommonMessages.disconnect
                 }
-                lblstatus.text = textStatus
-                lblBettery.text = bettery
-                btnEditDirection.isHidden = device.medTypeID ==  1
-            }
+            lblstatus.text = textStatus
+            lblBettery.text = bettery
+            btnEditDirection.isHidden = device.medTypeID ==  1
         }
     }
     

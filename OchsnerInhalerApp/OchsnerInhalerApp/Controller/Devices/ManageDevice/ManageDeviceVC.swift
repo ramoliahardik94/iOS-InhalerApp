@@ -105,6 +105,8 @@ class ManageDeviceVC: BaseVC {
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
         Logger.logInfo("Add Another Device Click")
+        BLEHelper.shared.stopTimer()
+        BLEHelper.shared.stopScanPeriphral()
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true
