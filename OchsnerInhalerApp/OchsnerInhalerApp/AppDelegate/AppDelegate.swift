@@ -37,9 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         initLoggers()
         
-        if UserDefaultManager.isSecondLaunc == false {
+        if UserDefaultManager.isFirstLaunch == false {
             DatabaseManager.share.deleteAllAccuationLog()
-            UserDefaultManager.isSecondLaunc = true
+            UserDefaultManager.isFirstLaunch = true
         }
         
         Logger.logInfo("\n\n\n===========================\nLaunched Ochsner Inhaler App > Environment: , App Version: \(appVersion()), Device: \(UIDevice.modelName), iOS Version: \(UIDevice.current.systemVersion), Data Connection:)")
@@ -113,16 +113,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func foregroundCall() {
         print("App moved to foreground")
-//        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
-//            if BLEHelper.shared.discoveredPeripheral != nil {
-//                switch BLEHelper.shared.discoveredPeripheral!.state {
-//                case .disconnected:
-//                    BLEHelper.shared.connectPeriPheral()
-//                default:
-//                    break
-//                }
-//            }
-//        }
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
+            let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+            for  discoverPeripheral in bleDevice {
+                BLEHelper.shared.getAccuationNumber(peripheral: discoverPeripheral)
+            }
+        }
     }
     
     @objc func backgroundCall() {

@@ -59,9 +59,6 @@ class HomeVC: BaseVC {
         let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
         for  discoverPeripheral in bleDevice {
             BLEHelper.shared.getAccuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
-            delay(2) {
-                BLEHelper.shared.apiCallDeviceUsage(mac: discoverPeripheral.addressMAC)
-            }
         }
     }
     

@@ -54,6 +54,7 @@ extension BLEHelper {
                             discoverPeripheral.logCounter = 0
                             logCounter += 1
                             accuationAPI_LastAccuation()
+
                         }
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
@@ -61,14 +62,24 @@ extension BLEHelper {
                 }
         }
     }
-    /// use this function for API Call of *deviceuse* if *mac* is not blank the get specific mac unsync data from Local databse and try to sync them and if *mac* is blank then sync all unsync data from local database
-    func apiCallForAccuationlog(mac: String = "") {
-    if APIManager.isConnectedToNetwork {
-        DispatchQueue.global(qos: .background).sync {
-            self.apiCallDeviceUsage(mac: mac)
+
+    func apiCallForAccuationlog(mac: String = "", isForSingle: Bool = false) {
+        if APIManager.isConnectedToNetwork {
+            DispatchQueue.global(qos: .background).sync {
+                if isForSingle {
+                    let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
+                    if unSyncData.count > 0 {
+                        let obj = unSyncData[0]
+                        guard let param = obj["Param"] as? [[String: Any]] else { return }
+                        self.apiCallDeviceUsage(param: param)
+                    }
+                    
+                } else {
+                    self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
+                }
+            }
         }
     }
-}
     /// use for get parameter from databse for sync data to *deviceuse* API
     func prepareAcuationLogParam(mac: String) -> [[String: Any]] {
         var parameter = [[String: Any]]()
@@ -90,9 +101,13 @@ extension BLEHelper {
         }
         return parameter
     }
+
     /// Cloud API call of *deviceuse*
-    func apiCallDeviceUsage(mac: String) {
-        let param = prepareAcuationLogParam(mac: mac)
+
+    
+    func apiCallDeviceUsage(param: [[String: Any]]) {
+        print(param)
+        let param = param
         if param.count != 0 {
             APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] _, response in
                 if response != nil {
@@ -107,6 +122,10 @@ extension BLEHelper {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
                         }
+                        let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
+                        if unSyncData.count > 0 {
+                            apiCallForAccuationlog()
+                        }
                     }
                     
                 } else {
@@ -117,6 +136,14 @@ extension BLEHelper {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
                         }
+                        if param.count == 1 {
+                            if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
+                                if arrUsage.count == 1 {
+                                    DatabaseManager.share.updateAccuationLogwithTimeAdd(param)
+                                }
+                            }
+                        }
+                        apiCallForAccuationlog(isForSingle: true)
                         self.isPullToRefresh = false
                     }
                 }
