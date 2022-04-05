@@ -97,8 +97,10 @@ class HomeVC: BaseVC {
                 BLEHelper.shared.scanPeripheral()
                 doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
             }
-        
-        refreshControl.endRefreshing()
+        delay(2) {
+            self.refreshControl.endRefreshing()
+        }
+       
         initTableview()
     }
 

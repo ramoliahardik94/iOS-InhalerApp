@@ -46,9 +46,12 @@ extension String {
             let onlyDate = String(format: "%04d-%02d-%02d", year, month, day)
             let isValid = onlyDate.isDateVallid()
             
+
             if  discoverPeripheral.noOfLog == Decimal(counter) && (onlyDate == "2000-01-01" ||  !isValid || DatabaseManager.share.isContinuasBadReading(uuid: uuid)) {
                 // TODO: - Set RTC For Bad Records
               //  BLEHelper.shared.setRTCTime()
+                Logger.logInfo(" noOfLog : \(discoverPeripheral.noOfLog) == counter: \(Decimal(counter)) && onlyDate:\(onlyDate == "2000-01-01") ||  !isValid : \(isValid) || DatabaseManager.share.isContinuasBadReading():\(DatabaseManager.share.isContinuasBadReading(uuid: uuid))")
+                BLEHelper.shared.setRTCTime(uuid: uuid)
                 return (Decimal(0), Date().getString(format: DateFormate.dateFromLog, isUTC: false), Decimal(0))
             } else {
                 let date = String(format: "%04d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, sec)

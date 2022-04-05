@@ -48,6 +48,7 @@ extension BLEHelper: CBPeripheralDelegate {
                 if stringFromData == TransferService.responseSuccessRTC {
                     DatabaseManager.share.setRTCFor(udid: peripheral.identifier.uuidString, value: true)
                 } else if stringFromData == TransferService.responseFailRTC {
+                    Logger.logInfo("For RTC Fail")
                     setRTCTime(uuid: peripheral.identifier.uuidString)
                 }
                 
