@@ -25,7 +25,7 @@ enum UserDefaultKey: String {
     case userEmailAddress
     case isLocationOn
     case isAddReminder
-    case isSecondLaunc
+    case isFirstLaunch
 }
 
 class UserDefaultManager {
@@ -41,12 +41,12 @@ class UserDefaultManager {
     }
     
     // MARK: - Bool
-    static var isSecondLaunc: Bool {
+    static var isFirstLaunch: Bool {
         get {
-            return self.get(forKey: .isSecondLaunc) as? Bool ?? false
+            return self.get(forKey: .isFirstLaunch) as? Bool ?? false
         }
         set(newValue) {
-            self.set(newValue as AnyObject?, forKey: .isSecondLaunc)
+            self.set(newValue as AnyObject?, forKey: .isFirstLaunch)
         }
     }
     
