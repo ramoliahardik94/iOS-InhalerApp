@@ -59,9 +59,9 @@ class DatabaseManager {
             accuationLog.uselength = Double("\(object["useLength"]!)")!
             accuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
             try context?.save()
-            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")
-            
-            if Decimal(BLEHelper.shared.logCounter) == BLEHelper.shared.noOfLog {
+            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")            
+            Logger.logInfo("logCounter \(BLEHelper.shared.logCounter) ==  noOfLog\(BLEHelper.shared.noOfLog)")
+            if Decimal(BLEHelper.shared.logCounter) >= BLEHelper.shared.noOfLog {
                 BLEHelper.shared.noOfLog = 0
                 BLEHelper.shared.logCounter = 0
                 BLEHelper.shared.apiCallForAccuationlog()               
