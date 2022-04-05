@@ -179,9 +179,9 @@ extension BLEHelper {
                 
                 switch peripheral.state {
                 case .connected :
-                    if !DatabaseManager.share.getIsSetRTC(udid: peripheral.identifier.uuidString) {
-                        self.setRTCTime(uuid: peripheral.identifier.uuidString)
-                    }
+//                    if !DatabaseManager.share.getIsSetRTC(udid: peripheral.identifier.uuidString) {
+//                        self.setRTCTime(uuid: peripheral.identifier.uuidString)
+//                    }
                     self.getmacAddress(peripheral: discoverPeripheral)
                     self.getBetteryLevel(peripheral: discoverPeripheral)
                     if !self.isAddAnother {
@@ -191,6 +191,7 @@ extension BLEHelper {
                     //self.isScanning = false
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .BLEConnect, object: nil)
+
                     }
                 default:
                     break

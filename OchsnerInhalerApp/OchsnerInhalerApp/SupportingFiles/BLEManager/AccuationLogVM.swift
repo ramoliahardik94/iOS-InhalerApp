@@ -56,6 +56,7 @@ extension BLEHelper {
                             accuationAPI_LastAccuation()
 
                         }
+
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
                     }
