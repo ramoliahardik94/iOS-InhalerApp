@@ -37,10 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         initLoggers()
         
-//        if UserDefaultManager.isFirstLaunch == false {
-//            DatabaseManager.share.deleteAllAccuationLog()
-//            UserDefaultManager.isFirstLaunch = true
-//        }
+        if UserDefaultManager.isFirstLaunch == false {
+            DatabaseManager.share.deleteAllAccuationLog()
+            UserDefaultManager.isFirstLaunch = true
+        }
         
         Logger.logInfo("\n\n\n===========================\nLaunched Ochsner Inhaler App > Environment: , App Version: \(appVersion()), Device: \(UIDevice.modelName), iOS Version: \(UIDevice.current.systemVersion), Data Connection:)")
         
