@@ -255,7 +255,7 @@ extension AddDeviceIntroVC {
             }
             
         } else if self.step == .step3 {
-            inhalerNotFound(notification: Notification(name: .BLENotFound))
+          //  inhalerNotFound(notification: Notification(name: .BLENotFound))
         }
     }
     @objc func inhalerNotFound(notification: Notification) {
