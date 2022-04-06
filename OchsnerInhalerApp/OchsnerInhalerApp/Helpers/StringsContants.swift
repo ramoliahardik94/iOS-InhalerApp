@@ -108,9 +108,9 @@ struct ValidationMsg {
     static let startSync = "Data sync to phone start"
     static let startSyncCloudNo = "No data found to sync"
     static let startSyncCloud = "Data sync to cloud start"
-    static let syncLoader = "Data Sync inprogress"
-    static let successAcuation = "Data sync to cloud successfully"
-    static let failAcuation = "Data sync to cloud fail"
+    static let syncLoader = "Data Sync Inprogress"
+    static let successAcuation = "Data Sync Successful"
+    static let failAcuation = "Data Sync Fail"
     static let doseError = "Multiple doses for the same time cannot be scheduled!"
 }
 struct ValidationButton {

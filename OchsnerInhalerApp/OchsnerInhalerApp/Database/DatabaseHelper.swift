@@ -27,8 +27,9 @@ class DatabaseManager {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
+        let predicate2 =  NSPredicate(format: "deviceidmac == %@", ("\(object["mac"]!)"))
 //        let predicate2 =  NSPredicate(format: "issync == %d", false)
-        let predicate = predicate1 // NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        let predicate =  NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
             var accuationLog: AcuationLog!
@@ -45,7 +46,7 @@ class DatabaseManager {
             if let date = object["date"] as? String {
                 let logDate = date.getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)
                 
-                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")              
+                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
                 accuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
                 accuationLog.usedatelocal = date
             }
@@ -328,7 +329,7 @@ class DatabaseManager {
     }
     
 
-    func updateAccuationLogwithTimeAdd(_ updateObj: [[String: Any]],sec: Int = 5) {
+    func updateAccuationLogwithTimeAdd(_ updateObj: [[String: Any]], sec: Int = 2) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         for obj in updateObj {
             let mac = obj["DeviceId"] as! String

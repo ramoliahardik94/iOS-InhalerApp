@@ -72,6 +72,7 @@ extension BLEHelper {
     
     func apiCallForAccuationlog(mac: String = "", isForSingle: Bool = false) {
         if APIManager.isConnectedToNetwork {
+            Logger.logInfo("apiCallForAccuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
             DispatchQueue.global(qos: .background).sync {
                 if isForSingle {
                     let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
@@ -102,10 +103,12 @@ extension BLEHelper {
                 param["Usage"] = usage
                 parameter.append(param)
             }
+            
         }
         if mac != "" {
             parameter = parameter.filter({ ($0["DeviceId"] as! String) == mac })
         }
+        Logger.logInfo("Param For deviceuse \(parameter)")
         return parameter
     }
     
@@ -114,30 +117,31 @@ extension BLEHelper {
         print(param)
         let param = param
         if param.count != 0 {
-           
+            
             Logger.logInfo(ValidationMsg.startSync)
-            var isShowLoader = false
-            if let dashboard = UIApplication.topViewController() as? HomeVC {
-            CommonFunctions.showGlobalProgressHUD(dashboard, text: ValidationMsg.syncLoader)
-                isShowLoader = true
+            
+            DispatchQueue.main.async {
+                if let dashboard = UIApplication.topViewController() as? HomeVC {
+                    // CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!, text: ValidationMsg.syncLoader)
+                    dashboard.lblSyncTitle.text = ValidationMsg.syncLoader
+                    dashboard.syncView.backgroundColor = .ButtonColorBlue
+                    dashboard.activitySync.startAnimating()
+                    dashboard.heightSync.constant = 35
+                    dashboard.syncView.isHidden = false
+                    dashboard.viewDidLayoutSubviews()
+                }
             }
             APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] _, response in
                 DispatchQueue.main.async {
-                    if isShowLoader {
-                        if let dashboard = UIApplication.topViewController() as? HomeVC {
-                            CommonFunctions.hideGlobalProgressHUD(dashboard)
-                        }
-                    }
+                    
                     if response != nil {
                         if (response as? [String: Any]) != nil {
-                            if self.isPullToRefresh {                                
-                                if let topVC =  UIApplication.topViewController() {
-                                    topVC.view.makeToast( ValidationMsg.successAcuation)
-                                }
-                            }
+                            //                            if self.isPullToRefresh {
+                            //                                if let topVC =  UIApplication.topViewController() {
+                            //                                    topVC.view.makeToast( ValidationMsg.successAcuation)
+                            //                                }
+                            //                            }
                             self.isPullToRefresh = false
-                            
-                            
                             DatabaseManager.share.updateAccuationLog(param)
                             
                             NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
@@ -146,16 +150,35 @@ extension BLEHelper {
                             let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
                             if unSyncData.count > 0 {
                                 apiCallForAccuationlog()
+                            } else {
+                                if let dashboard = UIApplication.topViewController() as? HomeVC {
+                                    // CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!, text: ValidationMsg.syncLoader)
+                                    dashboard.lblSyncTitle.text = ValidationMsg.successAcuation
+                                    dashboard.syncView.backgroundColor = .ButtonColorGreen
+                                    dashboard.activitySync.stopAnimating()
+                                    dashboard.syncView.alpha = 1
+                                    delay(2) {
+                                        UIView.animate(withDuration: 0.5, animations: {
+                                            dashboard.syncView.alpha = 0
+                                        }, completion: { _ in
+                                            dashboard.heightSync.constant = 0
+                                            dashboard.syncView.isHidden = true
+                                            dashboard.viewDidLayoutSubviews()
+                                            dashboard.syncView.alpha = 1
+                                        })
+                                    }
+                                }
                             }
                         }
                         
                     } else {
+                        
                         Logger.logInfo(ValidationMsg.failAcuation)
-                        if self.isPullToRefresh {
-                            if let topVC =  UIApplication.topViewController() {
-                                topVC.view.makeToast( ValidationMsg.failAcuation)
-                            }
-                        }
+                        //                        if self.isPullToRefresh {
+                        //                            if let topVC =  UIApplication.topViewController() {
+                        //                                topVC.view.makeToast( ValidationMsg.failAcuation)
+                        //                            }
+                        //                        }
                         self.isPullToRefresh = false
                         NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
                         
@@ -175,7 +198,7 @@ extension BLEHelper {
             }
         } else {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
-           
+            
         }
     }
 }

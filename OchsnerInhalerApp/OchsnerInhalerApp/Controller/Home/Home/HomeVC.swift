@@ -9,6 +9,10 @@ import UIKit
 import DropDown
 
 class HomeVC: BaseVC {
+    @IBOutlet weak var activitySync: UIActivityIndicatorView!
+    @IBOutlet weak var lblSyncTitle: UILabel!
+    @IBOutlet weak var heightSync: NSLayoutConstraint!
+    @IBOutlet weak var syncView: UIView!
     @IBOutlet weak var lblNoData: UILabel!
     @IBOutlet weak var viewMainTableview: UIView!
     var tbvDeviceData: UITableView!
@@ -71,6 +75,9 @@ class HomeVC: BaseVC {
         lblNoData.text = StringCommonMessages.noDataFount
         lblNoData.isHidden = true
         doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+        syncView.backgroundColor = .ButtonColorBlue
+//        activitySync.isHidden = true
+        syncView.isHidden = true
     }
     
     private func initTableview() {
@@ -123,7 +130,7 @@ class HomeVC: BaseVC {
     @objc func doGetHomeData(notification: Notification) {
         homeVM.dashboardData.removeAll()
         self.tbvDeviceData.reloadData()
-        CommonFunctions.showGlobalProgressHUD(self,text: ValidationMsg.syncLoader)
+        CommonFunctions.showGlobalProgressHUD(self,text: "")
         homeVM.doDashboardData {  [weak self] isSuccess in
             guard let`self` = self else { return }
             CommonFunctions.hideGlobalProgressHUD(self)
