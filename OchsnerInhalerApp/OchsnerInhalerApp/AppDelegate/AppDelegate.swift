@@ -116,7 +116,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
             let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
             for  discoverPeripheral in bleDevice {
-                BLEHelper.shared.getAccuationNumber(peripheral: discoverPeripheral)
+                DispatchQueue.global().async {
+                    BLEHelper.shared.getAccuationNumber(peripheral: discoverPeripheral)
+                }
             }
         }
     }

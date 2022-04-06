@@ -157,6 +157,7 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.isEnabled = false
         btnStartSetUp.backgroundColor = .ButtonColorBlue
         BLEHelper.shared.isAddAnother = true
+        Logger.logInfo("Scan with scanBLE")
         BLEHelper.shared.scanPeripheral(isTimer: true)
     }
    // MARK: - IBActions related Functions
@@ -178,6 +179,7 @@ class AddDeviceIntroVC: BaseVC {
             addDeviceIntroVC.isFromDeviceList = isFromDeviceList
             pushVC(controller: addDeviceIntroVC)
         case .step3:
+                Logger.logInfo("Scan with Scan button")
                 BLEHelper.shared.scanPeripheral(isTimer: true)
                 btnStartSetUp.setButtonView(StringAddDevice.scanningDevice)
                 btnStartSetUp.isEnabled = false

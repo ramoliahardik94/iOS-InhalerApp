@@ -120,6 +120,7 @@ class LoginVC: BaseVC {
             }
         } else {
             if BLEHelper.shared.centralManager.state == .poweredOn {
+                Logger.logInfo("Scan with LoginVC setNextView")
                 BLEHelper.shared.scanPeripheral()
             }
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)

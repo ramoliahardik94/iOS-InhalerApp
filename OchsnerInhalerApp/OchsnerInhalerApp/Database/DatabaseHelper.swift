@@ -45,8 +45,7 @@ class DatabaseManager {
             if let date = object["date"] as? String {
                 let logDate = date.getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)
                 
-                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-                Logger.logInfo("logDate: \(logDate),  \n Current Date: \(Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)),\n PastDate:\(pastDate)")
+                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")              
                 accuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
                 accuationLog.usedatelocal = date
             }

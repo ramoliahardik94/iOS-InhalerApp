@@ -19,6 +19,7 @@ extension BLEHelper: CBPeripheralDelegate {
             Logger.logError("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
+        var isAutoNotify = false
        
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
@@ -28,6 +29,7 @@ extension BLEHelper: CBPeripheralDelegate {
         
         if characteristic.uuid == TransferService.characteristicAutoNotify {
             Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
+            isAutoNotify = true
         }
        
         if characteristic.uuid == TransferService.macCharecteristic {
@@ -68,6 +70,7 @@ extension BLEHelper: CBPeripheralDelegate {
                 if discoverPeripheral.noOfLog > 0 {
                     getAccuationLog()
                 } else {
+                    Logger.logInfo("logCounter +1 \(logCounter)  with 0 log for mac \(discoverPeripheral.addressMAC)")
                     logCounter += 1
                     accuationAPI_LastAccuation()
                 }
@@ -158,9 +161,9 @@ extension BLEHelper {
             discoverPeripheral.macCharecteristic = characteristic
         }
         
-        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
-            peripheral.setNotifyValue(true, for: characteristic)
-        }
+//        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
+//            peripheral.setNotifyValue(true, for: characteristic)
+//        }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
           

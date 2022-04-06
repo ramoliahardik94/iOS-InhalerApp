@@ -44,6 +44,7 @@ class HomeVC: BaseVC {
         
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.count !=  deviceList.count {
+            Logger.logInfo("Scan with HomeVC viewWillAppear")
              BLEHelper.shared.scanPeripheral()
         } else {
              let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
@@ -58,7 +59,9 @@ class HomeVC: BaseVC {
         
         let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
         for  discoverPeripheral in bleDevice {
+            DispatchQueue.global().async {
             BLEHelper.shared.getAccuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
+            }
         }
     }
     
@@ -92,8 +95,12 @@ class HomeVC: BaseVC {
     @objc func refresh(_ sender: AnyObject) {
         let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
             if connectedDevice.count > 0 {
-                self.getAccuationLogHome(isPulltoRefresh: true)
+               
+                    self.getAccuationLogHome(isPulltoRefresh: true)
+                
+                
             } else {
+                Logger.logInfo("Scan with HomeVC refresh")
                 BLEHelper.shared.scanPeripheral()
                 doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
             }
@@ -116,24 +123,28 @@ class HomeVC: BaseVC {
     @objc func doGetHomeData(notification: Notification) {
         homeVM.dashboardData.removeAll()
         self.tbvDeviceData.reloadData()
-        CommonFunctions.showGlobalProgressHUD(self)
+        CommonFunctions.showGlobalProgressHUD(self,text: ValidationMsg.syncLoader)
         homeVM.doDashboardData {  [weak self] isSuccess in
             guard let`self` = self else { return }
             CommonFunctions.hideGlobalProgressHUD(self)
             switch isSuccess {
             case .success(let status):
-                print("Response sucess :\(status)")
-                // print("Response sucess :\(self.homeVM.dashboardData.count)")
-                if  self.homeVM.dashboardData.count == 0 {
-                    self.lblNoData.isHidden = false
-                } else {
-                    self.lblNoData.isHidden = true
-                }
                 DispatchQueue.main.async {
-                    self.tbvDeviceData.reloadData()
-                }
+                    print("Response sucess :\(status)")
+                    // print("Response sucess :\(self.homeVM.dashboardData.count)")
+                    if  self.homeVM.dashboardData.count == 0 {
+                        self.lblNoData.isHidden = false
+                    } else {
+                        self.lblNoData.isHidden = true
+                    }
+                    
+                        self.tbvDeviceData.reloadData()
+                    }
             case .failure(let message):
-                CommonFunctions.showMessage(message: message)
+                DispatchQueue.main.async {
+                    CommonFunctions.showMessage(message: message)
+                }
+                
             }
         }
     }

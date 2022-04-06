@@ -76,6 +76,7 @@ class ManageDeviceVC: BaseVC {
        // Code to refresh table view
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.count !=  device.count {
+            Logger.logInfo("Scan with ManageDeviceVC refresh")
             BLEHelper.shared.scanPeripheral()
         } else {
              let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})

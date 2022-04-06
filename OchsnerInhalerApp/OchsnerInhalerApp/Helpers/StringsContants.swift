@@ -105,7 +105,10 @@ struct ValidationMsg {
     static let forgoteSuccess = "If an account with this email exists, a link to reset your password will be sent to it."
     static let bluetoothOn = "Please Turn on Bluetooth"
     static let mismatchUUID = "Your devices have been changed from the previously paired. Re-configure the device to track the medication."
-
+    static let startSync = "Data sync to phone start"
+    static let startSyncCloudNo = "No data found to sync"
+    static let startSyncCloud = "Data sync to cloud start"
+    static let syncLoader = "Data Sync inprogress"
     static let successAcuation = "Data sync to cloud successfully"
     static let failAcuation = "Data sync to cloud fail"
     static let doseError = "Multiple doses for the same time cannot be scheduled!"

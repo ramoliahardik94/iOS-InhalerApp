@@ -31,7 +31,7 @@ class APIManager {
     typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true,textLoader: String = "" , completion: ResponseBlock?) -> DataRequest? {
         
         if !APIManager.isConnectedToNetwork {
             completion?(RuntimeError(StringCommonMessages.noInternetConnection), nil)
@@ -65,7 +65,7 @@ class APIManager {
             url = encoded
         }
         if showLoader {
-            CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!)
+            CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!,text: textLoader)
         }
         
         let request = Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: appHeader).responseJSON { (response) in
