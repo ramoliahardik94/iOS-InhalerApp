@@ -14,6 +14,7 @@ struct TransferService {
     
     static let inhealerUTCservice = CBUUID(string: "00000ec2-3c17-d293-8e48-14fe2e4da212")
     static let characteristicNotifyUUID = CBUUID(string: "B004")
+    static let characteristicAutoNotify = CBUUID(string: "B006")
     static let characteristicWriteUUID = CBUUID(string: "B002")
     static let addRTSStartByte = "AA015507"
     static let responseSuccessRTC = "aa:01:55:01:01"

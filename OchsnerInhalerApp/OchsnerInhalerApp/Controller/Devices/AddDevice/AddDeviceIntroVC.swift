@@ -82,9 +82,7 @@ class AddDeviceIntroVC: BaseVC {
                 .chanageColorString(StringAddDevice.infoCharecter)
                 .normalSmall(StringAddDevice.deviceNearBy)
             lbldeviceInfo.attributedText = attributedString
-            
             BLEHelper.shared.isAddAnother = true
-            BLEHelper.shared.discoveredPeripheral = nil
             paringLoader.isHidden = true
             btnStartSetUp.setButtonView(StringAddDevice.scanDevice)
             btnStartSetUp.isEnabled = true
@@ -100,6 +98,9 @@ class AddDeviceIntroVC: BaseVC {
             let advTimeGif = UIImage.gifImageWithName("Tap-Animation")
             imgAddDevice.image = advTimeGif
             lblAddDevice.isHidden  = true
+            NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
+            NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLENotConnect, object: nil)
@@ -156,6 +157,7 @@ class AddDeviceIntroVC: BaseVC {
         btnStartSetUp.isEnabled = false
         btnStartSetUp.backgroundColor = .ButtonColorBlue
         BLEHelper.shared.isAddAnother = true
+        Logger.logInfo("Scan with scanBLE")
         BLEHelper.shared.scanPeripheral(isTimer: true)
     }
    // MARK: - IBActions related Functions
@@ -177,6 +179,7 @@ class AddDeviceIntroVC: BaseVC {
             addDeviceIntroVC.isFromDeviceList = isFromDeviceList
             pushVC(controller: addDeviceIntroVC)
         case .step3:
+                Logger.logInfo("Scan with Scan button")
                 BLEHelper.shared.scanPeripheral(isTimer: true)
                 btnStartSetUp.setButtonView(StringAddDevice.scanningDevice)
                 btnStartSetUp.isEnabled = false
@@ -185,7 +188,7 @@ class AddDeviceIntroVC: BaseVC {
                 paringLoader.startAnimating()
         case .step4:
             BLEHelper.shared.stopTimer()
-            BLEHelper.shared.connectPeriPheral()
+            BLEHelper.shared.connectPeriPheral(peripheral: BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral!)
             paringLoader.isHidden = false
             paringLoader.startAnimating()
             btnStartSetUp.setButtonView(StringAddDevice.pairingDevice)
@@ -245,7 +248,7 @@ extension AddDeviceIntroVC {
             paringLoader.stopAnimating()
             paringLoader.isHidden = true
             CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: ValidationButton.tryAgain) { [weak self] _ in
-                BLEHelper.shared.connectPeriPheral()
+                BLEHelper.shared.connectPeriPheral(peripheral: BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral!)
                 guard let weakSelf = self else { return }
                 weakSelf.paringLoader.isHidden = false
                 weakSelf.paringLoader.startAnimating()
@@ -254,7 +257,7 @@ extension AddDeviceIntroVC {
             }
             
         } else if self.step == .step3 {
-            inhalerNotFound(notification: Notification(name: .BLENotFound))
+          //  inhalerNotFound(notification: Notification(name: .BLENotFound))
         }
     }
     @objc func inhalerNotFound(notification: Notification) {
@@ -274,8 +277,9 @@ extension AddDeviceIntroVC {
         NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        BLEHelper.shared.setRTCTime()
-        BLEHelper.shared.getBetteryLevel()
+        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+        BLEHelper.shared.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
+        BLEHelper.shared.getBetteryLevel(peripheral: discoverPeripheral)
         addDeviceIntroVC.step = .step5
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
         addDeviceIntroVC.isFromDeviceList = isFromDeviceList

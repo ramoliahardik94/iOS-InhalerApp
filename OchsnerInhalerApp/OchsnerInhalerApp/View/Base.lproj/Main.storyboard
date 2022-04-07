@@ -31,13 +31,42 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="INe-uQ-sMF">
+                                        <rect key="frame" x="0.0" y="685" width="375" height="0.0"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luA-ao-wVS">
+                                                <rect key="frame" x="16" y="5" width="318" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="OeR-6e-sks">
+                                                <rect key="frame" x="339" y="-10" width="20" height="20"/>
+                                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="linkColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="OeR-6e-sks" secondAttribute="trailing" constant="16" id="AD9-Bq-bUp"/>
+                                            <constraint firstItem="luA-ao-wVS" firstAttribute="top" secondItem="INe-uQ-sMF" secondAttribute="top" constant="5" id="Lm8-5f-KFA"/>
+                                            <constraint firstItem="luA-ao-wVS" firstAttribute="leading" secondItem="INe-uQ-sMF" secondAttribute="leading" constant="16" id="PW9-dQ-yfB"/>
+                                            <constraint firstItem="OeR-6e-sks" firstAttribute="leading" secondItem="luA-ao-wVS" secondAttribute="trailing" constant="5" id="fkp-6c-8fy"/>
+                                            <constraint firstItem="OeR-6e-sks" firstAttribute="centerY" secondItem="INe-uQ-sMF" secondAttribute="centerY" id="mSC-rl-ayY"/>
+                                            <constraint firstAttribute="height" id="qvw-ft-60Y"/>
+                                            <constraint firstAttribute="bottom" secondItem="luA-ao-wVS" secondAttribute="bottom" priority="900" constant="5" id="yvd-im-czq"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Qh7-8F-Wcj" secondAttribute="bottom" id="5KM-Mx-8Np"/>
+                                    <constraint firstAttribute="bottom" secondItem="INe-uQ-sMF" secondAttribute="bottom" id="5Jb-Sa-4hI"/>
+                                    <constraint firstItem="INe-uQ-sMF" firstAttribute="top" secondItem="Qh7-8F-Wcj" secondAttribute="bottom" id="5KM-Mx-8Np"/>
+                                    <constraint firstAttribute="trailing" secondItem="INe-uQ-sMF" secondAttribute="trailing" id="AQh-h2-D2T"/>
                                     <constraint firstItem="Qh7-8F-Wcj" firstAttribute="leading" secondItem="aV7-8C-REy" secondAttribute="leading" id="J5v-DV-ElO"/>
+                                    <constraint firstItem="INe-uQ-sMF" firstAttribute="leading" secondItem="aV7-8C-REy" secondAttribute="leading" id="L4M-pv-e6x"/>
                                     <constraint firstItem="LKo-VR-EhZ" firstAttribute="centerY" secondItem="aV7-8C-REy" secondAttribute="centerY" id="LOY-WK-ouM"/>
                                     <constraint firstAttribute="trailing" secondItem="LKo-VR-EhZ" secondAttribute="trailing" constant="8" id="MS1-Vf-lhD"/>
+                                    <constraint firstItem="INe-uQ-sMF" firstAttribute="top" secondItem="Qh7-8F-Wcj" secondAttribute="bottom" id="VrF-aG-ieg"/>
                                     <constraint firstItem="Qh7-8F-Wcj" firstAttribute="top" secondItem="aV7-8C-REy" secondAttribute="top" id="lIZ-tV-upv"/>
                                     <constraint firstItem="LKo-VR-EhZ" firstAttribute="leading" secondItem="aV7-8C-REy" secondAttribute="leading" constant="8" id="lMD-zX-Gxe"/>
                                     <constraint firstAttribute="trailing" secondItem="Qh7-8F-Wcj" secondAttribute="trailing" id="xjK-xR-djh"/>
@@ -57,13 +86,17 @@
                         <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="activitySync" destination="OeR-6e-sks" id="xDl-q7-HFc"/>
+                        <outlet property="heightSync" destination="qvw-ft-60Y" id="uUS-oH-buA"/>
                         <outlet property="lblNoData" destination="LKo-VR-EhZ" id="boq-Kx-neG"/>
+                        <outlet property="lblSyncTitle" destination="luA-ao-wVS" id="KJy-Sf-rEn"/>
+                        <outlet property="syncView" destination="INe-uQ-sMF" id="gYN-Ci-82e"/>
                         <outlet property="viewMainTableview" destination="Qh7-8F-Wcj" id="gaI-Hf-NcK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1895" y="549"/>
+            <point key="canvasLocation" x="1893.5999999999999" y="548.27586206896558"/>
         </scene>
         <!--Manage DeviceVC-->
         <scene sceneID="DoV-Lb-hjO">
@@ -783,6 +816,9 @@
         <namedColor name="color_line">
             <color red="0.59200000762939453" green="0.59200000762939453" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

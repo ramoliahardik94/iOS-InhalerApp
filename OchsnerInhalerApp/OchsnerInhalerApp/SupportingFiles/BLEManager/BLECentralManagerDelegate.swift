@@ -11,13 +11,15 @@ import UIKit
 // MARK: - CBCentralManager Delegate
 extension BLEHelper: CBCentralManagerDelegate {
     
+    
+    ///   Invoked whenever the central manager's state has been updated. Commands should only be issued when the state is  <code>CBCentralManagerStatePoweredOn</code>. A state below <code>CBCentralManagerStatePoweredOn</code> implies that scanning has stopped and any connected peripherals have been disconnected. If the state moves below <code>CBCentralManagerStatePoweredOff</code>, all <code>CBPeripheral</code> objects obtained from this central manager become invalid and must be retrieved or discovered again.
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
             // ... so start working with the peripheral
             isAllow = true
             bleConnect()
-          
+            
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEOnOff, object: nil)
                 NotificationCenter.default.post(name: .BLEChange, object: nil)
@@ -84,14 +86,15 @@ extension BLEHelper: CBCentralManagerDelegate {
         }
     }
     
+    /// This method is invoked while scanning, upon the discovery of <i>peripheral</i> by <i>central</i>. A discovered peripheral must be retained in order to use it; otherwise, it is assumed to not be of interest and will be cleaned up by the central manager. For a list of <i>advertisementData</i> keys, see {@link CBAdvertisementDataLocalNameKey} and other similar constants.
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         
-//        guard RSSI.intValue >= -55
-//        else {
-//            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-//            return
-//        }
+        //        guard RSSI.intValue >= -55
+        //        else {
+        //            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+        //            return
+        //        }
         
         Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
         
@@ -104,7 +107,8 @@ extension BLEHelper: CBCentralManagerDelegate {
                 let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
-                    discoveredPeripheral = peripheral
+                    uuid = peripheral.identifier.uuidString
+                    connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
                     stopTimer()
                     delay(isAddAnother ? 15 : 0) {
@@ -114,23 +118,34 @@ extension BLEHelper: CBCentralManagerDelegate {
                         }
                     }
                 } else {
+                    
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
-                        discoveredPeripheral = peripheral
-                        stopScanPeriphral()
-                        stopTimer()
-                        connectPeriPheral()
+                        uuid = ""
+                        let isContenits = connectedPeripheral.contains(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString})
+                        if !isContenits {
+                            connectedPeripheral.append(PeriperalType(peripheral: peripheral))
+                        }
+                        connectPeriPheral(peripheral: peripheral)
+                        let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected || $0.discoveredPeripheral?.state == .connecting})
+                        print("\(connectedDevice.count)")
+                        if connectedDevice.count == device.count {
+                            stopScanPeriphral()
+                            stopTimer()
+                        }
                     }
                 }
             }
         }
     }
     
+    /// This method is invoked when a connection initiated by {@link connectPeripheral:options:} has succeeded.
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         if peripheral.state == .connected {
-            macCharecteristic = nil
-            charectristicWrite = nil
-            stopScanPeriphral()
+            guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+            discoverPeripheral.macCharecteristic = nil
+            discoverPeripheral.charectristicWrite = nil
+            //            stopScanPeriphral()
             peripheral.delegate = self
             peripheral.discoverServices(TransferService.serviceArray)
         }
@@ -138,7 +153,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
     }
-    
+    ///This method is invoked when a connection initiated by {@link connectPeripheral:options:} has failed to complete. As connection attempts do not timeout, the failure of a connection is atypical and usually indicative of a transient issue.
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         self.stopTimer()
         Logger.logError("BLENotConnect With Fail \(error?.localizedDescription ?? "")")
@@ -148,13 +163,14 @@ extension BLEHelper: CBCentralManagerDelegate {
             NotificationCenter.default.post(name: .BLENotConnect, object: nil)
         }
     }
-    
+    /// This method is invoked upon the disconnection of a peripheral that was connected by {@link connectPeripheral:options:}. If the disconnection was not initiated by {@link cancelPeripheralConnection}, the cause will be detailed in the <i>error</i> parameter. Once this method has been called, no more methods will be invoked on <i>peripheral</i>'s <code>CBPeripheralDelegate</code>.
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if !isAddAnother && UserDefaultManager.isLogin {
+            Logger.logInfo("Scan with didDisconnectPeripheral \(peripheral)")
             scanPeripheral(isTimer: false)
         }
         self.stopTimer()
-        self.cleanup()
+        self.cleanup(peripheral: peripheral)
         isScanning = false
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         DispatchQueue.main.async {
@@ -169,28 +185,31 @@ extension BLEHelper: CBCentralManagerDelegate {
         addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true
         addDeviceIntroVC.isFromDeviceList  = true
-        BLEHelper.shared.isAddAnother = true     
-        if let topVC =  UIApplication.topViewController() {
-            topVC.navigationController?.pushViewController(addDeviceIntroVC, animated: true)
+        BLEHelper.shared.isAddAnother = true
+        DispatchQueue.main.async {
+            if let topVC =  UIApplication.topViewController() {
+                topVC.navigationController?.pushViewController(addDeviceIntroVC, animated: true)
+            }
+            
         }
     }
     
+    /// For apps that opt-in to state preservation and restoration, this is the first method invoked when your app is relaunched into the background to complete some Bluetooth-related task. Use this method to synchronize your app's state with the state of the Bluetooth system.
+    
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
-        // get the handle to the peripheral already connected by the os and set ourselves as the delegate
-        Logger.logInfo("willRestoreState")
-            let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-            if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
-                if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
-                    if (peripherals.count > 0) {
-                        if let peripheral = peripherals.first(where: {$0.state == .connected}) {
-                            Logger.logInfo("willRestoreState \(peripherals)")
-                            discoveredPeripheral = peripheral                    
-                        } else {
-                            discoveredPeripheral = peripherals[0]
-                        }
-                        discoveredPeripheral!.delegate = self
+        Logger.logInfo(" willRestoreState  \n\n   \(dict)  ")
+        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
+            connectedPeripheral.removeAll()
+            if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
+                if (peripherals.count > 0) {
+                    for obj in peripherals {
+                        let mac = DatabaseManager.share.getMac(UDID: obj.identifier.uuidString)
+                        connectedPeripheral.append(PeriperalType(peripheral: obj, mac: mac))
+                        obj.delegate = self
                     }
                 }
             }
+        }
     }
 }

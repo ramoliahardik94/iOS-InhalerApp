@@ -27,8 +27,9 @@ class DatabaseManager {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
+        let predicate2 =  NSPredicate(format: "deviceidmac == %@", ("\(object["mac"]!)"))
 //        let predicate2 =  NSPredicate(format: "issync == %d", false)
-        let predicate = predicate1 // NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        let predicate =  NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
             var accuationLog: AcuationLog!
@@ -46,7 +47,6 @@ class DatabaseManager {
                 let logDate = date.getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)
                 
                 let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-                Logger.logInfo("logDate: \(logDate),  \n Current Date: \(Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)),\n PastDate:\(pastDate)")
                 accuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
                 accuationLog.usedatelocal = date
             }
@@ -59,15 +59,7 @@ class DatabaseManager {
             accuationLog.uselength = Double("\(object["useLength"]!)")!
             accuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
             try context?.save()
-            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")            
-            Logger.logInfo("logCounter \(BLEHelper.shared.logCounter) ==  noOfLog\(BLEHelper.shared.noOfLog)")
-            if Decimal(BLEHelper.shared.logCounter) >= BLEHelper.shared.noOfLog {
-                BLEHelper.shared.noOfLog = 0
-                BLEHelper.shared.logCounter = 0
-                BLEHelper.shared.apiCallForAccuationlog()               
-                print("LogCount Equal")
-            }
-            
+            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")
         } catch {
             debugPrint("Can not get Data")
         }
@@ -107,7 +99,7 @@ class DatabaseManager {
         }
     }
     
-    func saveDevice(object: DeviceModel , isFromDirection: Bool = false) {
+    func saveDevice(object: DeviceModel, isFromDirection: Bool = false) {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         
@@ -122,35 +114,38 @@ class DatabaseManager {
         let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
-            var accuationLog: Device!
-            let arrAccuationLog = try context?.fetch(fetchRequest) as! [Device]
-            if arrAccuationLog.count != 0 {
-                accuationLog = arrAccuationLog[0]
-                if accuationLog.udid == "" && object.udid != "" {
-                    accuationLog.mac = object.internalID
-                    accuationLog.udid = object.udid
-                    accuationLog.email = UserDefaultManager.email
-                    accuationLog.medtypeid = Int16(object.medTypeID)
+            var device: Device!
+            if object.internalID != "" {
+                let arrDevice = try context?.fetch(fetchRequest) as! [Device]
+                if arrDevice.count != 0 {
+                    device = arrDevice[0]
+                    if device.udid == "" && object.udid != "" {
+                        device.mac = object.internalID
+                        device.udid = object.udid
+                        device.email = UserDefaultManager.email
+                        device.medtypeid = Int16(object.medTypeID)
+                    }
+                    if isFromDirection {
+                        device.reminder =  object.isReminder
+                    }
+                    device.scheduledoses = object.arrTime.joined(separator: ",")
+                    print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(device.scheduledoses ?? "")")
+                    device.medname =  object.medication.medName
+                    Logger.logInfo("DB Device \(String(describing: device.mac)) with uuid \(String(describing: device.udid)) Update")
+                } else {
+                    device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
+                    device.mac = object.internalID
+                    device.udid = object.udid
+                    device.email = UserDefaultManager.email
+                    device.reminder =  object.isReminder
+                    device.medtypeid = Int16(object.medTypeID)
+                    device.scheduledoses = object.arrTime.joined(separator: ",")
+                    print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(device.scheduledoses ?? "")")
+                    device.medname =  object.medication.medName
+                    Logger.logInfo("DB Device \(String(describing: device.mac)) with uuid \(String(describing: device.udid)) Add")
                 }
-                if isFromDirection {
-                    accuationLog.reminder =  object.isReminder
-                }
-                 
-                accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
-                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses)")
-                accuationLog.medname =  object.medication.medName
-            } else {
-                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
-                accuationLog.mac = object.internalID
-                accuationLog.udid = object.udid
-                accuationLog.email = UserDefaultManager.email
-                accuationLog.reminder =  object.isReminder
-                accuationLog.medtypeid = Int16(object.medTypeID)
-                accuationLog.scheduledoses = object.arrTime.joined(separator: ",")
-                print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(accuationLog.scheduledoses)")
-                accuationLog.medname =  object.medication.medName
+                try context?.save()
             }
-            try context?.save()
         } catch {
             
         }
@@ -257,7 +252,6 @@ class DatabaseManager {
     }
     
     func deleteMacAddress(macAddress: String) {
-        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         let predicate = NSPredicate(format: "mac == %@", macAddress)
         fetchRequest.predicate = predicate
@@ -273,7 +267,7 @@ class DatabaseManager {
             debugPrint("There was an error")
         }
     }
-    
+//
     
     
     func deleteAllDevice() {
@@ -334,7 +328,8 @@ class DatabaseManager {
         }
     }
     
-    func updateAccuationLogwithTimeAdd(_ updateObj: [[String: Any]],sec: Int = 5) {
+
+    func updateAccuationLogwithTimeAdd(_ updateObj: [[String: Any]], sec: Int = 2) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         for obj in updateObj {
             let mac = obj["DeviceId"] as! String
@@ -367,14 +362,18 @@ class DatabaseManager {
     
     
     func setupUDID(mac: String, udid: String, isDelete: Bool = false ) {
+
         let keychain = KeychainSwift()
+        
         if isDelete {
             keychain.delete(mac)
         } else {
-            keychain.set(udid, forKey: mac)
-            
+        keychain.set(udid, forKey: mac)
+            print("setUUID\(udid) for mac \(mac)")
         }
     }
+            
+            
     
     func getUDID(mac: String) -> String {
         let keychain = KeychainSwift()
@@ -382,13 +381,32 @@ class DatabaseManager {
             // udid not found in keychain
             return ""
         }
+        print("GetUUID From Mac: \(mac) : \(oldUDID)")
         return oldUDID
+        
     }
     
-    func isContinuasBadReading() -> Bool {
+    func getMac(UDID: String) -> String {
+        var device = [Device]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        let predicate = NSPredicate(format: "udid == %@", UDID)
+        fetchRequest.predicate = predicate
+        do {
+            device = try context?.fetch(fetchRequest) as! [Device]
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        if device.count > 0 {
+            return device[0].mac!
+        } else {
+            return ""
+        }
+    }
+    
+    func isContinuasBadReading(uuid: String) -> Bool {
             var accuationLog = [AcuationLog]()
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
-            let predicate1 =  NSPredicate(format: "deviceidmac == %@", BLEHelper.shared.addressMAC)
+            let predicate1 =  NSPredicate(format: "deviceuuid == %@", uuid)
             let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1])
             
             let sortDescriptor = [NSSortDescriptor.init(key: "usedatelocal", ascending: false)]

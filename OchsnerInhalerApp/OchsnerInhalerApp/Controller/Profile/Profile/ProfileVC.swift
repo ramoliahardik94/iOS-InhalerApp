@@ -151,9 +151,10 @@ class ProfileVC: BaseVC {
     
     func setRootLogin() {
         removeUser()
-        BLEHelper.shared.cleanup()
+        for obj in BLEHelper.shared.connectedPeripheral {
+            BLEHelper.shared.cleanup(peripheral: obj.discoveredPeripheral!)
+        }
         NotificationManager.shared.removeAllPendingLocalNotification()
-        
         let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         let nav: UINavigationController = UINavigationController()
         nav.isNavigationBarHidden = true

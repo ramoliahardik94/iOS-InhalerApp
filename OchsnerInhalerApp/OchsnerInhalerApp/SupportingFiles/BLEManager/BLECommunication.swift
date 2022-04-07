@@ -17,9 +17,10 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
-    
+        
         if centralManager.state == .poweredOn {
-            if UserDefaultManager.isLogin && (discoveredPeripheral == nil || discoveredPeripheral!.state != .connected || isAddAnother) {
+            Logger.logInfo("Scan \(UserDefaultManager.isLogin) && (\(isTimer) || \(isAddAnother)) ")
+            if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {                
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0
                     Logger.logInfo("Scaning start with \(time) sec timer")
@@ -34,14 +35,16 @@ extension BLEHelper {
         } else {
             isScanning = false
             DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .BLEChange, object: nil)
+                NotificationCenter.default.post(name: .BLEChange, object: nil)
             }
-            if let topVC =  UIApplication.topViewController() {
-                topVC.view.makeToast(ValidationMsg.bluetoothOn)
+            DispatchQueue.main.async {
+                if let topVC =  UIApplication.topViewController() {
+                    topVC.view.makeToast(ValidationMsg.bluetoothOn)
+                }
             }
         }
     }
-    
+    /// use to stop timer from any weare in BLEHelper
     func stopTimer() {
         print("timerStop")
         if timer != nil {
@@ -50,53 +53,54 @@ extension BLEHelper {
         }
         isScanning = false
     }
-    
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
-    func connectPeriPheral() {
+    func connectPeriPheral(peripheral: CBPeripheral) {
         if isAllow {
-            if discoveredPeripheral != nil {
-                centralManager.connect(discoveredPeripheral!, options: nil)
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .BLEChange, object: nil)
-                }
+            if peripheral.state != .connected || peripheral.state != .connecting {
+                centralManager.connect(peripheral, options: nil)
+            }
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .BLEChange, object: nil)
             }
         } else {
-            if let topVC =  UIApplication.topViewController() {
-                topVC.view.makeToast(ValidationMsg.bluetoothOn)
-                
+            DispatchQueue.main.async {
+                if let topVC =  UIApplication.topViewController() {
+                    topVC.view.makeToast(ValidationMsg.bluetoothOn)
+                    
+                }
             }
         }
     }
-    
+    /// While Bluettooth status change that time common task are perform heat with *bleConnect* function
     func bleConnect() {
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
             if isAllow {
-                if discoveredPeripheral != nil {
-                    switch discoveredPeripheral?.state {
-                    case .connected:
-                        print(centralManager.state)
-                        discoveredPeripheral!.discoverServices(nil)
-                    case .disconnected:
-                        self.connectPeriPheral()
-                    default:
-                        break
-                    }
-                } else {
-                    if BLEHelper.shared.centralManager.state == .poweredOn {
-                        scanPeripheral()
+                if connectedPeripheral.count != 0 {
+                    for peripheral in connectedPeripheral {
+                        if let discoveredPeripheral = peripheral.discoveredPeripheral {
+                            switch discoveredPeripheral.state {
+                            case .connected:
+                                print(centralManager.state)
+                                discoveredPeripheral.discoverServices(nil)
+                            case .disconnected:
+                                self.connectPeriPheral(peripheral: discoveredPeripheral)
+                            default:
+                                break
+                            }
+                        }
                     }
                 }
             } else {
-              //  BLEHelper.shared.setDelegate()
-                if let topVC =  UIApplication.topViewController() {
-                    topVC.view.makeToast(ValidationMsg.bluetoothOn)
+                DispatchQueue.main.async {
+                    if let topVC =  UIApplication.topViewController() {
+                        topVC.view.makeToast(ValidationMsg.bluetoothOn)
+                    }
                 }
-               
             }
-         }
+        }
     }
-    
+    /// once timer of sanning is finished this functio is called
     @objc func didFinishScan() {
         isAddAnother ? Logger.logInfo("Scaning stop with 15 sec timer") : Logger.logInfo("Scaning stop with 30 sec timer")
         if isAddAnother {
@@ -108,35 +112,30 @@ extension BLEHelper {
         self.stopTimer()
         self.stopScanPeriphral()
     }
-    
+    /// using this function user can stop scanning the periipheral
     func stopScanPeriphral() {
         if timer != nil {
-            Logger.logInfo("Scaning stop with device \(String(describing: discoveredPeripheral))")
+            Logger.logInfo("Scaning stop with device")
         }
         centralManager.stopScan()
         DispatchQueue.main.async {  
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
-    
-
-    }
-    
-    // This function is use for cleanup BLE Task
-    func cleanup() {
-        // Don't do anything if we're not connected
-        guard let discoveredPeripheral = discoveredPeripheral,
-            case .connected = discoveredPeripheral.state else { return }
         
-        for service in (discoveredPeripheral.services ?? [] as [CBService]) {
+        
+    }
+    /// This function is use for cleanup BLE Task
+    func cleanup(peripheral: CBPeripheral) {
+        // Don't do anything if we're not connected
+        for service in (peripheral.services ?? [] as [CBService]) {
             for characteristic in (service.characteristics ?? [] as [CBCharacteristic]) {
                 if characteristic.uuid == TransferService.characteristicNotifyUUID && characteristic.isNotifying {
                     // It is notifying, so unsubscribe
-                    self.discoveredPeripheral?.setNotifyValue(false, for: characteristic)
+                    peripheral.setNotifyValue(false, for: characteristic)
                 }
             }
         }
-        
         // If we've gotten this far, we're connected, but we're not subscribed, so we just disconnect
-        centralManager.cancelPeripheralConnection(discoveredPeripheral)
+        centralManager.cancelPeripheralConnection(peripheral)
     }
 }

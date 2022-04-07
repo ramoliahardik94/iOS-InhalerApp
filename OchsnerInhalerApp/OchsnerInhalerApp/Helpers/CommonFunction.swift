@@ -62,14 +62,17 @@ open class CommonFunctions {
     
     // MARK: - Show Progress HUD
     
-    class func showGlobalProgressHUD(_ viewcontroller: UIViewController) {
+    class func showGlobalProgressHUD(_ viewcontroller: UIViewController, text: String = "") {
         DispatchQueue.main.async {
-            MBProgressHUD.showAdded(to: viewcontroller.view, animated: true)
+            let loadingNotification = MBProgressHUD.showAdded(to: viewcontroller.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.indeterminate
+            loadingNotification.label.text = text
         }
     }
     class func hideGlobalProgressHUD(_ viewcontroller: UIViewController) {
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: viewcontroller.view, animated: true)
+            
         }
     }
 

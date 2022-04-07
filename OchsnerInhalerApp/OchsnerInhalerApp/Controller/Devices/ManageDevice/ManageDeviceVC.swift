@@ -74,8 +74,15 @@ class ManageDeviceVC: BaseVC {
     
     @objc func refresh(_ sender: AnyObject) {
        // Code to refresh table view
-        if BLEHelper.shared.discoveredPeripheral == nil || BLEHelper.shared.discoveredPeripheral!.state != .connected {
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if BLEHelper.shared.connectedPeripheral.count !=  device.count {
+            Logger.logInfo("Scan with ManageDeviceVC refresh")
             BLEHelper.shared.scanPeripheral()
+        } else {
+             let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
+                for obj in disconnectedDevice {                    
+                    BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
+                }
         }
         tbvData.reloadData()
         apiCall()
@@ -99,6 +106,8 @@ class ManageDeviceVC: BaseVC {
     // MARK: -
     @IBAction func tapAddAnotherDevice(_ sender: Any) {
         Logger.logInfo("Add Another Device Click")
+        BLEHelper.shared.stopTimer()
+        BLEHelper.shared.stopScanPeriphral()
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true

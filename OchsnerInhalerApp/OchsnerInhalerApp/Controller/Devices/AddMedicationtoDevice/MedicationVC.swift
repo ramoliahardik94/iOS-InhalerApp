@@ -25,7 +25,8 @@ class MedicationVC: BaseVC {
         super.viewDidLoad()
         self.setUp()
         // Do any additional setup after loading the view.
-        BLEHelper.shared.getmacAddress()
+        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+        BLEHelper.shared.getmacAddress(peripheral: discoverPeripheral)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         self.getMedication()
     }
@@ -87,8 +88,10 @@ class MedicationVC: BaseVC {
     @IBAction func btnNextClick(_ sender: UIButton) {
         if selectedIndex != nil {
             if btnRescue.isSelected {
-                if BLEHelper.shared.discoveredPeripheral != nil {
-                    medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                if BLEHelper.shared.connectedPeripheral.count > 1 {
+                    if let discoveredPeripheral = BLEHelper.shared.connectedPeripheral[BLEHelper.shared.connectedPeripheral.count - 1].discoveredPeripheral {
+                        medicationVM.selectedMedication.uuid = discoveredPeripheral.identifier.uuidString
+                    }
                 }
                 UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
                 medicationVM.apiAddDevice(isreminder: false) { [weak self] result in

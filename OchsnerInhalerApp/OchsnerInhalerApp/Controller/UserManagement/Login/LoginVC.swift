@@ -74,11 +74,13 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "bhoomika.chauhan@volansys.com"
 //        tfPassword.text = "1234"
         
-//        tfEmail.text = "shekhawatdhaval@gmail.com"
-//        tfPassword.text = "Dhaval@1234"
-        
+
         tfEmail.text = "rocky.malvi@volansys.com"
         tfPassword.text = "123456"
+        
+//        tfEmail.text = "shekhawatdhaval@gmail.com"
+//        tfPassword.text = "Dhaval@1234"
+
 
        // forceCrash()
         #endif
@@ -118,6 +120,7 @@ class LoginVC: BaseVC {
             }
         } else {
             if BLEHelper.shared.centralManager.state == .poweredOn {
+                Logger.logInfo("Scan with LoginVC setNextView")
                 BLEHelper.shared.scanPeripheral()
             }
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -157,8 +160,7 @@ class LoginVC: BaseVC {
                 }
                 self.setNextView()
             case .failure:
-                break
-                // CommonFunctions.showMessage(message: message)
+                self.setNextView()              
             }
         })
     }

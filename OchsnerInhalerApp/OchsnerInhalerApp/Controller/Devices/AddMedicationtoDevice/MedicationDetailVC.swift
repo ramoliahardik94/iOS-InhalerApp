@@ -163,7 +163,7 @@ class MedicationDetailVC: BaseVC {
                         if self.isFromDeviceList {
                             self.navigationController?.popToRootViewController(animated: true)
                         } else if !self.medicationVM.isEdit {
-                            self.medicationVM.selectedMedication.uuid = BLEHelper.shared.discoveredPeripheral!.identifier.uuidString
+                            self.medicationVM.selectedMedication.uuid = (BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral?.identifier.uuidString) ?? ""
                             UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
                             let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                             self.pushVC(controller: addAnotherDeviceVC)
