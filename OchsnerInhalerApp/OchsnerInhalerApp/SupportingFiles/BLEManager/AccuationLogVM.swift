@@ -16,17 +16,17 @@ extension BLEHelper {
         Logger.logInfo("logCounter\(logCounter) >= connectedDevice.count\(connectedDevice.count)")
         if logCounter >= connectedDevice.count {
             logCounter = 0
-            // delay(2) {
-            self.apiCallForAccuationlog()
-            //            }
+           // delay(2) {
+                self.apiCallForAccuationlog()
+            // }
             Logger.logInfo("Last connected device data store to DB")
         } else {
             Logger.logInfo("not last connected device data store to DB")
         }
     }
+    
     /// Whenever BLE Device/Peripheral send Accuation log BLEHelper notify hear with thair log details in *notification* object
     @objc func accuationLog(notification: Notification) {
-        
         if let object = notification.userInfo as? [String: Any] {
             if object["uselength"]! as? Decimal != 0 {
                 let isoDate = object["date"] as? String
@@ -81,13 +81,13 @@ extension BLEHelper {
                         guard let param = obj["Param"] as? [[String: Any]] else { return }
                         self.apiCallDeviceUsage(param: param)
                     }
-                    
                 } else {
                     self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
                 }
             }
         }
     }
+    
     /// use for get parameter from databse for sync data to *deviceuse* API
     func prepareAcuationLogParam(mac: String) -> [[String: Any]] {
         var parameter = [[String: Any]]()
@@ -103,7 +103,6 @@ extension BLEHelper {
                 param["Usage"] = usage
                 parameter.append(param)
             }
-            
         }
         if mac != "" {
             parameter = parameter.filter({ ($0["DeviceId"] as! String) == mac })
@@ -117,12 +116,9 @@ extension BLEHelper {
         print(param)
         let param = param
         if param.count != 0 {
-            
             Logger.logInfo(ValidationMsg.startSync)
-            
             DispatchQueue.main.async {
                 if let dashboard = UIApplication.topViewController() as? HomeVC {
-                    // CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!, text: ValidationMsg.syncLoader)
                     dashboard.lblSyncTitle.text = ValidationMsg.syncLoader
                     dashboard.syncView.backgroundColor = .ButtonColorBlue
                     dashboard.activitySync.startAnimating()
@@ -132,25 +128,20 @@ extension BLEHelper {
                 }
             }
             APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] _, response in
-                DispatchQueue.main.async {
-                    
-                    if response != nil {
-                        if (response as? [String: Any]) != nil {
-                            //                            if self.isPullToRefresh {
-                            //                                if let topVC =  UIApplication.topViewController() {
-                            //                                    topVC.view.makeToast( ValidationMsg.successAcuation)
-                            //                                }
-                            //                            }
-                            self.isPullToRefresh = false
-                            DatabaseManager.share.updateAccuationLog(param)
-                            
+                
+                if response != nil {
+                    if (response as? [String: Any]) != nil {
+                        self.isPullToRefresh = false
+                        DatabaseManager.share.updateAccuationLog(param)
+                        DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
-                            
-                            Logger.logInfo(ValidationMsg.successAcuation)
-                            let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
-                            if unSyncData.count > 0 {
-                                apiCallForAccuationlog()
-                            } else {
+                        }
+                        Logger.logInfo(ValidationMsg.successAcuation)
+                        let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
+                        if unSyncData.count > 0 {
+                            apiCallForAccuationlog()
+                        } else {
+                            DispatchQueue.main.async {
                                 if let dashboard = UIApplication.topViewController() as? HomeVC {
                                     // CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!, text: ValidationMsg.syncLoader)
                                     dashboard.lblSyncTitle.text = ValidationMsg.successAcuation
@@ -170,35 +161,25 @@ extension BLEHelper {
                                 }
                             }
                         }
-                        
-                    } else {
-                        
-                        Logger.logInfo(ValidationMsg.failAcuation)
-                        //                        if self.isPullToRefresh {
-                        //                            if let topVC =  UIApplication.topViewController() {
-                        //                                topVC.view.makeToast( ValidationMsg.failAcuation)
-                        //                            }
-                        //                        }
-                        self.isPullToRefresh = false
+                    }
+                } else {
+                    Logger.logInfo(ValidationMsg.failAcuation)
+                    self.isPullToRefresh = false
+                    DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
-                        
-                        if param.count == 1 {
-                            if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
-                                if arrUsage.count == 1 {
-                                    DatabaseManager.share.updateAccuationLogwithTimeAdd(param)
-                                }
+                    }
+                    if param.count == 1 {
+                        if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
+                            if arrUsage.count == 1 {
+                                DatabaseManager.share.updateAccuationLogwithTimeAdd(param)
                             }
                         }
-                        apiCallForAccuationlog(isForSingle: true)
-                        
                     }
-                    
+                    apiCallForAccuationlog(isForSingle: true)
                 }
-                
             }
         } else {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
-            
         }
     }
 }

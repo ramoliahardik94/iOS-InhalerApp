@@ -15,7 +15,7 @@ class HomeVC: BaseVC {
     @IBOutlet weak var syncView: UIView!
     @IBOutlet weak var lblNoData: UILabel!
     @IBOutlet weak var viewMainTableview: UIView!
-    var tbvDeviceData: UITableView!
+    @IBOutlet weak var tbvDeviceData: UITableView!
     private let itemCellDevice = "HomeDeviceCell"
     private var homeVM = HomeVM()
     var refreshControl = UIRefreshControl()
@@ -36,15 +36,15 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.doGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
+        initUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         self.getAccuationLogHome()
-        initUI()
+   
         
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.count !=  deviceList.count {
@@ -74,23 +74,17 @@ class HomeVC: BaseVC {
         initTableview()
         lblNoData.text = StringCommonMessages.noDataFount
         lblNoData.isHidden = true
-        doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+        apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
         syncView.backgroundColor = .ButtonColorBlue
-//        activitySync.isHidden = true
         syncView.isHidden = true
     }
     
     private func initTableview() {
-        if let viewFound = viewMainTableview.viewWithTag(10001) {
-            viewFound.removeFromSuperview()
-        }
+
         self.view.setNeedsLayout()
-        tbvDeviceData = UITableView.init(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: viewMainTableview.frame.size.height))
-        tbvDeviceData.tag = 10001
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        tbvDeviceData.addSubview(refreshControl) // not required when using UITableViewController
-        viewMainTableview.addSubview(tbvDeviceData)
+        tbvDeviceData.addSubview(refreshControl)
         
         let nib = UINib(nibName: itemCellDevice, bundle: nil)
         tbvDeviceData.register(nib, forCellReuseIdentifier: itemCellDevice)
@@ -102,102 +96,45 @@ class HomeVC: BaseVC {
     @objc func refresh(_ sender: AnyObject) {
         let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
             if connectedDevice.count > 0 {
-               
                     self.getAccuationLogHome(isPulltoRefresh: true)
-                
-                
             } else {
                 Logger.logInfo("Scan with HomeVC refresh")
                 BLEHelper.shared.scanPeripheral()
-                doGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+                apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
             }
-        delay(2) {
             self.refreshControl.endRefreshing()
-        }
-       
-        initTableview()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-            //  print("")
-//        DispatchQueue.main.async {
-//            self.navigationController?.navigationBar.topItem?.rightBarButtonItems?.remove(at: 0)
-//        }
     }
     
-    
-    @objc func doGetHomeData(notification: Notification) {
-        homeVM.dashboardData.removeAll()
-        self.tbvDeviceData.reloadData()
-        CommonFunctions.showGlobalProgressHUD(self,text: "")
-        homeVM.doDashboardData {  [weak self] isSuccess in
+    @objc func apiGetHomeData(notification: Notification) {
+        CommonFunctions.showGlobalProgressHUD(self)
+        homeVM.apiDashboardData {  [weak self] isSuccess in
             guard let`self` = self else { return }
             CommonFunctions.hideGlobalProgressHUD(self)
             switch isSuccess {
             case .success(let status):
                 DispatchQueue.main.async {
                     print("Response sucess :\(status)")
-                    // print("Response sucess :\(self.homeVM.dashboardData.count)")
-                    if  self.homeVM.dashboardData.count == 0 {
-                        self.lblNoData.isHidden = false
-                    } else {
-                        self.lblNoData.isHidden = true
-                    }
-                    
-                        self.tbvDeviceData.reloadData()
-                    }
-            case .failure(let message):
-                DispatchQueue.main.async {
-                    CommonFunctions.showMessage(message: message)
-                }
-                
-            }
-        }
-    }
-    
-    // This is for reference testing purpose
-    private func doLoadJson() {
-        if let path = Bundle.main.path(forResource: "dashboard_response", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-                do {
-                    let dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
-                    
-                    let dashbaord = DashboardModel(jSon: dict)
-                    print(dashbaord.maintenanceData.count)
-                    
-                   
-                    if dashbaord.rescueData.count != 0 {
-                        homeVM.dashboardData.append(contentsOf: dashbaord.rescueData)
-                    }
-                    if  dashbaord.maintenanceData.count != 0 {
-                        homeVM.dashboardData.append(contentsOf: dashbaord.maintenanceData)
-                    }
                     if  self.homeVM.dashboardData.count == 0 {
                         self.lblNoData.isHidden = false
                     } else {
                         self.lblNoData.isHidden = true
                     }
                     self.tbvDeviceData.reloadData()
-                   // self.graphModel = graphDatapoints
-                  //  completion(true)
                 }
-            } catch {
-               // DDLogError("GraphDatapointViewModel > fetchOldDataFromJson failed To load JSON file from Path")
-               // completion(false)
+            case .failure(let message):
+                DispatchQueue.main.async {
+                    CommonFunctions.showMessage(message: message)
+                }
             }
         }
-        
     }
-
+    
     override func viewWillLayoutSubviews() {
         tbvDeviceData.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: viewMainTableview.frame.size.height)
     }
 }
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            
         return homeVM.dashboardData.count
     }
     

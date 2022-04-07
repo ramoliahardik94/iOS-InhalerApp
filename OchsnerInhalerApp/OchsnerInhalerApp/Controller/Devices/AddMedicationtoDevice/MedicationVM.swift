@@ -63,15 +63,19 @@ class MedicationVM {
                 
                 } else {
                     if (response as? [String: Any]) != nil {
-                        guard let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+                        
+                        NotificationCenter.default.post(name: .medUpdate, object: nil)
+                        BLEHelper.shared.isAddAnother = false                        
+                        guard let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else {
+                            completionHandler(.success(true))
+                            return
+                        }
                         let device = DeviceModel()
                         device.internalID = peripheral.addressMAC
                         device.udid = peripheral.discoveredPeripheral?.identifier.uuidString ?? ""
                         device.isReminder = isreminder
                         device.medTypeID = self.medTypeId
                         DatabaseManager.share.saveDevice(object: device, isFromDirection: true)
-                        NotificationCenter.default.post(name: .medUpdate, object: nil)
-                        BLEHelper.shared.isAddAnother = false
                         completionHandler(.success(true))
                         
                     } else {

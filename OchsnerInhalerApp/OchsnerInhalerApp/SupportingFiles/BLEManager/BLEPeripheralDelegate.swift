@@ -91,8 +91,6 @@ extension BLEHelper: CBPeripheralDelegate {
                                                      "mac": mac,
                                                      "udid": peripheral.identifier.uuidString,
                                                      "bettery": bettery.bettery])
-                
-                
             }
         }
     }
@@ -127,7 +125,6 @@ extension BLEHelper {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let error = error {
             Logger.logError("Error discovering services: \(error.localizedDescription)")
-     
             return
         }
         print("Discover Servivce: \(String(describing: peripheral.services))")
@@ -160,7 +157,7 @@ extension BLEHelper {
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
             discoverPeripheral.macCharecteristic = characteristic
         }
-        
+        // TODO: - Uncomment for auto notify
 //        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
 //            peripheral.setNotifyValue(true, for: characteristic)
 //        }
@@ -175,7 +172,6 @@ extension BLEHelper {
             discoverPeripheral.charectristicRead = characteristic
         }
         
-//        stopTimer()
         if discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicWrite != nil {
             delay(isAddAnother ? 15 : 0) {
                 [weak self] in
@@ -183,19 +179,14 @@ extension BLEHelper {
                 
                 switch peripheral.state {
                 case .connected :
-//                    if !DatabaseManager.share.getIsSetRTC(udid: peripheral.identifier.uuidString) {
-//                        self.setRTCTime(uuid: peripheral.identifier.uuidString)
-//                    }
                     self.getmacAddress(peripheral: discoverPeripheral)
                     self.getBetteryLevel(peripheral: discoverPeripheral)
                     if !self.isAddAnother {
                         self.getAccuationNumber(peripheral: discoverPeripheral)
                     }
                     Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
-                    //self.isScanning = false
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .BLEConnect, object: nil)
-
                     }
                 default:
                     break

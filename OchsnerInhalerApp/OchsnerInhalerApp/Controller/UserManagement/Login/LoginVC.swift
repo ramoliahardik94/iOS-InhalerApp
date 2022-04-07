@@ -27,22 +27,17 @@ class LoginVC: BaseVC {
         lblDontHaveAccount.text = StringUserManagement.dontHaveAccout
         lblEmail.text = StringUserManagement.email
         lblCreatePassword.text = StringUserManagement.password.uppercased()
-        
-        
         btnLogin.setButtonView(StringUserManagement.login, 17)
         btnCreateAccount.setButtonView(StringUserManagement.createAccount, 17)
-        
         lblLogin.setFont(type: .bold, point: 34)
         lblDontHaveAccount.setFont(type: .bold, point: 22)
         lblCreatePassword.setFont(type: .regular, point: 15)
         tfEmail.setFont()
         tfPassword.setFont()
-      
         tfPassword.layer.borderWidth = 1
         tfPassword.layer.borderColor = UIColor.TextFieldBorderColor.cgColor
         tfEmail.layer.borderWidth = 1
         tfEmail.layer.borderColor = UIColor.TextFieldBorderColor.cgColor
-      
         tfEmail.layer.cornerRadius = 4
         tfPassword.layer.cornerRadius = 4
         tfEmail.delegate = self
@@ -52,8 +47,7 @@ class LoginVC: BaseVC {
         addAstrickSing(label: lblEmail)
         addAstrickSing(label: lblCreatePassword)
         btnForgotePsw.setTitle(StringUserManagement.forgotePass, for: .normal)
-        #if DEBUG
-        
+#if DEBUG
 //        tfEmail.text = "nikita@gmail.com"
 //        tfPassword.text = "password"
 
@@ -71,26 +65,20 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "abc@mail.com"
 //        tfPassword.text = "Test123"
         
-//        tfEmail.text = "bhoomika.chauhan@volansys.com"
-//        tfPassword.text = "1234"
-        
+        tfEmail.text = "bhoomika.chauhan@volansys.com"
+        tfPassword.text = "1234"
 
         tfEmail.text = "rocky.malvi@volansys.com"
         tfPassword.text = "123456"
         
 //        tfEmail.text = "shekhawatdhaval@gmail.com"
 //        tfPassword.text = "Dhaval@1234"
-
-
-       // forceCrash()
+        
+//        tfEmail.text = "user@gmail.com"
+        
+//        forceCrash()
         #endif
     }
-    
-   
-    deinit {
-        print("deinit LoginVC")
-    }
-    
     
     func setNextView() {        
         
@@ -155,21 +143,19 @@ class LoginVC: BaseVC {
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
+                self.setNextView()
                 background {
                     self.getProfile()
                 }
-                self.setNextView()
             case .failure:
-                break
-                // CommonFunctions.showMessage(message: message)
+                self.setNextView()
             }
         })
     }
     
     func getProfile() {
         let profileVM = ProfileVM()
-        profileVM.doGetProfile { [weak self] result in
-            guard let `self` = self else { return }
+        profileVM.doGetProfile { result in
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
