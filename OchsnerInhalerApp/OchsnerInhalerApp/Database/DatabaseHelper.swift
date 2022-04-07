@@ -43,9 +43,11 @@ class DatabaseManager {
             accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
             
             if let date = object["date"] as? String {
-                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: true)
+                let logDate = date.getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)
+                
                 let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-                accuationLog.isbadlog = (logDate > Date() || logDate < pastDate)
+                Logger.logInfo("logDate: \(logDate),  \n Current Date: \(Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)),\n PastDate:\(pastDate)")
+                accuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
                 accuationLog.usedatelocal = date
             }
             
@@ -57,7 +59,15 @@ class DatabaseManager {
             accuationLog.uselength = Double("\(object["useLength"]!)")!
             accuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
             try context?.save()
-            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")
+            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")            
+            Logger.logInfo("logCounter \(BLEHelper.shared.logCounter) ==  noOfLog\(BLEHelper.shared.noOfLog)")
+            if Decimal(BLEHelper.shared.logCounter) >= BLEHelper.shared.noOfLog {
+                BLEHelper.shared.noOfLog = 0
+                BLEHelper.shared.logCounter = 0
+                BLEHelper.shared.apiCallForAccuationlog()               
+                print("LogCount Equal")
+            }
+            
         } catch {
             debugPrint("Can not get Data")
         }
@@ -174,6 +184,34 @@ class DatabaseManager {
         return usage
     }
     
+    func getAccuationLogListUnSync() -> [[String: Any]] {
+        var accuationLog = [AcuationLog]()
+        var usage = [[String: Any]]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
+        let predicate2 =  NSPredicate(format: "issync == %d", false)
+        let predicate3 =  NSPredicate(format: "isbadlog == %d", false)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate2, predicate3])
+        
+        fetchRequest.predicate = predicate
+        do {
+            accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        for obj in accuationLog {
+            let log = obj
+            if let date = log.usedatelocal {
+                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
+                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
+                if logDate <= Date() && logDate >= pastDate {
+                    usage.append(["Param": log.APIForSingle()])
+                }
+            }
+        }
+        return usage
+    }
+    
+    
     
     func setRTCFor(udid: String, value: Bool) {
         var device = [Device]()
@@ -265,6 +303,9 @@ class DatabaseManager {
         return device
     }
     
+    
+    
+    
     func updateAccuationLog(_ updateObj: [[String: Any]]) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         for obj in updateObj {
@@ -292,6 +333,38 @@ class DatabaseManager {
             
         }
     }
+    
+    func updateAccuationLogwithTimeAdd(_ updateObj: [[String: Any]],sec: Int = 5) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
+        for obj in updateObj {
+            let mac = obj["DeviceId"] as! String
+            if let usage = obj["Usage"] as? [[String: Any]] {
+                
+                for data in usage {
+                    let date = data["UseDateLocal"] as! String
+                    let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
+                    let predicate2 =  NSPredicate(format: "usedatelocal == %@", date)
+                    let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+                    
+                    fetchRequest.predicate = predicate
+                    do {
+                        let logs = try context?.fetch(fetchRequest) as! [AcuationLog]
+                        for log in logs {
+                            var date = log.usedatelocal!.getDate(format: DateFormate.useDateLocalAPI)
+                            date.addTimeInterval(5)
+                            let useDatePlus5sec = date.getString(format: DateFormate.useDateLocalAPI)
+                            log.usedatelocal = useDatePlus5sec
+                            try context?.save()
+                        }
+                    } catch {
+                        debugPrint("cant update :\(error.localizedDescription)")
+                    }
+                }
+            }
+            
+        }
+    }
+    
     
     func setupUDID(mac: String, udid: String, isDelete: Bool = false ) {
         let keychain = KeychainSwift()
@@ -325,10 +398,8 @@ class DatabaseManager {
             
             do {
                 accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
-                if accuationLog.first(where: {$0.isbadlog == false}) == nil {
-                    return true
-                }
-                return false
+                let arrBad = accuationLog.filter({$0.isbadlog == true})
+                return arrBad.count == 10
             } catch {
                 debugPrint("Can not get Data")
                 return false

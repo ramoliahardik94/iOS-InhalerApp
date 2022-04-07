@@ -32,11 +32,7 @@ extension BLEHelper {
                                                   "udid": udid as Any,
                                                   "batterylevel": BLEHelper.shared.bettery]
                         DatabaseManager.share.saveAccuation(object: dic)
-                        if Decimal(logCounter) == self.noOfLog {
-                            self.noOfLog = 0
-                            self.logCounter = 0
-                            self.apiCallForAccuationlog()
-                        }
+                       
                     } else {
                         Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
                     }
@@ -47,10 +43,20 @@ extension BLEHelper {
         }
     }
     
-    func apiCallForAccuationlog() {
+    func apiCallForAccuationlog(isForSingle: Bool = false) {
         if APIManager.isConnectedToNetwork {
             DispatchQueue.global(qos: .background).sync {
-                self.apiCallDeviceUsage()
+                if isForSingle {
+                    let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
+                    if unSyncData.count > 0 {
+                        let obj = unSyncData[0]
+                        guard let param = obj["Param"] as? [[String: Any]] else { return }
+                        self.apiCallDeviceUsage(param: param)
+                    }
+                    
+                } else {
+                    self.apiCallDeviceUsage(param: prepareAcuationLogParam())
+                }
             }
         }
     }
@@ -70,8 +76,9 @@ extension BLEHelper {
         return parameter
     }
     
-    func apiCallDeviceUsage() {
-        let param = prepareAcuationLogParam()
+    func apiCallDeviceUsage(param: [[String: Any]]) {
+        print(param)
+        let param = param
         if param.count != 0 {
             APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] _, response in
                 if response != nil {
@@ -86,6 +93,10 @@ extension BLEHelper {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
                         }
+                        let unSyncData = DatabaseManager.share.getAccuationLogListUnSync()
+                        if unSyncData.count > 0 {
+                            apiCallForAccuationlog()
+                        }
                     }
                     
                 } else {
@@ -96,6 +107,14 @@ extension BLEHelper {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
                         }
+                        if param.count == 1 {
+                            if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
+                                if arrUsage.count == 1 {
+                                    DatabaseManager.share.updateAccuationLogwithTimeAdd(param)
+                                }
+                            }
+                        }
+                        apiCallForAccuationlog(isForSingle: true)
                         self.isPullToRefresh = false
                     }
                 }

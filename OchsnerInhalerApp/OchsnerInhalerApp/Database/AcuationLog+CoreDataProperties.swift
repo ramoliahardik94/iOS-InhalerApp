@@ -36,7 +36,17 @@ extension AcuationLog {
                       "BatteryLevel": Double(BLEHelper.shared.bettery)! as Any]
         return dicLog
     }
-    
+    func APIForSingle() -> [[String: Any]] {
+        
+        let dicLog = ["UseDateLocal": usedatelocal!,
+                      "DeviceSyncDateUTC": devicesyncdateutc! as Any,
+                      "Latitude": Double(latitude!)! as Any,
+                      "Longitude": Double(longitude!)! as Any,
+                      "UseLength": uselength,
+                      "BatteryLevel": Double(BLEHelper.shared.bettery)! as Any]
+        let arr = [["DeviceId": deviceidmac as Any, "Usage": [dicLog]]]
+        return arr
+    }
     
     func DBDictionary() -> [String: Any] {
         let dicLog = ["UseDateLocal": usedatelocal!,
