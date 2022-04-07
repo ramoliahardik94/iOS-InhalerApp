@@ -160,8 +160,7 @@ class LoginVC: BaseVC {
                 }
                 self.setNextView()
             case .failure:
-                break
-                // CommonFunctions.showMessage(message: message)
+                self.setNextView()              
             }
         })
     }
