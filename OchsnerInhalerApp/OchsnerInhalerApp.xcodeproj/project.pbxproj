@@ -36,8 +36,6 @@
 		2275748727D86DA6006B0122 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2275748527D86DA6006B0122 /* Device+CoreDataClass.swift */; };
 		227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */; };
 		227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4E027A3EC540005C3D9 /* TransferService.swift */; };
-		2296C33E27B2621E0095CBFA /* TemoDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */; };
-		2296C33F27B2621E0095CBFA /* TemoDashboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
@@ -162,8 +160,6 @@
 		2275748527D86DA6006B0122 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
 		227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
 		227CD4E027A3EC540005C3D9 /* TransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
-		2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemoDashboardCell.swift; sourceTree = "<group>"; };
-		2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemoDashboardCell.xib; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -453,8 +449,6 @@
 				224E1C9A279819AD000C5D1A /* Cell */,
 				22AE96F0278EA37F00C0D851 /* HomeVC.swift */,
 				22CA52A527C34D9E0031BDE7 /* HomeVM.swift */,
-				2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */,
-				2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -872,7 +866,6 @@
 				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
 				224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */,
-				2296C33F27B2621E0095CBFA /* TemoDashboardCell.xib in Resources */,
 				4757D09127D209E800224605 /* Tap-Animation.gif in Resources */,
 				22FCEA6227C4AA8700A91A6A /* dashboard_response.json in Resources */,
 				4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */,
@@ -984,7 +977,6 @@
 				22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */,
 				22AE96F9278EA68900C0D851 /* BluetoothPermissionVC.swift in Sources */,
 				2213838727BCB3DE00D4BFA0 /* AcuationLog+CoreDataClass.swift in Sources */,
-				2296C33E27B2621E0095CBFA /* TemoDashboardCell.swift in Sources */,
 				22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */,
 				4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */,
 				47CDCE49278D88FE0014527D /* ResultType.swift in Sources */,

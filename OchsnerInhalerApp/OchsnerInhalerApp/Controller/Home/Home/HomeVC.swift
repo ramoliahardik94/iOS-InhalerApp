@@ -56,7 +56,9 @@ class HomeVC: BaseVC {
                     BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
                 }
         }
-        BLEHelper.shared.apiCallForAccuationlog()
+        if BLEHelper.shared.connectedPeripheral.isEmpty {
+            BLEHelper.shared.apiCallForAccuationlog()
+        }
     }
     
     func getAccuationLogHome(isPulltoRefresh: Bool = false) {
@@ -74,13 +76,11 @@ class HomeVC: BaseVC {
         initTableview()
         lblNoData.text = StringCommonMessages.noDataFount
         lblNoData.isHidden = true
-        //apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
         syncView.backgroundColor = .ButtonColorBlue
         syncView.isHidden = true
     }
     
     private func initTableview() {
-
         self.view.setNeedsLayout()
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
@@ -99,7 +99,6 @@ class HomeVC: BaseVC {
             } else {
                 Logger.logInfo("Scan with HomeVC refresh")
                 BLEHelper.shared.scanPeripheral()
-               // apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
             }
             self.refreshControl.endRefreshing()
     }
