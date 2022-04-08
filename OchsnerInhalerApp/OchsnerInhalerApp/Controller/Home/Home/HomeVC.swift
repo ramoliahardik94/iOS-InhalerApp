@@ -74,7 +74,7 @@ class HomeVC: BaseVC {
         initTableview()
         lblNoData.text = StringCommonMessages.noDataFount
         lblNoData.isHidden = true
-        apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+        //apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
         syncView.backgroundColor = .ButtonColorBlue
         syncView.isHidden = true
     }
@@ -85,7 +85,6 @@ class HomeVC: BaseVC {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tbvDeviceData.addSubview(refreshControl)
-        
         let nib = UINib(nibName: itemCellDevice, bundle: nil)
         tbvDeviceData.register(nib, forCellReuseIdentifier: itemCellDevice)
         tbvDeviceData.delegate = self
@@ -100,7 +99,7 @@ class HomeVC: BaseVC {
             } else {
                 Logger.logInfo("Scan with HomeVC refresh")
                 BLEHelper.shared.scanPeripheral()
-                apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
+               // apiGetHomeData(notification: Notification(name: .SYNCSUCCESSACUATION, object: nil, userInfo: [:]))
             }
             self.refreshControl.endRefreshing()
     }
@@ -128,10 +127,7 @@ class HomeVC: BaseVC {
             }
         }
     }
-    
-    override func viewWillLayoutSubviews() {
-        tbvDeviceData.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: viewMainTableview.frame.size.height)
-    }
+
 }
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -139,133 +135,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellDevice, for: indexPath) as! HomeDeviceCell
-        
-        cell.selectionStyle = .none
-       
         let item = homeVM.dashboardData[indexPath.row]
         cell.item = item
-        let firstAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppBoldFont, size: 24)! ]
-        let sendcotAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppLightItalicFont, size: 16)! ]
-        
-        let firstString = NSMutableAttributedString(string: "\(item.medName ?? StringCommonMessages.notSet)", attributes: firstAttributes)
-        
-        if item.type == "1" {
-            // for rescue
-            let seconfString = NSMutableAttributedString(string: "\(StringAddDevice.rescueInhaler)", attributes: sendcotAttributes)
-            firstString.append(seconfString)
-            cell.lblDeviceName.attributedText = firstString
-            cell.viewCollectionView.isHidden = true
-            cell.viewNextDose.isHidden = true
-            cell.viewAdherance.isHidden = true
-         // cell.lblDeviceType.text = "(Rescue Inhaler)"
-            cell.viewToday.isHidden = false
-            cell.lblTodayData.text = "\(item.today?.count ?? 0)"
-            cell.lblThisWeekData.text = "\(item.thisWeek?.count ?? 0)"
-            cell.lblThisMonthData.text = "\(item.thisMonth?.count ?? 0)"
-        } else {
-            // maintaince
-            let seconfString = NSMutableAttributedString(string: "\(StringAddDevice.maintenanceInhaler)", attributes: sendcotAttributes)
-            firstString.append(seconfString)
-            cell.lblDeviceName.attributedText = firstString
-            
-            // cell.lblDeviceType.text = "(Maintenance Inhaler)"
-            cell.viewToday.isHidden = true
-            cell.lblThisWeekData.text = "\(item.thisWeek?.adherence ?? 0)%"
-            cell.lblThisMonthData.text = "\(item.thisMonth?.adherence ?? 0)%"
-            cell.viewAdherance.isHidden = false
-            cell.lblNextDose.text = "\(StringHome.nextScheduled) \(item.nextScheduledDose ?? StringCommonMessages.notSet)"
-            cell.viewNextDose.isHidden = false
-            
-            cell.lblDeviceNameGraph.text = ""
-            cell.lblDeviceTypeGraph.text = StringCommonMessages.schedule
-            if item.dailyAdherence.count != 0 {
-            //    cell.dailyAdherence = item.dailyAdherence
-                let dailyAdherence = item.dailyAdherence
-                let maxvalu = item.dailyAdherence.sorted { item1, item2 in
-                    return item1.denominator ?? 0 > item2.denominator ?? 0
-                }
-          
-                for (index, item) in dailyAdherence.enumerated() {
-                    cell.stackViewArray[index].isHidden = false
-                    cell.stackViewArray[index].removeFullyAllArrangedSubviews()
-                    let label = UILabel()
-                    label.text = item.day ?? StringCommonMessages.notSet
-                    label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-                    label.setFont(type: .regular, point: 14)
-                
-//                    let date = Date()
-//                    let day = date.getFormattedDate(format: "EE")
-//                    let lastC = day.dropLast()
-                    // print(lastC)
-//                    if item.day?.lowercased()
-//                        ?? "" == lastC.lowercased() {
-//                        label.layer.borderWidth = 1
-//                        label.layer.borderColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
-//                    } else {
-//                        label.layer.borderWidth = 0
-//                        label.layer.borderColor = UIColor.clear.cgColor // #8E8E93
-//                    }
-                    cell.stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
-                    cell.stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
-                    cell.stackViewArray[index].alignment = UIStackView.Alignment.center
-                    cell.stackViewArray[index].spacing   = 4
-                    cell.stackViewArray[index].addArrangedSubview(label)
-                  
-                    for  indexSub in 1...item.denominator! {
-                        let view = UIView()
-                       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
-                        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
-                        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
-                        view.layer.borderWidth = 1
-                        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
-                        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
-                        view.layer.cornerRadius = 8
-                        view.clipsToBounds = true
-                        
-                        let image = UIImageView()
-                        image.heightAnchor.constraint(equalToConstant: 16).isActive = true
-                        image.widthAnchor.constraint(equalToConstant: 16).isActive = true
-                        image.image = #imageLiteral(resourceName: "cross_dot")
-                        
-                        if indexSub <= item.numerator ?? 0 {
-                            cell.stackViewArray[index].addArrangedSubview(view)
-                        } else {
-                            cell.stackViewArray[index].addArrangedSubview(image)
-                        }
-                        
-//                        if item.day?.lowercased()
-//                            ?? "" == lastC.lowercased() {
-//                            cell.stackViewArray[index].addArrangedSubview(view)
-//                        } else {
-//                            if indexSub <= item.numerator ?? 0 {
-//                                cell.stackViewArray[index].addArrangedSubview(view)
-//                            } else {
-//                                cell.stackViewArray[index].addArrangedSubview(image)
-//                            }
-//                        }
-                    }
-                    if maxvalu[0].denominator ?? 0 > item.denominator ?? 0 {
-                        let valueOne = maxvalu[0].denominator ?? 0
-                        let valueTwo =  item.denominator ?? 0
-                        let remainItem =  valueOne - valueTwo
-                        for _ in 1...remainItem {
-                            let view = UIView()
-                            view.backgroundColor = .clear
-                            cell.stackViewArray[index].addArrangedSubview(view)
-                        }
-                    }
-                    let array =  cell.stackViewArray[index].arrangedSubviews.reversed()
-                    for (indexArr, item) in array.enumerated() {
-                        cell.stackViewArray[index].insertArrangedSubview(item, at: indexArr)
-                    }
-                }
-             }
-        }
-      
+        cell.layoutSubviews()
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
     
 }
 

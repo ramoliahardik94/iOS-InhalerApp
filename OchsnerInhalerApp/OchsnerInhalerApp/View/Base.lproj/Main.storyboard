@@ -26,14 +26,14 @@
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="i81-Bi-qlP">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="kVc-Lg-UiE"/>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="9Vz-oQ-MfQ"/>
                                                 </connections>
                                             </tableView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="i81-Bi-qlP" firstAttribute="leading" secondItem="Qh7-8F-Wcj" secondAttribute="leading" id="SnQ-jl-TtH"/>
                                             <constraint firstAttribute="bottom" secondItem="i81-Bi-qlP" secondAttribute="bottom" id="Zup-bX-cZn"/>

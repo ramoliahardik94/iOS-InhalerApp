@@ -52,17 +52,25 @@ extension BLEHelper {
                                               "mac": mac! as Any,
                                               "udid": logPeripheralUUID as Any,
                                               "batterylevel": bettery as Any]
-                    if mac != nil {
-                        DatabaseManager.share.saveAccuation(object: dic)
-                    }
-                    if Decimal(discoverPeripheral.logCounter) >= discoverPeripheral.noOfLog {
-                        logCounter += 1
-                        Logger.logInfo("logCounter +1 \(logCounter)  with \(discoverPeripheral.noOfLog) log for mac \(mac!)")
-                        discoverPeripheral.noOfLog = 0
-                        discoverPeripheral.logCounter = 0
-                        accuationAPI_LastAccuation()
-                    }
                     
+                        if mac != nil {
+                            DatabaseManager.share.saveAccuation(object: dic)
+                        }
+                        if Decimal(discoverPeripheral.logCounter) >= discoverPeripheral.noOfLog {
+                            logCounter += 1
+                            Logger.logInfo("logCounter +1 \(logCounter)  with \(discoverPeripheral.noOfLog) log for mac \(mac!)")
+                            discoverPeripheral.noOfLog = 0
+                            discoverPeripheral.logCounter = 0
+                            if discoverPeripheral.isFromNotification {
+                                delay(2) {
+                                    self.apiCallForAccuationlog(mac: discoverPeripheral.addressMAC)
+                                    discoverPeripheral.isFromNotification = false
+                                }
+                               
+                            } else {
+                                accuationAPI_LastAccuation()
+                            }
+                        }
                 } else {
                     Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
                 }
@@ -180,6 +188,9 @@ extension BLEHelper {
             }
         } else {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
+            }
         }
     }
 }

@@ -55,6 +55,9 @@ class DeviceModel: NSObject {
         if let value = jSon["BatteryLevel"] as? String {
             self.batteryLevel = "\(value)%"
         }
+        if let value = jSon["BatteryLevel"] as? Int {
+            self.batteryLevel = "\(value)%"
+        }
         if let value = jSon["BatteryLevelDate"] as? String {
             self.batteryLevelDate = value
         }

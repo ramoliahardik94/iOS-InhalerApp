@@ -18,6 +18,7 @@ class PeriperalType: NSObject {
     var macCharecteristic: CBCharacteristic?
     var noOfLog: Decimal = 0
     var logCounter = 0
+    var isFromNotification = false
     
     override init() {
         super.init()
