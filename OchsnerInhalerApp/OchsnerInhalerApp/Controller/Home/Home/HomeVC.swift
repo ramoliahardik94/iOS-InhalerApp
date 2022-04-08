@@ -56,18 +56,24 @@ class HomeVC: BaseVC {
                     BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
                 }
         }
+
         if BLEHelper.shared.connectedPeripheral.isEmpty {
             BLEHelper.shared.apiCallForAccuationlog()
         }
+
     }
     
     func getAccuationLogHome(isPulltoRefresh: Bool = false) {
         
         let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
-        for  discoverPeripheral in bleDevice {
-            DispatchQueue.global().async {
-            BLEHelper.shared.getAccuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
+        if bleDevice.count > 0 {
+            for  discoverPeripheral in bleDevice {
+                DispatchQueue.global().async {
+                    BLEHelper.shared.getAccuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
+                }
             }
+        } else {
+            BLEHelper.shared.apiCallForAccuationlog()
         }
     }
     
@@ -103,6 +109,7 @@ class HomeVC: BaseVC {
             self.refreshControl.endRefreshing()
     }
     
+
     @objc func apiGetHomeData(notification: Notification) {
         CommonFunctions.showGlobalProgressHUD(self)
         homeVM.apiDashboardData {  [weak self] isSuccess in

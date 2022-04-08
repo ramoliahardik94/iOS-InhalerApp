@@ -34,8 +34,7 @@ class LoginVM {
     }
     
     func getDeviceList(completionHandler: @escaping ((APIResult) -> Void)) {
-        APIManager.shared.performRequest(route: APIRouter.device.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) {[weak self] error, response in
-            guard let `self` = self else { return }
+        APIManager.shared.performRequest(route: APIRouter.device.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) { error, response in          
             if response == nil {
                 completionHandler(.failure(error!.message))
             } else {
