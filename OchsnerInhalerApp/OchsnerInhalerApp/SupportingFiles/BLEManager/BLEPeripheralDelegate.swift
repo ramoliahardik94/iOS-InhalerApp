@@ -149,6 +149,7 @@ extension BLEHelper {
         }
         guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         // Again, we loop through the array, just in case and check if it's the right one
+        
         guard let serviceCharacteristics = service.characteristics else {
             Logger.logError("service error \(service)")
             return }
@@ -156,10 +157,10 @@ extension BLEHelper {
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
             discoverPeripheral.macCharecteristic = characteristic
         }
-        // TODO: - Uncomment for auto notify
-        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
-            peripheral.setNotifyValue(true, for: characteristic)
-        }
+        // TODO: - Uncomment for BG AutoNotify
+//        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
+//            peripheral.setNotifyValue(true, for: characteristic)
+//        }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
           

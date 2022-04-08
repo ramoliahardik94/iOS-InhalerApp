@@ -62,7 +62,7 @@ extension BLEHelper {
                             discoverPeripheral.noOfLog = 0
                             discoverPeripheral.logCounter = 0
                             if discoverPeripheral.isFromNotification {
-                                delay(10) {
+                                delay(5) {
                                     self.apiCallForAccuationlog(mac: discoverPeripheral.addressMAC)
                                     discoverPeripheral.isFromNotification = false
                                 }

@@ -82,7 +82,7 @@ class HomeDeviceCell: UITableViewCell {
                 let arrSorted = item.dailyAdherence.sorted { item1, item2 in return item1.denominator ?? 0 > item2.denominator ?? 0 }
                 let maxvalu = arrSorted.count > 0 ? arrSorted[0].denominator : 0
                 
-                heightStackView.constant = CGFloat((maxvalu ?? 0) * (20)) + 20
+                heightStackView.constant = CGFloat((maxvalu ?? 0) * (24)) + 24
                 debugPrint(heightStackView.constant)
                 for (index, obj) in item.dailyAdherence.enumerated() { // For Every column
                     viewCollectionView.isHidden = false

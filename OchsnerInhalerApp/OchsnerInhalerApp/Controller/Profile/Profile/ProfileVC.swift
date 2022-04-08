@@ -57,7 +57,7 @@ class ProfileVC: BaseVC {
 
         btnAppVersion.setTitle("V - \(appVersion())", for: .normal)
 
-        doGetProfileData()
+        apiGetProfileData()
 
     }
     
@@ -154,6 +154,7 @@ class ProfileVC: BaseVC {
         for obj in BLEHelper.shared.connectedPeripheral {
             BLEHelper.shared.cleanup(peripheral: obj.discoveredPeripheral!)
         }
+        BLEHelper.shared.connectedPeripheral.removeAll()
         NotificationManager.shared.removeAllPendingLocalNotification()
         let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         let nav: UINavigationController = UINavigationController()
@@ -163,7 +164,7 @@ class ProfileVC: BaseVC {
         UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
     
-    private func doGetProfileData() {
+    private func apiGetProfileData() {
         CommonFunctions.showGlobalProgressHUD(self)
         profileVM.doGetProfile { [weak self] result in
             guard let `self` = self else { return }
@@ -187,7 +188,7 @@ class ProfileVC: BaseVC {
             switch(result) {
             case .success(let status):
                 print("Response sucess :\(status)")
-                self.doGetProfileData()
+                self.apiGetProfileData()
                 
             case .failure(let message) :
                 CommonFunctions.showMessage(message: message)
