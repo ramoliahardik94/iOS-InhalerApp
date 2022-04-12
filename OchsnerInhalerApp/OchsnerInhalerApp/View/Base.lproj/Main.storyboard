@@ -808,10 +808,10 @@
             </objects>
             <point key="canvasLocation" x="-676.81159420289862" y="79.6875"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Connected Inhaler Application-->
         <scene sceneID="znm-h7-YjX">
             <objects>
-                <tabBarController storyboardIdentifier="HomeTabBar" automaticallyAdjustsScrollViewInsets="NO" id="vOF-Cb-cDr" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeTabBar" title="Connected Inhaler Application" automaticallyAdjustsScrollViewInsets="NO" id="vOF-Cb-cDr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1sm-kr-Vcb">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

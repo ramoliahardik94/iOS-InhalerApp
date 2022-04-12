@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotificationVC: UIViewController {
+class NotificationVC: BaseVC {
     
     @IBOutlet weak var tbvData: UITableView!
     let notification: NotificationVM = NotificationVM()
@@ -17,31 +17,40 @@ class NotificationVC: UIViewController {
         super.viewDidLoad()
         
         let nib = UINib(nibName: itemCell, bundle: nil)
-        tbvData.register(nib, forCellReuseIdentifier: itemCell)        
+        tbvData.register(nib, forCellReuseIdentifier: itemCell)
         tbvData.delegate = self
         tbvData.dataSource = self
-          
-           let title = StringAddDevice.titleAddDevice
+        self.setSwipeBack(false)
+        let title = StringAddDevice.titleAddDevice
         let titleSize = title.size(withAttributes: [.font: Constants.titleFont])
-           let frame = CGRect(x: 0, y: 0, width: titleSize.width, height: 20.0)
-           let titleLabel = UILabel(frame: frame)
-           titleLabel.font = Constants.titleFont
+        let frame = CGRect(x: 0, y: 0, width: titleSize.width, height: 20.0)
+        let titleLabel = UILabel(frame: frame)
+        titleLabel.font = Constants.titleFont
         titleLabel.textColor =  Constants.titleColor
-           titleLabel.textAlignment = .center
-           titleLabel.text = title
-           navigationItem.titleView = titleLabel
-        
-        self.navigationController?.navigationBar.topItem?.title = ""
+        titleLabel.textAlignment = .center
+        titleLabel.text = title
+        navigationItem.titleView = titleLabel
+        let backImg: UIImage = UIImage(imageLiteralResourceName: "ic_back_arrow_white")
+        let newBackButton = UIBarButtonItem(image: backImg, style: UIBarButtonItem.Style.plain, target: self, action: #selector(barButtonItemTapped(sender:)))
+        self.navigationItem.leftBarButtonItem = newBackButton
+        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         // Do any additional setup after loading the view.
     }
+    
+    @objc func barButtonItemTapped(sender: UIBarButtonItem) {
+        // Perform your custom actions
+        // ...
+        // Go back to the previous ViewController
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         notification.getHistory() 
         tbvData.reloadData()
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
-
 }
 
 extension NotificationVC: UITableViewDelegate, UITableViewDataSource {
