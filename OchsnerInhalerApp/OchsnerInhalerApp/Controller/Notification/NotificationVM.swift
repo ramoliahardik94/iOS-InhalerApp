@@ -13,6 +13,7 @@ class MsgModel: NSObject {
     var msg: String = ""
     var time: String = ""
 }
+
 class NotificationModel: NSObject {
     var historyDate: String = ""
     var history: [History] = [History]()
@@ -110,6 +111,7 @@ class History: NSObject {
         }
     }
 }
+
 class DoseStatus: NSObject {
     var time = ""
     var status = ""

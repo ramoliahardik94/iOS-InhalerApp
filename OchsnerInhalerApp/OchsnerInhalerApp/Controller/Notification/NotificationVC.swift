@@ -36,6 +36,10 @@ class NotificationVC: BaseVC {
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        notification.getHistory() 
+        tbvData.reloadData()
+    }
     
     @objc func barButtonItemTapped(sender: UIBarButtonItem) {
         // Perform your custom actions
@@ -43,22 +47,11 @@ class NotificationVC: BaseVC {
         // Go back to the previous ViewController
         self.navigationController?.popViewController(animated: true)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        notification.getHistory() 
-        tbvData.reloadData()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
 }
 
 extension NotificationVC: UITableViewDelegate, UITableViewDataSource {
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return notification.arrNotificationMsg.count
-//    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return notification.arrMissNotification[section].historyOfMiss.count
         return notification.arrNotificationMsg.count
     }
     
@@ -66,17 +59,9 @@ extension NotificationVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCell, for: indexPath) as! NotificationCell
         cell.selectionStyle = .none
         cell.msg = notification.arrNotificationMsg[indexPath.row]
-//        cell.date = notification.arrMissNotification[indexPath.section].history[indexPath.row]
         return cell
     }
-  /*  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let lable = UILabel(frame: CGRect(origin: CGPoint(x: 10, y: 0), size: CGSize(width: self.view.bounds.size.width - 20, height: 20)))
-        lable.backgroundColor = .lightGray
-        lable.textColor = .white
-        lable.font = UIFont(name: AppFont.AppBoldFont, size: 20)
-        lable.text = notification.arrMissNotification[section].historyDate
-        return lable
-    }*/
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
