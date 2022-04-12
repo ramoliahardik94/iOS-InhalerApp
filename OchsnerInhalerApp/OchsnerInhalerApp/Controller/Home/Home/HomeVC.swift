@@ -37,8 +37,8 @@ class HomeVC: BaseVC {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         initUI()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
+        apiGetHomeData(notification: Notification(name: .DataSyncDone, object: nil, userInfo: nil))
     }
     
     override func viewWillAppear(_ animated: Bool) {

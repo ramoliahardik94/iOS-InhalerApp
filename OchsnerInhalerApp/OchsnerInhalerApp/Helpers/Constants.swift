@@ -20,7 +20,9 @@ class Constants: NSObject {
     static let FavoriteDevices = 10.0
     static let HubDeviceNameLength = 20
     static let weekDays: [String] = ["MON".local, "TUE".local, "WED".local, "THU".local, "FRI".local, "SAT".local, "SUN".local]
-
+    
+    static let titleFont = (UIFont(name: AppFont.AppBoldFont, size: 18))!
+    static let titleColor = UIColor.white
     struct CustomFont {
         static let SFProTextSemibold = "SFProText-Semibold"
         static let SFProTextRegular = "SFProText-Regular"

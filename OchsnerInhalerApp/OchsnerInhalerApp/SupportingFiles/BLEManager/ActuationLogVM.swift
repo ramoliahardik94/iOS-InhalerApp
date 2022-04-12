@@ -134,7 +134,7 @@ extension BLEHelper {
                         self.isPullToRefresh = false
                         DatabaseManager.share.updateActuationLog(param)
                         DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
+                            NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                         }
                         Logger.logInfo(ValidationMsg.successAcuation)
                         let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
@@ -149,7 +149,7 @@ extension BLEHelper {
                     hideDashboardStatus(msg: ValidationMsg.failAcuation)
                     self.isPullToRefresh = false
                     DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
+                        NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                     }
                     if param.count == 1 {
                         if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
@@ -165,7 +165,7 @@ extension BLEHelper {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
             hideDashboardStatus(msg: ValidationMsg.startSyncCloudNo)
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .SYNCSUCCESSACUATION, object: nil)
+                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
             }
         }
     }
