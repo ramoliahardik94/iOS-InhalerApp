@@ -74,6 +74,9 @@ class MedicationVM {
                         device.udid = peripheral.discoveredPeripheral?.identifier.uuidString ?? ""
                         device.isReminder = isreminder
                         device.medTypeID = self.medTypeId
+                        device.puffs = self.puff
+                        device.medication = self.selectedMedication
+                        
                         DatabaseManager.share.saveDevice(object: device, isFromDirection: true)
                         completionHandler(.success(true))
                         

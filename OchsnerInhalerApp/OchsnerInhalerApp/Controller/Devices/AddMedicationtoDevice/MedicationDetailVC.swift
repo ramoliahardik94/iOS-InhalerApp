@@ -155,11 +155,7 @@ class MedicationDetailVC: BaseVC {
                     switch result {
                     case .success(let status):
                         print("Response sucess :\(status)")
-                        UserDefaultManager.isAddReminder = self.swReminder.isOn
-                        //                        background {
-                        //                            self.clearDeviceRemindersNotification()
-                        //                            NotificationManager.shared.addReminderLocal(userName: self.userName)
-                        //                        }
+                        UserDefaultManager.isAddReminder = self.swReminder.isOn                      
                         if self.isFromDeviceList {
                             self.navigationController?.popToRootViewController(animated: true)
                         } else if !self.medicationVM.isEdit {

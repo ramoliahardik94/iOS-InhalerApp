@@ -38,12 +38,13 @@ class HomeVC: BaseVC {
         self.navigationController?.isNavigationBarHidden = false
         initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .SYNCSUCCESSACUATION, object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
-        self.getAccuationLogHome()
+        self.getActuationLogHome()
    
         
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
@@ -58,27 +59,28 @@ class HomeVC: BaseVC {
         }
 
         if BLEHelper.shared.connectedPeripheral.isEmpty {
-            BLEHelper.shared.apiCallForAccuationlog()
+            BLEHelper.shared.apiCallForActuationlog()
         }
 
     }
     
-    func getAccuationLogHome(isPulltoRefresh: Bool = false) {
+    func getActuationLogHome(isPulltoRefresh: Bool = false) {
         
         let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
         if bleDevice.count > 0 {
             for  discoverPeripheral in bleDevice {
                 DispatchQueue.global().async {
-                    BLEHelper.shared.getAccuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
+                    BLEHelper.shared.getActuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
                 }
             }
         } else {
-            BLEHelper.shared.apiCallForAccuationlog()
+            BLEHelper.shared.apiCallForActuationlog()
         }
     }
     
     
     private func  initUI() {
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         initTableview()
         lblNoData.text = StringCommonMessages.noDataFount
         lblNoData.isHidden = true
@@ -101,7 +103,7 @@ class HomeVC: BaseVC {
     @objc func refresh(_ sender: AnyObject) {
         let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
             if connectedDevice.count > 0 {
-                    self.getAccuationLogHome(isPulltoRefresh: true)
+                    self.getActuationLogHome(isPulltoRefresh: true)
             } else {
                 Logger.logInfo("Scan with HomeVC refresh")
                 BLEHelper.shared.scanPeripheral()
@@ -109,6 +111,10 @@ class HomeVC: BaseVC {
             self.refreshControl.endRefreshing()
     }
     
+    @objc func  tapNotification () {
+        let notificationVC  = NotificationVC.instantiateFromAppStoryboard(appStoryboard: .main)       
+        self.pushVC(controller: notificationVC)
+    }
 
     @objc func apiGetHomeData(notification: Notification) {
         CommonFunctions.showGlobalProgressHUD(self)
@@ -148,9 +154,9 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
 }
 

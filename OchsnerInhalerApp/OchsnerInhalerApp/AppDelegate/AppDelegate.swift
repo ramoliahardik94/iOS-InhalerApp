@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initLoggers()
         
         if UserDefaultManager.isFirstLaunch == false {
-            DatabaseManager.share.deleteAllAccuationLog()
+            DatabaseManager.share.deleteAllActuationLog()
             UserDefaultManager.isFirstLaunch = true
         }
         
@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
             for  discoverPeripheral in bleDevice {
                 DispatchQueue.global().async {
-                    BLEHelper.shared.getAccuationNumber(peripheral: discoverPeripheral)
+                    BLEHelper.shared.getActuationNumber(peripheral: discoverPeripheral)
                 }
             }
         }

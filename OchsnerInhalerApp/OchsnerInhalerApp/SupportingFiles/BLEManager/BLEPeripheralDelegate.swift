@@ -28,7 +28,7 @@ extension BLEHelper: CBPeripheralDelegate {
         
         if characteristic.uuid == TransferService.characteristicAutoNotify {
             Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
-            discoverPeripheral.isFromNotification = true            
+            discoverPeripheral.isFromNotification = true
         }
        
         if characteristic.uuid == TransferService.macCharecteristic {
@@ -62,16 +62,17 @@ extension BLEHelper: CBPeripheralDelegate {
                     NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(stringFromData.getBeteryLevel())"])
                 }
                 
-            } else if str == StringCharacteristics.getType(.accuationLogNumber)() {
+            } else if str == StringCharacteristics.getType(.actuationLogNumber)() {
                 
-                discoverPeripheral.noOfLog = stringFromData.getNumberofAccuationLog()
+                discoverPeripheral.noOfLog = stringFromData.getNumberofActuationLog()
                 Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) Decimal: \(discoverPeripheral.noOfLog) mac: \(discoverPeripheral.addressMAC)")
-                if discoverPeripheral.noOfLog > 0 {
-                    getAccuationLog()
+                if discoverPeripheral.noOfLog > 0 {                    
+                    showDashboardStatus()
+                    getActuationLog()
                 } else {
-                    Logger.logInfo("logCounter +1 \(logCounter)  with 0 log for mac \(discoverPeripheral.addressMAC)")
+                    Logger.logInfo("\(discoverPeripheral.addressMAC) : logCounter >= noOfLog : \(Decimal(discoverPeripheral.logCounter)) >= \(discoverPeripheral.noOfLog)")
                     logCounter += 1
-                    accuationAPI_LastAccuation()
+                    actuationAPI_LastActuation()
                 }
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(discoverPeripheral.noOfLog)"])
@@ -181,9 +182,8 @@ extension BLEHelper {
                 case .connected :
                     self.getmacAddress(peripheral: discoverPeripheral)
                     self.getBetteryLevel(peripheral: discoverPeripheral)
-                    if !self.isAddAnother {
-                        discoverPeripheral.isFromNotification = true
-                        self.getAccuationNumber(peripheral: discoverPeripheral)
+                    if !self.isAddAnother {                        
+                        self.getActuationNumber(peripheral: discoverPeripheral)
                     }
                     Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
                     DispatchQueue.main.async {
@@ -213,14 +213,14 @@ extension Data {
 
 
 enum StringCharacteristics: String {
-    case RTCTime, beteryLevel, accuationLogNumber, acuationLog
+    case RTCTime, beteryLevel, actuationLogNumber, acuationLog
     func getType() -> String {
         switch self {
         case .RTCTime :
             return  "0155"
         case .beteryLevel:
             return "0255"
-        case .accuationLogNumber :
+        case .actuationLogNumber :
             return  "0355"
         case .acuationLog :
             return  "0455"

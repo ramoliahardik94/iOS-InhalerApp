@@ -23,7 +23,7 @@ class DatabaseManager {
     
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
-    func saveAccuation(object: [String: Any]) {
+    func saveActuation(object: [String: Any]) {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
@@ -32,34 +32,34 @@ class DatabaseManager {
         let predicate =  NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
-            var accuationLog: AcuationLog!
-            let arrAccuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
-            if arrAccuationLog.count != 0 {
-                accuationLog = arrAccuationLog[0]
-                accuationLog.issync = accuationLog.issync
+            var actuationLog: AcuationLog!
+            let arrActuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+            if arrActuationLog.count != 0 {
+                actuationLog = arrActuationLog[0]
+                actuationLog.issync = actuationLog.issync
             } else {
-                accuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.acuationLog, into: context!) as! AcuationLog)
-                accuationLog.issync = (object["isSync"] as! Bool)
+                actuationLog = (NSEntityDescription.insertNewObject(forEntityName: EntityName.acuationLog, into: context!) as! AcuationLog)
+                actuationLog.issync = (object["isSync"] as! Bool)
             }
-            accuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
+            actuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
             
             if let date = object["date"] as? String {
                 let logDate = date.getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)
                 
                 let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-                accuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
-                accuationLog.usedatelocal = date
+                actuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
+                actuationLog.usedatelocal = date
             }
             
-            accuationLog.longitude = (object["long"] as! String)
-            accuationLog.latitude = (object["lat"] as! String)
-            accuationLog.deviceidmac = ( object["mac"] as! String)
-            accuationLog.deviceuuid = (object["udid"] as! String)
-            accuationLog.batterylevel = Double(object["batterylevel"] as! String)!
-            accuationLog.uselength = Double("\(object["useLength"]!)")!
-            accuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
+            actuationLog.longitude = (object["long"] as! String)
+            actuationLog.latitude = (object["lat"] as! String)
+            actuationLog.deviceidmac = ( object["mac"] as! String)
+            actuationLog.deviceuuid = (object["udid"] as! String)
+            actuationLog.batterylevel = Double(object["batterylevel"] as! String)!
+            actuationLog.uselength = Double("\(object["useLength"]!)")!
+            actuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
             try context?.save()
-            Logger.logInfo("Log Save \(accuationLog.DBDictionary())")
+            Logger.logInfo("Log Save \(actuationLog.DBDictionary())")
         } catch {
             debugPrint("Can not get Data")
         }
@@ -123,26 +123,24 @@ class DatabaseManager {
                         device.mac = object.internalID
                         device.udid = object.udid
                         device.email = UserDefaultManager.email
-                        device.medtypeid = Int16(object.medTypeID)
                     }
-                    if isFromDirection {
-                        device.reminder =  object.isReminder
-                    }
+                    
+                    device.reminder =  object.isReminder
                     device.scheduledoses = object.arrTime.joined(separator: ",")
-                    print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(device.scheduledoses ?? "")")
+                    device.puff = Int16(object.puffs)
                     device.medname =  object.medication.medName
-                    Logger.logInfo("DB Device \(String(describing: device.mac)) with uuid \(String(describing: device.udid)) Update")
+                    device.medtypeid = Int16(object.medTypeID)
+                    
                 } else {
                     device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
                     device.mac = object.internalID
                     device.udid = object.udid
-                    device.email = UserDefaultManager.email
-                    device.reminder =  object.isReminder
+                    device.email = UserDefaultManager.email                    
                     device.medtypeid = Int16(object.medTypeID)
-                    device.scheduledoses = object.arrTime.joined(separator: ",")
-                    print(">>>>>>>>>>>>>>>>>. accuationLog.scheduledoses == \(device.scheduledoses ?? "")")
                     device.medname =  object.medication.medName
-                    Logger.logInfo("DB Device \(String(describing: device.mac)) with uuid \(String(describing: device.udid)) Add")
+                    device.reminder =  object.isReminder
+                    device.scheduledoses = object.arrTime.joined(separator: ",")
+                    device.puff = Int16(object.puffs)
                 }
                 try context?.save()
             }
@@ -151,8 +149,8 @@ class DatabaseManager {
         }
     }
     
-    func getAccuationLogList(mac: String) -> [[String: Any]] {
-        var accuationLog = [AcuationLog]()
+    func getActuationLogList(mac: String) -> [[String: Any]] {
+        var actuationLog = [AcuationLog]()
         var usage = [[String: Any]]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
@@ -162,11 +160,11 @@ class DatabaseManager {
         
         fetchRequest.predicate = predicate
         do {
-            accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+            actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
         } catch {
             debugPrint("Can not get Data")
         }
-        for obj in accuationLog {
+        for obj in actuationLog {
             let log = obj
             if let date = log.usedatelocal {
                 let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
@@ -179,8 +177,8 @@ class DatabaseManager {
         return usage
     }
     
-    func getAccuationLogListUnSync() -> [[String: Any]] {
-        var accuationLog = [AcuationLog]()
+    func getActuationLogListUnSync() -> [[String: Any]] {
+        var actuationLog = [AcuationLog]()
         var usage = [[String: Any]]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate2 =  NSPredicate(format: "issync == %d", false)
@@ -189,11 +187,11 @@ class DatabaseManager {
         
         fetchRequest.predicate = predicate
         do {
-            accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+            actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
         } catch {
             debugPrint("Can not get Data")
         }
-        for obj in accuationLog {
+        for obj in actuationLog {
             let log = obj
             if let date = log.usedatelocal {
                 let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
@@ -240,7 +238,7 @@ class DatabaseManager {
         if device.count > 0 { return device[0].setrtc } else { return true}
     }
     
-    func deleteAllAccuationLog() {
+    func deleteAllActuationLog() {
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.acuationLog)
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
         do {
@@ -297,10 +295,7 @@ class DatabaseManager {
         return device
     }
     
-    
-    
-    
-    func updateAccuationLog(_ updateObj: [[String: Any]]) {
+    func updateActuationLog(_ updateObj: [[String: Any]]) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         for obj in updateObj {
             let mac = obj["DeviceId"] as! String
@@ -329,7 +324,7 @@ class DatabaseManager {
     }
     
 
-    func updateAccuationLogwithTimeAdd(_ updateObj: [[String: Any]], sec: Int = 2) {
+    func updateActuationLogwithTimeAdd(_ updateObj: [[String: Any]], sec: Int = 2) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         for obj in updateObj {
             let mac = obj["DeviceId"] as! String
@@ -381,7 +376,6 @@ class DatabaseManager {
             // udid not found in keychain
             return ""
         }
-        print("GetUUID From Mac: \(mac) : \(oldUDID)")
         return oldUDID
         
     }
@@ -404,7 +398,7 @@ class DatabaseManager {
     }
     
     func isContinuasBadReading(uuid: String) -> Bool {
-            var accuationLog = [AcuationLog]()
+            var actuationLog = [AcuationLog]()
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
             let predicate1 =  NSPredicate(format: "deviceuuid == %@", uuid)
             let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1])
@@ -415,12 +409,52 @@ class DatabaseManager {
             fetchRequest.fetchLimit = 10
             
             do {
-                accuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
-                let arrBad = accuationLog.filter({$0.isbadlog == true})
+                actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+                let arrBad = actuationLog.filter({$0.isbadlog == true})
                 return arrBad.count == 10
             } catch {
                 debugPrint("Can not get Data")
                 return false
             }
+    }
+    func getMentainanceDeviceList(date: String) -> [History] {
+        var device = [Device]()
+        var history = [History]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        let predicate1 = NSPredicate(format: "email == %@", UserDefaultManager.email)
+        let predicate2 =  NSPredicate(format: "medtypeid == %d", 2)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+       
+        fetchRequest.predicate = predicate
+        do {
+            device = try context?.fetch(fetchRequest) as! [Device]
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        for obj in device {
+            let his = obj.deviceForMantainance()
+            his.acuation = getActuationogForHistory(mac: obj.mac!, date: date)
+            history.append(his)
+            
+        }
+        return history
+    }
+    func getActuationogForHistory(mac: String, date: String) -> [AcuationLog] {
+        var actuationLog = [AcuationLog]()
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
+        let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
+        let predicate3 =  NSPredicate(format: "isbadlog == %d", false)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate3])
+        
+        fetchRequest.predicate = predicate
+        do {
+            actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        let filter = actuationLog.filter({($0.usedatelocal ?? "").contains(date)})
+        return filter
+        
     }
 }

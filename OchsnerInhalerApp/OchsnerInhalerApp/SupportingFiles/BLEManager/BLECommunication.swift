@@ -19,7 +19,6 @@ extension BLEHelper {
     func scanPeripheral(isTimer: Bool = false) {
         
         if centralManager.state == .poweredOn {
-            Logger.logInfo("Scan \(UserDefaultManager.isLogin) && (\(isTimer) || \(isAddAnother)) ")
             if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {                
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0

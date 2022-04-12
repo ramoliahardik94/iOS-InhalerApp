@@ -17,6 +17,7 @@
         <attribute name="mac" optional="YES" attributeType="String"/>
         <attribute name="medname" optional="YES" attributeType="String"/>
         <attribute name="medtypeid" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="puff" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reminder" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="scheduledoses" optional="YES" attributeType="String"/>
         <attribute name="setrtc" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -24,6 +25,6 @@
     </entity>
     <elements>
         <element name="AcuationLog" positionX="-63" positionY="-18" width="128" height="179"/>
-        <element name="Device" positionX="-63" positionY="45" width="128" height="149"/>
+        <element name="Device" positionX="-63" positionY="45" width="128" height="164"/>
     </elements>
 </model>

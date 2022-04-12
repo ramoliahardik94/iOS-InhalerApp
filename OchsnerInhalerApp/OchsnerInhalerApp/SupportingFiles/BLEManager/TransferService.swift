@@ -20,7 +20,7 @@ struct TransferService {
     static let responseSuccessRTC = "aa:01:55:01:01"
     static let responseFailRTC = "aa:01:55:01:00"
     static let requestGetBettery = "AA025500"
-    static let requestGetNoAccuation = "AA035500"
+    static let requestGetNoActuation = "AA035500"
     static let requestGetAcuationLog = "AA045500"
     static let serviceArray =  [inhealerUTCservice]
     

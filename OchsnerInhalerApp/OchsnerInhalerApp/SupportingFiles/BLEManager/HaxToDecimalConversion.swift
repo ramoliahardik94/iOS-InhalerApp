@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
     
-    func getNumberofAccuationLog( ) -> Decimal {
+    func getNumberofActuationLog( ) -> Decimal {
         let arrResponce = self.split(separator: ":")
         _ =  UInt8(arrResponce[3], radix: 16) // payloadLenth
         let strCount = "\(arrResponce[4])\(arrResponce[5])"
