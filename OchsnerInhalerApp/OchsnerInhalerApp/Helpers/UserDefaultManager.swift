@@ -26,6 +26,7 @@ enum UserDefaultKey: String {
     case isLocationOn
     case isAddReminder
     case isFirstLaunch
+    case dateLogin
 }
 
 class UserDefaultManager {
@@ -37,6 +38,16 @@ class UserDefaultManager {
         }
         set(newValue) {
             self.set(newValue as AnyObject?, forKey: .isLogin)
+        }
+    }
+    
+    // MARK: - Date
+    static var dateLogin: Date {
+        get {
+            return self.get(forKey: .dateLogin) as? Date ?? Date()
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .dateLogin)
         }
     }
     

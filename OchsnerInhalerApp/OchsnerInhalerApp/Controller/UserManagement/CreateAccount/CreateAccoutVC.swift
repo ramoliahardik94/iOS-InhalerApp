@@ -88,7 +88,11 @@ class CreateAccoutVC: BaseVC {
             switch result {
             case .success(let status):
              print("Response sucess :\(status)")
+                UserDefaultManager.dateLogin = Date()
                 UserDefaultManager.email = self?.createAccountVM.userData.email ?? ""
+                DatabaseManager.share.deleteAllDevice()
+                DatabaseManager.share.deleteAllActuationLog()
+                
                 let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self?.pushVC(controller: bluetoothPermissionVC)
             

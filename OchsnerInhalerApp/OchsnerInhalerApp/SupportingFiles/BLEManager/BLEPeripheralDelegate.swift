@@ -131,7 +131,7 @@ extension BLEHelper {
         guard let peripheralServices = peripheral.services else { return }
         
         for service in peripheralServices where service.uuid == TransferService.otaServiceUUID {
-            peripheral.discoverCharacteristics([TransferService.macCharecteristic], for: service)
+            peripheral.discoverCharacteristics(nil, for: service)
         }
         for service in peripheralServices where service.uuid == TransferService.inhealerUTCservice {
             peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
@@ -148,13 +148,14 @@ extension BLEHelper {
             Logger.logError("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
+        
         guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         // Again, we loop through the array, just in case and check if it's the right one
         
         guard let serviceCharacteristics = service.characteristics else {
             Logger.logError("service error \(service)")
             return }
-        
+        print(serviceCharacteristics)
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
             discoverPeripheral.macCharecteristic = characteristic
         }
@@ -173,7 +174,7 @@ extension BLEHelper {
             discoverPeripheral.charectristicRead = characteristic
         }
         
-        if discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicWrite != nil {
+        if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil {
             delay(isAddAnother ? 15 : 0) {
                 [weak self] in
                 guard let `self` = self else { return }

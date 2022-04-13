@@ -129,6 +129,11 @@ class LoginVC: BaseVC {
             guard let `self` = self else { return }
             switch result {
             case .success:
+                if UserDefaultManager.userEmailAddress != self.tfEmail.text {
+                    DatabaseManager.share.deleteAllDevice()
+                    DatabaseManager.share.deleteAllActuationLog()
+                    UserDefaultManager.dateLogin = Date()
+                }
                 UserDefaultManager.userEmailAddress = self.tfEmail.text ?? ""
                 self.getDeviceFromAPI()
             case .failure(let message):

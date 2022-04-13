@@ -265,6 +265,7 @@ struct StringLocalNotifiaction {
     static let notificationMsg = "You have missed your dose or it has not been synced."
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
+    static let noNotification = "No notification found"
 }
 
 // MARK: Date Formate

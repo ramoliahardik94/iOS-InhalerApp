@@ -136,8 +136,13 @@ class NotificationVM {
         let cal = Calendar.current
         var date = cal.startOfDay(for: Date())
         date = cal.date(byAdding: .day, value: -1, to: date)!
+        let noOfDayToLogin = Date().interval(ofComponent: .day, fromDate: UserDefaultManager.dateLogin)
+        let historyOfDays =  noOfDayToLogin >= 7 ? 6 : noOfDayToLogin
+        print(noOfDayToLogin)
+        print(historyOfDays)
         var days = [String]()
-        for _ in 0 ... 6 {
+        if historyOfDays >= 1 {
+        for _ in 0 ... historyOfDays {
             let noti = NotificationModel()
             days.append(date.getString(format: "yyyy-MM-dd"))
             noti.historyDate = date.getString(format: "MMM dd,yyyy")
@@ -151,6 +156,7 @@ class NotificationVM {
         arrMissNotification = arrNotification.filter({$0.historyOfMiss.count != 0})
         print(days)
         setArrMsg()
+        }
     }
     
     func setArrMsg() {
