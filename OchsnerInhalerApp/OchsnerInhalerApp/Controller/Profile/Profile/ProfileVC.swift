@@ -166,7 +166,7 @@ class ProfileVC: BaseVC {
     
     private func apiGetProfileData() {
         CommonFunctions.showGlobalProgressHUD(self)
-        profileVM.doGetProfile { [weak self] result in
+        profileVM.apiGetProfile { [weak self] result in
             guard let `self` = self else { return }
             CommonFunctions.hideGlobalProgressHUD(self)
             switch result {

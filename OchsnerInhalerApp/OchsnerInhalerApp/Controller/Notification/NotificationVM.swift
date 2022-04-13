@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreData
-
+import UserNotifications
 
 class MsgModel: NSObject {
     var msg: String = ""
@@ -167,4 +167,41 @@ class NotificationVM {
         }
     }
     
+    func getStatusOfTodayDose() {
+        let cal = Calendar.current
+        let date = cal.startOfDay(for: Date())
+        let noti = NotificationModel()
+        noti.historyDate = date.getString(format: "MMM dd,yyyy")
+        noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"))
+        debugPrint("historyDate\(noti.historyDate)")
+        noti.updateStatus()
+        for device in noti.history {
+            for dose in device.dose where dose.status != "N" {
+                removeNotificationFor(medName: device.medName, mac: device.mac, dose: dose.time)
+            }
+        }
+    }
+    func removeNotificationFor(medName: String, mac: String, dose: String) {
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { arrNotificationPending in
+            print("Pending noti:Count \(arrNotificationPending.count)")
+            
+            for obj in arrNotificationPending {
+                print("Pending noti: \(obj.identifier)")
+                print("Pending noti: Contains \(mac).\(dose)")
+                if obj.identifier.contains("\(mac).\(dose)") {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [obj.identifier])
+                
+                let graterDate =  dose.getDate(format: DateFormate.doseTime)
+                //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
+                var calendar = Calendar(identifier: .gregorian)
+                calendar.timeZone = .current
+                let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+                let title = String(format: StringLocalNotifiaction.reminderBody, UserDefaultManager.username.trimmingCharacters(in: .whitespacesAndNewlines), medName, dose )
+                
+                    NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: mac, isFromTomorrow: true ,dose: dose)
+            }
+            }
+        })
+    }
 }

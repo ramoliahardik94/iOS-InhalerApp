@@ -40,13 +40,11 @@ class HomeVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
         apiGetHomeData(notification: Notification(name: .DataSyncDone, object: nil, userInfo: nil))
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
-    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        let notiVM = NotificationVM()
+        notiVM.getStatusOfTodayDose()
         self.getActuationLogHome()
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.count !=  deviceList.count {

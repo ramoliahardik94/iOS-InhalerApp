@@ -155,7 +155,7 @@ class LoginVC: BaseVC {
     
     func getProfile() {
         let profileVM = ProfileVM()
-        profileVM.doGetProfile { result in
+        profileVM.apiGetProfile { result in
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")

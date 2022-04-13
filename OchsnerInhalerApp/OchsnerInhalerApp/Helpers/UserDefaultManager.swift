@@ -26,6 +26,7 @@ enum UserDefaultKey: String {
     case isLocationOn
     case isAddReminder
     case isFirstLaunch
+    case username
 }
 
 class UserDefaultManager {
@@ -58,6 +59,15 @@ class UserDefaultManager {
             self.set(newValue as AnyObject?, forKey: .email)
         }
     }
+    static var username: String {
+        get {
+            return self.get(forKey: .username) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .username)
+        }
+    }
+    
     static var token: String {
         get {
             return self.get(forKey: .token) as? String ?? ""

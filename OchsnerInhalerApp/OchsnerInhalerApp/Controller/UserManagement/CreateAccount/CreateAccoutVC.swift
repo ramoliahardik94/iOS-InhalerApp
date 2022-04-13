@@ -89,9 +89,24 @@ class CreateAccoutVC: BaseVC {
             case .success(let status):
              print("Response sucess :\(status)")
                 UserDefaultManager.email = self?.createAccountVM.userData.email ?? ""
+                background {
+                    self!.getProfile()
+                }
                 let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
                 self?.pushVC(controller: bluetoothPermissionVC)
             
+            case .failure(let message):
+                CommonFunctions.showMessage(message: message)
+            }
+        }
+    }
+    func getProfile() {
+        let profileVM = ProfileVM()
+        profileVM.apiGetProfile { result in
+            switch result {
+            case .success(let status):
+                print("Response sucess :\(status)")
+                NotificationManager.shared.addReminderLocal(userName: profileVM.userData.user?.firstName ?? "")
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
             }
