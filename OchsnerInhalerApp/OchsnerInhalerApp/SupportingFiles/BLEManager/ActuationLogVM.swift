@@ -103,7 +103,7 @@ extension BLEHelper {
         var param = [String: Any]()
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         for obj in device {
-            if obj.mac == "" {
+            if obj.mac! == "" {
                 obj.mac = DatabaseManager.share.getMac(UDID: obj.udid!)
             }
             let usage = DatabaseManager.share.getActuationLogList(mac: obj.mac!)
