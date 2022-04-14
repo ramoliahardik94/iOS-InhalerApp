@@ -113,6 +113,16 @@ struct ValidationMsg {
     static let failAcuation = "Data Sync Fail"
     static let doseError = "Multiple doses for the same time cannot be scheduled!"
 }
+
+struct BLEStatusMsg {
+    static let scanConnectBLE = "Device Connecting..."
+    static let featchDataFromDevice = "Featching Data..."
+    static let syncStart = "Data Sync Inprogress..."
+    static let syncFailNoData = "No Data to Sync."
+    static let syncSuccess = "Data Sync Successful."
+    static let noDeviceFound = "No Device Nearby."
+}
+
 struct ValidationButton {
     static let tryAgain = "Try again"
 }

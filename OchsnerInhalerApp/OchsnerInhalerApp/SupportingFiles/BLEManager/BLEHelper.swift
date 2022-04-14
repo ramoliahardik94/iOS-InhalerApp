@@ -49,6 +49,8 @@ class BLEHelper: NSObject {
     var isAddAnother = false
     var logCounter = 0
     var isPullToRefresh = false
+    var countOfConnectDevice = 0
+    var countOfConnectedDevice = 0
     
     
     /// set notification observer for  *.BLEAcuationLog*  when ever Actuation log came from BLE Device/Peripheral this helps to notify in function *actuationLog(notification...*

@@ -150,7 +150,7 @@ class DatabaseManager {
     }
     
     func getActuationLogList(mac: String) -> [[String: Any]] {
-        var actuationLog = [AcuationLog]()
+       var actuationLog = [AcuationLog]()
         var usage = [[String: Any]]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)

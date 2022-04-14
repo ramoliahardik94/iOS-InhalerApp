@@ -18,6 +18,7 @@ extension BLEHelper {
             logCounter = 0
             Logger.logInfo("Last connected device data store to DB")
             delay(5) {
+                Logger.logInfo("deviceuse: actuationAPI_LastActuation ")
                 self.apiCallForActuationlog()
             }
         } else {
@@ -123,7 +124,7 @@ extension BLEHelper {
         let param = param
         if param.count != 0 {
             Logger.logInfo(ValidationMsg.startSync)
-            showDashboardStatus()
+            showDashboardStatus(msg: BLEStatusMsg.syncStart)
             APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] _, response in
                 
                 if response != nil {
@@ -136,14 +137,14 @@ extension BLEHelper {
                         Logger.logInfo(ValidationMsg.successAcuation)
                         let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
                         if unSyncData.count > 0 {
+                            Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
                             apiCallForActuationlog()
                         } else {
-                            hideDashboardStatus()
+                            hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
                         }
                     }
                 } else {
                     Logger.logInfo(ValidationMsg.failAcuation)
-                    hideDashboardStatus(msg: ValidationMsg.failAcuation)
                     self.isPullToRefresh = false
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .DataSyncDone, object: nil)
@@ -160,14 +161,14 @@ extension BLEHelper {
             }
         } else {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
-            hideDashboardStatus(msg: ValidationMsg.startSyncCloudNo)
+            hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .DataSyncDone, object: nil)
             }
         }
     }
     
-    func showDashboardStatus(msg: String = ValidationMsg.syncLoader) {
+    func showDashboardStatus(msg: String) {
         DispatchQueue.main.async {
             if let dashboard = UIApplication.topViewController() as? HomeVC {
                 dashboard.lblSyncTitle.text = msg
@@ -179,7 +180,7 @@ extension BLEHelper {
             }
         }
     }
-    func hideDashboardStatus(msg: String = ValidationMsg.successAcuation) {
+    func hideDashboardStatus(msg: String) {
         DispatchQueue.main.async {
             if let dashboard = UIApplication.topViewController() as? HomeVC {
                 // CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!, text: ValidationMsg.syncLoader)

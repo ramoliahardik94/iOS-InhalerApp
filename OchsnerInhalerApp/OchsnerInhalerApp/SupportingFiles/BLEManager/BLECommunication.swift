@@ -22,6 +22,9 @@ extension BLEHelper {
             if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {                
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0
+                    if !isTimer {
+                        showDashboardStatus(msg: BLEStatusMsg.scanConnectBLE)
+                    }
                     Logger.logInfo("Scaning start with \(time) sec timer")
                     timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
 //                     TODO: - Uncomment for BG scane
@@ -50,6 +53,7 @@ extension BLEHelper {
     /// use to stop timer from any weare in BLEHelper
     func stopTimer() {
         print("timerStop")
+        
         if timer != nil {
             timer!.invalidate()
             timer = nil
@@ -113,6 +117,9 @@ extension BLEHelper {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLENotFound, object: nil)
             }
+        }
+        if !isAddAnother {
+            hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
         }
         isScanning = false
         self.stopTimer()

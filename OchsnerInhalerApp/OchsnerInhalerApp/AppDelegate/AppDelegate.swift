@@ -114,11 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func foregroundCall() {
         print("App moved to foreground")
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
-            let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
-            for  discoverPeripheral in bleDevice {
-                    BLEHelper.shared.getActuationNumber(peripheral: discoverPeripheral)
-                
-            }
+            CommonFunctions.getLogFromDeviceAndSync()
         }
     }
     

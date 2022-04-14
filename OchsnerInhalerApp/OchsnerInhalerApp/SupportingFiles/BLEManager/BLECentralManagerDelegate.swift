@@ -90,11 +90,11 @@ extension BLEHelper: CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         
-        //        guard RSSI.intValue >= -55
-        //        else {
-        //            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-        //            return
-        //        }
+//                guard RSSI.intValue >= -55
+//                else {
+//                    print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+//                    return
+//                }
         
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
         
@@ -128,6 +128,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                         connectPeriPheral(peripheral: peripheral)
                         let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected || $0.discoveredPeripheral?.state == .connecting})
                         print("\(connectedDevice.count)")
+                        self.countOfConnectDevice += 1
                         if connectedDevice.count == device.count {
                             stopScanPeriphral()
                             stopTimer()

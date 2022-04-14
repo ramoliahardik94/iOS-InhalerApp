@@ -67,7 +67,7 @@ extension BLEHelper: CBPeripheralDelegate {
                 discoverPeripheral.noOfLog = stringFromData.getNumberofActuationLog()
                 Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) Decimal: \(discoverPeripheral.noOfLog) mac: \(discoverPeripheral.addressMAC)")
                 if discoverPeripheral.noOfLog > 0 {                    
-                    showDashboardStatus()
+                    showDashboardStatus(msg: BLEStatusMsg.featchDataFromDevice)
                     getActuationLog()
                 } else {
                     Logger.logInfo("\(discoverPeripheral.addressMAC) : logCounter >= noOfLog : \(Decimal(discoverPeripheral.logCounter)) >= \(discoverPeripheral.noOfLog)")
@@ -183,8 +183,18 @@ extension BLEHelper {
                 case .connected :
                     self.getmacAddress(peripheral: discoverPeripheral)
                     self.getBetteryLevel(peripheral: discoverPeripheral)
-                    if !self.isAddAnother {                        
-                        self.getActuationNumber(peripheral: discoverPeripheral)
+                    if !self.isAddAnother {
+                        self.countOfConnectedDevice += 1
+                        if self.countOfConnectDevice == self.countOfConnectedDevice {
+                            let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+                            if bleDevice.count > 0 {
+                                CommonFunctions.getLogFromDeviceAndSync()
+                            } else {
+                                self.hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
+                            }
+                            self.countOfConnectedDevice = 0
+                            self.countOfConnectDevice = 0
+                        }
                     }
                     Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
                     DispatchQueue.main.async {
