@@ -46,17 +46,17 @@ class NotificationModel: NSObject {
                     let timeInterVal = TimeInterval((30*60)) // #30 miniutes
                     var acuation = [AcuationLog]()
                     if index == 0 {// For firat index
-                        let maxDate = (historyDate + dose.time).getDate(format: DateFormate.notificationDate).addingTimeInterval(timeInterVal)
+                        let maxDate = (historyDate + " " + dose.time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
                          acuation = obj.acuation.filter({($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! <= maxDate })
                         if obj.dose.count == 1 { // For firat index and last index
                             acuation = obj.acuation
                         }
                     } else if index == (obj.dose.count - 1) { // For Last index
-                        let minDate = (historyDate + obj.dose[index - 1].time).getDate(format: DateFormate.notificationDate).addingTimeInterval(timeInterVal)
+                        let minDate = (historyDate + " " + obj.dose[index - 1].time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
                          acuation = obj.acuation.filter({($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! >= minDate})
                     } else { // For middle index
-                        let maxDate = (historyDate + dose.time).getDate(format: DateFormate.notificationDate).addingTimeInterval(timeInterVal)
-                        let minDate = (historyDate + obj.dose[index - 1].time).getDate(format: DateFormate.notificationDate).addingTimeInterval(timeInterVal)
+                        let maxDate = (historyDate + " " + dose.time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
+                        let minDate = (historyDate + " " + obj.dose[index - 1].time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
                          acuation = obj.acuation.filter({($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! >= minDate || ($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! <= maxDate})
                     }
                     
