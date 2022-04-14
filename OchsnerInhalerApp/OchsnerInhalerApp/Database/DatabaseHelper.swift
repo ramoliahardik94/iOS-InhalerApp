@@ -160,6 +160,7 @@ class DatabaseManager {
         
         fetchRequest.predicate = predicate
         do {
+            try context?.save()
             actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
         } catch {
             debugPrint("Can not get Data")
@@ -167,11 +168,11 @@ class DatabaseManager {
         for obj in actuationLog {
             let log = obj
             if let date = log.usedatelocal {
-                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
-                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-                if logDate <= Date() && logDate >= pastDate {
+//                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
+//                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
+//                if logDate <= Date() && logDate >= pastDate {
                     usage.append(log.APILog())
-                }
+//                }
             }
         }
         return usage
@@ -187,6 +188,7 @@ class DatabaseManager {
         
         fetchRequest.predicate = predicate
         do {
+            try context?.save()
             actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
         } catch {
             debugPrint("Can not get Data")
@@ -194,11 +196,11 @@ class DatabaseManager {
         for obj in actuationLog {
             let log = obj
             if let date = log.usedatelocal {
-                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
-                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-                if logDate <= Date() && logDate >= pastDate {
+//                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
+//                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
+//                if logDate <= Date() && logDate >= pastDate {
                     usage.append(["Param": log.APIForSingle()])
-                }
+//                }
             }
         }
         return usage

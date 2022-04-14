@@ -43,8 +43,9 @@ class HomeVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
-        let notiVM = NotificationVM()
-        notiVM.getStatusOfTodayDose()
+        //TODO: For Notificaion status
+//        let notiVM = NotificationVM()
+//        notiVM.getStatusOfTodayDose()
         self.getActuationLogHome()
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.count !=  deviceList.count {
@@ -68,9 +69,7 @@ class HomeVC: BaseVC {
         let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
         if bleDevice.count > 0 {
             for  discoverPeripheral in bleDevice {
-                DispatchQueue.global().async {
-                    BLEHelper.shared.getActuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
-                }
+                    BLEHelper.shared.getActuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)                
             }
         } else {
             BLEHelper.shared.apiCallForActuationlog()

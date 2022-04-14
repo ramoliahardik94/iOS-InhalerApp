@@ -11,6 +11,7 @@ class NotificationVC: BaseVC {
     
     @IBOutlet weak var tbvData: UITableView!
     let notification: NotificationVM = NotificationVM()
+    @IBOutlet weak var lblNoNotificationFound: UILabel!
     let itemCell = CellIdentifier.NotificationCell
     
     override func viewDidLoad() {
@@ -39,6 +40,13 @@ class NotificationVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         notification.getHistory() 
         tbvData.reloadData()
+        if notification.arrNotificationMsg.count == 0 {
+            tbvData.isHidden = true
+            lblNoNotificationFound.text = StringLocalNotifiaction.noNotification
+        } else {
+            tbvData.isHidden = false
+            lblNoNotificationFound.text = ""
+        }
     }
     
     @objc func barButtonItemTapped(sender: UIBarButtonItem) {

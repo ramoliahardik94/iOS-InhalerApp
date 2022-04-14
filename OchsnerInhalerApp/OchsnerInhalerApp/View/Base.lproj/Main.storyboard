@@ -18,27 +18,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="S3a-6y-Qpf">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGi-0e-Sxo">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOc-Fe-zkJ">
+                                        <rect key="frame" x="166.66666666666666" y="356.66666666666669" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="S3a-6y-Qpf">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="mGo-VX-QQc" id="atG-BW-L5y"/>
+                                            <outlet property="delegate" destination="mGo-VX-QQc" id="TcI-rX-b7u"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="mGo-VX-QQc" id="atG-BW-L5y"/>
-                                    <outlet property="delegate" destination="mGo-VX-QQc" id="TcI-rX-b7u"/>
-                                </connections>
-                            </tableView>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="S3a-6y-Qpf" secondAttribute="bottom" id="CzE-Xu-v35"/>
+                                    <constraint firstItem="LOc-Fe-zkJ" firstAttribute="centerY" secondItem="UGi-0e-Sxo" secondAttribute="centerY" id="IiW-Gg-p9m"/>
+                                    <constraint firstItem="S3a-6y-Qpf" firstAttribute="top" secondItem="UGi-0e-Sxo" secondAttribute="top" id="Ldr-dl-pmv"/>
+                                    <constraint firstItem="LOc-Fe-zkJ" firstAttribute="centerX" secondItem="UGi-0e-Sxo" secondAttribute="centerX" id="VMd-Db-f4K"/>
+                                    <constraint firstAttribute="trailing" secondItem="S3a-6y-Qpf" secondAttribute="trailing" id="bVA-Ly-Rbg"/>
+                                    <constraint firstItem="S3a-6y-Qpf" firstAttribute="leading" secondItem="UGi-0e-Sxo" secondAttribute="leading" id="ikb-hU-JMt"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PZ1-Fu-Y42"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="S3a-6y-Qpf" firstAttribute="top" secondItem="PZ1-Fu-Y42" secondAttribute="top" id="BNy-Kp-4sN"/>
-                            <constraint firstItem="PZ1-Fu-Y42" firstAttribute="trailing" secondItem="S3a-6y-Qpf" secondAttribute="trailing" id="NUQ-5Y-hEW"/>
-                            <constraint firstItem="S3a-6y-Qpf" firstAttribute="leading" secondItem="PZ1-Fu-Y42" secondAttribute="leading" id="TVJ-V2-1c2"/>
-                            <constraint firstItem="PZ1-Fu-Y42" firstAttribute="bottom" secondItem="S3a-6y-Qpf" secondAttribute="bottom" id="WYZ-Hw-DCb"/>
+                            <constraint firstAttribute="trailing" secondItem="UGi-0e-Sxo" secondAttribute="trailing" id="IqG-F5-yUZ"/>
+                            <constraint firstItem="UGi-0e-Sxo" firstAttribute="leading" secondItem="ihg-XF-hOb" secondAttribute="leading" id="Nnc-7A-heD"/>
+                            <constraint firstItem="PZ1-Fu-Y42" firstAttribute="bottom" secondItem="UGi-0e-Sxo" secondAttribute="bottom" id="bkI-QQ-qB3"/>
+                            <constraint firstItem="UGi-0e-Sxo" firstAttribute="top" secondItem="PZ1-Fu-Y42" secondAttribute="top" id="rqS-Gb-Vi3"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lblNoNotificationFound" destination="LOc-Fe-zkJ" id="OVN-rj-Omg"/>
                         <outlet property="tbvData" destination="S3a-6y-Qpf" id="l09-lW-SbS"/>
                     </connections>
                 </viewController>

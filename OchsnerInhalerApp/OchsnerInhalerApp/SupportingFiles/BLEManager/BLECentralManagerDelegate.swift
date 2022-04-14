@@ -146,7 +146,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             discoverPeripheral.charectristicWrite = nil
             //            stopScanPeriphral()
             peripheral.delegate = self
-            peripheral.discoverServices(TransferService.serviceArray)
+            peripheral.discoverServices(nil)
         }
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .BLEChange, object: nil)

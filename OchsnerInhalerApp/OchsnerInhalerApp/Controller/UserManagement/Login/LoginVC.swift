@@ -65,16 +65,16 @@ class LoginVC: BaseVC {
 //        tfEmail.text = "abc@mail.com"
 //        tfPassword.text = "Test123"
         
-        tfEmail.text = "bhoomika.chauhan@volansys.com"
-        tfPassword.text = "1234"
-
-        tfEmail.text = "rocky.malvi@volansys.com"
+//        tfEmail.text = "bhoomika.chauhan@volansys.com"
+//        tfPassword.text = "1234"
+//
+//        tfEmail.text = "rocky.malvi@volansys.com"
         tfPassword.text = "123456"
         
 //        tfEmail.text = "shekhawatdhaval@gmail.com"
 //        tfPassword.text = "Dhaval@1234"
         
-//        tfEmail.text = "user@gmail.com"
+        tfEmail.text = "user@gmail.com"
         
 //        forceCrash()
         #endif
@@ -129,6 +129,11 @@ class LoginVC: BaseVC {
             guard let `self` = self else { return }
             switch result {
             case .success:
+                if UserDefaultManager.userEmailAddress != self.tfEmail.text {
+                    DatabaseManager.share.deleteAllDevice()
+                    DatabaseManager.share.deleteAllActuationLog()
+                    UserDefaultManager.dateLogin = Date()
+                }
                 UserDefaultManager.userEmailAddress = self.tfEmail.text ?? ""
                 self.getDeviceFromAPI()
             case .failure(let message):
