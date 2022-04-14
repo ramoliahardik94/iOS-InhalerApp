@@ -186,14 +186,14 @@ extension BLEHelper {
                     if !self.isAddAnother {
                         self.countOfConnectedDevice += 1
                         if self.countOfConnectDevice == self.countOfConnectedDevice {
+                            self.countOfConnectedDevice = 0
+                            self.countOfConnectDevice = 0
                             let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
                             if bleDevice.count > 0 {
                                 CommonFunctions.getLogFromDeviceAndSync()
                             } else {
                                 self.hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
                             }
-                            self.countOfConnectedDevice = 0
-                            self.countOfConnectDevice = 0
                         }
                     }
                     Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
