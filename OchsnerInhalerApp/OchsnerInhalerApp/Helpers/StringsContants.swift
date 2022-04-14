@@ -115,7 +115,7 @@ struct ValidationMsg {
 }
 
 struct BLEStatusMsg {
-    static let scanConnectBLE = "Device Connecting..."
+    static let scanConnectBLE = "Connecting Devices..."
     static let featchDataFromDevice = "Fetching Data..."
     static let syncStart = "Data Sync Inprogress..."
     static let syncFailNoData = "No Data to Sync."
