@@ -116,7 +116,7 @@ struct ValidationMsg {
 
 struct BLEStatusMsg {
     static let scanConnectBLE = "Device Connecting..."
-    static let featchDataFromDevice = "Featching Data..."
+    static let featchDataFromDevice = "Fetching Data..."
     static let syncStart = "Data Sync Inprogress..."
     static let syncFailNoData = "No Data to Sync."
     static let syncSuccess = "Data Sync Successful."
@@ -288,5 +288,6 @@ struct DateFormate {
     static let doseTime12Hr = "HH:mm"
     static let reminder = "dd/MM/yyyy hh:mm a"
     static let notificationDate = "yyyy-MM-dd hh:mm a"
-    static let notificationFormate = "MMM dd,yyyy hh:mm a"
+    static let notificationFormate = "MMM dd,yyyy"
+    static let useDateLocalyyyyMMddDash = "yyyy-MM-dd"
 }

@@ -42,25 +42,38 @@ class NotificationModel: NSObject {
                 }
             } else {
                 for (index, dose) in obj.dose.enumerated() {
-                    debugPrint("time \(dose.time)")
+                    Logger.logInfo("time \(dose.time)")
                     let timeInterVal = TimeInterval((30*60)) // #30 miniutes
                     var acuation = [AcuationLog]()
+                    let dateHistory =  historyDate.getDate(format: DateFormate.notificationFormate).getString(format: DateFormate.useDateLocalyyyyMMddDash)
+                    let timeZone = Date().getString(format: "Z", isUTC: false)
                     if index == 0 {// For firat index
-                        let maxDate = (historyDate + " " + dose.time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
-                         acuation = obj.acuation.filter({($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! <= maxDate })
+                        let time = dose.time.getDate(format: DateFormate.doseTime).getString(format: "HH:mm:ss")
+                        let maxDate = (dateHistory + "T" + time + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
+                        Logger.logInfo("minDate: nil")
+                        Logger.logInfo("maxDate: \(maxDate)")
+                         acuation = obj.acuation.filter({($0.usedatelocal! <= maxDate) })
                         if obj.dose.count == 1 { // For firat index and last index
                             acuation = obj.acuation
                         }
                     } else if index == (obj.dose.count - 1) { // For Last index
-                        let minDate = (historyDate + " " + obj.dose[index - 1].time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
-                         acuation = obj.acuation.filter({($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! >= minDate})
+                        let time = obj.dose[index - 1].time.getDate(format: DateFormate.doseTime).getString(format: "HH:mm:ss")
+                        
+                        let minDate = (dateHistory + "T" + time + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
+                        Logger.logInfo("minDate: \(minDate)")
+                        Logger.logInfo("maxDate: nil")
+                         acuation = obj.acuation.filter({($0.usedatelocal! >= minDate)})
                     } else { // For middle index
-                        let maxDate = (historyDate + " " + dose.time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
-                        let minDate = (historyDate + " " + obj.dose[index - 1].time).getDate(format: DateFormate.notificationFormate).addingTimeInterval(timeInterVal)
-                         acuation = obj.acuation.filter({($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! >= minDate || ($0.usedatelocal?.getDate(format: DateFormate.notificationDate))! <= maxDate})
+                        let time1 = dose.time.getDate(format: DateFormate.doseTime).getString(format: "HH:mm:ss")
+                        let time2 = obj.dose[index - 1].time.getDate(format: DateFormate.doseTime).getString(format: "HH:mm:ss")
+                        let maxDate = (dateHistory + "T" + time1 + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
+                        let minDate = (dateHistory + "T" + time2 + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
+                        Logger.logInfo("minDate: \(minDate)")
+                        Logger.logInfo("maxDate: \(maxDate)")
+                         acuation = obj.acuation.filter({($0.usedatelocal! >= minDate) && ($0.usedatelocal! <= maxDate)})
                     }
                     
-                    print("Acuation Count \(acuation.count)")
+                    Logger.logInfo("Acuation : \(acuation)")
                           
                     if acuation.count != 0 {
                         dose.status = "Y"
