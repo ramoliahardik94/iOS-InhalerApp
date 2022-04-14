@@ -185,9 +185,9 @@ extension BLEHelper {
                     self.getBetteryLevel(peripheral: discoverPeripheral)
                     if !self.isAddAnother {
                         self.countOfConnectedDevice += 1
-                        if self.countOfConnectDevice == self.countOfConnectedDevice {
+                        if self.countOfScanDevice == self.countOfConnectedDevice {
                             self.countOfConnectedDevice = 0
-                            self.countOfConnectDevice = 0
+                            self.countOfScanDevice = 0
                             let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
                             if bleDevice.count > 0 {
                                 CommonFunctions.getLogFromDeviceAndSync()

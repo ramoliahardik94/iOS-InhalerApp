@@ -142,20 +142,20 @@ class NotificationVM {
         print(historyOfDays)
         var days = [String]()
         if historyOfDays >= 1 {
-        for _ in 1 ... 7 {
-            let noti = NotificationModel()
-            days.append(date.getString(format: "yyyy-MM-dd"))
-            noti.historyDate = date.getString(format: "MMM dd,yyyy")
-            noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"))
-            debugPrint("historyDate\(noti.historyDate)")
-            noti.updateStatus()
-            noti.historyOfMiss = noti.history.filter({$0.missDose.count != 0})
-            arrNotification.append(noti)
-            date = cal.date(byAdding: .day, value: -1, to: date)!
-        }
-        arrMissNotification = arrNotification.filter({$0.historyOfMiss.count != 0})
-        print(days)
-        setArrMsg()
+            for _ in 1 ... noOfDayToLogin {
+                let noti = NotificationModel()
+                days.append(date.getString(format: "yyyy-MM-dd"))
+                noti.historyDate = date.getString(format: "MMM dd,yyyy")
+                noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"))
+                debugPrint("historyDate\(noti.historyDate)")
+                noti.updateStatus()
+                noti.historyOfMiss = noti.history.filter({$0.missDose.count != 0})
+                arrNotification.append(noti)
+                date = cal.date(byAdding: .day, value: -1, to: date)!
+            }
+            arrMissNotification = arrNotification.filter({$0.historyOfMiss.count != 0})
+            print(days)
+            setArrMsg()
         }
     }
     

@@ -49,7 +49,7 @@ class BLEHelper: NSObject {
     var isAddAnother = false
     var logCounter = 0
     var isPullToRefresh = false
-    var countOfConnectDevice = 0
+    var countOfScanDevice = 0
     var countOfConnectedDevice = 0
     
     

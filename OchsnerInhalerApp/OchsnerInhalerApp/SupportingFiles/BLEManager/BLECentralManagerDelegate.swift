@@ -128,7 +128,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                         connectPeriPheral(peripheral: peripheral)
                         let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected || $0.discoveredPeripheral?.state == .connecting})
                         print("\(connectedDevice.count)")
-                        self.countOfConnectDevice += 1
+                        self.countOfScanDevice += 1
                         if connectedDevice.count == device.count {
                             stopScanPeriphral()
                             stopTimer()

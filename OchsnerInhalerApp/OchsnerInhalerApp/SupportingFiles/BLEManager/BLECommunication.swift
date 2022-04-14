@@ -118,7 +118,7 @@ extension BLEHelper {
                 NotificationCenter.default.post(name: .BLENotFound, object: nil)
             }
         }
-        if !isAddAnother {
+        if !isAddAnother && countOfScanDevice == 0 {
             hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
         }
         isScanning = false
