@@ -100,11 +100,14 @@ class NotificationManager: NSObject {
     }
     
     func twomorowTimeInterval(dose: String) -> TimeInterval {
+        Logger.logInfo("Notification set for: From twomotow")
         let fromDate = Date().getString(format: "dd-MM-yyyy hh:mm a", isUTC: false)
         var toDate =  Date.tomorrow.getString(format: "dd-MM-yyyy", isUTC: false)
         toDate = "\(toDate) \(dose)"
         let date1 = fromDate.getDate(format: "dd-MM-yyyy hh:mm a")
-        let date2 = toDate.getDate(format: "dd-MM-yyyy hh:mm a")
+        let dateOfDose = toDate.getDate(format: "dd-MM-yyyy hh:mm a")
+        let date2 = dateOfDose.addingTimeInterval(28*60)
+        Logger.logInfo("Notification set for: twomorowTimeInterval: \(date2.timeIntervalSince(date1))")
         return date2.timeIntervalSince(date1)
     }
     
@@ -125,7 +128,9 @@ class NotificationManager: NSObject {
                     
                     for item in arrDose ?? [] {
                         Logger.logInfo("sub array dose time device Obj \(item)")
-                        let graterDate =  item.getDate(format: DateFormate.doseTime)
+                        var graterDate =  item.getDate(format: DateFormate.doseTime)
+                        let strgraterDate = graterDate.getString(format: DateFormate.doseTime12Hr)
+                        graterDate =  strgraterDate.getDate(format: DateFormate.doseTime12Hr)
                         //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                         var calendar = Calendar(identifier: .gregorian)
                         calendar.timeZone = .current

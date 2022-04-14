@@ -274,6 +274,7 @@ struct DateFormate {
     static let useDateLocalBagCompare = "yyyy-MM-dd HH"    
     static let deviceSyncDateUTCAPI = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     static let doseTime = "hh:mm a"
+    static let doseTime12Hr = "HH:mm"
     static let reminder = "dd/MM/yyyy hh:mm a"
     static let notificationDate = "yyyy-MM-dd hh:mm a"
 }

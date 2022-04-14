@@ -176,7 +176,7 @@ class NotificationVM {
         debugPrint("historyDate\(noti.historyDate)")
         noti.updateStatus()
         for device in noti.history {
-            for dose in device.dose where dose.status != "N" {
+            for dose in device.dose where dose.status == "N" {
                 removeNotificationFor(medName: device.medName, mac: device.mac, dose: dose.time)
             }
         }
@@ -192,14 +192,16 @@ class NotificationVM {
                 if obj.identifier.contains("\(mac).\(dose)") {
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [obj.identifier])
                 
-                let graterDate =  dose.getDate(format: DateFormate.doseTime)
+                var graterDate =  dose.getDate(format: DateFormate.doseTime)
+                    let strgraterDate = graterDate.getString(format: DateFormate.doseTime12Hr)
+                    graterDate =  strgraterDate.getDate(format: DateFormate.doseTime12Hr)
                 //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                 var calendar = Calendar(identifier: .gregorian)
                 calendar.timeZone = .current
                 let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
                 let title = String(format: StringLocalNotifiaction.reminderBody, UserDefaultManager.username.trimmingCharacters(in: .whitespacesAndNewlines), medName, dose )
                 
-                    NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: mac, isFromTomorrow: true ,dose: dose)
+                    NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: mac, isFromTomorrow: true, dose: dose)
             }
             }
         })

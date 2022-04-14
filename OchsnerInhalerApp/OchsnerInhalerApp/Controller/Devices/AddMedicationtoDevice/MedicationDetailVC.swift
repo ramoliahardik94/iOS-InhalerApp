@@ -265,8 +265,10 @@ class MedicationDetailVC: BaseVC {
     func addReminderToCalender() {
         if self.medicationVM.arrTime.count > 0 {
             clearDeviceRemindersNotification()
-            for item in self.medicationVM.arrTime {
-                let graterDate =  item.getDate(format: DateFormate.doseTime)
+            for item in self.medicationVM.arrTime {                
+                var graterDate =  item.getDate(format: DateFormate.doseTime)
+                let strgraterDate = graterDate.getString(format: DateFormate.doseTime12Hr)
+                graterDate =  strgraterDate.getDate(format: DateFormate.doseTime12Hr)
                 //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                 var calendar = Calendar(identifier: .gregorian)
                 calendar.timeZone = .current
