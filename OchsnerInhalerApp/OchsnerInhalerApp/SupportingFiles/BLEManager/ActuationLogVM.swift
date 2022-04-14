@@ -19,8 +19,7 @@ extension BLEHelper {
             Logger.logInfo("Last connected device data store to DB")
             delay(5) {
                 self.apiCallForActuationlog()
-             }
-            
+            }
         } else {
             Logger.logInfo("not last connected device data store to DB")
         }
@@ -82,7 +81,6 @@ extension BLEHelper {
     func apiCallForActuationlog(mac: String = "", isForSingle: Bool = false) {
         if APIManager.isConnectedToNetwork {
             Logger.logInfo("apiCallForActuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
-            DispatchQueue.global(qos: .background).sync {
                 if isForSingle {
                     let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
                     if unSyncData.count > 0 {
@@ -94,7 +92,6 @@ extension BLEHelper {
                     self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
                 }
             }
-        }
     }
     
     /// use for get parameter from databse for sync data to *deviceuse* API

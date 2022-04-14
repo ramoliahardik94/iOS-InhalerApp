@@ -137,12 +137,12 @@ class NotificationVM {
         var date = cal.startOfDay(for: Date())
         date = cal.date(byAdding: .day, value: -1, to: date)!
         let noOfDayToLogin = Date().interval(ofComponent: .day, fromDate: UserDefaultManager.dateLogin)
-        let historyOfDays =  noOfDayToLogin >= 7 ? 6 : noOfDayToLogin
+        let historyOfDays =  noOfDayToLogin >= 7 ? 7 : noOfDayToLogin
         print(noOfDayToLogin)
         print(historyOfDays)
         var days = [String]()
         if historyOfDays >= 1 {
-        for _ in 0 ... historyOfDays {
+        for _ in 1 ... 7 {
             let noti = NotificationModel()
             days.append(date.getString(format: "yyyy-MM-dd"))
             noti.historyDate = date.getString(format: "MMM dd,yyyy")

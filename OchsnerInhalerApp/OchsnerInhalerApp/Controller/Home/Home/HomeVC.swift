@@ -70,9 +70,7 @@ class HomeVC: BaseVC {
         let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
         if bleDevice.count > 0 {
             for  discoverPeripheral in bleDevice {
-                DispatchQueue.global().async {
-                    BLEHelper.shared.getActuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)
-                }
+                    BLEHelper.shared.getActuationNumber(isPulltoRefresh, peripheral: discoverPeripheral)                
             }
         } else {
             BLEHelper.shared.apiCallForActuationlog()
