@@ -13,12 +13,12 @@ class PeriperalType: NSObject {
     var discoveredPeripheral: CBPeripheral?
     var bettery: String = "0"
     var addressMAC: String = ""
-    
     var charectristicWrite: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
     var noOfLog: Decimal = 0
     var logCounter = 0
+    var isFromNotification = false
     
     override init() {
         super.init()
@@ -49,11 +49,13 @@ class BLEHelper: NSObject {
     var isAddAnother = false
     var logCounter = 0
     var isPullToRefresh = false
+    var countOfScanDevice = 0
+    var countOfConnectedDevice = 0
     
     
-    /// set notification observer for  *.BLEAcuationLog*  when ever Accuation log came from BLE Device/Peripheral this helps to notify in function *accuationLog(notification...*
+    /// set notification observer for  *.BLEAcuationLog*  when ever Actuation log came from BLE Device/Peripheral this helps to notify in function *actuationLog(notification...*
     func addLogObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.accuationLog(notification:)), name: .BLEAcuationLog, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.actuationLog(notification:)), name: .BLEAcuationLog, object: nil)
         isSet = true
     }
     
@@ -61,7 +63,6 @@ class BLEHelper: NSObject {
         if !isSet {
             addLogObserver()
         }
-//        centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
     }
     
@@ -71,8 +72,8 @@ class BLEHelper: NSObject {
     
     /// This function is use for set RTC Time to the BLE Device/Peripheral whichi is stored in *connectedPeripheral* and user should pass the UUID in parameter *uuid* for identify
     func setRTCTime(uuid: String) {
-        let year =  Date().getString( format: "yyyy").decimalToHax(byte: 2)
         
+        let year =  Date().getString( format: "yyyy").decimalToHax(byte: 2)
         let day =  Date().getString(format: "dd").decimalToHax()
         let month =  Date().getString(format: "MM").decimalToHax()
         let hour =  Date().getString(format: "HH").decimalToHax()
@@ -96,19 +97,20 @@ class BLEHelper: NSObject {
         }
     }
     
-    /// This function is use for get Accuation numbers fom BLE Device/Peripheral
-    @objc func getAccuationNumber(_ isPulltoRefresh: Bool = false, peripheral: PeriperalType) {       
+    /// This function is use for get Actuation numbers fom BLE Device/Peripheral
+    @objc func getActuationNumber(_ isPulltoRefresh: Bool = false, peripheral: PeriperalType) {       
         Logger.logInfo(ValidationMsg.startSync)
         self.isPullToRefresh = isPulltoRefresh
         print(connectedPeripheral.count)
         if peripheral.discoveredPeripheral != nil && peripheral.charectristicWrite != nil && peripheral.discoveredPeripheral?.state == .connected {
-            Logger.logInfo("Get Accuation number for \(peripheral.addressMAC)")
-            peripheral.discoveredPeripheral?.writeValue(TransferService.requestGetNoAccuation.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
+            Logger.logInfo("Get Actuation number for \(peripheral.addressMAC)")
+            peripheral.discoveredPeripheral?.writeValue(TransferService.requestGetNoActuation.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
             
         }
     }
-    /// This function is use for get Accuation Logs from BLE Device
-    @objc func getAccuationLog() {
+    
+    /// This function is use for get Actuation Logs from BLE Device
+    @objc func getActuationLog() {
         let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral!.state == .connected})
         for obj in connectedDevice {
             if obj.discoveredPeripheral != nil && obj.charectristicWrite != nil && obj.discoveredPeripheral?.state == .connected {
@@ -116,6 +118,7 @@ class BLEHelper: NSObject {
             }
         }
     }
+    
     /// use this function to get mac Address of BLE Device/Peripheral
     func getmacAddress(peripheral: PeriperalType) {
         if peripheral.discoveredPeripheral != nil && peripheral.macCharecteristic != nil && peripheral.discoveredPeripheral!.state == .connected {

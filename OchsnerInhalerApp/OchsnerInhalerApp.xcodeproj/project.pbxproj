@@ -36,8 +36,6 @@
 		2275748727D86DA6006B0122 /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2275748527D86DA6006B0122 /* Device+CoreDataClass.swift */; };
 		227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */; };
 		227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227CD4E027A3EC540005C3D9 /* TransferService.swift */; };
-		2296C33E27B2621E0095CBFA /* TemoDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */; };
-		2296C33F27B2621E0095CBFA /* TemoDashboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */; };
 		22AE96EA278E9F1E00C0D851 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96E9278E9F1E00C0D851 /* LoginVC.swift */; };
 		22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96EC278E9F8500C0D851 /* BaseVC.swift */; };
 		22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE96F0278EA37F00C0D851 /* HomeVC.swift */; };
@@ -76,13 +74,17 @@
 		472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F643B279FF46400E37FB1 /* CommonFunction.swift */; };
 		4733205027A8EEC100695661 /* BLECommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733204F27A8EEC100695661 /* BLECommunication.swift */; };
 		473D0F4827E0500F006081B0 /* HaxToDecimalConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0F4727E0500F006081B0 /* HaxToDecimalConversion.swift */; };
-		473D0F4A27E05490006081B0 /* AccuationLogVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0F4927E05490006081B0 /* AccuationLogVM.swift */; };
+		473D0F4A27E05490006081B0 /* ActuationLogVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0F4927E05490006081B0 /* ActuationLogVM.swift */; };
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
 		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
+		4788BDB5280048F500AA1F92 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB4280048F500AA1F92 /* NotificationVC.swift */; };
+		4788BDB828004FD400AA1F92 /* NotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB728004FD400AA1F92 /* NotificationVM.swift */; };
 		4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4796597927D8BD7C00A4D403 /* removeTag.gif */; };
 		479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */; };
+		47B2F7DA2803E5620046F2F3 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B2F7D82803E5620046F2F3 /* NotificationCell.swift */; };
+		47B2F7DB2803E5620046F2F3 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B2F7D92803E5620046F2F3 /* NotificationCell.xib */; };
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
@@ -162,8 +164,6 @@
 		2275748527D86DA6006B0122 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
 		227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
 		227CD4E027A3EC540005C3D9 /* TransferService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
-		2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemoDashboardCell.swift; sourceTree = "<group>"; };
-		2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TemoDashboardCell.xib; sourceTree = "<group>"; };
 		22AE96E9278E9F1E00C0D851 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		22AE96EC278E9F8500C0D851 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		22AE96F0278EA37F00C0D851 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -202,14 +202,18 @@
 		472F643B279FF46400E37FB1 /* CommonFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunction.swift; sourceTree = "<group>"; };
 		4733204F27A8EEC100695661 /* BLECommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECommunication.swift; sourceTree = "<group>"; };
 		473D0F4727E0500F006081B0 /* HaxToDecimalConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaxToDecimalConversion.swift; sourceTree = "<group>"; };
-		473D0F4927E05490006081B0 /* AccuationLogVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuationLogVM.swift; sourceTree = "<group>"; };
+		473D0F4927E05490006081B0 /* ActuationLogVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActuationLogVM.swift; sourceTree = "<group>"; };
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
+		4788BDB4280048F500AA1F92 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		4788BDB728004FD400AA1F92 /* NotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVM.swift; sourceTree = "<group>"; };
 		4796597927D8BD7C00A4D403 /* removeTag.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = removeTag.gif; sourceTree = "<group>"; };
 		479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchsnerInhalerApp.entitlements; sourceTree = "<group>"; };
 		479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		47B2F7D82803E5620046F2F3 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		47B2F7D92803E5620046F2F3 /* NotificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
@@ -382,7 +386,7 @@
 			children = (
 				227CD4E027A3EC540005C3D9 /* TransferService.swift */,
 				227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */,
-				473D0F4927E05490006081B0 /* AccuationLogVM.swift */,
+				473D0F4927E05490006081B0 /* ActuationLogVM.swift */,
 				4733204F27A8EEC100695661 /* BLECommunication.swift */,
 				4711F91327AA55E000AD063F /* BLEPeripheralDelegate.swift */,
 				4711F91127AA536E00AD063F /* BLECentralManagerDelegate.swift */,
@@ -453,8 +457,6 @@
 				224E1C9A279819AD000C5D1A /* Cell */,
 				22AE96F0278EA37F00C0D851 /* HomeVC.swift */,
 				22CA52A527C34D9E0031BDE7 /* HomeVM.swift */,
-				2296C33C27B2621E0095CBFA /* TemoDashboardCell.swift */,
-				2296C33D27B2621E0095CBFA /* TemoDashboardCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -620,6 +622,25 @@
 			path = "Tap-Animation";
 			sourceTree = "<group>";
 		};
+		4788BDB3280048CE00AA1F92 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				4788BDB4280048F500AA1F92 /* NotificationVC.swift */,
+				4788BDB728004FD400AA1F92 /* NotificationVM.swift */,
+				47B2F7DC2803E6CD0046F2F3 /* NotificationCell */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		47B2F7DC2803E6CD0046F2F3 /* NotificationCell */ = {
+			isa = PBXGroup;
+			children = (
+				47B2F7D82803E5620046F2F3 /* NotificationCell.swift */,
+				47B2F7D92803E5620046F2F3 /* NotificationCell.xib */,
+			);
+			name = NotificationCell;
+			sourceTree = "<group>";
+		};
 		47C1FEE727958ECB007C6F16 /* AddDevice */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +690,7 @@
 		47CDCE25278D87470014527D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4788BDB3280048CE00AA1F92 /* Notification */,
 				22AE970B278ED6C900C0D851 /* Splash */,
 				22AE96FE278EAA5100C0D851 /* Profile */,
 				22AE96FA278EA8FA00C0D851 /* Devices */,
@@ -872,10 +894,10 @@
 				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
 				224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */,
-				2296C33F27B2621E0095CBFA /* TemoDashboardCell.xib in Resources */,
 				4757D09127D209E800224605 /* Tap-Animation.gif in Resources */,
 				22FCEA6227C4AA8700A91A6A /* dashboard_response.json in Resources */,
 				4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */,
+				47B2F7DB2803E5620046F2F3 /* NotificationCell.xib in Resources */,
 				22609D792799236700B38CF4 /* HomeGraphCell.xib in Resources */,
 				224E1CA427983A66000C5D1A /* SFProDisplay-Light.ttf in Resources */,
 				47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */,
@@ -984,13 +1006,12 @@
 				22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */,
 				22AE96F9278EA68900C0D851 /* BluetoothPermissionVC.swift in Sources */,
 				2213838727BCB3DE00D4BFA0 /* AcuationLog+CoreDataClass.swift in Sources */,
-				2296C33E27B2621E0095CBFA /* TemoDashboardCell.swift in Sources */,
 				22AE96ED278E9F8500C0D851 /* BaseVC.swift in Sources */,
 				4725F20C2797EC4F00BBDA28 /* Int+Extension.swift in Sources */,
 				47CDCE49278D88FE0014527D /* ResultType.swift in Sources */,
 				225F315A27D0A1F10059566E /* ReminderManager.swift in Sources */,
 				47CDCE8A278D89210014527D /* Dispatch.swift in Sources */,
-				473D0F4A27E05490006081B0 /* AccuationLogVM.swift in Sources */,
+				473D0F4A27E05490006081B0 /* ActuationLogVM.swift in Sources */,
 				22609D782799236700B38CF4 /* HomeGraphCell.swift in Sources */,
 				227197CB27902AD80014BC3E /* NotificationPermissionVC.swift in Sources */,
 				47E118AA27D720880071280B /* Tost.swift in Sources */,
@@ -1001,10 +1022,12 @@
 				2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */,
 				2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */,
 				47CDCE4B278D88FE0014527D /* Logger.swift in Sources */,
+				47B2F7DA2803E5620046F2F3 /* NotificationCell.swift in Sources */,
 				47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */,
 				4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */,
 				227CD4E127A3EC540005C3D9 /* TransferService.swift in Sources */,
 				47CDCE7C278D89210014527D /* UIColor+Extension.swift in Sources */,
+				4788BDB828004FD400AA1F92 /* NotificationVM.swift in Sources */,
 				47242BA727CDEAAD00C753EA /* ForgotPassVC.swift in Sources */,
 				47CDCE94278D89C30014527D /* APIRouter.swift in Sources */,
 				2257007027A2AE4A009B6415 /* NotificationManager.swift in Sources */,
@@ -1061,6 +1084,7 @@
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
 				22FC2E0827B76D2700ABE886 /* ProviderModel.swift in Sources */,
+				4788BDB5280048F500AA1F92 /* NotificationVC.swift in Sources */,
 				221B3C1F27CCAC4600A3AFD6 /* ProfileModel.swift in Sources */,
 				47CDCE88278D89210014527D /* LogFormatter.swift in Sources */,
 				2275748627D86DA6006B0122 /* Device+CoreDataProperties.swift in Sources */,
@@ -1224,7 +1248,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1248,7 +1272,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
@@ -1267,7 +1291,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
@@ -1290,7 +1314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;

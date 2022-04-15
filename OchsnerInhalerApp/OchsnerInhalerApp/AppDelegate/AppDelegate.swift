@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initLoggers()
         
         if UserDefaultManager.isFirstLaunch == false {
-            DatabaseManager.share.deleteAllAccuationLog()
+            DatabaseManager.share.deleteAllActuationLog()
             UserDefaultManager.isFirstLaunch = true
         }
         
@@ -114,12 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func foregroundCall() {
         print("App moved to foreground")
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
-            let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
-            for  discoverPeripheral in bleDevice {
-                DispatchQueue.global().async {
-                    BLEHelper.shared.getAccuationNumber(peripheral: discoverPeripheral)
-                }
-            }
+            CommonFunctions.getLogFromDeviceAndSync()
         }
     }
     
@@ -135,7 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().clipsToBounds = false
         UINavigationBar.appearance().backgroundColor = .ButtonColorBlue
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: (UIFont(name: AppFont.AppBoldFont, size: 18))!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().backItem?.title = ""
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: Constants.titleFont, NSAttributedString.Key.foregroundColor: Constants.titleColor]
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {

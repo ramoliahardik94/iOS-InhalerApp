@@ -6,8 +6,6 @@ import Foundation
 
 import UIKit
 import UserNotifications
-// import FirebaseMessaging
-// import Firebase
 import ObjectMapper
 
 class NotificationManager: NSObject {
@@ -77,17 +75,18 @@ class NotificationManager: NSObject {
     }
     
     // for add local notificaion reminders
-    func setNotification(date: Date, titile: String, calendar: Calendar, macAddress: String) {
+    func setNotification(date: Date, titile: String, calendar: Calendar, macAddress: String, isFromTomorrow: Bool = false, dose: String) {
         Logger.logInfo("Set Reminder For Time : \(date)")
         let content = UNMutableNotificationContent()
-        let components = calendar.dateComponents([.hour, .minute, .second], from: date)
+        let time = twomorowTimeInterval(dose: dose)
+        let components = calendar.dateComponents([.hour, .minute, .second], from: isFromTomorrow ? date.addingTimeInterval(time) : date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         
         content.title = StringAddDevice.titleAddDevice
         content.body =  titile
         content.sound = UNNotificationSound.default
         // let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
-        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress)\(date.timeIntervalSince1970)", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             
             if let error = error {
@@ -98,6 +97,18 @@ class NotificationManager: NSObject {
                 Logger.logInfo("\(titile)")
             }
         })
+    }
+    
+    func twomorowTimeInterval(dose: String) -> TimeInterval {
+        Logger.logInfo("Notification set for: From twomotow")
+        let fromDate = Date().getString(format: "dd-MM-yyyy hh:mm a", isUTC: false)
+        var toDate =  Date.tomorrow.getString(format: "dd-MM-yyyy", isUTC: false)
+        toDate = "\(toDate) \(dose)"
+        let date1 = fromDate.getDate(format: "dd-MM-yyyy hh:mm a")
+        let dateOfDose = toDate.getDate(format: "dd-MM-yyyy hh:mm a")
+        let date2 = dateOfDose.addingTimeInterval(28*60)
+        Logger.logInfo("Notification set for: twomorowTimeInterval: \(date2.timeIntervalSince(date1))")
+        return date2.timeIntervalSince(date1)
     }
     
     // For Remove All local notification
@@ -117,14 +128,15 @@ class NotificationManager: NSObject {
                     
                     for item in arrDose ?? [] {
                         Logger.logInfo("sub array dose time device Obj \(item)")
-                        
-                        let graterDate =  item.getDate(format: DateFormate.doseTime)
+                        var graterDate =  item.getDate(format: DateFormate.doseTime)
+                        let strgraterDate = graterDate.getString(format: DateFormate.doseTime12Hr)
+                        graterDate =  strgraterDate.getDate(format: DateFormate.doseTime12Hr)
                         //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                         var calendar = Calendar(identifier: .gregorian)
                         calendar.timeZone = .current
                         let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
                         let title = String(format: StringLocalNotifiaction.reminderBody, userName .trimmingCharacters(in: .whitespacesAndNewlines), objDevice.medname ?? "", item )
-                        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: objDevice.mac ?? "")
+                        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: objDevice.mac ?? "", dose: item)
                     }
                 }
                 

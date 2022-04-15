@@ -39,6 +39,8 @@ extension UIColor {
     static let ColorHomeIconRed =  #colorLiteral(red: 1, green: 0.3529411765, blue: 0.3529411765, alpha: 1) // #FF5A5A
     static let ColorHomeIconGreen =  #colorLiteral(red: 0.2039215686, green: 0.7803921569, blue: 0.3490196078, alpha: 1) // #34C759
     static let ButtonColorGrey = #colorLiteral(red: 0.4392156863, green: 0.4392156863, blue: 0.4392156863, alpha: 1) // #707070
+    static let notiNormal = #colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 1)
+    static let notiBold = #colorLiteral(red: 0.3803921569, green: 0.3803921569, blue: 0.3803921569, alpha: 1)
    
     
 }

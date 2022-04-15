@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreMedia
+import CoreMIDI
 
 class HomeDeviceCell: UITableViewCell {
 
@@ -26,6 +28,9 @@ class HomeDeviceCell: UITableViewCell {
     @IBOutlet weak var ivThisMonth: UIImageView!
     @IBOutlet weak var mainViewExpand: UIView!
     
+    @IBOutlet weak var cntMantainancePriority: NSLayoutConstraint!
+    @IBOutlet weak var cntRescueProprity: NSLayoutConstraint!
+    @IBOutlet weak var heightStackView: NSLayoutConstraint!
     @IBOutlet weak var ivExpand: UIImageView!
     @IBOutlet weak var btnExpand: UIButton!
     // for graph
@@ -43,42 +48,140 @@ class HomeDeviceCell: UITableViewCell {
     
     var item = MaintenanceModel() {
         didSet {
-            if item.thisMonth?.change?.lowercased() ?? ""  == "up" {
-                ivThisMonth.image = UIImage(named: "arrow_up_home")
+            
+            lblDeviceName.attributedText = getMedictioNamewithType(type: Int(item.type ?? "1") ?? 1)
+            let month = getArrowWithColor(arowDirection: item.thisMonth?.change?.lowercased() ?? "", status: item.thisMonth?.status ?? 0)
+            let week = getArrowWithColor(arowDirection: item.thisWeek?.change?.lowercased() ?? "", status: item.thisWeek?.status ?? 0)
+            ivThisMonth.image = month.img
+            ivThisMonth.setImageColor(month.color)
+            ivThisWeek.image = week.img
+            ivThisWeek.setImageColor(week.color)
+            
+            if (item.type == "1") {
+                viewCollectionView.isHidden = true
+                viewNextDose.isHidden = true
+                viewAdherance.isHidden = true
+                viewToday.isHidden = false
+                lblTodayData.text = "\(item.today?.count ?? 0)"
+                lblThisWeekData.text = "\(item.thisWeek?.count ?? 0)"
+                lblThisMonthData.text = "\(item.thisMonth?.count ?? 0)"
+                cntRescueProprity.constant = 0
+                cntRescueProprity.priority = UILayoutPriority(1000.0)
+                cntMantainancePriority.priority = UILayoutPriority(250.0)
             } else {
-                ivThisMonth.image = UIImage(named: "arrow_down_home")
-            }
-            if item.thisMonth?.status ?? 0 == 1 {
-                ivThisMonth.setImageColor(.ColorHomeIconGreen)// #34C759
-            } else if item.thisMonth?.status ?? 0 == 2 {
-                ivThisMonth.setImageColor(.ColorHomeIconOranage)// #FFA52F
-            } else {
-                ivThisMonth.setImageColor(.ColorHomeIconRed)// #FF5A5A
+                cntRescueProprity.priority = UILayoutPriority(250.0)
+                cntMantainancePriority.priority = UILayoutPriority(1000)
+                viewToday.isHidden = true
+                lblThisWeekData.text = "\(item.thisWeek?.adherence ?? 0)%"
+                lblThisMonthData.text = "\(item.thisMonth?.adherence ?? 0)%"
+                viewAdherance.isHidden = false
+                lblNextDose.text = "\(StringHome.nextScheduled) \(item.nextScheduledDose ?? StringCommonMessages.notSet)"
+                viewNextDose.isHidden = false
+                lblDeviceNameGraph.text = ""
+                lblDeviceTypeGraph.text = StringCommonMessages.schedule
+                let arrSorted = item.dailyAdherence.sorted { item1, item2 in return item1.denominator ?? 0 > item2.denominator ?? 0 }
+                let maxvalu = arrSorted.count > 0 ? arrSorted[0].denominator : 0
+                
+                heightStackView.constant = CGFloat((maxvalu ?? 0) * (24)) + 24
+                debugPrint(heightStackView.constant)
+                for (index, obj) in item.dailyAdherence.enumerated() { // For Every column
+                    viewCollectionView.isHidden = false
+                    stackViewArray[index].removeFullyAllArrangedSubviews()
+                    stackViewArray[index].isHidden = false
+                    stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
+                    stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
+                    stackViewArray[index].alignment = UIStackView.Alignment.center
+                    stackViewArray[index].spacing   = 4
+                    stackViewArray[index].isHidden = false
+                    stackViewArray[index].addArrangedSubview(getLableOfDay(text: obj.day ?? StringCommonMessages.notSet))
+                   
+                    layoutSubviews()
+                    for  indexSub in 1...maxvalu! {
+                        if indexSub <= obj.numerator ?? 0 {
+                            stackViewArray[index].addArrangedSubview(getViewDoseTaken())
+                        } else if maxvalu!  > obj.denominator ?? 0 {
+                            let view = UIView()
+                            view.backgroundColor = .clear
+                            stackViewArray[index].addArrangedSubview(view)
+                        } else {
+                            stackViewArray[index].addArrangedSubview(getImageDoseMiss())
+                        }
+                    }
+                    let array =  stackViewArray[index].arrangedSubviews.reversed()
+                    for (indexArr, item) in array.enumerated() {
+                        stackViewArray[index].insertArrangedSubview(item, at: indexArr)
+                    }
+                }
+                
+                viewCollectionView.layoutSubviews()
             }
             
-           // for week
-            if item.thisWeek?.change?.lowercased() ?? ""  == "up" {
-                ivThisWeek.image = UIImage(named: "arrow_up_home")
-            } else {
-                ivThisWeek.image = UIImage(named: "arrow_down_home")
-            }
             
-            if item.thisWeek?.status ?? 0 == 1 {
-                ivThisWeek.setImageColor(.ColorHomeIconGreen)// #34C759
-            } else if item.thisWeek?.status ?? 0 == 2 {
-                ivThisWeek.setImageColor(.ColorHomeIconOranage)// #FFA52F
-            } else {
-                ivThisWeek.setImageColor(.ColorHomeIconRed)// #FF5A5A
-            }
         }
+    }
+    func getImageDoseMiss() -> UIImageView {
+        let image = UIImageView()
+        image.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        image.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        image.image = #imageLiteral(resourceName: "cross_dot")
+        return image
+    }
+    
+    func getViewDoseTaken() -> UIView {
+        let view = UIView()
+       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
+        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+        view.layer.borderWidth = 1
+        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        return view
+    }
+    
+    func getLableOfDay(text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = #colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1) // #8E8E93
+        label.setFont(type: .regular, point: 14)
+        return label
+    }
+    
+    func getMedictioNamewithType(type: Int) -> NSMutableAttributedString {        
+        
+        let firstAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppBoldFont, size: 24)! ]
+        let sendcotAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppLightItalicFont, size: 16)! ]
+        
+        let firstString = NSMutableAttributedString(string: "\(item.medName ?? StringCommonMessages.notSet)", attributes: firstAttributes)
+        let seconfString =  NSMutableAttributedString(string: "\(type == 1 ? StringAddDevice.rescueInhaler : StringAddDevice.maintenanceInhaler)", attributes: sendcotAttributes)
+        firstString.append(seconfString)
+        return firstString
+    }
+    
+    func getArrowWithColor(arowDirection: String, status: Int)-> (img: UIImage, color: UIColor) {
+        var color: UIColor = .ColorHomeIconRed
+        var image =  UIImage(named: "arrow_down_home") ?? UIImage()
+        if status == 1 {
+            color = .ColorHomeIconGreen
+        } else if status == 2 {
+            color = .ColorHomeIconOranage
+        } else {
+            color = .ColorHomeIconRed
+        }
+        if arowDirection.lowercased()  == "up" {
+            image = UIImage(named: "arrow_up_home") ?? UIImage()
+        } else {
+            image = UIImage(named: "arrow_down_home") ?? UIImage()
+        }
+        return(image, color)
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        self.selectionStyle = .none
         lblDeviceName.setFont(type: .bold, point: 24)
-      //  lblDeviceType.setFont(type: .lightItalic, point: 16)
         lblTodayData.setFont(type: .semiBold, point: 28)
         lblToday.setFont(type: .light, point: 17)
         lblThisWeekData.setFont(type: .semiBold, point: 28)
@@ -88,7 +191,6 @@ class HomeDeviceCell: UITableViewCell {
         lblAdherance.setFont(type: .semiBold, point: 17)
         lblNextDose.setFont(type: .semiBold, point: 17)
         lblDeviceTypeGraph.setFont(type: .semiBold, point: 17)
-        
         lblTodayData.textColor = .ButtonColorBlue
         lblThisMonthData.textColor = .ButtonColorBlue
         lblThisWeekData.textColor = .ButtonColorBlue
@@ -101,70 +203,8 @@ class HomeDeviceCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-    
-}
 
-extension HomeDeviceCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemCellGraph, for: indexPath) as! GraphCell
-        
-          
-       /* if count >= 21 {
-            
-            cell.viewMain.layer.cornerRadius =  8
-           
-            
-            cell.viewMain.layer.borderWidth = 1
-          
-            if indexPath.row == 2 {
-                cell.viewMain.backgroundColor = #colorLiteral(red: 1, green: 0.2470588235, blue: 0.2470588235, alpha: 1)
-                cell.viewMain.layer.borderColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            } else if indexPath.row == 9 ||  indexPath.row == 11 {
-                cell.viewMain.backgroundColor = #colorLiteral(red: 1, green: 0.6431372549, blue: 0.4039215686, alpha: 1)
-                cell.viewMain.layer.borderColor =  #colorLiteral(red: 0.3254901961, green: 0.3254901961, blue: 0.3254901961, alpha: 1)
-            
-            } else if indexPath.row == 14 ||  indexPath.row == 16 ||  indexPath.row == 17 ||  indexPath.row == 18 {
-                cell.viewMain.backgroundColor = #colorLiteral(red: 1, green: 0.9764705882, blue: 0.4, alpha: 1)
-                cell.viewMain.layer.borderColor =   #colorLiteral(red: 0.4235294118, green: 0.4235294118, blue: 0.4235294118, alpha: 1)
-            } else {
-                cell.viewMain.backgroundColor = UIColor.clear
-                cell.viewMain.layer.borderColor = UIColor.clear.cgColor
-            }
-            
-        } else {
-            cell.viewMain.layer.cornerRadius =  8
-           
-            cell.viewMain.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
-            cell.viewMain.layer.borderWidth = 1
-          
-            if indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6 || indexPath.row == 12 || indexPath.row == 13 {
-                cell.viewMain.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            } else {
-                cell.viewMain.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
-            }
-           
-            
-        }*/
-        
-        cell.viewMain.layer.cornerRadius =  8
-       
-        cell.viewMain.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
-        cell.viewMain.layer.borderWidth = 1
-        // cell.viewMain.layer.masksToBounds = true
-        
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cvWidth = collectionView.frame.width
-        return CGSize(width: cvWidth / 7, height: 26 )
-    }
-    
     
 }

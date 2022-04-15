@@ -90,23 +90,21 @@ extension BLEHelper: CBCentralManagerDelegate {
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
         
-        //        guard RSSI.intValue >= -55
-        //        else {
-        //            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-        //            return
-        //        }
-        
-        Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
+//                guard RSSI.intValue >= -55
+//                else {
+//                    print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+//                    return
+//                }
         
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
         
         if let name =  peripheral.name {
-            debugPrint("Service : \(String(describing: peripheral.services))")
             
             if name.lowercased() == Constants.deviceName {
                 let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
+                    Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
                     uuid = peripheral.identifier.uuidString
                     connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
@@ -122,6 +120,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
                         uuid = ""
+                        Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
                         let isContenits = connectedPeripheral.contains(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString})
                         if !isContenits {
                             connectedPeripheral.append(PeriperalType(peripheral: peripheral))
@@ -129,6 +128,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                         connectPeriPheral(peripheral: peripheral)
                         let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected || $0.discoveredPeripheral?.state == .connecting})
                         print("\(connectedDevice.count)")
+                        self.countOfScanDevice += 1
                         if connectedDevice.count == device.count {
                             stopScanPeriphral()
                             stopTimer()
@@ -147,7 +147,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             discoverPeripheral.charectristicWrite = nil
             //            stopScanPeriphral()
             peripheral.delegate = self
-            peripheral.discoverServices(TransferService.serviceArray)
+            peripheral.discoverServices(nil)
         }
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .BLEChange, object: nil)

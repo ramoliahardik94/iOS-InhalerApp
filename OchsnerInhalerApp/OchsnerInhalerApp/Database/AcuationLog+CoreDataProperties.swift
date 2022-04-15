@@ -56,8 +56,8 @@ extension AcuationLog {
                       "Longitude": Double(longitude!)! as Any,
                       "UseLength": uselength,
                       "BatteryLevel": batterylevel as Any,
-                      "MacAddress": deviceidmac as Any,
-                      "UUID": deviceuuid as Any,
+                      "MacAddress": deviceidmac! as Any,
+                      "UUID": deviceuuid! as Any,
                       "isSync": issync as Any,
                       "isbadLog": isbadlog as Any]
         return dicLog

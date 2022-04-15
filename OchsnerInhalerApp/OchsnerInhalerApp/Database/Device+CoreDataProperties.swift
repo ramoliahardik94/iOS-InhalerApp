@@ -24,6 +24,16 @@ extension Device {
     @NSManaged public var setrtc: Bool
     @NSManaged public var scheduledoses: String?
     @NSManaged public var medname: String?
+    @NSManaged public var puff: Int16
     
     
+    func deviceForMantainance() -> History {
+        var dic = [String: Any]()
+        dic["puff"] = self.puff
+        dic["medName"] = self.medname
+        dic["mac"] = self.mac
+        dic["dose"] = self.scheduledoses
+        let history = History(jSon: dic)
+        return history
+    }
 }

@@ -63,8 +63,6 @@ class MedicationVM {
                 
                 } else {
                     if (response as? [String: Any]) != nil {
-                        
-                        
                         NotificationCenter.default.post(name: .medUpdate, object: nil)
                         BLEHelper.shared.isAddAnother = false                        
                         guard let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else {
@@ -76,6 +74,9 @@ class MedicationVM {
                         device.udid = peripheral.discoveredPeripheral?.identifier.uuidString ?? ""
                         device.isReminder = isreminder
                         device.medTypeID = self.medTypeId
+                        device.puffs = self.puff
+                        device.medication = self.selectedMedication
+                        
                         DatabaseManager.share.saveDevice(object: device, isFromDirection: true)
                         completionHandler(.success(true))
                         

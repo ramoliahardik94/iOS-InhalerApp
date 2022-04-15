@@ -22,6 +22,17 @@ open class CommonFunctions {
         }))
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
+    public class func getLogFromDeviceAndSync() {
+        let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+        if bleDevice.count > 0 {
+            for  discoverPeripheral in bleDevice {
+                    BLEHelper.shared.getActuationNumber(peripheral: discoverPeripheral)
+            }
+        } else {
+            Logger.logInfo("deviceuse: getLogFromDeviceAndSync ")
+            BLEHelper.shared.apiCallForActuationlog()
+        }
+    }
 
     // MARK: - Alert
     public class func showMessageYesNo(message: String, cancelTitle: String = "Cancel", okTitle: String = "Ok", _ completion: @escaping ((Bool?) -> Void ) = { _ in  }) {

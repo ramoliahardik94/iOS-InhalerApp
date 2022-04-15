@@ -10,19 +10,16 @@ import Foundation
 class HomeVM {
     var dashboardData =  [MaintenanceModel]()
      
-    func doDashboardData(completionHandler: @escaping ((APIResult) -> Void)) {
+    func apiDashboardData(completionHandler: @escaping ((APIResult) -> Void)) {
         
-        APIManager.shared.performRequest(route: APIRouter.dashboard.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) { error, response in
+        APIManager.shared.performRequest(route: APIRouter.dashboard.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) { [weak self] error, response in
+            guard let `self` = self else { return }
             if response == nil {
-                
                 completionHandler(.failure(error!.message))
             } else {
-                if self.dashboardData.count > 0 {
-                    self.dashboardData.removeAll()
-                }
+                self.dashboardData = [MaintenanceModel]()
                 if let res = response as? [String: Any] {
-                     let mainData = DashboardModel(jSon: res)
-                  //  print(" main data \(mainData.maintenanceData.count)" )
+                    let mainData = DashboardModel(jSon: res)
                     if mainData.rescueData.count != 0 {
                         self.dashboardData.append(contentsOf: mainData.rescueData)
                     }

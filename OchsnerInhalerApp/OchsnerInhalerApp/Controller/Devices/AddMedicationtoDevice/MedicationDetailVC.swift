@@ -155,11 +155,7 @@ class MedicationDetailVC: BaseVC {
                     switch result {
                     case .success(let status):
                         print("Response sucess :\(status)")
-                        UserDefaultManager.isAddReminder = self.swReminder.isOn
-                        //                        background {
-                        //                            self.clearDeviceRemindersNotification()
-                        //                            NotificationManager.shared.addReminderLocal(userName: self.userName)
-                        //                        }
+                        UserDefaultManager.isAddReminder = self.swReminder.isOn                      
                         if self.isFromDeviceList {
                             self.navigationController?.popToRootViewController(animated: true)
                         } else if !self.medicationVM.isEdit {
@@ -269,22 +265,24 @@ class MedicationDetailVC: BaseVC {
     func addReminderToCalender() {
         if self.medicationVM.arrTime.count > 0 {
             clearDeviceRemindersNotification()
-            for item in self.medicationVM.arrTime {
-                let graterDate =  item.getDate(format: DateFormate.doseTime)
+            for item in self.medicationVM.arrTime {                
+                var graterDate =  item.getDate(format: DateFormate.doseTime)
+                let strgraterDate = graterDate.getString(format: DateFormate.doseTime12Hr)
+                graterDate =  strgraterDate.getDate(format: DateFormate.doseTime12Hr)
                 //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
                 var calendar = Calendar(identifier: .gregorian)
                 calendar.timeZone = .current
                 let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
                 let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", item )
                 // setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
-                NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: self.medicationVM.macAddress)
+                NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: self.medicationVM.macAddress, dose: item)
             }
         }
     }
     
     private func doGetProfileData() {
         let profileVM = ProfileVM()
-        profileVM.doGetProfile { [weak self] result in
+        profileVM.apiGetProfile { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .success(let status):

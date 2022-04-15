@@ -19,12 +19,17 @@ extension BLEHelper {
     func scanPeripheral(isTimer: Bool = false) {
         
         if centralManager.state == .poweredOn {
-            Logger.logInfo("Scan \(UserDefaultManager.isLogin) && (\(isTimer) || \(isAddAnother)) ")
             if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {                
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? 15.0 : 30.0
+                    if !isTimer {
+                        showDashboardStatus(msg: BLEStatusMsg.scanConnectBLE)
+                    }
                     Logger.logInfo("Scaning start with \(time) sec timer")
                     timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+//                     TODO: - Uncomment for BG scane
+//                    self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)
+//                TODO: - comment for BG scane
                     self.centralManager.scanForPeripherals(withServices: nil, options: nil)
                 }
                 isScanning = true
@@ -44,15 +49,18 @@ extension BLEHelper {
             }
         }
     }
+    
     /// use to stop timer from any weare in BLEHelper
     func stopTimer() {
         print("timerStop")
+        
         if timer != nil {
             timer!.invalidate()
             timer = nil
         }
         isScanning = false
     }
+    
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
     func connectPeriPheral(peripheral: CBPeripheral) {
         if isAllow {
@@ -71,6 +79,7 @@ extension BLEHelper {
             }
         }
     }
+    
     /// While Bluettooth status change that time common task are perform heat with *bleConnect* function
     func bleConnect() {
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
@@ -100,6 +109,7 @@ extension BLEHelper {
             }
         }
     }
+    
     /// once timer of sanning is finished this functio is called
     @objc func didFinishScan() {
         isAddAnother ? Logger.logInfo("Scaning stop with 15 sec timer") : Logger.logInfo("Scaning stop with 30 sec timer")
@@ -108,10 +118,14 @@ extension BLEHelper {
                 NotificationCenter.default.post(name: .BLENotFound, object: nil)
             }
         }
+        if !isAddAnother && countOfScanDevice == 0 {
+            hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
+        }
         isScanning = false
         self.stopTimer()
         self.stopScanPeriphral()
     }
+    
     /// using this function user can stop scanning the periipheral
     func stopScanPeriphral() {
         if timer != nil {
@@ -122,8 +136,8 @@ extension BLEHelper {
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
         
-        
     }
+    
     /// This function is use for cleanup BLE Task
     func cleanup(peripheral: CBPeripheral) {
         // Don't do anything if we're not connected

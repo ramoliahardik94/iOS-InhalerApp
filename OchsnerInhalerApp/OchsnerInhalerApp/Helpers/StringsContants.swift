@@ -19,7 +19,7 @@ extension Notification.Name {
     static let BLEAcuationCount = Notification.Name("BLEAcuationCount")
     static let BLEAcuationLog = Notification.Name("BLEAcuationLog")
     static let medUpdate = Notification.Name("medUpdate")
-    static let SYNCSUCCESSACUATION = Notification.Name("SYNC_SUCCESS_ACUATION")
+    static let DataSyncDone = Notification.Name("SYNC_SUCCESS_ACUATION")
 }
 
 // MARK: Common Message
@@ -113,6 +113,16 @@ struct ValidationMsg {
     static let failAcuation = "Data Sync Fail"
     static let doseError = "Multiple doses for the same time cannot be scheduled!"
 }
+
+struct BLEStatusMsg {
+    static let scanConnectBLE = "Connecting Devices..."
+    static let featchDataFromDevice = "Fetching Data..."
+    static let syncStart = "Data Sync Inprogress..."
+    static let syncFailNoData = "No Data to Sync."
+    static let syncSuccess = "Data Sync Successful."
+    static let noDeviceFound = "No Device Nearby."
+}
+
 struct ValidationButton {
     static let tryAgain = "Try again"
 }
@@ -253,6 +263,8 @@ struct CellIdentifier {
     static let medicationCell = "MedicationCell"
     static let doseTimeCell = "DoseTimeCell"
     static let manageDeviceCell = "ManageDeviceCell"
+    static let NotificationCell = "NotificationCell"
+    static let DoseDetailCell = "DoseDetailCell"
 }
 
 // MARK: Local Notification
@@ -260,8 +272,10 @@ struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
     static let body = "You will be no longer able to track the medicine usage"
     static let reminderBody = "Hi, %@ Just reminding you about your scheduled %@ doses at %@.Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
+    static let notificationMsg = "You have missed your dose or it has not been synced."
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
+    static let noNotification = "No notification found"
 }
 
 // MARK: Date Formate
@@ -271,5 +285,9 @@ struct DateFormate {
     static let useDateLocalBagCompare = "yyyy-MM-dd HH"    
     static let deviceSyncDateUTCAPI = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     static let doseTime = "hh:mm a"
+    static let doseTime12Hr = "HH:mm"
     static let reminder = "dd/MM/yyyy hh:mm a"
+    static let notificationDate = "yyyy-MM-dd hh:mm a"
+    static let notificationFormate = "MMM dd,yyyy"
+    static let useDateLocalyyyyMMddDash = "yyyy-MM-dd"
 }

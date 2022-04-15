@@ -10,6 +10,63 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--NotificationVC-->
+        <scene sceneID="r7I-CJ-3UY">
+            <objects>
+                <viewController storyboardIdentifier="NotificationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mGo-VX-QQc" customClass="NotificationVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ihg-XF-hOb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGi-0e-Sxo">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOc-Fe-zkJ">
+                                        <rect key="frame" x="166.66666666666666" y="356.66666666666669" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="S3a-6y-Qpf">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="mGo-VX-QQc" id="atG-BW-L5y"/>
+                                            <outlet property="delegate" destination="mGo-VX-QQc" id="TcI-rX-b7u"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="S3a-6y-Qpf" secondAttribute="bottom" id="CzE-Xu-v35"/>
+                                    <constraint firstItem="LOc-Fe-zkJ" firstAttribute="centerY" secondItem="UGi-0e-Sxo" secondAttribute="centerY" id="IiW-Gg-p9m"/>
+                                    <constraint firstItem="S3a-6y-Qpf" firstAttribute="top" secondItem="UGi-0e-Sxo" secondAttribute="top" id="Ldr-dl-pmv"/>
+                                    <constraint firstItem="LOc-Fe-zkJ" firstAttribute="centerX" secondItem="UGi-0e-Sxo" secondAttribute="centerX" id="VMd-Db-f4K"/>
+                                    <constraint firstAttribute="trailing" secondItem="S3a-6y-Qpf" secondAttribute="trailing" id="bVA-Ly-Rbg"/>
+                                    <constraint firstItem="S3a-6y-Qpf" firstAttribute="leading" secondItem="UGi-0e-Sxo" secondAttribute="leading" id="ikb-hU-JMt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PZ1-Fu-Y42"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="UGi-0e-Sxo" secondAttribute="trailing" id="IqG-F5-yUZ"/>
+                            <constraint firstItem="UGi-0e-Sxo" firstAttribute="leading" secondItem="ihg-XF-hOb" secondAttribute="leading" id="Nnc-7A-heD"/>
+                            <constraint firstItem="PZ1-Fu-Y42" firstAttribute="bottom" secondItem="UGi-0e-Sxo" secondAttribute="bottom" id="bkI-QQ-qB3"/>
+                            <constraint firstItem="UGi-0e-Sxo" firstAttribute="top" secondItem="PZ1-Fu-Y42" secondAttribute="top" id="rqS-Gb-Vi3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblNoNotificationFound" destination="LOc-Fe-zkJ" id="OVN-rj-Omg"/>
+                        <outlet property="tbvData" destination="S3a-6y-Qpf" id="l09-lW-SbS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pyF-cs-k6b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="716" y="800"/>
+        </scene>
         <!--HomeVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -23,7 +80,23 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qh7-8F-Wcj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="i81-Bi-qlP">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="kVc-Lg-UiE"/>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="9Vz-oQ-MfQ"/>
+                                                </connections>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="i81-Bi-qlP" firstAttribute="leading" secondItem="Qh7-8F-Wcj" secondAttribute="leading" id="SnQ-jl-TtH"/>
+                                            <constraint firstAttribute="bottom" secondItem="i81-Bi-qlP" secondAttribute="bottom" id="Zup-bX-cZn"/>
+                                            <constraint firstAttribute="trailing" secondItem="i81-Bi-qlP" secondAttribute="trailing" id="dd2-kA-9et"/>
+                                            <constraint firstItem="i81-Bi-qlP" firstAttribute="top" secondItem="Qh7-8F-Wcj" secondAttribute="top" id="lkI-Ol-CDP"/>
+                                        </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKo-VR-EhZ">
                                         <rect key="frame" x="8" y="342.66666666666669" width="359" height="0.0"/>
@@ -91,6 +164,7 @@
                         <outlet property="lblNoData" destination="LKo-VR-EhZ" id="boq-Kx-neG"/>
                         <outlet property="lblSyncTitle" destination="luA-ao-wVS" id="KJy-Sf-rEn"/>
                         <outlet property="syncView" destination="INe-uQ-sMF" id="gYN-Ci-82e"/>
+                        <outlet property="tbvDeviceData" destination="i81-Bi-qlP" id="24Y-Ji-oQ1"/>
                         <outlet property="viewMainTableview" destination="Qh7-8F-Wcj" id="gaI-Hf-NcK"/>
                     </connections>
                 </viewController>
@@ -755,10 +829,10 @@
             </objects>
             <point key="canvasLocation" x="-676.81159420289862" y="79.6875"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Connected Inhaler Application-->
         <scene sceneID="znm-h7-YjX">
             <objects>
-                <tabBarController storyboardIdentifier="HomeTabBar" automaticallyAdjustsScrollViewInsets="NO" id="vOF-Cb-cDr" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeTabBar" title="Connected Inhaler Application" automaticallyAdjustsScrollViewInsets="NO" id="vOF-Cb-cDr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1sm-kr-Vcb">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -782,22 +856,8 @@
                     <view key="view" contentMode="scaleToFill" id="sYq-I3-qfy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sc-AD-FSH">
-                                <rect key="frame" x="0.0" y="728" width="375" height="50"/>
-                                <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="NTl-4H-Zuj"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="wxx-yg-OT1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="wxx-yg-OT1" firstAttribute="trailing" secondItem="1sc-AD-FSH" secondAttribute="trailing" id="rIi-7t-VXo"/>
-                            <constraint firstItem="1sc-AD-FSH" firstAttribute="leading" secondItem="wxx-yg-OT1" secondAttribute="leading" id="vFV-cs-0o4"/>
-                            <constraint firstItem="1sc-AD-FSH" firstAttribute="bottom" secondItem="wxx-yg-OT1" secondAttribute="bottom" id="vK8-bk-FF7"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="518-cN-k3h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -824,9 +884,6 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
