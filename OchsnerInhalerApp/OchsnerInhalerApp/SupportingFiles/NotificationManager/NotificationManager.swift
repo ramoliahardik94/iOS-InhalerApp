@@ -78,37 +78,53 @@ class NotificationManager: NSObject {
     func setNotification(date: Date, titile: String, calendar: Calendar, macAddress: String, isFromTomorrow: Bool = false, dose: String) {
         Logger.logInfo("Set Reminder For Time : \(date)")
         let content = UNMutableNotificationContent()
-        let time = twomorowTimeInterval(dose: dose)
-        let components = calendar.dateComponents([.hour, .minute, .second], from: isFromTomorrow ? date.addingTimeInterval(time) : date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-        
         content.title = StringAddDevice.titleAddDevice
         content.body =  titile
         content.sound = UNNotificationSound.default
-        // let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
-        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+        
+        
+        if isFromTomorrow {
+            let time = twomorowTimeInterval(dose: dose, calender: calendar)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: true)
+            let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+                
+                if let error = error {
+                    Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
+                } else {
+                    Logger.logInfo("Notification set for \(trigger)")
+                    Logger.logInfo("\(StringAddDevice.titleAddDevice)")
+                    Logger.logInfo("\(titile)")
+                }
+            })
+        } else {
+            let components = calendar.dateComponents([.hour, .minute, .second], from: date)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
             
-            if let error = error {
-                Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
-            } else {
-                Logger.logInfo("Notification set for \(components)")
-                Logger.logInfo("\(StringAddDevice.titleAddDevice)")
-                Logger.logInfo("\(titile)")
-            }
-        })
+            let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+                
+                if let error = error {
+                    Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
+                } else {
+                    Logger.logInfo("Notification set for \(components)")
+                    Logger.logInfo("\(StringAddDevice.titleAddDevice)")
+                    Logger.logInfo("\(titile)")
+                }
+            })
+        }
+       
+        // let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
+     
     }
     
-    func twomorowTimeInterval(dose: String) -> TimeInterval {
+    func twomorowTimeInterval(dose: String, calender: Calendar) -> TimeInterval {
         Logger.logInfo("Notification set for: From twomotow")
-        let fromDate = Date().getString(format: "dd-MM-yyyy hh:mm a", isUTC: false)
-        var toDate =  Date.tomorrow.getString(format: "dd-MM-yyyy", isUTC: false)
-        toDate = "\(toDate) \(dose)"
-        let date1 = fromDate.getDate(format: "dd-MM-yyyy hh:mm a")
-        let dateOfDose = toDate.getDate(format: "dd-MM-yyyy hh:mm a")
-        let date2 = dateOfDose.addingTimeInterval(28*60)
-        Logger.logInfo("Notification set for: twomorowTimeInterval: \(date2.timeIntervalSince(date1))")
-        return date2.timeIntervalSince(date1)
+        var fromDate = Date().getString(format: "dd-MM-yyyy", isUTC: false)
+        fromDate = "\(fromDate) \(dose)"
+        let toDay = fromDate.getDate(format: "dd-MM-yyyy hh:mm a").addingTimeInterval(30*60)
+        let twomorrow = calender.date(byAdding: .day, value: 1, to: toDay)
+        return twomorrow!.timeIntervalSince(toDay)
     }
     
     // For Remove All local notification

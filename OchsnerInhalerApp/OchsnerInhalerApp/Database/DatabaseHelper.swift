@@ -120,28 +120,19 @@ class DatabaseManager {
                 if arrDevice.count != 0 {
                     device = arrDevice[0]
                     if device.udid == "" && object.udid != "" {
-                        device.mac = object.internalID
                         device.udid = object.udid
-                        device.email = UserDefaultManager.email
                     }
-                    
-                    device.reminder =  object.isReminder
-                    device.scheduledoses = object.arrTime.joined(separator: ",")
-                    device.puff = Int16(object.puffs)
-                    device.medname =  object.medication.medName
-                    device.medtypeid = Int16(object.medTypeID)
-                    
                 } else {
                     device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
-                    device.mac = object.internalID
                     device.udid = object.udid
-                    device.email = UserDefaultManager.email                    
-                    device.medtypeid = Int16(object.medTypeID)
-                    device.medname =  object.medication.medName
-                    device.reminder =  object.isReminder
-                    device.scheduledoses = object.arrTime.joined(separator: ",")
-                    device.puff = Int16(object.puffs)
                 }
+                device.email = UserDefaultManager.email
+                device.mac = object.internalID
+                device.reminder =  object.isReminder
+                device.scheduledoses = object.arrTime.joined(separator: ",")
+                device.puff = Int16(object.puffs)
+                device.medname =  object.medication.medName
+                device.medtypeid = Int16(object.medTypeID)
                 try context?.save()
             }
         } catch {
@@ -167,13 +158,13 @@ class DatabaseManager {
         }
         for obj in actuationLog {
             let log = obj
-            if let date = log.usedatelocal {
+//            if let date = log.usedatelocal {
 //                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
 //                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
 //                if logDate <= Date() && logDate >= pastDate {
                     usage.append(log.APILog())
 //                }
-            }
+//            }
         }
         return usage
     }
@@ -195,13 +186,13 @@ class DatabaseManager {
         }
         for obj in actuationLog {
             let log = obj
-            if let date = log.usedatelocal {
+//            if let date = log.usedatelocal {
 //                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
 //                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
 //                if logDate <= Date() && logDate >= pastDate {
                     usage.append(["Param": log.APIForSingle()])
 //                }
-            }
+//            }
         }
         return usage
     }

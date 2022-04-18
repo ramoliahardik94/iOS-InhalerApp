@@ -38,15 +38,12 @@ class HomeVC: BaseVC {
         self.navigationController?.isNavigationBarHidden = false
         initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
-        apiGetHomeData(notification: Notification(name: .DataSyncDone, object: nil, userInfo: nil))
+        apiDashboard()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
-        // TODO: For Notificaion status
-//        let notiVM = NotificationVM()
-//        notiVM.getStatusOfTodayDose()
-      
+        
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.isEmpty {
             Logger.logInfo("deviceuse: HomeVC :: BLEHelper.shared.connectedPeripheral.isEmpty")
@@ -59,7 +56,7 @@ class HomeVC: BaseVC {
                     BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
                 }
             CommonFunctions.getLogFromDeviceAndSync()
-        }        
+        }
     }
     
     private func  initUI() {
@@ -87,6 +84,7 @@ class HomeVC: BaseVC {
         let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
             if connectedDevice.count > 0 {
                 CommonFunctions.getLogFromDeviceAndSync()
+                apiDashboard()
             } else {
                 Logger.logInfo("Scan with HomeVC refresh")
                 BLEHelper.shared.scanPeripheral()
@@ -101,11 +99,19 @@ class HomeVC: BaseVC {
 
     @objc func apiGetHomeData(notification: Notification) {
        // CommonFunctions.showGlobalProgressHUD(self)
+        apiDashboard()
+    }
+    func apiDashboard(){
         homeVM.apiDashboardData {  [weak self] isSuccess in
             guard let`self` = self else { return }
          //   CommonFunctions.hideGlobalProgressHUD(self)
             switch isSuccess {
             case .success(let status):
+                
+                // TODO: For Notificaion status
+                let notiVM = NotificationVM()
+                notiVM.getStatusOfTodayDose()
+                
                 DispatchQueue.main.async {
                     print("Response sucess :\(status)")
                     if  self.homeVM.dashboardData.count == 0 {

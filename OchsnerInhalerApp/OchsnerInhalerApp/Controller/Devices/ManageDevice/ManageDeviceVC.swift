@@ -30,9 +30,6 @@ class ManageDeviceVC: BaseVC {
         super.viewDidAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
-        if self.manageDeviceVM.arrDevice.count == 0 {
-            apiCall()
-        }
         tbvData.reloadData()
         refresh(self)
     }
@@ -66,10 +63,6 @@ class ManageDeviceVC: BaseVC {
         tbvData.addSubview(refreshControl)
         tbvData.separatorStyle = .none
         btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
-        
-//        addDevicebtnHeight.constant = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice ? 0 : 50
-//        btnAddAnothDevice.isHidden = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).count == Constants.maximumDevice
-        apiCall()
     }
     
     @objc func refresh(_ sender: AnyObject) {
