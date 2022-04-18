@@ -107,11 +107,6 @@ class HomeVC: BaseVC {
          //   CommonFunctions.hideGlobalProgressHUD(self)
             switch isSuccess {
             case .success(let status):
-                
-                // TODO: For Notificaion status
-                let notiVM = NotificationVM()
-                notiVM.getStatusOfTodayDose()
-                
                 DispatchQueue.main.async {
                     print("Response sucess :\(status)")
                     if  self.homeVM.dashboardData.count == 0 {

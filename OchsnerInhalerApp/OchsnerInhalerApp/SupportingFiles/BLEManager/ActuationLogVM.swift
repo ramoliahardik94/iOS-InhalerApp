@@ -131,15 +131,20 @@ extension BLEHelper {
                     if (response as? [String: Any]) != nil {
                         self.isPullToRefresh = false
                         DatabaseManager.share.updateActuationLog(param)
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.async {                            
+                            // TODO: For Notificaion status
+                            let notiVM = NotificationVM()
+                            notiVM.getStatusOfTodayDose()
                             NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                         }
+                        
                         Logger.logInfo(ValidationMsg.successAcuation)
                         let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
                         if unSyncData.count > 0 {
                             Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
                             apiCallForActuationlog()
                         } else {
+                            
                             hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
                         }
                     }

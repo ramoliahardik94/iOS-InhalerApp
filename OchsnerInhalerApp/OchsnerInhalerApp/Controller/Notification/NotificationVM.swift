@@ -209,18 +209,18 @@ class NotificationVM {
                 print("Pending noti: \(obj.identifier)")
                 print("Pending noti: Contains \(mac).\(dose)")
                 if obj.identifier.contains("\(mac).\(dose)") {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [obj.identifier])
-                var graterDate =  dose.getDate(format: DateFormate.doseTime)
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [obj.identifier])
+                    var graterDate =  dose.getDate(format: DateFormate.doseTime)
                     let strgraterDate = graterDate.getString(format: DateFormate.doseTime12Hr)
                     graterDate =  strgraterDate.getDate(format: DateFormate.doseTime12Hr)
-                //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
-                var calendar = Calendar(identifier: .gregorian)
-                calendar.timeZone = .current
-                let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
-                let title = String(format: StringLocalNotifiaction.reminderBody, UserDefaultManager.username.trimmingCharacters(in: .whitespacesAndNewlines), medName, dose )
-
+                    //  let showDoesTime  = self.medicationVM.arrTime.last ?? ""
+                    var calendar = Calendar(identifier: .gregorian)
+                    calendar.timeZone = .current
+                    let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
+                    let title = String(format: StringLocalNotifiaction.reminderBody, UserDefaultManager.username.trimmingCharacters(in: .whitespacesAndNewlines), medName, dose )
+                    
                     NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: mac, isFromTomorrow: true, dose: dose)
-            }
+                }
             }
         })
     }
