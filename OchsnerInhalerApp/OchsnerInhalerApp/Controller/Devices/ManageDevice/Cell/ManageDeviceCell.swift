@@ -12,6 +12,7 @@ protocol ManageDeviceDelegate: AnyObject {
 }
 class ManageDeviceCell: UITableViewCell {
 
+    @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var lblDeviceType: UILabel!
     @IBOutlet weak var lblDeviceName: UILabel!
     @IBOutlet weak var lblNCDCode: UILabel!

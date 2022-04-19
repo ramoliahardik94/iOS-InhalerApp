@@ -41,7 +41,7 @@ class CreateAccountVM {
         } else if userData.lastName?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             CommonFunctions.showMessage(message: ValidationMsg.lName)
             isValid = false
-        } else if !(userData.email ?? "").isValidEmail {
+        } else if !(userData.email?.lowercased() ?? "").isValidEmail {
             CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
         } else if userData.password?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {

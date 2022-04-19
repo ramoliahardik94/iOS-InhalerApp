@@ -54,7 +54,7 @@ class LoginVM {
     func checkValidation() -> Bool {
         var isValid = true
         
-        if !(loginModel.email ?? "").isValidEmail {
+        if !(loginModel.email?.lowercased() ?? "").isValidEmail {
             CommonFunctions.showMessage(message: ValidationMsg.email)
             isValid = false
         } else if loginModel.password == "" {
@@ -65,9 +65,7 @@ class LoginVM {
     }
     
     func apiForgotPassword(completionHandler: @escaping ((APIResult) -> Void)) {
-        let url = "\(APIRouter.forgote.path)?emailAddress=\(loginModel.email ?? "")"
-        
-        
+        let url = "\(APIRouter.forgote.path)?emailAddress=\(loginModel.email?.lowercased() ?? "")"
         APIManager.shared.performRequest(route: url, parameters: [String: Any](), method: .post, isBasicAuth: true) { [weak self] error, response in
             guard self != nil else { return }
             if response == nil {

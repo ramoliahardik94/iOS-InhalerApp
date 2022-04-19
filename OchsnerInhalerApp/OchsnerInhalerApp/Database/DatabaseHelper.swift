@@ -335,6 +335,9 @@ class DatabaseManager {
                         for log in logs {
                             var date = log.usedatelocal!.getDate(format: DateFormate.useDateLocalAPI)
                             date.addTimeInterval(5)
+                            if date > Date() {
+                                log.isbadlog = true
+                            }
                             let useDatePlus5sec = date.getString(format: DateFormate.useDateLocalAPI)
                             log.usedatelocal = useDatePlus5sec
                             try context?.save()

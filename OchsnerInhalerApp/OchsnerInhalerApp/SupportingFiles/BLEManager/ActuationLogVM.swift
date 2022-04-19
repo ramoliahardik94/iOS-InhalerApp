@@ -125,18 +125,12 @@ extension BLEHelper {
         if param.count != 0 {
             Logger.logInfo(ValidationMsg.startSync)
             showDashboardStatus(msg: BLEStatusMsg.syncStart)
-            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] _, response in
+            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] error, response in
                 
                 if response != nil {
                     if (response as? [String: Any]) != nil {
                         self.isPullToRefresh = false
                         DatabaseManager.share.updateActuationLog(param)
-                        DispatchQueue.main.async {
-                            // TODO: For Notificaion status
-                            let notiVM = NotificationVM()
-                            notiVM.getStatusOfTodayDose()
-                            NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                        }
                         
                         Logger.logInfo(ValidationMsg.successAcuation)
                         let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
@@ -144,23 +138,33 @@ extension BLEHelper {
                             Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
                             apiCallForActuationlog()
                         } else {
+                            DispatchQueue.main.async {
+                                // TODO: For Notificaion status
+                                let notiVM = NotificationVM()
+                                notiVM.getStatusOfTodayDose()
+                                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                            }
                             hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
                         }
                     }
                 } else {
-                    Logger.logInfo(ValidationMsg.failAcuation)
-                    self.isPullToRefresh = false
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                    }
-                    if param.count == 1 {
-                        if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
-                            if arrUsage.count == 1 {
-                                DatabaseManager.share.updateActuationLogwithTimeAdd(param)
+                    if error?.statusCode == 500 {
+                        Logger.logInfo(ValidationMsg.failAcuation)
+                        self.isPullToRefresh = false
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                        }
+                        if param.count == 1 {
+                            if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
+                                if arrUsage.count == 1 {
+                                    DatabaseManager.share.updateActuationLogwithTimeAdd(param)
+                                }
                             }
                         }
+                        apiCallForActuationlog(isForSingle: true)
+                    } else {
+                        hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
                     }
-                    apiCallForActuationlog(isForSingle: true)
                 }
             }
         } else {

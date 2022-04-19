@@ -139,10 +139,11 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblDeviceType.text = indexPath.row == 0 ? "Rescue Devices" : ""
             cell.device = manageDeviceVM.arrRescue[indexPath.row]
         } else {
-            cell.lblDeviceType.text = indexPath.row == 0 ?  "Mantainance Devices" : ""
+            cell.lblDeviceType.text = indexPath.row == 0 ?  "Maintenance Devices" : ""
             cell.device = manageDeviceVM.arrMantainance[indexPath.row]
         }
         cell.viewTypeSaperator.isHidden = indexPath.row != 0
+        cell.headerHeight.constant = indexPath.row != 0 ? 0 : 35
         cell.delegate = self
         return cell
     }

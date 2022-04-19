@@ -124,7 +124,7 @@ class NotificationManager: NSObject {
         fromDate = "\(fromDate) \(dose)"
         let toDay = fromDate.getDate(format: "dd-MM-yyyy hh:mm a").addingTimeInterval(30*60)
         let twomorrow = calender.date(byAdding: .day, value: 1, to: toDay)
-        return twomorrow!.timeIntervalSince(toDay)
+        return twomorrow!.timeIntervalSince(Date())
     }
     
     // For Remove All local notification
@@ -137,7 +137,7 @@ class NotificationManager: NSObject {
             let arrDevice = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
             let arrScedule = arrDevice.filter({$0.scheduledoses != nil && $0.scheduledoses != ""})
             for objDevice in arrScedule {
-                Logger.logInfo("main device Obj \(objDevice.mac ?? "Blank")  ) == >> \(objDevice.scheduledoses) ")
+                Logger.logInfo("main device Obj \(objDevice.mac ?? "Blank")  ) == >> \(objDevice.scheduledoses ?? "") ")
                 if objDevice.reminder {
                     clearDeviceRemindersNotification(macAddress: objDevice.mac ?? "")
                     let arrDose = objDevice.scheduledoses?.components(separatedBy: ",")
