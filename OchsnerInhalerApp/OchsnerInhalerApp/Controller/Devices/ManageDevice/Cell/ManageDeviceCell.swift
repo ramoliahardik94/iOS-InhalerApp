@@ -7,11 +7,12 @@
 
 import UIKit
 protocol ManageDeviceDelegate: AnyObject {
-    func editDirection(index: Int)
-    func removeDevice(index: Int)
+    func editDirection(index: Int,section: Int)
+    func removeDevice(index: Int,section: Int)
 }
 class ManageDeviceCell: UITableViewCell {
 
+    @IBOutlet weak var lblDeviceType: UILabel!
     @IBOutlet weak var lblDeviceName: UILabel!
     @IBOutlet weak var lblNCDCode: UILabel!
     @IBOutlet weak var lblUsageLabel: UILabel!
@@ -26,6 +27,7 @@ class ManageDeviceCell: UITableViewCell {
     @IBOutlet weak var lblBettery: UILabel!
     @IBOutlet weak var lblBetteryTitle: UILabel!
     @IBOutlet weak var lblstatus: UILabel!
+    @IBOutlet weak var viewTypeSaperator: UIView!
     weak var delegate: ManageDeviceDelegate?
     
     var device = DeviceModel() {
@@ -69,6 +71,7 @@ class ManageDeviceCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        lblDeviceType.setFont(type: .semiBold, point: 20)
         lblDeviceName.setFont(type: .semiBold, point: 17)
         lblNCDCode.setFont(type: .regular, point: 17)
         lblUsageLabel.setFont(type: .regular, point: 17)
@@ -91,13 +94,13 @@ class ManageDeviceCell: UITableViewCell {
     
     @IBAction func btnEditDirection(sender: UIButton) {
         if delegate != nil {
-            delegate?.editDirection(index: sender.tag)
+            delegate?.editDirection(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)
         }
     }
     
     @IBAction func btnRemoveDevice(sender: UIButton) {
         if delegate != nil {
-            delegate?.removeDevice(index: sender.tag)
+            delegate?.removeDevice(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)
         }
     }
 }

@@ -115,47 +115,67 @@ class ManageDeviceVC: BaseVC {
     
 }
 extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return manageDeviceVM.arrDevice.count
+        if section == 0 {
+            return manageDeviceVM.arrRescue.count
+        } else {
+         return manageDeviceVM.arrMantainance.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCell, for: indexPath) as! ManageDeviceCell
         cell.selectionStyle = .none
         cell.btnRemoveDevice.tag = indexPath.row
+        cell.btnRemoveDevice.accessibilityValue = "\(indexPath.section)"
+      
         cell.btnEditDirection.tag = indexPath.row
-        cell.device = manageDeviceVM.arrDevice[indexPath.row]
+        cell.btnEditDirection.accessibilityValue = "\(indexPath.section)"
+        
+        if indexPath.section == 0 {
+            cell.lblDeviceType.text = indexPath.row == 0 ? "Rescue Devices" : ""
+            cell.device = manageDeviceVM.arrRescue[indexPath.row]
+        } else {
+            cell.lblDeviceType.text = indexPath.row == 0 ?  "Mantainance Devices" : ""
+            cell.device = manageDeviceVM.arrMantainance[indexPath.row]
+        }
+        cell.viewTypeSaperator.isHidden = indexPath.row != 0
         cell.delegate = self
         return cell
     }
 }
 
 extension ManageDeviceVC: ManageDeviceDelegate {
-
-    func editDirection(index: Int) {
+    func editDirection(index: Int, section: Int) {
+        
         Logger.logInfo("Edit Direction Click")
         let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         let medication = MedicationVM()
-        medication.selectedMedication = manageDeviceVM.arrDevice[index].medication
+        let device = section == 0 ? manageDeviceVM.arrRescue[index] : manageDeviceVM.arrMantainance[index]
+        medication.selectedMedication = device.medication
         medication.isEdit = true
-        medication.puff = manageDeviceVM.arrDevice[index].puffs
-        medication.arrTime = manageDeviceVM.arrDevice[index].arrTime
-        medication.macAddress = manageDeviceVM.arrDevice[index].internalID
+        medication.puff = device.puffs
+        medication.arrTime = device.arrTime
+        medication.macAddress = device.internalID
         medicationDetailVC.medicationVM = medication
         pushVC(controller: medicationDetailVC)
     }
     
-    func removeDevice(index: Int) {
+    func removeDevice(index: Int, section: Int) {
         // TODO: - Remove device api call
+        let device = section == 0 ? manageDeviceVM.arrRescue[index] : manageDeviceVM.arrMantainance[index]
         CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
             guard let `self` = self else { return }
             if isOk ?? false {
-                self.clearDeviceRemindersNotification(internalId: self.manageDeviceVM.arrDevice[index].internalID)
+                self.clearDeviceRemindersNotification(internalId: device.internalID)
                 Logger.logInfo("Remove Device Click")
-                let id = DatabaseManager.share.getUDID(mac: self.manageDeviceVM.arrDevice[index].internalID)
+                let id = DatabaseManager.share.getUDID(mac: device.internalID)
                 DatabaseManager.share.setRTCFor(udid: id, value: false)
-                self.apiCallOfRemoveDevice(index: index)
-                
+                let intArrDevice = self.manageDeviceVM.arrDevice.firstIndex(where: {$0.internalID == device.internalID})
+                self.apiCallOfRemoveDevice(index: intArrDevice ?? 0)
             }
         }
         
@@ -169,7 +189,6 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 print("Response sucess :\(status)")
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
-                    
                     if self.manageDeviceVM.arrDevice.count == 0 {
                         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                         addDeviceIntroVC.step = .step1
