@@ -31,15 +31,15 @@ class ManageDeviceVC: BaseVC {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         tbvData.reloadData()
-        refresh(self)
+        if self.manageDeviceVM.arrDevice.count == 0 {
+            refresh(self)
+        }
     }
     
     func apiCall() {
-        CommonFunctions.showGlobalProgressHUD(self)
         manageDeviceVM.apicallForGetDeviceList { [weak self] result in
-           
             guard let`self` = self else { return }
-            CommonFunctions.hideGlobalProgressHUD(self)
+            self.refreshControl.endRefreshing()
             switch result {
             case .success(let status):
                 print("Response sucess :\(status)")
@@ -79,7 +79,6 @@ class ManageDeviceVC: BaseVC {
         }
         tbvData.reloadData()
         apiCall()
-        refreshControl.endRefreshing()
     }
     
     @objc func inhalerConnected(notification: Notification) {

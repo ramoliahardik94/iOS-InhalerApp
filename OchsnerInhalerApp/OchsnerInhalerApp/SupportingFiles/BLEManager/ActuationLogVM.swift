@@ -17,10 +17,10 @@ extension BLEHelper {
         if logCounter >= connectedDevice.count {
             logCounter = 0
             Logger.logInfo("Last connected device data store to DB")
-            delay(5) {
+            delay(Constants.DelayActuationAPICall) {
                 Logger.logInfo("deviceuse: actuationAPI_LastActuation ")
                 self.apiCallForActuationlog()
-            }
+             }
         } else {
             Logger.logInfo("not last connected device data store to DB")
         }
@@ -63,7 +63,7 @@ extension BLEHelper {
                             discoverPeripheral.logCounter = 0
                             if discoverPeripheral.isFromNotification {
                                 Logger.logInfo("isFromNotification: \(discoverPeripheral.isFromNotification)")
-                                delay(5) {
+                                delay(Constants.DelayActuationAPICall) {
                                     self.apiCallForActuationlog(mac: discoverPeripheral.addressMAC)
                                     discoverPeripheral.isFromNotification = false
                                 }
@@ -163,6 +163,9 @@ extension BLEHelper {
                         }
                         apiCallForActuationlog(isForSingle: true)
                     } else {
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                        }
                         hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
                     }
                 }

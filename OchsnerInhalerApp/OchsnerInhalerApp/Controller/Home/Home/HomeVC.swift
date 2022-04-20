@@ -19,7 +19,7 @@ class HomeVC: BaseVC {
     private let itemCellDevice = "HomeDeviceCell"
     private var homeVM = HomeVM()
     var refreshControl = UIRefreshControl()
-    
+    var isPull = false
     var viewSelected: UIView {
         let view = UIView()
        // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
@@ -44,7 +44,6 @@ class HomeVC: BaseVC {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         
-        let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.isEmpty {
             Logger.logInfo("deviceuse: HomeVC :: BLEHelper.shared.connectedPeripheral.isEmpty")
             BLEHelper.shared.scanPeripheral()
@@ -79,15 +78,17 @@ class HomeVC: BaseVC {
        }
     
     @objc func refresh(_ sender: AnyObject) {
-        let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+        if !isPull {
+            isPull = true
+            let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
             if connectedDevice.count > 0 {
                 CommonFunctions.getLogFromDeviceAndSync()
-                apiDashboard()
             } else {
                 Logger.logInfo("Scan with HomeVC refresh")
                 BLEHelper.shared.scanPeripheral()
             }
-            self.refreshControl.endRefreshing()
+        }
+        self.refreshControl.endRefreshing()
     }
     
     @objc func  tapNotification () {
@@ -99,14 +100,13 @@ class HomeVC: BaseVC {
        // CommonFunctions.showGlobalProgressHUD(self)
         apiDashboard()
     }
-    func apiDashboard(){
+    func apiDashboard() {
         homeVM.apiDashboardData {  [weak self] isSuccess in
             guard let`self` = self else { return }
-         //   CommonFunctions.hideGlobalProgressHUD(self)
+            self.isPull = false         
             switch isSuccess {
             case .success(let status):
                 DispatchQueue.main.async {
-                    print("Response sucess :\(status)")
                     if  self.homeVM.dashboardData.count == 0 {
                         self.lblNoData.isHidden = false
                     } else {

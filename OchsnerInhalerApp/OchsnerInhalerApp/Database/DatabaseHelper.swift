@@ -134,6 +134,7 @@ class DatabaseManager {
                 device.medname =  object.medication.medName
                 device.medtypeid = Int16(object.medTypeID)
                 try context?.save()
+                Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
             }
         } catch {
             

@@ -109,7 +109,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                     connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
                     stopTimer()
-                    delay(isAddAnother ? 15 : 0) {
+                    delay(isAddAnother ? Constants.ScanningScreenDelay : 0) {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
                         }
@@ -150,7 +150,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
     }
-    ///This method is invoked when a connection initiated by {@link connectPeripheral:options:} has failed to complete. As connection attempts do not timeout, the failure of a connection is atypical and usually indicative of a transient issue.
+    /// This method is invoked when a connection initiated by {@link connectPeripheral:options:} has failed to complete. As connection attempts do not timeout, the failure of a connection is atypical and usually indicative of a transient issue.
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         self.stopTimer()
         Logger.logError("BLENotConnect With Fail \(error?.localizedDescription ?? "")")

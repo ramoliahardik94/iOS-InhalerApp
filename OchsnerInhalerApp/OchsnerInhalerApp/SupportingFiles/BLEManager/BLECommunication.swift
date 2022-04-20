@@ -17,11 +17,21 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
+        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+        let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
+        let arrUdid = device.map({UUID(uuidString: $0!)!})
+        let deviceWithUUID = centralManager.retrievePeripherals(withIdentifiers: arrUdid)
         
         if centralManager.state == .poweredOn {
+            for obj in deviceWithUUID {
+                if  connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == obj.identifier.uuidString }) == nil {
+                    connectedPeripheral.append(PeriperalType(peripheral: obj))
+                }
+            }
+            bleConnect()
             if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {                
                 if timer == nil || !timer.isValid {
-                    let time = isTimer ? 15.0 : 30.0
+                    let time = isTimer ? Constants.TimerScanAddtime : Constants.TimerScanAutoConnect
                     if !isTimer {
                         showDashboardStatus(msg: BLEStatusMsg.scanConnectBLE)
                     }
@@ -112,7 +122,7 @@ extension BLEHelper {
     
     /// once timer of sanning is finished this functio is called
     @objc func didFinishScan() {
-        isAddAnother ? Logger.logInfo("Scaning stop with 15 sec timer") : Logger.logInfo("Scaning stop with 30 sec timer")
+        isAddAnother ? Logger.logInfo("Scaning stop with \(Constants.TimerScanAddtime) sec timer") : Logger.logInfo("Scaning stop with \(Constants.TimerScanAutoConnect) sec timer")
         if isAddAnother {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLENotFound, object: nil)

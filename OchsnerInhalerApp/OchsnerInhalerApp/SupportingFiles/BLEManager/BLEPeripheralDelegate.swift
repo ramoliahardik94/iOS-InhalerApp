@@ -175,7 +175,7 @@ extension BLEHelper {
         }
         
         if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil {
-            delay(isAddAnother ? 15 : 0) {
+            delay(isAddAnother ? Constants.PairDialogDelay : 0) {
                 [weak self] in
                 guard let `self` = self else { return }
                 
