@@ -146,7 +146,7 @@ class MedicationDetailVC: BaseVC {
             if swReminder.isOn && UserDefaultManager.isNotificationOn {
                 addReminderToCalender()
             } else {
-                clearDeviceRemindersNotification()
+                NotificationManager.shared.clearDeviceRemindersNotification(macAddress: medicationVM.macAddress)
             }
             
             if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
@@ -264,7 +264,7 @@ class MedicationDetailVC: BaseVC {
     
     func addReminderToCalender() {
         if self.medicationVM.arrTime.count > 0 {
-            clearDeviceRemindersNotification()
+            NotificationManager.shared.clearDeviceRemindersNotification(macAddress: medicationVM.macAddress)
             for item in self.medicationVM.arrTime {                
                 var graterDate =  item.getDate(format: DateFormate.doseTime)
                 let strgraterDate = graterDate.getString(format: DateFormate.doseTime12Hr)
@@ -325,23 +325,6 @@ class MedicationDetailVC: BaseVC {
         }
         return true
     }
-    
-    private func clearDeviceRemindersNotification() {
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests(completionHandler: { requests in
-            let filterArray = requests.map({ (item) -> String in item.identifier })
-            let commonArray = filterArray.filter { item in
-                return item.contains("com.ochsner.inhalertrack.reminderdose\(self.medicationVM.macAddress)")
-            }
-            // print("filter Arrya \(filterArray)")
-            // Logger.logInfo(" Filter notification \(commonArray)")
-            
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: commonArray)
-            Logger.logInfo(" Remove notification \(commonArray)")
-            
-        })
-    }
-    
 }
 
 extension MedicationDetailVC: UITableViewDelegate, UITableViewDataSource {

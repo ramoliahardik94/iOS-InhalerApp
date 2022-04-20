@@ -130,6 +130,9 @@ extension BLEHelper {
         }
         if !isAddAnother && countOfScanDevice == 0 {
             hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+            }
         }
         isScanning = false
         self.stopTimer()
