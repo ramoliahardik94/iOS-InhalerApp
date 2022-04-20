@@ -82,22 +82,21 @@ class NotificationManager: NSObject {
         content.body =  titile
         content.sound = UNNotificationSound.default
         
-        
-        if isFromTomorrow {
-            let time = twomorowTimeInterval(dose: dose, calender: calendar)
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: true)
-            let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
-                
-                if let error = error {
-                    Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
-                } else {
-                    Logger.logInfo("Notification set for \(trigger)")
-                    Logger.logInfo("\(StringAddDevice.titleAddDevice)")
-                    Logger.logInfo("\(titile)")
-                }
-            })
-        } else {
+//        if isFromTomorrow {
+//            let time = twomorowTimeInterval(dose: dose, calender: calendar)
+//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: true)
+//            let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
+//            UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+//
+//                if let error = error {
+//                    Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
+//                } else {
+//                    Logger.logInfo("Notification set for \(trigger)")
+//                    Logger.logInfo("\(StringAddDevice.titleAddDevice)")
+//                    Logger.logInfo("\(titile)")
+//                }
+//            })
+//        } else {
             let components = calendar.dateComponents([.hour, .minute, .second], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
             
@@ -112,7 +111,7 @@ class NotificationManager: NSObject {
                     Logger.logInfo("\(titile)")
                 }
             })
-        }
+//        }
        
         // let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
      
