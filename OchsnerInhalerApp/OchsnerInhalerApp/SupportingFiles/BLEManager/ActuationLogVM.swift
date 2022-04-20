@@ -140,8 +140,8 @@ extension BLEHelper {
                         } else {
                             DispatchQueue.main.async {
                                 // TODO: For Notificaion status
-                                let notiVM = NotificationVM()
-                                notiVM.getStatusOfTodayDose()
+//                                let notiVM = NotificationVM()
+//                                notiVM.getStatusOfTodayDose()
                                 NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                             }
                             hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
