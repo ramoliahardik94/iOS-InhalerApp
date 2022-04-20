@@ -48,8 +48,6 @@ class HomeVC: BaseVC {
         if BLEHelper.shared.connectedPeripheral.isEmpty {
             Logger.logInfo("deviceuse: HomeVC :: BLEHelper.shared.connectedPeripheral.isEmpty")
             BLEHelper.shared.scanPeripheral()
-        } else if BLEHelper.shared.connectedPeripheral.count !=  deviceList.count {
-             BLEHelper.shared.scanPeripheral()
         } else {
              let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
                 for obj in disconnectedDevice {

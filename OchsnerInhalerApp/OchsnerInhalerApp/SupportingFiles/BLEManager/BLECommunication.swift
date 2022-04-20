@@ -129,7 +129,7 @@ extension BLEHelper {
     /// using this function user can stop scanning the periipheral
     func stopScanPeriphral() {
         if timer != nil {
-            Logger.logInfo("Scaning stop with device")
+            Logger.logInfo("Scaning stop with device number of device \(connectedPeripheral.count)")
         }
         centralManager.stopScan()
         DispatchQueue.main.async {  
