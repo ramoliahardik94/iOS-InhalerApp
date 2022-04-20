@@ -47,14 +47,14 @@ class UserModel: NSObject {
         var dic = [String: Any]()
         dic["FirstName"] = self.firstName
         dic["LastName"] = self.lastName
-        dic["EmailAddress"] = self.email
+        dic["EmailAddress"] = self.email?.lowercased()
         dic["Password"] = self.password
         return dic
     }
     
     func toDicForLogin() -> [String: Any] {
         var dic = [String: Any]()
-        dic["Email"] = self.email
+        dic["Email"] = self.email?.lowercased()
         dic["Password"] = self.password
         return dic
     }

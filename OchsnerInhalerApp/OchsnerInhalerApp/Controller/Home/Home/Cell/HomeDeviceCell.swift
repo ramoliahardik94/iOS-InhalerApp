@@ -83,7 +83,7 @@ class HomeDeviceCell: UITableViewCell {
                 let maxvalu = arrSorted.count > 0 ? arrSorted[0].denominator : 0
                 
                 heightStackView.constant = CGFloat((maxvalu ?? 0) * (24)) + 24
-                debugPrint(heightStackView.constant)
+                
                 for (index, obj) in item.dailyAdherence.enumerated() { // For Every column
                     viewCollectionView.isHidden = false
                     stackViewArray[index].removeFullyAllArrangedSubviews()

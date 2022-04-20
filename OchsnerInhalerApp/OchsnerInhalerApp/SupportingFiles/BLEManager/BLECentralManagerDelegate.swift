@@ -104,23 +104,20 @@ extension BLEHelper: CBCentralManagerDelegate {
                 let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
-                    Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
+                    Logger.logInfo("Found device for add device \(peripheral)")
                     uuid = peripheral.identifier.uuidString
                     connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
                     stopTimer()
-                    delay(isAddAnother ? 15 : 0) {
-                        Logger.logInfo("isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString})")
+                    delay(isAddAnother ? Constants.ScanningScreenDelay : 0) {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .BLEFound, object: nil)
                         }
                     }
                 } else {
-                    
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
-                        Logger.logInfo("device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString})")
+                        Logger.logInfo("Found device for auto connect \(peripheral)")
                         uuid = ""
-                        Logger.logInfo("Discovered in range \(String(describing: peripheral.name)) \(peripheral.identifier) at \(RSSI.intValue)")
                         let isContenits = connectedPeripheral.contains(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString})
                         if !isContenits {
                             connectedPeripheral.append(PeriperalType(peripheral: peripheral))
@@ -153,7 +150,7 @@ extension BLEHelper: CBCentralManagerDelegate {
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
     }
-    ///This method is invoked when a connection initiated by {@link connectPeripheral:options:} has failed to complete. As connection attempts do not timeout, the failure of a connection is atypical and usually indicative of a transient issue.
+    /// This method is invoked when a connection initiated by {@link connectPeripheral:options:} has failed to complete. As connection attempts do not timeout, the failure of a connection is atypical and usually indicative of a transient issue.
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         self.stopTimer()
         Logger.logError("BLENotConnect With Fail \(error?.localizedDescription ?? "")")

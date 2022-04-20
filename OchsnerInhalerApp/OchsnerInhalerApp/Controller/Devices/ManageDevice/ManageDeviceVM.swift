@@ -9,7 +9,8 @@ import Foundation
 
 class ManageDeviceVM {
     var arrDevice = [DeviceModel]()
-    
+    var arrRescue = [DeviceModel]()
+    var arrMantainance = [DeviceModel]()
     func apicallForGetDeviceList(completionHandler: @escaping ((APIResult) -> Void)) {
         APIManager.shared.performRequest(route: APIRouter.device.path, parameters: [String: Any](), method: .get, isAuth: true, showLoader: false) {[weak self] error, response in
             guard let `self` = self else { return }
@@ -22,6 +23,8 @@ class ManageDeviceVM {
                         self.arrDevice.append(DeviceModel(jSon: obj))                        
                         DatabaseManager.share.saveDevice(object: DeviceModel(jSon: obj))
                     }
+                    self.arrRescue = self.arrDevice.filter({$0.medTypeID == 1})
+                    self.arrMantainance = self.arrDevice.filter({$0.medTypeID == 2})
                     completionHandler(.success(true))
                 } else {
                     completionHandler(.failure(ValidationMsg.CommonError))
@@ -41,7 +44,10 @@ class ManageDeviceVM {
                     BLEHelper.shared.cleanup(peripheral: (peripheral.discoveredPeripheral!))
                     BLEHelper.shared.connectedPeripheral.removeAll(where: {$0.addressMAC == self.arrDevice[index].internalID})
                 }
+                
                 self.arrDevice.remove(at: index)
+                self.arrRescue = self.arrDevice.filter({$0.medTypeID == 1})
+                self.arrMantainance = self.arrDevice.filter({$0.medTypeID == 2})
                 completionHandler(.success(true))
             }
         }
