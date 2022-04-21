@@ -23,13 +23,15 @@ extension BLEHelper {
         let deviceWithUUID = centralManager.retrievePeripherals(withIdentifiers: arrUdid)
         
         if centralManager.state == .poweredOn {
-            for obj in deviceWithUUID {
-                if  connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == obj.identifier.uuidString }) == nil {
-                    connectedPeripheral.append(PeriperalType(peripheral: obj))
+            if !isAddAnother {
+                for obj in deviceWithUUID {
+                    if  connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == obj.identifier.uuidString }) == nil {
+                        connectedPeripheral.append(PeriperalType(peripheral: obj))
+                    }
                 }
+                bleConnect()
             }
-            bleConnect()
-            if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {                
+            if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? Constants.TimerScanAddtime : Constants.TimerScanAutoConnect
                     if !isTimer {
@@ -130,6 +132,9 @@ extension BLEHelper {
         }
         if !isAddAnother && countOfScanDevice == 0 {
             hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+            }
         }
         isScanning = false
         self.stopTimer()

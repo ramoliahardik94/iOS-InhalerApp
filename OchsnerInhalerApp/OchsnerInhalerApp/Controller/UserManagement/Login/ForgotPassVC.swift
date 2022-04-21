@@ -36,7 +36,7 @@ class ForgotPassVC: BaseVC {
     }
     
     @IBAction func btnForgotClick(_ sender: Any) {
-        if (txtEmail.text!.isValidEmail) {
+        if ((txtEmail.text?.lowercased().isValidEmail) != nil) {
             print(txtEmail.text!.lowercased().isValidEmail)
             login.loginModel.email = txtEmail.text
             login.apiForgotPassword(completionHandler: { [weak self] result in

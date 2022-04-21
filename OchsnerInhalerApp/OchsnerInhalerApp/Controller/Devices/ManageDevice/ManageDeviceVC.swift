@@ -170,7 +170,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
         CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
             guard let `self` = self else { return }
             if isOk ?? false {
-                self.clearDeviceRemindersNotification(internalId: device.internalID)
+                NotificationManager.shared.clearDeviceRemindersNotification(macAddress: device.internalID)
                 Logger.logInfo("Remove Device Click")
                 let id = DatabaseManager.share.getUDID(mac: device.internalID)
                 DatabaseManager.share.setRTCFor(udid: id, value: false)
@@ -204,18 +204,6 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 CommonFunctions.showMessage(message: message)
             }
         }
-    }
-    
-    private func clearDeviceRemindersNotification(internalId: String) {
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests(completionHandler: { requests in
-            let filterArray = requests.map({ (item) -> String in item.identifier })
-            let commonArray = filterArray.filter { item in
-                return item.contains("com.ochsner.inhalertrack.reminderdose\(internalId)")
-            }
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: commonArray)
-            Logger.logInfo(" Remove notification \(commonArray)")
-        })
     }
     
 }

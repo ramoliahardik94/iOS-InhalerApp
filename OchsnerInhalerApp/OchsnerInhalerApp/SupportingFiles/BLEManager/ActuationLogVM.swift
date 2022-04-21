@@ -92,7 +92,11 @@ extension BLEHelper {
                 } else {
                     self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
                 }
-            }
+        } else {
+            DispatchQueue.main.async {
+                CommonFunctions.showMessage(message: StringCommonMessages.noInternetConnection)
+            }               
+        }
     }
     
     /// use for get parameter from databse for sync data to *deviceuse* API
@@ -166,7 +170,7 @@ extension BLEHelper {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                         }
-                        hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
+                        hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
                     }
                 }
             }

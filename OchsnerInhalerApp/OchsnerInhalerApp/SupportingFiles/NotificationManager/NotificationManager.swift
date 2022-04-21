@@ -81,40 +81,21 @@ class NotificationManager: NSObject {
         content.title = StringAddDevice.titleAddDevice
         content.body =  titile
         content.sound = UNNotificationSound.default
+        let components = calendar.dateComponents([.hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         
-//        if isFromTomorrow {
-//            let time = twomorowTimeInterval(dose: dose, calender: calendar)
-//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: true)
-//            let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
-//            UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
-//
-//                if let error = error {
-//                    Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
-//                } else {
-//                    Logger.logInfo("Notification set for \(trigger)")
-//                    Logger.logInfo("\(StringAddDevice.titleAddDevice)")
-//                    Logger.logInfo("\(titile)")
-//                }
-//            })
-//        } else {
-            let components = calendar.dateComponents([.hour, .minute, .second], from: date)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             
-            let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose\(macAddress).\(dose)", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
-                
-                if let error = error {
-                    Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
-                } else {
-                    Logger.logInfo("Notification set for \(components)")
-                    Logger.logInfo("\(StringAddDevice.titleAddDevice)")
-                    Logger.logInfo("\(titile)")
-                }
-            })
-//        }
-       
-        // let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderdose", content: content, trigger: trigger)
-     
+            if let error = error {
+                Logger.logInfo("SOMETHING WENT WRONG Notification\(error.localizedDescription))")
+            } else {
+                Logger.logInfo("Notification set for \(components)")
+                Logger.logInfo("\(StringAddDevice.titleAddDevice)")
+                Logger.logInfo("\(titile)")
+            }
+        })
+        
     }
     
     func twomorowTimeInterval(dose: String, calender: Calendar) -> TimeInterval {
@@ -165,7 +146,7 @@ class NotificationManager: NSObject {
     center.getPendingNotificationRequests(completionHandler: { requests in
         let filterArray = requests.map({ (item) -> String in item.identifier })
         let commonArray = filterArray.filter { item in
-            return item.contains("com.ochsner.inhalertrack.reminderdose\(macAddress)")
+            return item.lowercased().contains(macAddress.lowercased())
         }
         print("filter Arrya \(filterArray)")
         // Logger.logInfo(" Filter notification \(commonArray)")
