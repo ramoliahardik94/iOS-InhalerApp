@@ -170,7 +170,7 @@ extension BLEHelper {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                         }
-                        hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
+                        hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
                     }
                 }
             }
