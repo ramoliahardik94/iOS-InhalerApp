@@ -201,7 +201,7 @@ struct StringAddDevice {
     static let scanningTakeTime = "\n\n This might take a few seconds. You will be redirected to the next screen once it is complete."
     static let paringTakeTime = "\n\n This might take some time to complete. Do not press Back or Cancel."
     static let pairScreenStringArray = ["Tap", " 3 times ", "on the device within", "\n5 seconds ", "then click \"Pair Device\"."]
-    static let skipFlowAdd = "Do you want to skip the Flow of add device?"
+    static let skipFlowAdd = " Do you want to Skip or Continue the pairing process?"
     static let skipbtn = "Skip"
     static let continuebtn = "Continue"
     static let noDevice = "Devices not added yet"
