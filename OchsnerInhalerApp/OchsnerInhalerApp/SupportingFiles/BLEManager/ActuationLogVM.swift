@@ -20,7 +20,7 @@ extension BLEHelper {
             delay(Constants.DelayActuationAPICall) {
                 Logger.logInfo("deviceuse: actuationAPI_LastActuation ")
                 self.apiCallForActuationlog()
-             }
+            }
         } else {
             Logger.logInfo("not last connected device data store to DB")
         }
@@ -53,25 +53,25 @@ extension BLEHelper {
                                               "udid": logPeripheralUUID as Any,
                                               "batterylevel": bettery as Any]
                     
-                        if mac != nil {
-                            DatabaseManager.share.saveActuation(object: dic)
-                        }
-                        if Decimal(discoverPeripheral.logCounter) >= discoverPeripheral.noOfLog {
-                            logCounter += 1
-                            Logger.logInfo("\(mac!) : logCounter >= noOfLog : \(Decimal(discoverPeripheral.logCounter)) >= \(discoverPeripheral.noOfLog)")
-                            discoverPeripheral.noOfLog = 0
-                            discoverPeripheral.logCounter = 0
-                            if discoverPeripheral.isFromNotification {
-                                Logger.logInfo("isFromNotification: \(discoverPeripheral.isFromNotification)")
-                                delay(Constants.DelayActuationAPICall) {
-                                    self.apiCallForActuationlog(mac: discoverPeripheral.addressMAC)
-                                    discoverPeripheral.isFromNotification = false
-                                }
-                               
-                            } else {
-                                actuationAPI_LastActuation()
+                    if mac != nil {
+                        DatabaseManager.share.saveActuation(object: dic)
+                    }
+                    if Decimal(discoverPeripheral.logCounter) >= discoverPeripheral.noOfLog {
+                        logCounter += 1
+                        Logger.logInfo("\(mac!) : logCounter >= noOfLog : \(Decimal(discoverPeripheral.logCounter)) >= \(discoverPeripheral.noOfLog)")
+                        discoverPeripheral.noOfLog = 0
+                        discoverPeripheral.logCounter = 0
+                        if discoverPeripheral.isFromNotification {
+                            Logger.logInfo("isFromNotification: \(discoverPeripheral.isFromNotification)")
+                            delay(Constants.DelayActuationAPICall) {
+                                self.apiCallForActuationlog(mac: discoverPeripheral.addressMAC)
+                                discoverPeripheral.isFromNotification = false
                             }
+                            
+                        } else {
+                            actuationAPI_LastActuation()
                         }
+                    }
                 } else {
                     Logger.logError("Invalid Date \(isoDate ?? "date") with Formate \(DateFormate.dateFromLog)")
                 }
@@ -80,6 +80,7 @@ extension BLEHelper {
     }
     
     func apiCallForActuationlog(mac: String = "", isForSingle: Bool = false) {
+<<<<<<< HEAD
       
             Logger.logInfo("apiCallForActuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
                 if isForSingle {
@@ -92,6 +93,20 @@ extension BLEHelper {
                 } else {
                     self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
                 }
+=======
+        
+        Logger.logInfo("apiCallForActuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
+        if isForSingle {
+            let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
+            if unSyncData.count > 0 {
+                let obj = unSyncData[0]
+                guard let param = obj["Param"] as? [[String: Any]] else { return }
+                self.apiCallDeviceUsage(param: param)
+            }
+        } else {
+            self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
+        }
+>>>>>>> origin/QA-Release-V-1-0-9
         
     }
     
