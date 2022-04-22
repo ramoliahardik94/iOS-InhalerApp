@@ -165,10 +165,12 @@ extension BLEHelper: CBCentralManagerDelegate {
         if !isAddAnother && UserDefaultManager.isLogin {
             Logger.logInfo("Scan with didDisconnectPeripheral \(peripheral)")
             scanPeripheral(isTimer: false)
+        } else {
+            self.stopTimer()
+            self.cleanup(peripheral: peripheral)
+            isScanning = false
         }
-        self.stopTimer()
-        self.cleanup(peripheral: peripheral)
-        isScanning = false
+        
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         DispatchQueue.main.async {
             Logger.logInfo("BLEDisconnect,BLEChange notification fire")

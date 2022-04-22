@@ -53,9 +53,10 @@ class DatabaseManager {
             
             actuationLog.longitude = (object["long"] as! String)
             actuationLog.latitude = (object["lat"] as! String)
-            actuationLog.deviceidmac = ( object["mac"] as! String)
+            let macId = (object["mac"] as! String).trimmingCharacters(in: .whitespacesAndNewlines) == "" ? self.getMac(UDID: (object["udid"] as! String)) : (object["mac"] as! String)
+            actuationLog.deviceidmac = macId
             actuationLog.deviceuuid = (object["udid"] as! String)
-            actuationLog.batterylevel = Double(object["batterylevel"] as! String)!
+            actuationLog.batterylevel = Double(object["batterylevel"] as! String)! == 0 ? 10.0 : Double(object["batterylevel"] as! String)!
             actuationLog.uselength = Double("\(object["useLength"]!)")!
             actuationLog.devicesyncdateutc = Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true)
             try context?.save()

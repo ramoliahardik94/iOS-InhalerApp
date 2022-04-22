@@ -21,15 +21,14 @@ extension BLEHelper {
         let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
         let arrUdid = device.map({UUID(uuidString: $0!)!})
         let deviceWithUUID = centralManager.retrievePeripherals(withIdentifiers: arrUdid)
-        
+        let disconnectedDevice = deviceWithUUID.filter({$0.state != .connected})
         if centralManager.state == .poweredOn {
             if !isAddAnother {
-                for obj in deviceWithUUID {
+                for obj in disconnectedDevice {
                     if  connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == obj.identifier.uuidString }) == nil {
                         connectedPeripheral.append(PeriperalType(peripheral: obj))
                     }
                 }
-                bleConnect()
             }
             if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {
                 if timer == nil || !timer.isValid {
