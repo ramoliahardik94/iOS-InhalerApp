@@ -170,8 +170,8 @@ extension BLEHelper {
                         } else {
                             DispatchQueue.main.async {
                                 if (UIApplication.topViewController() as? HomeVC) != nil {
-                                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                            }
+                                    NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                                }
                             }
                             hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
                         }
