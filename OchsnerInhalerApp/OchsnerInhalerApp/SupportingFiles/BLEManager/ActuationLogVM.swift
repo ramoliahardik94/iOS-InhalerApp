@@ -80,7 +80,7 @@ extension BLEHelper {
     }
     
     func apiCallForActuationlog(mac: String = "", isForSingle: Bool = false) {
-        if APIManager.isConnectedToNetwork {
+      
             Logger.logInfo("apiCallForActuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
                 if isForSingle {
                     let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
@@ -92,11 +92,7 @@ extension BLEHelper {
                 } else {
                     self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
                 }
-        } else {
-            DispatchQueue.main.async {
-                CommonFunctions.showMessage(message: StringCommonMessages.noInternetConnection)
-            }               
-        }
+        
     }
     
     /// use for get parameter from databse for sync data to *deviceuse* API
@@ -127,58 +123,72 @@ extension BLEHelper {
         print(param)
         let param = param
         if param.count != 0 {
-            Logger.logInfo(ValidationMsg.startSync)
-            showDashboardStatus(msg: BLEStatusMsg.syncStart)
-            APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] error, response in
-                
-                if response != nil {
-                    if (response as? [String: Any]) != nil {
-                        self.isPullToRefresh = false
-                        DatabaseManager.share.updateActuationLog(param)
-                        
-                        Logger.logInfo(ValidationMsg.successAcuation)
-                        let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
-                        if unSyncData.count > 0 {
-                            Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
-                            apiCallForActuationlog()
-                        } else {
-                            DispatchQueue.main.async {
-                                // TODO: For Notificaion status
-                                let notiVM = NotificationVM()
-                                notiVM.getStatusOfTodayDose()
-                                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+            if APIManager.isConnectedToNetwork {
+                Logger.logInfo(ValidationMsg.startSync)
+                showDashboardStatus(msg: BLEStatusMsg.syncStart)
+                APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] error, response in
+                    
+                    if response != nil {
+                        if (response as? [String: Any]) != nil {
+                            self.isPullToRefresh = false
+                            DatabaseManager.share.updateActuationLog(param)
+                            
+                            Logger.logInfo(ValidationMsg.successAcuation)
+                            let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
+                            if unSyncData.count > 0 {
+                                Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
+                                apiCallForActuationlog()
+                            } else {
+                                DispatchQueue.main.async {
+                                    // TODO: For Notificaion status
+                                    let notiVM = NotificationVM()
+                                    notiVM.getStatusOfTodayDose()
+                                    if let topVC = UIApplication.topViewController() as? HomeVC {
+                                        NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                                    }
+                                }
+                                hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
                             }
-                            hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
                         }
-                    }
-                } else {
-                    if error?.statusCode == 500 {
-                        Logger.logInfo(ValidationMsg.failAcuation)
-                        self.isPullToRefresh = false
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                        }
-                        if param.count == 1 {
-                            if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
-                                if arrUsage.count == 1 {
-                                    DatabaseManager.share.updateActuationLogwithTimeAdd(param)
+                    } else {
+                        if error?.statusCode == 500 {
+                            Logger.logInfo(ValidationMsg.failAcuation)
+                            self.isPullToRefresh = false
+                            DispatchQueue.main.async {
+                                if (UIApplication.topViewController() as? HomeVC) != nil {
+                                    NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                                 }
                             }
+                            if param.count == 1 {
+                                if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
+                                    if arrUsage.count == 1 {
+                                        DatabaseManager.share.updateActuationLogwithTimeAdd(param)
+                                    }
+                                }
+                            }
+                            apiCallForActuationlog(isForSingle: true)
+                        } else {
+                            DispatchQueue.main.async {
+                                if (UIApplication.topViewController() as? HomeVC) != nil {
+                                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                            }
+                            }
+                            hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
                         }
-                        apiCallForActuationlog(isForSingle: true)
-                    } else {
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                        }
-                        hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
                     }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    CommonFunctions.showMessage(message: StringCommonMessages.noInternetConnection)
                 }
             }
         } else {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
             hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                if (UIApplication.topViewController() as? HomeVC) != nil {
+                    NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                }
             }
         }
     }

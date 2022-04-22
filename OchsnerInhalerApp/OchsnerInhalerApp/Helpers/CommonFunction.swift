@@ -35,7 +35,7 @@ open class CommonFunctions {
     }
 
     // MARK: - Alert
-    public class func showMessageYesNo(message: String, cancelTitle: String = "Cancel", okTitle: String = "Ok", _ completion: @escaping ((Bool?) -> Void ) = { _ in  }) {
+    public class func showMessageYesNo(message: String, cancelTitle: String = "Cancel", okTitle: String = "Ok", _ completion: @escaping ((Bool) -> Void ) = { _ in  }) {
         let alert = UIAlertController(title: (message), message: "", preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: cancelTitle, style: .default, handler: {_ in

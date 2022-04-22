@@ -335,7 +335,7 @@ class DatabaseManager {
                         let logs = try context?.fetch(fetchRequest) as! [AcuationLog]
                         for log in logs {
                             var date = log.usedatelocal!.getDate(format: DateFormate.useDateLocalAPI)
-                            date.addTimeInterval(5)
+                            date.addTimeInterval(TimeInterval(sec))
                             if date > Date() {
                                 log.isbadlog = true
                             }

@@ -38,11 +38,11 @@ class HomeVC: BaseVC {
         self.navigationController?.isNavigationBarHidden = false
         initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
-        apiDashboard()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        self.navigationController?.isNavigationBarHidden = false
         
         if BLEHelper.shared.connectedPeripheral.isEmpty {
             Logger.logInfo("deviceuse: HomeVC :: BLEHelper.shared.connectedPeripheral.isEmpty")
@@ -54,11 +54,13 @@ class HomeVC: BaseVC {
                 }
             CommonFunctions.getLogFromDeviceAndSync()
         }
+        apiDashboard()
     }
     
     private func  initUI() {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         initTableview()
+        lblNoData.setFont()
         lblNoData.text = StringCommonMessages.noDataFount
         lblNoData.isHidden = true
         syncView.backgroundColor = .ButtonColorBlue

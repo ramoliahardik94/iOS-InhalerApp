@@ -177,20 +177,6 @@ extension BLEHelper: CBCentralManagerDelegate {
         }
     }
     
-    func addAnotherDevice() {
-        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        addDeviceIntroVC.step = .step1
-        addDeviceIntroVC.isFromAddAnother  = true
-        addDeviceIntroVC.isFromDeviceList  = true
-        BLEHelper.shared.isAddAnother = true
-        DispatchQueue.main.async {
-            if let topVC =  UIApplication.topViewController() {
-                topVC.navigationController?.pushViewController(addDeviceIntroVC, animated: true)
-            }
-            
-        }
-    }
-    
     /// For apps that opt-in to state preservation and restoration, this is the first method invoked when your app is relaunched into the background to complete some Bluetooth-related task. Use this method to synchronize your app's state with the state of the Bluetooth system.
     
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {

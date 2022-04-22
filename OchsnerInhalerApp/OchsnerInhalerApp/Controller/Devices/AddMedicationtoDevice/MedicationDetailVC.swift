@@ -155,14 +155,15 @@ class MedicationDetailVC: BaseVC {
                     switch result {
                     case .success(let status):
                         print("Response sucess :\(status)")
-                        UserDefaultManager.isAddReminder = self.swReminder.isOn                      
-                        if self.isFromDeviceList {
-                            self.navigationController?.popToRootViewController(animated: true)
-                        } else if !self.medicationVM.isEdit {
+                        UserDefaultManager.isAddReminder = self.swReminder.isOn
+                        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+                        if devicelist.count == 1 && !self.medicationVM.isEdit {
                             self.medicationVM.selectedMedication.uuid = (BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral?.identifier.uuidString) ?? ""
                             UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
                             let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                             self.pushVC(controller: addAnotherDeviceVC)
+                        }else if self.isFromDeviceList {
+                            self.navigationController?.popToRootViewController(animated: true)
                         } else {
                             self.popVC()
                         }

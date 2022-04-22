@@ -81,6 +81,7 @@ class AddDeviceIntroVC: BaseVC {
                 .normal(StringAddDevice.removeAndDiscard)
                 .chanageColorString(StringAddDevice.infoCharecter)
                 .normalSmall(StringAddDevice.deviceNearBy)
+//                .normalSmall(StringAddDevice.scanningTakeTime)
             lbldeviceInfo.attributedText = attributedString
             BLEHelper.shared.isAddAnother = true
             paringLoader.isHidden = true
@@ -90,7 +91,7 @@ class AddDeviceIntroVC: BaseVC {
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerFound(notification:)), name: .BLEFound, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotFound(notification:)), name: .BLENotFound, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
+           
                       
         case .step4:
             lblGreat.text = StringAddDevice.connectDevice
@@ -99,9 +100,7 @@ class AddDeviceIntroVC: BaseVC {
             imgAddDevice.image = advTimeGif
             lblAddDevice.isHidden  = true
             NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
-            NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
-            
+            NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)            
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLENotConnect, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
@@ -113,6 +112,7 @@ class AddDeviceIntroVC: BaseVC {
                 .normal(StringAddDevice.pairScreenStringArray[2])
                 .bold(StringAddDevice.pairScreenStringArray[3])
                 .normal(StringAddDevice.pairScreenStringArray[4])
+                //.normalSmall(StringAddDevice.paringTakeTime)
             lbldeviceInfo.attributedText = attributedString
             
            // lbldeviceInfo.text = StringAddDevice.pairScreen
@@ -142,7 +142,7 @@ class AddDeviceIntroVC: BaseVC {
     }
     
     func setVC() {
-        btnBack.isHidden = !isFromAddAnother
+//        btnBack.isHidden = !isFromAddAnother
         lbldeviceInfo.font = UIFont(name: AppFont.AppRegularFont, size: 17)
         lblGreat.font = UIFont(name: AppFont.AppBoldFont, size: 34)
         lblAddDevice.font = UIFont(name: AppFont.AppBoldFont, size: 34)
@@ -162,8 +162,42 @@ class AddDeviceIntroVC: BaseVC {
     }
    // MARK: - IBActions related Functions
     @IBAction func btnBackClick(_ sender: Any) {
-        popVC()
+        if step == .step1 {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+            homeTabBar.selectedIndex = 1
+            DispatchQueue.main.async {
+                self.rootVC(controller: homeTabBar)
+            }
+        } else if BLEHelper.shared.isScanning {
+            BLEHelper.shared.isScanning = false
+            BLEHelper.shared.stopTimer()
+            BLEHelper.shared.stopScanPeriphral()
+            popVC()
+        } else if let index = BLEHelper.shared.connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == BLEHelper.shared.uuid}) {
+            let peripheral = BLEHelper.shared.connectedPeripheral[index].discoveredPeripheral!
+            if  btnStartSetUp.titleLabel?.text == StringAddDevice.pairingDevice  || step == .step5 {
+                
+                CommonFunctions.showMessageYesNo(message: StringAddDevice.skipFlowAdd, cancelTitle: StringAddDevice.continuebtn, okTitle: StringAddDevice.skipbtn) { [weak self] isYes in
+                    if isYes {
+                        guard let `self` = self else { return }
+                        NotificationCenter.default.removeObserver(self, name: .BLEDisconnect, object: nil)
+                        BLEHelper.shared.cleanup(peripheral: peripheral)
+                        BLEHelper.shared.connectedPeripheral.remove(at: index)
+                        self.movetoDashboard()
+                    }
+                }
+            } else {
+                if step == .step4 {
+                    BLEHelper.shared.connectedPeripheral.remove(at: index)
+                }
+                popVC()
+            }
+        } else {
+            popVC()
+        }
     }
+    
     
     @IBAction func btnNextClick(_ sender: UIButton) {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -179,13 +213,18 @@ class AddDeviceIntroVC: BaseVC {
             addDeviceIntroVC.isFromDeviceList = isFromDeviceList
             pushVC(controller: addDeviceIntroVC)
         case .step3:
-                Logger.logInfo("Scan with Scan button")
                 BLEHelper.shared.scanPeripheral(isTimer: true)
                 btnStartSetUp.setButtonView(StringAddDevice.scanningDevice)
                 btnStartSetUp.isEnabled = false
                 btnStartSetUp.backgroundColor = .ButtonColorBlue
                 paringLoader.isHidden = false
                 paringLoader.startAnimating()
+            let attributedString = NSMutableAttributedString()
+                .normal(StringAddDevice.removeAndDiscard)
+                .chanageColorString(StringAddDevice.infoCharecter)
+                .normalSmall(StringAddDevice.deviceNearBy)
+                .normalSmall(StringAddDevice.scanningTakeTime)
+            lbldeviceInfo.attributedText = attributedString
         case .step4:
             BLEHelper.shared.stopTimer()
             BLEHelper.shared.connectPeriPheral(peripheral: BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral!)
@@ -194,6 +233,14 @@ class AddDeviceIntroVC: BaseVC {
             btnStartSetUp.setButtonView(StringAddDevice.pairingDevice)
             btnStartSetUp.isEnabled = false
             btnStartSetUp.backgroundColor = .ButtonColorBlue
+            let attributedString = NSMutableAttributedString()
+                .normal(StringAddDevice.pairScreenStringArray[0])
+                .bold(StringAddDevice.pairScreenStringArray[1])
+                .normal(StringAddDevice.pairScreenStringArray[2])
+                .bold(StringAddDevice.pairScreenStringArray[3])
+                .normal(StringAddDevice.pairScreenStringArray[4])
+                .normalSmall(StringAddDevice.paringTakeTime)
+            lbldeviceInfo.attributedText = attributedString
         case .step5:
             addDeviceIntroVC.step = .step6
             addDeviceIntroVC.isFromAddAnother = isFromAddAnother
@@ -205,7 +252,7 @@ class AddDeviceIntroVC: BaseVC {
             if isFromDeviceList {
                 pushVC(controller: medicationVC)
             } else {
-                rootVC(controller: medicationVC)
+                pushVC(controller: medicationVC)
             }
             
         }
@@ -224,10 +271,6 @@ class AddDeviceIntroVC: BaseVC {
 extension AddDeviceIntroVC {
     @objc func inhalerFound(notification: Notification) {
         
-//        btnStartSetUp.setButtonView(StringAddDevice.next)
-//        btnStartSetUp.isEnabled = true
-//        btnStartSetUp.backgroundColor = .ButtonColorBlue
-//        lbldeviceInfo.text = StringAddDevice.scanInstructionTwo //        btnStartSetUp.setButtonView(StringAddDevice.pairDevice)
         NotificationCenter.default.removeObserver(self, name: .BLEFound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLENotFound, object: nil)
         paringLoader.isHidden = true
@@ -247,13 +290,20 @@ extension AddDeviceIntroVC {
             btnStartSetUp.backgroundColor = .gray
             paringLoader.stopAnimating()
             paringLoader.isHidden = true
-            CommonFunctions.showMessage(message: ValidationMsg.bleNotPair, titleOk: ValidationButton.tryAgain) { [weak self] _ in
-                BLEHelper.shared.connectPeriPheral(peripheral: BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral!)
-                guard let weakSelf = self else { return }
-                weakSelf.paringLoader.isHidden = false
-                weakSelf.paringLoader.startAnimating()
-                weakSelf.btnStartSetUp.isEnabled = false
-                weakSelf.btnStartSetUp.backgroundColor = .ButtonColorBlue
+            CommonFunctions.showMessageYesNo(message: ValidationMsg.bleNotPair, okTitle: ValidationButton.tryAgain) { [weak self] isContinue in
+                guard let `self` = self else { return }
+                if isContinue {
+                    BLEHelper.shared.connectPeriPheral(peripheral: BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral!)
+                    self.paringLoader.isHidden = false
+                    self.paringLoader.startAnimating()
+                    self.btnStartSetUp.isEnabled = false
+                    self.btnStartSetUp.backgroundColor = .ButtonColorBlue
+                } else {
+                    if let index = BLEHelper.shared.connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == BLEHelper.shared.uuid}) {
+                        BLEHelper.shared.connectedPeripheral.remove(at: index)
+                    }
+                    self  .movetoDashboard()
+                }
             }
             
         } else if self.step == .step3 {
@@ -265,9 +315,13 @@ extension AddDeviceIntroVC {
         btnStartSetUp.backgroundColor = .gray
         paringLoader.stopAnimating()
         paringLoader.isHidden = true
-        CommonFunctions.showMessage(message: ValidationMsg.bleNotfound, titleOk: ValidationButton.tryAgain) { [weak self] _ in
+        CommonFunctions.showMessageYesNo(message: ValidationMsg.bleNotfound, okTitle: ValidationButton.tryAgain) { [weak self] isContinue in
             guard let `self` = self else { return }
-            self.scanBLE()
+            if isContinue {
+                self.scanBLE()
+            } else {
+                self.movetoDashboard()
+            }
         }
         
     }
@@ -284,5 +338,20 @@ extension AddDeviceIntroVC {
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
         addDeviceIntroVC.isFromDeviceList = isFromDeviceList
         pushVC(controller: addDeviceIntroVC)
+    }
+    
+    func movetoDashboard() {
+        if self.isFromDeviceList {
+            self.navigationController?.popToRootViewController(animated: true)
+        } else {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+            rootVC(controller: homeTabBar)
+            let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+            if deviceList.count == 0 {
+            homeTabBar.selectedIndex = 1
+            }
+            self.rootVC(controller: homeTabBar)
+        }
     }
 }

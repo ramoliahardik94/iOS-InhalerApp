@@ -81,15 +81,26 @@ class CustomSplashVC: BaseVC {
             if isAllow && self.isTime {
                 Logger.logInfo("getisAllow > If > isAllow = \(isAllow) && isTime = \(self.isTime) ")
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
+                //                if devicelist.count == 0 {
+                //                let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                //                    self.rootVC(controller: addDeviceIntroVC)
+                //                } else {
+                //                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                //                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                //                    DispatchQueue.main.async {
+                //                        self.rootVC(controller: homeTabBar)
+                //                    }
+                //                }
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                
                 if devicelist.count == 0 {
-                let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    self.rootVC(controller: addDeviceIntroVC)
-                } else {                    
-                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                    DispatchQueue.main.async {
-                        self.rootVC(controller: homeTabBar)
-                    }
+                    homeTabBar.selectedIndex = 1
+                } else {
+                    homeTabBar.selectedIndex = 0
+                }
+                DispatchQueue.main.async {
+                    self.rootVC(controller: homeTabBar)
                 }
             } else {
                 DispatchQueue.global(qos: .userInteractive).sync {

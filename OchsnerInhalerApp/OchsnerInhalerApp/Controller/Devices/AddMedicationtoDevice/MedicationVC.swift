@@ -99,11 +99,15 @@ class MedicationVC: BaseVC {
                     switch result {
                     case .success(let status):
                         print("Response sucess :\(status)")
-                        if self.isFromDeviceList {
-                            self.navigationController?.popToRootViewController(animated: true)
+                        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+                        if devicelist.count == 1 && !self.medicationVM.isEdit {
+                            self.medicationVM.selectedMedication.uuid = (BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral?.identifier.uuidString) ?? ""
+                            UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
+                            let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                            self.pushVC(controller: addAnotherDeviceVC)
+                            
                         } else {
-                        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                        self.pushVC(controller: addAnotherDeviceVC)
+                            self.navigationController?.popToRootViewController(animated: true)
                         }
                     case .failure(let message):
                         CommonFunctions.showMessage(message: message)
@@ -123,7 +127,10 @@ class MedicationVC: BaseVC {
             CommonFunctions.showMessage(message: ValidationMsg.medication)
         }
     }
-
+    @IBAction func btnBackClick(_ sender: Any) {
+        self.popVC()
+    }
+    
   
 
 }

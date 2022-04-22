@@ -190,6 +190,7 @@ extension BLEHelper {
                             self.countOfScanDevice = 0
                             let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
                             if bleDevice.count > 0 {
+                                Logger.logInfo("Log get After Connect All device")
                                 CommonFunctions.getLogFromDeviceAndSync()
                             } else {
                                 self.hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
