@@ -80,21 +80,6 @@ extension BLEHelper {
     }
     
     func apiCallForActuationlog(mac: String = "", isForSingle: Bool = false) {
-<<<<<<< HEAD
-      
-            Logger.logInfo("apiCallForActuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
-                if isForSingle {
-                    let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
-                    if unSyncData.count > 0 {
-                        let obj = unSyncData[0]
-                        guard let param = obj["Param"] as? [[String: Any]] else { return }
-                        self.apiCallDeviceUsage(param: param)
-                    }
-                } else {
-                    self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
-                }
-=======
-        
         Logger.logInfo("apiCallForActuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
         if isForSingle {
             let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
@@ -106,7 +91,6 @@ extension BLEHelper {
         } else {
             self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
         }
->>>>>>> origin/QA-Release-V-1-0-9
         
     }
     
@@ -158,7 +142,7 @@ extension BLEHelper {
                                     // TODO: For Notificaion status
                                     let notiVM = NotificationVM()
                                     notiVM.getStatusOfTodayDose()
-                                    if let topVC = UIApplication.topViewController() as? HomeVC {
+                                    if (UIApplication.topViewController() as? HomeVC) != nil {
                                         NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                                     }
                                 }
@@ -188,19 +172,21 @@ extension BLEHelper {
                                     NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                                 }
                             }
-                            hideDashboardStatus(msg: error?.message ?? BLEStatusMsg.syncFailNoData)
+                            Logger.logInfo("Sync Fail : \(error?.statusCode ?? 0) :: \(error?.message ?? "")")
+                            hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
                         }
                     }
                 }
             } else {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [self] in
                     CommonFunctions.showMessage(message: StringCommonMessages.noInternetConnection)
+                    hideDashboardStatus(msg: StringCommonMessages.noInternetConnection)
                 }
             }
         } else {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
-            hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
+                hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
                 if (UIApplication.topViewController() as? HomeVC) != nil {
                     NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                 }
