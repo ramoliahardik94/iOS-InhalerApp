@@ -105,7 +105,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                     Logger.logInfo("Found device for add device \(peripheral)")
-                    uuid = peripheral.identifier.uuidString
+                    newDeviceId = peripheral.identifier.uuidString
                     connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
                     stopTimer()
@@ -117,7 +117,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 } else {
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         Logger.logInfo("Found device for auto connect \(peripheral)")
-                        uuid = ""
+                        newDeviceId = ""
                         let isContenits = connectedPeripheral.contains(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString})
                         if !isContenits {
                             connectedPeripheral.append(PeriperalType(peripheral: peripheral))
@@ -165,29 +165,17 @@ extension BLEHelper: CBCentralManagerDelegate {
         if !isAddAnother && UserDefaultManager.isLogin {
             Logger.logInfo("Scan with didDisconnectPeripheral \(peripheral)")
             scanPeripheral(isTimer: false)
+        } else {
+            self.stopTimer()
+            self.cleanup(peripheral: peripheral)
+            isScanning = false
         }
-        self.stopTimer()
-        self.cleanup(peripheral: peripheral)
-        isScanning = false
+        
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         DispatchQueue.main.async {
             Logger.logInfo("BLEDisconnect,BLEChange notification fire")
             NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
             NotificationCenter.default.post(name: .BLEChange, object: nil)
-        }
-    }
-    
-    func addAnotherDevice() {
-        let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        addDeviceIntroVC.step = .step1
-        addDeviceIntroVC.isFromAddAnother  = true
-        addDeviceIntroVC.isFromDeviceList  = true
-        BLEHelper.shared.isAddAnother = true
-        DispatchQueue.main.async {
-            if let topVC =  UIApplication.topViewController() {
-                topVC.navigationController?.pushViewController(addDeviceIntroVC, animated: true)
-            }
-            
         }
     }
     

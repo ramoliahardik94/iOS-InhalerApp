@@ -80,7 +80,6 @@ extension BLEHelper {
     }
     
     func apiCallForActuationlog(mac: String = "", isForSingle: Bool = false) {
-        
         Logger.logInfo("apiCallForActuationlog(isForSingle: \(isForSingle) ,mac: \(mac))")
         if isForSingle {
             let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
@@ -126,7 +125,6 @@ extension BLEHelper {
             if APIManager.isConnectedToNetwork {
                 Logger.logInfo(ValidationMsg.startSync)
                 showDashboardStatus(msg: BLEStatusMsg.syncStart)
-                
                 APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] error, response in
                     
                     if response != nil {
@@ -135,53 +133,63 @@ extension BLEHelper {
                             DatabaseManager.share.updateActuationLog(param)
                             
                             Logger.logInfo(ValidationMsg.successAcuation)
-                            let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
-                            if unSyncData.count > 0 {
-                                Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
-                                apiCallForActuationlog()
-                            } else {
-                                DispatchQueue.main.async {
-                                    // TODO: For Notificaion status
-                                    let notiVM = NotificationVM()
-                                    notiVM.getStatusOfTodayDose()
+                            //                            let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
+                            //                            if unSyncData.count > 0 {
+                            //                                Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
+                            //                                apiCallForActuationlog()
+                            //                            } else {
+                            DispatchQueue.main.async {
+                                // TODO: For Notificaion status
+                                let notiVM = NotificationVM()
+                                notiVM.getStatusOfTodayDose()
+                                if (UIApplication.topViewController() as? HomeVC) != nil {
                                     NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                                 }
                                 hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
                             }
+//                        }
                         }
                     } else {
-                        if error?.statusCode == 500 {
-                            Logger.logInfo(ValidationMsg.failAcuation)
-                            self.isPullToRefresh = false
-                            DispatchQueue.main.async {
+                        /* if error?.statusCode == 500 {
+                         Logger.logInfo(ValidationMsg.failAcuation)
+                         self.isPullToRefresh = false
+                         DispatchQueue.main.async {
+                         if (UIApplication.topViewController() as? HomeVC) != nil {
+                         NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                         }
+                         }
+                         if param.count == 1 {
+                         if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
+                         if arrUsage.count == 1 {
+                         DatabaseManager.share.updateActuationLogwithTimeAdd(param)
+                         }
+                         }
+                         }
+                         apiCallForActuationlog(isForSingle: true)
+                         } else {*/
+                        DispatchQueue.main.async {
+                            if (UIApplication.topViewController() as? HomeVC) != nil {
                                 NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                             }
-                            if param.count == 1 {
-                                if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
-                                    if arrUsage.count == 1 {
-                                        DatabaseManager.share.updateActuationLogwithTimeAdd(param)
-                                    }
-                                }
-                            }
-                            apiCallForActuationlog(isForSingle: true)
-                        } else {
-                            DispatchQueue.main.async {
-                                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                            }
-                            hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
+                            Logger.logInfo("Sync Fail : \(error?.statusCode ?? 0) :: \(error?.message ?? "")")
+                            hideDashboardStatus(msg: BLEStatusMsg.syncFailApi, colorBG: .ColorHomeIconRed)
                         }
+                        // }
                     }
                 }
-            }else {
-                DispatchQueue.main.async {
+            } else {
+                DispatchQueue.main.async { [self] in
                     CommonFunctions.showMessage(message: StringCommonMessages.noInternetConnection)
+                    hideDashboardStatus(msg: StringCommonMessages.noInternetConnection)
                 }
             }
-        }else {
+        } else {
             Logger.logInfo(ValidationMsg.startSyncCloudNo)
-            hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+            DispatchQueue.main.async { [self] in
+                hideDashboardStatus(msg: BLEStatusMsg.syncFailNoData)
+                if (UIApplication.topViewController() as? HomeVC) != nil {
+                    NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                }
             }
         }
     }
@@ -198,12 +206,12 @@ extension BLEHelper {
             }
         }
     }
-    func hideDashboardStatus(msg: String) {
+    func hideDashboardStatus(msg: String,colorBG: UIColor = .ButtonColorGreen) {
         DispatchQueue.main.async {
             if let dashboard = UIApplication.topViewController() as? HomeVC {
                 // CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!, text: ValidationMsg.syncLoader)
                 dashboard.lblSyncTitle.text = msg
-                dashboard.syncView.backgroundColor = .ButtonColorGreen
+                dashboard.syncView.backgroundColor = colorBG
                 dashboard.activitySync.stopAnimating()
                 dashboard.syncView.alpha = 1
                 delay(2) {

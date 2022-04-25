@@ -9,6 +9,7 @@ import UIKit
 
 
 class ManageDeviceVC: BaseVC {
+    @IBOutlet weak var lblNodata: UILabel!
     @IBOutlet weak var tbvData: UITableView!
     private let itemCell = CellIdentifier.manageDeviceCell
     var manageDeviceVM = ManageDeviceVM()
@@ -45,6 +46,8 @@ class ManageDeviceVC: BaseVC {
                 print("Response sucess :\(status)")
                 DispatchQueue.main.async {
                     self.tbvData.reloadData()
+                    self.tbvData.isHidden = self.manageDeviceVM.arrDevice.count == 0
+                    self.lblNodata.isHidden = self.manageDeviceVM.arrDevice.count > 0
                 }
             case .failure(let message):
                 CommonFunctions.showMessage(message: message)
@@ -62,23 +65,29 @@ class ManageDeviceVC: BaseVC {
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tbvData.addSubview(refreshControl)
         tbvData.separatorStyle = .none
-        btnAddAnothDevice.setButtonView(StringDevices.addAnotherDevice)
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        btnAddAnothDevice.setButtonView(device.count != 0 ? StringDevices.addAnotherDevice : StringDevices.addDevice)
     }
     
     @objc func refresh(_ sender: AnyObject) {
-       // Code to refresh table view
+        // Code to refresh table view
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.count !=  device.count {
             Logger.logInfo("Scan with ManageDeviceVC refresh")
             BLEHelper.shared.scanPeripheral()
         } else {
-             let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
-                for obj in disconnectedDevice {                    
-                    BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
-                }
+            let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
+            for obj in disconnectedDevice {
+                BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
+            }
         }
         tbvData.reloadData()
         apiCall()
+        lblNodata.setFont()
+        lblNodata.text = StringAddDevice.noDevice
+        self.tbvData.isHidden = device.count == 0
+        self.lblNodata.isHidden = device.count > 0
+        
     }
     
     @objc func inhalerConnected(notification: Notification) {
@@ -93,6 +102,7 @@ class ManageDeviceVC: BaseVC {
     
     @objc func medicationUpdate(notification: Notification) {
         apiCall()
+        
     }
     
     // MARK: -
@@ -100,6 +110,7 @@ class ManageDeviceVC: BaseVC {
         Logger.logInfo("Add Another Device Click")
         BLEHelper.shared.stopTimer()
         BLEHelper.shared.stopScanPeriphral()
+        BLEHelper.shared.newDeviceId = ""
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true
@@ -121,7 +132,7 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return manageDeviceVM.arrRescue.count
         } else {
-         return manageDeviceVM.arrMantainance.count
+            return manageDeviceVM.arrMantainance.count
         }
     }
     
@@ -130,7 +141,7 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         cell.btnRemoveDevice.tag = indexPath.row
         cell.btnRemoveDevice.accessibilityValue = "\(indexPath.section)"
-      
+        
         cell.btnEditDirection.tag = indexPath.row
         cell.btnEditDirection.accessibilityValue = "\(indexPath.section)"
         

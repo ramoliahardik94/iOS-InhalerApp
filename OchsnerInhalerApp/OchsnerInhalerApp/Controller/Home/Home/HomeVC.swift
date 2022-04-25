@@ -38,11 +38,11 @@ class HomeVC: BaseVC {
         self.navigationController?.isNavigationBarHidden = false
         initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
-        apiDashboard()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        self.navigationController?.isNavigationBarHidden = false
         
         if BLEHelper.shared.connectedPeripheral.isEmpty {
             Logger.logInfo("deviceuse: HomeVC :: BLEHelper.shared.connectedPeripheral.isEmpty")
@@ -54,11 +54,13 @@ class HomeVC: BaseVC {
                 }
             CommonFunctions.getLogFromDeviceAndSync()
         }
+        apiDashboard()
     }
     
     private func  initUI() {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         initTableview()
+        lblNoData.setFont()
         lblNoData.text = StringCommonMessages.noDataFount
         lblNoData.isHidden = true
         syncView.backgroundColor = .ButtonColorBlue
@@ -78,15 +80,13 @@ class HomeVC: BaseVC {
        }
     
     @objc func refresh(_ sender: AnyObject) {
-        if !isPull {
-            isPull = true
-            let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
-            if connectedDevice.count > 0 {
-                CommonFunctions.getLogFromDeviceAndSync()
-            } else {
-                Logger.logInfo("Scan with HomeVC refresh")
-                BLEHelper.shared.scanPeripheral()
-            }
+        
+        let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+        if connectedDevice.count > 0 {
+            CommonFunctions.getLogFromDeviceAndSync()
+        } else {
+            Logger.logInfo("Scan with HomeVC refresh")
+            BLEHelper.shared.scanPeripheral()
         }
         self.refreshControl.endRefreshing()
     }
@@ -101,22 +101,25 @@ class HomeVC: BaseVC {
         apiDashboard()
     }
     func apiDashboard() {
-        homeVM.apiDashboardData {  [weak self] isSuccess in
-            guard let`self` = self else { return }
-            self.isPull = false         
-            switch isSuccess {
-            case .success(let status):
-                DispatchQueue.main.async {
-                    if  self.homeVM.dashboardData.count == 0 {
-                        self.lblNoData.isHidden = false
-                    } else {
-                        self.lblNoData.isHidden = true
+        if isPull == false {
+            isPull = true
+            homeVM.apiDashboardData {  [weak self] isSuccess in
+                guard let`self` = self else { return }
+                self.isPull = false
+                switch isSuccess {
+                case .success (_):
+                    DispatchQueue.main.async {
+                        if  self.homeVM.dashboardData.count == 0 {
+                            self.lblNoData.isHidden = false
+                        } else {
+                            self.lblNoData.isHidden = true
+                        }
+                        self.tbvDeviceData.reloadData()
                     }
-                    self.tbvDeviceData.reloadData()
-                }
-            case .failure(let message):
-                DispatchQueue.main.async {
-                    CommonFunctions.showMessage(message: message)
+                case .failure(let message):
+                    DispatchQueue.main.async {
+                        CommonFunctions.showMessage(message: message)
+                    }
                 }
             }
         }

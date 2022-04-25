@@ -25,7 +25,7 @@ class MedicationVC: BaseVC {
         super.viewDidLoad()
         self.setUp()
         // Do any additional setup after loading the view.
-        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         BLEHelper.shared.getmacAddress(peripheral: discoverPeripheral)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         self.getMedication()
@@ -99,11 +99,15 @@ class MedicationVC: BaseVC {
                     switch result {
                     case .success(let status):
                         print("Response sucess :\(status)")
-                        if self.isFromDeviceList {
-                            self.navigationController?.popToRootViewController(animated: true)
+                        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+                        if devicelist.count == 1 && !self.medicationVM.isEdit {
+                            self.medicationVM.selectedMedication.uuid = (BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral?.identifier.uuidString) ?? ""
+                            UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
+                            let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                            self.pushVC(controller: addAnotherDeviceVC)
+                            
                         } else {
-                        let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                        self.pushVC(controller: addAnotherDeviceVC)
+                            self.navigationController?.popToRootViewController(animated: true)
                         }
                     case .failure(let message):
                         CommonFunctions.showMessage(message: message)
@@ -123,7 +127,10 @@ class MedicationVC: BaseVC {
             CommonFunctions.showMessage(message: ValidationMsg.medication)
         }
     }
-
+    @IBAction func btnBackClick(_ sender: Any) {
+        self.popVC()
+    }
+    
   
 
 }

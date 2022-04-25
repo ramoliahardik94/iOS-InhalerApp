@@ -462,11 +462,25 @@
                                     <constraint firstItem="4Hq-Td-efc" firstAttribute="top" secondItem="aqj-lD-JOs" secondAttribute="bottom" constant="10" id="r1E-v2-Sc1"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0N-qk-SQf">
+                                <rect key="frame" x="10" y="44" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="5R7-dH-RBd"/>
+                                    <constraint firstAttribute="width" constant="40" id="8JR-mc-QL1"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ic_back_arrow_white"/>
+                                <connections>
+                                    <action selector="btnBackClick:" destination="P8A-u3-Uo3" eventType="touchUpInside" id="dxH-Ry-waZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AQz-hP-rg1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9Pn-hn-wvY" firstAttribute="top" secondItem="AQz-hP-rg1" secondAttribute="top" id="94G-6y-ZIS"/>
+                            <constraint firstItem="U0N-qk-SQf" firstAttribute="leading" secondItem="AQz-hP-rg1" secondAttribute="leading" constant="10" id="Rmi-hK-90F"/>
+                            <constraint firstItem="U0N-qk-SQf" firstAttribute="top" secondItem="AQz-hP-rg1" secondAttribute="top" id="eUK-dG-dCP"/>
                             <constraint firstItem="9Pn-hn-wvY" firstAttribute="leading" secondItem="AQz-hP-rg1" secondAttribute="leading" id="gjE-lR-gBz"/>
                             <constraint firstItem="AQz-hP-rg1" firstAttribute="trailing" secondItem="9Pn-hn-wvY" secondAttribute="trailing" id="gqt-c7-zud"/>
                             <constraint firstItem="AQz-hP-rg1" firstAttribute="bottom" secondItem="9Pn-hn-wvY" secondAttribute="bottom" id="tbY-Y9-EFI"/>

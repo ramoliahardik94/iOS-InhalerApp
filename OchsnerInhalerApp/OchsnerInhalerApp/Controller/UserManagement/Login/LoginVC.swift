@@ -104,6 +104,16 @@ class LoginVC: BaseVC {
                 if isAllow {
                     let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
+//                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+//                    if devicelist.count == 0 {
+//                        homeTabBar.selectedIndex = 1
+//                    } else {
+//                        homeTabBar.selectedIndex = 0
+//                    }
+//                     DispatchQueue.main.async {
+//                         self.rootVC(controller: homeTabBar)
+//                     }
                 }
             }
         } else {

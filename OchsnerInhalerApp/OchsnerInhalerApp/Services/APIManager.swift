@@ -31,7 +31,7 @@ class APIManager {
     typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, textLoader: String = "", completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, textLoader: String = "", isCommonMsg:Bool = false, completion: ResponseBlock?) -> DataRequest? {
         
         if !APIManager.isConnectedToNetwork {
             completion?(RuntimeError(StringCommonMessages.noInternetConnection), nil)
@@ -101,9 +101,11 @@ class APIManager {
                 case .success:
                     if let data = response.value as? [String: Any] {
                         if let message = data["error"] as? String {
-                            completion?(RuntimeError(message, statusCode!), nil)
+                            
+                            completion?(RuntimeError(isCommonMsg ? ValidationMsg.CommonError : message, statusCode!), nil)
+                                
                         } else if let message = data["Error"] as? String {
-                            completion?(RuntimeError(message, statusCode!), nil)
+                            completion?(RuntimeError(isCommonMsg ? ValidationMsg.CommonError : message, statusCode!), nil)
                         }
                     } else {
                         completion?(RuntimeError(""), nil)

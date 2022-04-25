@@ -10,10 +10,10 @@ class Constants: NSObject {
     static let ScreenWidth  =  UIScreen.main.bounds.size.width
     static let ScreenHeight =  UIScreen.main.bounds.size.height
     
-    static let DelayActuationAPICall =  2.0
+    static let DelayActuationAPICall =  5.0
     static let TimerScanAddtime =  15.0
     static let TimerScanAutoConnect =  30.0
-    static let ScanningScreenDelay = 15.0
+    static let ScanningScreenDelay = 10.0
     static let PairDialogDelay = 15.0
     
     
@@ -42,7 +42,7 @@ enum FontType {
 }
 enum AddDeviceSteps {
     case step1 // "Add Device"
-    case step2 // "Remove battery Isolation tag"
+    case step2 // "Remove battery Isolation tag" step2 and step3 both are now combilde
     case step3 // "scan Device"
     case step4 // "Pair Device"
     case step5 // "Mount device to inhaler"

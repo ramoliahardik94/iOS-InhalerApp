@@ -53,13 +53,8 @@ class OchsnerCloudPermissionVC: BaseVC {
         // MARK: Actions
     @IBAction func tapShare(_ sender: UIButton) {
         
-        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)
-       // let vc = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        let connectProviderVC = ConnectProviderVC.instantiateFromAppStoryboard(appStoryboard: .providers)   
         pushVC(controller: connectProviderVC)
-        
-//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-//        pushVC(vc: vc)
     }
     
     @IBAction func tapSkip(_ sender: UIButton) {
