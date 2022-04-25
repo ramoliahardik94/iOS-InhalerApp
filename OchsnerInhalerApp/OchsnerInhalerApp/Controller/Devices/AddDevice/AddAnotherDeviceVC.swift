@@ -47,6 +47,7 @@ class AddAnotherDeviceVC: BaseVC {
     @IBAction func btnAnotherDeviceClick(_ sender: Any) {
         
         if let addDeviceIntroVC = self.navigationController?.viewControllers.first(where: {$0 is AddDeviceIntroVC})  as? AddDeviceIntroVC {
+            BLEHelper.shared.newDeviceId = ""
             addDeviceIntroVC.step = .step1
             addDeviceIntroVC.isFromAddAnother  = true
             self.navigationController?.popToViewController(addDeviceIntroVC, animated: false)
@@ -67,4 +68,4 @@ class AddAnotherDeviceVC: BaseVC {
      }
      */
     
-}
+}  

@@ -42,7 +42,7 @@ class BLEHelper: NSObject {
     var centralManager: CBCentralManager = CBCentralManager()
     var connectedPeripheral: [PeriperalType] = [PeriperalType]()
     var isScanning = false
-    var uuid: String = ""
+    var newDeviceId: String = ""
     var completionHandler: (Bool) -> Void = {_ in }
     var isAllow = false
     var timer: Timer!

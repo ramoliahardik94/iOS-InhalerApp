@@ -110,6 +110,7 @@ class ManageDeviceVC: BaseVC {
         Logger.logInfo("Add Another Device Click")
         BLEHelper.shared.stopTimer()
         BLEHelper.shared.stopScanPeriphral()
+        BLEHelper.shared.newDeviceId = ""
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         addDeviceIntroVC.step = .step1
         addDeviceIntroVC.isFromAddAnother  = true

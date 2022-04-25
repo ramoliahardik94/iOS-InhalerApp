@@ -112,7 +112,7 @@ class AddDeviceIntroVC: BaseVC {
                 .normal(StringAddDevice.pairScreenStringArray[2])
                 .bold(StringAddDevice.pairScreenStringArray[3])
                 .normal(StringAddDevice.pairScreenStringArray[4])
-                //.normalSmall(StringAddDevice.paringTakeTime)
+                // .normalSmall(StringAddDevice.paringTakeTime)
             lbldeviceInfo.attributedText = attributedString
             
            // lbldeviceInfo.text = StringAddDevice.pairScreen
@@ -169,22 +169,34 @@ class AddDeviceIntroVC: BaseVC {
             DispatchQueue.main.async {
                 self.rootVC(controller: homeTabBar)
             }
-        } else if BLEHelper.shared.isScanning {
+        } else if BLEHelper.shared.isScanning  || self.step == .step3 {
+            if let index = BLEHelper.shared.connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == BLEHelper.shared.newDeviceId}) {
+                BLEHelper.shared.connectedPeripheral.remove(at: index)
+            }
             BLEHelper.shared.isScanning = false
             BLEHelper.shared.stopTimer()
             BLEHelper.shared.stopScanPeriphral()
             popVC()
-        } else if let index = BLEHelper.shared.connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == BLEHelper.shared.uuid}) {
+        } else if let index = BLEHelper.shared.connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == BLEHelper.shared.newDeviceId}) {
             let peripheral = BLEHelper.shared.connectedPeripheral[index].discoveredPeripheral!
             if  btnStartSetUp.titleLabel?.text == StringAddDevice.pairingDevice  || step == .step5 {
-                
+                if step == .step4 {
+                    NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
+                    NotificationCenter.default.removeObserver(self, name: .BLEDisconnect, object: nil)
+                }                
                 CommonFunctions.showMessageYesNo(message: StringAddDevice.skipFlowAdd, cancelTitle: StringAddDevice.continuebtn, okTitle: StringAddDevice.skipbtn) { [weak self] isYes in
+                    guard let `self` = self else { return }
                     if isYes {
-                        guard let `self` = self else { return }
                         NotificationCenter.default.removeObserver(self, name: .BLEDisconnect, object: nil)
                         BLEHelper.shared.cleanup(peripheral: peripheral)
                         BLEHelper.shared.connectedPeripheral.remove(at: index)
                         self.movetoDashboard()
+                    } else {
+                        if self.step == .step4 {
+                            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLENotConnect, object: nil)
+                            NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerNotConnect(notification:)), name: .BLEDisconnect, object: nil)
+                            BLEHelper.shared.connectPeriPheral(peripheral: peripheral)
+                        }
                     }
                 }
             } else {
@@ -299,7 +311,7 @@ extension AddDeviceIntroVC {
                     self.btnStartSetUp.isEnabled = false
                     self.btnStartSetUp.backgroundColor = .ButtonColorBlue
                 } else {
-                    if let index = BLEHelper.shared.connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == BLEHelper.shared.uuid}) {
+                    if let index = BLEHelper.shared.connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == BLEHelper.shared.newDeviceId}) {
                         BLEHelper.shared.connectedPeripheral.remove(at: index)
                     }
                     self  .movetoDashboard()
@@ -331,8 +343,8 @@ extension AddDeviceIntroVC {
         NotificationCenter.default.removeObserver(self, name: .BLENotConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: .BLEConnect, object: nil)
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
-        BLEHelper.shared.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
+        guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+//        BLEHelper.shared.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
         BLEHelper.shared.getBetteryLevel(peripheral: discoverPeripheral)
         addDeviceIntroVC.step = .step5
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother

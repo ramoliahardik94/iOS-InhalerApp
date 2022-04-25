@@ -105,7 +105,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 
                 if isAddAnother && !device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                     Logger.logInfo("Found device for add device \(peripheral)")
-                    uuid = peripheral.identifier.uuidString
+                    newDeviceId = peripheral.identifier.uuidString
                     connectedPeripheral.append(PeriperalType(peripheral: peripheral))
                     stopScanPeriphral()
                     stopTimer()
@@ -117,7 +117,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 } else {
                     if device.count > 0 && device.contains(where: {$0 == peripheral.identifier.uuidString}) {
                         Logger.logInfo("Found device for auto connect \(peripheral)")
-                        uuid = ""
+                        newDeviceId = ""
                         let isContenits = connectedPeripheral.contains(where: {$0.discoveredPeripheral!.identifier.uuidString == peripheral.identifier.uuidString})
                         if !isContenits {
                             connectedPeripheral.append(PeriperalType(peripheral: peripheral))

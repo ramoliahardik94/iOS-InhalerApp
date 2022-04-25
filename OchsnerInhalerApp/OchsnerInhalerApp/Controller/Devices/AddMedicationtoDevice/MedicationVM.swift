@@ -65,7 +65,7 @@ class MedicationVM {
                     if (response as? [String: Any]) != nil {
                         NotificationCenter.default.post(name: .medUpdate, object: nil)
                         BLEHelper.shared.isAddAnother = false                        
-                        guard let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.uuid == $0.discoveredPeripheral?.identifier.uuidString}) else {
+                        guard let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) else {
                             completionHandler(.success(true))
                             return
                         }

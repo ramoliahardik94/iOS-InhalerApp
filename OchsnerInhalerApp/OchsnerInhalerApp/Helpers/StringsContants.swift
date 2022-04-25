@@ -119,6 +119,7 @@ struct BLEStatusMsg {
     static let featchDataFromDevice = "Fetching Data..."
     static let syncStart = "Data Sync Inprogress..."
     static let syncFailNoData = "No Data to Sync."
+    static let syncFailApi = "Something went wrong."
     static let syncSuccess = "Data Sync Successful."
     static let noDeviceFound = "No Device Nearby."
 }
@@ -204,7 +205,7 @@ struct StringAddDevice {
     static let skipFlowAdd = " Do you want to Skip or Continue the pairing process?"
     static let skipbtn = "Skip"
     static let continuebtn = "Continue"
-    static let noDevice = "Devices not added yet"
+    static let noDevice = "No Devices Added"
 }
 // MARK: Medication
 struct StringMedication {
