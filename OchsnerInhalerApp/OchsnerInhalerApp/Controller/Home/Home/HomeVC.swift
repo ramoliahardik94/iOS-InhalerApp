@@ -36,18 +36,19 @@ class HomeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        initUI()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         self.navigationController?.isNavigationBarHidden = false
-        
-        if BLEHelper.shared.connectedPeripheral.isEmpty {
+        initUI()
+        let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if BLEHelper.shared.connectedPeripheral.isEmpty  && deviceList.count != 0 {
             Logger.logInfo("deviceuse: HomeVC :: BLEHelper.shared.connectedPeripheral.isEmpty")
             BLEHelper.shared.scanPeripheral()
-        } else {
+        } else if !BLEHelper.shared.connectedPeripheral.isEmpty {
              let disconnectedDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state != .connected})
                 for obj in disconnectedDevice {
                     BLEHelper.shared.connectPeriPheral(peripheral: obj.discoveredPeripheral!)
@@ -71,6 +72,10 @@ class HomeVC: BaseVC {
         self.view.setNeedsLayout()
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.tag = 500
+        if let view = tbvDeviceData.viewWithTag(500) {
+            view.removeFromSuperview()
+        }
         tbvDeviceData.addSubview(refreshControl)
         let nib = UINib(nibName: itemCellDevice, bundle: nil)
         tbvDeviceData.register(nib, forCellReuseIdentifier: itemCellDevice)
@@ -80,21 +85,21 @@ class HomeVC: BaseVC {
        }
     
     @objc func refresh(_ sender: AnyObject) {
-        
+        let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
         if connectedDevice.count > 0 {
             CommonFunctions.getLogFromDeviceAndSync()
-        } else {
+        } else if BLEHelper.shared.connectedPeripheral.isEmpty  && deviceList.count != 0 {
             Logger.logInfo("Scan with HomeVC refresh")
             BLEHelper.shared.scanPeripheral()
+        } else {
+            self.refreshControl.endRefreshing()
         }
+        
         self.refreshControl.endRefreshing()
     }
     
-    @objc func  tapNotification () {
-        let notificationVC  = NotificationVC.instantiateFromAppStoryboard(appStoryboard: .main)       
-        self.pushVC(controller: notificationVC)
-    }
+
 
     @objc func apiGetHomeData(notification: Notification) {
        // CommonFunctions.showGlobalProgressHUD(self)

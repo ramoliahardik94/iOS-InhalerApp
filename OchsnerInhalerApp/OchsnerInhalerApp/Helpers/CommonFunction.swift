@@ -23,7 +23,7 @@ open class CommonFunctions {
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
     public class func getLogFromDeviceAndSync() {
-        let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+       let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
         if bleDevice.count > 0  && BLEHelper.shared.logCounter == 0 {
             for  discoverPeripheral in bleDevice {
                 BLEHelper.shared.getActuationNumber(peripheral: discoverPeripheral)
@@ -31,6 +31,7 @@ open class CommonFunctions {
         } else {
             Logger.logInfo("deviceuse: getLogFromDeviceAndSync ")
             BLEHelper.shared.apiCallForActuationlog()
+            BLEHelper.shared.logCounter = 0
         }
     }
 

@@ -44,10 +44,21 @@ class DatabaseManager {
             actuationLog.uselength = Double("\(object["useLength"]!)") ?? 0.0
             
             if let date = object["date"] as? String {
-                let logDate = date.getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)
+                let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
+                // Specify date components
+                var dateComponents = DateComponents()
+                dateComponents.year = 2021
+                dateComponents.month = 12
+                dateComponents.day = 31
+                dateComponents.timeZone = .current
+                dateComponents.hour = 0
+                dateComponents.minute = 0
+                let someDateTime = Calendar.current.date(from: dateComponents)
+                let minDate = someDateTime!.getString(format: DateFormate.useDateLocalAPI, isUTC: false)
                 
-                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-                actuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare, isUTC: false).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
+                actuationLog.isbadlog = (date > maxDate || date < minDate)
+                
+//                actuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
                 actuationLog.usedatelocal = date
             }
             
@@ -160,13 +171,23 @@ class DatabaseManager {
         }
         for obj in actuationLog {
             let log = obj
-//            if let date = log.usedatelocal {
-//                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
-//                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-//                if logDate <= Date() && logDate >= pastDate {
+            
+            let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
+            // Specify date components
+            var dateComponents = DateComponents()
+            dateComponents.year = 2021
+            dateComponents.month = 12
+            dateComponents.day = 31
+            dateComponents.timeZone = .current
+            dateComponents.hour = 0
+            dateComponents.minute = 0
+            let someDateTime = Calendar.current.date(from: dateComponents)
+            let minDate = someDateTime!.getString(format: DateFormate.useDateLocalAPI, isUTC: false)
+            
+            if log.usedatelocal! > minDate && log.usedatelocal! < maxDate {
                     usage.append(log.APILog())
-//                }
-//            }
+                }
+
         }
         return usage
     }
