@@ -20,30 +20,19 @@ class HomeVC: BaseVC {
     private var homeVM = HomeVM()
     var refreshControl = UIRefreshControl()
     var isPull = false
-    var viewSelected: UIView {
-        let view = UIView()
-       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
-        view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
-        view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
-        view.layer.borderWidth = 1
-        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        view.layer.cornerRadius = 8
-        view.clipsToBounds = true
-        return view
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-        
+        initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         self.navigationController?.isNavigationBarHidden = false
-        initUI()
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if BLEHelper.shared.connectedPeripheral.isEmpty  && deviceList.count != 0 {
             Logger.logInfo("deviceuse: HomeVC :: BLEHelper.shared.connectedPeripheral.isEmpty")
@@ -58,8 +47,7 @@ class HomeVC: BaseVC {
         apiDashboard()
     }
     
-    private func  initUI() {
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
+    private func  initUI() {        
         initTableview()
         lblNoData.setFont()
         lblNoData.text = StringCommonMessages.noDataFount

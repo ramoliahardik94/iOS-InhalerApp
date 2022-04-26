@@ -45,20 +45,8 @@ class DatabaseManager {
             
             if let date = object["date"] as? String {
                 let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
-                // Specify date components
-                var dateComponents = DateComponents()
-                dateComponents.year = 2021
-                dateComponents.month = 12
-                dateComponents.day = 31
-                dateComponents.timeZone = .current
-                dateComponents.hour = 0
-                dateComponents.minute = 0
-                let someDateTime = Calendar.current.date(from: dateComponents)
-                let minDate = someDateTime!.getString(format: DateFormate.useDateLocalAPI, isUTC: false)
-                
+                let minDate = getMinDate()
                 actuationLog.isbadlog = (date > maxDate || date < minDate)
-                
-//                actuationLog.isbadlog = (logDate > (Date().getString(format: DateFormate.useDateLocalBagCompare).getDate(format: DateFormate.useDateLocalBagCompare, isUTC: false)) || logDate < pastDate)
                 actuationLog.usedatelocal = date
             }
             
@@ -166,29 +154,21 @@ class DatabaseManager {
         do {
             try context?.save()
             actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+            for obj in actuationLog {
+                let log = obj
+                let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
+                let minDate = getMinDate()
+                if log.usedatelocal! > minDate && log.usedatelocal! < maxDate {
+                    usage.append(log.APILog())
+                } else {
+                    log.isbadlog = true
+                }
+                try context?.save()
+            }
         } catch {
             debugPrint("Can not get Data")
         }
-        for obj in actuationLog {
-            let log = obj
-            
-            let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
-            // Specify date components
-            var dateComponents = DateComponents()
-            dateComponents.year = 2021
-            dateComponents.month = 12
-            dateComponents.day = 31
-            dateComponents.timeZone = .current
-            dateComponents.hour = 0
-            dateComponents.minute = 0
-            let someDateTime = Calendar.current.date(from: dateComponents)
-            let minDate = someDateTime!.getString(format: DateFormate.useDateLocalAPI, isUTC: false)
-            
-            if log.usedatelocal! > minDate && log.usedatelocal! < maxDate {
-                    usage.append(log.APILog())
-                }
-
-        }
+       
         return usage
     }
     
@@ -199,28 +179,25 @@ class DatabaseManager {
         let predicate2 =  NSPredicate(format: "issync == %d", false)
         let predicate3 =  NSPredicate(format: "isbadlog == %d", false)
         let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate2, predicate3])
-        
         fetchRequest.predicate = predicate
         do {
             try context?.save()
             actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+            for obj in actuationLog {
+                let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
+                let minDate = getMinDate()
+                if obj.usedatelocal! > minDate && obj.usedatelocal! < maxDate {
+                    usage.append(["Param": obj.APIForSingle()])
+                } else {
+                    obj.isbadlog = true
+                }
+                try context?.save()
+            }
         } catch {
             debugPrint("Can not get Data")
-        }
-        for obj in actuationLog {
-            let log = obj
-//            if let date = log.usedatelocal {
-//                let logDate = date.getDate(format: DateFormate.useDateLocalAPI, isUTC: false)
-//                let pastDate = "2022-01-01".getDate(format: "yyyy-MM-dd")
-//                if logDate <= Date() && logDate >= pastDate {
-                    usage.append(["Param": log.APIForSingle()])
-//                }
-//            }
-        }
+        }       
         return usage
     }
-    
-    
     
     func setRTCFor(udid: String, value: Bool) {
         var device = [Device]()
@@ -475,5 +452,16 @@ class DatabaseManager {
         let filter = actuationLog.filter({($0.usedatelocal ?? "").contains(date)})
         return filter
         
+    }
+    func getMinDate() -> String {
+        var dateComponents = DateComponents()
+        dateComponents.year = 2021
+        dateComponents.month = 12
+        dateComponents.day = 31
+        dateComponents.timeZone = .current
+        dateComponents.hour = 0
+        dateComponents.minute = 0
+        let someDateTime = Calendar.current.date(from: dateComponents)
+        return someDateTime!.getString(format: DateFormate.useDateLocalAPI, isUTC: false)
     }
 }
