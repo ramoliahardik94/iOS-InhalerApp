@@ -31,6 +31,7 @@ class ManageDeviceVC: BaseVC {
         super.viewDidAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItems =  [UIBarButtonItem(image: UIImage(named: "notifications_white"), style: .plain, target: self, action: #selector(tapNotification))]
         tbvData.reloadData()
         if self.manageDeviceVM.arrDevice.count == 0 {
             refresh(self)

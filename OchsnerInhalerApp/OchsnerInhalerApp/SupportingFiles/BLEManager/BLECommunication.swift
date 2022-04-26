@@ -22,6 +22,7 @@ extension BLEHelper {
         let arrUdid = device.map({UUID(uuidString: $0!)!})
         let deviceWithUUID = centralManager.retrievePeripherals(withIdentifiers: arrUdid)
         let disconnectedDevice = deviceWithUUID.filter({$0.state != .connected})
+        
         if centralManager.state == .poweredOn {
             if !isAddAnother {
                 for obj in disconnectedDevice {

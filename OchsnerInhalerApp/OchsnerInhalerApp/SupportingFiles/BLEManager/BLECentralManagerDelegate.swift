@@ -174,8 +174,10 @@ extension BLEHelper: CBCentralManagerDelegate {
         Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
         DispatchQueue.main.async {
             Logger.logInfo("BLEDisconnect,BLEChange notification fire")
-            NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
-            NotificationCenter.default.post(name: .BLEChange, object: nil)
+            if !self.isAddAnother || self.newDeviceId == peripheral.identifier.uuidString {
+                NotificationCenter.default.post(name: .BLEDisconnect, object: nil)
+                NotificationCenter.default.post(name: .BLEChange, object: nil)
+            }
         }
     }
     

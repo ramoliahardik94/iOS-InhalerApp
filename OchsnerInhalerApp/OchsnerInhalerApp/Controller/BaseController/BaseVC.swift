@@ -120,6 +120,11 @@ class BaseVC: UIViewController {
         view.endEditing(true)
     }
     
+    @objc func  tapNotification () {
+        let notificationVC  = NotificationVC.instantiateFromAppStoryboard(appStoryboard: .main)
+        self.pushVC(controller: notificationVC)
+    }
+    
     // MARK: For keyboard Observer
     func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
