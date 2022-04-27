@@ -14,6 +14,7 @@ class PeriperalType: NSObject {
     var bettery: String = "0"
     var addressMAC: String = ""
     var charectristicWrite: CBCharacteristic?
+    var charectristicNotify: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
     var noOfLog: Decimal = 0
@@ -63,7 +64,7 @@ class BLEHelper: NSObject {
         if !isSet {
             addLogObserver()
         }
-        centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
+        centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.global(qos: .utility), options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
     }
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {

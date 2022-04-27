@@ -160,9 +160,10 @@ extension BLEHelper {
             discoverPeripheral.macCharecteristic = characteristic
         }
         // TODO: - Uncomment for BG AutoNotify
-//        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
-//            peripheral.setNotifyValue(true, for: characteristic)
-//        }
+        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
+            peripheral.setNotifyValue(true, for: characteristic)
+            discoverPeripheral.charectristicNotify = characteristic
+        }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
           
@@ -174,7 +175,7 @@ extension BLEHelper {
             discoverPeripheral.charectristicRead = characteristic
         }
         
-        if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil {
+        if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicNotify != nil {
             delay(isAddAnother ? Constants.PairDialogDelay : 0) {
                 [weak self] in
                 guard let `self` = self else { return }

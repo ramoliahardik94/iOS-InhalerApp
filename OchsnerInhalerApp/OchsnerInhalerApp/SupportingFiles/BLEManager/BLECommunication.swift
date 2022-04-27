@@ -17,20 +17,7 @@ extension BLEHelper {
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
     func scanPeripheral(isTimer: Bool = false) {
-        let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
-        let device = devicelist.filter({$0?.trimmingCharacters(in: .whitespacesAndNewlines) != ""})
-        let arrUdid = device.map({UUID(uuidString: $0!)!})
-        let deviceWithUUID = centralManager.retrievePeripherals(withIdentifiers: arrUdid)
-        let disconnectedDevice = deviceWithUUID.filter({$0.state != .connected})
-        
         if centralManager.state == .poweredOn {
-            if !isAddAnother {
-                for obj in disconnectedDevice {
-                    if  connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == obj.identifier.uuidString }) == nil {
-                        connectedPeripheral.append(PeriperalType(peripheral: obj))
-                    }
-                }
-            }
             if UserDefaultManager.isLogin && ((!isTimer )  || isAddAnother) {
                 if timer == nil || !timer.isValid {
                     let time = isTimer ? Constants.TimerScanAddtime : Constants.TimerScanAutoConnect
@@ -39,10 +26,7 @@ extension BLEHelper {
                     }
                     Logger.logInfo("Scaning start with \(time) sec timer")
                     timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-//                     TODO: - Uncomment for BG scane
-//                    self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)
-//                TODO: - comment for BG scane
-                    self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+                    self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)     
                 }
                 isScanning = true
                 DispatchQueue.main.async {
