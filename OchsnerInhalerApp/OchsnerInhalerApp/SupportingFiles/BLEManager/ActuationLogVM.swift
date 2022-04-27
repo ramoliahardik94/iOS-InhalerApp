@@ -17,10 +17,10 @@ extension BLEHelper {
         if logCounter >= connectedDevice.count {
             logCounter = 0
             Logger.logInfo("Last connected device data store to DB")
-            delay(Constants.DelayActuationAPICall) {
+            //delay(Constants.DelayActuationAPICall) {
                 Logger.logInfo("deviceuse: actuationAPI_LastActuation ")
                 self.apiCallForActuationlog()
-            }
+            //}
         } else {
             Logger.logInfo("not last connected device data store to DB")
         }

@@ -106,14 +106,15 @@ extension BLEHelper: CBPeripheralDelegate {
         }
         
         // Exit if it's not the transfer characteristic
-        guard characteristic.uuid == TransferService.characteristicNotifyUUID else { return }
-        
+        guard characteristic.uuid == TransferService.characteristicNotifyUUID || characteristic.uuid == TransferService.characteristicAutoNotify else { return }
+        let mac = connectedPeripheral.first(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString})?.addressMAC ?? ""
         if characteristic.isNotifying {
             // Notification has started
-            Logger.logInfo("Notification began on \(characteristic)")
+           
+            Logger.logInfo("Notification began on \(characteristic) For \(mac)")
         } else {
             // Notification has stopped, so disconnect from the peripheral
-            Logger.logInfo("Notification stopped on \(characteristic). Disconnecting")
+            Logger.logInfo("Notification stopped on \(characteristic) For \(mac). Disconnecting")
         }
         
     }
@@ -134,7 +135,7 @@ extension BLEHelper {
             peripheral.discoverCharacteristics(nil, for: service)
         }
         for service in peripheralServices where service.uuid == TransferService.inhealerUTCservice {
-            peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
+            peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID, TransferService.characteristicAutoNotify], for: service)
         }
 
     }    
@@ -161,6 +162,7 @@ extension BLEHelper {
         }
         // TODO: - Uncomment for BG AutoNotify
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
+            peripheral.setNotifyValue(false, for: characteristic)
             peripheral.setNotifyValue(true, for: characteristic)
             discoverPeripheral.charectristicNotify = characteristic
         }
