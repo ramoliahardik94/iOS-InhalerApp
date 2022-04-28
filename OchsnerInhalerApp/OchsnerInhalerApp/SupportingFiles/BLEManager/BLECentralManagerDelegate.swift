@@ -140,8 +140,10 @@ extension BLEHelper: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         if peripheral.state == .connected {
             guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
+            Logger.logInfo("Connecting \(discoverPeripheral.addressMAC)")
             discoverPeripheral.macCharecteristic = nil
             discoverPeripheral.charectristicWrite = nil
+            discoverPeripheral.charectristicNotify = nil
             //            stopScanPeriphral()
             peripheral.delegate = self
             peripheral.discoverServices(nil)

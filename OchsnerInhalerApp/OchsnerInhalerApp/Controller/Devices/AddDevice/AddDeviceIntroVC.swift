@@ -345,7 +345,7 @@ extension AddDeviceIntroVC {
         let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         guard let discoverPeripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         BLEHelper.shared.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
-        BLEHelper.shared.getBetteryLevel(peripheral: discoverPeripheral)
+        BLEHelper.shared.getBatteryLevel(peripheral: discoverPeripheral)
         addDeviceIntroVC.step = .step5
         addDeviceIntroVC.isFromAddAnother = isFromAddAnother
         addDeviceIntroVC.isFromDeviceList = isFromDeviceList

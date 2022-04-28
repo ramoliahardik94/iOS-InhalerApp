@@ -114,7 +114,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func foregroundCall() {
         print("App moved to foreground")
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
-            CommonFunctions.getLogFromDeviceAndSync()
+            if BLEHelper.shared.logCounter == 0 {
+                CommonFunctions.getLogFromDeviceAndSync()
+            } else {
+                BLEHelper.shared.apiCallForActuationlog()
+            }
         }
     }
     
@@ -143,11 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setNotification()
     }
     
-//    func applicationWillResignActive(_ application: UIApplication) {
-//        Logger.logInfo(" applicationWillResignActive")
-//        setNotification()
-//    }
-    
+
     func setNotification() {
         Logger.logInfo(" setNotification start")
         let content = UNMutableNotificationContent()
@@ -158,7 +158,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
-            //   Logger.logInfo(" withCompletionHandler")
             if let error = error {
                 print("SOMETHING WENT WRONG\(error.localizedDescription))")
             }

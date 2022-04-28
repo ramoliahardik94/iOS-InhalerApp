@@ -133,11 +133,7 @@ extension BLEHelper {
                             DatabaseManager.share.updateActuationLog(param)
                             
                             Logger.logInfo(ValidationMsg.successAcuation)
-                            //                            let unSyncData = DatabaseManager.share.getActuationLogListUnSync()
-                            //                            if unSyncData.count > 0 {
-                            //                                Logger.logInfo("deviceuse: apiCallDeviceUsage unSyncData.count > 0 ")
-                            //                                apiCallForActuationlog()
-                            //                            } else {
+                            
                             DispatchQueue.main.async {
                                 // TODO: For Notificaion status
                                 let notiVM = NotificationVM()
@@ -150,23 +146,7 @@ extension BLEHelper {
 //                        }
                         }
                     } else {
-                        /* if error?.statusCode == 500 {
-                         Logger.logInfo(ValidationMsg.failAcuation)
-                         self.isPullToRefresh = false
-                         DispatchQueue.main.async {
-                         if (UIApplication.topViewController() as? HomeVC) != nil {
-                         NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                         }
-                         }
-                         if param.count == 1 {
-                         if let arrUsage = param[0]["Usage"] as? [[String: Any]] {
-                         if arrUsage.count == 1 {
-                         DatabaseManager.share.updateActuationLogwithTimeAdd(param)
-                         }
-                         }
-                         }
-                         apiCallForActuationlog(isForSingle: true)
-                         } else {*/
+                        
                         DispatchQueue.main.async {
                             if (UIApplication.topViewController() as? HomeVC) != nil {
                                 NotificationCenter.default.post(name: .DataSyncDone, object: nil)
@@ -179,7 +159,6 @@ extension BLEHelper {
                 }
             } else {
                 DispatchQueue.main.async { [self] in
-                    CommonFunctions.showMessage(message: StringCommonMessages.noInternetConnection)
                     hideDashboardStatus(msg: StringCommonMessages.noInternetConnection)
                 }
             }

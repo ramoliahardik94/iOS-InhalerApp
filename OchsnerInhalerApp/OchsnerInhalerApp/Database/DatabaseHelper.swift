@@ -402,12 +402,12 @@ class DatabaseManager {
             let sortDescriptor = [NSSortDescriptor.init(key: "usedatelocal", ascending: false)]
             fetchRequest.predicate = predicate
             fetchRequest.sortDescriptors = sortDescriptor
-            fetchRequest.fetchLimit = 10
+            fetchRequest.fetchLimit = 5
             
             do {
                 actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
                 let arrBad = actuationLog.filter({$0.isbadlog == true})
-                return arrBad.count == 10
+                return arrBad.count == 5
             } catch {
                 debugPrint("Can not get Data")
                 return false

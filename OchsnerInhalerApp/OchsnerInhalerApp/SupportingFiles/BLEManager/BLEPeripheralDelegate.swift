@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreBluetooth
-
+import UIKit
 // MARK: - CBPeripheral Delegate
 extension BLEHelper: CBPeripheralDelegate {
     /*
@@ -45,6 +45,12 @@ extension BLEHelper: CBPeripheralDelegate {
             arrResponce.remove(at: 0)// StartByte
             let str = "\(arrResponce[0])\(arrResponce[1])"
             if str == StringCharacteristics.getType(.RTCTime)() {
+                DispatchQueue.main.async {
+                    if (UIApplication.topViewController() as? HomeVC) != nil {
+                        NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+                        self.hideDashboardStatus(msg: BLEStatusMsg.syncFailApi, colorBG: .ColorHomeIconRed)
+                    }
+                }
                 Logger.logInfo("RTC Log Hax: \(stringFromData) of mac: \(discoverPeripheral.addressMAC)")
                 if stringFromData == TransferService.responseSuccessRTC {
                     DatabaseManager.share.setRTCFor(udid: peripheral.identifier.uuidString, value: true)
@@ -57,7 +63,7 @@ extension BLEHelper: CBPeripheralDelegate {
                 if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                     connectedPeripheral[index].bettery = "\(stringFromData.getBeteryLevel())"
                 }
-                Logger.logInfo("Bettery Hax: \(String(describing: stringFromData)) Decimal: \(stringFromData.getBeteryLevel()) mac: \(discoverPeripheral.addressMAC)")
+                Logger.logInfo("Battery Hax: \(String(describing: stringFromData)) Decimal: \(stringFromData.getBeteryLevel()) mac: \(discoverPeripheral.addressMAC)")
                 DispatchQueue.main.async { 
                     NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(stringFromData.getBeteryLevel())"])
                 }
@@ -66,7 +72,7 @@ extension BLEHelper: CBPeripheralDelegate {
                 
                 discoverPeripheral.noOfLog = stringFromData.getNumberofActuationLog()
                 Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) Decimal: \(discoverPeripheral.noOfLog) mac: \(discoverPeripheral.addressMAC)")
-                if discoverPeripheral.noOfLog > 0 {                    
+                if discoverPeripheral.noOfLog > 0 {
                     showDashboardStatus(msg: BLEStatusMsg.featchDataFromDevice)
                     getActuationLog()
                 } else {
@@ -106,14 +112,15 @@ extension BLEHelper: CBPeripheralDelegate {
         }
         
         // Exit if it's not the transfer characteristic
-        guard characteristic.uuid == TransferService.characteristicNotifyUUID else { return }
-        
+        guard characteristic.uuid == TransferService.characteristicNotifyUUID || characteristic.uuid == TransferService.characteristicAutoNotify else { return }
+        let mac = connectedPeripheral.first(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString})?.addressMAC ?? ""
         if characteristic.isNotifying {
             // Notification has started
-            Logger.logInfo("Notification began on \(characteristic)")
+           
+            Logger.logInfo("Notification began on \(characteristic) For \(mac)")
         } else {
             // Notification has stopped, so disconnect from the peripheral
-            Logger.logInfo("Notification stopped on \(characteristic). Disconnecting")
+            Logger.logInfo("Notification stopped on \(characteristic) For \(mac). Disconnecting")
         }
         
     }
@@ -134,7 +141,7 @@ extension BLEHelper {
             peripheral.discoverCharacteristics(nil, for: service)
         }
         for service in peripheralServices where service.uuid == TransferService.inhealerUTCservice {
-            peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID], for: service)
+            peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID, TransferService.characteristicAutoNotify], for: service)
         }
 
     }    
@@ -160,9 +167,11 @@ extension BLEHelper {
             discoverPeripheral.macCharecteristic = characteristic
         }
         // TODO: - Uncomment for BG AutoNotify
-//        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
-//            peripheral.setNotifyValue(true, for: characteristic)
-//        }
+        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
+            peripheral.setNotifyValue(false, for: characteristic)
+            peripheral.setNotifyValue(true, for: characteristic)
+            discoverPeripheral.charectristicNotify = characteristic
+        }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
           
@@ -170,11 +179,12 @@ extension BLEHelper {
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
+            peripheral.setNotifyValue(false, for: characteristic)
             peripheral.setNotifyValue(true, for: characteristic)
             discoverPeripheral.charectristicRead = characteristic
         }
         
-        if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil {
+        if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicNotify != nil {
             delay(isAddAnother ? Constants.PairDialogDelay : 0) {
                 [weak self] in
                 guard let `self` = self else { return }
@@ -182,7 +192,7 @@ extension BLEHelper {
                 switch peripheral.state {
                 case .connected :
                     self.getmacAddress(peripheral: discoverPeripheral)
-                    self.getBetteryLevel(peripheral: discoverPeripheral)
+                    self.getBatteryLevel(peripheral: discoverPeripheral)
                     if !self.isAddAnother {
                         self.countOfConnectedDevice += 1
                         if self.countOfScanDevice == self.countOfConnectedDevice {

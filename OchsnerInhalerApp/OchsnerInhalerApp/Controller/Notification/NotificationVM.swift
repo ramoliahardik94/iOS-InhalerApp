@@ -35,7 +35,6 @@ class NotificationModel: NSObject {
    
     func updateStatus() {
         for obj in history {
-            debugPrint("Loop For \(obj.mac) \(obj.medName)")
             if obj.acuation.count == 0 {
                 for dose in obj.dose {
                     dose.status = "N"
@@ -72,9 +71,6 @@ class NotificationModel: NSObject {
                         Logger.logInfo("maxDate: \(maxDate)")
                          acuation = obj.acuation.filter({($0.usedatelocal! >= minDate) && ($0.usedatelocal! <= maxDate)})
                     }
-                    
-                    Logger.logInfo("Acuation : \(acuation)")
-                          
                     if acuation.count != 0 {
                         dose.status = "Y"
                         dose.takenPuffCount = acuation.count

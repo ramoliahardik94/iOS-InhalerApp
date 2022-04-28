@@ -59,6 +59,7 @@ class HomeVC: BaseVC {
     private func initTableview() {
         self.view.setNeedsLayout()
         refreshControl = UIRefreshControl()
+//        refreshControl.attributedTitle = NSAttributedString(string: "Syncing Data")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         refreshControl.tag = 500
         if let view = tbvDeviceData.viewWithTag(500) {
@@ -73,18 +74,20 @@ class HomeVC: BaseVC {
        }
     
     @objc func refresh(_ sender: AnyObject) {
-        let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
-        if connectedDevice.count > 0 {
-            CommonFunctions.getLogFromDeviceAndSync()
-        } else if BLEHelper.shared.connectedPeripheral.isEmpty  && deviceList.count != 0 {
-            Logger.logInfo("Scan with HomeVC refresh")
-            BLEHelper.shared.scanPeripheral()
+        if heightSync.constant == 0 {
+            let deviceList = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+            let connectedDevice =  BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+            if connectedDevice.count > 0 {
+                CommonFunctions.getLogFromDeviceAndSync()
+            } else if BLEHelper.shared.connectedPeripheral.isEmpty  && deviceList.count != 0 {
+                Logger.logInfo("Scan with HomeVC refresh")
+                BLEHelper.shared.scanPeripheral()
+            } else {
+                BLEHelper.shared.apiCallForActuationlog()
+            }
         } else {
-            self.refreshControl.endRefreshing()
+            BLEHelper.shared.apiCallForActuationlog()
         }
-        
-        self.refreshControl.endRefreshing()
     }
     
 
@@ -98,9 +101,12 @@ class HomeVC: BaseVC {
             isPull = true
             homeVM.apiDashboardData {  [weak self] isSuccess in
                 guard let`self` = self else { return }
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                }
                 self.isPull = false
                 switch isSuccess {
-                case .success (_):
+                case .success:
                     DispatchQueue.main.async {
                         if  self.homeVM.dashboardData.count == 0 {
                             self.lblNoData.isHidden = false
@@ -115,6 +121,8 @@ class HomeVC: BaseVC {
                     }
                 }
             }
+        } else {
+            self.refreshControl.endRefreshing()
         }
     }
 
