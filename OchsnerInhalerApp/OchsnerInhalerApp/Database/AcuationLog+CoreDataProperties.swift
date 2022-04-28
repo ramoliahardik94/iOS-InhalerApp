@@ -29,7 +29,7 @@ extension AcuationLog {
     
     func APILog() -> [String: Any] {       
         let dicLog = ["UseDateLocal": usedatelocal!,
-                      "DeviceSyncDateUTC": devicesyncdateutc! as Any,
+                      "DeviceSyncDateUTC": devicesyncdateutc ?? Date().getString(format: DateFormate.deviceSyncDateUTCAPI, isUTC: true) as Any,
                       "Latitude": Double(latitude!)! as Any,
                       "Longitude": Double(longitude!)! as Any,
                       "UseLength": uselength,

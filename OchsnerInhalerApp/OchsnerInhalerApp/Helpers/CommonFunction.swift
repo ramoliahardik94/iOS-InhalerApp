@@ -33,6 +33,10 @@ open class CommonFunctions {
                 Logger.logInfo("deviceuse: getLogFromDeviceAndSync ")
                 BLEHelper.shared.apiCallForActuationlog()
             }
+        } else {
+            DispatchQueue.main.async { [self] in
+                NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+            }
         }
     }
 

@@ -10,7 +10,7 @@ class Constants: NSObject {
     static let ScreenWidth  =  UIScreen.main.bounds.size.width
     static let ScreenHeight =  UIScreen.main.bounds.size.height
     
-    static let DelayActuationAPICall =  2.0
+    static let DelayActuationAPICall =  0.5
     static let TimerScanAddtime =  15.0
     static let TimerScanAutoConnect =  30.0
     static let ScanningScreenDelay = 10.0

@@ -91,10 +91,10 @@ class BLEHelper: NSObject {
             }
         }
     }
-    /// This function is use to get Bettery of given * PeriPhalType* Data type which contains CBPeripheral and it's discover charecteristics and other details
-    func getBetteryLevel(peripheral: PeriperalType) {
+    /// This function is use to get Battery of given * PeriPhalType* Data type which contains CBPeripheral and it's discover charecteristics and other details
+    func getBatteryLevel(peripheral: PeriperalType) {
         if peripheral.discoveredPeripheral != nil && peripheral.charectristicWrite != nil && peripheral.discoveredPeripheral?.state == .connected {
-            peripheral.discoveredPeripheral?.writeValue(TransferService.requestGetBettery.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
+            peripheral.discoveredPeripheral?.writeValue(TransferService.requestGetBattery.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
         }
     }
     

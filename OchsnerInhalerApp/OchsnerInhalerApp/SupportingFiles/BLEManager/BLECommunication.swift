@@ -131,7 +131,7 @@ extension BLEHelper {
             Logger.logInfo("Scaning stop with device number of device \(connectedPeripheral.count)")
         }
         centralManager.stopScan()
-        DispatchQueue.main.async {  
+        DispatchQueue.main.async {
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
         
