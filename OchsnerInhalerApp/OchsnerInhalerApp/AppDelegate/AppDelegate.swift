@@ -143,13 +143,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        Logger.logInfo(" applicationWillTerminate")
+        Logger.logInfo(" applicationWillTerminate")
         setNotification()
     }
     
 
     func setNotification() {
-        Logger.logInfo(" setNotification start")
+        Logger.logInfo(" setNotification start")
         let content = UNMutableNotificationContent()
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         content.title = StringLocalNotifiaction.title
@@ -162,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("SOMETHING WENT WRONG\(error.localizedDescription))")
             }
         })
-        Logger.logInfo(" setNotification End")
+        Logger.logInfo(" setNotification End")
     }
     
 }

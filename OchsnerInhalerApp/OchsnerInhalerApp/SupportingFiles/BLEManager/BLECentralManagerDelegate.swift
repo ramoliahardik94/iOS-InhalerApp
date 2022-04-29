@@ -186,7 +186,7 @@ extension BLEHelper: CBCentralManagerDelegate {
     /// For apps that opt-in to state preservation and restoration, this is the first method invoked when your app is relaunched into the background to complete some Bluetooth-related task. Use this method to synchronize your app's state with the state of the Bluetooth system.
     
     func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) {
-        Logger.logInfo(" willRestoreState  \n\n   \(dict)  ")
+        Logger.logInfo("willRestoreState \n\n  \(dict) ")
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && devicelist.count > 0 {
             connectedPeripheral.removeAll()

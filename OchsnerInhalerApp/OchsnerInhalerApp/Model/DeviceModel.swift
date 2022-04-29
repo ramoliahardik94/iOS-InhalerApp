@@ -78,7 +78,7 @@ class DeviceModel: NSObject {
                     let str = "\((index + 1).ordinal) Dose at \(element)"
                     arrTime.append("\(element)")
                     useTimes.append(str)
-                    print(" DeviceModel STORE UseTimes == \(arrTime.description)")
+                    print("DeviceModel STORE UseTimes == \(arrTime.description)")
                 }
             }
         }
