@@ -181,7 +181,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
         let device = section == 0 ? manageDeviceVM.arrRescue[index] : manageDeviceVM.arrMantainance[index]
         CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
             guard let `self` = self else { return }
-            if isOk ?? false {
+            if isOk {
                 NotificationManager.shared.clearDeviceRemindersNotification(macAddress: device.internalID)
                 Logger.logInfo("Remove Device Click")
                 let id = DatabaseManager.share.getUDID(mac: device.internalID)

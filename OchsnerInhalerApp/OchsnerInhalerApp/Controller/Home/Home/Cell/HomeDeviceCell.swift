@@ -10,9 +10,9 @@ import CoreMedia
 import CoreMIDI
 
 class HomeDeviceCell: UITableViewCell {
-
+    
     @IBOutlet weak var lblDeviceName: UILabel!
-   // @IBOutlet weak var lblDeviceType: UILabel!
+    // @IBOutlet weak var lblDeviceType: UILabel!
     @IBOutlet weak var lblToday: UILabel!
     @IBOutlet weak var lblTodayData: UILabel!
     @IBOutlet weak var lblThisWeekData: UILabel!
@@ -27,7 +27,6 @@ class HomeDeviceCell: UITableViewCell {
     @IBOutlet weak var ivThisWeek: UIImageView!
     @IBOutlet weak var ivThisMonth: UIImageView!
     @IBOutlet weak var mainViewExpand: UIView!
-    
     @IBOutlet weak var cntMantainancePriority: NSLayoutConstraint!
     @IBOutlet weak var cntRescueProprity: NSLayoutConstraint!
     @IBOutlet weak var heightStackView: NSLayoutConstraint!
@@ -36,16 +35,13 @@ class HomeDeviceCell: UITableViewCell {
     // for graph
     @IBOutlet weak var lblDeviceNameGraph: UILabel!
     @IBOutlet weak var lblDeviceTypeGraph: UILabel!
-   // @IBOutlet weak var cvGraphData: UICollectionView!
+    // @IBOutlet weak var cvGraphData: UICollectionView!
     @IBOutlet weak var viewCollectionView: UIView!
-    var count  = 0
-    private let itemCellGraph = "GraphCell"
-   
     @IBOutlet var stackViewArray: [UIStackView]!
-    
     @IBOutlet weak var stackViewMain: UIStackView!
-    var dailyAdherence =  [DailyAdherenceModel]()
     
+    var dailyAdherence =  [DailyAdherenceModel]()
+    var count  = 0
     var item = MaintenanceModel() {
         didSet {
             
@@ -79,12 +75,43 @@ class HomeDeviceCell: UITableViewCell {
                 viewNextDose.isHidden = false
                 lblDeviceNameGraph.text = ""
                 lblDeviceTypeGraph.text = StringCommonMessages.schedule
+
                 let arrSorted = item.dailyAdherence.sorted { item1, item2 in return item1.denominator ?? 0 > item2.denominator ?? 0 }
                 let maxvalu = arrSorted.count > 0 ? arrSorted[0].denominator : 0
+                heightStackView.constant = maxvalu != 0 ?  CGFloat((maxvalu ?? 1) * (24)) + 24 : 40
+                let weekName = getDayName()
+                let bufferDay =  7 - item.dailyAdherence.count
                 
-                heightStackView.constant = CGFloat((maxvalu ?? 0) * (24)) + 24
+                if bufferDay > 0 {
+                    for index in 0...(bufferDay - 1) {
+                        viewCollectionView.isHidden = false
+                        
+                        stackViewArray[index].removeFullyAllArrangedSubviews()
+                        stackViewArray[index].isHidden = false
+                        stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
+                        stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
+                        stackViewArray[index].alignment = UIStackView.Alignment.center
+                        stackViewArray[index].spacing   = 4
+                        stackViewArray[index].isHidden = false
+                        stackViewArray[index].addArrangedSubview(getLableOfDay(text: loadDayName(weekDay: weekName[index])))
+                        layoutSubviews()
+                        if maxvalu == 0 {
+                            stackViewArray[index].addArrangedSubview(getViewDoseNotAvailable())
+                        } else {
+                            for  _ in 1...maxvalu! {
+                                stackViewArray[index].addArrangedSubview(getViewDoseNotAvailable())
+                            }
+                        }
+                        let array =  stackViewArray[index].arrangedSubviews.reversed()
+                        for (indexArr, item) in array.enumerated() {
+                            stackViewArray[index].insertArrangedSubview(item, at: indexArr)
+                        }
+                    }
+                    viewCollectionView.layoutSubviews()
+                }
                 
-                for (index, obj) in item.dailyAdherence.enumerated() { // For Every column
+                for (ind, obj) in item.dailyAdherence.enumerated() { // For Every column
+                    let index = (bufferDay) + ind
                     viewCollectionView.isHidden = false
                     stackViewArray[index].removeFullyAllArrangedSubviews()
                     stackViewArray[index].isHidden = false
@@ -93,16 +120,14 @@ class HomeDeviceCell: UITableViewCell {
                     stackViewArray[index].alignment = UIStackView.Alignment.center
                     stackViewArray[index].spacing   = 4
                     stackViewArray[index].isHidden = false
-                    stackViewArray[index].addArrangedSubview(getLableOfDay(text: obj.day ?? StringCommonMessages.notSet))
-                   
+                    stackViewArray[index].addArrangedSubview(getLableOfDay(text: obj.day ?? loadDayName(weekDay: weekName[index])))
+                    
                     layoutSubviews()
                     for  indexSub in 1...maxvalu! {
                         if indexSub <= obj.numerator ?? 0 {
                             stackViewArray[index].addArrangedSubview(getViewDoseTaken())
-                        } else if maxvalu!  > obj.denominator ?? 0 {
-                            let view = UIView()
-                            view.backgroundColor = .clear
-                            stackViewArray[index].addArrangedSubview(view)
+                        } else if maxvalu!  > obj.denominator ?? 0  && indexSub >  obj.denominator ?? 0 {
+                            stackViewArray[index].addArrangedSubview(getViewDoseNotAvailable())
                         } else {
                             stackViewArray[index].addArrangedSubview(getImageDoseMiss())
                         }
@@ -115,8 +140,6 @@ class HomeDeviceCell: UITableViewCell {
                 
                 viewCollectionView.layoutSubviews()
             }
-            
-            
         }
     }
     func getImageDoseMiss() -> UIImageView {
@@ -129,9 +152,22 @@ class HomeDeviceCell: UITableViewCell {
     
     func getViewDoseTaken() -> UIView {
         let view = UIView()
-       // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+        // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
         view.backgroundColor =  #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
         view.layer.borderColor =  #colorLiteral(red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+        view.layer.borderWidth = 1
+        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        return view
+    }
+    
+    func getViewDoseNotAvailable() -> UIView {
+        let view = UIView()
+        // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
+        view.backgroundColor =  #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        view.layer.borderColor =  #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         view.layer.borderWidth = 1
         view.heightAnchor.constraint(equalToConstant: 16).isActive = true
         view.widthAnchor.constraint(equalToConstant: 16).isActive = true
@@ -148,7 +184,7 @@ class HomeDeviceCell: UITableViewCell {
         return label
     }
     
-    func getMedictioNamewithType(type: Int) -> NSMutableAttributedString {        
+    func getMedictioNamewithType(type: Int) -> NSMutableAttributedString {
         
         let firstAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppBoldFont, size: 24)! ]
         let sendcotAttributes = [NSAttributedString.Key.font: UIFont(name: AppFont.AppLightItalicFont, size: 16)! ]
@@ -200,11 +236,44 @@ class HomeDeviceCell: UITableViewCell {
         lblAdherance.text = StringHome.adherance
         
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
     
+    func getDayName() -> [Int] {
+        let cal = Calendar.current
+        var date = cal.startOfDay(for: Date())
+        date = cal.date(byAdding: .day, value: -1, to: date)!
+        var days = [Int]()
+        for _ in 1 ... 7 {
+            let day = cal.component(.weekday, from: date)
+            days.append(day)
+            date = cal.date(byAdding: .day, value: -1, to: date)!
+        }
+        let weekDay = Array(days.reversed())
+        return weekDay
+    }
+    
+    func loadDayName(weekDay: Int) -> String {
+        switch weekDay {
+        case 1:
+            return "Su"
+        case 2:
+            return "Mo"
+        case 3:
+            return "Tu"
+        case 4:
+            return "We"
+        case 5:
+            return "Th"
+        case 6:
+            return "Fr"
+        case 7:
+            return "Sa"
+        default:
+            return "Na"
+        }
+    }
 }

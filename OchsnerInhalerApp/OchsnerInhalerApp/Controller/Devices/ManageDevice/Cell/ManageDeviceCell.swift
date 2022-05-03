@@ -7,8 +7,8 @@
 
 import UIKit
 protocol ManageDeviceDelegate: AnyObject {
-    func editDirection(index: Int,section: Int)
-    func removeDevice(index: Int,section: Int)
+    func editDirection(index: Int, section: Int)
+    func removeDevice(index: Int, section: Int)
 }
 class ManageDeviceCell: UITableViewCell {
 

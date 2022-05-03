@@ -10,7 +10,6 @@ import UIKit
 
 extension BLEHelper {
     
-    
     func actuationAPI_LastActuation() {
         let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral!.state == .connected})
         Logger.logInfo("logCounter\(logCounter) >= connectedDevice.count\(connectedDevice.count)")
@@ -185,7 +184,8 @@ extension BLEHelper {
             }
         }
     }
-    func hideDashboardStatus(msg: String,colorBG: UIColor = .ButtonColorGreen) {
+    
+    func hideDashboardStatus(msg: String, colorBG: UIColor = .ButtonColorGreen) {
         DispatchQueue.main.async {
             if let dashboard = UIApplication.topViewController() as? HomeVC {
                 // CommonFunctions.showGlobalProgressHUD(UIApplication.topViewController()!, text: ValidationMsg.syncLoader)

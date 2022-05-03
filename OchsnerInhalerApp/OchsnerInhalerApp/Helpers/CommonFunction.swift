@@ -34,7 +34,7 @@ open class CommonFunctions {
                 BLEHelper.shared.apiCallForActuationlog()
             }
         } else {
-            DispatchQueue.main.async { [self] in
+            DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .DataSyncDone, object: nil)
             }
         }

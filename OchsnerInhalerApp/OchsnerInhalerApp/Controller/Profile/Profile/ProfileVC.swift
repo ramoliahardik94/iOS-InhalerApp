@@ -94,7 +94,7 @@ class ProfileVC: BaseVC {
     @IBAction func tapLogout(_ sender: Any) {
         
         CommonFunctions.showMessageYesNo(message: StringProfile.sureLogout, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.logOut) { isOk in
-            if isOk ?? false {
+            if isOk {
                 Logger.logInfo("Logout Click")                
                 self.setRootLogin()
             }

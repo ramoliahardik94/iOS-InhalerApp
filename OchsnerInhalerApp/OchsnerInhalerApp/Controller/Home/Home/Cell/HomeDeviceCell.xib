@@ -236,7 +236,7 @@
                                                                     <constraint firstAttribute="height" constant="1" id="xYN-6Z-Kuj"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dI-Pr-7QS">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="7dI-Pr-7QS">
                                                                 <rect key="frame" x="0.0" y="17" width="408" height="41"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="5tz-TL-yKA"/>

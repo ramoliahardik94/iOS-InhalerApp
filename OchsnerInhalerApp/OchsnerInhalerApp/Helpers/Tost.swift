@@ -161,11 +161,11 @@ public extension UIView {
      didTap will be `true` if the toast view was dismissed from a tap.
      */
     func showToast(_ toast: UIView, duration: TimeInterval = ToastManager.shared.duration, point: CGPoint, completion: ((_ didTap: Bool) -> Void)? = nil) {
-        objc_setAssociatedObject(toast, &ToastKeys.completion, ToastCompletionWrapper(completion), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(toast, &ToastKeys.completion, ToastCompletionWrapper(completion), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
         if ToastManager.shared.isQueueEnabled, activeToasts.count > 0 {
-            objc_setAssociatedObject(toast, &ToastKeys.duration, NSNumber(value: duration), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            objc_setAssociatedObject(toast, &ToastKeys.point, NSValue(cgPoint: point), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(toast, &ToastKeys.duration, NSNumber(value: duration), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(toast, &ToastKeys.point, NSValue(cgPoint: point), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             queue.add(toast)
         } else {
@@ -318,7 +318,7 @@ public extension UIView {
             activityView.layer.shadowOffset = style.shadowOffset
         }
         
-        let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        let activityIndicatorView = UIActivityIndicatorView(style: .large)
         activityIndicatorView.center = CGPoint(x: activityView.bounds.size.width / 2.0, y: activityView.bounds.size.height / 2.0)
         activityView.addSubview(activityIndicatorView)
         activityIndicatorView.color = style.activityIndicatorColor
@@ -451,7 +451,7 @@ public extension UIView {
             titleLabel?.lineBreakMode = .byTruncatingTail
             titleLabel?.textColor = style.titleColor
             titleLabel?.backgroundColor = UIColor.clear
-            titleLabel?.text = title;
+            titleLabel?.text = title
             
             let maxTitleSize = CGSize(width: (self.bounds.size.width * style.maxWidthPercentage) - imageRect.size.width, height: self.bounds.size.height * style.maxHeightPercentage)
             let titleSize = titleLabel?.sizeThatFits(maxTitleSize)
@@ -466,7 +466,7 @@ public extension UIView {
             messageLabel?.numberOfLines = style.messageNumberOfLines
             messageLabel?.font = style.messageFont
             messageLabel?.textAlignment = style.messageAlignment
-            messageLabel?.lineBreakMode = .byTruncatingTail;
+            messageLabel?.lineBreakMode = .byTruncatingTail
             messageLabel?.textColor = style.messageColor
             messageLabel?.backgroundColor = UIColor.clear
             
@@ -547,7 +547,7 @@ public extension UIView {
             wrapperView.layer.shadowOffset = style.shadowOffset
         }
         
-        if let image = image {
+        if image != nil {
             imageView = UIActivityIndicatorView()
             imageView?.startAnimating()
             imageView?.frame = CGRect(x: style.horizontalPadding, y: style.verticalPadding, width: style.imageSize.width, height: style.imageSize.height)
@@ -570,7 +570,7 @@ public extension UIView {
             titleLabel?.lineBreakMode = .byTruncatingTail
             titleLabel?.textColor = style.titleColor
             titleLabel?.backgroundColor = UIColor.clear
-            titleLabel?.text = title;
+            titleLabel?.text = title
             
             let maxTitleSize = CGSize(width: (self.bounds.size.width * style.maxWidthPercentage) - imageRect.size.width, height: self.bounds.size.height * style.maxHeightPercentage)
             let titleSize = titleLabel?.sizeThatFits(maxTitleSize)
@@ -585,7 +585,7 @@ public extension UIView {
             messageLabel?.numberOfLines = style.messageNumberOfLines
             messageLabel?.font = style.messageFont
             messageLabel?.textAlignment = style.messageAlignment
-            messageLabel?.lineBreakMode = .byTruncatingTail;
+            messageLabel?.lineBreakMode = .byTruncatingTail
             messageLabel?.textColor = style.messageColor
             messageLabel?.backgroundColor = UIColor.clear
             
@@ -714,7 +714,7 @@ public struct ToastStyle {
     /**
      The corner radius. Default is 10.0.
     */
-    public var cornerRadius: CGFloat = 10.0;
+    public var cornerRadius: CGFloat = 10.0
     
     /**
      The title font. Default is `.boldSystemFont(16.0)`.
