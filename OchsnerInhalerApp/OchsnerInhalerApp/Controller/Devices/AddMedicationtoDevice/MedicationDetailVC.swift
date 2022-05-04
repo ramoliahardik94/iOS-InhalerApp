@@ -162,7 +162,7 @@ class MedicationDetailVC: BaseVC {
                             UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
                             let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                             self.pushVC(controller: addAnotherDeviceVC)
-                        }else if self.isFromDeviceList {
+                        } else if self.isFromDeviceList {
                             self.navigationController?.popToRootViewController(animated: true)
                         } else {
                             self.popVC()

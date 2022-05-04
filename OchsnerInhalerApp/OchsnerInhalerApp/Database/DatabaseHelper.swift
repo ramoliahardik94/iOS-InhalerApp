@@ -287,6 +287,9 @@ class DatabaseManager {
         
         return device
     }
+ 
+}
+extension DatabaseManager {
     
     func updateActuationLog(_ updateObj: [[String: Any]]) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)

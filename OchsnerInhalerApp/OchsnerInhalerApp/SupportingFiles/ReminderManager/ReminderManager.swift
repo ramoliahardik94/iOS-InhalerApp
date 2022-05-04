@@ -105,7 +105,7 @@ class ReminderManager: NSObject {
         return EKCalendar(for: .reminder, eventStore: eventStore)
     }
     
-    //getting local source
+    // getting local source
      func bestPossibleEKSource() -> EKSource? {
         let `default` = eventStore.defaultCalendarForNewEvents?.source
         let iCloud = eventStore.sources.first(where: { $0.title == "iCloud" }) // this is fragile, user can rename the source
@@ -140,7 +140,7 @@ class ReminderManager: NSObject {
          }
      }
     
-    //Create instance of reminder
+    // Create instance of reminder
     private func generateReminder(title: String, date: Date) -> EKReminder {
         let reminder = EKReminder(eventStore: eventStore)
         reminder.title = title

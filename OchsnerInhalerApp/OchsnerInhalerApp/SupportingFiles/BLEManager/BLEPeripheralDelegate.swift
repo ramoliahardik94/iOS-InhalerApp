@@ -194,6 +194,7 @@ extension BLEHelper {
                     self.getmacAddress(peripheral: discoverPeripheral)
                     self.getBatteryLevel(peripheral: discoverPeripheral)
                     if !self.isAddAnother {
+                        self.setRTCTime(uuid: discoverPeripheral.discoveredPeripheral!.identifier.uuidString)
                         self.countOfConnectedDevice += 1
                         if self.countOfScanDevice == self.countOfConnectedDevice {
                             self.countOfConnectedDevice = 0

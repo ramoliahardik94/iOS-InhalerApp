@@ -49,7 +49,7 @@ class NotificationCell: UITableViewCell {
                  .normal(" \(obj.mac) \n")
                 for dose in obj.dose {
                   attributedString
-                    .bold(dose.time)
+                        .bold(dose.time)
                     .normal(": \( dose.status == "N" ? "Missed" : "Taken") \(dose.takenPuffCount) Puff \n")
                 }
             }

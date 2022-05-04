@@ -31,7 +31,7 @@ class APIManager {
     typealias ResponseBlock = (_ error: RuntimeError?, _ response: Any?) -> Void
         
     @discardableResult
-    func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, textLoader: String = "", isCommonMsg:Bool = false, completion: ResponseBlock?) -> DataRequest? {
+    func performRequest(route: String, isEncoding: Bool = true, parameters: Any, method: HTTPMethod, isBasicAuth: Bool = false, isAuth: Bool = false, showLoader: Bool = true, textLoader: String = "", isCommonMsg: Bool = false, completion: ResponseBlock?) -> DataRequest? {
         
         if !APIManager.isConnectedToNetwork {
             completion?(RuntimeError(StringCommonMessages.noInternetConnection), nil)
@@ -76,7 +76,7 @@ class APIManager {
             let statusCode = response.response?.statusCode
             if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {
                 if route == APIRouter.deviceuse.path || route == APIRouter.dashboard.path  || route == APIRouter.device.path {
-                    Logger.logInfo("Response :: success  :: status code \(statusCode) :: \(route) \n\n \(String(describing: response.value!))")
+                    Logger.logInfo("Response :: success  :: status code \(statusCode ?? 0) :: \(route) \n\n \(String(describing: response.value!))")
                 }
                 switch response.result {
                 case .success:
@@ -96,7 +96,7 @@ class APIManager {
                     completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
             } else {
-                Logger.logError("Response :: failure :: status code \(statusCode) :: \(route) ::\n\n \(String(describing: response.value))")
+                Logger.logError("Response :: failure :: status code \(statusCode ?? 0) :: \(route) ::\n\n \(String(describing: response.value))")
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {
