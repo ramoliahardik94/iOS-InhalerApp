@@ -246,6 +246,7 @@ struct StringDevices {
     static let pairedDevice = "Paired Device"
     static let removeDevice = "Remove Device"
     static let editDirection = "Edit Directions"
+    static let upgrade = "Upgrade"
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
     static let addDevice = "Add Device"

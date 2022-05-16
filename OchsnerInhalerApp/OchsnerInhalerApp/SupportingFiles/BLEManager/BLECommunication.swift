@@ -59,6 +59,7 @@ extension BLEHelper {
     
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
     func connectPeriPheral(peripheral: CBPeripheral) {
+        peripheral.delegate = self
         if isAllow {
             if peripheral.state != .connected || peripheral.state != .connecting {
                 centralManager.connect(peripheral, options: nil)

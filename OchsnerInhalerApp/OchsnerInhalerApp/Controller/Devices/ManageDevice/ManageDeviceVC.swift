@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 
 class ManageDeviceVC: BaseVC {
@@ -73,6 +74,12 @@ class ManageDeviceVC: BaseVC {
     @objc func refresh(_ sender: AnyObject) {
         // Code to refresh table view
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        let deviceUUID = device.filter({$0.udid?.trimmingCharacters(in: .whitespacesAndNewlines) != ""}).map({UUID(uuidString: $0.udid!)!})
+        let arrDevice = BLEHelper.shared.centralManager.retrievePeripherals(withIdentifiers: deviceUUID)
+        for obj in arrDevice where obj.state != .connected {
+            Logger.logInfo("Connect to:\(device.first(where: {$0.udid == obj.identifier.uuidString})!.mac ?? "\(obj.identifier.uuidString)")")
+            BLEHelper.shared.connectPeriPheral(peripheral: obj)
+        }
         if BLEHelper.shared.connectedPeripheral.count !=  device.count {
             Logger.logInfo("Scan with ManageDeviceVC refresh")
             BLEHelper.shared.scanPeripheral()
@@ -146,6 +153,9 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
         cell.btnEditDirection.tag = indexPath.row
         cell.btnEditDirection.accessibilityValue = "\(indexPath.section)"
         
+        cell.btnUpgrade.tag = indexPath.row
+        cell.btnUpgrade.accessibilityValue = "\(indexPath.section)"
+        
         if indexPath.section == 0 {
             cell.lblDeviceType.text = indexPath.row == 0 ? "Rescue Devices" : ""
             cell.device = manageDeviceVM.arrRescue[indexPath.row]
@@ -161,6 +171,25 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ManageDeviceVC: ManageDeviceDelegate {
+    
+    func upgradeDevice(index: Int, section: Int) {
+        CommonFunctions.showMessageYesNo(message: "Do you want to upgrade device?", cancelTitle: "Skip", okTitle: "Continue", { isOK in
+            if isOK {
+                let device = section == 0 ? self.manageDeviceVM.arrRescue[index] : self.manageDeviceVM.arrMantainance[index]
+                if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.internalID}) {
+                    peripheral.discoveredPeripheral!.delegate = nil
+                    peripheral.isOTAUpgrade = true
+                    let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                    bleUpgrade.selectedPeripheral = peripheral.discoveredPeripheral
+                    bleUpgrade.modalPresentationStyle = .overCurrentContext
+                   // self.pushVC(controller: bleUpgrade)
+                    self.presentVC(controller: bleUpgrade)
+                }
+            }
+        })
+        
+       
+    }
     func editDirection(index: Int, section: Int) {
         
         Logger.logInfo("Edit Direction Click")

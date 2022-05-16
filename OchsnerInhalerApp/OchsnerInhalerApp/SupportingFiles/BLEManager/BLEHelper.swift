@@ -13,13 +13,16 @@ class PeriperalType: NSObject {
     var discoveredPeripheral: CBPeripheral?
     var bettery: String = "0"
     var addressMAC: String = ""
+    var version = String()
     var charectristicWrite: CBCharacteristic?
+    var charectristicVersion: CBCharacteristic?
     var charectristicNotify: CBCharacteristic?
     var charectristicRead: CBCharacteristic?
     var macCharecteristic: CBCharacteristic?
     var noOfLog: Decimal = 0
     var logCounter = 0
     var isFromNotification = false
+    var isOTAUpgrade = false
     
     override init() {
         super.init()
@@ -52,7 +55,6 @@ class BLEHelper: NSObject {
     var isPullToRefresh = false
     var countOfScanDevice = 0
     var countOfConnectedDevice = 0
-    
     
     /// set notification observer for  *.BLEAcuationLog*  when ever Actuation log came from BLE Device/Peripheral this helps to notify in function *actuationLog(notification...*
     func addLogObserver() {
@@ -127,4 +129,24 @@ class BLEHelper: NSObject {
         }
     }
     
+    func getVersion(peripheral: PeriperalType) {
+        if peripheral.discoveredPeripheral != nil && peripheral.charectristicVersion != nil && peripheral.discoveredPeripheral!.state == .connected {
+            peripheral.discoveredPeripheral!.readValue(for: peripheral.charectristicVersion!)
+        }
+    }
+    
+    
+    func getVersionInString(haxStr: String) -> String {
+        let hexArray = haxStr.split(separator: ":")
+        var arrVersion = [String]()
+        for validHexString in hexArray {
+            let validUnicodeScalarValue = Int(validHexString, radix: 16)!
+            let validUnicodeScalar = Unicode.Scalar(validUnicodeScalarValue)!
+            let character = Character(validUnicodeScalar)
+            print(character)
+            arrVersion.append(String(character))
+        }
+        print(arrVersion.joined(separator: ""))
+        return arrVersion.joined(separator: "")
+    }
 }

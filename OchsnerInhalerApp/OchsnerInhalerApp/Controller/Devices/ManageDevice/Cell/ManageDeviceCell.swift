@@ -9,9 +9,11 @@ import UIKit
 protocol ManageDeviceDelegate: AnyObject {
     func editDirection(index: Int, section: Int)
     func removeDevice(index: Int, section: Int)
+    func upgradeDevice(index: Int, section: Int)
 }
 class ManageDeviceCell: UITableViewCell {
 
+    @IBOutlet weak var btnUpgrade: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var lblDeviceType: UILabel!
     @IBOutlet weak var lblDeviceName: UILabel!
@@ -85,6 +87,7 @@ class ManageDeviceCell: UITableViewCell {
         lblstatus.setFont(type: .regular, point: 14)
         btnRemoveDevice.setButtonView(StringDevices.removeDevice, 17, AppFont.AppRegularFont)
         btnEditDirection.setButtonView(StringDevices.editDirection, 17, AppFont.AppRegularFont)
+        btnUpgrade.setButtonView(StringDevices.upgrade, 14, AppFont.AppRegularFont, isBlankBG: true)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -99,6 +102,11 @@ class ManageDeviceCell: UITableViewCell {
         }
     }
     
+    @IBAction func btnUpgradeClick(_ sender: UIButton) {
+        if delegate != nil {
+            delegate?.upgradeDevice(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)
+        }
+    }
     @IBAction func btnRemoveDevice(sender: UIButton) {
         if delegate != nil {
             delegate?.removeDevice(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)

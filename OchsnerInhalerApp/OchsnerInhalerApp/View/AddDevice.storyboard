@@ -9,6 +9,65 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Upgrade-->
+        <scene sceneID="x3V-Nk-4hf">
+            <objects>
+                <viewController storyboardIdentifier="BLEOTAUpgrade" useStoryboardIdentifierAsRestorationIdentifier="YES" id="11f-O9-u4w" customClass="BLEOTAUpgrade" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gEn-mB-UrN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLD-cn-8MC">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bK2-3z-8r6">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="uxd-6J-Bk1">
+                                            <rect key="frame" x="182" y="400.5" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="mJZ-kv-pzF"/>
+                                                <constraint firstAttribute="height" constant="50" id="pOx-pP-uY2"/>
+                                            </constraints>
+                                            <color key="color" systemColor="systemBlueColor"/>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJo-uO-VhF">
+                                            <rect key="frame" x="10" y="460.5" width="394" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" systemColor="systemBlueColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uxd-6J-Bk1" firstAttribute="centerY" secondItem="bK2-3z-8r6" secondAttribute="centerY" multiplier="0.95" id="4LJ-dm-GFl"/>
+                                        <constraint firstAttribute="trailing" secondItem="vJo-uO-VhF" secondAttribute="trailing" constant="10" id="CZz-rD-oxm"/>
+                                        <constraint firstItem="vJo-uO-VhF" firstAttribute="top" secondItem="uxd-6J-Bk1" secondAttribute="bottom" constant="10" id="grB-fN-tKe"/>
+                                        <constraint firstItem="vJo-uO-VhF" firstAttribute="leading" secondItem="bK2-3z-8r6" secondAttribute="leading" constant="10" id="kcp-0K-bwh"/>
+                                        <constraint firstItem="uxd-6J-Bk1" firstAttribute="centerX" secondItem="bK2-3z-8r6" secondAttribute="centerX" id="vKN-9K-2dW"/>
+                                    </constraints>
+                                </view>
+                                <vibrancyEffect style="fill">
+                                    <blurEffect style="dark"/>
+                                </vibrancyEffect>
+                            </visualEffectView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qQd-Xy-pqN"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="kLD-cn-8MC" secondAttribute="bottom" id="Vjv-uN-WAe"/>
+                            <constraint firstItem="kLD-cn-8MC" firstAttribute="top" secondItem="gEn-mB-UrN" secondAttribute="top" id="lAt-oC-h8U"/>
+                            <constraint firstItem="qQd-Xy-pqN" firstAttribute="trailing" secondItem="kLD-cn-8MC" secondAttribute="trailing" id="mnH-Mc-ma5"/>
+                            <constraint firstItem="kLD-cn-8MC" firstAttribute="leading" secondItem="qQd-Xy-pqN" secondAttribute="leading" id="rmp-Dc-Bus"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblOTAInfo" destination="vJo-uO-VhF" id="NET-t9-ZIO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uDv-FX-rEj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-150" y="204"/>
+        </scene>
         <!--Add Device IntroVC-->
         <scene sceneID="UhL-yO-sso">
             <objects>
@@ -111,10 +170,10 @@
                                         <rect key="frame" x="0.0" y="34" width="414" height="750"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w8u-qT-weY">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="109"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lr4-eo-xxm">
-                                                        <rect key="frame" x="186.5" y="0.0" width="41.5" height="109"/>
+                                                        <rect key="frame" x="186.5" y="0.0" width="41.5" height="50"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -130,10 +189,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6SC-VI-GTB">
-                                                <rect key="frame" x="0.0" y="119" width="414" height="412"/>
+                                                <rect key="frame" x="0.0" y="60" width="414" height="510"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="Inhaler Graphic" translatesAutoresizingMaskIntoConstraints="NO" id="jVP-mA-1xb">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="412"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="510"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -145,10 +204,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="904-Yj-xAG">
-                                                <rect key="frame" x="0.0" y="541" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="580" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eYw-aY-uvS">
-                                                        <rect key="frame" x="32" y="0.0" width="350" height="60"/>
+                                                        <rect key="frame" x="32" y="0.0" width="350" height="50"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -163,10 +222,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0YZ-AE-6hk">
-                                                <rect key="frame" x="0.0" y="611" width="414" height="79"/>
+                                                <rect key="frame" x="0.0" y="640" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4yC-dF-PjP">
-                                                        <rect key="frame" x="32" y="0.0" width="350" height="79"/>
+                                                        <rect key="frame" x="32" y="0.0" width="350" height="50"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -999,6 +1058,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
