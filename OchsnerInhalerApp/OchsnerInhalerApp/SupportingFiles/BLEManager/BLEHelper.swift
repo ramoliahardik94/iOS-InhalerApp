@@ -143,10 +143,9 @@ class BLEHelper: NSObject {
             let validUnicodeScalarValue = Int(validHexString, radix: 16)!
             let validUnicodeScalar = Unicode.Scalar(validUnicodeScalarValue)!
             let character = Character(validUnicodeScalar)
-            print(character)
             arrVersion.append(String(character))
         }
         print(arrVersion.joined(separator: ""))
-        return arrVersion.joined(separator: "")
+        return arrVersion.joined(separator: "").trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

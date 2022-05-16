@@ -29,14 +29,17 @@ extension BLEHelper: CBPeripheralDelegate {
         if characteristic.uuid == TransferService.characteristicAutoNotify {
             Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
             discoverPeripheral.isFromNotification = true
+            getVersion(peripheral: discoverPeripheral)
             getActuationNumber(discoverPeripheral, stringFromData)
         } else if characteristic.uuid == TransferService.characteristicVersion {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                 let  version = getVersionInString(haxStr: stringFromData)
                 connectedPeripheral[index].version = version
                 Logger.logInfo("firmware version: \(version)")
+                if Constants.AppContainsFirmwareVersion != discoverPeripheral.version.trimmingCharacters(in: .controlCharacters) {
+                    setNotificationForVersionUpdate()
+                }
             }
-                      
         } else  if characteristic.uuid == TransferService.macCharecteristic {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                 connectedPeripheral[index].addressMAC = stringFromData
@@ -45,7 +48,6 @@ extension BLEHelper: CBPeripheralDelegate {
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
             }
-            
         } else {
             var arrResponce = stringFromData.split(separator: ":")
             arrResponce.remove(at: 0)// StartByte
@@ -245,6 +247,21 @@ extension BLEHelper {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(discoverPeripheral.noOfLog)"])
         }
+    }
+    func setNotificationForVersionUpdate() {
+        let content = UNMutableNotificationContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        content.title = StringLocalNotifiaction.title
+        content.body =  StringLocalNotifiaction.bodyVersion
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["version": true]
+        let request = UNNotificationRequest(identifier: "deviceUpgration", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            if let error = error {
+                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            }
+        })
+        Logger.logInfo(" setNotification End")
     }
     
 }

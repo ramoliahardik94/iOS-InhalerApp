@@ -24,12 +24,14 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     private var imagesForRightBud: [RTKOTAUpgradeBin] = [RTKOTAUpgradeBin]()
     private var upgradeNextConnectedPeripheral = false
     @IBOutlet weak var lblOTAInfo: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
     var selectedPeripheral: CBPeripheral?
      
     override func viewDidLoad() {
         otaProfile = RTKOTAProfile()
         otaProfile.delegate = self
         lblOTAInfo.text = ""
+        progressView.progress = 0
     }
     override func viewDidAppear(_ animated: Bool) {
         
@@ -207,7 +209,16 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     
     func dfuPeripheral(_ peripheral: RTKDFUPeripheral, didSend length: UInt, totalToSend totalLength: UInt) {
         if peripheral.upgradingImage != nil {
-            print("Progress \(length/totalLength)")
+            let totalFile = self.dfuPeripheral?.upgradeImages?.count ?? 1
+            let index = dfuPeripheral?.upgradeImages?.firstIndex(of: peripheral.upgradingImage!) ?? 0
+            let innerUpdate = (Float(length) / Float(totalLength) )/ 100
+            let currentProgress = progressView.progress
+            progressView.progress = currentProgress + innerUpdate
+            if Float(length) / Float(totalLength) == 1 {
+                progressView.progress = ((Float((index + 1) * 100 / (totalFile ))/100 ))
+            }
+            print("progress : \(progressView.progress)")
+            lblOTAInfo.text = "Updating... \((index) + 1) / \(totalFile) "
         }
     }
     
@@ -221,6 +232,9 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             let interval = Date().timeIntervalSince(timeUpgradeBegin!)
             Logger.logInfo(" OTA MSG:update completed." + String(format: "average rate：%.2f KB/s", (Double(lengthTotalImages) / 1000.0) / interval))
             lblOTAInfo.text = "Update Successfuly."
+            delay(1) {
+                self.lblOTAInfo.text = "Conneting with new firmware."
+            }
             closeVC()
            
         })

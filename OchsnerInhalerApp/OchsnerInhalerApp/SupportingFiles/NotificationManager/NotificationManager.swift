@@ -176,6 +176,14 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+         let userInfo = response.notification.request.content.userInfo
+            if let version = userInfo["version"] {
+                if version as! Bool {
+                    // TODO: Move to Vesion UPDATE Screen
+                    print("Move to Vesion UPDATE Screen")
+                }
+            }
         UNUserNotificationCenter.current().removeAllDeliveredNotifications() // clear all the notification from notification center
         if UserDefaultManager.isNotificationOn {
             unregister()

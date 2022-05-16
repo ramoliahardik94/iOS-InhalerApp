@@ -47,12 +47,15 @@ class ManageDeviceCell: UITableViewCell {
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             var textStatus =  StringCommonMessages.disconnect
+            btnUpgrade.isHidden = true
             var bettery = device.batteryLevel
                 if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.internalID}) {
                     bettery =  peripheral.bettery != "0" ? "\(peripheral.bettery)%" :  device.batteryLevel
                     switch peripheral.discoveredPeripheral!.state {
                     case .connected :
                         textStatus = StringCommonMessages.connected
+                        print("\(Constants.AppContainsFirmwareVersion) == \(peripheral.version.trimmingCharacters(in: .controlCharacters))")
+                        btnUpgrade.isHidden = Constants.AppContainsFirmwareVersion == peripheral.version.trimmingCharacters(in: .controlCharacters)
                     case .disconnected :
                         textStatus = StringCommonMessages.disconnect
                     case .connecting :
