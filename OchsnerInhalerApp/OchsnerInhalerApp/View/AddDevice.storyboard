@@ -44,6 +44,9 @@
                                             <constraint firstItem="6QP-Cj-y98" firstAttribute="centerY" secondItem="Pxv-06-N59" secondAttribute="centerY" id="q9D-KY-fsm"/>
                                             <constraint firstAttribute="trailing" secondItem="Yz5-L0-fU0" secondAttribute="trailing" constant="10" id="vVe-gu-rWM"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.51939592980391147" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

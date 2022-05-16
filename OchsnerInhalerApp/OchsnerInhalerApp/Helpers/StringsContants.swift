@@ -280,7 +280,7 @@ struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
     static let body = "You will be no longer able to track the medicine usage"
     static let reminderBody = "Hi, %@ Just reminding you about your scheduled %@ doses at %@.Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
-    static let bodyVersion = "You device have update available update it now."
+    static let bodyVersion = "Updates are available for %@."
     
     static let notificationMsg = "You have missed your dose or it has not been synced."
     static let titleForRimander = "Your schedule dose time"

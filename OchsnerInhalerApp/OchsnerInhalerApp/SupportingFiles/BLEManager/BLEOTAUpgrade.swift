@@ -37,6 +37,8 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         
         self.otaPeripheral = otaProfile.otaPeripheral(from: selectedPeripheral!)
         lblOTAInfo.text = "Connecting device in OTA mode"
+        lblOTAInfo.setFont(type: .regular, point: 12)
+        lblOTAInfo.textColor = .ButtonColorBlue
         if otaPeripheral != nil {
             otaProfile.connect(to: otaPeripheral!)
         } else {
@@ -184,6 +186,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             })
         }
         onFileHasSelected(Constants.firmwareFileName)
+        progressView.progress = 0.15
     }
     
     func profile(_ profile: RTKLEProfile, didDisconnectPeripheral peripheral: RTKLEPeripheral, error: Error?) {
@@ -197,6 +200,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     func profile(_ profile: RTKLEProfile, didFailToConnect peripheral: RTKLEPeripheral, error: Error?) {
         DispatchQueue.main.async(execute: { [self] in
             Logger.logInfo(" OTA MSG:Failed to connect peripheral \(String(describing: error!.localizedDescription))") // "连接外设失败"
+            lblOTAInfo.textColor = .ColorHomeIconRed
             lblOTAInfo.text = "Failed to connect peripheral. \(String(describing: error!.localizedDescription))"
             closeVC()
             
@@ -217,7 +221,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             if Float(length) / Float(totalLength) == 1 {
                 progressView.progress = ((Float((index + 1) * 100 / (totalFile ))/100 ))
             }
-            print("progress : \(progressView.progress)")
+            Logger.logInfo("progress : \(progressView.progress) Updating... \((index) + 1) / \(totalFile)")
             lblOTAInfo.text = "Updating... \((index) + 1) / \(totalFile) "
         }
     }
