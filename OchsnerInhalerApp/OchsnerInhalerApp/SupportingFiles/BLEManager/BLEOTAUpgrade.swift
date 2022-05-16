@@ -211,7 +211,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         if peripheral.upgradingImage != nil {
             let totalFile = self.dfuPeripheral?.upgradeImages?.count ?? 1
             let index = dfuPeripheral?.upgradeImages?.firstIndex(of: peripheral.upgradingImage!) ?? 0
-            let innerUpdate = (Float(length) / Float(totalLength) )/ 100
+            let innerUpdate = (Float(length) / Float(totalLength) ) / 100
             let currentProgress = progressView.progress
             progressView.progress = currentProgress + innerUpdate
             if Float(length) / Float(totalLength) == 1 {
@@ -310,14 +310,14 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         upgradeSilently = false
         otaProfile.translate(otaPeripheral) { [self] success, _, peripheral in
             if success {
-                Logger.logInfo(" OTA MSG:Connecting peripherals in OTA mode") // 连接OTA模式下的外设
+                Logger.logInfo(" OTA MSG: Connecting peripherals in OTA mode") // 连接OTA模式下的外设
                 lblOTAInfo.text = "Connecting peripherals in OTA mode"
                  
                 dfuPeripheral = peripheral as? RTKMultiDFUPeripheral
                 peripheral!.delegate = self
                 otaProfile.connect(to: peripheral!)
             } else {
-                Logger.logInfo(" OTA MSG:Failed to switch to OTA mode") // 切换到OTA mode失败
+                Logger.logInfo(" OTA MSG: Failed to switch to OTA mode") // 切换到OTA mode失败
                 lblOTAInfo.text = "Failed to switch to OTA mode"
             }
         }
