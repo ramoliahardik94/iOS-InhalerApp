@@ -25,8 +25,10 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     private var upgradeNextConnectedPeripheral = false
     @IBOutlet weak var lblOTAInfo: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var lblMedname: UILabel!
     var selectedPeripheral: CBPeripheral?
-     
+    var isUpdateAll = false
+     var medname = String()
     override func viewDidLoad() {
         otaProfile = RTKOTAProfile()
         otaProfile.delegate = self
@@ -34,16 +36,26 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         progressView.progress = 0
     }
     override func viewDidAppear(_ animated: Bool) {
-        
+        startConnection()
+    }
+    func startConnection() {
+        progressView.progress = 0.022
         self.otaPeripheral = otaProfile.otaPeripheral(from: selectedPeripheral!)
         lblOTAInfo.text = "Connecting device in OTA mode"
+        lblMedname.text = "Updating \(self.medname)"
         lblOTAInfo.setFont(type: .regular, point: 12)
         lblOTAInfo.textColor = .ButtonColorBlue
+        lblMedname.setFont(type: .regular, point: 12)
+        lblMedname.textColor = .ButtonColorBlue
         if otaPeripheral != nil {
             otaProfile.connect(to: otaPeripheral!)
         } else {
             closeVC()
         }
+    }
+    
+    @IBAction func btnCloseClick(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func imagesUserSelected() -> [RTKOTAUpgradeBin] {
@@ -330,15 +342,26 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     func closeVC() {
         let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == selectedPeripheral!.identifier.uuidString})
         peripheral?.isOTAUpgrade = false
-        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        let deviceUUID = device.filter({$0.udid?.trimmingCharacters(in: .whitespacesAndNewlines) != ""}).map({UUID(uuidString: $0.udid!)!})
-        let arrDevice = BLEHelper.shared.centralManager.retrievePeripherals(withIdentifiers: deviceUUID)
-        for obj in arrDevice where obj.state != .connected {
-            Logger.logInfo("Connect to:\(device.first(where: {$0.udid == obj.identifier.uuidString})!.mac ?? "\(obj.identifier.uuidString)")")
-            BLEHelper.shared.connectPeriPheral(peripheral: obj)
-        }
-        delay(5) {
-            self.dismiss(animated: true, completion: nil)
+        BLEHelper.shared.connectPeriPheral(peripheral: selectedPeripheral!)
+        delay(5) { [self] in
+            if isUpdateAll {
+//                peripheral?.version = Constants.AppContainsFirmwareVersion
+                if let sel = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral!.state == .connected && $0.version != Constants.AppContainsFirmwareVersion}) {
+                    if sel  != selectedPeripheral {
+                        sel.isOTAUpgrade = true
+                        self.selectedPeripheral = sel.discoveredPeripheral
+                        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+                        self.medname =  device.first(where: {$0.udid == sel.discoveredPeripheral?.identifier.uuidString})?.medname ?? ""
+                        startConnection()
+                    } else {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                } else {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
 }

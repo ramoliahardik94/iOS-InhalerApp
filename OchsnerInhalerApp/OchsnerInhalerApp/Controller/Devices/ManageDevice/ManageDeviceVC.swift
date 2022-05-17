@@ -1,6 +1,5 @@
 //
-//  ManageDeviceVC.swift
-//  OchsnerInhalerApp
+//  ManageDeviceVC.swift //  OchsnerInhalerApp
 //
 //  Created by Deepak Panchal on 12/01/22.
 //
@@ -17,6 +16,12 @@ class ManageDeviceVC: BaseVC {
     @IBOutlet weak var btnAddAnothDevice: UIButton!
     let refreshControl = UIRefreshControl()
     @IBOutlet weak var addDevicebtnHeight: NSLayoutConstraint!
+    @IBOutlet weak var btnUpdateAllHeight: NSLayoutConstraint!
+    @IBOutlet weak var lblUpdateInfo: UILabel!
+    @IBOutlet weak var btnUpdateAll: UIButton!
+    
+    @IBOutlet weak var viewUpdateInfoHeight: NSLayoutConstraint!
+    @IBOutlet weak var viewUpdateInfo: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +31,7 @@ class ManageDeviceVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEDisconnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEChange, object: nil)
         initUI()
+        setUpdateAllView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,8 +43,19 @@ class ManageDeviceVC: BaseVC {
         if self.manageDeviceVM.arrDevice.count == 0 {
             refresh(self)
         }
+        
+       setUpdateAllView()
     }
-    
+    func setUpdateAllView() {
+        let connectedDeviceList = BLEHelper.shared.connectedPeripheral.filter({$0.version != Constants.AppContainsFirmwareVersion})
+       // btnUpdateAllHeight.constant = connectedDeviceList.count == 0  ? 0 : 35
+        viewUpdateInfoHeight.constant = connectedDeviceList.count == 0  ? 0 : 70
+        btnUpdateAll.isHidden = connectedDeviceList.count == 0
+        viewUpdateInfo.isHidden = connectedDeviceList.count == 0
+        btnUpdateAll.setButtonView(StringDevices.upgradeAll, 14, AppFont.AppRegularFont, isBlankBG: true)
+        lblUpdateInfo.setFont()
+        lblUpdateInfo.text = StringDevices.upgradeInfo
+    }
     func apiCall() {
         manageDeviceVM.apicallForGetDeviceList { [weak self] result in
             guard let`self` = self else { return }
@@ -55,6 +72,21 @@ class ManageDeviceVC: BaseVC {
                 CommonFunctions.showMessage(message: message)
             }
         }
+    }
+    @IBAction func btnUpdateAllclick(_ sender: Any) {
+        let connectedDeviceList = BLEHelper.shared.connectedPeripheral.filter({$0.version != Constants.AppContainsFirmwareVersion})
+        let peripheral = connectedDeviceList[0]
+        peripheral.discoveredPeripheral!.delegate = nil
+        peripheral.isOTAUpgrade = true
+        let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        bleUpgrade.selectedPeripheral = peripheral.discoveredPeripheral
+        bleUpgrade.modalPresentationStyle = .overCurrentContext
+        if let deviceDetail = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.udid == peripheral.discoveredPeripheral!.identifier.uuidString}) {
+            bleUpgrade.medname = deviceDetail.medname ?? ""
+        }
+        bleUpgrade.isUpdateAll = true
+        // self.pushVC(controller: bleUpgrade)
+        self.presentVC(controller: bleUpgrade)
     }
     
     private func initUI() {
@@ -182,6 +214,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                     let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     bleUpgrade.selectedPeripheral = peripheral.discoveredPeripheral
                     bleUpgrade.modalPresentationStyle = .overCurrentContext
+                    bleUpgrade.medname = device.medication.medName ?? ""
                    // self.pushVC(controller: bleUpgrade)
                     self.presentVC(controller: bleUpgrade)
                 }

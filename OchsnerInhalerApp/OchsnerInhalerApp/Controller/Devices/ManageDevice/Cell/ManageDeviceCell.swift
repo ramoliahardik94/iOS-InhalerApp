@@ -54,8 +54,8 @@ class ManageDeviceCell: UITableViewCell {
                     switch peripheral.discoveredPeripheral!.state {
                     case .connected :
                         textStatus = StringCommonMessages.connected
-                        print("\(Constants.AppContainsFirmwareVersion) == \(peripheral.version.trimmingCharacters(in: .controlCharacters))")
-                        btnUpgrade.isHidden = Constants.AppContainsFirmwareVersion == peripheral.version.trimmingCharacters(in: .controlCharacters)
+                        print("\(Constants.AppContainsFirmwareVersion) == \(peripheral.version)")
+                        btnUpgrade.isHidden = (Constants.AppContainsFirmwareVersion == peripheral.version)
                     case .disconnected :
                         textStatus = StringCommonMessages.disconnect
                     case .connecting :

@@ -247,6 +247,8 @@ struct StringDevices {
     static let removeDevice = "Remove Device"
     static let editDirection = "Edit Directions"
     static let upgrade = "Upgrade"
+    static let upgradeAll = "Upgrade All"
+    static let upgradeInfo = "Updates are available for Inhaler Device."
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
     static let addDevice = "Add Device"
