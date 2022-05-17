@@ -43,38 +43,25 @@
                                         <constraints>
                                             <constraint firstItem="cmd-CD-IRt" firstAttribute="top" secondItem="Pxv-06-N59" secondAttribute="top" constant="10" id="4Uf-55-4kc"/>
                                             <constraint firstItem="6QP-Cj-y98" firstAttribute="centerX" secondItem="Pxv-06-N59" secondAttribute="centerX" id="EpK-uz-JsT"/>
+                                            <constraint firstItem="6QP-Cj-y98" firstAttribute="top" secondItem="cmd-CD-IRt" secondAttribute="bottom" constant="5" id="FF9-0P-fFj"/>
                                             <constraint firstAttribute="bottom" secondItem="Yz5-L0-fU0" secondAttribute="bottom" constant="10" id="NER-TS-1JQ"/>
                                             <constraint firstItem="Yz5-L0-fU0" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" constant="10" id="Uhm-Wy-DN3"/>
                                             <constraint firstItem="6QP-Cj-y98" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" constant="10" id="Vvt-yq-lHn"/>
                                             <constraint firstAttribute="trailing" secondItem="6QP-Cj-y98" secondAttribute="trailing" constant="10" id="Wqs-Nn-tJT"/>
-                                            <constraint firstAttribute="height" constant="75" id="XZ2-7f-bn5"/>
                                             <constraint firstItem="cmd-CD-IRt" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" constant="10" id="eeQ-Bi-5hO"/>
                                             <constraint firstAttribute="trailing" secondItem="cmd-CD-IRt" secondAttribute="trailing" constant="10" id="mIG-YT-tQZ"/>
                                             <constraint firstItem="6QP-Cj-y98" firstAttribute="centerY" secondItem="Pxv-06-N59" secondAttribute="centerY" id="q9D-KY-fsm"/>
                                             <constraint firstAttribute="trailing" secondItem="Yz5-L0-fU0" secondAttribute="trailing" constant="10" id="vVe-gu-rWM"/>
+                                            <constraint firstItem="Yz5-L0-fU0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6QP-Cj-y98" secondAttribute="bottom" constant="5" id="yvd-k5-cKh"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9w-Ik-EbQ">
-                                        <rect key="frame" x="304" y="10" width="100" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="V5d-CM-mIH"/>
-                                            <constraint firstAttribute="width" constant="100" id="sYl-or-bBA"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Close "/>
-                                        <connections>
-                                            <action selector="btnCloseClick:" destination="11f-O9-u4w" eventType="touchUpInside" id="Weq-bn-qkc"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.51939592980391147" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="v9w-Ik-EbQ" secondAttribute="trailing" constant="10" id="5lR-J1-Nip"/>
                                     <constraint firstItem="Pxv-06-N59" firstAttribute="leading" secondItem="0cS-1q-12x" secondAttribute="leading" constant="30" id="7VS-8s-jat"/>
-                                    <constraint firstItem="v9w-Ik-EbQ" firstAttribute="top" secondItem="0cS-1q-12x" secondAttribute="top" constant="10" id="FoR-SY-RQZ"/>
                                     <constraint firstAttribute="trailing" secondItem="Pxv-06-N59" secondAttribute="trailing" constant="30" id="KtE-ZR-PEa"/>
                                     <constraint firstItem="Pxv-06-N59" firstAttribute="centerY" secondItem="0cS-1q-12x" secondAttribute="centerY" id="ja0-fH-321"/>
                                     <constraint firstItem="Pxv-06-N59" firstAttribute="centerX" secondItem="0cS-1q-12x" secondAttribute="centerX" id="p5u-A2-LPn"/>

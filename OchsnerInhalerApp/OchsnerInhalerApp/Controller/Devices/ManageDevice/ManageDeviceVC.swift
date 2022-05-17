@@ -106,12 +106,6 @@ class ManageDeviceVC: BaseVC {
     @objc func refresh(_ sender: AnyObject) {
         // Code to refresh table view
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        let deviceUUID = device.filter({$0.udid?.trimmingCharacters(in: .whitespacesAndNewlines) != ""}).map({UUID(uuidString: $0.udid!)!})
-        let arrDevice = BLEHelper.shared.centralManager.retrievePeripherals(withIdentifiers: deviceUUID)
-        for obj in arrDevice where obj.state != .connected {
-            Logger.logInfo("Connect to:\(device.first(where: {$0.udid == obj.identifier.uuidString})!.mac ?? "\(obj.identifier.uuidString)")")
-            BLEHelper.shared.connectPeriPheral(peripheral: obj)
-        }
         if BLEHelper.shared.connectedPeripheral.count !=  device.count {
             Logger.logInfo("Scan with ManageDeviceVC refresh")
             BLEHelper.shared.scanPeripheral()
