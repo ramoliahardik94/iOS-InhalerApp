@@ -195,9 +195,12 @@ extension BLEHelper: CBCentralManagerDelegate {
             if let peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral] {
                 if (peripherals.count > 0) {
                     for obj in peripherals {
+                        
                         let mac = DatabaseManager.share.getMac(UDID: obj.identifier.uuidString)
-                        connectedPeripheral.append(PeriperalType(peripheral: obj, mac: mac))
-                        obj.delegate = self
+                        if let isMyDevice = devicelist.first(where: {$0.mac == mac}) {
+                            connectedPeripheral.append(PeriperalType(peripheral: obj, mac: mac))
+                            obj.delegate = self
+                        }
                     }
                 }
             }

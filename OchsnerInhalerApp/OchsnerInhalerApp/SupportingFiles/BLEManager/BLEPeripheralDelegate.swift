@@ -172,20 +172,24 @@ extension BLEHelper {
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
             discoverPeripheral.macCharecteristic = characteristic
+            print("NB: macCharecteristic")
         }
         // TODO: - Uncomment for BG AutoNotify
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
             peripheral.setNotifyValue(false, for: characteristic)
             peripheral.setNotifyValue(true, for: characteristic)
             discoverPeripheral.charectristicNotify = characteristic
+            print("NB: charectristicNotify")
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
             peripheral.setNotifyValue(false, for: characteristic)
             discoverPeripheral.charectristicWrite = characteristic
+            print("NB: charectristicWrite")
         }
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicVersion {
             discoverPeripheral.charectristicVersion = characteristic
+            print("NB: charectristicVersion")
         }
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
             peripheral.setNotifyValue(false, for: characteristic)
@@ -193,13 +197,8 @@ extension BLEHelper {
             discoverPeripheral.charectristicRead = characteristic
         }
         
-        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicServiceChanged {
-            peripheral.setNotifyValue(false, for: characteristic)
-            peripheral.setNotifyValue(true, for: characteristic)
-        }
-        
         if !discoverPeripheral.isOTAUpgrade {
-            if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicNotify != nil && discoverPeripheral.charectristicVersion != nil {
+            if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicVersion != nil {
                 delay(isAddAnother ? Constants.PairDialogDelay : 0) {
                     [weak self] in
                     guard let `self` = self else { return }
