@@ -75,6 +75,7 @@
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
+		474AAF582834F9FD001834BA /* ble_tracker_v1.0.7_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */; };
 		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
 		4788BDB5280048F500AA1F92 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB4280048F500AA1F92 /* NotificationVC.swift */; };
 		4788BDB828004FD400AA1F92 /* NotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB728004FD400AA1F92 /* NotificationVM.swift */; };
@@ -224,6 +225,7 @@
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
+		474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.7_ota.bin; sourceTree = "<group>"; };
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
 		4788BDB4280048F500AA1F92 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		4788BDB728004FD400AA1F92 /* NotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVM.swift; sourceTree = "<group>"; };
@@ -697,6 +699,7 @@
 			isa = PBXGroup;
 			children = (
 				470CC948282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin */,
+				474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */,
 				47C98CD12828F68C001F755B /* RTKLEFoundation.framework */,
 				47C98CD22828F68C001F755B /* RTKOTASDK.framework */,
 				479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */,
@@ -934,6 +937,7 @@
 				224E1C992797F53A000C5D1A /* ManageDeviceCell.xib in Resources */,
 				224E1CA227983816000C5D1A /* SFProDisplay-LightItalic.ttf in Resources */,
 				4710234B2796737B00F88876 /* SFProText-Regular.ttf in Resources */,
+				474AAF582834F9FD001834BA /* ble_tracker_v1.0.7_ota.bin in Resources */,
 				470E4FE527C7744100F8C815 /* SF-Pro-Display-BoldItalic.otf in Resources */,
 				470CC949282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin in Resources */,
 				47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */,

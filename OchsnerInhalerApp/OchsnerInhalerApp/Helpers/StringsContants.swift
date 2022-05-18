@@ -51,9 +51,14 @@ struct AppFont {
     static let AppLightFont = Constants.CustomFont.SFProDisplayLight
     static let SFProTextBold = Constants.CustomFont.SFProTextBold
 }
-
+struct OTAMessages {
+    static let info = "Please do not close the app and not move your device while the app is processing upgrades."
+    static let titleUpgrade = "Upgrading Inhaler"
+}
 // MARK: UserManagement
 struct StringUserManagement {
+    static let strMaintenance = "Maintenance"
+    static let strRescue = "Rescue"
     static let login = "Login"
     static let createAccount = "Create Account"
     static let forgotePass = "Forgot password"

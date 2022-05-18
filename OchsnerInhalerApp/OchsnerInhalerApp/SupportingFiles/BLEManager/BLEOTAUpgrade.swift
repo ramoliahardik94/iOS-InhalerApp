@@ -25,7 +25,9 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     private var upgradeNextConnectedPeripheral = false
     @IBOutlet weak var lblOTAInfo: UILabel!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblMedname: UILabel!
+    @IBOutlet weak var lblInfo: UILabel!
     var selectedPeripheral: CBPeripheral?
     var isUpdateAll = false
      var medname = String()
@@ -42,16 +44,24 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         progressView.progress = 0.022
         self.otaPeripheral = otaProfile.otaPeripheral(from: selectedPeripheral!)
         lblOTAInfo.text = "Connecting device in OTA mode"
-        lblMedname.text = "Updating \(self.medname)"
-        lblOTAInfo.setFont(type: .regular, point: 12)
-        lblOTAInfo.textColor = .ButtonColorBlue
-        lblMedname.setFont(type: .regular, point: 12)
-        lblMedname.textColor = .ButtonColorBlue
+        if let type = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.udid == selectedPeripheral?.identifier.uuidString}) {
+            self.medname = "\(type.medname!) (\(type.medtypeid ==  1 ?  StringUserManagement.strRescue :  StringUserManagement.strMaintenance))"
+        }
+        
+        lblMedname.text = "\(self.medname) "
+        lblOTAInfo.setFont(type: .regular, point: 17)
+        lblTitle.setFont(type: .bold, point: 25)
+        lblMedname.setFont(type: .bold, point: 20)
+        lblInfo.setFont(type: .regular, point: 17)
+        lblTitle.text = OTAMessages.titleUpgrade
+        lblInfo.text = OTAMessages.info
         if otaPeripheral != nil {
             otaProfile.connect(to: otaPeripheral!)
         } else {
             closeVC()
         }
+        
+   
     }
     
     @IBAction func btnCloseClick(_ sender: Any) {
@@ -249,7 +259,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             Logger.logInfo(" OTA MSG:update completed." + String(format: "average rate：%.2f KB/s", (Double(lengthTotalImages) / 1000.0) / interval))
             lblOTAInfo.text = "Update Successfuly."
             delay(1) {
-                self.lblOTAInfo.text = "Conneting with new firmware."
+                //self.lblOTAInfo.text = "Connecting with new firmware."
             }
             closeVC()
            

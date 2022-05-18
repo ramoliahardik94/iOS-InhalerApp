@@ -182,6 +182,12 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
                 if version as! Bool {
                     // TODO: Move to Vesion UPDATE Screen
                     print("Move to Vesion UPDATE Screen")
+                    if !(UIApplication.topViewController()! is ManageDeviceVC) {                        
+                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                        homeTabBar.selectedIndex = 1
+                        BaseVC().rootVC(controller: homeTabBar)
+                    }
                 }
             }
         UNUserNotificationCenter.current().removeAllDeliveredNotifications() // clear all the notification from notification center

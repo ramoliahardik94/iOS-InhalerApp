@@ -20,51 +20,77 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0cS-1q-12x">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxv-06-N59">
-                                        <rect key="frame" x="30" y="410.5" width="354" height="75"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QVR-z0-fAj">
+                                        <rect key="frame" x="10" y="44" width="394" height="852"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yz5-L0-fU0">
-                                                <rect key="frame" x="10" y="44.5" width="334" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" systemColor="systemBlueColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrading Device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHO-NR-BBS">
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="aT3-gP-DxY"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmd-CD-IRt">
-                                                <rect key="frame" x="10" y="10" width="334" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" systemColor="systemBlueColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Pro Air (Rescue)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbI-0H-zNw">
+                                                <rect key="frame" x="0.0" y="70" width="394" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="StS-hV-q06"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6QP-Cj-y98">
-                                                <rect key="frame" x="10" y="35.5" width="334" height="4"/>
-                                            </progressView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upgrade" translatesAutoresizingMaskIntoConstraints="NO" id="CZY-gp-BBX">
+                                                <rect key="frame" x="0.0" y="140" width="394" height="448"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="CZY-gp-BBX" secondAttribute="height" multiplier="414:697" id="oKU-pa-1cg"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please do not close the app and not move your device while the app is processing upgrades." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cmd-CD-IRt">
+                                                <rect key="frame" x="0.0" y="608" width="394" height="174"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxv-06-N59">
+                                                <rect key="frame" x="0.0" y="802" width="394" height="50"/>
+                                                <subviews>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6QP-Cj-y98">
+                                                        <rect key="frame" x="10" y="0.0" width="374" height="4"/>
+                                                    </progressView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yz5-L0-fU0">
+                                                        <rect key="frame" x="0.0" y="5" width="394" height="40"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" systemColor="systemBlueColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="Yz5-L0-fU0" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" id="1vM-Cs-Ime"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Yz5-L0-fU0" secondAttribute="bottom" constant="5" id="FAR-xV-kxo"/>
+                                                    <constraint firstItem="Yz5-L0-fU0" firstAttribute="top" secondItem="Pxv-06-N59" secondAttribute="top" constant="5" id="XJf-cA-eH4"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6QP-Cj-y98" secondAttribute="trailing" constant="10" id="dtz-K7-A5G"/>
+                                                    <constraint firstAttribute="height" constant="50" id="sxy-6M-g0t"/>
+                                                    <constraint firstItem="6QP-Cj-y98" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" constant="10" id="t3V-du-Do9"/>
+                                                    <constraint firstItem="Yz5-L0-fU0" firstAttribute="top" secondItem="6QP-Cj-y98" secondAttribute="top" constant="5" id="tb4-ja-c1b"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Yz5-L0-fU0" secondAttribute="trailing" id="zkQ-PK-Fwu"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="cmd-CD-IRt" firstAttribute="top" secondItem="Pxv-06-N59" secondAttribute="top" constant="10" id="4Uf-55-4kc"/>
-                                            <constraint firstItem="6QP-Cj-y98" firstAttribute="centerX" secondItem="Pxv-06-N59" secondAttribute="centerX" id="EpK-uz-JsT"/>
-                                            <constraint firstItem="6QP-Cj-y98" firstAttribute="top" secondItem="cmd-CD-IRt" secondAttribute="bottom" constant="5" id="FF9-0P-fFj"/>
-                                            <constraint firstAttribute="bottom" secondItem="Yz5-L0-fU0" secondAttribute="bottom" constant="10" id="NER-TS-1JQ"/>
-                                            <constraint firstItem="Yz5-L0-fU0" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" constant="10" id="Uhm-Wy-DN3"/>
-                                            <constraint firstItem="6QP-Cj-y98" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" constant="10" id="Vvt-yq-lHn"/>
-                                            <constraint firstAttribute="trailing" secondItem="6QP-Cj-y98" secondAttribute="trailing" constant="10" id="Wqs-Nn-tJT"/>
-                                            <constraint firstItem="cmd-CD-IRt" firstAttribute="leading" secondItem="Pxv-06-N59" secondAttribute="leading" constant="10" id="eeQ-Bi-5hO"/>
-                                            <constraint firstAttribute="trailing" secondItem="cmd-CD-IRt" secondAttribute="trailing" constant="10" id="mIG-YT-tQZ"/>
-                                            <constraint firstItem="6QP-Cj-y98" firstAttribute="centerY" secondItem="Pxv-06-N59" secondAttribute="centerY" id="q9D-KY-fsm"/>
-                                            <constraint firstAttribute="trailing" secondItem="Yz5-L0-fU0" secondAttribute="trailing" constant="10" id="vVe-gu-rWM"/>
-                                            <constraint firstItem="Yz5-L0-fU0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6QP-Cj-y98" secondAttribute="bottom" constant="5" id="yvd-k5-cKh"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.51939592980391147" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Pxv-06-N59" firstAttribute="leading" secondItem="0cS-1q-12x" secondAttribute="leading" constant="30" id="7VS-8s-jat"/>
-                                    <constraint firstAttribute="trailing" secondItem="Pxv-06-N59" secondAttribute="trailing" constant="30" id="KtE-ZR-PEa"/>
-                                    <constraint firstItem="Pxv-06-N59" firstAttribute="centerY" secondItem="0cS-1q-12x" secondAttribute="centerY" id="ja0-fH-321"/>
-                                    <constraint firstItem="Pxv-06-N59" firstAttribute="centerX" secondItem="0cS-1q-12x" secondAttribute="centerX" id="p5u-A2-LPn"/>
+                                    <constraint firstItem="QVR-z0-fAj" firstAttribute="leading" secondItem="0cS-1q-12x" secondAttribute="leading" constant="10" id="0kH-Dt-kWw"/>
+                                    <constraint firstAttribute="trailing" secondItem="QVR-z0-fAj" secondAttribute="trailing" constant="10" id="8GC-Hn-Kkr"/>
+                                    <constraint firstItem="CZY-gp-BBX" firstAttribute="height" relation="lessThanOrEqual" secondItem="0cS-1q-12x" secondAttribute="height" multiplier="0.5" id="DgY-zH-0uC"/>
+                                    <constraint firstItem="QVR-z0-fAj" firstAttribute="top" secondItem="0cS-1q-12x" secondAttribute="top" constant="44" id="aOG-o9-Dra"/>
+                                    <constraint firstAttribute="bottom" secondItem="QVR-z0-fAj" secondAttribute="bottom" id="fBP-Dr-8Eg"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -78,8 +104,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="lblMedname" destination="cmd-CD-IRt" id="gGR-SD-lLZ"/>
+                        <outlet property="lblInfo" destination="cmd-CD-IRt" id="u9d-QQ-EbC"/>
+                        <outlet property="lblMedname" destination="kbI-0H-zNw" id="1PL-3w-e0s"/>
                         <outlet property="lblOTAInfo" destination="Yz5-L0-fU0" id="fVB-mW-ezo"/>
+                        <outlet property="lblTitle" destination="AHO-NR-BBS" id="OEI-9X-tXk"/>
                         <outlet property="progressView" destination="6QP-Cj-y98" id="SAS-ip-Ipn"/>
                     </connections>
                 </viewController>
@@ -1066,6 +1094,7 @@
         <image name="Inhaler Graphic" width="172" height="406"/>
         <image name="Radio" width="34" height="34"/>
         <image name="Radiosmall" width="29" height="29"/>
+        <image name="Upgrade" width="336.5" height="460"/>
         <image name="bluetooth" width="104" height="104"/>
         <image name="ic_back_arrow_white" width="12" height="20.5"/>
         <image name="noun_X" width="24" height="24"/>

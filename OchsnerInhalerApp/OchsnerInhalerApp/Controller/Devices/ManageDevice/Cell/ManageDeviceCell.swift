@@ -39,7 +39,7 @@ class ManageDeviceCell: UITableViewCell {
             lblUsage.textColor = device.medTypeID ==  1 ?  #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) :  #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1)
             lblDeviceName.text  = device.medication.medName!
             lblNCDCode.text = "NDC Code: \(device.medication.ndc!)"
-            lblUsage.text = device.medTypeID ==  1 ?  "Rescue" :  "Maintenance"
+            lblUsage.text = device.medTypeID ==  1 ?  StringUserManagement.strRescue :  StringUserManagement.strMaintenance
             lblDose.text = "1 Dose = \(device.puffs) Puffs"
             lblDose.isHidden = device.medTypeID == 1
             let str = device.useTimes.joined(separator: "\n")

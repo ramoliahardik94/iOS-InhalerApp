@@ -47,14 +47,17 @@ class ManageDeviceVC: BaseVC {
        setUpdateAllView()
     }
     func setUpdateAllView() {
-        let connectedDeviceList = BLEHelper.shared.connectedPeripheral.filter({$0.version != Constants.AppContainsFirmwareVersion})
+      /*  let connectedDeviceList = BLEHelper.shared.connectedPeripheral.filter({$0.version != Constants.AppContainsFirmwareVersion && $0.version != "" })
        // btnUpdateAllHeight.constant = connectedDeviceList.count == 0  ? 0 : 35
         viewUpdateInfoHeight.constant = connectedDeviceList.count == 0  ? 0 : 70
         btnUpdateAll.isHidden = connectedDeviceList.count == 0
         viewUpdateInfo.isHidden = connectedDeviceList.count == 0
         btnUpdateAll.setButtonView(StringDevices.upgradeAll, 14, AppFont.AppRegularFont, isBlankBG: true)
         lblUpdateInfo.setFont()
-        lblUpdateInfo.text = StringDevices.upgradeInfo
+        lblUpdateInfo.text = StringDevices.upgradeInfo */
+        btnUpdateAll.isHidden = true
+        viewUpdateInfo.isHidden = true
+        viewUpdateInfoHeight.constant =  0 
     }
     func apiCall() {
         manageDeviceVM.apicallForGetDeviceList { [weak self] result in
@@ -121,17 +124,19 @@ class ManageDeviceVC: BaseVC {
         lblNodata.text = StringAddDevice.noDevice
         self.tbvData.isHidden = device.count == 0
         self.lblNodata.isHidden = device.count > 0
-        
+        setUpdateAllView()
     }
     
     @objc func inhalerConnected(notification: Notification) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             self.tbvData.reloadData()
+            setUpdateAllView()
         }
     }
     
     @objc func inhalerBatteryLevel(notification: Notification) {
         self.tbvData.reloadData()
+        setUpdateAllView()
     }
     
     @objc func medicationUpdate(notification: Notification) {
