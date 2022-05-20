@@ -29,7 +29,7 @@ class OTADeviceCell: UITableViewCell {
             var isUptoDate = false
             if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.mac}) {
                 isReadyToUpgrade = peripheral.discoveredPeripheral!.state == .connected
-                isUptoDate = device.version == Constants.AppContainsFirmwareVersion
+                isUptoDate = device.version?.trimmingCharacters(in: .controlCharacters) == Constants.AppContainsFirmwareVersion
             }
             
             

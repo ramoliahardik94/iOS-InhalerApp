@@ -57,6 +57,11 @@ class OTAUpgradeDetailsVC: BaseVC {
         btnUpgradeAll.setButtonView(OTAMessages.upgradeAll)
         BLEHelper.shared.scanPeripheral()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        arrDevice = device
+        tblview.reloadData()
+    }
 
     func getViewDoseTaken(view: UIView) {
         // view.backgroundColor = (indexSub <= item.numerator ?? 0) ? #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1) : .white
@@ -129,6 +134,8 @@ extension OTAUpgradeDetailsVC {
     
     @objc func inhalerConnected(notification: Notification) {
         DispatchQueue.main.async { [self] in
+            let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+            arrDevice = device
             tblview.reloadData()
         }
     }

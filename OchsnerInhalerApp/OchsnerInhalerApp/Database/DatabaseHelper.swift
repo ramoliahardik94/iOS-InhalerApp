@@ -111,6 +111,9 @@ class DatabaseManager {
                     }
                 }
             try context?.save()
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .BLEChange, object: nil)
+            }
         } catch {
             debugPrint("can not get device")
         }

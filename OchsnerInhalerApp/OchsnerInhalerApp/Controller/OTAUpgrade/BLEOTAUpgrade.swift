@@ -332,7 +332,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         peripheral?.isOTAUpgrade = false
         peripheral?.version = Constants.AppContainsFirmwareVersion
         BLEHelper.shared.connectPeriPheral(peripheral: selectedPeripheral!)
-        
+        DatabaseManager.share.updateFWVersion(Constants.AppContainsFirmwareVersion, selectedPeripheral!.identifier.uuidString)
         delay(5) { [self] in
             if isUpdateAll {
 //                peripheral?.version = Constants.AppContainsFirmwareVersion
