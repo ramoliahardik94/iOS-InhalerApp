@@ -27,15 +27,18 @@ extension BLEHelper: CBPeripheralDelegate {
         
         
         if characteristic.uuid == TransferService.characteristicAutoNotify {
+            if newDeviceId !=  peripheral.identifier.uuidString {
             Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
             discoverPeripheral.isFromNotification = true
             getVersion(peripheral: discoverPeripheral)
             getActuationNumber(discoverPeripheral, stringFromData)
+            }
         } else if characteristic.uuid == TransferService.characteristicVersion {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                 let  version = getVersionInString(haxStr: stringFromData)
                 connectedPeripheral[index].version = version.trimmingCharacters(in: .controlCharacters)
                 Logger.logInfo("firmware version: \(version)")
+                DatabaseManager.share.updateFWVersion(version, peripheral.identifier.uuidString)
                 if Constants.AppContainsFirmwareVersion != discoverPeripheral.version {
                     if let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == discoverPeripheral.addressMAC}) {
                         setNotificationForVersionUpdate(device.medname ?? "", peripheral.identifier.uuidString)
@@ -174,7 +177,7 @@ extension BLEHelper {
             discoverPeripheral.macCharecteristic = characteristic
             print("NB: macCharecteristic")
         }
-        // TODO: - Uncomment for BG AutoNotify
+      
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
             peripheral.setNotifyValue(false, for: characteristic)
             peripheral.setNotifyValue(true, for: characteristic)

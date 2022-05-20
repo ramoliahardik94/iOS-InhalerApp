@@ -89,11 +89,11 @@ extension BLEHelper: CBCentralManagerDelegate {
     /// This method is invoked while scanning, upon the discovery of <i>peripheral</i> by <i>central</i>. A discovered peripheral must be retained in order to use it; otherwise, it is assumed to not be of interest and will be cleaned up by the central manager. For a list of <i>advertisementData</i> keys, see {@link CBAdvertisementDataLocalNameKey} and other similar constants.
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
-//                guard RSSI.intValue >= -55
-//                else {
-//                    print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
-//                    return
-//                }
+//        guard RSSI.intValue >= -55
+//        else {
+//            print("Discovered perhiperal \(String(describing: peripheral.name))  \(peripheral.identifier) not in expected range, at %d", RSSI.intValue)
+//            return
+//        }
         
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
         
@@ -143,7 +143,6 @@ extension BLEHelper: CBCentralManagerDelegate {
             discoverPeripheral.macCharecteristic = nil
             discoverPeripheral.charectristicWrite = nil
             discoverPeripheral.charectristicNotify = nil
-            //            stopScanPeriphral()
             peripheral.delegate = self
             peripheral.discoverServices(nil)
         }

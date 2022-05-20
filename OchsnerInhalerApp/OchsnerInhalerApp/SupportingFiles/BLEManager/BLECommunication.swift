@@ -26,12 +26,7 @@ extension BLEHelper {
                     }
                     Logger.logInfo("Scaning start with \(time) sec timer")
                     timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-                   //TODO: self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil) For All state
-                    if UIApplication.shared.applicationState == .active {
-                        self.centralManager.scanForPeripherals(withServices: nil, options: nil)
-                    } else {
-                        self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)
-                    }
+                    self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)
                 }
                 
                 isScanning = true

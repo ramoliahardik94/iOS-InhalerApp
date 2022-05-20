@@ -76,7 +76,14 @@
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
 		474AAF582834F9FD001834BA /* ble_tracker_v1.0.7_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */; };
+		474AAF7128352045001834BA /* RTKLEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6D28352039001834BA /* RTKLEFoundation.framework */; platformFilter = ios; };
+		474AAF7228352045001834BA /* RTKLEFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6D28352039001834BA /* RTKLEFoundation.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		474AAF7328352046001834BA /* RTKOTASDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6E28352039001834BA /* RTKOTASDK.framework */; platformFilter = ios; };
+		474AAF7428352046001834BA /* RTKOTASDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6E28352039001834BA /* RTKOTASDK.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
+		477A17322836420D0059B8F6 /* OTAUpgradeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */; };
+		477A1736283642900059B8F6 /* OTADeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A1734283642900059B8F6 /* OTADeviceCell.swift */; };
+		477A1737283642900059B8F6 /* OTADeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 477A1735283642900059B8F6 /* OTADeviceCell.xib */; };
 		4788BDB5280048F500AA1F92 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB4280048F500AA1F92 /* NotificationVC.swift */; };
 		4788BDB828004FD400AA1F92 /* NotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB728004FD400AA1F92 /* NotificationVM.swift */; };
 		4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4796597927D8BD7C00A4D403 /* removeTag.gif */; };
@@ -87,10 +94,6 @@
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
 		47C98CB82828DF6F001F755B /* BLEOTAUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C98CB72828DF6F001F755B /* BLEOTAUpgrade.swift */; };
-		47C98CD52828F699001F755B /* RTKLEFoundation.framework in Resources */ = {isa = PBXBuildFile; fileRef = 47C98CD12828F68C001F755B /* RTKLEFoundation.framework */; platformFilter = ios; };
-		47C98CD62828F699001F755B /* RTKOTASDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = 47C98CD22828F68C001F755B /* RTKOTASDK.framework */; platformFilter = ios; };
-		47C98D5728291331001F755B /* RTKLEFoundation.framework in Sources */ = {isa = PBXBuildFile; fileRef = 47C98CD12828F68C001F755B /* RTKLEFoundation.framework */; platformFilter = ios; };
-		47C98D5828291331001F755B /* RTKOTASDK.framework in Sources */ = {isa = PBXBuildFile; fileRef = 47C98CD22828F68C001F755B /* RTKOTASDK.framework */; platformFilter = ios; };
 		47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE11278D872F0014527D /* AppDelegate.swift */; };
 		47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE13278D872F0014527D /* SceneDelegate.swift */; };
 		47CDCE19278D872F0014527D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE17278D872F0014527D /* Main.storyboard */; };
@@ -128,10 +131,6 @@
 		47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9A278DA8570014527D /* Providers.storyboard */; };
 		47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE9C278DA8820014527D /* Permissions.storyboard */; };
 		47CDCEA3278DA9470014527D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCEA2278DA9470014527D /* UserModel.swift */; };
-		47CF4F1728292071003EFD72 /* RTKLEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C98CD12828F68C001F755B /* RTKLEFoundation.framework */; platformFilter = ios; };
-		47CF4F1828292071003EFD72 /* RTKLEFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47C98CD12828F68C001F755B /* RTKLEFoundation.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		47CF4F1A28292075003EFD72 /* RTKOTASDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C98CD22828F68C001F755B /* RTKOTASDK.framework */; platformFilter = ios; };
-		47CF4F1B28292075003EFD72 /* RTKOTASDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47C98CD22828F68C001F755B /* RTKOTASDK.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		47E118AA27D720880071280B /* Tost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E118A927D720880071280B /* Tost.swift */; };
 		47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662527BBB843004A2006 /* ManageDeviceVM.swift */; };
 		47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662727BBB857004A2006 /* DeviceModel.swift */; };
@@ -146,8 +145,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				47CF4F1B28292075003EFD72 /* RTKOTASDK.framework in Embed Frameworks */,
-				47CF4F1828292071003EFD72 /* RTKLEFoundation.framework in Embed Frameworks */,
+				474AAF7428352046001834BA /* RTKOTASDK.framework in Embed Frameworks */,
+				474AAF7228352045001834BA /* RTKLEFoundation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,7 +225,12 @@
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.7_ota.bin; sourceTree = "<group>"; };
+		474AAF6D28352039001834BA /* RTKLEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKLEFoundation.framework; sourceTree = "<group>"; };
+		474AAF6E28352039001834BA /* RTKOTASDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKOTASDK.framework; sourceTree = "<group>"; };
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
+		477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTAUpgradeDetailsVC.swift; sourceTree = "<group>"; };
+		477A1734283642900059B8F6 /* OTADeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTADeviceCell.swift; sourceTree = "<group>"; };
+		477A1735283642900059B8F6 /* OTADeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OTADeviceCell.xib; sourceTree = "<group>"; };
 		4788BDB4280048F500AA1F92 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		4788BDB728004FD400AA1F92 /* NotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVM.swift; sourceTree = "<group>"; };
 		4796597927D8BD7C00A4D403 /* removeTag.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = removeTag.gif; sourceTree = "<group>"; };
@@ -238,8 +242,6 @@
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
 		47C98CB72828DF6F001F755B /* BLEOTAUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEOTAUpgrade.swift; sourceTree = "<group>"; };
-		47C98CD12828F68C001F755B /* RTKLEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKLEFoundation.framework; sourceTree = "<group>"; };
-		47C98CD22828F68C001F755B /* RTKOTASDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKOTASDK.framework; sourceTree = "<group>"; };
 		47C98D5328291270001F755B /* libreadline.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libreadline.tbd; path = usr/lib/libreadline.tbd; sourceTree = SDKROOT; };
 		47C98D5428291270001F755B /* libobjc-trampolines.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libobjc-trampolines.tbd"; path = "usr/lib/libobjc-trampolines.tbd"; sourceTree = SDKROOT; };
 		47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OchsnerInhalerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,9 +296,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */,
-				47CF4F1728292071003EFD72 /* RTKLEFoundation.framework in Frameworks */,
+				474AAF7128352045001834BA /* RTKLEFoundation.framework in Frameworks */,
 				4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */,
-				47CF4F1A28292075003EFD72 /* RTKOTASDK.framework in Frameworks */,
+				474AAF7328352046001834BA /* RTKOTASDK.framework in Frameworks */,
 				F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,7 +409,6 @@
 		227CD4DD27A3EBEF0005C3D9 /* BLEManager */ = {
 			isa = PBXGroup;
 			children = (
-				47C98CB72828DF6F001F755B /* BLEOTAUpgrade.swift */,
 				227CD4E027A3EC540005C3D9 /* TransferService.swift */,
 				227CD4DE27A3EBFF0005C3D9 /* BLEHelper.swift */,
 				473D0F4927E05490006081B0 /* ActuationLogVM.swift */,
@@ -639,6 +640,15 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
+		474AAF6C28352039001834BA /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				474AAF6D28352039001834BA /* RTKLEFoundation.framework */,
+				474AAF6E28352039001834BA /* RTKOTASDK.framework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
 		4757D08E27D209E800224605 /* Tap-Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -646,6 +656,25 @@
 				4757D08F27D209E800224605 /* Tap-Animation.gif */,
 			);
 			path = "Tap-Animation";
+			sourceTree = "<group>";
+		};
+		477A1730283641D20059B8F6 /* OTAUpgrade */ = {
+			isa = PBXGroup;
+			children = (
+				477A1733283642710059B8F6 /* cell */,
+				47C98CB72828DF6F001F755B /* BLEOTAUpgrade.swift */,
+				477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */,
+			);
+			path = OTAUpgrade;
+			sourceTree = "<group>";
+		};
+		477A1733283642710059B8F6 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				477A1734283642900059B8F6 /* OTADeviceCell.swift */,
+				477A1735283642900059B8F6 /* OTADeviceCell.xib */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		4788BDB3280048CE00AA1F92 /* Notification */ = {
@@ -698,10 +727,9 @@
 		47CDCE10278D872F0014527D /* OchsnerInhalerApp */ = {
 			isa = PBXGroup;
 			children = (
+				474AAF6C28352039001834BA /* Framework */,
 				470CC948282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin */,
 				474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */,
-				47C98CD12828F68C001F755B /* RTKLEFoundation.framework */,
-				47C98CD22828F68C001F755B /* RTKOTASDK.framework */,
 				479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */,
 				4743B7CA27B527660000C3E8 /* Database */,
 				22AE96E5278E9D2400C0D851 /* AppDelegate */,
@@ -720,6 +748,7 @@
 		47CDCE25278D87470014527D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				477A1730283641D20059B8F6 /* OTAUpgrade */,
 				4788BDB3280048CE00AA1F92 /* Notification */,
 				22AE970B278ED6C900C0D851 /* Splash */,
 				22AE96FE278EAA5100C0D851 /* Profile */,
@@ -922,8 +951,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47C98CD52828F699001F755B /* RTKLEFoundation.framework in Resources */,
-				47C98CD62828F699001F755B /* RTKOTASDK.framework in Resources */,
 				47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */,
 				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
@@ -946,6 +973,7 @@
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
 				4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */,
+				477A1737283642900059B8F6 /* OTADeviceCell.xib in Resources */,
 				471023502796CA8500F88876 /* SFProText-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1035,8 +1063,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47C98D5728291331001F755B /* RTKLEFoundation.framework in Sources */,
-				47C98D5828291331001F755B /* RTKOTASDK.framework in Sources */,
 				47CDCE85278D89210014527D /* UIApplication.swift in Sources */,
 				227CD4DF27A3EBFF0005C3D9 /* BLEHelper.swift in Sources */,
 				22AE96F1278EA37F00C0D851 /* HomeVC.swift in Sources */,
@@ -1077,6 +1103,7 @@
 				47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */,
 				4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
+				477A17322836420D0059B8F6 /* OTAUpgradeDetailsVC.swift in Sources */,
 				47CDCE93278D89C30014527D /* APIManager.swift in Sources */,
 				47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */,
 				227197C0278FFFA20014BC3E /* ConnectProviderVC.swift in Sources */,
@@ -1114,6 +1141,7 @@
 				473D0F4827E0500F006081B0 /* HaxToDecimalConversion.swift in Sources */,
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
+				477A1736283642900059B8F6 /* OTADeviceCell.swift in Sources */,
 				47C98CB82828DF6F001F755B /* BLEOTAUpgrade.swift in Sources */,
 				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
@@ -1284,7 +1312,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
@@ -1292,6 +1320,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OchsnerInhalerApp",
+					"$(PROJECT_DIR)/OchsnerInhalerApp/Framework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;
@@ -1340,13 +1369,14 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OchsnerInhalerApp",
+					"$(PROJECT_DIR)/OchsnerInhalerApp/Framework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OchsnerInhalerApp/Info.plist;

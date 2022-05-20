@@ -135,13 +135,14 @@ class ManageDeviceVC: BaseVC {
     }
     
     @objc func inhalerBatteryLevel(notification: Notification) {
-        self.tbvData.reloadData()
-        setUpdateAllView()
+        DispatchQueue.main.async { [self] in
+            self.tbvData.reloadData()
+            setUpdateAllView()
+        }
     }
     
     @objc func medicationUpdate(notification: Notification) {
         apiCall()
-        
     }
     
     // MARK: -
@@ -183,10 +184,7 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.btnEditDirection.tag = indexPath.row
         cell.btnEditDirection.accessibilityValue = "\(indexPath.section)"
-        
-        cell.btnUpgrade.tag = indexPath.row
-        cell.btnUpgrade.accessibilityValue = "\(indexPath.section)"
-        
+    
         if indexPath.section == 0 {
             cell.lblDeviceType.text = indexPath.row == 0 ? "Rescue Devices" : ""
             cell.device = manageDeviceVM.arrRescue[indexPath.row]
@@ -203,25 +201,7 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ManageDeviceVC: ManageDeviceDelegate {
     
-    func upgradeDevice(index: Int, section: Int) {
-        CommonFunctions.showMessageYesNo(message: "Do you want to upgrade device?", cancelTitle: "Skip", okTitle: "Continue", { isOK in
-            if isOK {
-                let device = section == 0 ? self.manageDeviceVM.arrRescue[index] : self.manageDeviceVM.arrMantainance[index]
-                if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.internalID}) {
-                    peripheral.discoveredPeripheral!.delegate = nil
-                    peripheral.isOTAUpgrade = true
-                    let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    bleUpgrade.selectedPeripheral = peripheral.discoveredPeripheral
-                    bleUpgrade.modalPresentationStyle = .overCurrentContext
-                    bleUpgrade.medname = device.medication.medName ?? ""
-                   // self.pushVC(controller: bleUpgrade)
-                    self.presentVC(controller: bleUpgrade)
-                }
-            }
-        })
-        
-       
-    }
+
     func editDirection(index: Int, section: Int) {
         
         Logger.logInfo("Edit Direction Click")

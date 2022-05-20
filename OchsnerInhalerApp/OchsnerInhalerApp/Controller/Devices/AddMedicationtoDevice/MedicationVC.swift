@@ -114,6 +114,7 @@ class MedicationVC: BaseVC {
                     }
                 }
             } else {
+                // TODO: Uncoment for Only one mantance Logic
                // if DatabaseManager.share.isMantenanceAllow(mac: BLEHelper.shared.addressMAC) {
                     let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     medicationDetailVC.isFromDeviceList = isFromDeviceList

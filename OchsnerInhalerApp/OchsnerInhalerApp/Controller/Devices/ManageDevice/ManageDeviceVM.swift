@@ -19,8 +19,8 @@ class ManageDeviceVM {
             } else {
                 if let res = response as? [[String: Any]] {
                     self.arrDevice.removeAll()
-                    for obj in res {
-                        self.arrDevice.append(DeviceModel(jSon: obj))                        
+                    for obj in res {                        
+                        self.arrDevice.append(DeviceModel(jSon: obj))
                         DatabaseManager.share.saveDevice(object: DeviceModel(jSon: obj))
                     }
                     self.arrRescue = self.arrDevice.filter({$0.medTypeID == 1})

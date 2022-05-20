@@ -99,6 +99,23 @@ class DatabaseManager {
         }
     }
     
+    func updateFWVersion(_ version: String, _ udid: String) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        let predicate =  NSPredicate(format: "udid == %@", udid)
+        fetchRequest.predicate = predicate
+        do {
+            let arrDevice = try context?.fetch(fetchRequest) as! [Device]
+            if arrDevice.count > 0 {
+                for obj in arrDevice {
+                        obj.version = version
+                    }
+                }
+            try context?.save()
+        } catch {
+            debugPrint("can not get device")
+        }
+    }
+    
     func saveDevice(object: DeviceModel, isFromDirection: Bool = false) {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
@@ -290,6 +307,10 @@ class DatabaseManager {
  
 }
 extension DatabaseManager {
+
+    func updateDeviceVersion(macAddress: String) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+    }
     
     func updateActuationLog(_ updateObj: [[String: Any]]) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)

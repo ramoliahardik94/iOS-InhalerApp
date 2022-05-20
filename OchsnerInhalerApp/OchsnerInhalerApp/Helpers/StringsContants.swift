@@ -34,6 +34,7 @@ struct StringCommonMessages {
     static let connecting = "Connecting..."
     static let notInRange = "Not in range"
     static let disconnect = "Disconnected"
+    static let updated = "Updated"
     static let scanning = "Scanning..."
     static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
@@ -52,8 +53,17 @@ struct AppFont {
     static let SFProTextBold = Constants.CustomFont.SFProTextBold
 }
 struct OTAMessages {
-    static let info = "Please do not close the app and not move your device while the app is processing upgrades."
-    static let titleUpgrade = "Upgrading Inhaler"
+    static let info = "This might take sometime to complete. Please wait! It will automatically close once complete."
+    static let titleUpgrade = "Installing..."
+    static let infoList1 = "To Upgrade All, all the devices must be nearby and connected."
+    static let infoList2 = "DO NOT use the device during upgrade."
+    static let infoList3 = "DO NOT close the application while upgrade is in progress."
+    static let AlertUpgrade = "A new version of Inhaler Device is available. Please upgrade!"
+    static let upgrade = "Upgrade"
+    static let titleList = "Inhaler Device Upgrade"
+    static let upgradeAll = "Upgrade All"
+    static let Installed = "Installed"
+    
 }
 // MARK: UserManagement
 struct StringUserManagement {
@@ -251,9 +261,6 @@ struct StringDevices {
     static let pairedDevice = "Paired Device"
     static let removeDevice = "Remove Device"
     static let editDirection = "Edit Directions"
-    static let upgrade = "Upgrade"
-    static let upgradeAll = "Upgrade All"
-    static let upgradeInfo = "Updates are available for Inhaler Device."
     static let usage = "Usage: "
     static let addAnotherDevice = "Add Another Device"
     static let addDevice = "Add Device"
@@ -280,6 +287,7 @@ struct CellIdentifier {
     static let manageDeviceCell = "ManageDeviceCell"
     static let NotificationCell = "NotificationCell"
     static let DoseDetailCell = "DoseDetailCell"
+    static let OTADeviceCell = "OTADeviceCell"
 }
 
 // MARK: Local Notification

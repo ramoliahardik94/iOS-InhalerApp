@@ -9,11 +9,9 @@ import UIKit
 protocol ManageDeviceDelegate: AnyObject {
     func editDirection(index: Int, section: Int)
     func removeDevice(index: Int, section: Int)
-    func upgradeDevice(index: Int, section: Int)
 }
 class ManageDeviceCell: UITableViewCell {
 
-    @IBOutlet weak var btnUpgrade: UIButton!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
     @IBOutlet weak var lblDeviceType: UILabel!
     @IBOutlet weak var lblDeviceName: UILabel!
@@ -47,7 +45,7 @@ class ManageDeviceCell: UITableViewCell {
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             var textStatus =  StringCommonMessages.disconnect
-            btnUpgrade.isHidden = true
+           
             var bettery = device.batteryLevel
                 if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.internalID}) {
                     bettery =  peripheral.bettery != "0" ? "\(peripheral.bettery)%" :  device.batteryLevel
@@ -55,7 +53,7 @@ class ManageDeviceCell: UITableViewCell {
                     case .connected :
                         textStatus = StringCommonMessages.connected
                         print("\(Constants.AppContainsFirmwareVersion) == \(peripheral.version)")
-                        btnUpgrade.isHidden = (Constants.AppContainsFirmwareVersion == peripheral.version)
+                  
                     case .disconnected :
                         textStatus = StringCommonMessages.disconnect
                     case .connecting :
@@ -90,7 +88,7 @@ class ManageDeviceCell: UITableViewCell {
         lblstatus.setFont(type: .regular, point: 14)
         btnRemoveDevice.setButtonView(StringDevices.removeDevice, 17, AppFont.AppRegularFont)
         btnEditDirection.setButtonView(StringDevices.editDirection, 17, AppFont.AppRegularFont)
-        btnUpgrade.setButtonView(StringDevices.upgrade, 14, AppFont.AppRegularFont, isBlankBG: true)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -105,11 +103,7 @@ class ManageDeviceCell: UITableViewCell {
         }
     }
     
-    @IBAction func btnUpgradeClick(_ sender: UIButton) {
-        if delegate != nil {
-            delegate?.upgradeDevice(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)
-        }
-    }
+ 
     @IBAction func btnRemoveDevice(sender: UIButton) {
         if delegate != nil {
             delegate?.removeDevice(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)

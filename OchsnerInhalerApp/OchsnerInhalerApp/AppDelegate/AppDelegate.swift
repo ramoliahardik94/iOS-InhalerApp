@@ -113,6 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func foregroundCall() {
         print("App moved to foreground")
+        CommonFunctions.checkVersionDetails()
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
             if BLEHelper.shared.logCounter == 0 {
                 CommonFunctions.getLogFromDeviceAndSync()
@@ -124,6 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func backgroundCall() {
        print("App moved to background!")
+        BLEHelper.shared.scanPeripheral()
     }
     
     func navigationBarUI() {
