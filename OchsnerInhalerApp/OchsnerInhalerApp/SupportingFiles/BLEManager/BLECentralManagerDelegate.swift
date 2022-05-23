@@ -172,8 +172,7 @@ extension BLEHelper: CBCentralManagerDelegate {
                 self.cleanup(peripheral: peripheral)
                 isScanning = false
             }
-            
-            Logger.logError("BLENotConnect With DidDissconnect \(error?.localizedDescription ?? "")")
+            Logger.logError("BLENotConnect With DidDissconnect \(discoverPeripheral.addressMAC) \(error?.localizedDescription ?? "")")
             DispatchQueue.main.async {
                 Logger.logInfo("BLEDisconnect,BLEChange notification fire")
                 if !self.isAddAnother || self.newDeviceId == peripheral.identifier.uuidString {

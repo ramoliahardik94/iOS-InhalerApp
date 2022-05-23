@@ -61,6 +61,7 @@ class OTAUpgradeDetailsVC: BaseVC {
         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
         arrDevice = device
         tblview.reloadData()
+        isUpgradeAllButton()
     }
 
     func getViewDoseTaken(view: UIView) {
@@ -86,6 +87,7 @@ class OTAUpgradeDetailsVC: BaseVC {
     }
     
     @IBAction func btnUpgradeAllClick(_ sender: Any) {
+        BLEHelper.shared.stopScanPeriphral()
         if  let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral?.state == .connected && $0.version != Constants.AppContainsFirmwareVersion}) {
             peripheral.discoveredPeripheral!.delegate = nil
             peripheral.isOTAUpgrade = true
@@ -97,7 +99,6 @@ class OTAUpgradeDetailsVC: BaseVC {
             bleUpgrade.isUpdateAll = true
             self.presentVC(controller: bleUpgrade)
         }
-        
     }
     
  
@@ -121,6 +122,7 @@ extension OTAUpgradeDetailsVC: UITableViewDelegate, UITableViewDataSource, OTAUp
     }
     
     func upgradeDevice(peripheral: PeriperalType, medName: String) {
+        BLEHelper.shared.stopScanPeriphral()
         peripheral.discoveredPeripheral!.delegate = nil
         peripheral.isOTAUpgrade = true
         let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -137,6 +139,17 @@ extension OTAUpgradeDetailsVC {
             let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
             arrDevice = device
             tblview.reloadData()
+            isUpgradeAllButton()
+        }
+    }
+    
+    func isUpgradeAllButton() {
+        if BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral?.state == .connected && $0.version != Constants.AppContainsFirmwareVersion}) != nil {
+            btnUpgradeAll.isEnabled = true
+            btnUpgradeAll.setButtonView(OTAMessages.upgradeAll)
+        } else {
+            btnUpgradeAll.isEnabled = false
+            btnUpgradeAll.setButtonView(OTAMessages.upgradeAll, isDefaultbtn: false)
         }
     }
 }

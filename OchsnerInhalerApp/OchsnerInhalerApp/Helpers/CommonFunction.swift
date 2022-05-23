@@ -61,7 +61,7 @@ open class CommonFunctions {
             if DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.version != Constants.AppContainsFirmwareVersion}) != nil {
                 if !isAlertVersionDisplay {
                     isAlertVersionDisplay = true
-                    CommonFunctions.showMessageYesNo(message: OTAMessages.AlertUpgrade, cancelTitle: StringAddDevice.skipbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in
+                    CommonFunctions.showMessageYesNo(message: OTAMessages.AlertUpgrade, cancelTitle: StringAddDevice.laterbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in
                         if isUpgrade {
                             let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                             BaseVC().rootVC(controller: bleUpgrade)

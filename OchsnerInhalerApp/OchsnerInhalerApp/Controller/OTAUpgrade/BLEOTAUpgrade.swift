@@ -43,9 +43,9 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     }
     
     func startConnection() {
-        progressView.progress = 0.022
+        progressView.progress = 0.10
         self.otaPeripheral = otaProfile.otaPeripheral(from: selectedPeripheral!)
-        lblOTAInfo.text = "Connecting device in OTA mode"
+        lblOTAInfo.text = "Updating...(10%)"
         if let type = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.udid == selectedPeripheral?.identifier.uuidString}) {
             self.medname = "\(type.medname!) (\(type.medtypeid ==  1 ?  StringUserManagement.strRescue :  StringUserManagement.strMaintenance))"
         }
@@ -125,7 +125,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         }
         if (toUpgradeimages() != nil && toUpgradeimages()!.count == 0) {
             Logger.logInfo(" OTA MSG:The selected file is invalid or does not match" )
-            lblOTAInfo.text = "The selected file is invalid or does not match"
+            lblOTAInfo.text = "Updating...(20%)"
         }
         
         startOTA()
@@ -166,7 +166,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                 otaProfile.connect(to: DFUPeripheral!)
                 dfuPeripheral = DFUPeripheral as? RTKMultiDFUPeripheral
                 Logger.logInfo(" OTA MSG:please wait") // 请稍后
-                lblOTAInfo.text = "Please wait"
+                lblOTAInfo.text = "Updating...(20%)"
                 return
             }
             DispatchQueue.main.async {
@@ -179,12 +179,13 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                 DispatchQueue.main.async(execute: { [self] in
                     timeUpgradeBegin = Date()
                     Logger.logInfo(" OTA MSG:Updating...")
-                    lblOTAInfo.text = "Updating..."
+                    lblOTAInfo.text = "Updating...(20%)"
                 })
             }
         }
         onFileHasSelected(Constants.firmwareFileName)
         progressView.progress = 0.15
+        lblOTAInfo.text = "Updating...(15%)"
     }
     
     func profile(_ profile: RTKLEProfile, didDisconnectPeripheral peripheral: RTKLEPeripheral, error: Error?) {
@@ -199,8 +200,8 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     func profile(_ profile: RTKLEProfile, didFailToConnect peripheral: RTKLEPeripheral, error: Error?) {
         DispatchQueue.main.async(execute: { [self] in
             Logger.logInfo(" OTA MSG:Failed to connect peripheral \(String(describing: error!.localizedDescription))") // "连接外设失败"
-            lblOTAInfo.textColor = .ColorHomeIconRed
-            lblOTAInfo.text = "Failed to connect peripheral. \(String(describing: error!.localizedDescription))"
+//            lblOTAInfo.textColor = .ColorHomeIconRed
+//            lblOTAInfo.text = "Failed to connect peripheral. \(String(describing: error!.localizedDescription))"
             closeVC()
         })
     }
@@ -219,7 +220,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                 progressView.progress = ((Float((index + 1) * 100 / (totalFile ))/100 ))
             }
             Logger.logInfo("progress : \(progressView.progress) Updating... \((index) + 1) / \(totalFile)")
-            lblOTAInfo.text = "Updating... \((index) + 1) / \(totalFile) "
+            lblOTAInfo.text = "Updating... (\(Int(progressView.progress * 100))%) "
         }
     }
     
@@ -232,11 +233,8 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             }
             let interval = Date().timeIntervalSince(timeUpgradeBegin!)
             Logger.logInfo(" OTA MSG:update completed." + String(format: "average rate：%.2f KB/s", (Double(lengthTotalImages) / 1000.0) / interval))
-            lblOTAInfo.text = "Update Successfuly."
-            delay(1) {
-                // self.lblOTAInfo.text = "Connecting with new firmware."
-            }
-            closeVC()
+            lblOTAInfo.text = "Update Successfuly.(100%)"
+            closeVC(isSuccess: true)
            
         })
     }
@@ -244,7 +242,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     func dfuPeripheral(_ peripheral: RTKDFUPeripheral, didFinishWithError err: Error?) {
         if err != nil {
             Logger.logInfo(" OTA MSG:Upgrade failed. \(err!.localizedDescription)")
-            lblOTAInfo.text = "Upgrade failed. \(err!.localizedDescription)"
+         //   lblOTAInfo.text = "Upgrade failed. \(err!.localizedDescription)"
             closeVC()
             // 升级失败
         } else {
@@ -288,18 +286,18 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         otaProfile.connect(to: DFUPeripheral!)
         dfuPeripheral = DFUPeripheral as? RTKMultiDFUPeripheral
         Logger.logInfo(" OTA MSG:please wait")
-        lblOTAInfo.text = "Please wait" // 请稍后
+       // lblOTAInfo.text = "Please wait" // 请稍后
     }
     
     func OTAUpgradeSilently() {
         guard let  `otaPeripheral` = otaPeripheral else {return }
         upgradeSilently = true
         Logger.logInfo(" OTA MSG:please wait") // 请稍后
-        lblOTAInfo.text = "Please Wait"
+      //  lblOTAInfo.text = "Please Wait"
         let DFUPeripheral = otaProfile.dfuPeripheral(of: otaPeripheral)
         if DFUPeripheral == nil {
             Logger.logInfo(" OTA MSG:Please search for connected peripherals again") // 请重新搜索连接外设
-            lblOTAInfo.text = "Please search for connected peripherals again"
+            // lblOTAInfo.text = "Please search for connected peripherals again"
             return
         }
         DFUPeripheral?.delegate = self
@@ -311,28 +309,30 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         guard let  `otaPeripheral` = otaPeripheral else {return }
         upgradeSilently = false
         Logger.logInfo(" OTA MSG:please wait") // 请稍后
-        lblOTAInfo.text = "Please wait"
+       // lblOTAInfo.text = "Please wait"
         upgradeSilently = false
         otaProfile.translate(otaPeripheral) { [self] success, _, peripheral in
             if success {
                 Logger.logInfo(" OTA MSG: Connecting peripherals in OTA mode") // 连接OTA模式下的外设
-                lblOTAInfo.text = "Connecting peripherals in OTA mode"
+                // lblOTAInfo.text = "Connecting peripherals in OTA mode"
                 dfuPeripheral = peripheral as? RTKMultiDFUPeripheral
                 peripheral!.delegate = self
                 otaProfile.connect(to: peripheral!)
             } else {
                 Logger.logInfo(" OTA MSG: Failed to switch to OTA mode") // 切换到OTA mode失败
-                lblOTAInfo.text = "Failed to switch to OTA mode"
+               // lblOTAInfo.text = "Failed to switch to OTA mode"
             }
         }
     }
     
-    func closeVC() {
+    func closeVC(isSuccess: Bool = false) {
         let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == selectedPeripheral!.identifier.uuidString})
         peripheral?.isOTAUpgrade = false
-        peripheral?.version = Constants.AppContainsFirmwareVersion
         BLEHelper.shared.connectPeriPheral(peripheral: selectedPeripheral!)
-        DatabaseManager.share.updateFWVersion(Constants.AppContainsFirmwareVersion, selectedPeripheral!.identifier.uuidString)
+        if isSuccess {
+        peripheral?.version = Constants.AppContainsFirmwareVersion
+            DatabaseManager.share.updateFWVersion(Constants.AppContainsFirmwareVersion, selectedPeripheral!.identifier.uuidString)
+        }
         delay(5) { [self] in
             if isUpdateAll {
 //                peripheral?.version = Constants.AppContainsFirmwareVersion

@@ -6,6 +6,7 @@ import UIKit
 extension UIButton {
     func setButtonView(_ title: String, _ size: CGFloat = 17, _ fontName: String = AppFont.AppSemiBoldFont, isDefaultbtn: Bool = true, isBlankBG: Bool = false) {
         setTitleColor(.white, for: .normal)
+        setTitleColor(.white, for: .disabled)
         backgroundColor = isDefaultbtn ? .ButtonColorBlue : .gray
         if isBlankBG {
             backgroundColor = .clear

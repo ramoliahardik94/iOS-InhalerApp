@@ -58,11 +58,11 @@ struct OTAMessages {
     static let infoList1 = "To Upgrade All, all the devices must be nearby and connected."
     static let infoList2 = "DO NOT use the device during upgrade."
     static let infoList3 = "DO NOT close the application while upgrade is in progress."
-    static let AlertUpgrade = "A new version of Inhaler Device is available. Please upgrade!"
+    static let AlertUpgrade = "Your inhaler device can now be upgraded, Please upgrade!"
     static let upgrade = "Upgrade"
     static let titleList = "Inhaler Device Upgrade"
     static let upgradeAll = "Upgrade All"
-    static let Installed = "Installed"
+    static let Installed = "Up to Date"
     
 }
 // MARK: UserManagement
@@ -219,6 +219,7 @@ struct StringAddDevice {
     static let pairScreenStringArray = ["Tap", " 3 times ", "on the device within", "\n5 seconds ", "then click \"Pair Device\"."]
     static let skipFlowAdd = " Do you want to Skip or Continue the pairing process?"
     static let skipbtn = "Skip"
+    static let laterbtn = "Later"
     static let continuebtn = "Continue"
     static let noDevice = "No Devices Added"
 }
