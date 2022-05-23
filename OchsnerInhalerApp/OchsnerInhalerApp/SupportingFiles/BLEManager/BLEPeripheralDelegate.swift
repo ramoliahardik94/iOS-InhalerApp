@@ -37,7 +37,7 @@ extension BLEHelper: CBPeripheralDelegate {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                 let  version = getVersionInString(haxStr: stringFromData)
                 connectedPeripheral[index].version = version.trimmingCharacters(in: .controlCharacters)
-                Logger.logInfo("firmware version: \(version)")
+                Logger.logInfo("firmware version: \(version.trimmingCharacters(in: .controlCharacters)) of \(discoverPeripheral.addressMAC)")
                 DatabaseManager.share.updateFWVersion(version.trimmingCharacters(in: .controlCharacters), peripheral.identifier.uuidString)
                 if Constants.AppContainsFirmwareVersion != discoverPeripheral.version {
                     if let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == discoverPeripheral.addressMAC}) {

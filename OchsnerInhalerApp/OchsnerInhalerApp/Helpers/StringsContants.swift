@@ -62,6 +62,7 @@ struct OTAMessages {
     static let upgrade = "Upgrade"
     static let titleList = "Inhaler Device Upgrade"
     static let upgradeAll = "Upgrade All"
+    static let retry = "Try Again!"
     static let Installed = "Up to Date"
     
 }

@@ -907,6 +907,8 @@
 			dependencies = (
 			);
 			name = OchsnerInhalerApp;
+			packageProductDependencies = (
+			);
 			productName = OchsnerInhalerApp;
 			productReference = 47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */;
 			productType = "com.apple.product-type.application";
@@ -937,6 +939,8 @@
 				es,
 			);
 			mainGroup = 47CDCE05278D872F0014527D;
+			packageReferences = (
+			);
 			productRefGroup = 47CDCE0F278D872F0014527D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -998,7 +1002,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		2272151827AC2160000ECD2D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

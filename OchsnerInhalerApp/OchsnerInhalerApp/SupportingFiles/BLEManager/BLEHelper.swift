@@ -145,7 +145,6 @@ class BLEHelper: NSObject {
             let character = Character(validUnicodeScalar)
             arrVersion.append(String(character))
         }
-        print(arrVersion.joined(separator: ""))
         return arrVersion.joined(separator: "").trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

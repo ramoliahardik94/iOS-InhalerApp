@@ -15,7 +15,7 @@ class Constants: NSObject {
     static let TimerScanAutoConnect =  30.0
     static let ScanningScreenDelay = 10.0
     static let PairDialogDelay = 15.0
-    static let AppContainsFirmwareVersion = "1.0.7"
+    static let AppContainsFirmwareVersion = "1.0.4"
     static let firmwareFileName = "ble_tracker_v1.0.7_ota"
    
     

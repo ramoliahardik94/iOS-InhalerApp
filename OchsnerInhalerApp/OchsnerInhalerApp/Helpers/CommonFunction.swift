@@ -57,16 +57,18 @@ open class CommonFunctions {
     
     // MARK: Version Popup
     public class func checkVersionDetails() {
-        if (UIApplication.topViewController() != nil) &&  !(UIApplication.topViewController()! is CustomSplashVC) && !(UIApplication.topViewController()! is OTAUpgradeDetailsVC) && !(UIApplication.topViewController()! is BLEOTAUpgrade) {
-            if DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.version != Constants.AppContainsFirmwareVersion}) != nil {
-                if !isAlertVersionDisplay {
-                    isAlertVersionDisplay = true
-                    CommonFunctions.showMessageYesNo(message: OTAMessages.AlertUpgrade, cancelTitle: StringAddDevice.laterbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in
-                        if isUpgrade {
-                            let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                            BaseVC().rootVC(controller: bleUpgrade)
+        if UserDefaultManager.isGrantBLE  && UserDefaultManager.isGrantLaocation  && UserDefaultManager.isGrantNotification {
+            if (UIApplication.topViewController() != nil) &&  !(UIApplication.topViewController()! is CustomSplashVC) && !(UIApplication.topViewController()! is OTAUpgradeDetailsVC) && !(UIApplication.topViewController()! is BLEOTAUpgrade) {
+                if DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.version != Constants.AppContainsFirmwareVersion}) != nil {
+                    if !isAlertVersionDisplay {
+                        isAlertVersionDisplay = true
+                        CommonFunctions.showMessageYesNo(message: OTAMessages.AlertUpgrade, cancelTitle: StringAddDevice.laterbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in
+                            if isUpgrade {
+                                let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                                BaseVC().rootVC(controller: bleUpgrade)
+                            }
+                            isAlertVersionDisplay = false
                         }
-                        isAlertVersionDisplay = false
                     }
                 }
             }

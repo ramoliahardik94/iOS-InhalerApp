@@ -229,20 +229,20 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QVR-z0-fAj">
                                         <rect key="frame" x="10" y="10" width="408" height="838"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Pro Air (Rescue)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbI-0H-zNw">
-                                                <rect key="frame" x="0.0" y="0.0" width="408" height="133"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Prasco (Ventolin Generic) (Mantainace)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbI-0H-zNw">
+                                                <rect key="frame" x="0.0" y="0.0" width="408" height="105.33333333333333"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="j02-vx-50e"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upgrade" translatesAutoresizingMaskIntoConstraints="NO" id="CZY-gp-BBX">
-                                                <rect key="frame" x="0.0" y="153" width="408" height="425"/>
+                                                <rect key="frame" x="0.0" y="125.33333333333334" width="408" height="382.66666666666663"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrading Device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHO-NR-BBS">
-                                                <rect key="frame" x="0.0" y="598" width="408" height="50"/>
+                                                <rect key="frame" x="0.0" y="528" width="408" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="aT3-gP-DxY"/>
                                                 </constraints>
@@ -251,7 +251,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please do not close the app and not move your device while the app is processing upgrades." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cmd-CD-IRt">
-                                                <rect key="frame" x="0.0" y="668" width="408" height="100"/>
+                                                <rect key="frame" x="0.0" y="598" width="408" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="G7t-HB-0wH"/>
                                                 </constraints>
@@ -260,7 +260,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxv-06-N59">
-                                                <rect key="frame" x="0.0" y="788" width="408" height="50"/>
+                                                <rect key="frame" x="0.0" y="718" width="408" height="50"/>
                                                 <subviews>
                                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6QP-Cj-y98">
                                                         <rect key="frame" x="10" y="0.0" width="388" height="4"/>
@@ -287,6 +287,29 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJO-FU-Ff6">
+                                                <rect key="frame" x="0.0" y="788" width="408" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UzY-G8-fOH">
+                                                        <rect key="frame" x="34" y="0.0" width="340" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="kRl-ci-850"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                        <connections>
+                                                            <action selector="btnTryAgainClick:" destination="11f-O9-u4w" eventType="touchUpInside" id="PKD-FO-QyQ"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="UzY-G8-fOH" secondAttribute="trailing" constant="34" id="1i6-xE-xKL"/>
+                                                    <constraint firstItem="UzY-G8-fOH" firstAttribute="top" secondItem="gJO-FU-Ff6" secondAttribute="top" id="8YZ-oz-kvX"/>
+                                                    <constraint firstAttribute="bottom" secondItem="UzY-G8-fOH" secondAttribute="bottom" id="mlA-Kc-XdX"/>
+                                                    <constraint firstItem="UzY-G8-fOH" firstAttribute="leading" secondItem="gJO-FU-Ff6" secondAttribute="leading" constant="34" id="oIL-8n-ZI7"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -294,7 +317,7 @@
                                 <constraints>
                                     <constraint firstItem="QVR-z0-fAj" firstAttribute="leading" secondItem="0cS-1q-12x" secondAttribute="leading" constant="10" id="0kH-Dt-kWw"/>
                                     <constraint firstAttribute="trailing" secondItem="QVR-z0-fAj" secondAttribute="trailing" constant="10" id="8GC-Hn-Kkr"/>
-                                    <constraint firstItem="CZY-gp-BBX" firstAttribute="height" secondItem="0cS-1q-12x" secondAttribute="height" multiplier="0.5" constant="1" id="DgY-zH-0uC"/>
+                                    <constraint firstItem="CZY-gp-BBX" firstAttribute="height" secondItem="0cS-1q-12x" secondAttribute="height" multiplier="0.45" constant="1" id="DgY-zH-0uC"/>
                                     <constraint firstItem="QVR-z0-fAj" firstAttribute="top" secondItem="0cS-1q-12x" secondAttribute="top" constant="10" id="aOG-o9-Dra"/>
                                     <constraint firstAttribute="bottom" secondItem="QVR-z0-fAj" secondAttribute="bottom" id="fBP-Dr-8Eg"/>
                                 </constraints>
@@ -310,11 +333,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnTryAgain" destination="UzY-G8-fOH" id="L4Q-Ra-BBs"/>
                         <outlet property="lblInfo" destination="cmd-CD-IRt" id="u9d-QQ-EbC"/>
                         <outlet property="lblMedname" destination="kbI-0H-zNw" id="1PL-3w-e0s"/>
                         <outlet property="lblOTAInfo" destination="Yz5-L0-fU0" id="fVB-mW-ezo"/>
                         <outlet property="lblTitle" destination="AHO-NR-BBS" id="OEI-9X-tXk"/>
                         <outlet property="progressView" destination="6QP-Cj-y98" id="SAS-ip-Ipn"/>
+                        <outlet property="viewTryAgain" destination="gJO-FU-Ff6" id="BXr-8V-Ufu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uDv-FX-rEj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1300,7 +1325,7 @@
         <image name="Inhaler Graphic" width="172" height="406"/>
         <image name="Radio" width="34" height="34"/>
         <image name="Radiosmall" width="30.666666030883789" height="30.666666030883789"/>
-        <image name="Upgrade" width="224.33332824707031" height="306.66665649414062"/>
+        <image name="Upgrade" width="170.66667175292969" height="132"/>
         <image name="bluetooth" width="104" height="104"/>
         <image name="ic_back_arrow_white" width="12" height="20.666666030883789"/>
         <image name="noun_X" width="24" height="24"/>

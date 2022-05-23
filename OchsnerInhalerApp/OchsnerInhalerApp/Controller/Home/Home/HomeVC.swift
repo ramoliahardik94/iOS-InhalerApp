@@ -52,7 +52,7 @@ class HomeVC: BaseVC {
         }
     }
     
-    private func  initUI() {        
+    private func  initUI() {
         initTableview()
         lblNoData.setFont()
         lblNoData.text = StringCommonMessages.noDataFount
