@@ -21,7 +21,12 @@ class ManageDeviceVM {
                     self.arrDevice.removeAll()
                     for obj in res {                        
                         self.arrDevice.append(DeviceModel(jSon: obj))
-                        DatabaseManager.share.saveDevice(object: DeviceModel(jSon: obj))
+                        let device = DeviceModel(jSon: obj)
+                        if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString})  {
+                            completionHandler(.success(true))
+                            device.version = peripheral.version.trimmingCharacters(in: .controlCharacters)
+                        }
+                        DatabaseManager.share.saveDevice(object: device)
                     }
                     self.arrRescue = self.arrDevice.filter({$0.medTypeID == 1})
                     self.arrMantainance = self.arrDevice.filter({$0.medTypeID == 2})

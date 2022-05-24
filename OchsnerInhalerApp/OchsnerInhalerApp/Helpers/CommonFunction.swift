@@ -59,7 +59,7 @@ open class CommonFunctions {
     public class func checkVersionDetails() {
         if UserDefaultManager.isGrantBLE  && UserDefaultManager.isGrantLaocation  && UserDefaultManager.isGrantNotification {
             if (UIApplication.topViewController() != nil) &&  !(UIApplication.topViewController()! is CustomSplashVC) && !(UIApplication.topViewController()! is OTAUpgradeDetailsVC) && !(UIApplication.topViewController()! is BLEOTAUpgrade) && !(UIApplication.topViewController()! is AddDeviceIntroVC) {
-                if DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.version != Constants.AppContainsFirmwareVersion}) != nil {
+                if DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.version != Constants.AppContainsFirmwareVersion && $0.udid != ""}) != nil {
                     if !isAlertVersionDisplay {
                         isAlertVersionDisplay = true
                         CommonFunctions.showMessageYesNo(message: OTAMessages.AlertUpgrade, cancelTitle: StringAddDevice.laterbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in

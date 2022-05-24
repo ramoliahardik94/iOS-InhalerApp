@@ -77,7 +77,7 @@ class MedicationVM {
                         device.medTypeID = self.medTypeId
                         device.puffs = self.puff
                         device.medication = self.selectedMedication
-                        device.version = peripheral.version
+                        device.version = peripheral.version.trimmingCharacters(in: .controlCharacters)
                         DatabaseManager.share.saveDevice(object: device, isFromDirection: true)
                         BLEHelper.shared.newDeviceId = ""
                         completionHandler(.success(true))

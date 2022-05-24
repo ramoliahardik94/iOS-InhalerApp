@@ -40,7 +40,12 @@ class LoginVM {
             } else {
                 if let res = response as? [[String: Any]] {
                     for obj in res {
-                        DatabaseManager.share.saveDevice(object: DeviceModel(jSon: obj))
+                        let device = DeviceModel(jSon: obj)
+                        if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}){
+                            completionHandler(.success(true))
+                            device.version = peripheral.version.trimmingCharacters(in: .controlCharacters)
+                        }
+                        DatabaseManager.share.saveDevice(object: device)
                     }
                     completionHandler(.success(true))
                 } else {
