@@ -153,6 +153,7 @@ class DatabaseManager {
                 device.puff = Int16(object.puffs)
                 device.medname =  object.medication.medName
                 device.medtypeid = Int16(object.medTypeID)
+                device.version = object.version
                 try context?.save()
                 Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
             }

@@ -49,6 +49,7 @@ extension BLEHelper: CBPeripheralDelegate {
                 connectedPeripheral[index].addressMAC = stringFromData
             }
             Logger.logInfo("Mac Address: \(String(describing: stringFromData))")
+            getVersion(peripheral: discoverPeripheral)
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
             }
@@ -207,7 +208,6 @@ extension BLEHelper {
                     
                     switch peripheral.state {
                     case .connected :
-                        self.getVersion(peripheral: discoverPeripheral)
                         self.getmacAddress(peripheral: discoverPeripheral)
                         self.getBatteryLevel(peripheral: discoverPeripheral)
                         if !self.isAddAnother {
