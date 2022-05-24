@@ -54,7 +54,7 @@ class OTADeviceCell: UITableViewCell {
                 if battery < Constants.batteryLimiteToUpgrade {
                     btnUpgrade.isEnabled = false
                     btnUpgrade.setTitle(OTAMessages.upgrade, for: .disabled)
-                    lblError.text = "Less Battery to Upgrade."
+                    lblError.text = OTAMessages.errorBattery
                 }
             }
             

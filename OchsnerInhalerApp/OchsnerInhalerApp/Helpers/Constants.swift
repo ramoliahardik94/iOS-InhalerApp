@@ -30,8 +30,6 @@ class Constants: NSObject {
         static let SFProTextBold = "SFProText-Bold"
         static let SFProDisplayBoldItalic = "SFProDisplay-BoldItalic"
     }
-  
-    
 }
 var isAlertVersionDisplay = false
 

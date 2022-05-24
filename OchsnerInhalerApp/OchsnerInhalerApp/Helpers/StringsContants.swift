@@ -64,6 +64,7 @@ struct OTAMessages {
     static let upgradeAll = "Upgrade All"
     static let retry = "Try Again!"
     static let Installed = "Up to Date"
+    static let errorBattery = "Low Battery! Unable to upgrade"
     
 }
 // MARK: UserManagement
