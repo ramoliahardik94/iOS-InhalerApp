@@ -55,6 +55,7 @@ struct AppFont {
 struct OTAMessages {
     static let info = "Please wait...this may take several minutes to complete. It will redirect you to previous screen after successful upgrade." // "This might take sometime to complete. Please wait! It will automatically close once complete."
     static let titleUpgrade = "Installing..."
+    static let titleUpgradeFail = "Failed to connect Inhaler device"
     static let infoList1 = "To Upgrade the device, it must be nearby to mobile and connected." // "To Upgrade All, all the devices must be nearby and connected."
     static let infoList2 = "DO NOT use the device during upgrade."
     static let infoList3 = "DO NOT close the application while upgrade is in progress."

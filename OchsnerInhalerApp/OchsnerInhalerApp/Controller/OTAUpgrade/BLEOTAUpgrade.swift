@@ -389,7 +389,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     func setErrorMsg(msg: String, error: Error?) {
         viewTryAgain.isHidden = false
         progressView.isHidden = true
-        lblTitle.text = "Installing Fail."
+        lblTitle.text = OTAMessages.titleUpgradeFail
         lblOTAInfo.textColor = .ColorHomeIconRed
         lblOTAInfo.text = msg
         if error != nil {
