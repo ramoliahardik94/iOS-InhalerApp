@@ -363,7 +363,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             if isUpdateAll {
 //                peripheral?.version = Constants.AppContainsFirmwareVersion
                 if let sel = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral!.state == .connected && $0.version != Constants.AppContainsFirmwareVersion}) {
-                    if sel  != selectedPeripheral {
+                    if sel  != selectedPeripheral && (Int(sel.bettery) ?? 100) > Constants.batteryLimiteToUpgrade {
                         sel.isOTAUpgrade = true
                         self.selectedPeripheral = sel.discoveredPeripheral
                         let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)

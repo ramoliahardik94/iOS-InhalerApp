@@ -16,13 +16,7 @@ class ManageDeviceVC: BaseVC {
     @IBOutlet weak var btnAddAnothDevice: UIButton!
     let refreshControl = UIRefreshControl()
     @IBOutlet weak var addDevicebtnHeight: NSLayoutConstraint!
-    @IBOutlet weak var btnUpdateAllHeight: NSLayoutConstraint!
-    @IBOutlet weak var lblUpdateInfo: UILabel!
-    @IBOutlet weak var btnUpdateAll: UIButton!
-    
-    @IBOutlet weak var viewUpdateInfoHeight: NSLayoutConstraint!
-    @IBOutlet weak var viewUpdateInfo: UIView!
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
@@ -31,7 +25,6 @@ class ManageDeviceVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEDisconnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEChange, object: nil)
         initUI()
-        setUpdateAllView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,21 +37,8 @@ class ManageDeviceVC: BaseVC {
             refresh(self)
         }
         
-       setUpdateAllView()
     }
-    func setUpdateAllView() {
-      /*  let connectedDeviceList = BLEHelper.shared.connectedPeripheral.filter({$0.version != Constants.AppContainsFirmwareVersion && $0.version != "" })
-       // btnUpdateAllHeight.constant = connectedDeviceList.count == 0  ? 0 : 35
-        viewUpdateInfoHeight.constant = connectedDeviceList.count == 0  ? 0 : 70
-        btnUpdateAll.isHidden = connectedDeviceList.count == 0
-        viewUpdateInfo.isHidden = connectedDeviceList.count == 0
-        btnUpdateAll.setButtonView(StringDevices.upgradeAll, 14, AppFont.AppRegularFont, isBlankBG: true)
-        lblUpdateInfo.setFont()
-        lblUpdateInfo.text = StringDevices.upgradeInfo */
-        btnUpdateAll.isHidden = true
-        viewUpdateInfo.isHidden = true
-        viewUpdateInfoHeight.constant =  0 
-    }
+  
     func apiCall() {
         manageDeviceVM.apicallForGetDeviceList { [weak self] result in
             guard let`self` = self else { return }
@@ -75,21 +55,6 @@ class ManageDeviceVC: BaseVC {
                 CommonFunctions.showMessage(message: message)
             }
         }
-    }
-    @IBAction func btnUpdateAllclick(_ sender: Any) {
-        let connectedDeviceList = BLEHelper.shared.connectedPeripheral.filter({$0.version != Constants.AppContainsFirmwareVersion})
-        let peripheral = connectedDeviceList[0]
-        peripheral.discoveredPeripheral!.delegate = nil
-        peripheral.isOTAUpgrade = true
-        let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-        bleUpgrade.selectedPeripheral = peripheral.discoveredPeripheral
-        bleUpgrade.modalPresentationStyle = .overCurrentContext
-        if let deviceDetail = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.udid == peripheral.discoveredPeripheral!.identifier.uuidString}) {
-            bleUpgrade.medname = deviceDetail.medname ?? ""
-        }
-        bleUpgrade.isUpdateAll = true
-        // self.pushVC(controller: bleUpgrade)
-        self.presentVC(controller: bleUpgrade)
     }
     
     private func initUI() {
@@ -124,20 +89,17 @@ class ManageDeviceVC: BaseVC {
         lblNodata.text = StringAddDevice.noDevice
         self.tbvData.isHidden = device.count == 0
         self.lblNodata.isHidden = device.count > 0
-        setUpdateAllView()
     }
     
     @objc func inhalerConnected(notification: Notification) {
         DispatchQueue.main.async { [self] in
             self.tbvData.reloadData()
-            setUpdateAllView()
         }
     }
     
     @objc func inhalerBatteryLevel(notification: Notification) {
         DispatchQueue.main.async { [self] in
             self.tbvData.reloadData()
-            setUpdateAllView()
         }
     }
     

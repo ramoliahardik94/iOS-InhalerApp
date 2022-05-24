@@ -14,11 +14,14 @@ class OTADeviceCell: UITableViewCell {
     @IBOutlet weak var viewbottom: UIView!
     @IBOutlet weak var lblMedname: UILabel!
     @IBOutlet weak var btnUpgrade: UIButton!
+    @IBOutlet weak var lblError: UILabel!
     var delegate: OTAUpgradeDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         lblMedname.setFont(type: .semiBold, point: 17)
+        lblError.setFont(type: .regular, point: 12)
+        lblError.textColor = .ColorHomeIconRed
         btnUpgrade.setButtonView(OTAMessages.upgrade, 14, AppFont.AppRegularFont, isBlankBG: true)
       
     }
@@ -27,9 +30,12 @@ class OTADeviceCell: UITableViewCell {
             lblMedname.text = "\(device.medname!) (\(device.medtypeid ==  1 ?  StringUserManagement.strRescue :  StringUserManagement.strMaintenance))"
             var isReadyToUpgrade = false
             var isUptoDate = false
+            var battery = 100
+            lblError.text = ""
             if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.mac}) {
                 isReadyToUpgrade = peripheral.discoveredPeripheral!.state == .connected
                 isUptoDate = device.version?.trimmingCharacters(in: .controlCharacters) == Constants.AppContainsFirmwareVersion
+                battery = Int(peripheral.bettery) ?? 100
             }
             
             
@@ -45,9 +51,13 @@ class OTADeviceCell: UITableViewCell {
             if isReadyToUpgrade && !isUptoDate {
                 btnUpgrade.isEnabled = true
                 btnUpgrade.setTitle(OTAMessages.upgrade, for: .normal)
-            } else {
-                
+                if battery < Constants.batteryLimiteToUpgrade {
+                    btnUpgrade.isEnabled = false
+                    btnUpgrade.setTitle(OTAMessages.upgrade, for: .disabled)
+                    lblError.text = "Less Battery to Upgrade."
+                }
             }
+            
             
             
             if !btnUpgrade.isEnabled {

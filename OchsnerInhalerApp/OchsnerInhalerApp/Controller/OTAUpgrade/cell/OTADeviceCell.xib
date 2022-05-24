@@ -49,10 +49,17 @@
                             <constraint firstAttribute="height" constant="1" id="6Yt-DQ-EDf"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSm-QS-Z0m">
+                        <rect key="frame" x="273" y="71" width="42" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="dgK-se-aeL" secondAttribute="bottom" id="1im-2s-dhv"/>
                     <constraint firstAttribute="top" secondItem="KjN-Mr-yuU" secondAttribute="top" id="2Hv-1s-KTl"/>
+                    <constraint firstAttribute="trailing" secondItem="oSm-QS-Z0m" secondAttribute="trailing" constant="5" id="3nX-pe-3J9"/>
                     <constraint firstAttribute="trailing" secondItem="yrd-RE-5Hz" secondAttribute="trailing" constant="10" id="4xc-SH-gyz"/>
                     <constraint firstAttribute="trailing" secondItem="KjN-Mr-yuU" secondAttribute="trailing" id="4zI-Jd-Nuc"/>
                     <constraint firstItem="h6b-sE-5PN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="6zq-3N-rzQ"/>
@@ -62,7 +69,9 @@
                     <constraint firstAttribute="trailing" secondItem="dgK-se-aeL" secondAttribute="trailing" id="Md6-EM-JYX"/>
                     <constraint firstItem="yrd-RE-5Hz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h6b-sE-5PN" secondAttribute="trailing" constant="5" id="OKg-ug-yR0"/>
                     <constraint firstItem="h6b-sE-5PN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="UPQ-0k-2Dv"/>
+                    <constraint firstItem="oSm-QS-Z0m" firstAttribute="top" secondItem="yrd-RE-5Hz" secondAttribute="bottom" constant="5" id="gef-nC-eGx"/>
                     <constraint firstAttribute="bottom" secondItem="h6b-sE-5PN" secondAttribute="bottom" constant="5" id="pET-di-wG1"/>
+                    <constraint firstItem="dgK-se-aeL" firstAttribute="top" secondItem="oSm-QS-Z0m" secondAttribute="bottom" constant="5" id="vJB-aR-s03"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yrd-RE-5Hz" secondAttribute="bottom" constant="10" id="vmn-ua-9rC"/>
                     <constraint firstItem="dgK-se-aeL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zVl-Jd-r4Y"/>
                 </constraints>
@@ -70,6 +79,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnUpgrade" destination="yrd-RE-5Hz" id="9Hh-fg-8Ns"/>
+                <outlet property="lblError" destination="oSm-QS-Z0m" id="XSW-QL-8Lf"/>
                 <outlet property="lblMedname" destination="h6b-sE-5PN" id="peg-c0-DXX"/>
                 <outlet property="viewbottom" destination="dgK-se-aeL" id="yBo-bn-sXq"/>
             </connections>

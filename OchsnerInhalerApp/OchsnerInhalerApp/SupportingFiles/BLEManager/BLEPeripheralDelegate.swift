@@ -19,19 +19,18 @@ extension BLEHelper: CBPeripheralDelegate {
             Logger.logError("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
-       
+        
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
         print("\n stringFromData : \(stringFromData) For \(characteristic.uuid)")
         guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         
-        
         if characteristic.uuid == TransferService.characteristicAutoNotify {
             if newDeviceId !=  peripheral.identifier.uuidString {
-            Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
-            discoverPeripheral.isFromNotification = true
-            getVersion(peripheral: discoverPeripheral)
-            getActuationNumber(discoverPeripheral, stringFromData)
+                Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
+                discoverPeripheral.isFromNotification = true
+                getVersion(peripheral: discoverPeripheral)
+                getActuationNumber(discoverPeripheral, stringFromData)
             }
         } else if characteristic.uuid == TransferService.characteristicVersion {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
@@ -77,7 +76,7 @@ extension BLEHelper: CBPeripheralDelegate {
                     connectedPeripheral[index].bettery = "\(stringFromData.getBeteryLevel())"
                 }
                 Logger.logInfo("Battery Hax: \(String(describing: stringFromData)) Decimal: \(stringFromData.getBeteryLevel()) mac: \(discoverPeripheral.addressMAC)")
-                DispatchQueue.main.async { 
+                DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(stringFromData.getBeteryLevel())"])
                 }
                 
@@ -240,6 +239,7 @@ extension BLEHelper {
     func getActuationNumber(_ discoverPeripheral: PeriperalType, _ stringFromData: String) {
         discoverPeripheral.noOfLog = stringFromData.getNumberofActuationLog()
         Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) Decimal: \(discoverPeripheral.noOfLog) mac: \(discoverPeripheral.addressMAC)")
+        getBatteryLevel(peripheral: discoverPeripheral)
         if discoverPeripheral.noOfLog > 0 {
             showDashboardStatus(msg: BLEStatusMsg.featchDataFromDevice)
             getActuationLog()
@@ -252,7 +252,7 @@ extension BLEHelper {
             NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(discoverPeripheral.noOfLog)"])
         }
     }
-    func setNotificationForVersionUpdate(_ medName: String,_ udid: String) {
+    func setNotificationForVersionUpdate(_ medName: String, _ udid: String) {
         
         let content = UNMutableNotificationContent()
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
