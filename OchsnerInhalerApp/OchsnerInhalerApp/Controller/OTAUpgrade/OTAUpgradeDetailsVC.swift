@@ -85,7 +85,7 @@ class OTAUpgradeDetailsVC: BaseVC {
     
     @IBAction func btnUpgradeAllClick(_ sender: Any) {
         BLEHelper.shared.stopScanPeriphral()
-        if  let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral?.state == .connected && $0.version != Constants.AppContainsFirmwareVersion}) {
+        if  let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral?.state == .connected && $0.version != Constants.AppContainsFirmwareVersion && (Int($0.bettery) ?? 100) > Constants.batteryLimiteToUpgrade}) {
             peripheral.discoveredPeripheral!.delegate = nil
             peripheral.isOTAUpgrade = true
             let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -141,7 +141,7 @@ extension OTAUpgradeDetailsVC {
     }
     
     func isUpgradeAllButton() {
-        if BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral?.state == .connected && $0.version != Constants.AppContainsFirmwareVersion}) != nil {
+        if BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral?.state == .connected && $0.version != Constants.AppContainsFirmwareVersion && (Int($0.bettery) ?? 100) > Constants.batteryLimiteToUpgrade }) != nil {
             btnUpgradeAll.isEnabled = true
             btnUpgradeAll.setButtonView(OTAMessages.upgradeAll)
         } else {

@@ -253,13 +253,31 @@ extension BLEHelper {
         }
     }
     func setNotificationForVersionUpdate(_ medName: String, _ udid: String) {
-        
+        DispatchQueue.main.async { [self] in
+            switch UIApplication.shared.applicationState {
+            case .active:
+                // app is currently active, can update badges count here
+                break
+            case .inactive:
+                // app is transitioning from background to foreground (user taps notification), do what you need when user taps here
+                setNotification(medName, udid)
+                
+            case .background:
+                // app is in background, if content-available key of your notification is set to 1, poll to your backend to retrieve data and update your interface here
+                setNotification(medName, udid)
+                
+            default:
+                break
+            }
+        }
+    }
+    func setNotification(_ medName: String, _ udid: String) {
         let content = UNMutableNotificationContent()
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         content.title = StringLocalNotifiaction.title
-        content.body =  String(format: StringLocalNotifiaction.bodyVersion,medName)
+        content.body =  String(format: StringLocalNotifiaction.bodyVersion, medName)
         content.sound = UNNotificationSound.default
-        content.userInfo = ["version": true,"udid": udid]
+        content.userInfo = ["version": true, "udid": udid]
         let request = UNNotificationRequest(identifier: "deviceUpgration\(medName)", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             if let error = error {
@@ -268,7 +286,6 @@ extension BLEHelper {
         })
         Logger.logInfo(" setNotification End")
     }
-    
 }
 extension Data {
     struct HexEncodingOptions: OptionSet {
