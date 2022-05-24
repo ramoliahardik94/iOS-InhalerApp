@@ -30,6 +30,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblMedname: UILabel!
     @IBOutlet weak var lblInfo: UILabel!
+    @IBOutlet weak var btnCancel: UIButton!
     var selectedPeripheral: CBPeripheral?
     var isConnectedToOTA = false
     var isUpdateAll = false
@@ -46,6 +47,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         lblTitle.text = OTAMessages.titleUpgrade
         lblInfo.text = OTAMessages.info
         btnTryAgain.setButtonView(OTAMessages.retry)
+        btnCancel.setButtonView(StringCommonMessages.cancel, isDefaultbtn: false)
         viewTryAgain.isHidden = true
         initUI()
     }
@@ -82,6 +84,9 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func btnCancelClick(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBAction func btnTryAgainClick(_ sender: Any) {
 //        self.dismiss(animated: true, completion: nil)
         progressView.isHidden = false
@@ -254,7 +259,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             }
             let interval = Date().timeIntervalSince(timeUpgradeBegin!)
             Logger.logInfo(" OTA MSG:update completed." + String(format: "average rate：%.2f KB/s", (Double(lengthTotalImages) / 1000.0) / interval))
-            lblOTAInfo.text = "Update Successfuly.(100%)"
+            lblOTAInfo.text = "Update Successfully.(100%)"
             closeVC(isSuccess: true)
            
         })
