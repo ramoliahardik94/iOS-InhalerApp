@@ -219,8 +219,8 @@
                                     <constraint firstAttribute="trailing" secondItem="YNK-o8-Yd1" secondAttribute="trailing" constant="32" id="CFd-rW-djC"/>
                                     <constraint firstItem="YNK-o8-Yd1" firstAttribute="leading" secondItem="2zF-5q-4Mc" secondAttribute="leading" constant="32" id="Q6N-l3-Nj5"/>
                                     <constraint firstItem="YNK-o8-Yd1" firstAttribute="top" secondItem="Mid-HH-jXs" secondAttribute="bottom" constant="1" id="YwK-NX-g58"/>
-                                    <constraint firstItem="Mid-HH-jXs" firstAttribute="top" secondItem="2zF-5q-4Mc" secondAttribute="top" id="bEi-2b-Emd"/>
                                     <constraint firstItem="Aqn-ze-XtA" firstAttribute="centerY" secondItem="2zF-5q-4Mc" secondAttribute="centerY" id="d7t-AE-uq8"/>
+                                    <constraint firstItem="Mid-HH-jXs" firstAttribute="top" secondItem="2zF-5q-4Mc" secondAttribute="top" id="koz-tF-kPZ"/>
                                     <constraint firstItem="Mid-HH-jXs" firstAttribute="leading" secondItem="2zF-5q-4Mc" secondAttribute="leading" id="kt7-ty-Zfq"/>
                                     <constraint firstItem="Aqn-ze-XtA" firstAttribute="centerX" secondItem="2zF-5q-4Mc" secondAttribute="centerX" id="kyr-il-g0P"/>
                                     <constraint firstAttribute="trailing" secondItem="Mid-HH-jXs" secondAttribute="trailing" id="qHX-ee-aM5"/>
@@ -250,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kpS-t2-9AZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2236" y="-599"/>
+            <point key="canvasLocation" x="2236" y="-599.26108374384239"/>
         </scene>
         <!--ProfileVC-->
         <scene sceneID="Hdl-iv-Dp4">

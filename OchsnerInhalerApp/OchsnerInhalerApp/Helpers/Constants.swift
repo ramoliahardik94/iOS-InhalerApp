@@ -15,8 +15,9 @@ class Constants: NSObject {
     static let TimerScanAutoConnect =  30.0
     static let ScanningScreenDelay = 10.0
     static let PairDialogDelay = 15.0
-    
-    
+    static let AppContainsFirmwareVersion = "1.0.7"
+    static let firmwareFileName = "ble_tracker_v1.0.7_ota"
+    static let batteryLimiteToUpgrade = 30
     
     static let titleFont = (UIFont(name: AppFont.AppBoldFont, size: 18))!
     static let titleColor = UIColor.white
@@ -29,9 +30,8 @@ class Constants: NSObject {
         static let SFProTextBold = "SFProText-Bold"
         static let SFProDisplayBoldItalic = "SFProDisplay-BoldItalic"
     }
-  
-    
 }
+var isAlertVersionDisplay = false
 
 enum FontType {
     case regular

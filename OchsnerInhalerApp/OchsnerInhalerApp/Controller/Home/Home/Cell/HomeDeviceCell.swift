@@ -75,39 +75,42 @@ class HomeDeviceCell: UITableViewCell {
                 viewNextDose.isHidden = false
                 lblDeviceNameGraph.text = ""
                 lblDeviceTypeGraph.text = StringCommonMessages.schedule
-
                 let arrSorted = item.dailyAdherence.sorted { item1, item2 in return item1.denominator ?? 0 > item2.denominator ?? 0 }
                 let maxvalu = arrSorted.count > 0 ? arrSorted[0].denominator : 0
                 heightStackView.constant = maxvalu != 0 ?  CGFloat((maxvalu ?? 1) * (24)) + 24 : 40
                 let weekName = getDayName()
                 let bufferDay =  7 - item.dailyAdherence.count
-                
-                if bufferDay > 0 {
-                    for index in 0...(bufferDay - 1) {
-                        viewCollectionView.isHidden = false
-                        
-                        stackViewArray[index].removeFullyAllArrangedSubviews()
-                        stackViewArray[index].isHidden = false
-                        stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
-                        stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
-                        stackViewArray[index].alignment = UIStackView.Alignment.center
-                        stackViewArray[index].spacing   = 4
-                        stackViewArray[index].isHidden = false
-                        stackViewArray[index].addArrangedSubview(getLableOfDay(text: loadDayName(weekDay: weekName[index])))
-                        layoutSubviews()
-                        if maxvalu == 0 {
-                            stackViewArray[index].addArrangedSubview(getViewDoseNotAvailable())
-                        } else {
-                            for  _ in 1...maxvalu! {
+                if bufferDay == 7 {
+                    viewCollectionView.isHidden = true
+                } else {
+                    if bufferDay > 0 {
+                        for index in 0...(bufferDay - 1) {
+                            viewCollectionView.isHidden = false
+                            
+                            stackViewArray[index].removeFullyAllArrangedSubviews()
+                            stackViewArray[index].isHidden = false
+                            stackViewArray[index].axis  = NSLayoutConstraint.Axis.vertical
+                            stackViewArray[index].distribution  = UIStackView.Distribution.equalSpacing
+                            stackViewArray[index].alignment = UIStackView.Alignment.center
+                            stackViewArray[index].spacing   = 4
+                            stackViewArray[index].isHidden = false
+                            stackViewArray[index].addArrangedSubview(getLableOfDay(text: loadDayName(weekDay: weekName[index])))
+                            layoutSubviews()
+                            if maxvalu == 0 {
                                 stackViewArray[index].addArrangedSubview(getViewDoseNotAvailable())
+                            } else {
+                                for  _ in 1...maxvalu! {
+                                    stackViewArray[index].addArrangedSubview(getViewDoseNotAvailable())
+                                }
                             }
-                        }
-                        let array =  stackViewArray[index].arrangedSubviews.reversed()
-                        for (indexArr, item) in array.enumerated() {
-                            stackViewArray[index].insertArrangedSubview(item, at: indexArr)
+                            let array =  stackViewArray[index].arrangedSubviews.reversed()
+                            for (indexArr, item) in array.enumerated() {
+                                stackViewArray[index].insertArrangedSubview(item, at: indexArr)
+                            }
                         }
                     }
                     viewCollectionView.layoutSubviews()
+                    
                 }
                 
                 for (ind, obj) in item.dailyAdherence.enumerated() { // For Every column

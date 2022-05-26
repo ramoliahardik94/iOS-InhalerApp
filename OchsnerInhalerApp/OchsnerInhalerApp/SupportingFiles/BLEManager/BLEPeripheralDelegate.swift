@@ -19,27 +19,40 @@ extension BLEHelper: CBPeripheralDelegate {
             Logger.logError("Error discovering characteristics: \(error.localizedDescription)")
             return
         }
-       
+        
         guard
             let stringFromData = characteristic.value?.hexEncodedString() else { return }
-        
+        print("\n stringFromData : \(stringFromData) For \(characteristic.uuid)")
         guard let discoverPeripheral = connectedPeripheral.first(where: {peripheral.identifier.uuidString == $0.discoveredPeripheral?.identifier.uuidString}) else { return }
         
-        
         if characteristic.uuid == TransferService.characteristicAutoNotify {
-            Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
-            discoverPeripheral.isFromNotification = true
-        }
-       
-        if characteristic.uuid == TransferService.macCharecteristic {
+            if newDeviceId !=  peripheral.identifier.uuidString {
+                Logger.logInfo("Auto notify Comes: \(String(describing: stringFromData))")
+                discoverPeripheral.isFromNotification = true
+                getVersion(peripheral: discoverPeripheral)
+                getActuationNumber(discoverPeripheral, stringFromData)
+            }
+        } else if characteristic.uuid == TransferService.characteristicVersion {
+            if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
+                let  version = getVersionInString(haxStr: stringFromData)
+                connectedPeripheral[index].version = version.trimmingCharacters(in: .controlCharacters)
+                Logger.logInfo("firmware version: \(version.trimmingCharacters(in: .controlCharacters)) of \(discoverPeripheral.addressMAC)")
+                DatabaseManager.share.updateFWVersion(version.trimmingCharacters(in: .controlCharacters), peripheral.identifier.uuidString)
+                if Constants.AppContainsFirmwareVersion != discoverPeripheral.version {
+                    if let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == discoverPeripheral.addressMAC}) {
+                        setNotificationForVersionUpdate(device.medname ?? "", peripheral.identifier.uuidString)
+                    }
+                }
+            }
+        } else  if characteristic.uuid == TransferService.macCharecteristic {
             if let index = connectedPeripheral.firstIndex(where: {$0.discoveredPeripheral?.identifier.uuidString == peripheral.identifier.uuidString}) {
                 connectedPeripheral[index].addressMAC = stringFromData
             }
             Logger.logInfo("Mac Address: \(String(describing: stringFromData))")
+            getVersion(peripheral: discoverPeripheral)
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEGetMac, object: nil, userInfo: ["MacAdd": stringFromData])
             }
-            
         } else {
             var arrResponce = stringFromData.split(separator: ":")
             arrResponce.remove(at: 0)// StartByte
@@ -64,25 +77,13 @@ extension BLEHelper: CBPeripheralDelegate {
                     connectedPeripheral[index].bettery = "\(stringFromData.getBeteryLevel())"
                 }
                 Logger.logInfo("Battery Hax: \(String(describing: stringFromData)) Decimal: \(stringFromData.getBeteryLevel()) mac: \(discoverPeripheral.addressMAC)")
-                DispatchQueue.main.async { 
+                DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .BLEBatteryLevel, object: nil, userInfo: ["batteryLevel": "\(stringFromData.getBeteryLevel())"])
                 }
                 
             } else if str == StringCharacteristics.getType(.actuationLogNumber)() {
                 
-                discoverPeripheral.noOfLog = stringFromData.getNumberofActuationLog()
-                Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) Decimal: \(discoverPeripheral.noOfLog) mac: \(discoverPeripheral.addressMAC)")
-                if discoverPeripheral.noOfLog > 0 {
-                    showDashboardStatus(msg: BLEStatusMsg.featchDataFromDevice)
-                    getActuationLog()
-                } else {
-                    Logger.logInfo("\(discoverPeripheral.addressMAC) : logCounter >= noOfLog : \(Decimal(discoverPeripheral.logCounter)) >= \(discoverPeripheral.noOfLog)")
-                    logCounter += 1
-                    actuationAPI_LastActuation()
-                }
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(discoverPeripheral.noOfLog)"])
-                }
+                getActuationNumber(discoverPeripheral, stringFromData)
                 
             } else if str == StringCharacteristics.getType(.acuationLog)() {
                 discoverPeripheral.logCounter += 1
@@ -107,7 +108,7 @@ extension BLEHelper: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         // Deal with errors (if any)
         if let error = error {
-            Logger.logError("Error changing notification state: \(error.localizedDescription)")
+            Logger.logError("Error changing notification state \(characteristic.uuid): \(error.localizedDescription)")
             return
         }
         
@@ -143,6 +144,15 @@ extension BLEHelper {
         for service in peripheralServices where service.uuid == TransferService.inhealerUTCservice {
             peripheral.discoverCharacteristics([TransferService.characteristicWriteUUID, TransferService.characteristicNotifyUUID, TransferService.characteristicAutoNotify], for: service)
         }
+        for service in peripheralServices where service.uuid == TransferService.deviceInformation {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+        for service in peripheralServices where service.uuid == TransferService.genericAccess {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+        for service in peripheralServices where service.uuid == TransferService.genericAttribute {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
 
     }    
     /*
@@ -162,64 +172,120 @@ extension BLEHelper {
         guard let serviceCharacteristics = service.characteristics else {
             Logger.logError("service error \(service)")
             return }
-        print(serviceCharacteristics)
+        
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.macCharecteristic {
             discoverPeripheral.macCharecteristic = characteristic
+            print("NB: macCharecteristic")
         }
-        // TODO: - Uncomment for BG AutoNotify
+      
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicAutoNotify {
             peripheral.setNotifyValue(false, for: characteristic)
             peripheral.setNotifyValue(true, for: characteristic)
             discoverPeripheral.charectristicNotify = characteristic
+            print("NB: charectristicNotify")
         }
         
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicWriteUUID {
-          
+            peripheral.setNotifyValue(false, for: characteristic)
             discoverPeripheral.charectristicWrite = characteristic
+            print("NB: charectristicWrite")
         }
-        
+        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicVersion {
+            discoverPeripheral.charectristicVersion = characteristic
+            print("NB: charectristicVersion")
+        }
         for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.characteristicNotifyUUID {
             peripheral.setNotifyValue(false, for: characteristic)
             peripheral.setNotifyValue(true, for: characteristic)
             discoverPeripheral.charectristicRead = characteristic
         }
         
-        if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicNotify != nil {
-            delay(isAddAnother ? Constants.PairDialogDelay : 0) {
-                [weak self] in
-                guard let `self` = self else { return }
-                
-                switch peripheral.state {
-                case .connected :
-                    self.getmacAddress(peripheral: discoverPeripheral)
-                    self.getBatteryLevel(peripheral: discoverPeripheral)
-                    if !self.isAddAnother {
-                        self.setRTCTime(uuid: discoverPeripheral.discoveredPeripheral!.identifier.uuidString)
-                        self.countOfConnectedDevice += 1
-                        if self.countOfScanDevice == self.countOfConnectedDevice {
-                            self.countOfConnectedDevice = 0
-                            self.countOfScanDevice = 0
-                            let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
-                            if bleDevice.count > 0 {
-                                Logger.logInfo("Log get After Connect All device")
-                                CommonFunctions.getLogFromDeviceAndSync()
-                            } else {
-                                self.hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
+        if !discoverPeripheral.isOTAUpgrade {
+            if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicVersion != nil {
+                delay(isAddAnother ? Constants.PairDialogDelay : 0) {
+                    [weak self] in
+                    guard let `self` = self else { return }
+                    
+                    switch peripheral.state {
+                    case .connected :
+                        self.getmacAddress(peripheral: discoverPeripheral)
+                        self.getBatteryLevel(peripheral: discoverPeripheral)
+                        if !self.isAddAnother {
+                            self.countOfConnectedDevice += 1
+                            if self.countOfScanDevice == self.countOfConnectedDevice {
+                                self.countOfConnectedDevice = 0
+                                self.countOfScanDevice = 0
+                                let bleDevice = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+                                if bleDevice.count > 0 {
+                                    Logger.logInfo("Log get After Connect All device")
+                                    CommonFunctions.getLogFromDeviceAndSync()
+                                } else {
+                                    self.hideDashboardStatus(msg: BLEStatusMsg.noDeviceFound)
+                                }
                             }
                         }
+                        Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .BLEConnect, object: nil)
+                        }
+                    default:
+                        break
                     }
-                    Logger.logInfo("BLEConnect with identifier \(peripheral.identifier.uuidString )")
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: .BLEConnect, object: nil)
-                    }
-                default:
-                    break
                 }
             }
         }
         // Once this is complete, we just need to wait for the data to come in.
     }
-    
+    func getActuationNumber(_ discoverPeripheral: PeriperalType, _ stringFromData: String) {
+        discoverPeripheral.noOfLog = stringFromData.getNumberofActuationLog()
+        Logger.logInfo("Number Of Acuation log Hax: \(String(describing: stringFromData)) Decimal: \(discoverPeripheral.noOfLog) mac: \(discoverPeripheral.addressMAC)")
+        getBatteryLevel(peripheral: discoverPeripheral)
+        if discoverPeripheral.noOfLog > 0 {
+            showDashboardStatus(msg: BLEStatusMsg.featchDataFromDevice)
+            getActuationLog()
+        } else {
+            Logger.logInfo("\(discoverPeripheral.addressMAC) : logCounter >= noOfLog : \(Decimal(discoverPeripheral.logCounter)) >= \(discoverPeripheral.noOfLog)")
+            logCounter += 1
+            actuationAPI_LastActuation()
+        }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .BLEAcuationCount, object: nil, userInfo: ["acuationCount": "\(discoverPeripheral.noOfLog)"])
+        }
+    }
+    func setNotificationForVersionUpdate(_ medName: String, _ udid: String) {
+        DispatchQueue.main.async { [self] in
+            switch UIApplication.shared.applicationState {
+            case .active:
+                // app is currently active, can update badges count here
+                break
+            case .inactive:
+                // app is transitioning from background to foreground (user taps notification), do what you need when user taps here
+                setNotification(medName, udid)
+                
+            case .background:
+                // app is in background, if content-available key of your notification is set to 1, poll to your backend to retrieve data and update your interface here
+                setNotification(medName, udid)
+                
+            default:
+                break
+            }
+        }
+    }
+    func setNotification(_ medName: String, _ udid: String) {
+        let content = UNMutableNotificationContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        content.title = StringLocalNotifiaction.title
+        content.body =  String(format: StringLocalNotifiaction.bodyVersion, medName)
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["version": true, "udid": udid]
+        let request = UNNotificationRequest(identifier: "deviceUpgration\(medName)", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            if let error = error {
+                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            }
+        })
+        Logger.logInfo(" setNotification End")
+    }
 }
 extension Data {
     struct HexEncodingOptions: OptionSet {

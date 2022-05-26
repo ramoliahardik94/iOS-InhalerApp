@@ -1,11 +1,11 @@
 //
-//  ManageDeviceVC.swift
-//  OchsnerInhalerApp
+//  ManageDeviceVC.swift //  OchsnerInhalerApp
 //
 //  Created by Deepak Panchal on 12/01/22.
 //
 
 import UIKit
+import CoreBluetooth
 
 
 class ManageDeviceVC: BaseVC {
@@ -16,7 +16,7 @@ class ManageDeviceVC: BaseVC {
     @IBOutlet weak var btnAddAnothDevice: UIButton!
     let refreshControl = UIRefreshControl()
     @IBOutlet weak var addDevicebtnHeight: NSLayoutConstraint!
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.inhalerConnected(notification:)), name: .BLEConnect, object: nil)
@@ -36,8 +36,9 @@ class ManageDeviceVC: BaseVC {
         if self.manageDeviceVM.arrDevice.count == 0 {
             refresh(self)
         }
+        
     }
-    
+  
     func apiCall() {
         manageDeviceVM.apicallForGetDeviceList { [weak self] result in
             guard let`self` = self else { return }
@@ -88,22 +89,22 @@ class ManageDeviceVC: BaseVC {
         lblNodata.text = StringAddDevice.noDevice
         self.tbvData.isHidden = device.count == 0
         self.lblNodata.isHidden = device.count > 0
-        
     }
     
     @objc func inhalerConnected(notification: Notification) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             self.tbvData.reloadData()
         }
     }
     
     @objc func inhalerBatteryLevel(notification: Notification) {
-        self.tbvData.reloadData()
+        DispatchQueue.main.async { [self] in
+            self.tbvData.reloadData()
+        }
     }
     
     @objc func medicationUpdate(notification: Notification) {
         apiCall()
-        
     }
     
     // MARK: -
@@ -145,7 +146,7 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.btnEditDirection.tag = indexPath.row
         cell.btnEditDirection.accessibilityValue = "\(indexPath.section)"
-        
+    
         if indexPath.section == 0 {
             cell.lblDeviceType.text = indexPath.row == 0 ? "Rescue Devices" : ""
             cell.device = manageDeviceVM.arrRescue[indexPath.row]
@@ -161,6 +162,8 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ManageDeviceVC: ManageDeviceDelegate {
+    
+
     func editDirection(index: Int, section: Int) {
         
         Logger.logInfo("Edit Direction Click")

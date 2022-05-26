@@ -37,7 +37,7 @@ class ManageDeviceCell: UITableViewCell {
             lblUsage.textColor = device.medTypeID ==  1 ?  #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) :  #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1)
             lblDeviceName.text  = device.medication.medName!
             lblNCDCode.text = "NDC Code: \(device.medication.ndc!)"
-            lblUsage.text = device.medTypeID ==  1 ?  "Rescue" :  "Maintenance"
+            lblUsage.text = device.medTypeID ==  1 ?  StringUserManagement.strRescue :  StringUserManagement.strMaintenance
             lblDose.text = "1 Dose = \(device.puffs) Puffs"
             lblDose.isHidden = device.medTypeID == 1
             let str = device.useTimes.joined(separator: "\n")
@@ -45,12 +45,15 @@ class ManageDeviceCell: UITableViewCell {
             lblUsageLabel.text = StringDevices.usage
             ivInhaler.image  =  device.medTypeID !=  1 ?  UIImage(named: "inhaler_blue") : UIImage(named: "inhaler_red")
             var textStatus =  StringCommonMessages.disconnect
+           
             var bettery = device.batteryLevel
                 if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == device.internalID}) {
                     bettery =  peripheral.bettery != "0" ? "\(peripheral.bettery)%" :  device.batteryLevel
                     switch peripheral.discoveredPeripheral!.state {
                     case .connected :
                         textStatus = StringCommonMessages.connected
+                        print("\(Constants.AppContainsFirmwareVersion) == \(peripheral.version)")
+                  
                     case .disconnected :
                         textStatus = StringCommonMessages.disconnect
                     case .connecting :
@@ -85,6 +88,7 @@ class ManageDeviceCell: UITableViewCell {
         lblstatus.setFont(type: .regular, point: 14)
         btnRemoveDevice.setButtonView(StringDevices.removeDevice, 17, AppFont.AppRegularFont)
         btnEditDirection.setButtonView(StringDevices.editDirection, 17, AppFont.AppRegularFont)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -99,6 +103,7 @@ class ManageDeviceCell: UITableViewCell {
         }
     }
     
+ 
     @IBAction func btnRemoveDevice(sender: UIButton) {
         if delegate != nil {
             delegate?.removeDevice(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)

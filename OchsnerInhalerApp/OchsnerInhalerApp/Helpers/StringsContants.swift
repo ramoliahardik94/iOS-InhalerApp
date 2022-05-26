@@ -34,6 +34,7 @@ struct StringCommonMessages {
     static let connecting = "Connecting..."
     static let notInRange = "Not in range"
     static let disconnect = "Disconnected"
+    static let updated = "Updated"
     static let scanning = "Scanning..."
     static let battery = "Battery:"
     static let  rescueDose = "Take as needed"
@@ -51,9 +52,26 @@ struct AppFont {
     static let AppLightFont = Constants.CustomFont.SFProDisplayLight
     static let SFProTextBold = Constants.CustomFont.SFProTextBold
 }
-
+struct OTAMessages {
+    static let info = "Please wait...this may take several minutes to complete. It will redirect you to previous screen after successful upgrade." // "This might take sometime to complete. Please wait! It will automatically close once complete."
+    static let titleUpgrade = "Installing..."
+    static let titleUpgradeFail = "Installing..." // "Failed to connect Inhaler device"
+    static let infoList1 = "To Upgrade the device, it must be nearby to mobile and connected." // "To Upgrade All, all the devices must be nearby and connected."
+    static let infoList2 = "DO NOT use the device during upgrade."
+    static let infoList3 = "DO NOT close the application while upgrade is in progress."
+    static let AlertUpgrade = "Your inhaler device ready to upgrade." // "Your inhaler device can now be upgraded, Please upgrade!"
+    static let upgrade = "Upgrade"
+    static let titleList = "Inhaler Device Upgrade"
+    static let upgradeAll = "Upgrade All"
+    static let retry = "Try Again!"
+    static let Installed = "Up to Date"
+    static let errorBattery = "Low Battery! Unable to upgrade"
+    
+}
 // MARK: UserManagement
 struct StringUserManagement {
+    static let strMaintenance = "Maintenance"
+    static let strRescue = "Rescue"
     static let login = "Login"
     static let createAccount = "Create Account"
     static let forgotePass = "Forgot password"
@@ -204,6 +222,7 @@ struct StringAddDevice {
     static let pairScreenStringArray = ["Tap", " 3 times ", "on the device within", "\n5 seconds ", "then click \"Pair Device\"."]
     static let skipFlowAdd = " Do you want to Skip or Continue the pairing process?"
     static let skipbtn = "Skip"
+    static let laterbtn = "Later"
     static let continuebtn = "Continue"
     static let noDevice = "No Devices Added"
 }
@@ -272,6 +291,7 @@ struct CellIdentifier {
     static let manageDeviceCell = "ManageDeviceCell"
     static let NotificationCell = "NotificationCell"
     static let DoseDetailCell = "DoseDetailCell"
+    static let OTADeviceCell = "OTADeviceCell"
 }
 
 // MARK: Local Notification
@@ -279,6 +299,8 @@ struct StringLocalNotifiaction {
     static let title = StringAddDevice.titleAddDevice
     static let body = "You will be no longer able to track the medicine usage"
     static let reminderBody = "Hi, %@ Just reminding you about your scheduled %@ doses at %@.Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
+    static let bodyVersion = "Updates are available for %@."
+    
     static let notificationMsg = "You have missed your dose or it has not been synced."
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"

@@ -54,6 +54,7 @@ class MedicationVM {
             ]
             APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { [weak self] error, response in
                 guard let `self` = self else { return }
+              
                 if response == nil {
                     if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == self.macAddress}) {
                         BLEHelper.shared.cleanup(peripheral: (peripheral.discoveredPeripheral!))
@@ -64,7 +65,7 @@ class MedicationVM {
                 } else {
                     if (response as? [String: Any]) != nil {
                         NotificationCenter.default.post(name: .medUpdate, object: nil)
-                        BLEHelper.shared.isAddAnother = false                        
+                        BLEHelper.shared.isAddAnother = false                      
                         guard let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) else {
                             completionHandler(.success(true))
                             return
@@ -76,8 +77,9 @@ class MedicationVM {
                         device.medTypeID = self.medTypeId
                         device.puffs = self.puff
                         device.medication = self.selectedMedication
-                        
+                        device.version = peripheral.version.trimmingCharacters(in: .controlCharacters)
                         DatabaseManager.share.saveDevice(object: device, isFromDirection: true)
+                        BLEHelper.shared.newDeviceId = ""
                         completionHandler(.success(true))
                         
                     } else {

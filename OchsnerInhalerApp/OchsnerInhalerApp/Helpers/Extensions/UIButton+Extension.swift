@@ -4,11 +4,18 @@
 import UIKit
 
 extension UIButton {
-    func setButtonView(_ title: String, _ size: CGFloat = 17, _ fontName: String = AppFont.AppSemiBoldFont, isDefaultbtn: Bool = true) {
+    func setButtonView(_ title: String, _ size: CGFloat = 17, _ fontName: String = AppFont.AppSemiBoldFont, isDefaultbtn: Bool = true, isBlankBG: Bool = false) {
+        setTitleColor(.white, for: .normal)
+        setTitleColor(.white, for: .disabled)
         backgroundColor = isDefaultbtn ? .ButtonColorBlue : .gray
+        if isBlankBG {
+            backgroundColor = .clear
+            layer.borderColor = isDefaultbtn ? (UIColor.ButtonColorBlue).cgColor : (UIColor.gray).cgColor
+            layer.borderWidth = 1
+            setTitleColor(isDefaultbtn ? .ButtonColorBlue : .gray, for: .normal)
+        }
         layer.cornerRadius = 5
         setTitle(title, for: .normal)
-        setTitleColor(.white, for: .normal)
         titleLabel?.font = UIFont(name: fontName, size: size)
     }
     func setButtonViewGreen(_ title: String, _ size: CGFloat = 17) {

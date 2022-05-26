@@ -156,7 +156,7 @@ class NotificationVM {
                 days.append(date.getString(format: "yyyy-MM-dd"))
                 noti.historyDate = date.getString(format: "MMM dd,yyyy")
                 noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"))
-                debugPrint("historyDate\(noti.historyDate)")
+                debugPrint("historyDate \(noti.historyDate)")
                 noti.updateStatus()
                 noti.historyOfMiss = noti.history.filter({$0.missDose.count != 0})
                 arrNotification.append(noti)

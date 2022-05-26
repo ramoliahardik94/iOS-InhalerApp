@@ -23,8 +23,8 @@ class BaseVC: UIViewController {
     func pushVC(controller: UIViewController) {
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    func presentVC(controller: UIViewController) {
-        self.navigationController?.present(controller, animated: true, completion: nil)
+    func presentVC(controller: UIViewController,animated:Bool = true) {
+        self.navigationController?.present(controller, animated: animated, completion: nil)
     }
     func popPresent() {
         self.navigationController?.dismiss(animated: true, completion: nil)

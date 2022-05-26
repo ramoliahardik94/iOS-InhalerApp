@@ -20,13 +20,14 @@ class HomeVC: BaseVC {
     private var homeVM = HomeVM()
     var refreshControl = UIRefreshControl()
     var isPull = false
-
+    var isDisplay = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
+       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,9 +46,13 @@ class HomeVC: BaseVC {
             CommonFunctions.getLogFromDeviceAndSync()
         }
         apiDashboard()
+        if !isDisplay {
+            CommonFunctions.checkVersionDetails()
+            isDisplay = true
+        }
     }
     
-    private func  initUI() {        
+    private func  initUI() {
         initTableview()
         lblNoData.setFont()
         lblNoData.text = StringCommonMessages.noDataFount

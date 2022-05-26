@@ -24,6 +24,7 @@ class DeviceModel: NSObject {
     var arrTime: [String] = [String]()
     var isReminder = true
     var udid = ""
+    var version: String = ""
     override init () {        
     }
     init(jSon: [String: Any]) {

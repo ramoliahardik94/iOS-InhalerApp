@@ -26,8 +26,9 @@ extension BLEHelper {
                     }
                     Logger.logInfo("Scaning start with \(time) sec timer")
                     timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
-                    self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)     
+                    self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)
                 }
+                
                 isScanning = true
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .BLEChange, object: nil)
@@ -59,6 +60,7 @@ extension BLEHelper {
     
     /// It use to connect discoveredPeripheral if discoveredPeripheral is null nothing happend
     func connectPeriPheral(peripheral: CBPeripheral) {
+        peripheral.delegate = self
         if isAllow {
             if peripheral.state != .connected || peripheral.state != .connecting {
                 centralManager.connect(peripheral, options: nil)

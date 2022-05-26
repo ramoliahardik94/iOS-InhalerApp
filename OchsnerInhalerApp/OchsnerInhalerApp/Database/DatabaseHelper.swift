@@ -99,6 +99,26 @@ class DatabaseManager {
         }
     }
     
+    func updateFWVersion(_ version: String, _ udid: String) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        let predicate =  NSPredicate(format: "udid == %@", udid)
+        fetchRequest.predicate = predicate
+        do {
+            let arrDevice = try context?.fetch(fetchRequest) as! [Device]
+            if arrDevice.count > 0 {
+                for obj in arrDevice {
+                        obj.version = version
+                    }
+                }
+            try context?.save()
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .BLEChange, object: nil)
+            }
+        } catch {
+            debugPrint("can not get device")
+        }
+    }
+    
     func saveDevice(object: DeviceModel, isFromDirection: Bool = false) {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
@@ -133,6 +153,7 @@ class DatabaseManager {
                 device.puff = Int16(object.puffs)
                 device.medname =  object.medication.medName
                 device.medtypeid = Int16(object.medTypeID)
+                device.version = object.version != "" ? object.version : device.version
                 try context?.save()
                 Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
             }
@@ -290,6 +311,10 @@ class DatabaseManager {
  
 }
 extension DatabaseManager {
+
+    func updateDeviceVersion(macAddress: String) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+    }
     
     func updateActuationLog(_ updateObj: [[String: Any]]) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
@@ -304,11 +329,13 @@ extension DatabaseManager {
                     let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
                     
                     fetchRequest.predicate = predicate
+                    guard let `context` = context else { return }
                     do {
-                        let logs = try context?.fetch(fetchRequest) as! [AcuationLog]
-                        for log in logs {
-                            log.issync = true
-                            try context?.save()
+                        if let logs = try context.fetch(fetchRequest) as? [AcuationLog] {
+                            for log in logs {
+                                log.issync = true
+                                try context.save()
+                            }
                         }
                     } catch {
                         debugPrint("cant update :\(error.localizedDescription)")

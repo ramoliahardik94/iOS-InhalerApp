@@ -55,6 +55,26 @@ open class CommonFunctions {
     }
     
     
+    // MARK: Version Popup
+    public class func checkVersionDetails() {
+        if UserDefaultManager.isGrantBLE  && UserDefaultManager.isGrantLaocation  && UserDefaultManager.isGrantNotification {
+            if (UIApplication.topViewController() != nil) &&  !(UIApplication.topViewController()! is CustomSplashVC) && !(UIApplication.topViewController()! is OTAUpgradeDetailsVC) && !(UIApplication.topViewController()! is BLEOTAUpgrade) && !(UIApplication.topViewController()! is AddDeviceIntroVC) {
+                if DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.version != Constants.AppContainsFirmwareVersion && $0.udid != ""}) != nil {
+                    if !isAlertVersionDisplay {
+                        isAlertVersionDisplay = true
+                        CommonFunctions.showMessageYesNo(message: OTAMessages.AlertUpgrade, cancelTitle: StringAddDevice.laterbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in
+                            if isUpgrade {
+                                let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                                BaseVC().rootVC(controller: bleUpgrade)
+                            }
+                            isAlertVersionDisplay = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - Alert Permission
     
     public class func showMessagePermission(message: String, cancelTitle: String = "Cancel", okTitle: String = "Ok", isOpenBluetooth: Bool, _ completion: @escaping ((Bool?) -> Void ) = { _ in }) {
@@ -79,11 +99,16 @@ open class CommonFunctions {
     
     // MARK: - Show Progress HUD
     
-    class func showGlobalProgressHUD(_ viewcontroller: UIViewController, text: String = "") {
+    class func showGlobalProgressHUD(_ viewcontroller: UIViewController, text: String = "", isMsg: Bool = false) {
         DispatchQueue.main.async {
             let loadingNotification = MBProgressHUD.showAdded(to: viewcontroller.view, animated: true)
             loadingNotification.mode = MBProgressHUDMode.indeterminate
             loadingNotification.label.text = text
+            if isMsg {
+            delay(1.2) {
+                hideGlobalProgressHUD(viewcontroller)
+            }
+            }
         }
     }
     class func hideGlobalProgressHUD(_ viewcontroller: UIViewController) {
