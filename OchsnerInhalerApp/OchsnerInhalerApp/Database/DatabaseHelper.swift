@@ -329,11 +329,13 @@ extension DatabaseManager {
                     let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
                     
                     fetchRequest.predicate = predicate
+                    guard let `context` = context else { return }
                     do {
-                        let logs = try context?.fetch(fetchRequest) as! [AcuationLog]
-                        for log in logs {
-                            log.issync = true
-                            try context?.save()
+                        if let logs = try context.fetch(fetchRequest) as? [AcuationLog] {
+                            for log in logs {
+                                log.issync = true
+                                try context.save()
+                            }
                         }
                     } catch {
                         debugPrint("cant update :\(error.localizedDescription)")
