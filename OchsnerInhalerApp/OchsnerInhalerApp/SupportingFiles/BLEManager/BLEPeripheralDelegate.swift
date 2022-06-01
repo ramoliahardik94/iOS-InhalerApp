@@ -69,6 +69,7 @@ extension BLEHelper: CBPeripheralDelegate {
                     DatabaseManager.share.setRTCFor(udid: peripheral.identifier.uuidString, value: true)
                 } else if stringFromData == TransferService.responseFailRTC {
                     Logger.logInfo("For RTC Fail")
+                    debugPrint("Fail RTC")
                     setRTCTime(uuid: peripheral.identifier.uuidString)
                 }
                 
@@ -210,6 +211,10 @@ extension BLEHelper {
                     case .connected :
                         self.getmacAddress(peripheral: discoverPeripheral)
                         self.getBatteryLevel(peripheral: discoverPeripheral)
+                        if !DatabaseManager.share.getIsSetRTC(udid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString) ?? "" ) {
+                            debugPrint("didConnect RTC")
+                            self.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
+                        }
                         if !self.isAddAnother {
                             self.countOfConnectedDevice += 1
                             if self.countOfScanDevice == self.countOfConnectedDevice {

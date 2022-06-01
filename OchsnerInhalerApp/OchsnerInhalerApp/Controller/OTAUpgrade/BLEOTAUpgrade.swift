@@ -85,6 +85,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     }
     
     @IBAction func btnCancelClick(_ sender: Any) {
+        DatabaseManager.share.setRTCFor(udid: selectedPeripheral!.identifier.uuidString, value: false)
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func btnTryAgainClick(_ sender: Any) {
@@ -144,7 +145,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                     images.last?.assertAvailable(for: otaPeripheral)
                 }
             } catch {
-                Logger.logInfo("OTA imagesExtract \(error.localizedDescription)")
+                Logger.logInfo("OTA imagesExtract \(error.localizedDescription )")
             }
             }
             
@@ -360,6 +361,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral!.identifier.uuidString == selectedPeripheral!.identifier.uuidString})
         peripheral?.isOTAUpgrade = false
         BLEHelper.shared.connectPeriPheral(peripheral: selectedPeripheral!)
+        DatabaseManager.share.setRTCFor(udid: selectedPeripheral!.identifier.uuidString, value: false)
         if isSuccess {
         peripheral?.version = Constants.AppContainsFirmwareVersion
             DatabaseManager.share.updateFWVersion(Constants.AppContainsFirmwareVersion, selectedPeripheral!.identifier.uuidString)
@@ -387,14 +389,15 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     }
     
     func setErrorMsg(msg: String, error: Error?) {
+        let errorMsg = "\(msg): \(String(describing: error?.localizedDescription))"
+        let mac = DatabaseManager.share.getMac(UDID: selectedPeripheral?.identifier.uuidString ?? "")
+        print("\(errorMsg) for \(mac)")
+        //TODO: Api Call For Error Log
         viewTryAgain.isHidden = false
         progressView.isHidden = true
         lblTitle.text = OTAMessages.titleUpgradeFail
         lblOTAInfo.textColor = .ColorHomeIconRed
         lblOTAInfo.text = msg
-        if error != nil {
-            debugPrint("\(error?.localizedDescription)")
-        }
     }
     func setProgressStatus(percent: Int) {
         lblOTAInfo.textColor = .ButtonColorBlue

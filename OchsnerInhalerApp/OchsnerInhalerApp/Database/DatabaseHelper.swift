@@ -65,7 +65,7 @@ class DatabaseManager {
         }
     }
     
-    func isMantenanceAllow( mac: String) -> Bool {
+    func isMantenanceAllow(medName: String) -> Bool {
         var arrDevice = [Device]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         let predicate =  NSPredicate(format: "medtypeid == 2")
@@ -75,10 +75,12 @@ class DatabaseManager {
         } catch {
             debugPrint("can not get data")
         }
+        
+        arrDevice = arrDevice.filter({$0.medname?.lowercased() == medName.lowercased()})
         if arrDevice.count == 0 {
             return true
         } else {
-            return arrDevice[0].mac == mac
+            return false
         }
     }
     
@@ -249,7 +251,7 @@ class DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
-        if device.count > 0 { return device[0].setrtc } else { return true}
+        if device.count > 0 { return device[0].setrtc } else { return false }
     }
     
     func deleteAllActuationLog() {
@@ -393,8 +395,6 @@ extension DatabaseManager {
             print("setUUID\(udid) for mac \(mac)")
         }
     }
-            
-            
     
     func getUDID(mac: String) -> String {
         let keychain = KeychainSwift()

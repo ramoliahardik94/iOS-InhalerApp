@@ -118,7 +118,7 @@ struct ValidationMsg {
     static let addDose = "Please add daily dose."
     static let addPuff = "Please add how many puffs per dose?"
     static let removeDevice = "Are you sure to remove this device?"
-    static let mantainance = "Cannot add more than one mantainance device."
+    static let mantainance = "%@ for Maintenance already added. Kindly add another medicine." // "Cannot add more than one mantainance device."
     static let privacyPolicy = "You must accept our privacy policy!"
     static let forgoteSuccess = "If an account with this email exists, a link to reset your password will be sent to it."
     static let bluetoothOn = "Please Turn on Bluetooth"

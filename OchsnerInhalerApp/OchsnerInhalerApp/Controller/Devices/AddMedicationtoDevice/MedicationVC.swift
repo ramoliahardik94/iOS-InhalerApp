@@ -115,14 +115,15 @@ class MedicationVC: BaseVC {
                 }
             } else {
                 // TODO: Uncoment for Only one mantance Logic
-               // if DatabaseManager.share.isMantenanceAllow(mac: BLEHelper.shared.addressMAC) {
+                
+                if DatabaseManager.share.isMantenanceAllow(medName: medicationVM.selectedMedication.medName ?? "") {
                     let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     medicationDetailVC.isFromDeviceList = isFromDeviceList
                     medicationDetailVC.medicationVM = medicationVM
                     pushVC(controller: medicationDetailVC)
-//                } else {
-//                    CommonFunctions.showMessage(message: ValidationMsg.mantainance)
-//                }
+                } else {
+                    CommonFunctions.showMessage(message: String(format: ValidationMsg.mantainance, medicationVM.selectedMedication.medName ?? ""))
+                }
             }
         } else {
             CommonFunctions.showMessage(message: ValidationMsg.medication)
