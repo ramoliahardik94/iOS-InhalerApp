@@ -75,7 +75,7 @@ class BLEHelper: NSObject {
     
     /// This function is use for set RTC Time to the BLE Device/Peripheral whichi is stored in *connectedPeripheral* and user should pass the UUID in parameter *uuid* for identify
     func setRTCTime(uuid: String) {
-        
+        debugPrint("Main Function RTC")
         let year =  Date().getString( format: "yyyy").decimalToHax(byte: 2)
         let day =  Date().getString(format: "dd").decimalToHax()
         let month =  Date().getString(format: "MM").decimalToHax()

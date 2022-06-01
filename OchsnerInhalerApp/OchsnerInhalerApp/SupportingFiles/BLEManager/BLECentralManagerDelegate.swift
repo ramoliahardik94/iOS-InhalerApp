@@ -197,6 +197,12 @@ extension BLEHelper: CBCentralManagerDelegate {
                         if devicelist.first(where: {$0.mac == mac}) != nil {
                             connectedPeripheral.append(PeriperalType(peripheral: obj, mac: mac))
                             obj.delegate = self
+                        } else {
+                            obj.delegate = self
+                            delay(2) { [self] in
+                                cleanup(peripheral: obj)
+                            }
+                            
                         }
                     }
                 }
