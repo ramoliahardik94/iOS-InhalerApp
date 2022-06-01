@@ -4,6 +4,7 @@
 import UIKit.UITextField
 
 extension UILabel {
+
     
     @IBInspectable var isTitle: Bool {
         get {
@@ -35,7 +36,31 @@ extension UILabel {
 }
 
 extension UITextField {
+    
+    @IBInspectable var paddingLeft: CGFloat {
+           get {
+               return leftView!.frame.size.width
+           }
+           set {
+               let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
+               leftView = paddingView
+               leftViewMode = .always
+               
+           }
+       }
 
+       @IBInspectable var paddingRight: CGFloat {
+           get {
+               return rightView!.frame.size.width
+           }
+           set {
+               let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: newValue, height: frame.size.height))
+               rightView = paddingView
+               rightViewMode = .always
+               
+           }
+       }
+    
     func setFont(type: FontType = .regular, point: CGFloat = 17) {
         switch type {
         case .regular :
@@ -58,6 +83,9 @@ extension UITextField {
         }
         set {
             if newValue {
+                let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: frame.size.height))
+                leftView = paddingView
+                leftViewMode = .always
                 layer.borderWidth = 1
                 layer.borderColor = UIColor.TextFieldBorderColor.cgColor
                 layer.cornerRadius = 4
@@ -65,9 +93,6 @@ extension UITextField {
             }
         }
     }
-    
-    
-    
     func validatedText(validationType: ValidatorType) throws -> String {
         let validator = VaildatorFactory.validatorFor(type: validationType)
         return try validator.validated(self.text!)

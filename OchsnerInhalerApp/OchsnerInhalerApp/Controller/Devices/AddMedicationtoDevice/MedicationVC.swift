@@ -9,13 +9,15 @@ import UIKit
 
 class MedicationVC: BaseVC {
 
+    @IBOutlet weak var viewContains: UIView!
     @IBOutlet weak var lblmedicationType: UILabel!
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnMantainance: UIButton!
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
-    
+    @IBOutlet weak var lblDiscription: UILabel!
+    @IBOutlet weak var txtDiscription: UITextField!
     let refreshControl = UIRefreshControl()
     var isFromDeviceList = false
     var selectedIndex: Int?
@@ -29,6 +31,8 @@ class MedicationVC: BaseVC {
         BLEHelper.shared.getmacAddress(peripheral: discoverPeripheral)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         self.getMedication()
+//        hideKeyBoardHideOutSideTouch(customView: self.viewContains)
+//        registerKeyboardNotifications()
     }
     
     func getMedication() {
@@ -45,6 +49,8 @@ class MedicationVC: BaseVC {
     
     func setUp() {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
+        txtDiscription.paddingLeft = 20.0
+        lblDiscription.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedication
         lblmedicationType.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblmedicationType.text = StringMedication.inhealerType

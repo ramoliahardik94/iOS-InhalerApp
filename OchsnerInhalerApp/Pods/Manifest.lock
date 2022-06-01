@@ -92,6 +92,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
+  - IQKeyboardManagerSwift (6.3.0)
   - KeychainSwift (19.0.0)
   - MBProgressHUD (1.2.0)
   - nanopb (2.30908.0):
@@ -109,6 +110,7 @@ DEPENDENCIES:
   - DropDown
   - Firebase/Analytics (~> 8.4.0)
   - Firebase/Crashlytics (~> 8.4.0)
+  - IQKeyboardManagerSwift (= 6.3.0)
   - KeychainSwift (~> 19.0.0)
   - MBProgressHUD (~> 1.2.0)
   - SwiftLint
@@ -128,6 +130,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - IQKeyboardManagerSwift
     - KeychainSwift
     - MBProgressHUD
     - nanopb
@@ -149,6 +152,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 6b6a08fd9c71f4dbc89e0e812acca81d797aa342
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  IQKeyboardManagerSwift: a8228c257614af98743b4cd8584637025f36358f
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
@@ -156,6 +160,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SwiftLint: 6bc52a21f0fd44cab9aa2dc8e534fb9f5e3ec507
 
-PODFILE CHECKSUM: 00a45708a4d7b9dd2cad95e64f3d11e85d2e9934
+PODFILE CHECKSUM: 448f536c9ec7f99151ed3256b8c556ceb7933160
 
 COCOAPODS: 1.10.1

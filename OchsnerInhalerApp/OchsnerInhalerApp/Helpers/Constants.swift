@@ -10,13 +10,13 @@ class Constants: NSObject {
     static let ScreenWidth  =  UIScreen.main.bounds.size.width
     static let ScreenHeight =  UIScreen.main.bounds.size.height
     
-    static let DelayActuationAPICall =  0.5
+    static let DelayActuationAPICall =  2.0
     static let TimerScanAddtime =  15.0
     static let TimerScanAutoConnect =  30.0
     static let ScanningScreenDelay = 10.0
     static let PairDialogDelay = 15.0
-    static let AppContainsFirmwareVersion = "1.0.7"
-    static let firmwareFileName = "ble_tracker_v1.0.7_ota"
+    static let AppContainsFirmwareVersion = "1.0.8"
+    static let firmwareFileName = "ble_tracker_v1.0.8_ota"
     static let batteryLimiteToUpgrade = 30
     
     static let titleFont = (UIFont(name: AppFont.AppBoldFont, size: 18))!
