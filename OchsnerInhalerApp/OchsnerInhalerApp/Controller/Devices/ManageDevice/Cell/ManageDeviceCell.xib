@@ -344,10 +344,13 @@
                                                             <constraint firstAttribute="width" constant="25" id="Yhn-Rg-fVy"/>
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" image="cross"/>
+                                                        <state key="normal" image="tick"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="editok:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Scb-dg-zDF"/>
+                                                        </connections>
                                                     </button>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Inhaler at Home" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OaB-Yb-wfa">
                                                         <rect key="frame" x="8" y="7.6666666666666856" width="227" height="35"/>
@@ -367,10 +370,13 @@
                                                             <constraint firstAttribute="width" constant="25" id="iqa-tm-OOg"/>
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" image="tick"/>
+                                                        <state key="normal" image="cross"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="editCancel:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dJS-JL-I68"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -403,6 +409,9 @@
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="Edit"/>
+                                                        <connections>
+                                                            <action selector="editDiscriptionClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LMK-vF-g1z"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -520,6 +529,8 @@
             <connections>
                 <outlet property="btnEditDirection" destination="rwW-fN-qVP" id="KMe-GD-ZUy"/>
                 <outlet property="btnRemoveDevice" destination="bRt-DN-Cgr" id="lES-t1-C9b"/>
+                <outlet property="discriptionEditView" destination="Urb-hF-Y18" id="o5U-jU-Ngl"/>
+                <outlet property="discriptionView" destination="5p7-3q-LzS" id="WEZ-Td-B7T"/>
                 <outlet property="headerHeight" destination="xQY-gd-zIa" id="RUI-yT-zi7"/>
                 <outlet property="ivDescription" destination="MeM-sB-Jiq" id="69z-jt-OIb"/>
                 <outlet property="ivDose" destination="bnR-o1-wJl" id="KfQ-FF-3Lo"/>
@@ -528,12 +539,14 @@
                 <outlet property="lblBetteryTitle" destination="cGh-N5-c84" id="1Is-Vj-NMh"/>
                 <outlet property="lblDeviceName" destination="XoN-nO-Ybd" id="9Mc-h9-zlU"/>
                 <outlet property="lblDeviceType" destination="egU-Vv-sHC" id="0RC-fc-Izh"/>
+                <outlet property="lblDiscription" destination="dX0-vp-Ssa" id="K8m-P1-Tsc"/>
                 <outlet property="lblDose" destination="MQe-Hp-KX0" id="0um-fm-l1v"/>
                 <outlet property="lblNCDCode" destination="nnm-hc-ZTE" id="wla-GQ-Szd"/>
                 <outlet property="lblNoOfDose" destination="JWn-D6-6ej" id="B38-U8-fSC"/>
                 <outlet property="lblUsage" destination="MCr-6m-BSk" id="IcD-Fg-d67"/>
                 <outlet property="lblUsageLabel" destination="B3F-lo-2VH" id="CdR-c1-Jc6"/>
                 <outlet property="lblstatus" destination="cWq-PD-ka8" id="St2-cy-R5j"/>
+                <outlet property="txtDiscription" destination="OaB-Yb-wfa" id="CJF-7C-beq"/>
                 <outlet property="viewTypeSaperator" destination="Ydc-7H-mcB" id="CWD-ju-dqQ"/>
             </connections>
             <point key="canvasLocation" x="-64.492753623188406" y="132.47282608695653"/>

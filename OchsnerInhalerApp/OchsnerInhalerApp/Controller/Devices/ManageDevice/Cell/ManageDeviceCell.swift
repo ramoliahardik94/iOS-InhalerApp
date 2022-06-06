@@ -29,8 +29,11 @@ class ManageDeviceCell: UITableViewCell {
     @IBOutlet weak var lblBetteryTitle: UILabel!
     @IBOutlet weak var lblstatus: UILabel!
     @IBOutlet weak var viewTypeSaperator: UIView!
+    @IBOutlet weak var discriptionEditView: UIView!
+    @IBOutlet weak var discriptionView: UIView!
     weak var delegate: ManageDeviceDelegate?
-    
+    @IBOutlet weak var txtDiscription: UITextField!
+    @IBOutlet weak var lblDiscription: UILabel!
     var device = DeviceModel() {
         didSet {
             /// Rescue=1 Mantainance=2
@@ -72,6 +75,18 @@ class ManageDeviceCell: UITableViewCell {
         }
     }
     
+    @IBAction func editok(_ sender: Any) {
+        self.endEditing(true)
+        lblDiscription.text = txtDiscription.text
+        self.discriptionEditView.isHidden = true
+        self.discriptionView.isHidden = false
+        
+    }
+    @IBAction func editCancel(_ sender: Any) {
+        self.endEditing(true)
+        self.discriptionEditView.isHidden = true
+        self.discriptionView.isHidden = false
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -90,7 +105,12 @@ class ManageDeviceCell: UITableViewCell {
         btnEditDirection.setButtonView(StringDevices.editDirection, 17, AppFont.AppRegularFont)
         
     }
-
+    @IBAction func editDiscriptionClick(_ sender: Any) {
+        txtDiscription.text = lblDiscription.text
+        self.discriptionEditView.isHidden = false
+        self.discriptionView.isHidden = true
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
