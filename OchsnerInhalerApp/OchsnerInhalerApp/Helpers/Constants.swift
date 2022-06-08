@@ -10,7 +10,6 @@ class Constants: NSObject {
     static let deviceName = "ochsner inhaler tracker"
     static let ScreenWidth  =  UIScreen.main.bounds.size.width
     static let ScreenHeight =  UIScreen.main.bounds.size.height
-    // TODO: Change AppId
     static let appUrl = "itms-apps://itunes.apple.com/developer/id1606395503"
     static let DelayActuationAPICall =  2.0
     static let TimerScanAddtime =  15.0
