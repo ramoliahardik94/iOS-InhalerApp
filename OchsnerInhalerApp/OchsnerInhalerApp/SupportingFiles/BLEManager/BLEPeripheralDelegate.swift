@@ -262,6 +262,7 @@ extension BLEHelper {
             switch UIApplication.shared.applicationState {
             case .active:
                 // app is currently active, can update badges count here
+                CommonFunctions.checkFWVersionDetails()
                 break
             case .inactive:
                 // app is transitioning from background to foreground (user taps notification), do what you need when user taps here

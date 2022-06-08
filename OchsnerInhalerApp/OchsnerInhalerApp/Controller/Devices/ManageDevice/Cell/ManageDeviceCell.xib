@@ -345,9 +345,6 @@
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="tick"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="editok:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Scb-dg-zDF"/>
                                                         </connections>
@@ -371,9 +368,6 @@
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="cross"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="editCancel:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dJS-JL-I68"/>
                                                         </connections>
@@ -556,7 +550,7 @@
         <image name="Edit" width="75" height="75"/>
         <image name="battery" width="19" height="14"/>
         <image name="bluetooth" width="104" height="104"/>
-        <image name="cross" width="75" height="75"/>
+        <image name="cross" width="170.66667175292969" height="170.66667175292969"/>
         <image name="noun_Time_3061277" width="31" height="31"/>
         <image name="tick" width="170.66667175292969" height="170.66667175292969"/>
         <image name="usage" width="30" height="44.666667938232422"/>

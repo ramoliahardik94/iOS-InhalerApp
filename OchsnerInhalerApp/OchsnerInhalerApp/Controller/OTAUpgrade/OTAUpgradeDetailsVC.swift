@@ -88,7 +88,7 @@ class OTAUpgradeDetailsVC: BaseVC {
         if  let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.discoveredPeripheral?.state == .connected && $0.version != Constants.AppContainsFirmwareVersion && (Int($0.bettery) ?? 100) > Constants.batteryLimiteToUpgrade}) {
             peripheral.discoveredPeripheral!.delegate = nil
             peripheral.isOTAUpgrade = true
-            let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+            let bleUpgrade = BLEOTAUpgradeVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
             bleUpgrade.selectedPeripheral = peripheral.discoveredPeripheral
             bleUpgrade.modalPresentationStyle = .overCurrentContext
             let medName = arrDevice.first(where: {$0.mac == peripheral.addressMAC})?.medname ?? ""
@@ -122,7 +122,7 @@ extension OTAUpgradeDetailsVC: UITableViewDelegate, UITableViewDataSource, OTAUp
         BLEHelper.shared.stopScanPeriphral()
         peripheral.discoveredPeripheral!.delegate = nil
         peripheral.isOTAUpgrade = true
-        let bleUpgrade = BLEOTAUpgrade.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+        let bleUpgrade = BLEOTAUpgradeVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         bleUpgrade.selectedPeripheral = peripheral.discoveredPeripheral
         bleUpgrade.modalPresentationStyle = .overCurrentContext
         bleUpgrade.medname = medName

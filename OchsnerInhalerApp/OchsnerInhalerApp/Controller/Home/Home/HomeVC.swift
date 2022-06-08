@@ -20,7 +20,6 @@ class HomeVC: BaseVC {
     private var homeVM = HomeVM()
     var refreshControl = UIRefreshControl()
     var isPull = false
-    var isDisplay = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +45,7 @@ class HomeVC: BaseVC {
             CommonFunctions.getLogFromDeviceAndSync()
         }
         apiDashboard()
-        if !isDisplay {
-            CommonFunctions.checkVersionDetails()
-            isDisplay = true
-        }
+       
     }
     
     private func  initUI() {

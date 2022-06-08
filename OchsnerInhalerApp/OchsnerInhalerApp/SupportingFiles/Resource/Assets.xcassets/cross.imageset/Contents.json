@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "cross.png",
+      "filename" : "cross_c.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cross-1.png",
+      "filename" : "cross_c.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "cross-2.png",
+      "filename" : "cross_c.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

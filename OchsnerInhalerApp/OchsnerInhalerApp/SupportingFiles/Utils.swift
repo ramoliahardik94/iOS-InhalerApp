@@ -19,6 +19,14 @@ func getLocation() {
         print("Fetch locations > locations = \(location.latitude) \(location.longitude)")
     }
 }
+func appName() -> String {
+    let dictionary = Bundle.main.infoDictionary!
+    let version = dictionary["CFBundleDisplayName"] as! String
+//    let build = dictionary["CFBundleVersion"] as! String
+    return "\(version)"
+}
+
+
 
 func appVersion() -> String {
     let dictionary = Bundle.main.infoDictionary!

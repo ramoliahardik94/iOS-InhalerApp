@@ -215,10 +215,10 @@
             </objects>
             <point key="canvasLocation" x="-863.55140186915878" y="222.8941684665227"/>
         </scene>
-        <!--Upgrade-->
+        <!--UpgradeVC-->
         <scene sceneID="x3V-Nk-4hf">
             <objects>
-                <viewController storyboardIdentifier="BLEOTAUpgrade" useStoryboardIdentifierAsRestorationIdentifier="YES" id="11f-O9-u4w" customClass="BLEOTAUpgrade" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BLEOTAUpgradeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="11f-O9-u4w" customClass="BLEOTAUpgradeVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gEn-mB-UrN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -464,10 +464,10 @@
                                         <rect key="frame" x="0.0" y="34" width="375" height="599"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w8u-qT-weY">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="28.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lr4-eo-xxm">
-                                                        <rect key="frame" x="167" y="0.0" width="41.5" height="20.5"/>
+                                                        <rect key="frame" x="167" y="0.0" width="41.5" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -483,10 +483,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6SC-VI-GTB">
-                                                <rect key="frame" x="0.0" y="30.5" width="375" height="406"/>
+                                                <rect key="frame" x="0.0" y="38.5" width="375" height="380.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="Inhaler Graphic" translatesAutoresizingMaskIntoConstraints="NO" id="jVP-mA-1xb">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="380.5"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -498,10 +498,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="904-Yj-xAG">
-                                                <rect key="frame" x="0.0" y="446.5" width="375" height="32.5"/>
+                                                <rect key="frame" x="0.0" y="429" width="375" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eYw-aY-uvS">
-                                                        <rect key="frame" x="32" y="0.0" width="311" height="32.5"/>
+                                                        <rect key="frame" x="32" y="0.0" width="311" height="50"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>

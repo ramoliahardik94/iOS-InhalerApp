@@ -92,6 +92,7 @@ class MedicationVC: BaseVC {
     }
 
     @IBAction func btnNextClick(_ sender: UIButton) {
+        medicationVM.discription = txtDiscription.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if selectedIndex != nil {
             if btnRescue.isSelected {
                 if BLEHelper.shared.connectedPeripheral.count > 1 {

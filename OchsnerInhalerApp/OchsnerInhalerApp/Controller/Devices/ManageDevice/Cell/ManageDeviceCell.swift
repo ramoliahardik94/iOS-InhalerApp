@@ -38,7 +38,9 @@ class ManageDeviceCell: UITableViewCell {
         didSet {
             /// Rescue=1 Mantainance=2
             lblUsage.textColor = device.medTypeID ==  1 ?  #colorLiteral(red: 0.8784313725, green: 0.1254901961, blue: 0.1254901961, alpha: 1) :  #colorLiteral(red: 0.137254902, green: 0.7568627451, blue: 0.3294117647, alpha: 1)
+            lblDiscription.textColor = device.discription == "" ? #colorLiteral(red: 0.5920000076, green: 0.5920000076, blue: 0.5920000076, alpha: 1) :  #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
             lblDeviceName.text  = device.medication.medName!
+            lblDiscription.text = device.discription == "" ? StringDevices.addDiscription : device.discription
             lblNCDCode.text = "NDC Code: \(device.medication.ndc!)"
             lblUsage.text = device.medTypeID ==  1 ?  StringUserManagement.strRescue :  StringUserManagement.strMaintenance
             lblDose.text = "1 Dose = \(device.puffs) Puffs"
@@ -77,13 +79,37 @@ class ManageDeviceCell: UITableViewCell {
     
     @IBAction func editok(_ sender: Any) {
         self.endEditing(true)
-        lblDiscription.text = txtDiscription.text
+
+        device.discription = txtDiscription.text ?? ""
+        lblDiscription.text =  device.discription == "" ? StringDevices.addDiscription : device.discription
+        lblDiscription.textColor = device.discription == "" ? #colorLiteral(red: 0.5920000076, green: 0.5920000076, blue: 0.5920000076, alpha: 1) :  #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
+        let updateDevice = MedicationVM()
+        updateDevice.macAddress = device.internalID
+        updateDevice.selectedMedication = device.medication        
+        updateDevice.medTypeId = device.medTypeID
+        updateDevice.puff = device.puffs
+        updateDevice.totalDose = device.useTimes.count
+        updateDevice.discription = device.discription
+        updateDevice.arrTime = device.useTimes
+        if let deviceDB = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == device.internalID}) {
+            updateDevice.apiAddDevice(isreminder: deviceDB.reminder) { [weak self] result in
+                guard self != nil else { return }
+                switch result {
+                case .success:
+                    break
+                case .failure(let message):
+                    CommonFunctions.showMessage(message: message)
+                }
+            }
+        }
         self.discriptionEditView.isHidden = true
         self.discriptionView.isHidden = false
         
     }
     @IBAction func editCancel(_ sender: Any) {
         self.endEditing(true)
+        lblDiscription.text =  device.discription == "" ? StringDevices.addDiscription : device.discription
+        lblDiscription.textColor = device.discription == "" ? #colorLiteral(red: 0.5920000076, green: 0.5920000076, blue: 0.5920000076, alpha: 1) :  #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
         self.discriptionEditView.isHidden = true
         self.discriptionView.isHidden = false
     }
@@ -106,7 +132,9 @@ class ManageDeviceCell: UITableViewCell {
         
     }
     @IBAction func editDiscriptionClick(_ sender: Any) {
-        txtDiscription.text = lblDiscription.text
+        txtDiscription.text = device.discription
+        txtDiscription.placeholder = StringDevices.addDiscription
+        lblDiscription.textColor = device.discription == "" ? #colorLiteral(red: 0.5920000076, green: 0.5920000076, blue: 0.5920000076, alpha: 1) :  #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
         self.discriptionEditView.isHidden = false
         self.discriptionView.isHidden = true
     }

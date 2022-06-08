@@ -87,6 +87,7 @@
 		47882311284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 47882310284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin */; };
 		4788BDB5280048F500AA1F92 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB4280048F500AA1F92 /* NotificationVC.swift */; };
 		4788BDB828004FD400AA1F92 /* NotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB728004FD400AA1F92 /* NotificationVM.swift */; };
+		478A70FA284DB0AB005C64EB /* BLEOTAUpgradeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478A70F9284DB0AB005C64EB /* BLEOTAUpgradeVM.swift */; };
 		4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4796597927D8BD7C00A4D403 /* removeTag.gif */; };
 		479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */; };
 		47B2F7DA2803E5620046F2F3 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B2F7D82803E5620046F2F3 /* NotificationCell.swift */; };
@@ -94,7 +95,7 @@
 		47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE227957215007C6F16 /* ProviderVC.swift */; };
 		47C1FEE927958F1A007C6F16 /* AddDeviceIntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */; };
 		47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */; };
-		47C98CB82828DF6F001F755B /* BLEOTAUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C98CB72828DF6F001F755B /* BLEOTAUpgrade.swift */; };
+		47C98CB82828DF6F001F755B /* BLEOTAUpgradeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C98CB72828DF6F001F755B /* BLEOTAUpgradeVC.swift */; };
 		47CDCE12278D872F0014527D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE11278D872F0014527D /* AppDelegate.swift */; };
 		47CDCE14278D872F0014527D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE13278D872F0014527D /* SceneDelegate.swift */; };
 		47CDCE19278D872F0014527D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47CDCE17278D872F0014527D /* Main.storyboard */; };
@@ -235,6 +236,7 @@
 		47882310284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.8_ota.bin; sourceTree = "<group>"; };
 		4788BDB4280048F500AA1F92 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		4788BDB728004FD400AA1F92 /* NotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVM.swift; sourceTree = "<group>"; };
+		478A70F9284DB0AB005C64EB /* BLEOTAUpgradeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEOTAUpgradeVM.swift; sourceTree = "<group>"; };
 		4796597927D8BD7C00A4D403 /* removeTag.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = removeTag.gif; sourceTree = "<group>"; };
 		479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OchsnerInhalerApp.entitlements; sourceTree = "<group>"; };
 		479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
@@ -243,7 +245,7 @@
 		47C1FEE227957215007C6F16 /* ProviderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderVC.swift; sourceTree = "<group>"; };
 		47C1FEE827958F1A007C6F16 /* AddDeviceIntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceIntroVC.swift; sourceTree = "<group>"; };
 		47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddDevice.storyboard; sourceTree = "<group>"; };
-		47C98CB72828DF6F001F755B /* BLEOTAUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEOTAUpgrade.swift; sourceTree = "<group>"; };
+		47C98CB72828DF6F001F755B /* BLEOTAUpgradeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEOTAUpgradeVC.swift; sourceTree = "<group>"; };
 		47C98D5328291270001F755B /* libreadline.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libreadline.tbd; path = usr/lib/libreadline.tbd; sourceTree = SDKROOT; };
 		47C98D5428291270001F755B /* libobjc-trampolines.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libobjc-trampolines.tbd"; path = "usr/lib/libobjc-trampolines.tbd"; sourceTree = SDKROOT; };
 		47CDCE0E278D872F0014527D /* OchsnerInhalerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OchsnerInhalerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -664,7 +666,8 @@
 			isa = PBXGroup;
 			children = (
 				477A1733283642710059B8F6 /* cell */,
-				47C98CB72828DF6F001F755B /* BLEOTAUpgrade.swift */,
+				47C98CB72828DF6F001F755B /* BLEOTAUpgradeVC.swift */,
+				478A70F9284DB0AB005C64EB /* BLEOTAUpgradeVM.swift */,
 				477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */,
 			);
 			path = OTAUpgrade;
@@ -1087,6 +1090,7 @@
 				47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */,
 				47CDCE83278D89210014527D /* Device+Extension.swift in Sources */,
 				47CDCE92278D89C30014527D /* APIConstants.swift in Sources */,
+				478A70FA284DB0AB005C64EB /* BLEOTAUpgradeVM.swift in Sources */,
 				47C1FEE327957215007C6F16 /* ProviderVC.swift in Sources */,
 				2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */,
 				2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */,
@@ -1150,7 +1154,7 @@
 				47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */,
 				47CDCE8D278D89210014527D /* Validators.swift in Sources */,
 				477A1736283642900059B8F6 /* OTADeviceCell.swift in Sources */,
-				47C98CB82828DF6F001F755B /* BLEOTAUpgrade.swift in Sources */,
+				47C98CB82828DF6F001F755B /* BLEOTAUpgradeVC.swift in Sources */,
 				47CDCEA3278DA9470014527D /* UserModel.swift in Sources */,
 				47CDCE5A278D88FE0014527D /* LocationManager.swift in Sources */,
 				47CDCE7A278D89210014527D /* NetworkManager.swift in Sources */,
@@ -1320,7 +1324,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
@@ -1355,7 +1359,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
-				MARKETING_VERSION = 1.0.14;
+				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
@@ -1377,7 +1381,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1411,7 +1415,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
-				MARKETING_VERSION = 1.0.14;
+				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;

@@ -269,6 +269,7 @@ struct StringDevices {
     static let addAnotherDevice = "Add Another Device"
     static let addDevice = "Add Device"
     static let yourNextDose = "Your dose is at"
+    static let addDiscription = "Add discription"
     
 }
 
@@ -300,7 +301,7 @@ struct StringLocalNotifiaction {
     static let body = "You will be no longer able to track the medicine usage"
     static let reminderBody = "Hi, %@ Just reminding you about your scheduled %@ doses at %@.Please take your dose and keep your device and Application nearby to update the latest reading. Ignore if the reading is already updated."
     static let bodyVersion = "Updates are available for %@."
-    
+    static let bodyAppVersion = "Latest version of \(appName()) is available. Do you want to upgrade it now?"
     static let notificationMsg = "You have missed your dose or it has not been synced."
     static let titleForRimander = "Your schedule dose time"
     static let idRimander = "com.ochsner.inhalertrack.reminderdose"
