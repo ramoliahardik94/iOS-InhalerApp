@@ -89,7 +89,7 @@ class ManageDeviceCell: UITableViewCell {
         updateDevice.medTypeId = device.medTypeID
         updateDevice.puff = device.puffs
         updateDevice.totalDose = device.useTimes.count
-        updateDevice.discription = device.discription
+        updateDevice.description = device.discription
         updateDevice.arrTime = device.useTimes
         if let deviceDB = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == device.internalID}) {
             updateDevice.apiAddDevice(isreminder: deviceDB.reminder) { [weak self] result in

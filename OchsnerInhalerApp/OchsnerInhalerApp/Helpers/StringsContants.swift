@@ -269,7 +269,7 @@ struct StringDevices {
     static let addAnotherDevice = "Add Another Device"
     static let addDevice = "Add Device"
     static let yourNextDose = "Your dose is at"
-    static let addDiscription = "Add discription"
+    static let addDiscription = "Add description"
     
 }
 
