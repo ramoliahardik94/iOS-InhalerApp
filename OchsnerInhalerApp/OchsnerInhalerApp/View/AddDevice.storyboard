@@ -758,7 +758,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="VZ4-aR-plj"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerTextFiled" value="YES"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">

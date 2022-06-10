@@ -355,7 +355,7 @@
                                                             <constraint firstAttribute="height" constant="35" id="vaW-LK-sjj"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerTextFiled" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
