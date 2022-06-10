@@ -160,10 +160,13 @@ class ManageDeviceCell: UITableViewCell {
 }
 extension ManageDeviceCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let acceptableChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz0123456789"
+        let set = CharacterSet(charactersIn: acceptableChar)
+        let inverted = set.inverted
+        let filtered = string.components(separatedBy: inverted).joined(separator: "")
         let maxLength = 50
         let currentString = (textField.text ?? "") as NSString
         let newString = currentString.replacingCharacters(in: range, with: string)
-
-        return newString.count <= maxLength
+        return (filtered == string)  && (newString.count <= maxLength)
     }
 }

@@ -338,10 +338,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="309" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEn-O7-VE9">
-                                                        <rect key="frame" x="243" y="12.666666666666686" width="25" height="25"/>
+                                                        <rect key="frame" x="223" y="7.6666666666666856" width="35" height="35"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="JtM-hk-PLa"/>
-                                                            <constraint firstAttribute="width" constant="25" id="Yhn-Rg-fVy"/>
+                                                            <constraint firstAttribute="height" constant="35" id="JtM-hk-PLa"/>
+                                                            <constraint firstAttribute="width" constant="35" id="Yhn-Rg-fVy"/>
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="tick"/>
@@ -350,7 +350,7 @@
                                                         </connections>
                                                     </button>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Inhaler at Home" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OaB-Yb-wfa">
-                                                        <rect key="frame" x="8" y="7.6666666666666856" width="227" height="35"/>
+                                                        <rect key="frame" x="8" y="7.6666666666666856" width="207" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="vaW-LK-sjj"/>
                                                         </constraints>
@@ -361,10 +361,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnu-kB-Dxe">
-                                                        <rect key="frame" x="276" y="12.666666666666686" width="25" height="25"/>
+                                                        <rect key="frame" x="266" y="7.6666666666666856" width="35" height="35"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="0qf-rr-znl"/>
-                                                            <constraint firstAttribute="width" constant="25" id="iqa-tm-OOg"/>
+                                                            <constraint firstAttribute="height" constant="35" id="0qf-rr-znl"/>
+                                                            <constraint firstAttribute="width" constant="35" id="iqa-tm-OOg"/>
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="cross"/>
@@ -390,16 +390,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="309" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inhaler at Home" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dX0-vp-Ssa">
-                                                        <rect key="frame" x="8" y="14.999999999999998" width="266" height="20.333333333333329"/>
+                                                        <rect key="frame" x="8" y="14.999999999999998" width="256" height="20.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xuy-ec-fcy">
-                                                        <rect key="frame" x="284" y="12.666666666666686" width="25" height="25"/>
+                                                        <rect key="frame" x="274" y="7.6666666666666856" width="35" height="35"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="C9o-Me-uBl"/>
-                                                            <constraint firstAttribute="width" constant="25" id="R8a-4N-gTp"/>
+                                                            <constraint firstAttribute="height" constant="35" id="C9o-Me-uBl"/>
+                                                            <constraint firstAttribute="width" constant="35" id="R8a-4N-gTp"/>
                                                         </constraints>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="Edit"/>
