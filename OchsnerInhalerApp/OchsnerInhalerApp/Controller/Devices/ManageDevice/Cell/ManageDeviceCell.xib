@@ -428,7 +428,7 @@
                                             <constraint firstItem="Urb-hF-Y18" firstAttribute="bottom" secondItem="5p7-3q-LzS" secondAttribute="bottom" id="ERl-yo-bQ9"/>
                                             <constraint firstAttribute="trailing" secondItem="5p7-3q-LzS" secondAttribute="trailing" id="Zee-sS-zUg"/>
                                             <constraint firstItem="Urb-hF-Y18" firstAttribute="trailing" secondItem="5p7-3q-LzS" secondAttribute="trailing" id="uut-Pg-KiL"/>
-                                            <constraint firstAttribute="height" constant="50" id="xxv-gP-0PI"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="xxv-gP-0PI"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sky-MB-JDf">

@@ -129,7 +129,7 @@ class ManageDeviceCell: UITableViewCell {
         lblstatus.setFont(type: .regular, point: 14)
         btnRemoveDevice.setButtonView(StringDevices.removeDevice, 17, AppFont.AppRegularFont)
         btnEditDirection.setButtonView(StringDevices.editDirection, 17, AppFont.AppRegularFont)
-        
+        txtDiscription.delegate = self
     }
     @IBAction func editDiscriptionClick(_ sender: Any) {
         txtDiscription.text = device.discription
@@ -156,5 +156,14 @@ class ManageDeviceCell: UITableViewCell {
         if delegate != nil {
             delegate?.removeDevice(index: sender.tag, section: Int(sender.accessibilityValue ?? "0") ?? 0)
         }
+    }
+}
+extension ManageDeviceCell: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 50
+        let currentString = (textField.text ?? "") as NSString
+        let newString = currentString.replacingCharacters(in: range, with: string)
+
+        return newString.count <= maxLength
     }
 }
