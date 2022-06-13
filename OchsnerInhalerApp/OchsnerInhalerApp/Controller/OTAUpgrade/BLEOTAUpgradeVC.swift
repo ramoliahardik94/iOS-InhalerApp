@@ -1,5 +1,5 @@
 //
-//  BLEOTAUpgrade.swift
+//  BLEOTAUpgradeVC.swift
 //  OchsnerInhalerApp
 //
 //  Created by Nikita Bhatt on 09/05/22.
@@ -11,7 +11,7 @@ import RTKLEFoundation
 import UIKit
 import CoreBluetooth
 
-class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
+class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     
     @IBOutlet weak var btnTryAgain: UIButton!
     @IBOutlet weak var viewTryAgain: UIView!
@@ -226,7 +226,7 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     func profile(_ profile: RTKLEProfile, didFailToConnect peripheral: RTKLEPeripheral, error: Error?) {
         DispatchQueue.main.async(execute: { [self] in
             Logger.logInfo(" OTA MSG:Failed to connect peripheral \(String(describing: error?.localizedDescription))") // "连接外设失败"
-            setErrorMsg(msg: "Failed to connect peripheral.",error: error)
+            setErrorMsg(msg: "Failed to connect peripheral.", error: error)
             
             // TODO: Reconnect error
 //            closeVC()
@@ -389,10 +389,17 @@ class BLEOTAUpgrade: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     }
     
     func setErrorMsg(msg: String, error: Error?) {
-        let errorMsg = "\(msg): \(String(describing: error?.localizedDescription))"
+        let errorMsg = "\(msg): \(String(describing: error!.localizedDescription))"
         let mac = DatabaseManager.share.getMac(UDID: selectedPeripheral?.identifier.uuidString ?? "")
+        let currentVrsion = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == mac})?.version ?? Constants.AppContainsFirmwareVersion
         print("\(errorMsg) for \(mac)")
-        //TODO: Api Call For Error Log
+        // TODO: Api Call For Error Log
+        let bleVM = BLEOTAUpgradeVM()
+        let dic = ["Error": errorMsg, "MacAddress": mac, "TargetVersion": Constants.AppContainsFirmwareVersion, "CurrentVersion": currentVrsion]
+        Logger.logInfo("Error to Upgrade :\(dic)")
+        bleVM.apiForErrorLog(param: dic) { _ in
+            
+        }
         viewTryAgain.isHidden = false
         progressView.isHidden = true
         lblTitle.text = OTAMessages.titleUpgradeFail

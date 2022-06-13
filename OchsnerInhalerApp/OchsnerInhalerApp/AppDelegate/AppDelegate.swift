@@ -11,7 +11,7 @@ import EventKit
 import CocoaLumberjack
 import MessageUI
 import Firebase
-
+import IQKeyboardManagerSwift
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -22,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         navigationBarUI()
-        
+        IQKeyboardManager.shared.enable = true
+
         NotificationCenter.default.addObserver(self, selector: #selector(backgroundCall), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(foregroundCall), name: UIApplication.didBecomeActiveNotification, object: nil)
         
@@ -113,21 +114,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func foregroundCall() {
         print("App moved to foreground")
-        CommonFunctions.checkVersionDetails()
+        CommonFunctions.checkVersion()
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {
             if BLEHelper.shared.logCounter == 0 {
                 CommonFunctions.getLogFromDeviceAndSync()
             } else {
                 BLEHelper.shared.apiCallForActuationlog()
             }
+            if !BLEHelper.shared.connectedPeripheral.isEmpty {
+                for peripheral in BLEHelper.shared.connectedPeripheral where peripheral.discoveredPeripheral!.state != .connected {
+                    if let peri = peripheral.discoveredPeripheral {
+                        BLEHelper.shared.connectPeriPheral(peripheral: peri)
+                    }
+                }
+            }
         }
     }
     
     @objc func backgroundCall() {
+        Constants.isDisplay = false
         print("App moved to background!")
-        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        if  !BLEHelper.shared.isAddAnother  && ( BLEHelper.shared.connectedPeripheral.count < device.count || (BLEHelper.shared.connectedPeripheral.contains(where: {$0.discoveredPeripheral?.state != .connected })) ) {
-            BLEHelper.shared.scanPeripheral()
+        if UserDefaultManager.isLogin {
+            let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+            if  !BLEHelper.shared.isAddAnother  && ( BLEHelper.shared.connectedPeripheral.count < device.count || (BLEHelper.shared.connectedPeripheral.contains(where: {$0.discoveredPeripheral?.state != .connected })) ) {
+                BLEHelper.shared.scanPeripheral()
+            }
         }
     }
     
@@ -149,6 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         Logger.logInfo(" applicationWillTerminate")
+        Constants.isSkipAppUpdate = false
         setNotification()
     }
     

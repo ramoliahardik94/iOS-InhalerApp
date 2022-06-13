@@ -161,7 +161,7 @@ class NotificationManager: NSObject {
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .badge])
+        completionHandler([.banner, .badge, .sound, .alert])
     }
     
     func convertToDictionary(text: String) -> [String: Any]? {
@@ -184,6 +184,13 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
                     print("Move to Vesion UPDATE Screen")
                     let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     BaseVC().rootVC(controller: bleUpgrade)
+                }
+            } else if let appVersion = userInfo["appversion"] {
+                if appVersion as! Bool {
+                    // TODO: Move to Vesion UPDATE Screen
+                    if let url = URL(string: Constants.appUrl) {
+                        UIApplication.shared.open(url)
+                    }
                 }
             }
         UNUserNotificationCenter.current().removeAllDeliveredNotifications() // clear all the notification from notification center

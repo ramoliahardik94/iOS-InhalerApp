@@ -4,13 +4,14 @@
 import UIKit
 
 class Constants: NSObject {
-    
+    static var isDisplay = false
+    static var isSkipAppUpdate = false
     static let appdel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     static let deviceName = "ochsner inhaler tracker"
     static let ScreenWidth  =  UIScreen.main.bounds.size.width
     static let ScreenHeight =  UIScreen.main.bounds.size.height
-    
-    static let DelayActuationAPICall =  0.5
+    static let appUrl = "itms-apps://itunes.apple.com/developer/id1606395503"
+    static let DelayActuationAPICall =  2.0
     static let TimerScanAddtime =  15.0
     static let TimerScanAutoConnect =  30.0
     static let ScanningScreenDelay = 10.0

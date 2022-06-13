@@ -41,7 +41,7 @@ class LoginVM {
                 if let res = response as? [[String: Any]] {
                     for obj in res {
                         let device = DeviceModel(jSon: obj)
-                        if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}){
+                        if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) {
                             completionHandler(.success(true))
                             device.version = peripheral.version.trimmingCharacters(in: .controlCharacters)
                         }

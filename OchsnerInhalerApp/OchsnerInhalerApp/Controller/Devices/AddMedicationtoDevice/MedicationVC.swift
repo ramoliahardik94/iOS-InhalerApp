@@ -9,13 +9,15 @@ import UIKit
 
 class MedicationVC: BaseVC {
 
+    @IBOutlet weak var viewContains: UIView!
     @IBOutlet weak var lblmedicationType: UILabel!
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnMantainance: UIButton!
     @IBOutlet weak var btnRescue: UIButton!
     @IBOutlet weak var tblMedication: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
-    
+    @IBOutlet weak var lblDiscription: UILabel!
+    @IBOutlet weak var txtDiscription: UITextField!
     let refreshControl = UIRefreshControl()
     var isFromDeviceList = false
     var selectedIndex: Int?
@@ -29,6 +31,9 @@ class MedicationVC: BaseVC {
         BLEHelper.shared.getmacAddress(peripheral: discoverPeripheral)
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         self.getMedication()
+        txtDiscription.delegate = self
+//        hideKeyBoardHideOutSideTouch(customView: self.viewContains)
+//        registerKeyboardNotifications()
     }
     
     func getMedication() {
@@ -45,6 +50,8 @@ class MedicationVC: BaseVC {
     
     func setUp() {
         lblTitle.font = UIFont(name: AppFont.AppBoldFont, size: 23)
+        txtDiscription.paddingLeft = 20.0
+        lblDiscription.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblTitle.text = StringMedication.titleMedication
         lblmedicationType.font = UIFont(name: AppFont.AppBoldFont, size: 23)
         lblmedicationType.text = StringMedication.inhealerType
@@ -86,6 +93,7 @@ class MedicationVC: BaseVC {
     }
 
     @IBAction func btnNextClick(_ sender: UIButton) {
+        medicationVM.description = txtDiscription.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if selectedIndex != nil {
             if btnRescue.isSelected {
                 if BLEHelper.shared.connectedPeripheral.count > 1 {
@@ -165,4 +173,16 @@ extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
         medicationVM.selectedMedication = medicationVM.medication[indexPath.row]
     }
     
+}
+extension MedicationVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let acceptableChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz0123456789"
+        let set = CharacterSet(charactersIn: acceptableChar)
+        let inverted = set.inverted
+        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+        let maxLength = 50
+        let currentString = (textField.text ?? "") as NSString
+        let newString = currentString.replacingCharacters(in: range, with: string)
+        return (filtered == string)  && (newString.count <= maxLength)
+    }
 }

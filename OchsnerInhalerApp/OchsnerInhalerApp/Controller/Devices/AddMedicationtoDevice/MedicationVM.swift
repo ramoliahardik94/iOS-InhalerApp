@@ -16,7 +16,7 @@ class MedicationVM {
     var totalDose = 0
     var arrTime: [String] = [String]()
     var isEdit = false
-    
+    var description: String = ""
     func apiGetMedicationLis(completionHandler: @escaping ((APIResult) -> Void)) {
         
         APIManager.shared.performRequest(route: APIRouter.medication.path, parameters: [String: Any](), method: .get) { error, response in
@@ -50,7 +50,8 @@ class MedicationVM {
                 "MedTypeId": medTypeId,
                 "Puffs": puff,
                 "DailyUsage": totalDose, 
-                "UseTimes": str
+                "UseTimes": str,
+                "Description": description
             ]
             APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { [weak self] error, response in
                 guard let `self` = self else { return }

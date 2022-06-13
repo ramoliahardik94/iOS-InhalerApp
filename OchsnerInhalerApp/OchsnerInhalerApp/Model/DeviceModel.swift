@@ -25,12 +25,16 @@ class DeviceModel: NSObject {
     var isReminder = true
     var udid = ""
     var version: String = ""
+    var discription: String = ""
     override init () {        
     }
     init(jSon: [String: Any]) {
         
         if let value = jSon["DeviceId"] as? Int {
             self.deviceID = value
+        }
+        if let value = jSon["Description"] as? String {
+            self.discription = value
         }
         if let value = jSon["InternalId"] as? String {
             self.internalID = value
