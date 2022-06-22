@@ -116,7 +116,7 @@ class BLEHelper: NSObject {
     @objc func getActuationLog() {
         let connectedDevice = connectedPeripheral.filter({$0.discoveredPeripheral!.state == .connected})
         for obj in connectedDevice {
-            if obj.discoveredPeripheral != nil && obj.charectristicWrite != nil && obj.discoveredPeripheral?.state == .connected {
+            if obj.discoveredPeripheral != nil && obj.charectristicWrite != nil && obj.discoveredPeripheral?.state == .connected && (obj.noOfLog > 0) {
                 obj.discoveredPeripheral?.writeValue(TransferService.requestGetAcuationLog.hexadecimal!, for: obj.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
             }
         }
