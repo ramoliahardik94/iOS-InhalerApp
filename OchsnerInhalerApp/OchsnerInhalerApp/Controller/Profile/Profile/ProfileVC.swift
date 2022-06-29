@@ -8,6 +8,8 @@
 import UIKit
 
 class ProfileVC: BaseVC {
+    @IBOutlet weak var lblHealthTitle: UILabel!
+    @IBOutlet weak var lblHealtPermition: UILabel!
     @IBOutlet weak var btnUpdateEmail: UIButton!
     @IBOutlet weak var btnChangePassword: UIButton!
     @IBOutlet weak var btnLogout: UIButton!

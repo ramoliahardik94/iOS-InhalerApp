@@ -70,6 +70,7 @@
 		472F643A279FE15400E37FB1 /* CreateAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F6439279FE15400E37FB1 /* CreateAccountVM.swift */; };
 		472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F643B279FF46400E37FB1 /* CommonFunction.swift */; };
 		4733205027A8EEC100695661 /* BLECommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733204F27A8EEC100695661 /* BLECommunication.swift */; };
+		473505B42861D01C001F23A7 /* ble_tracker_v1.0.9_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 473505B32861D01C001F23A7 /* ble_tracker_v1.0.9_ota.bin */; };
 		473D0F4827E0500F006081B0 /* HaxToDecimalConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0F4727E0500F006081B0 /* HaxToDecimalConversion.swift */; };
 		473D0F4A27E05490006081B0 /* ActuationLogVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0F4927E05490006081B0 /* ActuationLogVM.swift */; };
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
@@ -80,6 +81,8 @@
 		474AAF7228352045001834BA /* RTKLEFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6D28352039001834BA /* RTKLEFoundation.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		474AAF7328352046001834BA /* RTKOTASDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6E28352039001834BA /* RTKOTASDK.framework */; platformFilter = ios; };
 		474AAF7428352046001834BA /* RTKOTASDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6E28352039001834BA /* RTKOTASDK.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		475373B22861A55100131B4B /* HealthKitAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475373B12861A55100131B4B /* HealthKitAssistant.swift */; };
+		475373B42861A9AB00131B4B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475373B32861A9AB00131B4B /* HealthKit.framework */; };
 		4757D09127D209E800224605 /* Tap-Animation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4757D08F27D209E800224605 /* Tap-Animation.gif */; };
 		477A17322836420D0059B8F6 /* OTAUpgradeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */; };
 		477A1736283642900059B8F6 /* OTADeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A1734283642900059B8F6 /* OTADeviceCell.swift */; };
@@ -221,6 +224,7 @@
 		472F6439279FE15400E37FB1 /* CreateAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVM.swift; sourceTree = "<group>"; };
 		472F643B279FF46400E37FB1 /* CommonFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunction.swift; sourceTree = "<group>"; };
 		4733204F27A8EEC100695661 /* BLECommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECommunication.swift; sourceTree = "<group>"; };
+		473505B32861D01C001F23A7 /* ble_tracker_v1.0.9_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.9_ota.bin; sourceTree = "<group>"; };
 		473D0F4727E0500F006081B0 /* HaxToDecimalConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaxToDecimalConversion.swift; sourceTree = "<group>"; };
 		473D0F4927E05490006081B0 /* ActuationLogVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActuationLogVM.swift; sourceTree = "<group>"; };
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 		474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.7_ota.bin; sourceTree = "<group>"; };
 		474AAF6D28352039001834BA /* RTKLEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKLEFoundation.framework; sourceTree = "<group>"; };
 		474AAF6E28352039001834BA /* RTKOTASDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKOTASDK.framework; sourceTree = "<group>"; };
+		475373B12861A55100131B4B /* HealthKitAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitAssistant.swift; sourceTree = "<group>"; };
+		475373B32861A9AB00131B4B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
 		477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTAUpgradeDetailsVC.swift; sourceTree = "<group>"; };
 		477A1734283642900059B8F6 /* OTADeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTADeviceCell.swift; sourceTree = "<group>"; };
@@ -302,6 +308,7 @@
 				479E7D3027D5FE0F005CC4C6 /* ExternalAccessory.framework in Frameworks */,
 				474AAF7128352045001834BA /* RTKLEFoundation.framework in Frameworks */,
 				4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */,
+				475373B42861A9AB00131B4B /* HealthKit.framework in Frameworks */,
 				474AAF7328352046001834BA /* RTKOTASDK.framework in Frameworks */,
 				F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */,
 			);
@@ -578,6 +585,7 @@
 		2F0841B8F37C1807803250A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				475373B32861A9AB00131B4B /* HealthKit.framework */,
 				47C98D5428291270001F755B /* libobjc-trampolines.tbd */,
 				47C98D5328291270001F755B /* libreadline.tbd */,
 				479E7D2F27D5FE0F005CC4C6 /* ExternalAccessory.framework */,
@@ -651,6 +659,14 @@
 				474AAF6E28352039001834BA /* RTKOTASDK.framework */,
 			);
 			path = Framework;
+			sourceTree = "<group>";
+		};
+		475373B02861A53900131B4B /* HealthKit */ = {
+			isa = PBXGroup;
+			children = (
+				475373B12861A55100131B4B /* HealthKitAssistant.swift */,
+			);
+			path = HealthKit;
 			sourceTree = "<group>";
 		};
 		4757D08E27D209E800224605 /* Tap-Animation */ = {
@@ -734,6 +750,7 @@
 			children = (
 				474AAF6C28352039001834BA /* Framework */,
 				470CC948282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin */,
+				473505B32861D01C001F23A7 /* ble_tracker_v1.0.9_ota.bin */,
 				47882310284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin */,
 				474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */,
 				479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */,
@@ -784,6 +801,7 @@
 		47CDCE2A278D88FE0014527D /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				475373B02861A53900131B4B /* HealthKit */,
 				225F315B27D0A2050059566E /* ReminderManager */,
 				227CD4DD27A3EBEF0005C3D9 /* BLEManager */,
 				2257006E27A2AE4A009B6415 /* NotificationManager */,
@@ -962,6 +980,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47CDCE1E278D87300014527D /* LaunchScreen.storyboard in Resources */,
+				473505B42861D01C001F23A7 /* ble_tracker_v1.0.9_ota.bin in Resources */,
 				47CDCE1B278D87300014527D /* Assets.xcassets in Resources */,
 				47CDCE9B278DA8570014527D /* Providers.storyboard in Resources */,
 				224E1C9E27981AB7000C5D1A /* HomeDeviceCell.xib in Resources */,
@@ -1113,6 +1132,7 @@
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
 				22CA52A827C34EF50031BDE7 /* DashboardModel.swift in Sources */,
 				47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */,
+				475373B22861A55100131B4B /* HealthKitAssistant.swift in Sources */,
 				4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
 				477A17322836420D0059B8F6 /* OTAUpgradeDetailsVC.swift in Sources */,
@@ -1339,6 +1359,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "MyApp will use your Health data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "MyApp will save the workout data to Health.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
@@ -1362,7 +1384,7 @@
 				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
+				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile_healthkit;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1379,7 +1401,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution: OCHSNER CLINIC FOUNDATION (ERXT8P6AQW)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
@@ -1395,6 +1417,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = OchsnerInhalerConnect;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetooth permissions are required to access the Inhaler sensor device.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "MyApp will use your Health data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "MyApp will save the workout data to Health.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This will allow the Application to fetch and bind user location with actuation logs.";
@@ -1418,7 +1442,7 @@
 				MARKETING_VERSION = 1.0.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
+				PROVISIONING_PROFILE_SPECIFIER = ochsner_adhoc_profile_healthkit;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;

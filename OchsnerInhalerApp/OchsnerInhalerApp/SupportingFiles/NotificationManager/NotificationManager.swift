@@ -161,7 +161,7 @@ class NotificationManager: NSObject {
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .badge, .sound, .alert])
+        completionHandler([.banner, .badge, .sound])
     }
     
     func convertToDictionary(text: String) -> [String: Any]? {

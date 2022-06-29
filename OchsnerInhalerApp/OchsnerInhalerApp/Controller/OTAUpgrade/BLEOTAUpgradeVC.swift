@@ -127,9 +127,9 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                 let err =  RTKOTAUpgradeBin.extractCombinePackFile(withFilePath: binFile, toPrimaryBudBins: &priBins, secondaryBudBins: &secBins)
                 if err == nil {
                    switch otaPeripheral.budType {
-                    case RTKOTAEarbudPrimary:
+                   case RTKOTAEarbudPrimary:
                        images = priBins as! [RTKOTAUpgradeBin]
-                    case RTKOTAEarbudSecondary:
+                   case RTKOTAEarbudSecondary:
                        images = secBins as! [RTKOTAUpgradeBin]
                    default:
                        break

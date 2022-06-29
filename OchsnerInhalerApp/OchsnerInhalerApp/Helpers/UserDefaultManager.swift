@@ -6,7 +6,7 @@ import UIKit
 import CoreBluetooth
 
 enum UserDefaultKey: String {
-
+    
     case latitude
     case longitude
     case language
@@ -26,14 +26,147 @@ enum UserDefaultKey: String {
     case isLocationOn
     case isAddReminder
     case isFirstLaunch
-
     case username
-
     case dateLogin
-
+    case bodyMass
+    case fatPercent
+    case leanBodyMass
+    case height
+    case waistCircumference
+    case bodyMassIndex
+    case heartRate
+    case bodyTemperature
+    case basalBodyTemperature
+    case bloodPressureSystolic
+    case bloodPressureDiastolic
+    case respiratoryRate
+    case stepCount
+    case distanceWalkingRunning
+    case dateRangeForHealthKit
 }
 
 class UserDefaultManager {
+    
+    static var bodyMass: String {
+        get {
+            return self.get(forKey: .bodyMass ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .bodyMass)
+        }
+    }
+    static var fatPercent: String {
+        get {
+            return self.get(forKey: .fatPercent ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .fatPercent)
+        }
+    }
+    static var leanBodyMass: String {
+        get {
+            return self.get(forKey: .leanBodyMass ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .leanBodyMass)
+        }
+    }
+    static var height: String {
+        get {
+            return self.get(forKey: .height ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .height)
+        }
+    }
+    static var waistCircumference: String {
+        get {
+            return self.get(forKey: .waistCircumference ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .waistCircumference)
+        }
+    }
+    static var bodyMassIndex: String {
+        get {
+            return self.get(forKey: .bodyMassIndex ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .bodyMassIndex)
+        }
+    }
+    static var heartRate: String {
+        get {
+            return self.get(forKey: .heartRate ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .heartRate)
+        }
+    }
+    static var bodyTemperature: String {
+        get {
+            return self.get(forKey: .bodyTemperature ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .bodyTemperature)
+        }
+    }
+    static var basalBodyTemperature: String {
+        get {
+            return self.get(forKey: .basalBodyTemperature ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .basalBodyTemperature)
+        }
+    }
+    static var bloodPressureSystolic: String {
+        get {
+            return self.get(forKey: .bloodPressureSystolic ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .bloodPressureSystolic)
+        }
+    }
+    static var bloodPressureDiastolic: String {
+        get {
+            return self.get(forKey: .bloodPressureDiastolic ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .bloodPressureDiastolic)
+        }
+    }
+    static var respiratoryRate: String {
+        get {
+            return self.get(forKey: .respiratoryRate ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .respiratoryRate)
+        }
+    }
+    static var stepCount: String {
+        get {
+            return self.get(forKey: .stepCount ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .stepCount)
+        }
+    }
+    static var distanceWalkingRunning: String {
+        get {
+            return self.get(forKey: .distanceWalkingRunning ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .distanceWalkingRunning)
+        }
+    }
+    static var dateRangeForHealthKit: String {
+        get {
+            return self.get(forKey: .dateRangeForHealthKit ) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .dateRangeForHealthKit)
+        }
+    }
     
     // MARK: - Bool
     static var isLogin: Bool {
@@ -117,15 +250,6 @@ class UserDefaultManager {
         }
     }
     
-//    static var addDevice: [String] {
-//        get {
-//            return self.get(forKey: .addDevice) as? [String] ?? [String]()
-//        }
-//        set(newValue) {
-//            self.set(newValue as AnyObject?, forKey: .addDevice)
-//        }
-//    }
-//
     // MARK: - Save/Retrive/Remove Data
     
     static private func set(_ object: AnyObject?, forKey key: UserDefaultKey) {

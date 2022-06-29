@@ -155,6 +155,7 @@ struct StringProfile {
     static let  changeProvider = "Change Provider"
     static let  remove = "Remove"
     static let  settings = "Settings"
+    static let  healthdata = "Health Data"
     static let  receiveNotifications = "Receive Notifications"
     static let  shareLocation = "Share Location"
     static let  shareUsageWithProvider = "Share Usage With Provider"

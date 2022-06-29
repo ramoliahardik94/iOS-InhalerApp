@@ -45,7 +45,13 @@ class HomeVC: BaseVC {
             CommonFunctions.getLogFromDeviceAndSync()
         }
         apiDashboard()
-       
+        HealthKitAssistant.shared.getHealthKitPermission { isSuccess in
+            if isSuccess {
+                HealthKitAssistant.shared.getBMIReport()
+                HealthKitAssistant.shared.getVitalData()
+                HealthKitAssistant.shared.getFitnessReport()
+            }
+        }
     }
     
     private func  initUI() {

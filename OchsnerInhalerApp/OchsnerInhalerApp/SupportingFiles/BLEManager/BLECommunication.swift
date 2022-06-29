@@ -47,7 +47,7 @@ extension BLEHelper {
         }
     }
     
-    /// use to stop timer from any weare in BLEHelper
+    /// use to stop timer from any weare in BLEHelperr
     func stopTimer() {
         print("timerStop")
         

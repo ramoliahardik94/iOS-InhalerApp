@@ -263,11 +263,9 @@ extension BLEHelper {
             case .active:
                 // app is currently active, can update badges count here
                 CommonFunctions.checkFWVersionDetails()
-                break
             case .inactive:
                 // app is transitioning from background to foreground (user taps notification), do what you need when user taps here
-                setNotification(medName, udid)
-                
+                setNotification(medName, udid)                
             case .background:
                 // app is in background, if content-available key of your notification is set to 1, poll to your backend to retrieve data and update your interface here
                 setNotification(medName, udid)

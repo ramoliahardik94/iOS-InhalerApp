@@ -39,15 +39,36 @@ class NotificationPermissionVC: BaseVC {
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
         if devicelist.count == 0 {
             let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-            self.rootVC(controller: addDeviceIntroVC)
+            DispatchQueue.main.async {
+                HealthKitAssistant.shared.getHealthKitPermission { isAllow in
+                    print(isAllow)
+                    if isAllow {
+                        print("HealthKit Permittion Allowed")
+                    } else {
+                        print("HealthKit Permittion decline")
+                    }
+                    DispatchQueue.main.async {
+                        self.rootVC(controller: addDeviceIntroVC)
+                    }
+                }
+            }
         } else {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
             DispatchQueue.main.async {
-                self.rootVC(controller: homeTabBar)
+                HealthKitAssistant.shared.getHealthKitPermission { isAllow in
+                    print(isAllow)
+                    if isAllow {
+                        print("HealthKit Permittion Allowed")
+                    } else {
+                        print("HealthKit Permittion decline")
+                    }
+                    DispatchQueue.main.async {
+                        self.rootVC(controller: homeTabBar)
+                    }
+                }
             }
         }
-
     }
     @IBAction func tapSkip(_ sender: UIButton) {
         UserDefaultManager.isNotificationOn = false
