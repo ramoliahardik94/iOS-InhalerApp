@@ -45,7 +45,6 @@
 		22FC2E0627B767C700ABE886 /* ProviderListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FC2E0527B767C700ABE886 /* ProviderListVM.swift */; };
 		22FC2E0827B76D2700ABE886 /* ProviderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FC2E0727B76D2700ABE886 /* ProviderModel.swift */; };
 		22FCEA6227C4AA8700A91A6A /* dashboard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 22FCEA6127C4AA8700A91A6A /* dashboard_response.json */; };
-		470CC949282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 470CC948282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin */; };
 		470E4FE527C7744100F8C815 /* SF-Pro-Display-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 470E4FE427C7744100F8C815 /* SF-Pro-Display-BoldItalic.otf */; };
 		4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471023472796737B00F88876 /* SFProDisplay-Bold.ttf */; };
 		4710234B2796737B00F88876 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 471023482796737B00F88876 /* SFProText-Regular.ttf */; };
@@ -66,6 +65,7 @@
 		4725F21327981BBC00BBDA28 /* NMDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4725F21227981BBC00BBDA28 /* NMDatePicker.swift */; };
 		4728C9DD27A7BED50057F8E5 /* MedicationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728C9DC27A7BED50057F8E5 /* MedicationVM.swift */; };
 		4728C9DF27A7BF5D0057F8E5 /* MedicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4728C9DE27A7BF5D0057F8E5 /* MedicationModel.swift */; };
+		472A6A0A286C57E0000DAD99 /* ble_tracker_v1.0.9_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 472A6A09286C57E0000DAD99 /* ble_tracker_v1.0.9_ota.bin */; };
 		472DC2442795328D008E0060 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472DC2432795328D008E0060 /* ProviderCell.swift */; };
 		472F643A279FE15400E37FB1 /* CreateAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F6439279FE15400E37FB1 /* CreateAccountVM.swift */; };
 		472F643C279FF46400E37FB1 /* CommonFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F643B279FF46400E37FB1 /* CommonFunction.swift */; };
@@ -75,7 +75,6 @@
 		4743B7CD27B527950000C3E8 /* OchsnerDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7CB27B527950000C3E8 /* OchsnerDB.xcdatamodeld */; };
 		4743B7D327B529CE0000C3E8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4743B7D227B529CE0000C3E8 /* CoreData.framework */; };
 		4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */; };
-		474AAF582834F9FD001834BA /* ble_tracker_v1.0.7_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */; };
 		474AAF7128352045001834BA /* RTKLEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6D28352039001834BA /* RTKLEFoundation.framework */; platformFilter = ios; };
 		474AAF7228352045001834BA /* RTKLEFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6D28352039001834BA /* RTKLEFoundation.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		474AAF7328352046001834BA /* RTKOTASDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF6E28352039001834BA /* RTKOTASDK.framework */; platformFilter = ios; };
@@ -84,7 +83,6 @@
 		477A17322836420D0059B8F6 /* OTAUpgradeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */; };
 		477A1736283642900059B8F6 /* OTADeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A1734283642900059B8F6 /* OTADeviceCell.swift */; };
 		477A1737283642900059B8F6 /* OTADeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 477A1735283642900059B8F6 /* OTADeviceCell.xib */; };
-		47882311284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin in Resources */ = {isa = PBXBuildFile; fileRef = 47882310284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin */; };
 		4788BDB5280048F500AA1F92 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB4280048F500AA1F92 /* NotificationVC.swift */; };
 		4788BDB828004FD400AA1F92 /* NotificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788BDB728004FD400AA1F92 /* NotificationVM.swift */; };
 		478A70FA284DB0AB005C64EB /* BLEOTAUpgradeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478A70F9284DB0AB005C64EB /* BLEOTAUpgradeVM.swift */; };
@@ -196,7 +194,6 @@
 		22FC2E0527B767C700ABE886 /* ProviderListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderListVM.swift; sourceTree = "<group>"; };
 		22FC2E0727B76D2700ABE886 /* ProviderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderModel.swift; sourceTree = "<group>"; };
 		22FCEA6127C4AA8700A91A6A /* dashboard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dashboard_response.json; sourceTree = "<group>"; };
-		470CC948282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.4_ota.bin; sourceTree = "<group>"; };
 		470E4FE427C7744100F8C815 /* SF-Pro-Display-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-BoldItalic.otf"; sourceTree = "<group>"; };
 		471023472796737B00F88876 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		471023482796737B00F88876 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
@@ -217,6 +214,7 @@
 		4725F21227981BBC00BBDA28 /* NMDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMDatePicker.swift; sourceTree = "<group>"; };
 		4728C9DC27A7BED50057F8E5 /* MedicationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationVM.swift; sourceTree = "<group>"; };
 		4728C9DE27A7BF5D0057F8E5 /* MedicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationModel.swift; sourceTree = "<group>"; };
+		472A6A09286C57E0000DAD99 /* ble_tracker_v1.0.9_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.9_ota.bin; sourceTree = "<group>"; };
 		472DC2432795328D008E0060 /* ProviderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
 		472F6439279FE15400E37FB1 /* CreateAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVM.swift; sourceTree = "<group>"; };
 		472F643B279FF46400E37FB1 /* CommonFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunction.swift; sourceTree = "<group>"; };
@@ -226,14 +224,12 @@
 		4743B7CC27B527950000C3E8 /* OchsnerDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OchsnerDB.xcdatamodel; sourceTree = "<group>"; };
 		4743B7D227B529CE0000C3E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4743B7D427B52A480000C3E8 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
-		474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.7_ota.bin; sourceTree = "<group>"; };
 		474AAF6D28352039001834BA /* RTKLEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKLEFoundation.framework; sourceTree = "<group>"; };
 		474AAF6E28352039001834BA /* RTKOTASDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RTKOTASDK.framework; sourceTree = "<group>"; };
 		4757D08F27D209E800224605 /* Tap-Animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Tap-Animation.gif"; sourceTree = "<group>"; };
 		477A17312836420D0059B8F6 /* OTAUpgradeDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTAUpgradeDetailsVC.swift; sourceTree = "<group>"; };
 		477A1734283642900059B8F6 /* OTADeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTADeviceCell.swift; sourceTree = "<group>"; };
 		477A1735283642900059B8F6 /* OTADeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OTADeviceCell.xib; sourceTree = "<group>"; };
-		47882310284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = ble_tracker_v1.0.8_ota.bin; sourceTree = "<group>"; };
 		4788BDB4280048F500AA1F92 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		4788BDB728004FD400AA1F92 /* NotificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVM.swift; sourceTree = "<group>"; };
 		478A70F9284DB0AB005C64EB /* BLEOTAUpgradeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEOTAUpgradeVM.swift; sourceTree = "<group>"; };
@@ -647,6 +643,7 @@
 		474AAF6C28352039001834BA /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				472A6A09286C57E0000DAD99 /* ble_tracker_v1.0.9_ota.bin */,
 				474AAF6D28352039001834BA /* RTKLEFoundation.framework */,
 				474AAF6E28352039001834BA /* RTKOTASDK.framework */,
 			);
@@ -733,9 +730,6 @@
 			isa = PBXGroup;
 			children = (
 				474AAF6C28352039001834BA /* Framework */,
-				470CC948282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin */,
-				47882310284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin */,
-				474AAF572834F9FC001834BA /* ble_tracker_v1.0.7_ota.bin */,
 				479E7D2E27D5FE0F005CC4C6 /* OchsnerInhalerApp.entitlements */,
 				4743B7CA27B527660000C3E8 /* Database */,
 				22AE96E5278E9D2400C0D851 /* AppDelegate */,
@@ -968,16 +962,14 @@
 				4757D09127D209E800224605 /* Tap-Animation.gif in Resources */,
 				22FCEA6227C4AA8700A91A6A /* dashboard_response.json in Resources */,
 				4710234C2796737B00F88876 /* SFProText-Semibold.ttf in Resources */,
-				47882311284768F400ADA1D8 /* ble_tracker_v1.0.8_ota.bin in Resources */,
 				47B2F7DB2803E5620046F2F3 /* NotificationCell.xib in Resources */,
 				224E1CA427983A66000C5D1A /* SFProDisplay-Light.ttf in Resources */,
 				47CDCE99278DA8040014527D /* UserManagement.storyboard in Resources */,
 				224E1C992797F53A000C5D1A /* ManageDeviceCell.xib in Resources */,
 				224E1CA227983816000C5D1A /* SFProDisplay-LightItalic.ttf in Resources */,
+				472A6A0A286C57E0000DAD99 /* ble_tracker_v1.0.9_ota.bin in Resources */,
 				4710234B2796737B00F88876 /* SFProText-Regular.ttf in Resources */,
-				474AAF582834F9FD001834BA /* ble_tracker_v1.0.7_ota.bin in Resources */,
 				470E4FE527C7744100F8C815 /* SF-Pro-Display-BoldItalic.otf in Resources */,
-				470CC949282D2B5F00E281EB /* ble_tracker_v1.0.4_ota.bin in Resources */,
 				47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */,
 				225835BF27DB167F00826713 /* GoogleService-Info.plist in Resources */,
 				4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */,
@@ -1324,7 +1316,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
@@ -1359,7 +1351,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
-				MARKETING_VERSION = 1.0.15;
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
@@ -1381,7 +1373,7 @@
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1415,7 +1407,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
-				MARKETING_VERSION = 1.0.15;
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ochsner_dev_profile;
