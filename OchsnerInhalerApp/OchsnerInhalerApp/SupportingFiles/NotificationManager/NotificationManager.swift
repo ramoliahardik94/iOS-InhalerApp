@@ -180,14 +180,14 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
          let userInfo = response.notification.request.content.userInfo
             if let version = userInfo["version"] {
                 if version as! Bool {
-                    // TODO: Move to Vesion UPDATE Screen
+                    // Move to Vesion UPDATE Screen
                     print("Move to Vesion UPDATE Screen")
                     let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     BaseVC().rootVC(controller: bleUpgrade)
                 }
             } else if let appVersion = userInfo["appversion"] {
                 if appVersion as! Bool {
-                    // TODO: Move to Vesion UPDATE Screen
+                    //  Move to Vesion UPDATE Screen
                     if let url = URL(string: Constants.appUrl) {
                         UIApplication.shared.open(url)
                     }

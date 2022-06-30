@@ -192,7 +192,7 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnAddDoseClick(_ sender: Any) {
         var displayDate: Date
         let date = self.medicationVM.arrTime.map({ $0.getDate(format: DateFormate.doseTime)})
-        // TODO: Hours gap for two dose add time
+        // Hours gap for two dose add time
         let hour = 8
         if date.count > 0 {
             displayDate = date[self.medicationVM.arrTime.count - 1].addingTimeInterval(TimeInterval((60*60) * hour))
@@ -315,7 +315,7 @@ class MedicationDetailVC: BaseVC {
                           let time2 = timeformatter.date(from: time) else { return false }
                     let interval = time2.timeIntervalSince(time1)
                     let hour = interval / 3600
-                    // TODO: minimum time for two dose
+                    //  minimum time for two dose
                     if abs(hour) == 0 { //  if abs(hour) < 1 { for minimum one hour
                         return false
                     }

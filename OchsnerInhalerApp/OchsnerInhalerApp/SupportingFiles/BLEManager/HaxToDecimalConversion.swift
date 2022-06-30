@@ -48,7 +48,7 @@ extension String {
             
 
             if  discoverPeripheral.noOfLog == Decimal(counter) && (onlyDate == "2000-01-01" ||  !isValid || DatabaseManager.share.isContinuasBadReading(uuid: uuid)) {
-                // TODO: - Set RTC For Bad Records
+                //  Set RTC For Bad Records
                 Logger.logInfo(" noOfLog : \(discoverPeripheral.noOfLog) == counter: \(Decimal(counter)) && onlyDate:\(onlyDate == "2000-01-01") ||  !isValid : \(isValid) || DatabaseManager.share.isContinuasBadReading():\(DatabaseManager.share.isContinuasBadReading(uuid: uuid))")
                 debugPrint("InValid log RTC")
                 BLEHelper.shared.setRTCTime(uuid: uuid)

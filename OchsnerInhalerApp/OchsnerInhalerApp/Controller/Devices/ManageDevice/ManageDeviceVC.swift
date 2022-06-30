@@ -180,7 +180,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
     }
     
     func removeDevice(index: Int, section: Int) {
-        // TODO: - Remove device api call
+        // Remove device api call
         let device = section == 0 ? manageDeviceVM.arrRescue[index] : manageDeviceVM.arrMantainance[index]
         CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
             guard let `self` = self else { return }

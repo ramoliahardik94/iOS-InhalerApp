@@ -134,7 +134,7 @@ extension BLEHelper {
                             Logger.logInfo(ValidationMsg.successAcuation)
                             
                             DispatchQueue.main.async {
-                                // TODO: For Notificaion status
+                                // For Notificaion status
                                 let notiVM = NotificationVM()
                                 notiVM.getStatusOfTodayDose()
                                 if (UIApplication.topViewController() as? HomeVC) != nil {

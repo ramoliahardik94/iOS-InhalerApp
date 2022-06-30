@@ -46,6 +46,7 @@ class DatabaseManager {
             if let date = object["date"] as? String {
                 let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
                 let minDate = getMinDate()
+                // TODO: - Remove maxDate Condition for After some time sync some Data
                 actuationLog.isbadlog = (date > maxDate || date < minDate)
                 actuationLog.usedatelocal = date
             }
