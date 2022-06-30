@@ -122,7 +122,6 @@ class MedicationVC: BaseVC {
                     }
                 }
             } else {
-                // TODO: Uncoment for Only one mantance Logic
                 
                 if DatabaseManager.share.isMantenanceAllow(medName: medicationVM.selectedMedication.medName ?? "") {
                     let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)

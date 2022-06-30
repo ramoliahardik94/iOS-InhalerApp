@@ -74,7 +74,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         if otaPeripheral != nil {
             otaProfile.connect(to: otaPeripheral!)
         } else {
-            // TODO: - Fail to initally Connect
+            // Fail to initally Connect
             setErrorMsg(msg: "Upgrade failed.", error: nil)
 //            closeVC()
         }
@@ -228,7 +228,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             Logger.logInfo(" OTA MSG:Failed to connect peripheral \(String(describing: error?.localizedDescription))") // "连接外设失败"
             setErrorMsg(msg: "Failed to connect peripheral.", error: error)
             
-            // TODO: Reconnect error
+            //  Reconnect error
 //            closeVC()
         })
     }
@@ -269,7 +269,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     func dfuPeripheral(_ peripheral: RTKDFUPeripheral, didFinishWithError err: Error?) {
         if err != nil {
             Logger.logInfo(" OTA MSG:Upgrade failed. \(err?.localizedDescription)")
-            // TODO: - Upgrade Fail error
+            // Upgrade Fail error
             setErrorMsg(msg: "Upgrade failed.", error: err)
 //            closeVC()
             // 升级失败
@@ -393,7 +393,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         let mac = DatabaseManager.share.getMac(UDID: selectedPeripheral?.identifier.uuidString ?? "")
         let currentVrsion = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == mac})?.version ?? Constants.AppContainsFirmwareVersion
         print("\(errorMsg) for \(mac)")
-        // TODO: Api Call For Error Log
+        // Api Call For Error Log
         let bleVM = BLEOTAUpgradeVM()
         let dic = ["Error": errorMsg, "MacAddress": mac, "TargetVersion": Constants.AppContainsFirmwareVersion, "CurrentVersion": currentVrsion]
         Logger.logInfo("Error to Upgrade :\(dic)")

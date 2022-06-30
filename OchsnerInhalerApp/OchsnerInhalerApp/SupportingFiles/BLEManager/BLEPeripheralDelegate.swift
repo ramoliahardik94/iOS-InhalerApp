@@ -202,7 +202,7 @@ extension BLEHelper {
         }
         
         if !discoverPeripheral.isOTAUpgrade {
-            if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicVersion != nil {
+            if discoverPeripheral.charectristicRead != nil && discoverPeripheral.charectristicWrite != nil &&  discoverPeripheral.macCharecteristic != nil && discoverPeripheral.charectristicVersion != nil && discoverPeripheral.charectristicNotify != nil {
                 delay(isAddAnother ? Constants.PairDialogDelay : 0) {
                     [weak self] in
                     guard let `self` = self else { return }
@@ -211,10 +211,10 @@ extension BLEHelper {
                     case .connected :
                         self.getmacAddress(peripheral: discoverPeripheral)
                         self.getBatteryLevel(peripheral: discoverPeripheral)
-                        if !DatabaseManager.share.getIsSetRTC(udid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString) ?? "" ) {
-                            debugPrint("didConnect RTC")
-                            self.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
-                        }
+                        //                        if !DatabaseManager.share.getIsSetRTC(udid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString) ?? "" ) {
+                        print("I am call \(serviceCharacteristics)")
+                        self.setRTCTime(uuid: (discoverPeripheral.discoveredPeripheral?.identifier.uuidString)!)
+//                        }
                         if !self.isAddAnother {
                             self.countOfConnectedDevice += 1
                             if self.countOfScanDevice == self.countOfConnectedDevice {
@@ -233,6 +233,7 @@ extension BLEHelper {
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: .BLEConnect, object: nil)
                         }
+
                     default:
                         break
                     }

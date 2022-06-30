@@ -46,6 +46,7 @@ class DatabaseManager {
             if let date = object["date"] as? String {
                 let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
                 let minDate = getMinDate()
+                // TODO: - Remove max date condition to fix the issue if the device is unused for 30+ days
                 actuationLog.isbadlog = (date > maxDate || date < minDate)
                 actuationLog.usedatelocal = date
             }
