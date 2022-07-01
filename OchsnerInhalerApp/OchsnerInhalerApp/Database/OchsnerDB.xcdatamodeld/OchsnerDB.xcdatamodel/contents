@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AcuationLog" representedClassName="AcuationLog" syncable="YES">
+        <attribute name="batterylevel" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="deviceidmac" optional="YES" attributeType="String"/>
+        <attribute name="devicesyncdateutc" optional="YES" attributeType="String"/>
+        <attribute name="deviceuuid" optional="YES" attributeType="String"/>
+        <attribute name="isbadlog" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="issync" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String"/>
+        <attribute name="longitude" optional="YES" attributeType="String"/>
+        <attribute name="usedatelocal" optional="YES" attributeType="String"/>
+        <attribute name="uselength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Device" representedClassName="Device" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="mac" optional="YES" attributeType="String"/>
+        <attribute name="medname" optional="YES" attributeType="String"/>
+        <attribute name="medtypeid" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="puff" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reminder" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="scheduledoses" optional="YES" attributeType="String"/>
+        <attribute name="setrtc" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="udid" optional="YES" attributeType="String"/>
+        <attribute name="version" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="AcuationLog" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="Device" positionX="-63" positionY="45" width="128" height="179"/>
+    </elements>
+</model>

@@ -1,0 +1,33 @@
+## Build generated
+build/
+DerivedData
+
+# Ignore macOS Finder user-related files
+.DS_Store
+
+# Ignore Xcode user-related files
+xcuserdata/
+
+# Ignore AppCode user-related files
+.idea/
+
+# Ignore CocoaPods installed files
+Pods/
+
+# Ignore Carthage installed files
+Carthage/
+
+# Xcode per-user config
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+xcuserdata
+*.xcworkspacedata
+*.IDEWorkspaceChecks.plist
+.last_build_id
+
+OchsnerInhalerApp.xcscheme
