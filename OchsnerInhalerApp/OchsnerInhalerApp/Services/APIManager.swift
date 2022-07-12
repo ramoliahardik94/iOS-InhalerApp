@@ -96,7 +96,7 @@ class APIManager {
                     completion?(RuntimeError(ValidationMsg.CommonError), nil)
                 }
             } else {
-                Logger.logError("Response :: failure :: status code \(statusCode ?? 0) :: \(route) ::\n\n \(String(describing: response.value))")
+                Logger.logError("Response :: failure :: status code \(statusCode ?? 0) :: \(route) ::\n\n \(String(describing: response.value)):: \n\n \(response)")
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {
