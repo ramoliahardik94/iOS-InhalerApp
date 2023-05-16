@@ -37,7 +37,6 @@ class PeriperalType: NSObject {
     }
 }
 
-
 class BLEHelper: NSObject {
     
     // MARK: Variable declaration
@@ -66,7 +65,16 @@ class BLEHelper: NSObject {
         if !isSet {
             addLogObserver()
         }
-        centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.global(qos: .utility), options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
+        if centralManager.state == .poweredOn {
+            print("Connected.")
+            // TODO: Bug-1 Bluetooth permission crash
+            centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.global(qos: .utility), options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
+        } else {
+            print("Not Connected.")
+            if let topVC =  UIApplication.topViewController() {
+                topVC.view.makeToast(ValidationMsg.bluetoothOn)
+            }
+        }
     }
     
     func isAllowed(completion: @escaping ((Bool) -> Void)) {
@@ -108,7 +116,6 @@ class BLEHelper: NSObject {
         if peripheral.discoveredPeripheral != nil && peripheral.charectristicWrite != nil && peripheral.discoveredPeripheral?.state == .connected {
             Logger.logInfo("Get Actuation number for \(peripheral.addressMAC)")
             peripheral.discoveredPeripheral?.writeValue(TransferService.requestGetNoActuation.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
-            
         }
     }
     

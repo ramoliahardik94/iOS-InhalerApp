@@ -90,7 +90,6 @@ extension BLEHelper {
         } else {
             self.apiCallDeviceUsage(param: prepareAcuationLogParam(mac: mac))
         }
-        
     }
     
     /// use for get parameter from databse for sync data to *deviceuse* API
@@ -151,7 +150,7 @@ extension BLEHelper {
                                 NotificationCenter.default.post(name: .DataSyncDone, object: nil)
                             }
                             Logger.logInfo("Sync Fail : \(error?.statusCode ?? 0) :: \(error?.message ?? "")")
-                            hideDashboardStatus(msg: BLEStatusMsg.syncFailApi, colorBG: .ColorHomeIconRed)
+                            self.hideDashboardStatus(msg: BLEStatusMsg.syncFailApi, colorBG: .ColorHomeIconRed)
                         }
                         // }
                     }

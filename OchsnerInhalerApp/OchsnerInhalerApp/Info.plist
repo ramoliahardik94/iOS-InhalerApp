@@ -6,20 +6,6 @@
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This will allow the Application to fetch and bind user location with actuation logs.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This will allow the Application to fetch and bind user location with actuation logs.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This will allow the Application to fetch and bind user location with actuation logs.</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Bluetooth permissions are required to access the Inhaler sensor device.</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Bluetooth permissions are required to access the Inhaler sensor device.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Pro-Display-BoldItalic.otf</string>
@@ -57,7 +43,5 @@
 		<string>location</string>
 		<string>processing</string>
 	</array>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>

@@ -163,9 +163,7 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ManageDeviceVC: ManageDeviceDelegate {
     
-
     func editDirection(index: Int, section: Int) {
-        
         Logger.logInfo("Edit Direction Click")
         let medicationDetailVC = MedicationDetailVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
         let medication = MedicationVM()
@@ -175,6 +173,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
         medication.puff = device.puffs
         medication.arrTime = device.arrTime
         medication.macAddress = device.internalID
+        medication.description = device.discription
         medicationDetailVC.medicationVM = medication
         pushVC(controller: medicationDetailVC)
     }

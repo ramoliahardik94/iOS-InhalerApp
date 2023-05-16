@@ -44,7 +44,7 @@ extension AcuationLog {
                       "Latitude": Double(latitude!)! as Any,
                       "Longitude": Double(longitude!)! as Any,
                       "UseLength": uselength,
-                      "BatteryLevel": batterylevel as Any ]
+                      "BatteryLevel": batterylevel as Any]
         let arr = [["DeviceId": deviceidmac as Any, "Usage": [dicLog]]]
         return arr
     }

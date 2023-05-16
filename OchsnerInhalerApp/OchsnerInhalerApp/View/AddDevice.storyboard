@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -360,7 +360,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uDv-FX-rEj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-150" y="204"/>
+            <point key="canvasLocation" x="-159" y="223"/>
         </scene>
         <!--Add Device IntroVC-->
         <scene sceneID="UhL-yO-sso">
@@ -396,7 +396,7 @@
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BLEDeviceCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="BLEDeviceCell" rowHeight="109" id="aMO-5B-mtN" customClass="BLEDeviceCell" customModule="OchsnerInhalerApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="375" height="109"/>
+                                                <rect key="frame" x="0.0" y="50" width="375" height="109"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aMO-5B-mtN" id="ais-GC-YhX">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="109"/>
@@ -648,7 +648,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MedicationCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="MedicationCell" rowHeight="89" id="7Tq-ME-OLc" customClass="MedicationCell" customModule="OchsnerInhalerApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="311" height="89"/>
+                                                <rect key="frame" x="0.0" y="50" width="311" height="89"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Tq-ME-OLc" id="3UQ-XY-YaP">
                                                     <rect key="frame" x="0.0" y="0.0" width="311" height="89"/>
@@ -1029,7 +1029,7 @@
                                             </constraints>
                                         </view>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="PCB-1M-tdH">
-                                            <rect key="frame" x="0.0" y="504" width="321" height="110"/>
+                                            <rect key="frame" x="0.0" y="515" width="321" height="110"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gg1-ha-c2Q">
@@ -1119,7 +1119,7 @@
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="DoseTimeCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DoseTimeCell" id="gSQ-OS-Uyc" customClass="DoseTimeCell" customModule="OchsnerInhalerApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="431.5" width="321" height="50"/>
+                                                <rect key="frame" x="0.0" y="437" width="321" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gSQ-OS-Uyc" id="Mwp-2h-eGW">
                                                     <rect key="frame" x="0.0" y="0.0" width="321" height="50"/>
@@ -1392,9 +1392,9 @@
         <image name="noun_X" width="24" height="24"/>
         <image name="selRadio" width="34" height="34"/>
         <image name="selRadiosmall" width="29" height="29"/>
-        <image name="timer" catalog="system" width="128" height="121"/>
+        <image name="timer" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

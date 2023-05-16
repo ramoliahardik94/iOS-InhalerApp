@@ -34,7 +34,8 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     var selectedPeripheral: CBPeripheral?
     var isConnectedToOTA = false
     var isUpdateAll = false
-     var medname = String()
+    var medname = String()
+    
     override func viewDidLoad() {
         otaProfile = RTKOTAProfile()
         otaProfile.delegate = self
@@ -60,7 +61,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         if let type = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.udid == selectedPeripheral?.identifier.uuidString}) {
             self.medname = "\(type.medname!) (\(type.medtypeid ==  1 ?  StringUserManagement.strRescue :  StringUserManagement.strMaintenance))"
         }
-        lblMedname.text = "\(self.medname) "
+        lblMedname.text = "\(self.medname)"
     }
     
     func startConnection() {
@@ -88,8 +89,9 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         DatabaseManager.share.setRTCFor(udid: selectedPeripheral!.identifier.uuidString, value: false)
         self.dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func btnTryAgainClick(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
+//      self.dismiss(animated: true, completion: nil)
         progressView.isHidden = false
         lblTitle.text = OTAMessages.titleUpgrade
         viewTryAgain.isHidden = true

@@ -67,6 +67,8 @@ class ProfileVC: BaseVC {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
+        // TODO: Bug-2 profile not refresh when user go offline to online.
+        apiGetProfileData()
     }
     
     private func setupButton(button: UIButton, title: String) {

@@ -16,8 +16,6 @@ struct EntityName {
     static let device = "Device"
 }
 
-
-
 class DatabaseManager {
     static var share = DatabaseManager()
     
@@ -240,8 +238,8 @@ class DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
-        
     }
+    
     func getIsSetRTC(udid: String) -> Bool {
         var device = [Device]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
@@ -282,7 +280,6 @@ class DatabaseManager {
             debugPrint("There was an error")
         }
     }
-//
     
     
     func deleteAllDevice() {
@@ -308,7 +305,6 @@ class DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
-        
         return device
     }
  

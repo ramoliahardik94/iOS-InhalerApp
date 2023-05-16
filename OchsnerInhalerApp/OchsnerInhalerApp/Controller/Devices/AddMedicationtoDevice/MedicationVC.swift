@@ -67,8 +67,8 @@ class MedicationVC: BaseVC {
         
         btnNext.setButtonView(StringAddDevice.next)
         tblMedication.separatorStyle = UITableViewCell.SeparatorStyle.none
-        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        tblMedication.addSubview(refreshControl)
+//        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+//        tblMedication.addSubview(refreshControl)
     }
     
     @objc func refresh(_ sender: AnyObject) {

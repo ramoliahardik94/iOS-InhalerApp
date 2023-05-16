@@ -41,7 +41,7 @@ extension BLEHelper {
             }
             DispatchQueue.main.async {
                 if let topVC =  UIApplication.topViewController() {
-                    topVC.view.makeToast(ValidationMsg.bluetoothOn)
+                  //  topVC.view.makeToast(ValidationMsg.bluetoothOn)
                 }
             }
         }
