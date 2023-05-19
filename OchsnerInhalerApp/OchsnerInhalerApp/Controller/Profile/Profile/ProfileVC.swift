@@ -46,7 +46,6 @@ class ProfileVC: BaseVC {
         lblShareLocation.setFont(type: .regular, point: 21)
         lblShareUsageWithProvider.setFont(type: .regular, point: 21)
 
-        
         lblEmail.text =  ""
         lblProvider.text = ""
         
@@ -54,11 +53,8 @@ class ProfileVC: BaseVC {
         lblReceiveNotifications.text = StringProfile.receiveNotifications
         lblShareLocation.text = StringProfile.shareLocation
         lblShareUsageWithProvider.text = StringProfile.shareUsageWithProvider
-
         btnAppVersion.setTitle("V - \(appVersion())", for: .normal)
-
         apiGetProfileData()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

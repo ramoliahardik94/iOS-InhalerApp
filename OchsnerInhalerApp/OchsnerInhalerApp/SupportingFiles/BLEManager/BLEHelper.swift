@@ -61,6 +61,8 @@ class BLEHelper: NSObject {
         isSet = true
     }
     
+    
+    // TODO: Bug - 5
     func setDelegate() {
         if !isSet {
             addLogObserver()
@@ -69,10 +71,29 @@ class BLEHelper: NSObject {
             print("Connected.")
             // TODO: Bug-1 Bluetooth permission crash
             centralManager = CBCentralManager(delegate: self, queue: DispatchQueue.global(qos: .utility), options: [CBCentralManagerOptionShowPowerAlertKey: true, CBCentralManagerOptionRestoreIdentifierKey: "BLEcenteralManager", CBCentralManagerRestoredStatePeripheralsKey: "BLEdevice"])
-        } else {
-            print("Not Connected.")
+        } else if centralManager.state == .unauthorized {
             if let topVC =  UIApplication.topViewController() {
                 topVC.view.makeToast(ValidationMsg.bluetoothOn)
+            }
+        } else if centralManager.state == .poweredOff {
+            if let topVC =  UIApplication.topViewController() {
+                topVC.view.makeToast(ValidationMsg.bluetoothOn)
+            }
+            
+        } else if centralManager.state == .unsupported {
+            if let topVC =  UIApplication.topViewController() {
+                topVC.view.makeToast("unsupported")
+            }
+            
+        } else if centralManager.state == .resetting {
+            if let topVC =  UIApplication.topViewController() {
+                topVC.view.makeToast("resetting")
+            }
+        } else if centralManager.state == .unknown {
+            print("Unknown")
+         } else {
+            if let topVC =  UIApplication.topViewController() {
+                topVC.view.makeToast("resetting")
             }
         }
     }
