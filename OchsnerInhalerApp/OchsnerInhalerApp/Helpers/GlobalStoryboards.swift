@@ -7,6 +7,7 @@ import UIKit
 enum AppStoryBoardString: String {
     case main = "Main"
     case providers = "Providers"
+    case graphDetail = "GraphDetail"
     case permissions = "Permissions"
     case deviceList = "DeviceList"
     case profile = "Profile"

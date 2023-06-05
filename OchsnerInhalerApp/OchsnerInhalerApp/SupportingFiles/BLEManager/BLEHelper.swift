@@ -61,7 +61,6 @@ class BLEHelper: NSObject {
         isSet = true
     }
     
-    
     // TODO: Bug - 5
     func setDelegate() {
         if !isSet {

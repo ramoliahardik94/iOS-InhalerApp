@@ -135,6 +135,11 @@
 		47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662527BBB843004A2006 /* ManageDeviceVM.swift */; };
 		47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662727BBB857004A2006 /* DeviceModel.swift */; };
 		47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */; };
+		A17FBB8D2A2DD5D7009414DE /* GraphDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBB8C2A2DD5D7009414DE /* GraphDetail.storyboard */; };
+		A17FBB932A2DD619009414DE /* AddManuallyDoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBB8F2A2DD619009414DE /* AddManuallyDoseViewController.swift */; };
+		A17FBB942A2DD619009414DE /* GraphDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBB902A2DD619009414DE /* GraphDetailVC.swift */; };
+		A17FBB952A2DD619009414DE /* GraphDataTebleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBB912A2DD619009414DE /* GraphDataTebleViewCell.swift */; };
+		A17FBB962A2DD619009414DE /* GraphDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBB922A2DD619009414DE /* GraphDetailCollectionViewCell.swift */; };
 		F35678A225D81FED6005228C /* Pods_OchsnerInhalerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0537F0FE35FEA6D61EF817F4 /* Pods_OchsnerInhalerApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -288,6 +293,11 @@
 		47E1662727BBB857004A2006 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.release.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.release.xcconfig"; sourceTree = "<group>"; };
+		A17FBB8C2A2DD5D7009414DE /* GraphDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GraphDetail.storyboard; sourceTree = "<group>"; };
+		A17FBB8F2A2DD619009414DE /* AddManuallyDoseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddManuallyDoseViewController.swift; sourceTree = "<group>"; };
+		A17FBB902A2DD619009414DE /* GraphDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDetailVC.swift; sourceTree = "<group>"; };
+		A17FBB912A2DD619009414DE /* GraphDataTebleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDataTebleViewCell.swift; sourceTree = "<group>"; };
+		A17FBB922A2DD619009414DE /* GraphDetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -754,6 +764,7 @@
 				22AE96FE278EAA5100C0D851 /* Profile */,
 				22AE96FA278EA8FA00C0D851 /* Devices */,
 				22AE96F6278EA62F00C0D851 /* Permission */,
+				A17FBB8E2A2DD619009414DE /* Graph Detail */,
 				22AE96F2278EA5B300C0D851 /* Providers */,
 				22AE96EE278EA33700C0D851 /* Home */,
 				22AE96EB278E9F5F00C0D851 /* BaseController */,
@@ -878,12 +889,24 @@
 			children = (
 				47C1FEEA27958F34007C6F16 /* AddDevice.storyboard */,
 				47CDCE17278D872F0014527D /* Main.storyboard */,
+				A17FBB8C2A2DD5D7009414DE /* GraphDetail.storyboard */,
 				47CDCE9A278DA8570014527D /* Providers.storyboard */,
 				47CDCE9C278DA8820014527D /* Permissions.storyboard */,
 				47CDCE98278DA8040014527D /* UserManagement.storyboard */,
 				47CDCE1C278D87300014527D /* LaunchScreen.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A17FBB8E2A2DD619009414DE /* Graph Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A17FBB8F2A2DD619009414DE /* AddManuallyDoseViewController.swift */,
+				A17FBB902A2DD619009414DE /* GraphDetailVC.swift */,
+				A17FBB912A2DD619009414DE /* GraphDataTebleViewCell.swift */,
+				A17FBB922A2DD619009414DE /* GraphDetailCollectionViewCell.swift */,
+			);
+			path = "Graph Detail";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -973,6 +996,7 @@
 				47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */,
 				225835BF27DB167F00826713 /* GoogleService-Info.plist in Resources */,
 				4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */,
+				A17FBB8D2A2DD5D7009414DE /* GraphDetail.storyboard in Resources */,
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,
 				4796597A27D8BD7C00A4D403 /* removeTag.gif in Resources */,
@@ -1105,6 +1129,7 @@
 				224E1C9D27981AB7000C5D1A /* HomeDeviceCell.swift in Sources */,
 				47CDCE86278D89210014527D /* UITableView+Extension.swift in Sources */,
 				22CA52A827C34EF50031BDE7 /* DashboardModel.swift in Sources */,
+				A17FBB962A2DD619009414DE /* GraphDetailCollectionViewCell.swift in Sources */,
 				47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */,
 				4722F4732799148700F505D2 /* ChangePasswordVC.swift in Sources */,
 				47CDCE7D278D89210014527D /* UILabel+Extension.swift in Sources */,
@@ -1127,6 +1152,7 @@
 				47CDCE59278D88FE0014527D /* Utils.swift in Sources */,
 				2213838627BCB3DE00D4BFA0 /* AcuationLog+CoreDataProperties.swift in Sources */,
 				227197BD278FF9DB0014BC3E /* CreateAccoutVC.swift in Sources */,
+				A17FBB932A2DD619009414DE /* AddManuallyDoseViewController.swift in Sources */,
 				47CDCE7B278D89210014527D /* UIImageView+Extension.swift in Sources */,
 				2275748727D86DA6006B0122 /* Device+CoreDataClass.swift in Sources */,
 				472DC2442795328D008E0060 /* ProviderCell.swift in Sources */,
@@ -1138,6 +1164,7 @@
 				47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */,
 				4711F91227AA536E00AD063F /* BLECentralManagerDelegate.swift in Sources */,
 				47CDCE84278D89210014527D /* String.swift in Sources */,
+				A17FBB942A2DD619009414DE /* GraphDetailVC.swift in Sources */,
 				4725F2112798093000BBDA28 /* BLEDeviceCell.swift in Sources */,
 				4725F20E2797FE4300BBDA28 /* AddAnotherDeviceVC.swift in Sources */,
 				47CDCE87278D89210014527D /* UITextField+Extensions.swift in Sources */,
@@ -1159,6 +1186,7 @@
 				4710234E2796BDBD00F88876 /* MedicationVC.swift in Sources */,
 				227197CE27902CAE0014BC3E /* OchsnerCloudPermissionVC.swift in Sources */,
 				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
+				A17FBB952A2DD619009414DE /* GraphDataTebleViewCell.swift in Sources */,
 				22FC2E0627B767C700ABE886 /* ProviderListVM.swift in Sources */,
 				227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */,
 				4711F91427AA55E000AD063F /* BLEPeripheralDelegate.swift in Sources */,

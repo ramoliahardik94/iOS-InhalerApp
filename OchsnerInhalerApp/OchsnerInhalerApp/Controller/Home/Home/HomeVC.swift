@@ -8,6 +8,10 @@
 import UIKit
 import DropDown
 
+protocol graphClickDelegate {
+    func clicked(_ row: Int)
+}
+
 class HomeVC: BaseVC {
     @IBOutlet weak var activitySync: UIActivityIndicatorView!
     @IBOutlet weak var lblSyncTitle: UILabel!
@@ -26,8 +30,8 @@ class HomeVC: BaseVC {
         self.navigationController?.isNavigationBarHidden = false
         initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
-       
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
@@ -45,7 +49,6 @@ class HomeVC: BaseVC {
             CommonFunctions.getLogFromDeviceAndSync()
         }
         apiDashboard()
-       
     }
     
     private func  initUI() {
@@ -60,7 +63,7 @@ class HomeVC: BaseVC {
     private func initTableview() {
         self.view.setNeedsLayout()
         refreshControl = UIRefreshControl()
-//        refreshControl.attributedTitle = NSAttributedString(string: "Syncing Data")
+//      refreshControl.attributedTitle = NSAttributedString(string: "Syncing Data")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         refreshControl.tag = 500
         if let view = tbvDeviceData.viewWithTag(500) {
@@ -91,12 +94,11 @@ class HomeVC: BaseVC {
         }
     }
     
-
-
     @objc func apiGetHomeData(notification: Notification) {
        // CommonFunctions.showGlobalProgressHUD(self)
         apiDashboard()
     }
+    
     func apiDashboard() {
         if isPull == false {
             isPull = true
@@ -114,7 +116,7 @@ class HomeVC: BaseVC {
                         } else {
                             self.lblNoData.isHidden = true
                         }
-                        self.tbvDeviceData.reloadData()
+                            self.tbvDeviceData.reloadData()
                     }
                 case .failure(let message):
                     DispatchQueue.main.async {
@@ -136,6 +138,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellDevice, for: indexPath) as! HomeDeviceCell
         let item = homeVM.dashboardData[indexPath.row]
+        cell.cellIndex = indexPath
+        cell.delegate = self
         cell.item = item
         cell.layoutSubviews()
         return cell
@@ -146,7 +150,13 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-
+extension HomeVC: graphClickDelegate {
+    func clicked(_ row: Int) {
+        print("in Graph Button Action")
+        let graphDetailVC = GraphDetailVC.instantiateFromAppStoryboard(appStoryboard: .graphDetail)
+        pushVC(controller: graphDetailVC)
+    }
+}
 extension UIStackView {
     
     func removeFully(view: UIView) {
@@ -159,5 +169,4 @@ extension UIStackView {
             removeFully(view: view)
         }
     }
-    
 }

@@ -39,7 +39,11 @@ class HomeDeviceCell: UITableViewCell {
     @IBOutlet weak var viewCollectionView: UIView!
     @IBOutlet var stackViewArray: [UIStackView]!
     @IBOutlet weak var stackViewMain: UIStackView!
+    @IBOutlet weak var btnGraphDetails: UIButton!
+    @IBOutlet weak var viewGraphDetails: UIView!
     
+    var delegate: graphClickDelegate?
+    var cellIndex: IndexPath?
     var dailyAdherence =  [DailyAdherenceModel]()
     var count  = 0
     var item = MaintenanceModel() {
@@ -55,6 +59,7 @@ class HomeDeviceCell: UITableViewCell {
             
             if (item.type == "1") {
                 viewCollectionView.isHidden = true
+                viewGraphDetails.isHidden = true
                 viewNextDose.isHidden = true
                 viewAdherance.isHidden = true
                 viewToday.isHidden = false
@@ -65,6 +70,11 @@ class HomeDeviceCell: UITableViewCell {
                 cntRescueProprity.priority = UILayoutPriority(1000.0)
                 cntMantainancePriority.priority = UILayoutPriority(250.0)
             } else {
+                btnGraphDetails.layer.borderColor = UIColor.lightGray.cgColor
+                btnGraphDetails.layer.borderWidth = 1.5
+//                btnGraphDetails.layer.cornerRadius = 25.0 // height / 2
+//                btnGraphDetails.layer.masksToBounds = true
+                viewGraphDetails.isHidden = false
                 cntRescueProprity.priority = UILayoutPriority(250.0)
                 cntMantainancePriority.priority = UILayoutPriority(1000)
                 viewToday.isHidden = true
@@ -145,6 +155,12 @@ class HomeDeviceCell: UITableViewCell {
             }
         }
     }
+    
+    
+    @IBAction func graphDetailAction(_ sender: UIButton) {
+        delegate?.clicked(cellIndex!.row)
+    }
+    
     func getImageDoseMiss() -> UIImageView {
         let image = UIImageView()
         image.heightAnchor.constraint(equalToConstant: 16).isActive = true
@@ -229,6 +245,7 @@ class HomeDeviceCell: UITableViewCell {
         lblThisMonth.setFont(type: .light, point: 17)
         lblAdherance.setFont(type: .semiBold, point: 17)
         lblNextDose.setFont(type: .semiBold, point: 17)
+        
         lblDeviceTypeGraph.setFont(type: .semiBold, point: 17)
         lblTodayData.textColor = .ButtonColorBlue
         lblThisMonthData.textColor = .ButtonColorBlue
@@ -237,7 +254,6 @@ class HomeDeviceCell: UITableViewCell {
         lblThisWeek.text = StringHome.thisWeek
         lblThisMonth.text = StringHome.thisMonth
         lblAdherance.text = StringHome.adherance
-        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

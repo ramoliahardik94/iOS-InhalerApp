@@ -219,5 +219,4 @@ extension ManageDeviceVC: ManageDeviceDelegate {
             }
         }
     }
-    
 }
