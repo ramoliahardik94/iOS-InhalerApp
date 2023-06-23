@@ -9,7 +9,7 @@ import UIKit
 import DropDown
 
 protocol graphClickDelegate {
-    func clicked(_ row: Int)
+    func clicked(_ row: Int, doseData: MaintenanceModel)
 }
 
 class HomeVC: BaseVC {
@@ -151,9 +151,10 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 extension HomeVC: graphClickDelegate {
-    func clicked(_ row: Int) {
+    func clicked(_ row: Int, doseData: MaintenanceModel) {
         print("in Graph Button Action")
         let graphDetailVC = GraphDetailVC.instantiateFromAppStoryboard(appStoryboard: .graphDetail)
+        graphDetailVC.doseDetailData = doseData
         pushVC(controller: graphDetailVC)
     }
 }

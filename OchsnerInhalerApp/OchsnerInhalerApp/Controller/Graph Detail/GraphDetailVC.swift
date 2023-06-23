@@ -9,15 +9,24 @@ import UIKit
 
 class GraphDetailVC: BaseVC {
     var arrGraphDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    var arrPuffName = [["ProAir", "Ventolin"], ["Teva (ProAir Generic)"], ["ProAir", "Ventolin", "Teva (ProAir Generic)"], ["Teva (ProAir Generic)"], ["Teva (ProAir Generic)", "Ventolin"], ["Teva (ProAir Generic)"], ["ProAir", "Ventolin", "Teva (ProAir Generic)"]]
     var selectedDay: Int = 0
+    var doseDetailData = MaintenanceModel()
     @IBOutlet weak var graphDetailTV: UITableView!
     @IBOutlet weak var btnAddDose: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddDose.layer.cornerRadius = 5
-        
+    }
+    
+    func timeFormatter(time: String) -> String {
+        let dateAsString = time
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        let hourDate = dateFormatter.date(from: dateAsString)
+        dateFormatter.dateFormat = "h:mm a"
+        let date12 = dateFormatter.string(from: hourDate!)
+        return date12
     }
     
     @IBAction func addDoseAction(_ sender: UIButton) {
@@ -65,19 +74,24 @@ extension GraphDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
 extension GraphDetailVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrPuffName[selectedDay].count
+        return doseDetailData.today?.doseDetail.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GraphData") as! GraphDataTebleViewCell
-        cell.lblDoseName.text = arrPuffName[selectedDay][indexPath.row]
+        let date =  doseDetailData.today?.doseDetail[indexPath.row].datetime?.components(separatedBy: "T")
+        let time = date?[1].description.components(separatedBy: "+")
+        let time24 = timeFormatter(time: time?[0] ?? "12:00")
+        
+        cell.lblDoseTime.text = time24
+        cell.lblDoseDate.text = date?[0] ?? ""
+        cell.lblDoseName.text = doseDetailData.medName
         cell.bgCardView.setBorder(0, color: .lightGray, radius: 9)
         cell.bgCardView.layer.shadowColor = UIColor.lightGray.cgColor
         cell.bgCardView.layer.shadowOpacity = 1
         cell.bgCardView.layer.shadowOffset = .zero
         cell.bgCardView.layer.shadowRadius = 3
         cell.viewDoseCircle.setCornerRadius(10.0)
-        
         return cell
     }
     

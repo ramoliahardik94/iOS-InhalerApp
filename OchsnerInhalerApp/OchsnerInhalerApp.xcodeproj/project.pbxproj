@@ -1344,10 +1344,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 14;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ERXT8P6AQW;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 68L27Q5KGU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1382,9 +1384,10 @@
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
 				MARKETING_VERSION = 1.0.18;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.volansys.global;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Volansys Global Development";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1402,9 +1405,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OchsnerInhalerApp/OchsnerInhalerApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 14;
-				DEVELOPMENT_TEAM = ERXT8P6AQW;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 68L27Q5KGU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1439,9 +1444,10 @@
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
 				MARKETING_VERSION = 1.0.18;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
+				PRODUCT_BUNDLE_IDENTIFIER = com.volansys.global;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Volansys Global Development";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;

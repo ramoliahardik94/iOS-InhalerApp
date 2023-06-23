@@ -89,6 +89,7 @@ class MaintenanceModel: NSObject {
 }
 class UsageModel: NSObject {
     var count: Int? // ": null,
+    var doseDetail = [DoseDetails]()
     var adherence: Int? // ": 0,
     var status: Int? // ": 3,
     var change: String? // ": "Up"
@@ -106,8 +107,22 @@ class UsageModel: NSObject {
         if let value = jSon["Change"] as? String {
             self.change = value
         }
+        if let value = jSon["DoseDetail"] as? [[String: Any]] {
+            for item in value {
+                self.doseDetail.append(DoseDetails(jSon: item))
+            }
+        }
     }
+}
+
+class DoseDetails: NSObject {
+    var datetime: String? // ": null,
     
+    init(jSon: [String: Any]) {
+        if let value = jSon["DateTime"] as? String {
+            self.datetime = value
+        }
+    }
 }
 class DailyAdherenceModel: NSObject {
     var day: String? // ": "Sa",

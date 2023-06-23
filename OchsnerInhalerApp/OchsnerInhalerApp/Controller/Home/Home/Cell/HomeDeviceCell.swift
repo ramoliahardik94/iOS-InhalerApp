@@ -59,16 +59,16 @@ class HomeDeviceCell: UITableViewCell {
             
             if (item.type == "1") {
                 viewCollectionView.isHidden = true
-                viewGraphDetails.isHidden = true
+                viewGraphDetails.isHidden = false
                 viewNextDose.isHidden = true
                 viewAdherance.isHidden = true
                 viewToday.isHidden = false
                 lblTodayData.text = "\(item.today?.count ?? 0)"
                 lblThisWeekData.text = "\(item.thisWeek?.count ?? 0)"
                 lblThisMonthData.text = "\(item.thisMonth?.count ?? 0)"
-                cntRescueProprity.constant = 0
-                cntRescueProprity.priority = UILayoutPriority(1000.0)
-                cntMantainancePriority.priority = UILayoutPriority(250.0)
+//                cntRescueProprity.constant = 0
+//                cntRescueProprity.priority = UILayoutPriority(1000.0)
+//                cntMantainancePriority.priority = UILayoutPriority(250.0)
             } else {
                 btnGraphDetails.layer.borderColor = UIColor.lightGray.cgColor
                 btnGraphDetails.layer.borderWidth = 1.5
@@ -158,7 +158,7 @@ class HomeDeviceCell: UITableViewCell {
     
     
     @IBAction func graphDetailAction(_ sender: UIButton) {
-        delegate?.clicked(cellIndex!.row)
+        delegate?.clicked(cellIndex!.row, doseData: item)
     }
     
     func getImageDoseMiss() -> UIImageView {

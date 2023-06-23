@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(backgroundCall), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(foregroundCall), name: UIApplication.didBecomeActiveNotification, object: nil)
         
-        
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         if paths.count != 0 {
             print("Library Directory : ", paths[0] )
