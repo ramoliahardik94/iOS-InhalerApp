@@ -4,16 +4,13 @@
 //
 //  Created by Nikita Bhatt on 25/01/22.
 //
-
 import UIKit
 import Photos
 import MBProgressHUD
 
-
 open class CommonFunctions {
     
     // MARK: - Alert
-    
     public class func showMessage(message: String, titleOk: String = "Ok", _ completion: @escaping ((Bool?) -> Void ) = {_ in }) {
         let alert = UIAlertController(title: (""), message: message, preferredStyle: UIAlertController.Style.alert)
         
@@ -105,7 +102,7 @@ open class CommonFunctions {
                     isAlertVersionDisplay = false
                 }
             }
-        }
+          }
         }
     }
     public class func checkVersion() {
@@ -122,7 +119,6 @@ open class CommonFunctions {
             })
         }
     }
-    
     
     public class func apiCallAppVersion(isUpgradeAppVersion: @escaping ((Bool, String) -> Void)) {
         background {
@@ -195,7 +191,6 @@ open class CommonFunctions {
         }
     }
     // MARK: - Alert Permission
-    
     public class func showMessagePermission(message: String, cancelTitle: String = "Cancel", okTitle: String = "Ok", isOpenBluetooth: Bool, _ completion: @escaping ((Bool?) -> Void ) = { _ in }) {
         let alert = UIAlertController(title: (message), message: "", preferredStyle: UIAlertController.Style.alert)
         
@@ -245,10 +240,10 @@ open class CommonFunctions {
             }
         }
     }
+    
     class func hideGlobalProgressHUD(_ viewcontroller: UIViewController) {
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: viewcontroller.view, animated: true)
-            
         }
     }
     
@@ -258,13 +253,11 @@ open class CommonFunctions {
         app.open(url)
     }
     
-    
     func redirectBluetoothAppSetting() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         let app = UIApplication.shared
         app.open(url)
     }
-    
 }
 
 extension TimeZone {

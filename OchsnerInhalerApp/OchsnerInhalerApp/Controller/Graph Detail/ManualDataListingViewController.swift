@@ -1,13 +1,14 @@
 //
-//  GraphDetailVC.swift
+//  ManualDataListingViewController.swift
 //  OchsnerInhalerApp
 //
-//  Created by Hardi Patel on 09/05/23.
+//  Created by Hardi Patel on 03/07/23.
 //
 
 import UIKit
 
-class GraphDetailVC: BaseVC {
+class ManualDataListingViewController: UIViewController {
+
     var arrGraphDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     var selectedDay: Int = 0
     var doseDetailData = MaintenanceModel()
@@ -23,27 +24,27 @@ class GraphDetailVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddDose.layer.cornerRadius = 5
-        print(doseDetailData.today?.doseDetail.count ?? 0)
+        print(doseDetailData.today?.doseDetail.count ?? 0 )
         for doseData in doseDetailData.today?.doseDetail ?? [] {
+            print("datetime", doseData.datetime)
             let date =  doseData.datetime?.components(separatedBy: "T")
             let time = date?[1].description.components(separatedBy: "+")
             currentDate = date?[0] ?? ""
             let time24 = timeFormatter(time: time?[0] ?? "12:00")
             arrPuffTime.append(time24)
-            Logger.logInfo("Total Number of Puff and Time: \(arrPuffTime)")
+            print("total puff", arrPuffTime)
+        }
+        let countedSet = NSCountedSet(array: arrPuffTime)
+        for value in countedSet {
+            print("Element:", value, "count:", countedSet.count(for: value))
+            totalPuffTime.append(value)
+            totalPuffCount.append("\(countedSet.count(for: value))")
         }
         
-        // MARK: Duplicate data count for Time and Puff
-        let mappedItems = arrPuffTime.map { ($0, 1) }
-        let counts = Dictionary(mappedItems, uniquingKeysWith: +)
-        let sortedKeysAndValues = Array(counts).sorted(by: { $0.0 < $1.0 })
-        for (key, value) in sortedKeysAndValues {
-            totalPuffTime.append(key)
-            totalPuffCount.append("\(value)")
-        }
-        totalPuffTime.reverse()
-        totalPuffCount.reverse()
+        print("total Puff --", totalPuffTime)
+        print("total count --", totalPuffCount)
     }
+
     
     func timeFormatter(time: String) -> String {
         let dateAsString = time
@@ -58,13 +59,12 @@ class GraphDetailVC: BaseVC {
     @IBAction func addDoseAction(_ sender: UIButton) {
         
         let addManuallyDoseVC = AddManuallyDoseViewController.instantiateFromAppStoryboard(appStoryboard: .graphDetail)
-        addManuallyDoseVC.doseDetailData = doseDetailData
         addManuallyDoseVC.navigationTitle = "Add Dose"
-        pushVC(controller: addManuallyDoseVC)
+       // pushVC(controller: addManuallyDoseVC)
     }
 }
 
-extension GraphDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ManualDataListingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrGraphDays.count
     }
@@ -74,6 +74,7 @@ extension GraphDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         cell.lblGraphDays.text = arrGraphDays[indexPath.row]
         cell.graphBgView.setBorder(1, color: .lightGray, radius: 9)
+        
         return cell
     }
     
@@ -96,10 +97,10 @@ extension GraphDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-extension GraphDetailVC: UITableViewDelegate, UITableViewDataSource {
+extension ManualDataListingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return totalPuffTime.count 
+        return totalPuffTime.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,6 +108,12 @@ extension GraphDetailVC: UITableViewDelegate, UITableViewDataSource {
         let date =  doseDetailData.today?.doseDetail[indexPath.row].datetime?.components(separatedBy: "T")
         let time = date?[1].description.components(separatedBy: "+")
         let time24 = timeFormatter(time: time?[0] ?? "12:00")
+        
+//        if arrPuffTime.contains(time24) == false {
+//            arrPuffTime.append(time24)
+//        } else {
+//            print("Already Exist!!!")
+//        }
         
         cell.lblDoseTime.text = totalPuffTime[indexPath.row] as? String
         cell.lblDoseDate.text = currentDate
@@ -124,8 +131,7 @@ extension GraphDetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         let addManuallyDoseVC = AddManuallyDoseViewController.instantiateFromAppStoryboard(appStoryboard: .graphDetail)
-        addManuallyDoseVC.doseDetailData = doseDetailData
         addManuallyDoseVC.navigationTitle = "Update Dose"
-        pushVC(controller: addManuallyDoseVC)
+       // pushVC(controller: addManuallyDoseVC)
     }
 }

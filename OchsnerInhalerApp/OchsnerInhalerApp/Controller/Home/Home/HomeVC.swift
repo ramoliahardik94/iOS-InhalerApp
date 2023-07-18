@@ -128,7 +128,6 @@ class HomeVC: BaseVC {
             self.refreshControl.endRefreshing()
         }
     }
-
 }
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -153,9 +152,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 extension HomeVC: graphClickDelegate {
     func clicked(_ row: Int, doseData: MaintenanceModel) {
         print("in Graph Button Action")
-        let graphDetailVC = GraphDetailVC.instantiateFromAppStoryboard(appStoryboard: .graphDetail)
-        graphDetailVC.doseDetailData = doseData
-        pushVC(controller: graphDetailVC)
+        if doseData.type == "1" {
+            let graphDetailVC = GraphDetailVC.instantiateFromAppStoryboard(appStoryboard: .graphDetail)
+            graphDetailVC.doseDetailData = doseData
+            pushVC(controller: graphDetailVC)
+        } else {
+            //MARK: Maintanance Navigation Flow
+            //let manualDataListingViewController = ManualDataListingViewController.instantiateFromAppStoryboard(appStoryboard: .manualDataListingViewController)
+            //graphDetailVC.doseDetailData = doseData
+            //pushVC(controller: manualDataListingViewController)
+        }
     }
 }
 extension UIStackView {

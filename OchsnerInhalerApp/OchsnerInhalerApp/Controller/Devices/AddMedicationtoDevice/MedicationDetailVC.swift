@@ -169,6 +169,7 @@ class MedicationDetailVC: BaseVC {
                         }
                     case .failure(let message):
                         CommonFunctions.showMessage(message: message)
+                        NotificationManager.shared.removeAllPendingLocalNotification()
                     }
                 }
             } else {

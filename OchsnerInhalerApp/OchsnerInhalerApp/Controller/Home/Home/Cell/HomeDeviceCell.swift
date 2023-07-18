@@ -12,7 +12,6 @@ import CoreMIDI
 class HomeDeviceCell: UITableViewCell {
     
     @IBOutlet weak var lblDeviceName: UILabel!
-    // @IBOutlet weak var lblDeviceType: UILabel!
     @IBOutlet weak var lblToday: UILabel!
     @IBOutlet weak var lblTodayData: UILabel!
     @IBOutlet weak var lblThisWeekData: UILabel!
@@ -58,6 +57,8 @@ class HomeDeviceCell: UITableViewCell {
             ivThisWeek.setImageColor(week.color)
             
             if (item.type == "1") {
+                btnGraphDetails.layer.borderColor = UIColor.lightGray.cgColor
+                btnGraphDetails.layer.borderWidth = 1.5
                 viewCollectionView.isHidden = true
                 viewGraphDetails.isHidden = false
                 viewNextDose.isHidden = true
@@ -66,15 +67,19 @@ class HomeDeviceCell: UITableViewCell {
                 lblTodayData.text = "\(item.today?.count ?? 0)"
                 lblThisWeekData.text = "\(item.thisWeek?.count ?? 0)"
                 lblThisMonthData.text = "\(item.thisMonth?.count ?? 0)"
-//                cntRescueProprity.constant = 0
-//                cntRescueProprity.priority = UILayoutPriority(1000.0)
-//                cntMantainancePriority.priority = UILayoutPriority(250.0)
+                
+                // TODO: Comment this when using view detail button
+                // cntRescueProprity.constant = 0
+                // cntRescueProprity.priority = UILayoutPriority(1000.0)
+                // cntMantainancePriority.priority = UILayoutPriority(250.0)
             } else {
                 btnGraphDetails.layer.borderColor = UIColor.lightGray.cgColor
                 btnGraphDetails.layer.borderWidth = 1.5
-//                btnGraphDetails.layer.cornerRadius = 25.0 // height / 2
-//                btnGraphDetails.layer.masksToBounds = true
-                viewGraphDetails.isHidden = false
+                
+                // TODO: Mark as a Reusable item
+                // btnGraphDetails.layer.cornerRadius = 25.0 // height / 2
+                // btnGraphDetails.layer.masksToBounds = true
+                viewGraphDetails.isHidden = true
                 cntRescueProprity.priority = UILayoutPriority(250.0)
                 cntMantainancePriority.priority = UILayoutPriority(1000)
                 viewToday.isHidden = true
@@ -158,6 +163,7 @@ class HomeDeviceCell: UITableViewCell {
     
     
     @IBAction func graphDetailAction(_ sender: UIButton) {
+        Logger.logInfo("Seleted Graph Data Item \(item.type ?? "")")
         delegate?.clicked(cellIndex!.row, doseData: item)
     }
     

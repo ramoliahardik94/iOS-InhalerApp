@@ -42,7 +42,7 @@ struct StringCommonMessages {
     static let  noDataFount = "No record found"
     static let  notSet = "Not set"
     static let  schedule = "Schedule"
-    static let  privacyUrl = "https://connectedliving.ochsner.org/privacy.html"
+    static let  privacyUrl = "https://www.ochsner.org/patients-visitors/privacy-policies/ochsner-privacy-policy"
 }
 struct AppFont {
     static let AppRegularFont = Constants.CustomFont.SFProTextRegular
@@ -66,7 +66,6 @@ struct OTAMessages {
     static let retry = "Try Again!"
     static let Installed = "Up to Date"
     static let errorBattery = "Low Battery! Unable to upgrade"
-    
 }
 // MARK: UserManagement
 struct StringUserManagement {

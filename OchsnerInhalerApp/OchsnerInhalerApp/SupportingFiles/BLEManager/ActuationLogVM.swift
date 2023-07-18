@@ -4,7 +4,6 @@
 //
 //  Created by Nikita Bhatt on 15/03/22.
 //
-
 import Foundation
 import UIKit
 
@@ -66,7 +65,6 @@ extension BLEHelper {
                                 self.apiCallForActuationlog(mac: discoverPeripheral.addressMAC)
                                 discoverPeripheral.isFromNotification = false
                             }
-                            
                         } else {
                             actuationAPI_LastActuation()
                         }
@@ -141,7 +139,7 @@ extension BLEHelper {
                                 }
                                 hideDashboardStatus(msg: BLEStatusMsg.syncSuccess)
                             }
-//                        }
+                            // }
                         }
                     } else {
                         

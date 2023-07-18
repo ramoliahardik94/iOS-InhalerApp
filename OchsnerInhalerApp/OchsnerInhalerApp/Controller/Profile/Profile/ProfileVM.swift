@@ -37,7 +37,6 @@ class ProfileVM {
             print("events  = \(events)")
             
         }
-        
     }
 
     func removeProvider(url: String, completionHandler: @escaping ((APIResult) -> Void)) {
@@ -51,6 +50,5 @@ class ProfileVM {
                 // }
             }
         }
-        
     }
 }

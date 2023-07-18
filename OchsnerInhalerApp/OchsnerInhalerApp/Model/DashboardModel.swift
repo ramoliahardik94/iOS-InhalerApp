@@ -18,7 +18,7 @@ class DashboardModel: NSObject {
             for item in value {
                 rescueData.append(MaintenanceModel(jSon: item, type: "1"))
             }
-          //  self.rescueData = value
+          //self.rescueData = value
         }
     
         if let value = jSon["MaintenanceData"] as? [[String: Any]] {
@@ -50,15 +50,14 @@ class RescueModel: NSObject {
             self.thisMonth = UsageModel(jSon: value)
         }
     }
-    
 }
+
 class MaintenanceModel: NSObject {
     var medName: String? // ": "ProAir",
     var nextScheduledDose: String? // ": "ProAir",
     var thisWeek: UsageModel?
     var thisMonth: UsageModel?
     var dailyAdherence =  [DailyAdherenceModel]()
-    
     var today: UsageModel?
     var type: String? // for Rescue=1 Mantainance=2
     override init () {

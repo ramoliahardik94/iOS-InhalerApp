@@ -12,7 +12,6 @@ import UIKit
 
 extension BLEHelper {
     
-    
     /// For scan peripheral
     /// if "isTimer" is true it set Timer of 15 sec after tat it notify .BLENotFound
     /// isTimer default value is false is set Timer of 30 second not notify
@@ -28,7 +27,6 @@ extension BLEHelper {
                     timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
                     self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)
                 }
-                
                 isScanning = true
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .BLEChange, object: nil)
@@ -135,7 +133,6 @@ extension BLEHelper {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .BLEChange, object: nil)
         }
-        
     }
     
     /// This function is use for cleanup BLE Task

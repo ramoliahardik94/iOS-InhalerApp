@@ -97,8 +97,6 @@ class OTAUpgradeDetailsVC: BaseVC {
             self.presentVC(controller: bleUpgrade)
         }
     }
-    
- 
 }
 
 extension OTAUpgradeDetailsVC: UITableViewDelegate, UITableViewDataSource, OTAUpgradeDelegate {

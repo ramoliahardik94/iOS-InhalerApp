@@ -6,7 +6,6 @@ enum APIResult {
     case failure(String)
 }
 
-
 enum MQTTResult {
     case success(Any)
     case failure(String)

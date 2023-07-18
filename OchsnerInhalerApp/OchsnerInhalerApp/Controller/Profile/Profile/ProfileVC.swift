@@ -31,8 +31,9 @@ class ProfileVC: BaseVC {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileVC.emailClick(sender:)))
+                lblEmail.isUserInteractionEnabled = true
+                lblEmail.addGestureRecognizer(tap)
         
         setupButton(button: btnUpdateEmail, title: StringProfile.updateEmail)
        // setupButton(button: btnChangePassword, title: StringProfile.changePassword)
@@ -55,6 +56,18 @@ class ProfileVC: BaseVC {
         lblShareUsageWithProvider.text = StringProfile.shareUsageWithProvider
         btnAppVersion.setTitle("V - \(appVersion())", for: .normal)
         apiGetProfileData()
+    }
+    
+    //MARK: For Feedback Email redirection
+    @objc func emailClick(sender: UITapGestureRecognizer) {
+        let email = lblEmail.text
+        if let url = URL(string: "mailto:\(email ?? "ochsnertest@gmail.com")") {
+          if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+          } else {
+            UIApplication.shared.openURL(url)
+          }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +94,6 @@ class ProfileVC: BaseVC {
     @IBAction func tapUpdateEmail(_ sender: Any) {
         let updateProfileVC  = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(controller: updateProfileVC)
-  
     }
    
     @IBAction func tapChangePassword(_ sender: Any) {
@@ -96,7 +108,6 @@ class ProfileVC: BaseVC {
                 Logger.logInfo("Logout Click")                
                 self.setRootLogin()
             }
-            
         }
     }
    
@@ -191,9 +202,7 @@ class ProfileVC: BaseVC {
             case .failure(let message) :
                 CommonFunctions.showMessage(message: message)
             }
-            
         }
-        
     }
    
     @IBAction func btnAppVersionClick(_ sender: Any) {

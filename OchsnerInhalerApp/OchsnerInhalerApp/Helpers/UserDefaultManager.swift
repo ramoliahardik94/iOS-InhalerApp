@@ -26,9 +26,7 @@ enum UserDefaultKey: String {
     case isLocationOn
     case isAddReminder
     case isFirstLaunch
-
     case username
-
     case dateLogin
 
 }
@@ -143,7 +141,6 @@ class UserDefaultManager {
     }
     
     // MARK: For Permissions
-    
     static var isGrantBLE: Bool {
         get {
             return self.get(forKey: .grantBLEPermission) as? Bool ?? false

@@ -77,7 +77,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         } else {
             // Fail to initally Connect
             setErrorMsg(msg: "Upgrade failed.", error: nil)
-//            closeVC()
+            //closeVC()
         }
     }
     
@@ -91,7 +91,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     }
     
     @IBAction func btnTryAgainClick(_ sender: Any) {
-//      self.dismiss(animated: true, completion: nil)
+        // self.dismiss(animated: true, completion: nil)
         progressView.isHidden = false
         lblTitle.text = OTAMessages.titleUpgrade
         viewTryAgain.isHidden = true
@@ -120,7 +120,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     }
   
     func onFileHasSelected(_ fileName: String?) {
-        guard let `otaPeripheral` = otaPeripheral else {return }
+        guard let `otaPeripheral` = otaPeripheral else { return }
         self.fileName = fileName
         if let binFile = Bundle.main.path(forResource: Constants.firmwareFileName, ofType: ".bin") {
             var priBins: NSArray?
@@ -133,7 +133,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                        images = priBins as! [RTKOTAUpgradeBin]
                     case RTKOTAEarbudSecondary:
                        images = secBins as! [RTKOTAUpgradeBin]
-                   default:
+                    default:
                        break
                     }
                     if (images.count == 1 && !images.last!.icDetermined) {
@@ -150,12 +150,10 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                 Logger.logInfo("OTA imagesExtract \(error.localizedDescription )")
             }
             }
-            
         }
         if (toUpgradeimages() != nil && toUpgradeimages()!.count == 0) {
             Logger.logInfo(" OTA MSG:The selected file is invalid or does not match" )
         }
-        
         startOTA()
     }
     
@@ -166,7 +164,6 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     }
 
     // MARK: - RTKLEProfileDelegate
-    
     func profileManagerDidUpdateState(_ profile: RTKLEProfile) {
         if profile.centralManager.state == .poweredOn {
            // otaProfile.scanForPeripherals()
@@ -213,7 +210,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         }
         onFileHasSelected(Constants.firmwareFileName)
         progressView.progress = 0.15
-        setProgressStatus(percent: 15)
+        setProgressStatus(percent: 20)
     }
     
     func profile(_ profile: RTKLEProfile, didDisconnectPeripheral peripheral: RTKLEPeripheral, error: Error?) {
@@ -229,9 +226,8 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         DispatchQueue.main.async(execute: { [self] in
             Logger.logInfo(" OTA MSG:Failed to connect peripheral \(String(describing: error?.localizedDescription))") // "连接外设失败"
             setErrorMsg(msg: "Failed to connect peripheral.", error: error)
-            
-            //  Reconnect error
-//            closeVC()
+            //Reconnect error
+            //closeVC()
         })
     }
     
@@ -248,7 +244,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             if Float(length) / Float(totalLength) == 1 {
                 progressView.progress = ((Float((index + 1) * 100 / (totalFile ))/100 ))
             }
-            Logger.logInfo("progress : \(progressView.progress) Updating... \((index) + 1) / \(totalFile) of Percent\(Int(progressView.progress * 100))" )
+            Logger.logInfo("progress : \(progressView.progress) Updating... \((index) + 1) / \(totalFile) of Percent\(Int(progressView.progress * 100))")
             setProgressStatus(percent: Int(progressView.progress * 100))
         }
     }
@@ -263,6 +259,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             let interval = Date().timeIntervalSince(timeUpgradeBegin!)
             Logger.logInfo(" OTA MSG:update completed." + String(format: "average rate：%.2f KB/s", (Double(lengthTotalImages) / 1000.0) / interval))
             lblOTAInfo.text = "Update Successfully.(100%)"
+            isUpdateAll = false
             closeVC(isSuccess: true)
            
         })
@@ -273,7 +270,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             Logger.logInfo(" OTA MSG:Upgrade failed. \(err?.localizedDescription)")
             // Upgrade Fail error
             setErrorMsg(msg: "Upgrade failed.", error: err)
-//            closeVC()
+            //closeVC()
             // 升级失败
         } else {
             // Calculate the total transfer rate // 计算总传输速率
@@ -283,7 +280,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     
     func  startOTA() {
         if let upgradeImages = toUpgradeimages() {
-            guard let  `otaPeripheral` = otaPeripheral else {return }
+            guard let  `otaPeripheral` = otaPeripheral else { return }
             if upgradeImages.count > 0 {
                 if otaPeripheral.isRWS {
                     OTAUpgradeRWS()
@@ -303,6 +300,9 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                 } else if otaPeripheral.canUpgradeSliently {
                     OTAUpgradeSilently()
                 }
+            } else {
+               // setErrorMsg(msg: "Upgrade failed.", error: nil)
+               // closeVC(isSuccess: true)
             }
         }
     }
@@ -336,7 +336,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         
     }
     func OTAUpgradeNormally() {
-        guard let  `otaPeripheral` = otaPeripheral else {return }
+        guard let  `otaPeripheral` = otaPeripheral else { return }
         upgradeSilently = false
         Logger.logInfo(" OTA MSG:please wait") // 请稍后
        // lblOTAInfo.text = "Please wait"
@@ -354,7 +354,6 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
                 if !isConnectedToOTA {
                 setErrorMsg(msg: "Failed to switch to OTA mode.", error: error)
                 }
-                
             }
         }
     }
@@ -408,6 +407,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
         lblOTAInfo.textColor = .ColorHomeIconRed
         lblOTAInfo.text = msg
     }
+    
     func setProgressStatus(percent: Int) {
         lblOTAInfo.textColor = .ButtonColorBlue
         lblOTAInfo.text = "Updating...(\(percent)%)"

@@ -135,6 +135,7 @@
 		47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662527BBB843004A2006 /* ManageDeviceVM.swift */; };
 		47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662727BBB857004A2006 /* DeviceModel.swift */; };
 		47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */; };
+		A17BC6EE2A52A00000B479C9 /* ManualDataListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17BC6ED2A52A00000B479C9 /* ManualDataListingViewController.swift */; };
 		A17FBB8D2A2DD5D7009414DE /* GraphDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBB8C2A2DD5D7009414DE /* GraphDetail.storyboard */; };
 		A17FBB932A2DD619009414DE /* AddManuallyDoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBB8F2A2DD619009414DE /* AddManuallyDoseViewController.swift */; };
 		A17FBB942A2DD619009414DE /* GraphDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBB902A2DD619009414DE /* GraphDetailVC.swift */; };
@@ -293,6 +294,7 @@
 		47E1662727BBB857004A2006 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.release.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.release.xcconfig"; sourceTree = "<group>"; };
+		A17BC6ED2A52A00000B479C9 /* ManualDataListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualDataListingViewController.swift; sourceTree = "<group>"; };
 		A17FBB8C2A2DD5D7009414DE /* GraphDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GraphDetail.storyboard; sourceTree = "<group>"; };
 		A17FBB8F2A2DD619009414DE /* AddManuallyDoseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddManuallyDoseViewController.swift; sourceTree = "<group>"; };
 		A17FBB902A2DD619009414DE /* GraphDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDetailVC.swift; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 				A17FBB902A2DD619009414DE /* GraphDetailVC.swift */,
 				A17FBB912A2DD619009414DE /* GraphDataTebleViewCell.swift */,
 				A17FBB922A2DD619009414DE /* GraphDetailCollectionViewCell.swift */,
+				A17BC6ED2A52A00000B479C9 /* ManualDataListingViewController.swift */,
 			);
 			path = "Graph Detail";
 			sourceTree = "<group>";
@@ -1188,6 +1191,7 @@
 				47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */,
 				A17FBB952A2DD619009414DE /* GraphDataTebleViewCell.swift in Sources */,
 				22FC2E0627B767C700ABE886 /* ProviderListVM.swift in Sources */,
+				A17BC6EE2A52A00000B479C9 /* ManualDataListingViewController.swift in Sources */,
 				227197BA278FF09A0014BC3E /* CustomSplashVC.swift in Sources */,
 				4711F91427AA55E000AD063F /* BLEPeripheralDelegate.swift in Sources */,
 				4722F47927994C3E00F505D2 /* UpdateProfileVC.swift in Sources */,

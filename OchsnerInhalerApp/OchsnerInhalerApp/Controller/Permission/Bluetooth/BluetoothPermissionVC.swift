@@ -16,7 +16,6 @@ class BluetoothPermissionVC: BaseVC {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         lblBluetoothPermission.text = StringPermissions.bluetoothPermission
         lblBluetoothPermission.textColor = .black
         btnCancel.setButtonView(StringCommonMessages.cancel)
@@ -25,12 +24,10 @@ class BluetoothPermissionVC: BaseVC {
         btnCancel.isHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
     }
-    
 
     deinit {
         print("deinit LoginVC")
     }
-    
     
     // MARK: Actions
     @IBAction func tapGrant(_ sender: UIButton) {
@@ -52,13 +49,12 @@ class BluetoothPermissionVC: BaseVC {
         let cancleBluetoothPermissionVC = CancleBluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
         pushVC(controller: cancleBluetoothPermissionVC)
     }
+    
     func isBluetoothAuthorized() -> Bool {
         if #available(iOS 13.0, *) {
             return CBManager.authorization == .allowedAlways
         } else {
             return CBPeripheralManager.authorizationStatus() == .authorized
         }
-       
     }
-
 }

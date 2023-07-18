@@ -36,7 +36,6 @@ class ManageDeviceVC: BaseVC {
         if self.manageDeviceVM.arrDevice.count == 0 {
             refresh(self)
         }
-        
     }
   
     func apiCall() {
@@ -192,7 +191,6 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 self.apiCallOfRemoveDevice(index: intArrDevice ?? 0)
             }
         }
-        
     }
     
     func apiCallOfRemoveDevice (index: Int) {

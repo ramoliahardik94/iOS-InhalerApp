@@ -17,6 +17,7 @@ class BaseVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
     }
+    
     func popVC() {
         self.navigationController?.popViewController(animated: true)
     }

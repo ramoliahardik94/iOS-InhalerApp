@@ -26,8 +26,6 @@ func appName() -> String {
     return "\(version)"
 }
 
-
-
 func appVersion() -> String {
     let dictionary = Bundle.main.infoDictionary!
     let version = dictionary["CFBundleShortVersionString"] as! String
@@ -62,8 +60,6 @@ func getTime(_ val: Int) -> String {
 func removeUser() {
     UserDefaultManager.remove(forKey: .token)
     UserDefaultManager.remove(forKey: .isLogin)
-   
-    
 }
 
 func openSettings() {

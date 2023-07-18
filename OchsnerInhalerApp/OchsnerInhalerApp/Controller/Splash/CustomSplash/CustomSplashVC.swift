@@ -35,6 +35,11 @@ class CustomSplashVC: BaseVC {
             Logger.logInfo("Timer For Custom splash")
         }
         
+        DispatchQueue.global(qos: .userInteractive).sync {
+            self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.BLEStatusCheck), userInfo: nil, repeats: true)
+            Logger.logInfo("Timer For BLEStatusCheck")
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
         
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
@@ -45,6 +50,17 @@ class CustomSplashVC: BaseVC {
             }
             Logger.logInfo("deviceuse: CustomSplashVC ")
             BLEHelper.shared.apiCallForActuationlog()
+        }
+    }
+    
+    @objc func BLEStatusCheck() {
+        if UserDefaultManager.isGrantBLE {
+            if BLEHelper.shared.centralManager.state.rawValue == 5 {
+                timer.invalidate()
+                BLEHelper.shared.setDelegate()
+            }
+        } else {
+            Logger.logInfo("BLE is not Granted.")
         }
     }
     
@@ -81,16 +97,6 @@ class CustomSplashVC: BaseVC {
             if isAllow && self.isTime {
                 Logger.logInfo("getisAllow > If > isAllow = \(isAllow) && isTime = \(self.isTime) ")
                 let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).map({$0.udid})
-                //                if devicelist.count == 0 {
-                //                let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                //                    self.rootVC(controller: addDeviceIntroVC)
-                //                } else {
-                //                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                //                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-                //                    DispatchQueue.main.async {
-                //                        self.rootVC(controller: homeTabBar)
-                //                    }
-                //                }
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
                 
@@ -112,7 +118,6 @@ class CustomSplashVC: BaseVC {
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
-        print("deinit CustomSplashVC")
     }
     
 }
