@@ -26,6 +26,7 @@ class HomeVC: BaseVC {
     var isPull = false
     
     override func viewDidLoad() {
+        UserDefaults.standard.set(true, forKey: "setBLEPermission")
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         initUI()

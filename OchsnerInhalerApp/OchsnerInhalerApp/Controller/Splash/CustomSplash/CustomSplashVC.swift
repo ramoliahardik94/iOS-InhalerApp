@@ -14,10 +14,12 @@ class CustomSplashVC: BaseVC {
     @IBOutlet weak var lblConnectdInhalerSensor: UILabel!
     var deviceUDID = [String]()
     var timer: Timer!
+    var bleTimer: Timer!
     var isTime = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
@@ -29,17 +31,17 @@ class CustomSplashVC: BaseVC {
         lblConnectdInhalerSensor.textColor = .ColorSplashText
         lblVersion.textColor = .black
         lblCopyRight.textColor = .black
-       
+        
         DispatchQueue.global(qos: .userInteractive).sync {
             self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
             Logger.logInfo("Timer For Custom splash")
         }
-        
+      
         DispatchQueue.global(qos: .userInteractive).sync {
-            self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.BLEStatusCheck), userInfo: nil, repeats: true)
+            self.bleTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.BLEStatusCheck), userInfo: nil, repeats: true)
             Logger.logInfo("Timer For BLEStatusCheck")
         }
-        
+      
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
         
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
@@ -54,13 +56,22 @@ class CustomSplashVC: BaseVC {
     }
     
     @objc func BLEStatusCheck() {
-        if UserDefaultManager.isGrantBLE {
-            if BLEHelper.shared.centralManager.state.rawValue == 5 {
-                timer.invalidate()
-                BLEHelper.shared.setDelegate()
-            }
+        if  UserDefaults.standard.object(forKey: "setBLEPermission") == nil {
+            // Launchscreen
+            bleTimer.invalidate()
         } else {
-            Logger.logInfo("BLE is not Granted.")
+            // after launcing app
+            if UserDefaults.standard.bool(forKey: "setBLEPermission") == true {
+                if UserDefaultManager.isGrantBLE {
+                    if BLEHelper.shared.centralManager.state.rawValue == 5 {
+                        bleTimer.invalidate()
+                        BLEHelper.shared.setDelegate()
+                    }
+                } else {
+                    Logger.logInfo("BLE is not Granted.")
+                }
+                
+            }
         }
     }
     
@@ -83,7 +94,7 @@ class CustomSplashVC: BaseVC {
                 isTime = true
                 Logger.logInfo("didFinishTimer > !UserDefaultManager.isGrantBLE")
                 BLEHelper.shared.setDelegate()
-         }
+            }
         } else {
             let loginVC = LoginVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
             // let vc = MedicationVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -111,7 +122,7 @@ class CustomSplashVC: BaseVC {
             } else {
                 DispatchQueue.global(qos: .userInteractive).sync {
                     Logger.logInfo("getisAllow > Else > isAllow = \(isAllow) ")
-                self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
+                    self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.didFinishTimer), userInfo: nil, repeats: false)
                 }
             }
         }

@@ -23,6 +23,9 @@ class GraphDetailVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddDose.layer.cornerRadius = 5
+        if doseDetailData.today?.doseDetail.count == 0 {
+            
+        }
         print(doseDetailData.today?.doseDetail.count ?? 0)
         for doseData in doseDetailData.today?.doseDetail ?? [] {
             let date =  doseData.datetime?.components(separatedBy: "T")
@@ -56,7 +59,6 @@ class GraphDetailVC: BaseVC {
     }
     
     @IBAction func addDoseAction(_ sender: UIButton) {
-        
         let addManuallyDoseVC = AddManuallyDoseViewController.instantiateFromAppStoryboard(appStoryboard: .graphDetail)
         addManuallyDoseVC.doseDetailData = doseDetailData
         addManuallyDoseVC.navigationTitle = "Add Dose"

@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginVC: BaseVC {
-
+    
     @IBOutlet weak var btnForgotePsw: UIButton!
     @IBOutlet weak var lblLogin: UILabel!
     @IBOutlet weak var btnLogin: UIButton!
@@ -20,7 +20,7 @@ class LoginVC: BaseVC {
     @IBOutlet weak var lblCreatePassword: UILabel!
     var login = LoginVM()
     override func viewDidLoad() {
-       initUI()
+        initUI()
     }
     private func initUI() {
         lblLogin.text = StringUserManagement.login
@@ -48,39 +48,39 @@ class LoginVC: BaseVC {
         addAstrickSing(label: lblCreatePassword)
         btnForgotePsw.setTitle(StringUserManagement.forgotePass, for: .normal)
 #if DEBUG
-//        tfEmail.text = "nikita@gmail.com"
-//        tfPassword.text = "password"
-
-//         tfEmail.text = "mherzog@ochsner.org"
-//        tfPassword.text = "password"
-
-//      
-//        tfEmail.text = "dhaval.sabhaya@volansys.com"
-//         tfPassword.text = "dhaval123"
+        //        tfEmail.text = "nikita@gmail.com"
+        //        tfPassword.text = "password"
         
-//        tfEmail.text = "himanshi.shah@volansys.com"
-//        tfPassword.text = "abc123"
-
-
-//        tfEmail.text = "abc@mail.com"
-//        tfPassword.text = "Test123"
+        //         tfEmail.text = "mherzog@ochsner.org"
+        //        tfPassword.text = "password"
         
-//        tfEmail.text = "bhoomika.chauhan@volansys.com"
-//        tfPassword.text = "1234"
-//
-//        tfEmail.text = "rocky.malvi@volansys.com"
-//        tfPassword.text = "123456"
+        //
+        //        tfEmail.text = "dhaval.sabhaya@volansys.com"
+        //         tfPassword.text = "dhaval123"
         
-//        tfEmail.text = "shekhawatdhaval@gmail.com"
-//        tfPassword.text = "Dhaval@1234"
+        //        tfEmail.text = "himanshi.shah@volansys.com"
+        //        tfPassword.text = "abc123"
         
-//        tfEmail.text = "user@gmail.com"
         
-//        forceCrash()
-        #endif
+        //        tfEmail.text = "abc@mail.com"
+        //        tfPassword.text = "Test123"
+        
+        //        tfEmail.text = "bhoomika.chauhan@volansys.com"
+        //        tfPassword.text = "1234"
+        //
+        //        tfEmail.text = "rocky.malvi@volansys.com"
+        //        tfPassword.text = "123456"
+        
+        //        tfEmail.text = "shekhawatdhaval@gmail.com"
+        //        tfPassword.text = "Dhaval@1234"
+        
+        //        tfEmail.text = "user@gmail.com"
+        
+        //        forceCrash()
+#endif
     }
     
-    func setNextView() {        
+    func setNextView() {
         
         if !UserDefaultManager.isGrantBLE {
             let bluetoothPermissionVC = BluetoothPermissionVC.instantiateFromAppStoryboard(appStoryboard: .permissions)
@@ -104,16 +104,16 @@ class LoginVC: BaseVC {
                 if isAllow {
                     let addDeviceIntroVC = AddDeviceIntroVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
                     self.pushVC(controller: addDeviceIntroVC)
-//                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-//                    if devicelist.count == 0 {
-//                        homeTabBar.selectedIndex = 1
-//                    } else {
-//                        homeTabBar.selectedIndex = 0
-//                    }
-//                     DispatchQueue.main.async {
-//                         self.rootVC(controller: homeTabBar)
-//                     }
+                    //                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    //                    let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+                    //                    if devicelist.count == 0 {
+                    //                        homeTabBar.selectedIndex = 1
+                    //                    } else {
+                    //                        homeTabBar.selectedIndex = 0
+                    //                    }
+                    //                     DispatchQueue.main.async {
+                    //                         self.rootVC(controller: homeTabBar)
+                    //                     }
                 }
             }
         } else {
@@ -129,7 +129,6 @@ class LoginVC: BaseVC {
             }
         }
     }
-    
     
     // MARK: Actions
     @IBAction func tapLogin(_ sender: UIButton) {
@@ -150,7 +149,7 @@ class LoginVC: BaseVC {
                 CommonFunctions.showMessage(message: message)
             }
         }
-      
+        
     }
     func getDeviceFromAPI() {
         self.login.getDeviceList(completionHandler: { [weak self] result in
@@ -181,7 +180,6 @@ class LoginVC: BaseVC {
         }
     }
     
-    
     @IBAction func btnForgotPassClick(_ sender: Any) {
         
         let forgotPassVC  = ForgotPassVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
@@ -202,9 +200,9 @@ class LoginVC: BaseVC {
         view.addSubview(button)
     }
     @IBAction func crashButtonTapped(_ sender: AnyObject) {
-          let numbers = [0]
-          _ = numbers[1]
-      }
+        let numbers = [0]
+        _ = numbers[1]
+    }
 }
 
 extension LoginVC: UITextFieldDelegate {
@@ -216,7 +214,6 @@ extension LoginVC: UITextFieldDelegate {
             return true
         }
     }
-        
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == tfEmail {
             login.loginModel.email = tfEmail.text

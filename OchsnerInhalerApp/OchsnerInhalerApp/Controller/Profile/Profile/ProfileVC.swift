@@ -26,17 +26,16 @@ class ProfileVC: BaseVC {
     @IBOutlet weak var switchLocation: UISwitch!
     private var profileVM = ProfileVM()
     var tap = 1
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileVC.emailClick(sender:)))
-                lblEmail.isUserInteractionEnabled = true
-                lblEmail.addGestureRecognizer(tap)
+        lblEmail.isUserInteractionEnabled = true
+        lblEmail.addGestureRecognizer(tap)
         
         setupButton(button: btnUpdateEmail, title: StringProfile.updateEmail)
-       // setupButton(button: btnChangePassword, title: StringProfile.changePassword)
+        // setupButton(button: btnChangePassword, title: StringProfile.changePassword)
         setupButton(button: btnLogout, title: StringProfile.logOut)
         setupButton(button: btnChangeProvider, title: StringProfile.changeProvider)
         setupButton(button: btnRemoveProvider, title: StringProfile.remove)
@@ -46,7 +45,7 @@ class ProfileVC: BaseVC {
         lblReceiveNotifications.setFont(type: .regular, point: 21)
         lblShareLocation.setFont(type: .regular, point: 21)
         lblShareUsageWithProvider.setFont(type: .regular, point: 21)
-
+        
         lblEmail.text =  ""
         lblProvider.text = ""
         
@@ -58,15 +57,15 @@ class ProfileVC: BaseVC {
         apiGetProfileData()
     }
     
-    //MARK: For Feedback Email redirection
+    // MARK: For Feedback Email redirection
     @objc func emailClick(sender: UITapGestureRecognizer) {
         let email = lblEmail.text
         if let url = URL(string: "mailto:\(email ?? "ochsnertest@gmail.com")") {
-          if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url)
-          } else {
-            UIApplication.shared.openURL(url)
-          }
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
     }
     
@@ -95,28 +94,28 @@ class ProfileVC: BaseVC {
         let updateProfileVC  = UpdateProfileVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(controller: updateProfileVC)
     }
-   
+    
     @IBAction func tapChangePassword(_ sender: Any) {
         let changePasswordVC  = ChangePasswordVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(controller: changePasswordVC)
     }
-   
+    
     @IBAction func tapLogout(_ sender: Any) {
         
         CommonFunctions.showMessageYesNo(message: StringProfile.sureLogout, cancelTitle: StringCommonMessages.cancel, okTitle: StringProfile.logOut) { isOk in
             if isOk {
-                Logger.logInfo("Logout Click")                
+                Logger.logInfo("Logout Click")
                 self.setRootLogin()
             }
         }
     }
-   
+    
     @IBAction func tapChangeProvider(_ sender: Any) {
         let providerListVC = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         providerListVC.comeFrom = "profile"
         pushVC(controller: providerListVC)
     }
-   
+    
     @IBAction func tapRemoveProvider(_ sender: Any) {
         removeProvider()
     }
@@ -189,7 +188,7 @@ class ProfileVC: BaseVC {
             }
         }
     }
-  
+    
     private func removeProvider() {
         let url =  "\(APIRouter.providerAuth.path)?providerId=\("")&accessToken=\("")&expiresIn=\("")&refreshToken=\("")"
         profileVM.removeProvider(url: url) { [weak self] result in
@@ -204,7 +203,7 @@ class ProfileVC: BaseVC {
             }
         }
     }
-   
+    
     @IBAction func btnAppVersionClick(_ sender: Any) {
         if tap == 3 {
             Constants.appdel.sendEmailLogs()
@@ -213,7 +212,7 @@ class ProfileVC: BaseVC {
             tap += 1
         }
     }
-
+    
 }
 
 enum SwitchButtonsTag: Int {
