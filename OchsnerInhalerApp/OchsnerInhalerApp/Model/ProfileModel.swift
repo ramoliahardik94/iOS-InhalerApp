@@ -11,8 +11,8 @@ class ProfileModel: NSObject {
     var token: String? // ": "Token",
     var user: ProfileUserModel? // ": "Token",
     override init() {
-        
     }
+    
     init(jSon: [String: Any]) {
         if let value = jSon["Token"] as? String {
             self.token = value

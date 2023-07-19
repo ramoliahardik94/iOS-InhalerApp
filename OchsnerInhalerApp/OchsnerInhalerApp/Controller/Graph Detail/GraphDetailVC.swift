@@ -23,10 +23,12 @@ class GraphDetailVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddDose.layer.cornerRadius = 5
+        graphDetailTV.isHidden = false
+        
         if doseDetailData.today?.doseDetail.count == 0 {
-            
+            graphDetailTV.isHidden = true
         }
-        print(doseDetailData.today?.doseDetail.count ?? 0)
+       
         for doseData in doseDetailData.today?.doseDetail ?? [] {
             let date =  doseData.datetime?.components(separatedBy: "T")
             let time = date?[1].description.components(separatedBy: "+")

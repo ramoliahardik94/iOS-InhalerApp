@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0KP-bJ-TqD">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -25,18 +25,18 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Graph DetailVC-->
+        <!--View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="GraphDetailVC" id="Y6W-OH-hqX" customClass="GraphDetailVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xb-Df-4cD">
-                                <rect key="frame" x="138" y="443" width="139" height="24"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xb-Df-4cD">
+                                <rect key="frame" x="135" y="443" width="144" height="24"/>
                                 <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="20"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="168" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Gmr-3H-uaC">
@@ -230,17 +230,14 @@
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cHX-uO-aUu" secondAttribute="trailing" constant="18" id="17B-DG-gOO"/>
                             <constraint firstItem="Gmr-3H-uaC" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="27K-un-WeV"/>
-                            <constraint firstItem="7xb-Df-4cD" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="2wQ-Bu-Mbj"/>
-                            <constraint firstItem="IFw-bP-a4Q" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="4eU-G4-moy"/>
-                            <constraint firstItem="Gmr-3H-uaC" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="EO1-G7-jvb"/>
+                            <constraint firstItem="7xb-Df-4cD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="2wQ-Bu-Mbj"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="IFw-bP-a4Q" secondAttribute="trailing" id="QoA-bg-wqP"/>
                             <constraint firstItem="cHX-uO-aUu" firstAttribute="top" secondItem="Gmr-3H-uaC" secondAttribute="bottom" constant="20" id="YPP-ux-q1r"/>
                             <constraint firstItem="cHX-uO-aUu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="18" id="hM3-LS-IW0"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Gmr-3H-uaC" secondAttribute="trailing" id="o0z-E5-53h"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="cHX-uO-aUu" secondAttribute="bottom" constant="10" id="rUx-ad-ZfA"/>
-                            <constraint firstItem="Gmr-3H-uaC" firstAttribute="firstBaseline" secondItem="IFw-bP-a4Q" secondAttribute="baseline" constant="8" symbolType="layoutAnchor" id="u5M-e1-Qgz"/>
                             <constraint firstItem="IFw-bP-a4Q" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="usx-k7-Ikk"/>
-                            <constraint firstItem="7xb-Df-4cD" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="vGF-q8-jVc"/>
+                            <constraint firstItem="7xb-Df-4cD" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="7" id="vGF-q8-jVc"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
@@ -253,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128.98550724637681" y="-28.794642857142854"/>
+            <point key="canvasLocation" x="-199" y="-29"/>
         </scene>
         <!--Add Manually Dose View Controller-->
         <scene sceneID="hkt-Nf-sS5">
@@ -603,18 +600,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gRh-yt-RpS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="834.78260869565224" y="-29.464285714285712"/>
+            <point key="canvasLocation" x="2229" y="-29"/>
         </scene>
-        <!--Manual Data Listing View Controller-->
+        <!--Graph DetailVC-->
         <scene sceneID="tu7-ij-7Sb">
             <objects>
-                <viewController storyboardIdentifier="ManualDataListingViewController" id="0KP-bJ-TqD" customClass="ManualDataListingViewController" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GraphDetailVC" id="0KP-bJ-TqD" customClass="GraphDetailVC" customModule="OchsnerInhalerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eEl-bC-88v">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="168" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jCG-bs-Tjx">
-                                <rect key="frame" x="0.0" y="126" width="414" height="656"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Found !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceo-dR-zhF">
+                                <rect key="frame" x="135" y="443" width="144" height="24"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="20"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="168" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jCG-bs-Tjx">
+                                <rect key="frame" x="0.0" y="48" width="414" height="734"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GraphData" rowHeight="168" id="QC3-qD-QHo" customClass="GraphDataTebleViewCell" customModule="OchsnerInhalerApp" customModuleProvider="target">
@@ -733,56 +736,6 @@
                                     <outlet property="delegate" destination="0KP-bJ-TqD" id="R2k-vp-Nwo"/>
                                 </connections>
                             </tableView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uPS-Th-6zf">
-                                <rect key="frame" x="0.0" y="58" width="414" height="60"/>
-                                <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" id="0Y1-mw-KxR"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="l8G-SU-n3f">
-                                    <size key="itemSize" width="60" height="40"/>
-                                    <size key="estimatedItemSize" width="60" height="40"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="18" minY="0.0" maxX="5" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="cJF-Z2-WBm" customClass="GraphDetailCollectionViewCell" customModule="OchsnerInhalerApp" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="10" width="60" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="U0B-Fc-T8t">
-                                            <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uiV-tM-KKZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4G6-oP-AdT">
-                                                    <rect key="frame" x="9.5" y="10" width="41.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="4G6-oP-AdT" firstAttribute="centerX" secondItem="U0B-Fc-T8t" secondAttribute="centerX" id="DaI-v8-ogc"/>
-                                                <constraint firstItem="4G6-oP-AdT" firstAttribute="centerY" secondItem="U0B-Fc-T8t" secondAttribute="centerY" id="MUO-gQ-2TH"/>
-                                            </constraints>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="60" height="40"/>
-                                        <connections>
-                                            <outlet property="graphBgView" destination="uiV-tM-KKZ" id="hqt-we-Deg"/>
-                                            <outlet property="lblGraphDays" destination="4G6-oP-AdT" id="Qfj-Rq-Pvj"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="0KP-bJ-TqD" id="E1G-16-9P6"/>
-                                    <outlet property="delegate" destination="0KP-bJ-TqD" id="CXD-np-jnY"/>
-                                </connections>
-                            </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8T-87-88n">
                                 <rect key="frame" x="18" y="802" width="378" height="50"/>
                                 <color key="backgroundColor" red="0.039215686270000001" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -803,17 +756,14 @@
                         <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="d8T-87-88n" firstAttribute="leading" secondItem="KI5-AG-K5v" secondAttribute="leading" constant="18" id="13d-dk-2ii"/>
-                            <constraint firstItem="jCG-bs-Tjx" firstAttribute="top" secondItem="uPS-Th-6zf" secondAttribute="bottom" constant="8" symbolic="YES" id="B6z-Yc-Wwf"/>
+                            <constraint firstItem="ceo-dR-zhF" firstAttribute="centerX" secondItem="KI5-AG-K5v" secondAttribute="centerX" id="MJn-PA-EFO"/>
                             <constraint firstItem="jCG-bs-Tjx" firstAttribute="leading" secondItem="KI5-AG-K5v" secondAttribute="leading" id="PYO-Fp-ASP"/>
-                            <constraint firstItem="uPS-Th-6zf" firstAttribute="leading" secondItem="KI5-AG-K5v" secondAttribute="leading" id="Qfq-6u-gEz"/>
                             <constraint firstItem="jCG-bs-Tjx" firstAttribute="top" secondItem="KI5-AG-K5v" secondAttribute="top" id="di4-Ht-70h"/>
                             <constraint firstItem="KI5-AG-K5v" firstAttribute="bottom" secondItem="d8T-87-88n" secondAttribute="bottom" constant="10" id="hA5-21-Ioo"/>
                             <constraint firstItem="KI5-AG-K5v" firstAttribute="trailing" secondItem="d8T-87-88n" secondAttribute="trailing" constant="18" id="jas-0n-jQe"/>
-                            <constraint firstItem="jCG-bs-Tjx" firstAttribute="firstBaseline" secondItem="uPS-Th-6zf" secondAttribute="baseline" constant="8" symbolType="layoutAnchor" id="mmM-SO-ogI"/>
-                            <constraint firstItem="KI5-AG-K5v" firstAttribute="trailing" secondItem="uPS-Th-6zf" secondAttribute="trailing" id="pzR-Xe-iIa"/>
-                            <constraint firstItem="uPS-Th-6zf" firstAttribute="top" secondItem="KI5-AG-K5v" secondAttribute="top" constant="10" id="sdO-ON-kh8"/>
                             <constraint firstItem="KI5-AG-K5v" firstAttribute="trailing" secondItem="jCG-bs-Tjx" secondAttribute="trailing" id="vcw-4R-giP"/>
                             <constraint firstItem="d8T-87-88n" firstAttribute="top" secondItem="jCG-bs-Tjx" secondAttribute="bottom" constant="20" id="wlc-e0-EAi"/>
+                            <constraint firstItem="ceo-dR-zhF" firstAttribute="centerY" secondItem="KI5-AG-K5v" secondAttribute="centerY" id="zXX-eZ-5U1"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isOchsnerView" value="YES"/>
@@ -826,13 +776,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahN-YU-lFl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2229" y="-29"/>
+            <point key="canvasLocation" x="1548" y="-29"/>
         </scene>
     </scenes>
     <resources>
         <namedColor name="color_line">
             <color red="0.59200000762939453" green="0.59200000762939453" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -28,7 +28,6 @@ enum UserDefaultKey: String {
     case isFirstLaunch
     case username
     case dateLogin
-
 }
 
 class UserDefaultManager {
