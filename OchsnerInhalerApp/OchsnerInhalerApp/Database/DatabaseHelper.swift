@@ -10,7 +10,6 @@ import CoreData
 import UIKit
 import KeychainSwift
 
-
 struct EntityName {
     static let acuationLog = "AcuationLog"
     static let device = "Device"
@@ -26,7 +25,7 @@ class DatabaseManager {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "usedatelocal == %@", ("\(object["date"]!)"))
         let predicate2 =  NSPredicate(format: "deviceidmac == %@", ("\(object["mac"]!)"))
-//        let predicate2 =  NSPredicate(format: "issync == %d", false)
+        //        let predicate2 =  NSPredicate(format: "issync == %d", false)
         let predicate =  NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = predicate
         do {
@@ -70,7 +69,7 @@ class DatabaseManager {
         let predicate =  NSPredicate(format: "medtypeid == 2")
         fetchRequest.predicate = predicate
         do {
-             arrDevice = try context?.fetch(fetchRequest) as! [Device]
+            arrDevice = try context?.fetch(fetchRequest) as! [Device]
         } catch {
             debugPrint("can not get data")
         }
@@ -89,7 +88,7 @@ class DatabaseManager {
         let predicate =  NSPredicate(format: "medtypeid == 2")
         fetchRequest.predicate = predicate
         do {
-             arrDevice = try context?.fetch(fetchRequest) as! [Device]
+            arrDevice = try context?.fetch(fetchRequest) as! [Device]
         } catch {
             debugPrint("can not get data")
         }
@@ -108,9 +107,9 @@ class DatabaseManager {
             let arrDevice = try context?.fetch(fetchRequest) as! [Device]
             if arrDevice.count > 0 {
                 for obj in arrDevice {
-                        obj.version = version
-                    }
+                    obj.version = version
                 }
+            }
             try context?.save()
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEChange, object: nil)
@@ -164,7 +163,7 @@ class DatabaseManager {
     }
     
     func getActuationLogList(mac: String) -> [[String: Any]] {
-       var actuationLog = [AcuationLog]()
+        var actuationLog = [AcuationLog]()
         var usage = [[String: Any]]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         let predicate1 =  NSPredicate(format: "deviceidmac == %@", mac)
@@ -190,7 +189,7 @@ class DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
-       
+        
         return usage
     }
     
@@ -217,7 +216,7 @@ class DatabaseManager {
             }
         } catch {
             debugPrint("Can not get Data")
-        }       
+        }
         return usage
     }
     
@@ -307,10 +306,9 @@ class DatabaseManager {
         }
         return device
     }
- 
 }
 extension DatabaseManager {
-
+    
     func updateDeviceVersion(macAddress: String) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
     }
@@ -345,7 +343,7 @@ extension DatabaseManager {
         }
     }
     
-
+    
     func updateActuationLogwithTimeAdd(_ updateObj: [[String: Any]], sec: Int = 2) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
         for obj in updateObj {
@@ -382,13 +380,13 @@ extension DatabaseManager {
     
     
     func setupUDID(mac: String, udid: String, isDelete: Bool = false ) {
-
+        
         let keychain = KeychainSwift()
         
         if isDelete {
             keychain.delete(mac)
         } else {
-        keychain.set(udid, forKey: mac)
+            keychain.set(udid, forKey: mac)
             print("setUUID\(udid) for mac \(mac)")
         }
     }
@@ -421,24 +419,24 @@ extension DatabaseManager {
     }
     
     func isContinuasBadReading(uuid: String) -> Bool {
-            var actuationLog = [AcuationLog]()
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
-            let predicate1 =  NSPredicate(format: "deviceuuid == %@", uuid)
-            let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1])
-            
-            let sortDescriptor = [NSSortDescriptor.init(key: "usedatelocal", ascending: false)]
-            fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = sortDescriptor
-            fetchRequest.fetchLimit = 5
-            
-            do {
-                actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
-                let arrBad = actuationLog.filter({$0.isbadlog == true})
-                return arrBad.count == 5
-            } catch {
-                debugPrint("Can not get Data")
-                return false
-            }
+        var actuationLog = [AcuationLog]()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
+        let predicate1 =  NSPredicate(format: "deviceuuid == %@", uuid)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1])
+        
+        let sortDescriptor = [NSSortDescriptor.init(key: "usedatelocal", ascending: false)]
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = sortDescriptor
+        fetchRequest.fetchLimit = 5
+        
+        do {
+            actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+            let arrBad = actuationLog.filter({$0.isbadlog == true})
+            return arrBad.count == 5
+        } catch {
+            debugPrint("Can not get Data")
+            return false
+        }
     }
     func getMentainanceDeviceList(date: String) -> [History] {
         var device = [Device]()
@@ -447,7 +445,7 @@ extension DatabaseManager {
         let predicate1 = NSPredicate(format: "email == %@", UserDefaultManager.email)
         let predicate2 =  NSPredicate(format: "medtypeid == %d", 2)
         let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
-       
+        
         fetchRequest.predicate = predicate
         do {
             device = try context?.fetch(fetchRequest) as! [Device]
@@ -462,6 +460,22 @@ extension DatabaseManager {
         }
         return history
     }
+    
+    func removeMentainanceDeviceList() {
+        // Create Fetch Request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
+
+        // Create Batch Delete Request
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try context?.execute(batchDeleteRequest)
+
+        } catch {
+            // Error Handling
+        }
+    }
+    
     func getActuationogForHistory(mac: String, date: String) -> [AcuationLog] {
         var actuationLog = [AcuationLog]()
         

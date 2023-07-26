@@ -114,17 +114,16 @@ class UserDefaultManager {
         }
     }
     
-//    static var addDevice: [String] {
-//        get {
-//            return self.get(forKey: .addDevice) as? [String] ?? [String]()
-//        }
-//        set(newValue) {
-//            self.set(newValue as AnyObject?, forKey: .addDevice)
-//        }
-//    }
-//
+    // static var addDevice: [String] {
+    //  get {
+    //   return self.get(forKey: .addDevice) as? [String] ?? [String]()
+    //  }
+    //  set(newValue) {
+    //      self.set(newValue as AnyObject?, forKey: .addDevice)
+    //    }
+    // }
+    //
     // MARK: - Save/Retrive/Remove Data
-    
     static private func set(_ object: AnyObject?, forKey key: UserDefaultKey) {
         UserDefaults.standard.set(object, forKey: key.rawValue)
         UserDefaults.standard.synchronize()
@@ -220,6 +219,4 @@ class UserDefaultManager {
             self.set(NSNumber(value: newValue), forKey: .isAddReminder)
         }
     }
-    
-    
 }

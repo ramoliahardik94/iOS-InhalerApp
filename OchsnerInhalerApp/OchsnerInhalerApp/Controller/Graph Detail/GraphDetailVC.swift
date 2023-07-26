@@ -13,6 +13,7 @@ class GraphDetailVC: BaseVC {
     var doseDetailData = MaintenanceModel()
     var currentDate = ""
     var arrPuffTime = [String]()
+    var arrWeekDays = [String]()
     var arrPuffCount = [String]()
     var totalPuffTime = [Any]()
     var totalPuffCount = [String]()
@@ -33,6 +34,31 @@ class GraphDetailVC: BaseVC {
             let date =  doseData.datetime?.components(separatedBy: "T")
             let time = date?[1].description.components(separatedBy: "+")
             currentDate = date?[0] ?? ""
+            print("date: \(currentDate)")
+            // Get week days
+            guard let isoDate = doseData.datetime else { return }
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            let weekDate = dateFormatter.date(from: isoDate)!
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.weekday], from: weekDate)
+            if components.weekday == 1 {
+                arrWeekDays.append("Sunday")
+            } else if components.weekday == 2 {
+                arrWeekDays.append("Monday")
+            } else if components.weekday == 3 {
+                arrWeekDays.append("Tuesday")
+            } else if components.weekday == 4 {
+                arrWeekDays.append("Wednesday")
+            } else if components.weekday == 5 {
+                arrWeekDays.append("Thursday")
+            } else if components.weekday == 6 {
+                arrWeekDays.append("Friday")
+            } else if components.weekday == 7 {
+                arrWeekDays.append("Saturday")
+            }
+            
             let time24 = timeFormatter(time: time?[0] ?? "12:00")
             arrPuffTime.append(time24)
             Logger.logInfo("Total Number of Puff and Time: \(arrPuffTime)")
@@ -113,7 +139,7 @@ extension GraphDetailVC: UITableViewDelegate, UITableViewDataSource {
         let time24 = timeFormatter(time: time?[0] ?? "12:00")
         
         cell.lblDoseTime.text = totalPuffTime[indexPath.row] as? String
-        cell.lblDoseDate.text = currentDate
+        cell.lblDoseDate.text = currentDate + ", " + arrWeekDays[0]
         cell.lblDoseName.text = doseDetailData.medName
         cell.lblPuffCount.text = totalPuffCount[indexPath.row] + " " + "Puff"
         cell.bgCardView.setBorder(0, color: .lightGray, radius: 9)

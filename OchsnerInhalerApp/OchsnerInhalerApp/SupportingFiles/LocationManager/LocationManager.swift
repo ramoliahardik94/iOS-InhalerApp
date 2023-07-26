@@ -52,7 +52,7 @@ class LocationManager: CLLocationManager {
             locationManager.requestWhenInUseAuthorization()
         } else if status == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
-//            completion(cordinate)
+            // completion(cordinate)
         } else {
             self.locationCompletion(CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
         }
@@ -118,13 +118,12 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        // guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         // print("LocationManager > locations = \(locValue.latitude) \(locValue.longitude)")
         cordinate = manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         if self.locationCompletion != nil {
             self.locationCompletion(manager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
         }
-      
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

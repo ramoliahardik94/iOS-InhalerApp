@@ -161,7 +161,6 @@ class HomeDeviceCell: UITableViewCell {
         }
     }
     
-    
     @IBAction func graphDetailAction(_ sender: UIButton) {
         Logger.logInfo("Seleted Graph Data Item \(item.type ?? "")")
         delegate?.clicked(cellIndex!.row, doseData: item)

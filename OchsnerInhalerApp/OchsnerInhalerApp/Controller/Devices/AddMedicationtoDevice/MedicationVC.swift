@@ -32,8 +32,8 @@ class MedicationVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.macDetail(notification:)), name: .BLEGetMac, object: nil)
         self.getMedication()
         txtDiscription.delegate = self
-//        hideKeyBoardHideOutSideTouch(customView: self.viewContains)
-//        registerKeyboardNotifications()
+        //hideKeyBoardHideOutSideTouch(customView: self.viewContains)
+        //registerKeyboardNotifications()
     }
     
     func getMedication() {
@@ -139,9 +139,6 @@ class MedicationVC: BaseVC {
     @IBAction func btnBackClick(_ sender: Any) {
         self.popVC()
     }
-    
-  
-
 }
 extension MedicationVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

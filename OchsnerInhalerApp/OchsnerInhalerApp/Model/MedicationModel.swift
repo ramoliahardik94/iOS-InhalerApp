@@ -38,7 +38,6 @@ class MedicationModelElement: NSObject {
         }
     }
     
-    
     func toDic() -> [String: Any] {
         var dic = [String: Any]()
         dic["MedId"] = self.medID

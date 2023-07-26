@@ -51,7 +51,6 @@ open class CommonFunctions {
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
     
-    
     public class func upgradeApp(appVersionOnCloud: String) {
         DispatchQueue.main.async {
             switch UIApplication.shared.applicationState {
@@ -78,31 +77,31 @@ open class CommonFunctions {
     // MARK: Version Popup
     public class func alertAppVersion() {
         if !Constants.isSkipAppUpdate  {
-        if !isAlertVersionDisplay {
-            isAlertVersionDisplay = true
-            let isCustomSplash = UIApplication.topViewController() is CustomSplashVC
-            delay(isCustomSplash ? 5 : 0) {
-                CommonFunctions.showMessageYesNo(message: StringLocalNotifiaction.bodyAppVersion, cancelTitle: StringAddDevice.laterbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in
-                    if isUpgrade {
-                        let arrConnected = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
-                        for obj in arrConnected {
-                            BLEHelper.shared.cleanup(peripheral: obj.discoveredPeripheral!)
-                        }
-                        if let url = URL(string: Constants.appUrl) {
-                            DispatchQueue.main.async() {
-                                if #available(iOS 10.0, *) {
-                                    UIApplication.shared.open(url)
-                                } else {
-                                    UIApplication.shared.openURL(url)
+            if !isAlertVersionDisplay {
+                isAlertVersionDisplay = true
+                let isCustomSplash = UIApplication.topViewController() is CustomSplashVC
+                delay(isCustomSplash ? 5 : 0) {
+                    CommonFunctions.showMessageYesNo(message: StringLocalNotifiaction.bodyAppVersion, cancelTitle: StringAddDevice.laterbtn, okTitle: StringAddDevice.continuebtn) { isUpgrade in
+                        if isUpgrade {
+                            let arrConnected = BLEHelper.shared.connectedPeripheral.filter({$0.discoveredPeripheral?.state == .connected})
+                            for obj in arrConnected {
+                                BLEHelper.shared.cleanup(peripheral: obj.discoveredPeripheral!)
+                            }
+                            if let url = URL(string: Constants.appUrl) {
+                                DispatchQueue.main.async() {
+                                    if #available(iOS 10.0, *) {
+                                        UIApplication.shared.open(url)
+                                    } else {
+                                        UIApplication.shared.openURL(url)
+                                    }
                                 }
                             }
                         }
+                        Constants.isSkipAppUpdate = true
+                        isAlertVersionDisplay = false
                     }
-                    Constants.isSkipAppUpdate = true
-                    isAlertVersionDisplay = false
                 }
             }
-          }
         }
     }
     public class func checkVersion() {

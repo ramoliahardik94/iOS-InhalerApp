@@ -113,7 +113,6 @@ class UsageModel: NSObject {
         }
     }
 }
-
 class DoseDetails: NSObject {
     var datetime: String? // ": null,
     

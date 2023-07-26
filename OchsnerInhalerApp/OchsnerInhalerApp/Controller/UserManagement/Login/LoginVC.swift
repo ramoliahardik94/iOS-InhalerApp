@@ -185,8 +185,8 @@ class LoginVC: BaseVC {
         let forgotPassVC  = ForgotPassVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         forgotPassVC.login = login
         pushVC(controller: forgotPassVC)
-        
     }
+    
     @IBAction func tapCreateAccount(_ sender: UIButton) {
         let createAccoutVC  = CreateAccoutVC.instantiateFromAppStoryboard(appStoryboard: .userManagement)
         pushVC(controller: createAccoutVC)

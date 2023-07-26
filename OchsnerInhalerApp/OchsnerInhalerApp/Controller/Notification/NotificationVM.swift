@@ -32,7 +32,7 @@ class NotificationModel: NSObject {
             }
         }
     }
-   
+    
     func updateStatus() {
         for obj in history {
             if obj.acuation.count == 0 {
@@ -51,7 +51,7 @@ class NotificationModel: NSObject {
                         let maxDate = (dateHistory + "T" + time + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
                         Logger.logInfo("minDate: nil")
                         Logger.logInfo("maxDate: \(maxDate)")
-                         acuation = obj.acuation.filter({($0.usedatelocal! <= maxDate) })
+                        acuation = obj.acuation.filter({($0.usedatelocal! <= maxDate) })
                         if obj.dose.count == 1 { // For firat index and last index
                             acuation = obj.acuation
                         }
@@ -61,7 +61,7 @@ class NotificationModel: NSObject {
                         let minDate = (dateHistory + "T" + time + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
                         Logger.logInfo("minDate: \(minDate)")
                         Logger.logInfo("maxDate: nil")
-                         acuation = obj.acuation.filter({($0.usedatelocal! >= minDate)})
+                        acuation = obj.acuation.filter({($0.usedatelocal! >= minDate)})
                     } else { // For middle index
                         let time1 = dose.time.getDate(format: DateFormate.doseTime).getString(format: "HH:mm:ss")
                         let time2 = obj.dose[index - 1].time.getDate(format: DateFormate.doseTime).getString(format: "HH:mm:ss")
@@ -69,7 +69,7 @@ class NotificationModel: NSObject {
                         let minDate = (dateHistory + "T" + time2 + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
                         Logger.logInfo("minDate: \(minDate)")
                         Logger.logInfo("maxDate: \(maxDate)")
-                         acuation = obj.acuation.filter({($0.usedatelocal! >= minDate) && ($0.usedatelocal! <= maxDate)})
+                        acuation = obj.acuation.filter({($0.usedatelocal! >= minDate) && ($0.usedatelocal! <= maxDate)})
                     }
                     if acuation.count != 0 {
                         dose.status = "Y"
@@ -110,13 +110,12 @@ class History: NSObject {
             self.mac = value
         }
         if let value = jSon["dose"] as? String {
-           let arrDose = value.split(separator: ",")
-                dose = [DoseStatus]()
-                for obj in arrDose {
-                    let dic = ["time": String(obj) as Any, "status": "N" as Any]
-                    dose.append(DoseStatus(jSon: dic))
-                }
-            
+            let arrDose = value.split(separator: ",")
+            dose = [DoseStatus]()
+            for obj in arrDose {
+                let dic = ["time": String(obj) as Any, "status": "N" as Any]
+                dose.append(DoseStatus(jSon: dic))
+            }
         }
     }
 }
@@ -135,12 +134,12 @@ class DoseStatus: NSObject {
     }
 }
 
-
 class NotificationVM {
     var arrNotification = [NotificationModel]()
     var arrMissNotification = [NotificationModel]()
     var arrNotificationMsg = [MsgModel]()
     func getHistory() {
+//        DatabaseManager.share.removeMentainanceDeviceList()
         arrNotification = [NotificationModel]()
         let cal = Calendar.current
         var date = cal.startOfDay(for: Date())
@@ -172,7 +171,7 @@ class NotificationVM {
         arrNotificationMsg = [MsgModel]()
         for date in arrMissNotification {
             for device in date.history {
-                for dose in device.missDose {                    
+                for dose in device.missDose {
                     let msgModel = MsgModel()
                     msgModel.msg = "\(StringLocalNotifiaction.notificationMsg) (\(device.medName))"
                     msgModel.time = "\(date.historyDate) \(dose.time)"
