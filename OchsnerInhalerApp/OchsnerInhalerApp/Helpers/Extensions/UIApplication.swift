@@ -24,7 +24,7 @@ extension UIApplication {
         }
         return base
     }
-    
+
     var isKeyboardPresented: Bool {
         if let keyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow"),
            self.windows.contains(where: { $0.isKind(of: keyboardWindowClass) }) {

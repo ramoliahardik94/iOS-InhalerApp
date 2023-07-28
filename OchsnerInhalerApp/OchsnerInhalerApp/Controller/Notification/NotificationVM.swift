@@ -139,32 +139,52 @@ class NotificationVM {
     var arrMissNotification = [NotificationModel]()
     var arrNotificationMsg = [MsgModel]()
     func getHistory() {
-//        DatabaseManager.share.removeMentainanceDeviceList()
-        arrNotification = [NotificationModel]()
-        let cal = Calendar.current
-        var date = cal.startOfDay(for: Date())
-        date = cal.date(byAdding: .day, value: -1, to: date)!
-        let noOfDayToLogin = Date().interval(ofComponent: .day, fromDate: UserDefaultManager.dateLogin)
-        let historyOfDays =  noOfDayToLogin >= 7 ? 7 : noOfDayToLogin
-        print(noOfDayToLogin)
-        print(historyOfDays)
-        var days = [String]()
-        if historyOfDays >= 1 {
-            for _ in 1 ... noOfDayToLogin {
-                let noti = NotificationModel()
-                days.append(date.getString(format: "yyyy-MM-dd"))
-                noti.historyDate = date.getString(format: "MMM dd,yyyy")
-                noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"))
-                debugPrint("historyDate \(noti.historyDate)")
-                noti.updateStatus()
-                noti.historyOfMiss = noti.history.filter({$0.missDose.count != 0})
-                arrNotification.append(noti)
-                date = cal.date(byAdding: .day, value: -1, to: date)!
+        
+        // TODO: 1172 bug changes
+        if var deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]] {
+       // op: [["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0], ["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0]]
+            var devicedemo = [0, 2]
+            for dictConvertion in deviceDetails {
+               // for (key, value) in dictConvertion {
+                let currentDate = dictConvertion["startDate"]
+                let currentMac = dictConvertion["deviceMacAddress"]
+                        arrNotification = [NotificationModel]()
+                        let cal = Calendar.current
+                        var date = cal.startOfDay(for: Date())
+                        date = cal.date(byAdding: .day, value: -1, to: date)!
+                        let noOfDayToLogin = Date().interval(ofComponent: .day, fromDate: currentDate as! Date)
+                        //let noOfDayToLogin = 2
+                        let historyOfDays =  noOfDayToLogin >= 7 ? 7 : noOfDayToLogin
+                        print(noOfDayToLogin)
+                        print(historyOfDays)
+                        var days = [String]()
+                        if historyOfDays >= 1 {
+                            for _ in 1 ... noOfDayToLogin {
+                                let noti = NotificationModel()
+                                days.append(date.getString(format: "yyyy-MM-dd"))
+                                noti.historyDate = date.getString(format: "MMM dd,yyyy")
+                                noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"), mac: currentMac as! String)
+                                debugPrint("historyDate \(noti.historyDate)")
+                                noti.updateStatus()
+                                noti.historyOfMiss = noti.history.filter({$0.missDose.count != 0})
+                                arrNotification.append(noti)
+                                date = cal.date(byAdding: .day, value: -1, to: date)!
+                            }
+                            if arrMissNotification.isEmpty == true {
+                                arrMissNotification = arrNotification.filter({$0.historyOfMiss.count != 0})
+                            } else {
+                                arrMissNotification.append(contentsOf: arrNotification.filter({$0.historyOfMiss.count != 0}))
+                            }
+                            
+                            print(days)
+                            setArrMsg()
+                        }
+                  //  }
+              //  }
             }
-            arrMissNotification = arrNotification.filter({$0.historyOfMiss.count != 0})
-            print(days)
-            setArrMsg()
         }
+        // end
+        
     }
     
     func setArrMsg() {
@@ -186,7 +206,7 @@ class NotificationVM {
         let date = cal.startOfDay(for: Date())
         let noti = NotificationModel()
         noti.historyDate = date.getString(format: "MMM dd,yyyy")
-        noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"))
+        noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"), mac: "70:05:00:00:03:f0")
         debugPrint("historyDate\(noti.historyDate)")
         noti.updateStatus()
         for device in noti.history {

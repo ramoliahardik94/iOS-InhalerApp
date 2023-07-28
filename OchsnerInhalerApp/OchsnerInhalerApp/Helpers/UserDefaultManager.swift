@@ -52,6 +52,16 @@ class UserDefaultManager {
         }
     }
     
+//    // MARK: - Date
+//    static var dateLoginNew: Date {
+//        get {
+//            return self.get(forKey: .dateLogin) as? Date ?? Date()
+//        }
+//        set(newValue) {
+//            self.set([newValue] as AnyObject?, forKey: .dateLogin)
+//        }
+//    }
+    
     // MARK: - Bool
     static var isFirstLaunch: Bool {
         get {

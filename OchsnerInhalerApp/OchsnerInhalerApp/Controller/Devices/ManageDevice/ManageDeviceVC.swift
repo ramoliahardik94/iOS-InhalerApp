@@ -16,7 +16,7 @@ class ManageDeviceVC: BaseVC {
     @IBOutlet weak var btnAddAnothDevice: UIButton!
     let refreshControl = UIRefreshControl()
     @IBOutlet weak var addDevicebtnHeight: NSLayoutConstraint!
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UserDefaults.standard.set(true, forKey: "setBLEPermission")
@@ -38,7 +38,7 @@ class ManageDeviceVC: BaseVC {
             refresh(self)
         }
     }
-  
+    
     func apiCall() {
         manageDeviceVM.apicallForGetDeviceList { [weak self] result in
             guard let`self` = self else { return }
@@ -146,7 +146,7 @@ extension ManageDeviceVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.btnEditDirection.tag = indexPath.row
         cell.btnEditDirection.accessibilityValue = "\(indexPath.section)"
-    
+        
         if indexPath.section == 0 {
             cell.lblDeviceType.text = indexPath.row == 0 ? "Rescue Devices" : ""
             cell.device = manageDeviceVM.arrRescue[indexPath.row]
@@ -181,9 +181,30 @@ extension ManageDeviceVC: ManageDeviceDelegate {
     func removeDevice(index: Int, section: Int) {
         // Remove device api call
         let device = section == 0 ? manageDeviceVM.arrRescue[index] : manageDeviceVM.arrMantainance[index]
+        
         CommonFunctions.showMessageYesNo(message: ValidationMsg.removeDevice) { [weak self] isOk in
             guard let `self` = self else { return }
             if isOk {
+                
+                // TODO: 1172 Bug Changes
+                if var deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]] {
+                    // OP: [["startDate": 2023-07-27 08:29:17 +0000, "deviceMacAddress": 70:05:00:00:03:f0], ["startDate": 2023-07-27 08:58:05 +0000, "deviceMacAddress": 70:05:00:00:03:c6]]
+                    let index = deviceDetails.firstIndex(where: { dictionary in
+                        guard let value = dictionary["deviceMacAddress"] as? String
+                        else { return false }
+                        return value == device.internalID
+                    })
+                    
+                    if let index = index {
+                        deviceDetails.remove(at: index)
+                        print("deviceDetailUpdated", deviceDetails)
+                        UserDefaults.standard.set(deviceDetails, forKey: "DeviceJoiningDate&MacAdd")
+                        print("deviceDetailUpdated", UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") ?? "")
+                    }
+                } else {
+                    print("nil")
+                }
+                
                 NotificationManager.shared.clearDeviceRemindersNotification(macAddress: device.internalID)
                 Logger.logInfo("Remove Device Click")
                 let id = DatabaseManager.share.getUDID(mac: device.internalID)

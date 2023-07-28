@@ -114,10 +114,24 @@ class ProfileVC: BaseVC {
         let providerListVC = ProviderListVC.instantiateFromAppStoryboard(appStoryboard: .providers)
         providerListVC.comeFrom = "profile"
         pushVC(controller: providerListVC)
+        
+//        if UserDefaults.standard.object(forKey: "dateLoginNew") == nil {
+//            let userDefaults = UserDefaults.standard
+//            userDefaults.set(Date(), forKey: "dateLoginNew")
+//        } else {
+//            var strings = UserDefaults.standard.object(forKey: "dateLoginNew") as! [Any]
+//            strings.append(Date())
+//            print("newlogindate", strings)
+//            UserDefaults.standard.set(strings, forKey: "dateLoginNew")
+//
+//        }
+        
+        
     }
     
     @IBAction func tapRemoveProvider(_ sender: Any) {
         removeProvider()
+        
     }
     
     @IBAction func onChangeSwitch(_ sender: UISwitch) {

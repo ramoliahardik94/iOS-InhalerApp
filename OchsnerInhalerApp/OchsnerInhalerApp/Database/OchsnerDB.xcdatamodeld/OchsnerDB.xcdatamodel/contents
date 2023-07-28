@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AcuationLog" representedClassName="AcuationLog" syncable="YES">
         <attribute name="batterylevel" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="deviceidmac" optional="YES" attributeType="String"/>
@@ -13,6 +13,7 @@
         <attribute name="uselength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Device" representedClassName="Device" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="mac" optional="YES" attributeType="String"/>
         <attribute name="medname" optional="YES" attributeType="String"/>
@@ -24,8 +25,4 @@
         <attribute name="udid" optional="YES" attributeType="String"/>
         <attribute name="version" optional="YES" attributeType="String"/>
     </entity>
-    <elements>
-        <element name="AcuationLog" positionX="-63" positionY="-18" width="128" height="179"/>
-        <element name="Device" positionX="-63" positionY="45" width="128" height="179"/>
-    </elements>
 </model>

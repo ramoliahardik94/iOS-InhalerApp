@@ -141,7 +141,9 @@ class LoginVC: BaseVC {
                 if UserDefaultManager.userEmailAddress != self.tfEmail.text {
                     DatabaseManager.share.deleteAllDevice()
                     DatabaseManager.share.deleteAllActuationLog()
-                    UserDefaultManager.dateLogin = Date()
+                    /* TODO: 1172 bug changes
+                    //UserDefaultManager.dateLogin = Date()
+                    */
                 }
                 UserDefaultManager.userEmailAddress = self.tfEmail.text ?? ""
                 self.getDeviceFromAPI()

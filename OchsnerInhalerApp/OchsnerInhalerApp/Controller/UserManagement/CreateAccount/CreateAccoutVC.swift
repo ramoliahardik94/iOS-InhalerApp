@@ -88,7 +88,11 @@ class CreateAccoutVC: BaseVC {
             switch result {
             case .success(let status):
              print("Response sucess :\(status)")
-                UserDefaultManager.dateLogin = Date()
+                
+                /* TODO: 1172 bug changes
+                //UserDefaultManager.dateLogin = Date()
+                */
+                 
                 UserDefaultManager.email = self?.createAccountVM.userData.email ?? ""
                 background {
                     self!.getProfile()

@@ -162,6 +162,50 @@ class DatabaseManager {
         }
     }
     
+    func saveDevicewithMac(object: DeviceModel, isFromDirection: Bool = false, macAddress: String) {
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
+        
+        if object.udid != "" {
+            setupUDID(mac: object.internalID, udid: object.udid)
+        } else {
+            object.udid = getUDID(mac: object.internalID)
+        }
+        
+        let predicate1 =  NSPredicate(format: "mac == %@", object.internalID)
+        let predicate2 =  NSPredicate(format: "email == %@", UserDefaultManager.email)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate1, predicate2])
+        fetchRequest.predicate = predicate
+        do {
+            var device: Device!
+            if object.internalID != "" {
+                let arrDevice = try context?.fetch(fetchRequest) as! [Device]
+                if arrDevice.count != 0 {
+                    device = arrDevice[0]
+                    if device.udid == "" && object.udid != "" {
+                        device.udid = object.udid
+                    }
+                } else {
+                    device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
+                    device.udid = object.udid
+                }
+                device.email = UserDefaultManager.email
+                device.mac = object.internalID
+                device.reminder =  object.isReminder
+                device.scheduledoses = object.arrTime.joined(separator: ",")
+                device.puff = Int16(object.puffs)
+                device.date = Date()
+                device.medname =  object.medication.medName
+                device.medtypeid = Int16(object.medTypeID)
+                device.version = object.version != "" ? object.version : device.version
+                try context?.save()
+                Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
+            }
+        } catch {
+            
+        }
+    }
+    
     func getActuationLogList(mac: String) -> [[String: Any]] {
         var actuationLog = [AcuationLog]()
         var usage = [[String: Any]]()
@@ -301,6 +345,7 @@ class DatabaseManager {
         fetchRequest.predicate = predicate
         do {
             device = try context?.fetch(fetchRequest) as! [Device]
+            
         } catch {
             debugPrint("Can not get Data")
         }
@@ -438,7 +483,7 @@ extension DatabaseManager {
             return false
         }
     }
-    func getMentainanceDeviceList(date: String) -> [History] {
+    func getMentainanceDeviceList(date: String, mac: String) -> [History] {
         var device = [Device]()
         var history = [History]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
@@ -452,11 +497,15 @@ extension DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
+        
+        // TODO: 1172 bug changes
         for obj in device {
-            let his = obj.deviceForMantainance()
-            his.acuation = getActuationogForHistory(mac: obj.mac!, date: date)
-            history.append(his)
-            
+            if obj.mac == mac {
+                let his = obj.deviceForMantainance()
+                his.acuation = getActuationogForHistory(mac: mac, date: date)
+                history.append(his)
+                
+            }
         }
         return history
     }

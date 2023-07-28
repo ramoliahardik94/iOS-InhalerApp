@@ -26,6 +26,7 @@ extension Device {
     @NSManaged public var medname: String?
     @NSManaged public var puff: Int16
     @NSManaged public var version: String?
+    @NSManaged public var date: Date?
     
     func deviceForMantainance() -> History {
         var dic = [String: Any]()

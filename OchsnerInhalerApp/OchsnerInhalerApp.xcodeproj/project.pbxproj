@@ -1353,7 +1353,7 @@
 				CURRENT_PROJECT_VERSION = 14;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 68L27Q5KGU;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1388,10 +1388,10 @@
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
 				MARKETING_VERSION = 1.0.18;
-				PRODUCT_BUNDLE_IDENTIFIER = com.volansys.global;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Volansys Global Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ochsner_Tracker_ Development";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1413,7 +1413,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 68L27Q5KGU;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1448,10 +1448,10 @@
 					"$(PROJECT_DIR)/OchsnerInhalerApp/SupportingFiles/BLEManager",
 				);
 				MARKETING_VERSION = 1.0.18;
-				PRODUCT_BUNDLE_IDENTIFIER = com.volansys.global;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ochsner.inhalertrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Volansys Global Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Ochsner_Tracker_ Development";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;

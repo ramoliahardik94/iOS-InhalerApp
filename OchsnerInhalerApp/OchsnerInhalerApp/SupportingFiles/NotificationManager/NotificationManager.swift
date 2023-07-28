@@ -2,8 +2,6 @@
 //  NotificationManager.swift
 
 import Foundation
-
-
 import UIKit
 import UserNotifications
 import ObjectMapper
@@ -95,7 +93,6 @@ class NotificationManager: NSObject {
                 Logger.logInfo("\(titile)")
             }
         })
-        
     }
     
     func twomorowTimeInterval(dose: String, calender: Calendar) -> TimeInterval {
@@ -135,28 +132,25 @@ class NotificationManager: NSObject {
                         setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: objDevice.mac ?? "", dose: item)
                     }
                 }
-                
             }
         }
-        
     }
     
     func clearDeviceRemindersNotification(macAddress: String) {
-    let center = UNUserNotificationCenter.current()
-    center.getPendingNotificationRequests(completionHandler: { requests in
-        let filterArray = requests.map({ (item) -> String in item.identifier })
-        let commonArray = filterArray.filter { item in
-            return item.lowercased().contains(macAddress.lowercased())
-        }
-        print("filter Arrya \(filterArray)")
-        // Logger.logInfo(" Filter notification \(commonArray)")
-        
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: commonArray)
-        Logger.logInfo(" Remove notification \(commonArray)")
-        
-    })
-}
-    
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            let filterArray = requests.map({ (item) -> String in item.identifier })
+            let commonArray = filterArray.filter { item in
+                return item.lowercased().contains(macAddress.lowercased())
+            }
+            print("filter Arrya \(filterArray)")
+            // Logger.logInfo(" Filter notification \(commonArray)")
+            
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: commonArray)
+            Logger.logInfo(" Remove notification \(commonArray)")
+            
+        })
+    }
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
@@ -177,22 +171,22 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-         let userInfo = response.notification.request.content.userInfo
-            if let version = userInfo["version"] {
-                if version as! Bool {
-                    // Move to Vesion UPDATE Screen
-                    print("Move to Vesion UPDATE Screen")
-                    let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
-                    BaseVC().rootVC(controller: bleUpgrade)
-                }
-            } else if let appVersion = userInfo["appversion"] {
-                if appVersion as! Bool {
-                    //  Move to Vesion UPDATE Screen
-                    if let url = URL(string: Constants.appUrl) {
-                        UIApplication.shared.open(url)
-                    }
+        let userInfo = response.notification.request.content.userInfo
+        if let version = userInfo["version"] {
+            if version as! Bool {
+                // Move to Vesion UPDATE Screen
+                print("Move to Vesion UPDATE Screen")
+                let bleUpgrade = OTAUpgradeDetailsVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
+                BaseVC().rootVC(controller: bleUpgrade)
+            }
+        } else if let appVersion = userInfo["appversion"] {
+            if appVersion as! Bool {
+                //  Move to Vesion UPDATE Screen
+                if let url = URL(string: Constants.appUrl) {
+                    UIApplication.shared.open(url)
                 }
             }
+        }
         UNUserNotificationCenter.current().removeAllDeliveredNotifications() // clear all the notification from notification center
         if UserDefaultManager.isNotificationOn {
             unregister()

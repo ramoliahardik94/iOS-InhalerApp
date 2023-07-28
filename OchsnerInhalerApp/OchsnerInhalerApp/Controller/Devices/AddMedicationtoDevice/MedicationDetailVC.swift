@@ -142,6 +142,49 @@ class MedicationDetailVC: BaseVC {
     }
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
+        // TODO: 1172 bug changes
+       // UserDefaults.standard.removeObject(forKey: "DeviceJoiningDate&MacAdd")
+        
+        if var deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]] {
+            // op: [["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0], ["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0]]
+            if deviceDetails.count == 0 {
+                // Empty
+                UserDefaults.standard.set([["startDate": Date(), "deviceMacAddress": medicationVM.macAddress]] as [[String: Any]], forKey: "DeviceJoiningDate&MacAdd")
+              
+                let deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]]
+                print("deviceDetail", deviceDetails ?? "")
+            } else {
+                for dictConvertion in deviceDetails {
+                    for (key, value) in dictConvertion {
+                        if key == "deviceMacAddress" {
+                            if value as! String == medicationVM.macAddress {
+                                // Value Exist
+                            } else {
+                                deviceDetails.append(["startDate": Date(), "deviceMacAddress": medicationVM.macAddress])
+                                // MARK: remove duplicate
+                                var set = Set<String>()
+                                let arrayDeviceSet: [[String: Any]] = deviceDetails.compactMap {
+                                    guard let name = $0["deviceMacAddress"] as? String else { return nil }
+                                    return set.insert(name).inserted ? $0 : nil
+                                }
+                                UserDefaults.standard.set(arrayDeviceSet, forKey: "DeviceJoiningDate&MacAdd")
+                                print("deviceDetailUpdated", UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") ?? "")
+                            }
+                        }
+                    }
+                }
+            }
+            
+        } else {
+            
+            // Empty
+            UserDefaults.standard.set([["startDate": Date(), "deviceMacAddress": medicationVM.macAddress]] as [[String: Any]], forKey: "DeviceJoiningDate&MacAdd")
+          
+            let deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]]
+            print("deviceDetail", deviceDetails ?? "")
+        }
+        
+       
         if validateDosesOnDone() {
             if swReminder.isOn && UserDefaultManager.isNotificationOn {
                 addReminderToCalender()
@@ -247,7 +290,6 @@ class MedicationDetailVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.medicationVM.medTypeId = 2
-        
     }
     // for add reminder event
     
