@@ -19,7 +19,8 @@ class DatabaseManager {
     static var share = DatabaseManager()
     
     let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    
+    var arrDate: [String] = []
+    var arrMac: [String] = []
     func saveActuation(object: [String: Any]) {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
@@ -104,7 +105,7 @@ class DatabaseManager {
         let predicate =  NSPredicate(format: "udid == %@", udid)
         fetchRequest.predicate = predicate
         do {
-            let arrDevice = try context?.fetch(fetchRequest) as! [Device]
+            let arrDevice = try context?.fetch(fetchRequest) as [Device]
             if arrDevice.count > 0 {
                 for obj in arrDevice {
                     obj.version = version
@@ -138,7 +139,7 @@ class DatabaseManager {
             if object.internalID != "" {
                 let arrDevice = try context?.fetch(fetchRequest) as! [Device]
                 if arrDevice.count != 0 {
-                    device = arrDevice[0]
+                    device = arrDevice[arrDevice.count - 1]
                     if device.udid == "" && object.udid != "" {
                         device.udid = object.udid
                     }
@@ -146,16 +147,43 @@ class DatabaseManager {
                     device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
                     device.udid = object.udid
                 }
-                device.email = UserDefaultManager.email
-                device.mac = object.internalID
-                device.reminder =  object.isReminder
-                device.scheduledoses = object.arrTime.joined(separator: ",")
-                device.puff = Int16(object.puffs)
-                device.medname =  object.medication.medName
-                device.medtypeid = Int16(object.medTypeID)
-                device.version = object.version != "" ? object.version : device.version
-                try context?.save()
-                Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
+               
+                let date = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd.MM.yyyy"
+                let currentDate = dateFormatter.string(from: date)
+                let existingDate = dateFormatter.string(from: device.date ?? Date())
+                print(currentDate, existingDate)
+                
+                if currentDate == existingDate {
+                    device.email = UserDefaultManager.email
+                    device.mac = object.internalID
+                    device.reminder =  object.isReminder
+                    device.scheduledoses = object.arrTime.joined(separator: ",")
+                    
+                    // TODO: 1172 Bug changes
+                    device.date = Date()
+                    device.puff = Int16(object.puffs)
+                    device.medname =  object.medication.medName
+                    device.medtypeid = Int16(object.medTypeID)
+                    device.version = object.version != "" ? object.version : device.version
+                    try context?.save()
+                    Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
+                } else {
+                    device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
+                    device.email = UserDefaultManager.email
+                    device.mac = object.internalID
+                    device.reminder =  object.isReminder
+                    device.scheduledoses = object.arrTime.joined(separator: ",")
+                    
+                    // TODO: 1172 Bug changes
+                    device.date = Date()
+                    device.puff = Int16(object.puffs)
+                    device.medname =  object.medication.medName
+                    device.medtypeid = Int16(object.medTypeID)
+                    device.version = object.version != "" ? object.version : device.version
+                    try context?.save()
+                }
             }
         } catch {
             
@@ -324,7 +352,6 @@ class DatabaseManager {
         }
     }
     
-    
     func deleteAllDevice() {
         let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
         let request = NSBatchDeleteRequest(fetchRequest: fetch)
@@ -345,7 +372,9 @@ class DatabaseManager {
         fetchRequest.predicate = predicate
         do {
             device = try context?.fetch(fetchRequest) as! [Device]
-            
+            if device.last?.date == Date() {
+                
+            }
         } catch {
             debugPrint("Can not get Data")
         }
@@ -384,10 +413,8 @@ extension DatabaseManager {
                     }
                 }
             }
-            
         }
     }
-    
     
     func updateActuationLogwithTimeAdd(_ updateObj: [[String: Any]], sec: Int = 2) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
@@ -419,10 +446,8 @@ extension DatabaseManager {
                     }
                 }
             }
-            
         }
     }
-    
     
     func setupUDID(mac: String, udid: String, isDelete: Bool = false ) {
         
@@ -443,7 +468,6 @@ extension DatabaseManager {
             return ""
         }
         return oldUDID
-        
     }
     
     func getMac(UDID: String) -> String {
@@ -457,7 +481,7 @@ extension DatabaseManager {
             debugPrint("Can not get Data")
         }
         if device.count > 0 {
-            return device[0].mac!
+            return device[0].mac ?? ""
         } else {
             return ""
         }
@@ -484,6 +508,7 @@ extension DatabaseManager {
         }
     }
     func getMentainanceDeviceList(date: String, mac: String) -> [History] {
+         
         var device = [Device]()
         var history = [History]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
@@ -497,15 +522,67 @@ extension DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
+    
+//        for deviceData in 0...device.count - 1 {
+//            let dateToday = Date()
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "yyyy-MM-dd"
+//            let deviceDate = device[deviceData].date ?? Date()
+//            let convertedDate = dateFormatter.string(from: deviceDate)
+//
+//            arrDate.append(convertedDate)
+//        }
+//        print(arrDate)
         
+//        if arrDate.contains(date) == false {
+//            arrDate.append(date)
+//            print("Missing Date" ,date)
+//            for obj in device {
+//
+//                if obj.date == date {
+//                    print("editedDate", obj.date)
+//                    let his = obj.deviceForMantainance()
+//                    his.acuation = getActuationogForHistory(mac: mac, date: "2023-08-06")
+//                    history.append(his)
+//                }
+//            }
+//        } else {
+//            // do nothing
+//        }
+       
         // TODO: 1172 bug changes
         for obj in device {
             if obj.mac == mac {
-                let his = obj.deviceForMantainance()
-                his.acuation = getActuationogForHistory(mac: mac, date: date)
-                history.append(his)
                 
+                let dateToday = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let currentDate = dateFormatter.string(from: dateToday)
+                let existingDate = dateFormatter.string(from: obj.date ?? Date())
+                print(currentDate, existingDate)
+                
+                if currentDate == existingDate {
+                    // no data exist
+                } else {
+                    if date == existingDate {
+                        let his = obj.deviceForMantainance()
+                        his.acuation = getActuationogForHistory(mac: mac, date: date)
+                        history.append(his)
+                    } else {
+                        print("in else when date not found.")
+        
+//                        if arrDate.contains(date) == false {
+//                            arrDate.append(date)
+//                            let his = obj.deviceForMantainance()
+//                            his.acuation = getActuationogForHistory(mac: mac, date: date)
+//                            history.append(his)
+//                            print("arrdate--", arrDate)
+//                        }
+
+                    }
+                }
             }
+            print("for loop complete")
         }
         return history
     }
@@ -513,13 +590,13 @@ extension DatabaseManager {
     func removeMentainanceDeviceList() {
         // Create Fetch Request
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: EntityName.device)
-
+        
         // Create Batch Delete Request
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
+        
         do {
             try context?.execute(batchDeleteRequest)
-
+            
         } catch {
             // Error Handling
         }

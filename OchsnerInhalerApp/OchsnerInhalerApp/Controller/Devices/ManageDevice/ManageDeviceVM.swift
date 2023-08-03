@@ -19,13 +19,15 @@ class ManageDeviceVM {
             } else {
                 if let res = response as? [[String: Any]] {
                     self.arrDevice.removeAll()
-                    for obj in res {                        
+                    for obj in res {
+                        
                         self.arrDevice.append(DeviceModel(jSon: obj))
                         let device = DeviceModel(jSon: obj)
                         if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) {
                             completionHandler(.success(true))
                             device.version = peripheral.version.trimmingCharacters(in: .controlCharacters)
                         }
+                        // device.puffDate = Date()
                         DatabaseManager.share.saveDevice(object: device)
                     }
                     self.arrRescue = self.arrDevice.filter({$0.medTypeID == 1})

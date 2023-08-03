@@ -20,7 +20,6 @@ class CustomSplashVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         lblCopyRight.text = StringCommonMessages.copyRight
         lblConnectdInhalerSensor.text = StringSplash.connectdInhalerSensor
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
@@ -45,7 +44,7 @@ class CustomSplashVC: BaseVC {
         NotificationCenter.default.addObserver(self, selector: #selector(self.getisAllow(notification:)), name: .BLEOnOff, object: nil)
         
         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        deviceUDID = devicelist.map({$0.udid!})
+        deviceUDID = devicelist.map({$0.udid ?? ""})
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification && deviceUDID.count > 0 {
             if UserDefaultManager.isLocationOn {
                 LocationManager.shared = LocationManager()
@@ -70,7 +69,6 @@ class CustomSplashVC: BaseVC {
                 } else {
                     Logger.logInfo("BLE is not Granted.")
                 }
-                
             }
         }
     }

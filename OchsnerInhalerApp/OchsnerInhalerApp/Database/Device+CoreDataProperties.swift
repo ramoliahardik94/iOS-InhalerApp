@@ -28,6 +28,7 @@ extension Device {
     @NSManaged public var version: String?
     @NSManaged public var date: Date?
     
+    
     func deviceForMantainance() -> History {
         var dic = [String: Any]()
         dic["puff"] = self.puff

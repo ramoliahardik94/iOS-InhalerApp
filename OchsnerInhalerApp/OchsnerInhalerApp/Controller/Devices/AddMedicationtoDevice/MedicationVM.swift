@@ -37,41 +37,50 @@ class MedicationVM {
         }
     }
     
-    func apiAddDevice(isreminder: Bool, completionHandler: @escaping ((APIResult) -> Void)) {
+    func apiAddDevice(isreminder: Bool, date: Date?, completionHandler: @escaping ((APIResult) -> Void)) {
         totalDose = arrTime.count
         if macAddress != "N/A" {
             var str = ""
             if arrTime.count != 0 {
-               str = arrTime.joined(separator: ",")
+                str = arrTime.joined(separator: ",")
             }
             let dic: [String: Any] = [
                 "InternalId": macAddress,
                 "MedId": selectedMedication.medID!,
                 "MedTypeId": medTypeId,
                 "Puffs": puff,
-                "DailyUsage": totalDose, 
+                "DailyUsage": totalDose,
                 "UseTimes": str,
                 "Description": description
             ]
             APIManager.shared.performRequest(route: APIRouter.device.path, parameters: dic, method: .post, isAuth: true) { [weak self] error, response in
                 guard let `self` = self else { return }
-              
+                
                 if response == nil {
                     if let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {$0.addressMAC == self.macAddress}) {
                         BLEHelper.shared.cleanup(peripheral: (peripheral.discoveredPeripheral!))
                         BLEHelper.shared.connectedPeripheral.removeAll(where: {$0.addressMAC == self.macAddress})
                     }
                     completionHandler(.failure(error!.message))
-                
+                    
                 } else {
                     if (response as? [String: Any]) != nil {
                         NotificationCenter.default.post(name: .medUpdate, object: nil)
-                        BLEHelper.shared.isAddAnother = false                      
+                        BLEHelper.shared.isAddAnother = false
                         guard let peripheral = BLEHelper.shared.connectedPeripheral.first(where: {BLEHelper.shared.newDeviceId == $0.discoveredPeripheral?.identifier.uuidString}) else {
                             completionHandler(.success(true))
                             return
                         }
+                        
+                        
+                        // TODO: 1172 bug changes
                         let device = DeviceModel()
+                        if device.puffDate != nil {
+                            
+                        } else {
+                            device.puffDate = date
+                        }
+                        
                         device.internalID = peripheral.addressMAC
                         device.udid = peripheral.discoveredPeripheral?.identifier.uuidString ?? ""
                         device.isReminder = isreminder
@@ -89,6 +98,5 @@ class MedicationVM {
                 }
             }
         }
-        
     }
 }

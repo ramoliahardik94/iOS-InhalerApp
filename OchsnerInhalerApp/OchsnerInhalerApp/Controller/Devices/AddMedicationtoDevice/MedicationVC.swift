@@ -102,7 +102,7 @@ class MedicationVC: BaseVC {
                     }
                 }
                 UserDefaultManager.selectedMedi = medicationVM.selectedMedication.toDic()
-                medicationVM.apiAddDevice(isreminder: false) { [weak self] result in
+                medicationVM.apiAddDevice(isreminder: false, date: nil) { [weak self] result in
                     guard let `self` = self else { return }
                     switch result {
                     case .success(let status):

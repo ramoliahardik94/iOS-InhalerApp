@@ -143,7 +143,6 @@ class MedicationDetailVC: BaseVC {
     
     @IBAction func btnDoneClick(_ sender: UIButton) {
         // TODO: 1172 bug changes
-       // UserDefaults.standard.removeObject(forKey: "DeviceJoiningDate&MacAdd")
         
         if var deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]] {
             // op: [["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0], ["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0]]
@@ -183,7 +182,6 @@ class MedicationDetailVC: BaseVC {
             let deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]]
             print("deviceDetail", deviceDetails ?? "")
         }
-        
        
         if validateDosesOnDone() {
             if swReminder.isOn && UserDefaultManager.isNotificationOn {
@@ -193,13 +191,18 @@ class MedicationDetailVC: BaseVC {
             }
             
             if medicationVM.arrTime.count > 0 && medicationVM.puff > 0 {
-                medicationVM.apiAddDevice(isreminder: swReminder.isOn) { [weak self] result in
+                
+                // TODO: 1172 bug changes
+                medicationVM.apiAddDevice(isreminder: swReminder.isOn, date: Date()) { [weak self] result in
                     guard let `self` = self else { return }
                     switch result {
                     case .success(let status):
                         print("Response sucess :\(status)")
                         UserDefaultManager.isAddReminder = self.swReminder.isOn
+                        
+                        // TODO: 1172 bug changes
                         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+                        
                         if devicelist.count == 1 && !self.medicationVM.isEdit {
                             self.medicationVM.selectedMedication.uuid = (BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral?.identifier.uuidString) ?? ""
                             UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
@@ -244,6 +247,8 @@ class MedicationDetailVC: BaseVC {
             displayDate = Date()
         }
         let dosetime =   displayDate.getString(format: DateFormate.doseTime)
+        
+        
         if !validateTime(time: dosetime) {
             self.view.makeToast(ValidationMsg.doseError)
         }

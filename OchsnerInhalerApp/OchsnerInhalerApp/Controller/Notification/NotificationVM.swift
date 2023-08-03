@@ -164,6 +164,20 @@ class NotificationVM {
                                 days.append(date.getString(format: "yyyy-MM-dd"))
                                 noti.historyDate = date.getString(format: "MMM dd,yyyy")
                                 noti.history = DatabaseManager.share.getMentainanceDeviceList(date: date.getString(format: "yyyy-MM-dd"), mac: currentMac as! String)
+                                
+                                // 1172 changes
+                                let currentDate = date.getString(format: "yyyy-MM-dd")
+                                print("currentDate---", currentDate)
+                                
+                                if noti.history.count == 0 {
+                                    let today = Date()
+                                    print(today)
+                                    let modifiedDate = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+                                    print(modifiedDate)
+                                    noti.history = DatabaseManager.share.getMentainanceDeviceList(date: "2023-08-04", mac: currentMac as! String)
+                                }
+                                
+                                //
                                 debugPrint("historyDate \(noti.historyDate)")
                                 noti.updateStatus()
                                 noti.historyOfMiss = noti.history.filter({$0.missDose.count != 0})

@@ -7,7 +7,6 @@ import CoreLocation
 import SystemConfiguration.CaptiveNetwork
 
 class LocationManager: CLLocationManager {
-    
     // MARK: Properties
     static var shared = LocationManager()
     var locationManager = CLLocationManager()

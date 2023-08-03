@@ -24,6 +24,7 @@ class DeviceModel: NSObject {
     var arrTime: [String] = [String]()
     var isReminder = true
     var udid = ""
+    var puffDate: Date? 
     var version: String = ""
     var discription: String = ""
     override init () {        
@@ -89,7 +90,6 @@ class DeviceModel: NSObject {
         }
              
     }
-    
 }
 // MARK: - MedType
 class MedType: NSObject {

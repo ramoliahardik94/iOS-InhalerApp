@@ -92,7 +92,7 @@ class ManageDeviceCell: UITableViewCell {
         updateDevice.description = device.discription
         updateDevice.arrTime = device.arrTime
         if let deviceDB = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email).first(where: {$0.mac == device.internalID}) {
-            updateDevice.apiAddDevice(isreminder: deviceDB.reminder) { [weak self] result in
+            updateDevice.apiAddDevice(isreminder: deviceDB.reminder, date: nil) { [weak self] result in
                 guard self != nil else { return }
                 switch result {
                 case .success:
