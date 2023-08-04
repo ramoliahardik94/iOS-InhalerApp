@@ -121,7 +121,6 @@ class DatabaseManager {
     }
     
     func saveDevice(object: DeviceModel, isFromDirection: Bool = false) {
-        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
         
         if object.udid != "" {
@@ -147,42 +146,74 @@ class DatabaseManager {
                     device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
                     device.udid = object.udid
                 }
-               
+                
                 let date = Date()
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd.MM.yyyy"
                 let currentDate = dateFormatter.string(from: date)
                 let existingDate = dateFormatter.string(from: device.date ?? Date())
                 print(currentDate, existingDate)
-                
-                if currentDate == existingDate {
-                    device.email = UserDefaultManager.email
-                    device.mac = object.internalID
-                    device.reminder =  object.isReminder
-                    device.scheduledoses = object.arrTime.joined(separator: ",")
-                    
-                    // TODO: 1172 Bug changes
-                    device.date = Date()
-                    device.puff = Int16(object.puffs)
-                    device.medname =  object.medication.medName
-                    device.medtypeid = Int16(object.medTypeID)
-                    device.version = object.version != "" ? object.version : device.version
-                    try context?.save()
-                    Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
+               
+                let noOfDayMissing = Date().interval(ofComponent: .day, fromDate: device.date ?? Date())
+                // MARK: store data for missing date's
+                if noOfDayMissing > 1 {
+                    // Missig dates Entry
+                    for currentDay in (0...noOfDayMissing - 1).enumerated().reversed() {
+                        
+                        var modifiedDate = Date()
+                        if currentDay.element == 0 {
+                            modifiedDate = Date()
+                        } else {
+                            modifiedDate = Calendar.current.date(byAdding: .day, value: -currentDay.element, to: Date())!
+                        }
+                        
+                        device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
+                        device.email = UserDefaultManager.email
+                        device.mac = object.internalID
+                        device.reminder =  object.isReminder
+                        device.scheduledoses = object.arrTime.joined(separator: ",")
+                        
+                        // TODO: 1172 Bug changes
+                        device.date = modifiedDate
+                        device.puff = Int16(object.puffs)
+                        device.medname =  object.medication.medName
+                        device.medtypeid = Int16(object.medTypeID)
+                        device.version = object.version != "" ? object.version : device.version
+                        try context?.save()
+                        
+                    }
                 } else {
-                    device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
-                    device.email = UserDefaultManager.email
-                    device.mac = object.internalID
-                    device.reminder =  object.isReminder
-                    device.scheduledoses = object.arrTime.joined(separator: ",")
-                    
-                    // TODO: 1172 Bug changes
-                    device.date = Date()
-                    device.puff = Int16(object.puffs)
-                    device.medname =  object.medication.medName
-                    device.medtypeid = Int16(object.medTypeID)
-                    device.version = object.version != "" ? object.version : device.version
-                    try context?.save()
+                    // MARK: update in same id
+                    if currentDate == existingDate {
+                        device.email = UserDefaultManager.email
+                        device.mac = object.internalID
+                        device.reminder =  object.isReminder
+                        device.scheduledoses = object.arrTime.joined(separator: ",")
+                        
+                        // TODO: 1172 Bug changes
+                        device.date = Date()
+                        device.puff = Int16(object.puffs)
+                        device.medname =  object.medication.medName
+                        device.medtypeid = Int16(object.medTypeID)
+                        device.version = object.version != "" ? object.version : device.version
+                        try context?.save()
+                        Logger.logInfo("Device \(arrDevice.count == 0 ? "Save" : "Update") : \(device.mac ?? "") with udid:\(device.udid ?? "")")
+                    } else {
+                        // MARK: add new device data
+                        device = (NSEntityDescription.insertNewObject(forEntityName: EntityName.device, into: context!) as! Device)
+                        device.email = UserDefaultManager.email
+                        device.mac = object.internalID
+                        device.reminder =  object.isReminder
+                        device.scheduledoses = object.arrTime.joined(separator: ",")
+                        
+                        // TODO: 1172 Bug changes
+                        device.date = Date()
+                        device.puff = Int16(object.puffs)
+                        device.medname =  object.medication.medName
+                        device.medtypeid = Int16(object.medTypeID)
+                        device.version = object.version != "" ? object.version : device.version
+                        try context?.save()
+                    }
                 }
             }
         } catch {
@@ -261,7 +292,6 @@ class DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
-        
         return usage
     }
     
@@ -508,7 +538,7 @@ extension DatabaseManager {
         }
     }
     func getMentainanceDeviceList(date: String, mac: String) -> [History] {
-         
+        
         var device = [Device]()
         var history = [History]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.device)
@@ -522,34 +552,7 @@ extension DatabaseManager {
         } catch {
             debugPrint("Can not get Data")
         }
-    
-//        for deviceData in 0...device.count - 1 {
-//            let dateToday = Date()
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "yyyy-MM-dd"
-//            let deviceDate = device[deviceData].date ?? Date()
-//            let convertedDate = dateFormatter.string(from: deviceDate)
-//
-//            arrDate.append(convertedDate)
-//        }
-//        print(arrDate)
         
-//        if arrDate.contains(date) == false {
-//            arrDate.append(date)
-//            print("Missing Date" ,date)
-//            for obj in device {
-//
-//                if obj.date == date {
-//                    print("editedDate", obj.date)
-//                    let his = obj.deviceForMantainance()
-//                    his.acuation = getActuationogForHistory(mac: mac, date: "2023-08-06")
-//                    history.append(his)
-//                }
-//            }
-//        } else {
-//            // do nothing
-//        }
-       
         // TODO: 1172 bug changes
         for obj in device {
             if obj.mac == mac {
@@ -569,20 +572,9 @@ extension DatabaseManager {
                         his.acuation = getActuationogForHistory(mac: mac, date: date)
                         history.append(his)
                     } else {
-                        print("in else when date not found.")
-        
-//                        if arrDate.contains(date) == false {
-//                            arrDate.append(date)
-//                            let his = obj.deviceForMantainance()
-//                            his.acuation = getActuationogForHistory(mac: mac, date: date)
-//                            history.append(his)
-//                            print("arrdate--", arrDate)
-//                        }
-
                     }
                 }
             }
-            print("for loop complete")
         }
         return history
     }
