@@ -165,7 +165,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        setNotification()
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
         if let value = userInfo["some-key"] as? String {
             print(value) // output: "some-value"
             Logger.logInfo("##### Silent Message ##### \(value)")
@@ -179,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Inform the system after the background operation is completed.
         completionHandler(.newData)
     }
-        
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }

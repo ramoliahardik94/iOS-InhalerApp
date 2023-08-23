@@ -14,5 +14,6 @@ target 'OchsnerInhalerApp' do
   pod 'SwiftLint'
   pod 'Firebase/Analytics', '~> 8.4.0'
   pod 'Firebase/Crashlytics', '~> 8.4.0'
+  pod 'Firebase/Messaging', '~> 8.4.0'
   pod 'IQKeyboardManagerSwift', '6.3.0'  
 end

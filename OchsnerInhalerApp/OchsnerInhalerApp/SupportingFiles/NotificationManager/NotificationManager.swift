@@ -184,7 +184,6 @@ class NotificationManager: NSObject {
             Logger.logInfo("Scan with ManageDeviceVC refresh")
             BLEHelper.shared.scanPeripheral(isTimer: false)
         } else {
-            UIApplication.topViewController()?.presentAlert(withTitle: title, message: message)
             BLEHelper.shared.connectedPeripheral.forEach { peripheral in
                 if let discoveredPeripheral = peripheral.discoveredPeripheral,
                    discoveredPeripheral.state != .connected {
