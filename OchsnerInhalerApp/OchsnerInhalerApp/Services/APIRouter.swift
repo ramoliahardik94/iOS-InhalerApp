@@ -18,7 +18,8 @@ enum APIRouter {
     case user // this is for profile
     case upgradeerror
     case appVersion
-    
+    case registerToken
+
     // MARK: - Path
     var path: String {
         switch self {
@@ -47,7 +48,9 @@ enum APIRouter {
         case .upgradeerror:
             return BaseURLManager.shared.getBaseURL() + "upgradeerror"
         case .appVersion:
-            return BaseURLManager.shared.getBaseURL() + "version"            
+            return BaseURLManager.shared.getBaseURL() + "version"
+        case .registerToken:
+            return BaseURLManager.shared.getBaseURL() + "client"
         }
     }
     

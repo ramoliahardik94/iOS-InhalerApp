@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>914267242129-o2kis8tkq1eforctp1hs2cgj172a04ge.apps.googleusercontent.com</string>
+	<string>929736278675-v3ambn7c09fj3u5sojq86p8easaamj45.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.914267242129-o2kis8tkq1eforctp1hs2cgj172a04ge</string>
+	<string>com.googleusercontent.apps.929736278675-v3ambn7c09fj3u5sojq86p8easaamj45</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA-AjVModw46o1jsTExQD4KMzVhC8WS4Bc</string>
+	<string>AIzaSyA8unoz9mzbjAzul1nR4wptIPhXmrGrZDc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>914267242129</string>
+	<string>929736278675</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ochsner.inhalertrack</string>
 	<key>PROJECT_ID</key>
-	<string>ochsner-inhaler-app</string>
+	<string>inhalertrackertest</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ochsner-inhaler-app.appspot.com</string>
+	<string>inhalertrackertest.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:914267242129:ios:25c0f316d6f907f2d0c930</string>
+	<string>1:929736278675:ios:5919e8cd3465585f1cc366</string>
 </dict>
 </plist>

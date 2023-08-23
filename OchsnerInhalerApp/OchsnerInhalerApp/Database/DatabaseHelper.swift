@@ -612,6 +612,24 @@ extension DatabaseManager {
         return filter
         
     }
+    
+    func getAllActuationLog() -> [AcuationLog] {
+        var actuationLog = [AcuationLog]()
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: EntityName.acuationLog)
+        let predicate3 =  NSPredicate(format: "isbadlog == %d", false)
+        let predicate = NSCompoundPredicate.init(type: .and, subpredicates: [predicate3])
+        
+        fetchRequest.predicate = predicate
+        do {
+            actuationLog = try context?.fetch(fetchRequest) as! [AcuationLog]
+        } catch {
+            debugPrint("Can not get Data")
+        }
+        //        let filter = actuationLog.filter({($0.usedatelocal ?? "").contains(date)})
+        return actuationLog
+    }
+    
     func getMinDate() -> String {
         var dateComponents = DateComponents()
         dateComponents.year = 2021

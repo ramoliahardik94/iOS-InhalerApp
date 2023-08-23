@@ -18,6 +18,7 @@ class GraphDetailVC: BaseVC {
     var totalPuffTime = [Any]()
     var totalPuffCount = [String]()
     
+    @IBOutlet weak var lblNoData: UILabel!
     @IBOutlet weak var graphDetailTV: UITableView!
     @IBOutlet weak var btnAddDose: UIButton!
     
@@ -25,7 +26,8 @@ class GraphDetailVC: BaseVC {
         super.viewDidLoad()
         btnAddDose.layer.cornerRadius = 5
         graphDetailTV.isHidden = false
-        
+        lblNoData.text = StringCommonMessages.noDataFount
+
         if doseDetailData.today?.doseDetail.count == 0 {
             graphDetailTV.isHidden = true
         }

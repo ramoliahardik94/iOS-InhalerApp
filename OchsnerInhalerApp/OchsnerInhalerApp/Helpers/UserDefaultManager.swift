@@ -18,6 +18,8 @@ enum UserDefaultKey: String {
     case isLogin
     case isNotificationOn
     case deviceToken
+    case firebaseToken
+    case inhalersRegisteredForPush
     // case addDevice
     case selectedMedi
     case email
@@ -194,6 +196,23 @@ class UserDefaultManager {
         }
     }
     
+    static var firebaseToken: String {
+        get {
+            return self.get(forKey: .firebaseToken) as? String ?? ""
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .firebaseToken)
+        }
+    }
+    
+    static var inhalersRegisteredForPush: [String: String] {
+        get {
+            UserDefaults.standard.object(forKey: UserDefaultKey.inhalersRegisteredForPush.rawValue) as? [String: String] ?? [:]
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .inhalersRegisteredForPush)
+        }
+    }
     
     static var providerName: String {
         get {

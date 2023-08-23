@@ -36,7 +36,14 @@ class NotificationVC: BaseVC {
         self.navigationItem.leftBarButtonItem = newBackButton
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         // Do any additional setup after loading the view.
+        
+        let notif = UIBarButtonItem(image: UIImage(systemName: "list.number"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(tapData(sender:)))
+        
+        let allData = UIBarButtonItem(image: UIImage(systemName: "keyboard"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(tapAllData(sender:)))
+        
+        self.navigationItem.rightBarButtonItems = [notif, allData]
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         notification.getHistory() 
         tbvData.reloadData()
@@ -54,6 +61,53 @@ class NotificationVC: BaseVC {
         // ...
         // Go back to the previous ViewController
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func tapAllData(sender: UIBarButtonItem) {
+        var msg = ""
+        var deviceList: [String: String] = [:]
+        
+        let devices = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        let actlogs = DatabaseManager.share.getAllActuationLog()
+        let dict = Dictionary(grouping: actlogs, by: { $0.deviceidmac })
+        dict.forEach { key, val in
+            if let mac = key,
+               let name = deviceList[mac] {
+                msg += (msg.isEmpty ? "" : "\n\n ") + name
+                
+                msg += "\n" + ((val.map({ $0.usedatelocal }) as? [String])?.joined(separator: "\n") ?? "")
+            }
+        }
+        
+        let alert = UIAlertController(title: "All Data", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func tapData(sender: UIBarButtonItem) {
+        let timeZone = Date().getString(format: "Z", isUTC: false)
+        let timeInterVal = TimeInterval((30*60)) // #30 miniutes
+        
+        var msg = ""
+        notification.arrMissNotification.forEach { notification in
+            let dateHistory = notification.historyDate.getDate(format: DateFormate.notificationFormate).getString(format: DateFormate.useDateLocalyyyyMMddDash)
+            
+            msg += (msg.isEmpty ? "" : "\n") + notification.historyDate
+            notification.history.forEach { history in
+                history.dose.forEach { dose in
+                    let time = dose.time.getDate(format: DateFormate.doseTime).getString(format: "HH:mm:ss")
+                    let maxDate = (dateHistory + "T" + time + timeZone).getDate(format: DateFormate.useDateLocalAPI).addingTimeInterval(timeInterVal).getString(format: DateFormate.useDateLocalAPI)
+                    
+                    msg += "\n\n Dose: " + history.medName + " Status: " + dose.status + " Time: " + maxDate + "\n"
+                    let arr = dose.acuation.map({ $0.usedatelocal }) as? [String]
+                    msg += "Puffs: " + (arr?.joined(separator: "\n") ?? "No Puff")
+                }
+            }
+        }
+        
+        let alert = UIAlertController(title: "All Notification", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

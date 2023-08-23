@@ -5,6 +5,8 @@ import Foundation
 import UIKit
 import UserNotifications
 import ObjectMapper
+import FirebaseCore
+import FirebaseMessaging
 
 class NotificationManager: NSObject {
     // MARK: Properties
@@ -17,7 +19,7 @@ class NotificationManager: NSObject {
     // MARK: APNS Notification Handlers
     func register() {
         UNUserNotificationCenter.current().delegate = self
-        // Messaging.messaging().delegate = self
+        Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             print("NotificationManager > register > registered for remote notification > Granted > \(granted) > Error > \(String(describing: error?.localizedDescription))")
             foreground {
@@ -25,6 +27,9 @@ class NotificationManager: NSObject {
                     self.statusReceived?(.notDetermined)
                 } else {
                     UIApplication.shared.registerForRemoteNotifications()
+                    delay(1) {
+                        self.processPushToken()
+                    }
                 }
             }
         }
@@ -33,6 +38,7 @@ class NotificationManager: NSObject {
     func unregister() {
         print("NotificationManager > unregister > unregistered for remote notification")
         UserDefaultManager.deviceToken = ""
+        UserDefaultManager.firebaseToken = ""
         UIApplication.shared.unregisterForRemoteNotifications()
     }
     
@@ -67,6 +73,9 @@ class NotificationManager: NSObject {
                 completion(true)
                 if granted {
                     UIApplication.shared.registerForRemoteNotifications()
+                    delay(1) {
+                        self.processPushToken()
+                    }
                 }
             }
         }
@@ -93,6 +102,23 @@ class NotificationManager: NSObject {
                 Logger.logInfo("\(titile)")
             }
         })
+    }
+    
+    func setSilentNotification(value: String) {
+        Logger.logInfo(" setNotification start")
+        let content = UNMutableNotificationContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        content.title = "Silent Message"
+        content.body =  value
+        content.sound = UNNotificationSound.default
+        
+        let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            if let error = error {
+                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            }
+        })
+        Logger.logInfo(" setNotification End")
     }
     
     func twomorowTimeInterval(dose: String, calender: Calendar) -> TimeInterval {
@@ -151,6 +177,22 @@ class NotificationManager: NSObject {
             
         })
     }
+    
+    func BLEREConnection_1() {
+        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        if BLEHelper.shared.connectedPeripheral.count != device.count {
+            Logger.logInfo("Scan with ManageDeviceVC refresh")
+            BLEHelper.shared.scanPeripheral(isTimer: false)
+        } else {
+            UIApplication.topViewController()?.presentAlert(withTitle: title, message: message)
+            BLEHelper.shared.connectedPeripheral.forEach { peripheral in
+                if let discoveredPeripheral = peripheral.discoveredPeripheral,
+                   discoveredPeripheral.state != .connected {
+                    BLEHelper.shared.connectPeriPheral(peripheral: discoveredPeripheral)
+                }
+            }
+        }
+    }
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
@@ -196,7 +238,6 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
 }
 
 extension NotificationManager {
-    
     func showAlert(title: String, message: String) {
         if UIApplication.topViewController()!.isKind(of: UIAlertController.self) {
             UIApplication.topViewController()!.dismiss(animated: false) {
@@ -204,6 +245,76 @@ extension NotificationManager {
             }
         } else {
             UIApplication.topViewController()?.presentAlert(withTitle: title, message: message)
+        }
+    }
+}
+
+// MARK: - Remote Push notification delegates and methods
+extension NotificationManager: MessagingDelegate {
+
+    private func getNotificationSettingsAndRegister() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
+
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        processPushToken()
+    }
+    
+    private func processPushToken() {
+        if let token = Messaging.messaging().fcmToken {
+            
+            Logger.logInfo("***** FCM TOKEN ***** \(token)")
+            UserDefaultManager.inhalersRegisteredForPush.forEach { dict in
+                if token != dict.value {
+                    doSendPushTokenRequest(mac: dict.key)
+                }
+            }
+            UserDefaultManager.firebaseToken = token
+        }
+    }
+    
+    func removePushTokenRequest(mac: String) {
+        var macAddresses = UserDefaultManager.inhalersRegisteredForPush
+        if let index = macAddresses.index(forKey: mac) {
+            macAddresses.remove(at: index)
+            UserDefaultManager.inhalersRegisteredForPush = macAddresses
+        }
+        
+        // API request is pending
+    }
+    
+    func updateTokenForDevice(deviceMACs: [String]) {
+        deviceMACs.forEach { mac in
+            doSendPushTokenRequest(mac: mac)
+        }
+    }
+
+    
+    func doSendPushTokenRequest(mac: String) {
+        var parameter = [String: Any]()
+        parameter["MobileType"] = "iOS"
+        parameter["AppVersion"] = appVersion()
+        parameter["OSVersion"] = UIDevice.current.systemVersion
+        parameter["AppIdToken"] = UserDefaultManager.firebaseToken
+        parameter["UniqueId"] = mac
+        
+        APIManager.shared.performRequest(route: APIRouter.registerToken.path, parameters: parameter, method: .post, isAuth: true) { error, response in
+            
+            if response != nil {
+                var macAddresses = UserDefaultManager.inhalersRegisteredForPush
+                macAddresses[mac] = UserDefaultManager.firebaseToken
+                UserDefaultManager.inhalersRegisteredForPush = macAddresses
+            } else {
+                
+                // if let res =  response as? [String: Any] {
+//                completionHandler(.success(true))
+                // }
+            }
         }
     }
 }

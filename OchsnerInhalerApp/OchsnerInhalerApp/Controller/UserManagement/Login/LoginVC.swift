@@ -114,19 +114,28 @@ class LoginVC: BaseVC {
                     //                     DispatchQueue.main.async {
                     //                         self.rootVC(controller: homeTabBar)
                     //                     }
+                } else {
+                    self.redirectToHome()
+                    DispatchQueue.main.async {
+                        BLEHelper.shared.setDelegate()
+                    }
                 }
             }
         } else {
-            if BLEHelper.shared.centralManager.state == .poweredOn {
-                Logger.logInfo("Scan with LoginVC setNextView")
-                // BLEHelper.shared.scanPeripheral()
-            }
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
-            // homeTabBar.selectedIndex = 1
-            DispatchQueue.main.async {
-                self.rootVC(controller: homeTabBar)
-            }
+            redirectToHome()
+        }
+    }
+    
+    private func redirectToHome() {
+        if BLEHelper.shared.centralManager.state == .poweredOn {
+            Logger.logInfo("Scan with LoginVC setNextView")
+            // BLEHelper.shared.scanPeripheral()
+        }
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let homeTabBar  = storyBoard.instantiateViewController(withIdentifier: "HomeTabBar") as! UITabBarController
+        // homeTabBar.selectedIndex = 1
+        DispatchQueue.main.async {
+            self.rootVC(controller: homeTabBar)
         }
     }
     

@@ -206,6 +206,7 @@ extension ManageDeviceVC: ManageDeviceDelegate {
                 }
                 
                 NotificationManager.shared.clearDeviceRemindersNotification(macAddress: device.internalID)
+                NotificationManager.shared.removePushTokenRequest(mac: device.internalID)
                 Logger.logInfo("Remove Device Click")
                 let id = DatabaseManager.share.getUDID(mac: device.internalID)
                 DatabaseManager.share.setRTCFor(udid: id, value: false)

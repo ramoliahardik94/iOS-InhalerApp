@@ -144,6 +144,7 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnDoneClick(_ sender: UIButton) {
         // TODO: 1172 bug changes
         
+        NotificationManager.shared.doSendPushTokenRequest(mac: medicationVM.macAddress)
         if var deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]] {
             // op: [["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0], ["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0]]
             if deviceDetails.count == 0 {

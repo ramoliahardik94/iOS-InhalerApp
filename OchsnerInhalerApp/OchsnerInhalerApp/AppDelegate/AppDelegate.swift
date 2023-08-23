@@ -12,6 +12,9 @@ import CocoaLumberjack
 import MessageUI
 import Firebase
 import IQKeyboardManagerSwift
+import FirebaseCore
+import FirebaseMessaging
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -159,27 +162,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         Logger.logInfo(" applicationWillTerminate")
         Constants.isSkipAppUpdate = false
-        setNotification()
+//        setNotification()
     }
     
-    
-    func setNotification() {
-        Logger.logInfo(" setNotification start")
-        let content = UNMutableNotificationContent()
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
-        content.title = StringLocalNotifiaction.title
-        content.body =  StringLocalNotifiaction.body
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
-            if let error = error {
-                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        if let value = userInfo["some-key"] as? String {
+            print(value) // output: "some-value"
+            Logger.logInfo("##### Silent Message ##### \(value)")
+            //            NotificationManager.shared.setSilentNotification(value: value)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
-        })
-        Logger.logInfo(" setNotification End")
+            BLEHelper.shared.scanPeripheral(isTimer: false)
+            NotificationManager.shared.BLEREConnection_1()
+        }
+        // Inform the system after the background operation is completed.
+        completionHandler(.newData)
+    }
+        
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
     
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
 }
 extension AppDelegate {
     // MARK: Loggers

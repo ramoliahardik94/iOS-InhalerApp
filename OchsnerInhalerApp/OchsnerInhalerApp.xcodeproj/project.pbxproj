@@ -18,7 +18,6 @@
 		224E1CA227983816000C5D1A /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 224E1CA127983816000C5D1A /* SFProDisplay-LightItalic.ttf */; };
 		224E1CA427983A66000C5D1A /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 224E1CA327983A65000C5D1A /* SFProDisplay-Light.ttf */; };
 		2257007027A2AE4A009B6415 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257006F27A2AE4A009B6415 /* NotificationManager.swift */; };
-		225835BF27DB167F00826713 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 225835BE27DB167F00826713 /* GoogleService-Info.plist */; };
 		225F315A27D0A1F10059566E /* ReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225F315927D0A1F10059566E /* ReminderManager.swift */; };
 		2261AA012796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */; };
 		2261AA042796F15D000D5CE1 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */; };
@@ -135,6 +134,7 @@
 		47E1662627BBB843004A2006 /* ManageDeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662527BBB843004A2006 /* ManageDeviceVM.swift */; };
 		47E1662827BBB857004A2006 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1662727BBB857004A2006 /* DeviceModel.swift */; };
 		47FA0E7427A25AB100F4A7C8 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */; };
+		9560D47E2A963DAD003455FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9560D47D2A963DAD003455FD /* GoogleService-Info.plist */; };
 		A17BC6EE2A52A00000B479C9 /* ManualDataListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17BC6ED2A52A00000B479C9 /* ManualDataListingViewController.swift */; };
 		A17FBB8D2A2DD5D7009414DE /* GraphDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBB8C2A2DD5D7009414DE /* GraphDetail.storyboard */; };
 		A17FBB932A2DD619009414DE /* AddManuallyDoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBB8F2A2DD619009414DE /* AddManuallyDoseViewController.swift */; };
@@ -173,7 +173,6 @@
 		224E1CA127983816000C5D1A /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
 		224E1CA327983A65000C5D1A /* SFProDisplay-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Light.ttf"; sourceTree = "<group>"; };
 		2257006F27A2AE4A009B6415 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		225835BE27DB167F00826713 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		225F315927D0A1F10059566E /* ReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderManager.swift; sourceTree = "<group>"; };
 		2261AA002796CCE8000D5CE1 /* CancleBluetoothPermissionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancleBluetoothPermissionVC.swift; sourceTree = "<group>"; };
 		2261AA032796F15D000D5CE1 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
@@ -294,6 +293,7 @@
 		47E1662727BBB857004A2006 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		47FA0E7327A25AB100F4A7C8 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		56B9AD368F85B5FAB8026B58 /* Pods-OchsnerInhalerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OchsnerInhalerApp.release.xcconfig"; path = "Target Support Files/Pods-OchsnerInhalerApp/Pods-OchsnerInhalerApp.release.xcconfig"; sourceTree = "<group>"; };
+		9560D47D2A963DAD003455FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A17BC6ED2A52A00000B479C9 /* ManualDataListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualDataListingViewController.swift; sourceTree = "<group>"; };
 		A17FBB8C2A2DD5D7009414DE /* GraphDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GraphDetail.storyboard; sourceTree = "<group>"; };
 		A17FBB8F2A2DD619009414DE /* AddManuallyDoseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddManuallyDoseViewController.swift; sourceTree = "<group>"; };
@@ -752,7 +752,7 @@
 				47CDCE25278D87470014527D /* Controller */,
 				47CDCE97278DA7C70014527D /* View */,
 				47CDCE1F278D87300014527D /* Info.plist */,
-				225835BE27DB167F00826713 /* GoogleService-Info.plist */,
+				9560D47D2A963DAD003455FD /* GoogleService-Info.plist */,
 			);
 			path = OchsnerInhalerApp;
 			sourceTree = "<group>";
@@ -997,8 +997,8 @@
 				4710234B2796737B00F88876 /* SFProText-Regular.ttf in Resources */,
 				470E4FE527C7744100F8C815 /* SF-Pro-Display-BoldItalic.otf in Resources */,
 				47C1FEEB27958F34007C6F16 /* AddDevice.storyboard in Resources */,
-				225835BF27DB167F00826713 /* GoogleService-Info.plist in Resources */,
 				4710234A2796737B00F88876 /* SFProDisplay-Bold.ttf in Resources */,
+				9560D47E2A963DAD003455FD /* GoogleService-Info.plist in Resources */,
 				A17FBB8D2A2DD5D7009414DE /* GraphDetail.storyboard in Resources */,
 				47CDCE9D278DA8820014527D /* Permissions.storyboard in Resources */,
 				47CDCE19278D872F0014527D /* Main.storyboard in Resources */,

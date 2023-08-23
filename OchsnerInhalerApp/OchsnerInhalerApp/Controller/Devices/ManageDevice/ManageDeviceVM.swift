@@ -32,6 +32,7 @@ class ManageDeviceVM {
                     }
                     self.arrRescue = self.arrDevice.filter({$0.medTypeID == 1})
                     self.arrMantainance = self.arrDevice.filter({$0.medTypeID == 2})
+                    NotificationManager.shared.updateTokenForDevice(deviceMACs: self.arrDevice.map({ $0.internalID }))
                     completionHandler(.success(true))
                 } else {
                     completionHandler(.failure(ValidationMsg.CommonError))

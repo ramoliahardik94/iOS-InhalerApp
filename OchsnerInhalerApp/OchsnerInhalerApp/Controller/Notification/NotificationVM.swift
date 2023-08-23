@@ -78,6 +78,7 @@ class NotificationModel: NSObject {
                         dose.status = "N"
                         dose.takenPuffCount = acuation.count
                     }
+                    dose.acuation = acuation
                 }
             }
             obj.missDose = obj.dose.filter({$0.status == "N"})
@@ -124,6 +125,8 @@ class DoseStatus: NSObject {
     var time = ""
     var status = ""
     var takenPuffCount = 0
+    var acuation: [AcuationLog] = [AcuationLog]()
+
     init(jSon: [String: Any]) {
         if let value = jSon["time"] as? String {
             self.time = value
@@ -157,7 +160,7 @@ class NotificationVM {
                 print(historyOfDays)
                 var days = [String]()
                 if historyOfDays >= 1 {
-                    for _ in 1 ... noOfDayToLogin {
+                    for _ in 1 ... historyOfDays {
                         let noti = NotificationModel()
                         days.append(date.getString(format: "yyyy-MM-dd"))
                         noti.historyDate = date.getString(format: "MMM dd,yyyy")
