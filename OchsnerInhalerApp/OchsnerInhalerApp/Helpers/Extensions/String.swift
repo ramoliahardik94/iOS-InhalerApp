@@ -60,3 +60,12 @@ extension StringProtocol {
         self[index(startIndex, offsetBy: offset)]
     }
 }
+
+func toJSONString(dict: [[String: Any]]) -> String {
+    if let theJSONData = try? JSONSerialization.data(
+        withJSONObject: dict,
+        options: []) {
+        return String(data: theJSONData, encoding: .ascii) ?? String()
+    }
+    return String()
+}

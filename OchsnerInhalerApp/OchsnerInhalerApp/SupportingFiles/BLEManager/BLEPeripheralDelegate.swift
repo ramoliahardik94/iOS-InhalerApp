@@ -58,12 +58,12 @@ extension BLEHelper: CBPeripheralDelegate {
             arrResponce.remove(at: 0)// StartByte
             let str = "\(arrResponce[0])\(arrResponce[1])"
             if str == StringCharacteristics.getType(.RTCTime)() {
-                DispatchQueue.main.async {
-                    if (UIApplication.topViewController() as? HomeVC) != nil {
-                        NotificationCenter.default.post(name: .DataSyncDone, object: nil)
-                        self.hideDashboardStatus(msg: BLEStatusMsg.syncFailApi, colorBG: .ColorHomeIconRed)
-                    }
-                }
+//                DispatchQueue.main.async {
+//                    if (UIApplication.topViewController() as? HomeVC) != nil {
+//                        NotificationCenter.default.post(name: .DataSyncDone, object: nil)
+//                        self.hideDashboardStatus(msg: BLEStatusMsg.syncFailApi, colorBG: .ColorHomeIconRed)
+//                    }
+//                }
                 Logger.logInfo("RTC Log Hax: \(stringFromData) of mac: \(discoverPeripheral.addressMAC)")
                 if stringFromData == TransferService.responseSuccessRTC {
                     DatabaseManager.share.setRTCFor(udid: peripheral.identifier.uuidString, value: true)

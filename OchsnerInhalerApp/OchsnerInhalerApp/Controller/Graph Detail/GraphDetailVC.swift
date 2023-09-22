@@ -82,6 +82,7 @@ class GraphDetailVC: BaseVC {
         let dateAsString = time
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
+        
         let hourDate = dateFormatter.date(from: dateAsString)
         dateFormatter.dateFormat = "h:mm a"
         let date12 = dateFormatter.string(from: hourDate!)

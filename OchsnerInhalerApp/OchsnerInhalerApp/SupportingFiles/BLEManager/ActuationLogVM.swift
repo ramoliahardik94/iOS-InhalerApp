@@ -93,17 +93,21 @@ extension BLEHelper {
     /// use for get parameter from databse for sync data to *deviceuse* API
     func prepareAcuationLogParam(mac: String) -> [[String: Any]] {
         var parameter = [[String: Any]]()
-        var param = [String: Any]()
-        let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
-        for obj in device {
+        let devices = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
+        for obj in devices {
+            print(obj)
             if obj.mac! == "" {
                 obj.mac = DatabaseManager.share.getMac(UDID: obj.udid!)
             }
             let usage = DatabaseManager.share.getActuationLogList(mac: obj.mac!)
             if usage.count != 0 {
+                var param = [String: Any]()
                 param["DeviceId"] = obj.mac!
                 param["Usage"] = usage
-                parameter.append(param)
+                let preparedDevices = parameter.map({ $0["DeviceId"] }) as? [String]
+                if !(preparedDevices?.contains(obj.mac!) ?? false) {
+                    parameter.append(param)
+                }
             }
         }
         if mac != "" {
@@ -121,6 +125,7 @@ extension BLEHelper {
             if APIManager.isConnectedToNetwork {
                 Logger.logInfo(ValidationMsg.startSync)
                 showDashboardStatus(msg: BLEStatusMsg.syncStart)
+                print(toJSONString(dict: param))
                 APIManager.shared.performRequest(route: APIRouter.deviceuse.path, parameters: param, method: .post, isAuth: true, showLoader: false) { [self] error, response in
                     
                     if response != nil {

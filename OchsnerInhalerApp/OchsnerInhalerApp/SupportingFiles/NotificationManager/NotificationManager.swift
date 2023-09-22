@@ -82,11 +82,11 @@ class NotificationManager: NSObject {
     }
     
     // for add local notificaion reminders
-    func setNotification(date: Date, titile: String, calendar: Calendar, macAddress: String, isFromTomorrow: Bool = false, dose: String) {
-        Logger.logInfo("Set Reminder For Time : \(date)")
+    func setNotification(date: Date, title: String, calendar: Calendar, macAddress: String, isFromTomorrow: Bool = false, dose: String) {
+        Logger.logInfo("Set Reminder For Device: \(macAddress) Time: \(date) device")
         let content = UNMutableNotificationContent()
         content.title = StringAddDevice.titleAddDevice
-        content.body =  titile
+        content.body =  title
         content.sound = UNNotificationSound.default
         let components = calendar.dateComponents([.hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
@@ -99,9 +99,26 @@ class NotificationManager: NSObject {
             } else {
                 Logger.logInfo("Notification set for \(components)")
                 Logger.logInfo("\(StringAddDevice.titleAddDevice)")
-                Logger.logInfo("\(titile)")
+                Logger.logInfo("\(title)")
             }
         })
+    }
+    
+    func setNotification() {
+        Logger.logInfo(" setNotification start")
+        let content = UNMutableNotificationContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        content.title = StringLocalNotifiaction.title
+        content.body =  StringLocalNotifiaction.body
+        content.sound = UNNotificationSound.default
+        
+        let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            if let error = error {
+                print("SOMETHING WENT WRONG\(error.localizedDescription))")
+            }
+        })
+        Logger.logInfo(" setNotification End")
     }
     
     func setSilentNotification(value: String) {
@@ -112,7 +129,7 @@ class NotificationManager: NSObject {
         content.body =  value
         content.sound = UNNotificationSound.default
         
-        let request = UNNotificationRequest(identifier: "identifier1", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: Date().getString(), content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
             if let error = error {
                 print("SOMETHING WENT WRONG\(error.localizedDescription))")
@@ -155,7 +172,11 @@ class NotificationManager: NSObject {
                         calendar.timeZone = .current
                         let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
                         let title = String(format: StringLocalNotifiaction.reminderBody, userName .trimmingCharacters(in: .whitespacesAndNewlines), objDevice.medname ?? "", item )
-                        setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: objDevice.mac ?? "", dose: item)
+                        setNotification(date: datesub ?? Date().addingTimeInterval(1800),
+                                        title: title,
+                                        calendar: calendar,
+                                        macAddress: objDevice.mac ?? "",
+                                        dose: item)
                     }
                 }
             }
@@ -236,18 +257,6 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
     }
 }
 
-extension NotificationManager {
-    func showAlert(title: String, message: String) {
-        if UIApplication.topViewController()!.isKind(of: UIAlertController.self) {
-            UIApplication.topViewController()!.dismiss(animated: false) {
-                UIApplication.topViewController()?.presentAlert(withTitle: title, message: message)
-            }
-        } else {
-            UIApplication.topViewController()?.presentAlert(withTitle: title, message: message)
-        }
-    }
-}
-
 // MARK: - Remote Push notification delegates and methods
 extension NotificationManager: MessagingDelegate {
 
@@ -261,19 +270,55 @@ extension NotificationManager: MessagingDelegate {
     }
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        Logger.logInfo("***** FCM TOKEN Updated ***** \(fcmToken ?? "")")
         processPushToken()
     }
     
-    private func processPushToken() {
-        if let token = Messaging.messaging().fcmToken {
-            
+    func getFCMToken() async -> String? {
+        let token: String = await withCheckedContinuation { continuation in
+            // Request token from Firebase - if none exists (new app download, or after calling deleteToken),
+            // a new one is created. Otherwise it returns the existing active token
+            Messaging.messaging().token { token, error in
+                if let error {
+                    Logger.logError("Error fetching FCM registration token: \(error)")
+                    continuation.resume(with: .success(""))
+                } else if let token {
+                    print("FCM registration token: \(token)")
+                    continuation.resume(with: .success(token))
+                }
+            }
+        }
+        return token
+    }
+
+
+    
+    func processPushToken() {
+        Task {
+            guard let token = await getFCMToken() else { return }
             Logger.logInfo("***** FCM TOKEN ***** \(token)")
             UserDefaultManager.inhalersRegisteredForPush.forEach { dict in
                 if token != dict.value {
                     doSendPushTokenRequest(mac: dict.key)
                 }
             }
+//            doSendPushTokenRequest(mac: "70:05:00:00:03:55")
             UserDefaultManager.firebaseToken = token
+        }
+    }
+    
+    func renewToken() {
+        let updatedTokenTime = UserDefaultManager.updatedTokenTime
+        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: (updatedTokenTime ?? Date())) ?? Date()
+        guard updatedTokenTime == nil || nextDay < Date() else { return }
+        UserDefaultManager.updatedTokenTime = Date()
+        
+        Messaging.messaging().deleteToken { err in
+            if let err {
+                Logger.logError("Error deleting FCM token: \(err)")
+            } else {
+                self.processPushToken()
+            }
         }
     }
     

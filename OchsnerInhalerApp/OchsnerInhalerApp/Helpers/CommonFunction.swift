@@ -48,7 +48,9 @@ open class CommonFunctions {
         alert.addAction(UIAlertAction(title: okTitle, style: .default, handler: {_ in
             completion(true)
         }))
-        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        foreground {        
+            UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        }
     }
     
     public class func upgradeApp(appVersionOnCloud: String) {

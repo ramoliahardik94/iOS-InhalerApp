@@ -66,6 +66,7 @@ class BLEHelper: NSObject {
         if !isSet {
             addLogObserver()
         }
+        Logger.logInfo("isAllow: \(isAllow) State: \(centralManager.state)")
         if centralManager.state == .poweredOn {
             print("Connected.")
             // TODO: Bug-1 Bluetooth permission crash

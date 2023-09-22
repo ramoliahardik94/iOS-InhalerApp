@@ -31,6 +31,9 @@ class HomeVC: BaseVC {
         self.navigationController?.isNavigationBarHidden = false
         initUI()
         NotificationCenter.default.addObserver(self, selector: #selector(self.apiGetHomeData(notification:)), name: .DataSyncDone, object: nil)
+        
+        NetworkManager.shared.startListening()
+        NetworkManager.shared.connectionDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,6 +178,14 @@ extension UIStackView {
     func removeFullyAllArrangedSubviews() {
         arrangedSubviews.forEach { (view) in
             removeFully(view: view)
+        }
+    }
+}
+
+extension HomeVC: NetworkConnectivityDelegate {
+    func networkConnectionRestablish() {
+        if NetworkManager.shared.networkstatus == .cellular || NetworkManager.shared.networkstatus == .ethernetOrWiFi {
+            apiDashboard()
         }
     }
 }

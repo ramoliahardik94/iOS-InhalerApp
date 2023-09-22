@@ -19,6 +19,7 @@ enum UserDefaultKey: String {
     case isNotificationOn
     case deviceToken
     case firebaseToken
+    case updatedTokenTime
     case inhalersRegisteredForPush
     // case addDevice
     case selectedMedi
@@ -211,6 +212,15 @@ class UserDefaultManager {
         }
         set(newValue) {
             self.set(newValue as AnyObject?, forKey: .inhalersRegisteredForPush)
+        }
+    }
+    
+    static var updatedTokenTime: Date? {
+        get {
+            return self.get(forKey: .updatedTokenTime) as? Date
+        }
+        set(newValue) {
+            self.set(newValue as AnyObject?, forKey: .updatedTokenTime)
         }
     }
     

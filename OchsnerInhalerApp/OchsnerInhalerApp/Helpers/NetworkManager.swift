@@ -22,6 +22,7 @@ class NetworkManager: NSObject {
     
     func startListening() {
         manager?.listener = { status in
+            self.connectionDelegate?.networkConnectionRestablish()
             switch status {
             case .reachable(.ethernetOrWiFi):
                 self.networkstatus = .ethernetOrWiFi

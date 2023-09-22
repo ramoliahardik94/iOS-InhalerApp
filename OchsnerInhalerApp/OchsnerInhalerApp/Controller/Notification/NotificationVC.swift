@@ -37,11 +37,11 @@ class NotificationVC: BaseVC {
         self.navigationController?.navigationBar.topItem?.title = StringAddDevice.titleAddDevice
         // Do any additional setup after loading the view.
         
-        let notif = UIBarButtonItem(image: UIImage(systemName: "list.number"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(tapData(sender:)))
-        
-        let allData = UIBarButtonItem(image: UIImage(systemName: "keyboard"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(tapAllData(sender:)))
-        
-        self.navigationItem.rightBarButtonItems = [notif, allData]
+//        let notif = UIBarButtonItem(image: UIImage(systemName: "list.number"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(tapData(sender:)))
+//        
+//        let allData = UIBarButtonItem(image: UIImage(systemName: "keyboard"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(tapAllData(sender:)))
+//        
+//        self.navigationItem.rightBarButtonItems = [notif, allData]
     }
     
     override func viewWillAppear(_ animated: Bool) {

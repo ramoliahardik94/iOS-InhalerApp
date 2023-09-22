@@ -75,7 +75,7 @@ class APIManager {
             
             let statusCode = response.response?.statusCode
             if statusCode ?? 0 >= 200 && statusCode ?? 0 < 300 {
-                if route == APIRouter.deviceuse.path || route == APIRouter.dashboard.path  || route == APIRouter.device.path || route == APIRouter.appVersion.path {
+                if route == APIRouter.deviceuse.path || route == APIRouter.dashboard.path  || route == APIRouter.device.path || route == APIRouter.appVersion.path || route == APIRouter.registerToken.path {
                     Logger.logInfo("Response :: success  :: status code \(statusCode ?? 0) :: \(route) \n\n \(String(describing: response.value!))")
                 }
                 switch response.result {

@@ -179,7 +179,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
     
     func profile(_ profile: RTKLEProfile, didConnect peripheral: RTKLEPeripheral) {
         
-        guard let `otaPeripheral` = otaPeripheral else {return }
+        guard let `otaPeripheral` = otaPeripheral else { return }
         if peripheral == otaPeripheral {
             // Another headset is connected again, directly start the upgrade
             // 再次连接的是另一只耳机，直接启动升级

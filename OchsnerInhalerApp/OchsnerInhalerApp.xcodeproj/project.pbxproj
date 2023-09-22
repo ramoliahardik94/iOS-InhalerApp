@@ -111,7 +111,6 @@
 		47CDCE7E278D89210014527D /* DateTime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE67278D89210014527D /* DateTime+Extension.swift */; };
 		47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE68278D89210014527D /* UIButton+Extension.swift */; };
 		47CDCE80278D89210014527D /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE69278D89210014527D /* UIView+Extension.swift */; };
-		47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6A278D89210014527D /* UIAlertController+Extensions.swift */; };
 		47CDCE82278D89210014527D /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6B278D89210014527D /* UIViewController+Extension.swift */; };
 		47CDCE83278D89210014527D /* Device+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6C278D89210014527D /* Device+Extension.swift */; };
 		47CDCE84278D89210014527D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDCE6D278D89210014527D /* String.swift */; };
@@ -269,7 +268,6 @@
 		47CDCE67278D89210014527D /* DateTime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateTime+Extension.swift"; sourceTree = "<group>"; };
 		47CDCE68278D89210014527D /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		47CDCE69278D89210014527D /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		47CDCE6A278D89210014527D /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		47CDCE6B278D89210014527D /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		47CDCE6C278D89210014527D /* Device+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Device+Extension.swift"; sourceTree = "<group>"; };
 		47CDCE6D278D89210014527D /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -864,7 +862,6 @@
 				47CDCE67278D89210014527D /* DateTime+Extension.swift */,
 				47CDCE68278D89210014527D /* UIButton+Extension.swift */,
 				47CDCE69278D89210014527D /* UIView+Extension.swift */,
-				47CDCE6A278D89210014527D /* UIAlertController+Extensions.swift */,
 				47CDCE6B278D89210014527D /* UIViewController+Extension.swift */,
 				47CDCE6C278D89210014527D /* Device+Extension.swift */,
 				47CDCE6D278D89210014527D /* String.swift */,
@@ -1164,7 +1161,6 @@
 				47CDCE7F278D89210014527D /* UIButton+Extension.swift in Sources */,
 				4743B7D527B52A480000C3E8 /* DatabaseHelper.swift in Sources */,
 				22AE970D278EDAFB00C0D851 /* StringsContants.swift in Sources */,
-				47CDCE81278D89210014527D /* UIAlertController+Extensions.swift in Sources */,
 				4711F91227AA536E00AD063F /* BLECentralManagerDelegate.swift in Sources */,
 				47CDCE84278D89210014527D /* String.swift in Sources */,
 				A17FBB942A2DD619009414DE /* GraphDetailVC.swift in Sources */,
@@ -1350,7 +1346,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 18;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ERXT8P6AQW;
@@ -1411,7 +1407,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ERXT8P6AQW;
 				ENABLE_BITCODE = NO;

@@ -24,7 +24,9 @@ extension BLEHelper {
                         showDashboardStatus(msg: BLEStatusMsg.scanConnectBLE)
                     }
                     Logger.logInfo("Scaning start with \(time) sec timer")
-                    timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+                    if isTimer {
+                        timer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(self.didFinishScan), userInfo: nil, repeats: false)
+                    }
                     self.centralManager.scanForPeripherals(withServices: TransferService.serviceArray, options: nil)
                 }
                 isScanning = true
@@ -32,14 +34,23 @@ extension BLEHelper {
                     NotificationCenter.default.post(name: .BLEChange, object: nil)
                 }
             }
+        } else if centralManager.state == .poweredOff {
+            Logger.logInfo("BLE State = poweredOff")
+        } else if centralManager.state == .unauthorized {
+            Logger.logInfo("BLE State = unauthorized")
+        } else if centralManager.state == .unsupported {
+            Logger.logInfo("BLE State = unsupported")
+        } else if centralManager.state == .resetting {
+            Logger.logInfo("BLE State = resetting")
+        } else if centralManager.state == .unknown {
+            Logger.logInfo("BLE State = unknown")
         } else {
             isScanning = false
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: .BLEChange, object: nil)
-            }
-            DispatchQueue.main.async {
-                if let topVC =  UIApplication.topViewController() {
-                }
+//                if let topVC =  UIApplication.topViewController() {
+//                    topVC.view.makeToast(ValidationMsg.bluetoothOn)
+//                }
             }
         }
     }
@@ -66,6 +77,7 @@ extension BLEHelper {
                 NotificationCenter.default.post(name: .BLEChange, object: nil)
             }
         } else {
+            Logger.logInfo("isAllow: \(isAllow)")
             DispatchQueue.main.async {
                 if let topVC =  UIApplication.topViewController() {
                     topVC.view.makeToast(ValidationMsg.bluetoothOn)
@@ -95,6 +107,7 @@ extension BLEHelper {
                     }
                 }
             } else {
+                Logger.logInfo("isAllow: \(isAllow)")
                 DispatchQueue.main.async {
                     if let topVC =  UIApplication.topViewController() {
                         topVC.view.makeToast(ValidationMsg.bluetoothOn)

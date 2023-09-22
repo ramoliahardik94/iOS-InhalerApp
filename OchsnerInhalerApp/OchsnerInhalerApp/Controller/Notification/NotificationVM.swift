@@ -230,7 +230,12 @@ class NotificationVM {
                     let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
                     let title = String(format: StringLocalNotifiaction.reminderBody, UserDefaultManager.username.trimmingCharacters(in: .whitespacesAndNewlines), medName, dose )
                     
-                    NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: mac, isFromTomorrow: true, dose: dose)
+                    NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800),
+                                                               title: title,
+                                                               calendar: calendar,
+                                                               macAddress: mac,
+                                                               isFromTomorrow: true,
+                                                               dose: dose)
                 }
             }
         })

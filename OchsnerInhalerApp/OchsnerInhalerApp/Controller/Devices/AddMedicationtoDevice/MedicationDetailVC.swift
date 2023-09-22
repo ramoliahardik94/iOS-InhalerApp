@@ -144,7 +144,6 @@ class MedicationDetailVC: BaseVC {
     @IBAction func btnDoneClick(_ sender: UIButton) {
         // TODO: 1172 bug changes
         
-        NotificationManager.shared.doSendPushTokenRequest(mac: medicationVM.macAddress)
         if var deviceDetails = UserDefaults.standard.object(forKey: "DeviceJoiningDate&MacAdd") as? [[String: Any]] {
             // op: [["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0], ["startDate": 2023-07-27 06:14:18 +0000, "deviceMacAddress": 70:05:00:00:03:f0]]
             if deviceDetails.count == 0 {
@@ -205,6 +204,7 @@ class MedicationDetailVC: BaseVC {
                         let devicelist = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
                         
                         if devicelist.count == 1 && !self.medicationVM.isEdit {
+                            NotificationManager.shared.doSendPushTokenRequest(mac: self.medicationVM.macAddress)
                             self.medicationVM.selectedMedication.uuid = (BLEHelper.shared.connectedPeripheral.last!.discoveredPeripheral?.identifier.uuidString) ?? ""
                             UserDefaultManager.selectedMedi = self.medicationVM.selectedMedication.toDic()
                             let addAnotherDeviceVC = AddAnotherDeviceVC.instantiateFromAppStoryboard(appStoryboard: .addDevice)
@@ -325,7 +325,7 @@ class MedicationDetailVC: BaseVC {
                 let datesub = calendar.date(byAdding: .minute, value: 30, to: graterDate)
                 let title = String(format: StringLocalNotifiaction.reminderBody, self.userName.trimmingCharacters(in: .whitespacesAndNewlines), lblMedicationName.text ?? "", item )
                 // setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar)
-                NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), titile: title, calendar: calendar, macAddress: self.medicationVM.macAddress, dose: item)
+                NotificationManager.shared.setNotification(date: datesub ?? Date().addingTimeInterval(1800), title: title, calendar: calendar, macAddress: self.medicationVM.macAddress, dose: item)
             }
         }
     }

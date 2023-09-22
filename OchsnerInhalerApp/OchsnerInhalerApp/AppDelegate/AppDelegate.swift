@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc func foregroundCall() {
-        print("App moved to foreground")
+        Logger.logInfo("App moved to foreground")
         CommonFunctions.checkVersion()
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {                                       
             if BLEHelper.shared.logCounter == 0 {
@@ -134,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func backgroundCall() {
         Constants.isDisplay = false
-        print("App moved to background!")
+        Logger.logInfo("App moved to background!")
         if UserDefaultManager.isLogin {
             let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
             if  !BLEHelper.shared.isAddAnother  && ( BLEHelper.shared.connectedPeripheral.count < device.count || (BLEHelper.shared.connectedPeripheral.contains(where: {$0.discoveredPeripheral?.state != .connected })) ) {
@@ -162,18 +162,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         Logger.logInfo(" applicationWillTerminate")
         Constants.isSkipAppUpdate = false
-//        setNotification()
+        NotificationManager.shared.setNotification()
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        if let value = userInfo["some-key"] as? String {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        Logger.logInfo("##### didReceiveRemoteNotification ##### \(userInfo)")
+        if let value = userInfo["name_type"] as? String,
+           value.contains("Inhaler Use Reminder") {
             print(value) // output: "some-value"
             Logger.logInfo("##### Silent Message ##### \(value)")
-            //            NotificationManager.shared.setSilentNotification(value: value)
             DispatchQueue.main.async {
+                NotificationManager.shared.setSilentNotification(value: value)
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
+            NotificationManager.shared.renewToken()
             BLEHelper.shared.scanPeripheral(isTimer: false)
             NotificationManager.shared.BLEREConnection_1()
         }
@@ -182,6 +184,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        Logger.logInfo("***** APNS TOKEN ***** \(tokenParts.joined())")
         Messaging.messaging().apnsToken = deviceToken
     }
     
