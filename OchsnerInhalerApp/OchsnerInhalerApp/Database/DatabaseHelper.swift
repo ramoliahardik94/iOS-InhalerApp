@@ -45,7 +45,8 @@ class DatabaseManager {
                 let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
                 let minDate = getMinDate()
                 // TODO: - Remove max date condition to fix the issue if the device is unused for 30+ days
-                actuationLog.isbadlog = (date > maxDate || date < minDate)
+                Logger.logInfo("isbadlog  date: \(date) maxDate: \(maxDate) minDate: \(minDate)")
+                actuationLog.isbadlog = date < minDate//(date > maxDate || date < minDate)
                 actuationLog.usedatelocal = date
             }
             
@@ -282,7 +283,7 @@ class DatabaseManager {
                 let log = obj
                 let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
                 let minDate = getMinDate()
-                if log.usedatelocal! > minDate && log.usedatelocal! < maxDate {
+                if log.usedatelocal! > minDate {//log.usedatelocal! > minDate && log.usedatelocal! < maxDate
                     usage.append(log.APILog())
                 } else {
                     log.isbadlog = true
@@ -309,7 +310,7 @@ class DatabaseManager {
             for obj in actuationLog {
                 let maxDate = Date().getString(format: DateFormate.useDateLocalAPI, isUTC: false)
                 let minDate = getMinDate()
-                if obj.usedatelocal! > minDate && obj.usedatelocal! < maxDate {
+                if obj.usedatelocal! > minDate {//obj.usedatelocal! > minDate && obj.usedatelocal! < maxDate
                     usage.append(["Param": obj.APIForSingle()])
                 } else {
                     obj.isbadlog = true
@@ -464,9 +465,9 @@ extension DatabaseManager {
                         for log in logs {
                             var date = log.usedatelocal!.getDate(format: DateFormate.useDateLocalAPI)
                             date.addTimeInterval(TimeInterval(sec))
-                            if date > Date() {
-                                log.isbadlog = true
-                            }
+//                            if date > Date() {
+//                                log.isbadlog = true
+//                            }
                             let useDatePlus5sec = date.getString(format: DateFormate.useDateLocalAPI)
                             log.usedatelocal = useDatePlus5sec
                             try context?.save()

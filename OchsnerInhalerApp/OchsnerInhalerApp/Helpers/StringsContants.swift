@@ -224,6 +224,7 @@ struct StringAddDevice {
     static let laterbtn = "Later"
     static let continuebtn = "Continue"
     static let noDevice = "No Devices Added"
+    static let longerIdleMessage = "You have not interacted with the Inhaler app for long. Please open the Inhaler app to sync medicine usage."
 }
 // MARK: Medication
 struct StringMedication {

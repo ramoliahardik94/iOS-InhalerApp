@@ -104,6 +104,15 @@ class BLEHelper: NSObject {
     
     /// This function is use for set RTC Time to the BLE Device/Peripheral whichi is stored in *connectedPeripheral* and user should pass the UUID in parameter *uuid* for identify
     func setRTCTime(uuid: String) {
+//        let year = Calendar.current.component(.year, from: Date()).description
+//        let day = Calendar.current.component(.day, from: Date()).description
+//        let month = Calendar.current.component(.month, from: Date()).description
+//        let hour = Calendar.current.component(.hour, from: Date()).description
+//        let min = Calendar.current.component(.minute, from: Date()).description
+//        let sec = Calendar.current.component(.second, from: Date()).description
+//        let hexRTC = TransferService.addRTSStartByte + year.decimalToHax(byte: 2) + month.decimalToHax() + day.decimalToHax() + hour.decimalToHax() + min.decimalToHax() + sec.decimalToHax()
+//        Logger.logInfo("RTC set on Date \(year) : \(month) : \(day) : \(hour) : \(min) : \(sec) RTC Time Set From Device \(hexRTC)")
+        
         debugPrint("Main Function RTC")
         let year =  Date().getString( format: "yyyy").decimalToHax(byte: 2)
         let day =  Date().getString(format: "dd").decimalToHax()
@@ -111,13 +120,13 @@ class BLEHelper: NSObject {
         let hour =  Date().getString(format: "HH").decimalToHax()
         let min =  Date().getString(format: "mm").decimalToHax()
         let sec =  Date().getString(format: "s").decimalToHax()
-        let haxRTC = TransferService.addRTSStartByte + year+month+day+hour+min+sec
+        let hexRTC = TransferService.addRTSStartByte + year + month + day + hour + min + sec
         let decimal = "\(Date().getString( format: "yyyy")): \(Date().getString(format: "MM")): \( Date().getString(format: "dd")): \(Date().getString(format: "HH")): \(Date().getString(format: "mm")): \( Date().getString(format: "s"))"
-        Logger.logInfo("RTC set on Date \(decimal) \n RTC Time Set From Device \(haxRTC)")
+        Logger.logInfo("RTC set on Date \(decimal) \n RTC Time Set From Device \(hexRTC)")
         if !connectedPeripheral.isEmpty {
             if let peripheral = connectedPeripheral.first(where: {$0.discoveredPeripheral?.identifier.uuidString == uuid}) {
                 if peripheral.charectristicWrite != nil {
-                    peripheral.discoveredPeripheral!.writeValue(haxRTC.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
+                    peripheral.discoveredPeripheral!.writeValue(hexRTC.hexadecimal!, for: peripheral.charectristicWrite!, type: CBCharacteristicWriteType.withResponse)
                 }
             }
         }
@@ -162,7 +171,6 @@ class BLEHelper: NSObject {
             peripheral.discoveredPeripheral!.readValue(for: peripheral.charectristicVersion!)
         }
     }
-    
     
     func getVersionInString(haxStr: String) -> String {
         let hexArray = haxStr.split(separator: ":")

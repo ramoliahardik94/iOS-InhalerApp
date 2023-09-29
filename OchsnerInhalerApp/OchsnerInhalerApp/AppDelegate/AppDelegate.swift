@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Logger.logInfo("\n\n\n===========================\nLaunched Ochsner Inhaler App > Environment: , App Version: \(appVersion()), Device: \(UIDevice.modelName), iOS Version: \(UIDevice.current.systemVersion), Data Connection:)")
         
+        NotificationManager.shared.removeLongTimeIdleNotification()
         initFirebase()
         return true
     }
@@ -115,6 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func foregroundCall() {
         Logger.logInfo("App moved to foreground")
+        NotificationManager.shared.removeLongTimeIdleNotification()
         CommonFunctions.checkVersion()
         if UserDefaultManager.isLogin  && UserDefaultManager.isGrantBLE && UserDefaultManager.isGrantLaocation && UserDefaultManager.isGrantNotification {                                       
             if BLEHelper.shared.logCounter == 0 {
@@ -135,6 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func backgroundCall() {
         Constants.isDisplay = false
         Logger.logInfo("App moved to background!")
+        NotificationManager.shared.scheduleLongTimeIdleNotification()
         if UserDefaultManager.isLogin {
             let device = DatabaseManager.share.getAddedDeviceList(email: UserDefaultManager.email)
             if  !BLEHelper.shared.isAddAnother  && ( BLEHelper.shared.connectedPeripheral.count < device.count || (BLEHelper.shared.connectedPeripheral.contains(where: {$0.discoveredPeripheral?.state != .connected })) ) {
@@ -175,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NotificationManager.shared.setSilentNotification(value: value)
                 NotificationCenter.default.post(name: .BLEConnect, object: nil)
             }
-            NotificationManager.shared.renewToken()
+//            NotificationManager.shared.renewToken()
             BLEHelper.shared.scanPeripheral(isTimer: false)
             NotificationManager.shared.BLEREConnection_1()
         }
@@ -249,6 +252,7 @@ extension AppDelegate {
         }
         return attachmentData
     }
+    
     private func showError(message: String) {
         
         let alert = UIAlertController(title: "Error".local, message: message, preferredStyle: UIAlertController.Style.alert)

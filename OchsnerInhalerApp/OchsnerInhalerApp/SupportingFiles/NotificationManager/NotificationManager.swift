@@ -27,7 +27,7 @@ class NotificationManager: NSObject {
                     self.statusReceived?(.notDetermined)
                 } else {
                     UIApplication.shared.registerForRemoteNotifications()
-                    delay(1) {
+                    delay(2) {
                         self.processPushToken()
                     }
                 }
@@ -213,6 +213,33 @@ class NotificationManager: NSObject {
             }
         }
     }
+    
+    func removeLongTimeIdleNotification() {
+        Logger.logInfo("Removed Longer Reminder Notification")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["com.ochsner.inhalertrack.reminderLongerIdle"])
+    }
+    
+    func scheduleLongTimeIdleNotification() {
+        removeLongTimeIdleNotification()
+        
+        let content = UNMutableNotificationContent()
+        content.title = StringAddDevice.titleAddDevice
+        content.body =  StringAddDevice.longerIdleMessage
+        content.sound = UNNotificationSound.default
+        let reminderInterval: TimeInterval = 3*24*60*60 // Remind after 3 days
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderInterval, repeats: true)
+        Logger.logInfo("Set Longer Reminder after Interval: \(reminderInterval)")
+        
+        let request = UNNotificationRequest(identifier: "com.ochsner.inhalertrack.reminderLongerIdle", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {(error) in
+            
+            if let error = error {
+                Logger.logInfo("SOMETHING WENT WRONG Longer Reminder Notification\(error.localizedDescription))")
+            } else {
+                Logger.logInfo("Longer Reminder Notification set for \(reminderInterval)")
+            }
+        })
+    }
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
@@ -290,20 +317,21 @@ extension NotificationManager: MessagingDelegate {
         }
         return token
     }
-
-
     
     func processPushToken() {
         Task {
             guard let token = await getFCMToken() else { return }
-            Logger.logInfo("***** FCM TOKEN ***** \(token)")
-            UserDefaultManager.inhalersRegisteredForPush.forEach { dict in
-                if token != dict.value {
-                    doSendPushTokenRequest(mac: dict.key)
+                Logger.logInfo("***** FCM TOKEN ***** \(token)")
+                UserDefaultManager.inhalersRegisteredForPush.forEach { dict in
+                    if token != dict.value {
+                        foreground {
+                            self.doSendPushTokenRequest(mac: dict.key)
+                        }
+                    }
                 }
-            }
-//            doSendPushTokenRequest(mac: "70:05:00:00:03:55")
-            UserDefaultManager.firebaseToken = token
+    //            doSendPushTokenRequest(mac: "70:05:00:00:03:55")
+                UserDefaultManager.firebaseToken = token
+//            }
         }
     }
     
@@ -311,12 +339,13 @@ extension NotificationManager: MessagingDelegate {
         let updatedTokenTime = UserDefaultManager.updatedTokenTime
         let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: (updatedTokenTime ?? Date())) ?? Date()
         guard updatedTokenTime == nil || nextDay < Date() else { return }
-        UserDefaultManager.updatedTokenTime = Date()
         
-        Messaging.messaging().deleteToken { err in
+        Logger.logInfo("deleteToken initiated Time: \(UserDefaultManager.updatedTokenTime)")
+        Messaging.messaging().deleteToken() { err in
             if let err {
                 Logger.logError("Error deleting FCM token: \(err)")
             } else {
+                UserDefaultManager.updatedTokenTime = Date()
                 self.processPushToken()
             }
         }
@@ -337,9 +366,13 @@ extension NotificationManager: MessagingDelegate {
             doSendPushTokenRequest(mac: mac)
         }
     }
-
     
     func doSendPushTokenRequest(mac: String) {
+        if UserDefaultManager.firebaseToken.isEmpty {
+            processPushToken()
+            return
+        }
+        
         var parameter = [String: Any]()
         parameter["MobileType"] = "iOS"
         parameter["AppVersion"] = appVersion()

@@ -259,7 +259,7 @@ class BLEOTAUpgradeVC: BaseVC, RTKLEProfileDelegate, RTKDFUPeripheralDelegate {
             let interval = Date().timeIntervalSince(timeUpgradeBegin!)
             Logger.logInfo(" OTA MSG:update completed." + String(format: "average rate：%.2f KB/s", (Double(lengthTotalImages) / 1000.0) / interval))
             lblOTAInfo.text = "Update Successfully.(100%)"
-            isUpdateAll = false
+//            isUpdateAll = false
             closeVC(isSuccess: true)
            
         })

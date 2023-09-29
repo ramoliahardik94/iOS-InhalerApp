@@ -163,7 +163,9 @@ class HomeDeviceCell: UITableViewCell {
     
     @IBAction func graphDetailAction(_ sender: UIButton) {
         Logger.logInfo("Seleted Graph Data Item \(item.type ?? "")")
-        delegate?.clicked(cellIndex!.row, doseData: item)
+        if let index = cellIndex?.row {
+            delegate?.clicked(index, doseData: item)
+        }
     }
     
     func getImageDoseMiss() -> UIImageView {
